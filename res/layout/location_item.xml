@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp" >
+
+    <TextView
+        android:id="@+id/lbsNumView"
+        style="@style/item_style"
+        android:text="lbsNum"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/locationAddressView"
+        style="@style/item_style"
+        android:layout_below="@+id/lbsNumView"
+        android:text="body"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/timeStampView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/locationAddressView"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:text="time"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/deleteView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/delete" />
+
+</RelativeLayout>

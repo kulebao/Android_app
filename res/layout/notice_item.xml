@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/notice_item"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="25dp" >
+
+    <TextView
+        android:id="@+id/titleView"
+        style="@style/item_style"
+        android:text="title"
+        android:textColor="@color/juhong" />
+
+    <TextView
+        android:id="@+id/bodyView"
+        style="@style/item_style"
+        android:layout_below="@+id/titleView"
+        android:layout_marginRight="30dp"
+        android:text="body"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/timeStampView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bodyView"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:text="time"
+        android:textColor="@android:color/black"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/deleteView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="48dp"
+        android:visibility="gone"
+        android:src="@drawable/delete" />
+
+</RelativeLayout>

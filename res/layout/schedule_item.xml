@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray"
+    android:paddingTop="10dp" >
+
+    <RelativeLayout
+        android:id="@+id/timeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp" >
+
+        <TextView
+            android:id="@+id/weekView"
+            style="@style/item_style"
+            android:layout_marginTop="5dp"
+            android:text="星期二"
+            android:textColor="@color/bule" />
+
+        <TextView
+            android:id="@+id/dateView"
+            style="@style/item_style"
+            android:layout_below="@+id/weekView"
+            android:paddingTop="10dp"
+            android:text="11月23号"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="2px"
+        android:layout_below="@+id/timeView"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_marginTop="5dp" >
+
+        <LinearLayout
+            android:id="@+id/first"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/item_style"
+                android:layout_weight="1"
+                android:background="@color/bule"
+                android:padding="5dp"
+                android:text="@string/am"
+                android:textColor="@color/black" />
+
+            <TextView
+                style="@style/item_style"
+                android:layout_weight="1"
+                android:background="#FFCCCC"
+                android:padding="5dp"
+                android:text="@string/pm"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_below="@+id/first"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/amcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="1px"
+                android:layout_marginRight="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/black"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/pmcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

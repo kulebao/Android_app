@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<color name="weibo_bg_grey">#ffffcc</color>
+	<color name="bule">#bb3D8CB8</color>
+	<color name="white">#FFFFFF</color>
+	<color name="black">#000000</color>
+	<color name="lightblue">#ADD8E6</color>
+	<color name="skyblue">#0099FF</color>
+	<color name="gray">#DCDCDC</color>
+	<color name="yellow">#FFFFCC</color>
+	<color name="red">#FF0033</color>
+	<color name="juhong">#CC6600</color>
+
+	<color name="Calendar_WeekBgColor">#EFE7DE</color>
+	<color name="Calendar_WeekFontColor">#8C8A8C</color>
+	<color name="Calendar_DayBgColor">#F7F7F7</color>
+	<color name="isHoliday_BgColor">#E0E0E0</color>
+	<color name="unPresentMonth_FontColor">#8C8A8C</color>
+	<color name="isPresentMonth_FontColor">#000000</color>
+	<color name="isToday_BgColor">#EBDCC1</color>
+	<color name="specialReminder">#FF0000</color>
+	<color name="commonReminder">#BDBAB5</color>
+
+	<color name="on_text">#FFFFFF</color><!-- 开启时文字颜色 -->
+	<color name="off_text">#5B5B5B</color><!-- 关闭时文字颜色 -->
+
+</resources>

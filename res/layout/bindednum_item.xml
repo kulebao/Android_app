@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp" >
+
+    <TextView
+        android:id="@+id/numView"
+        style="@style/item_style"
+        android:text="@string/location_num"
+        android:textColor="@android:color/black" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/numView"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:id="@+id/nicknameView"
+            style="@style/item_style"
+            android:text="@string/nichname"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/changeView"
+            style="@style/item_style"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/deleteView"
+            android:text="@string/change"
+            android:textColor="@color/lightblue"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/deleteView"
+            style="@style/item_style"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:text="@string/delete"
+            android:textColor="@color/lightblue"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+</RelativeLayout>

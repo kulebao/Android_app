@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:my="http://schemas.android.com/apk/res/com.djc.logintest"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/topbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/checkVersion"
+                style="@style/btn_style"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/sub_btn"
+                android:gravity="center"
+                android:text="@string/check_version"
+                android:textSize="24sp" />
+            
+            <Button
+                android:id="@+id/userResponse"
+                style="@style/btn_style"
+                android:layout_margin="10dp"
+                android:background="@drawable/sub_btn"
+                android:gravity="center"
+                android:text="@string/user_response"
+                android:textSize="24sp" />
+            
+            <Button
+                android:id="@+id/aboutSchool"
+                style="@style/btn_style"
+                android:layout_margin="10dp"
+                android:background="@drawable/sub_btn"
+                android:gravity="center"
+                android:text="@string/school_info"
+                android:visibility="gone"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/bindLocation"
+                style="@style/btn_style"
+                android:layout_margin="10dp"
+                android:background="@drawable/sub_btn"
+                android:gravity="center"
+                android:text="@string/bind_location"
+                android:textSize="24sp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/exitLogin"
+                style="@style/btn_style"
+                android:layout_margin="10dp"
+                android:background="@drawable/sub_btn"
+                android:gravity="center"
+                android:text="@string/exit_login"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/changePWD"
+                style="@style/btn_style"
+                android:layout_margin="10dp"
+                android:background="@drawable/sub_btn"
+                android:gravity="center"
+                android:text="@string/change_pwd"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/changeChild"
+                style="@style/btn_style"
+                android:layout_margin="10dp"
+                android:background="@drawable/sub_btn"
+                android:gravity="center"
+                android:text="@string/change_child"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/about_cocobabys"
+                style="@style/btn_style"
+                android:layout_margin="10dp"
+                android:background="@drawable/sub_btn"
+                android:gravity="center"
+                android:text="@string/about_cocobabys"
+                android:textSize="24sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="提示音"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <com.djc.logintest.customview.SwitchButton
+                    android:id="@+id/voiceswitchbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    my:textOff="关"
+                    my:textOn="开" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="run" name="test">
+
+	<import file="${basedir}/init.xml" />
+	<property name="has.keystore" value="true" />
+	<property name="key.store" value="coolbao" />
+	<property name="key.alias" value="coolbao" />
+	<property name="has.password" value="true" />
+	<property name="key.store.password" value="djc.123" />
+	<property name="key.alias.password" value="djc.123" />
+
+	<!-- quick check on sdk.dir -->
+	<fail message="sdk.dir is missing. Make sure to generate local.properties using 'android update project'" unless="sdk.dir" />
+
+	<!-- <target name="run" depends="static.analysis,ut,clean,release"> -->
+	<target name="run" depends="clean,release,uninstall,installr">
+
+	</target>
+</project>
