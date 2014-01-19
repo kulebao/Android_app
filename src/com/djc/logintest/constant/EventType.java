@@ -34,6 +34,9 @@ public class EventType {
 
     public static final int BIND_SUCCESS = 1500;
     public static final int BIND_FAILED = 1501;
+    
+    public static final int UPLOAD_SUCCESS = 1505;
+    public static final int UPLOAD_FAILED = 1506;
 
     public static final int GET_COOKBOOK_FAILED = 1525;
     public static final int GET_COOKBOOK_SUCCESS = 1526;

@@ -1,54 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg"
-    android:orientation="vertical" >
+    android:background="@drawable/bg" >
+
+    <ImageView
+        android:id="@+id/i_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/internal_logo" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="100dp" >
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/i_logo"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_a" >
 
-        <RelativeLayout
-            android:id="@+id/relativeLayoutfirst"
+        <TextView
+            android:id="@+id/accountView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/big_board" >
-
-            <TextView
-                android:id="@+id/accountView"
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="5dp"
-                android:padding="10dp"
-                android:background="@drawable/content"
-                android:gravity="center"
-                android:text="@string/warning"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+            android:layout_margin="10dp"
+            android:background="@drawable/text_a"
+            android:padding="10dp"
+            android:text="@string/warning"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/inuputnumView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/relativeLayoutfirst"
+            android:layout_below="@+id/accountView"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/edit_bg"
+            android:layout_margin="10dp"
+            android:background="@drawable/input_a"
             android:digits="0123456789"
             android:hint="@string/inuputnum"
             android:maxLength="11"
-            android:paddingLeft="4dp"
+            android:paddingLeft="35dp"
             android:paddingRight="4dp"
             android:singleLine="true"
             android:textSize="16sp"
@@ -59,11 +55,12 @@
             style="@style/btn_style"
             android:layout_below="@+id/inuputnumView"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/common_btn"
             android:focusable="true"
             android:text="@string/send" />
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

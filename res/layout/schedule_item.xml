@@ -1,108 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:background="@color/gray"
-    android:paddingTop="10dp" >
+    android:layout_height="wrap_content" >
 
     <RelativeLayout
         android:id="@+id/timeView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp" >
+        android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/weekView"
-            style="@style/item_style"
-            android:layout_marginTop="5dp"
-            android:text="星期二"
-            android:textColor="@color/bule" />
+        <RelativeLayout
+            android:layout_width="@dimen/schedule_width"
+            android:layout_height="@dimen/schedule_item_height" >
 
-        <TextView
-            android:id="@+id/dateView"
-            style="@style/item_style"
-            android:layout_below="@+id/weekView"
-            android:paddingTop="10dp"
-            android:text="11月23号"
-            android:textColor="@color/red"
-            android:textSize="14sp"
-            android:textStyle="normal" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/weekView"
+                style="@style/item_style"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:text="星期二"
+                android:textColor="@color/bule" />
 
-    <View
-        android:id="@+id/line"
-        android:layout_width="fill_parent"
-        android:layout_height="2px"
-        android:layout_below="@+id/timeView"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:visibility="visible" />
+            <TextView
+                android:id="@+id/dateView"
+                style="@style/item_style"
+                android:layout_below="@+id/weekView"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="10dp"
+                android:text="2014-01-15"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+        </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/course"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line"
-        android:layout_marginTop="5dp" >
+        <View
+            android:id="@+id/line"
+            android:layout_width="1px"
+            android:layout_height="@dimen/schedule_item_height"
+            android:layout_marginLeft="@dimen/schedule_width"
+            android:background="@color/black"
+            android:visibility="visible" />
 
         <LinearLayout
-            android:id="@+id/first"
+            android:id="@+id/relativeLayout2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                style="@style/item_style"
-                android:layout_weight="1"
-                android:background="@color/bule"
-                android:padding="5dp"
-                android:text="@string/am"
-                android:textColor="@color/black" />
-
-            <TextView
-                style="@style/item_style"
-                android:layout_weight="1"
-                android:background="#FFCCCC"
-                android:padding="5dp"
-                android:text="@string/pm"
-                android:textColor="@color/black" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="80dp"
-            android:layout_below="@+id/first"
+            android:layout_toRightOf="@+id/line"
             android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/amcontent"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/schedule_item_height"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:gravity="fill_vertical"
+                android:padding="4dp"
+                android:text="@string/am"
                 android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="normal" />
+                android:textSize="13sp" />
 
             <View
-                android:id="@+id/line"
+                android:id="@+id/line2"
                 android:layout_width="1px"
-                android:layout_marginRight="1dp"
                 android:layout_height="match_parent"
+                android:layout_marginRight="1dp"
                 android:background="@color/black"
                 android:visibility="visible" />
 
             <TextView
                 android:id="@+id/pmcontent"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/schedule_item_height"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:gravity="fill_vertical"
+                android:padding="4dp"
+                android:text="@string/pm"
                 android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="normal" />
+                android:textSize="13sp" />
         </LinearLayout>
     </RelativeLayout>
 

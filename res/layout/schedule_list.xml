@@ -2,20 +2,68 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
+    android:background="@drawable/bg"
     android:orientation="vertical" >
 
     <include layout="@layout/topbar" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="@dimen/schedule_width"
+            android:layout_height="@dimen/schedule_header_height"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/star" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/relativeLayout1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/am"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/schedule_header_height"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/am"
+                android:textColor="@color/juhong"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pm"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/schedule_header_height"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/pm"
+                android:textColor="@color/juhong"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/schedule_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:cacheColorHint="#00000000"
-        android:divider="@drawable/list_divider_timeline"
+        android:divider="@color/black"
         android:dividerHeight="1.0dip"
         android:fadingEdge="none"
-        android:fastScrollEnabled="true" >
+        android:fastScrollEnabled="true"
+        android:listSelector="@android:color/transparent" >
     </ListView>
 
 </LinearLayout>

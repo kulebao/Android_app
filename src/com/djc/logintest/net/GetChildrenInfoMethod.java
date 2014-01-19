@@ -87,6 +87,7 @@ public class GetChildrenInfoMethod {
                     // 检查更新时间
                     if (Long.parseLong(childinfo.getTimestamp()) > Long.parseLong(selectedChild
                             .getTimestamp())) {
+                        childinfo.setSelected(ChildInfo.STATUS_SELECTED);
                         DataMgr.getInstance().updateChildInfo(childinfo.getServer_id(), childinfo);
                         event = EventType.UPDATE_CHILDREN_INFO;
                         break;

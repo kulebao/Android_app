@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -42,6 +46,8 @@ import com.djc.logintest.dlgmgr.DlgMgr;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.CheckChildrenInfoTask;
 import com.djc.logintest.taskmgr.DownLoadImgAndSaveTask;
+import com.djc.logintest.taskmgr.UploadInfoTask;
+import com.djc.logintest.upload.OSSMgr;
 import com.djc.logintest.utils.Utils;
 
 public class SchoolNoticeActivity extends TabChildActivity {
@@ -61,22 +67,27 @@ public class SchoolNoticeActivity extends TabChildActivity {
     private static final int CAMERA_REQUEST_CODE = 1;
     private static final int RESIZE_REQUEST_CODE = 2;
     private static final String IMAGE_FILE_NAME = "header.jpg";
+    private static String PHOTO = "icon_url";
+    private static String BIRTHDAY = "birthday";
+    private static String NICK = "nick";
     private ImageView babyHeadIcon;
     private ChildInfo selectedChild;
     private AsyncTask<Void, Void, Integer> downloadIconTask;
     private Handler handler;
+    private ProgressDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.school_notice);
-        initHandler();
         initUI();
+        initHandler();
         // 检查小孩信息是否有更新，有更新需要及时更新
         runCheckChildrenInfoTask();
     }
 
     public void initUI() {
+        initProgressDlg();
         initGridView();
         initBtn();
         initTitle();
@@ -84,12 +95,17 @@ public class SchoolNoticeActivity extends TabChildActivity {
         setSchoolName();
     }
 
+    private void initProgressDlg() {
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
+    }
+
     private void runCheckChildrenInfoTask() {
         new CheckChildrenInfoTask(handler).execute();
     }
 
     private void initHandler() {
-        handler = new MyHandler(this, null) {
+        handler = new MyHandler(this, dialog) {
             @Override
             public void handleMessage(Message msg) {
                 if (SchoolNoticeActivity.this.isFinishing()) {
@@ -107,6 +123,13 @@ public class SchoolNoticeActivity extends TabChildActivity {
                     break;
                 case EventType.SERVER_INNER_ERROR:
                     Toast.makeText(SchoolNoticeActivity.this, R.string.get_child_info_fail,
+                            Toast.LENGTH_SHORT);
+                    break;
+                case EventType.UPLOAD_SUCCESS:
+                    updateChildPhoto((Bitmap) msg.obj);
+                    break;
+                case EventType.UPLOAD_FAILED:
+                    Toast.makeText(SchoolNoticeActivity.this, R.string.upload_icon_failed,
                             Toast.LENGTH_SHORT);
                     break;
 
@@ -145,7 +168,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
     public void setSchoolName() {
         TextView schoolNameView = (TextView) findViewById(R.id.schoolName);
         schoolNameView.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 startToSchoolInfoActivity();
@@ -260,14 +283,26 @@ public class SchoolNoticeActivity extends TabChildActivity {
                 break;
 
             case RESIZE_REQUEST_CODE:
-                if (data != null) {
-                    showResizeImage(data);
-                }
+                uploadIcon(data);
                 break;
             }
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void uploadIcon(Intent data) {
+        if (data != null) {
+            try {
+                Bitmap bitmap = getBitmap(data);
+                JSONObject obj = new JSONObject();
+                obj.put(PHOTO, OSSMgr.OSS_HOST + Utils.getUpload2OssChildUrl());
+                runUploadTask(obj.toString(), bitmap,
+                        getResources().getString(R.string.uploading_icon));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     // 此时是选中或拍好照片后，对照片进行裁剪
@@ -283,19 +318,34 @@ public class SchoolNoticeActivity extends TabChildActivity {
         startActivityForResult(intent, RESIZE_REQUEST_CODE);
     }
 
-    private void showResizeImage(Intent data) {
+    private Bitmap getBitmap(Intent data) {
         Bundle extras = data.getExtras();
+        Bitmap photo = null;
         if (extras != null) {
-            Bitmap photo = extras.getParcelable("data");
+            photo = extras.getParcelable("data");
+        }
+        return photo;
+    }
+
+    private void runUploadTask(String content, Bitmap bitmap, String notice) {
+        UploadInfoTask uploadIconTask = new UploadInfoTask(handler, content);
+        if (bitmap != null) {
+            uploadIconTask.setBitmap(bitmap);
+        }
+        dialog.setMessage(notice);
+        dialog.show();
+        uploadIconTask.execute();
+    }
+
+    public void updateChildPhoto(Bitmap photo) {
+        try {
             Utils.setImg(babyHeadIcon, photo);
-            try {
-                String path = InfoHelper.getChildrenLocalIconPath(selectedChild.getServer_id());
-                Utils.saveBitmapToSDCard(photo, path);
-                DataMgr.getInstance().updateChildLocalIconUrl(selectedChild.getServer_id(), path);
-                selectedChild.setLocal_url(path);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            String path = InfoHelper.getChildrenLocalIconPath(selectedChild.getServer_id());
+            Utils.saveBitmapToSDCard(photo, path);
+            DataMgr.getInstance().updateChildLocalIconUrl(selectedChild.getServer_id(), path);
+            selectedChild.setLocal_url(path);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -447,20 +497,14 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
     public void initGridView() {
         gridview = (GridView) findViewById(R.id.gridview);
-
-        // 生成动态数组，并且转入数据
         ArrayList<HashMap<String, Object>> lstImageItem = initData();
-        // 生成适配器的ImageItem <====> 动态数组的元素，两者一一对应
-        SimpleAdapter saImageItems = new SimpleAdapter(this, // 没什么解释
-                lstImageItem,// 数据来源
-                R.layout.grid_item,// night_item的XML实现
-                // 动态数组与ImageItem对应的子项
+        SimpleAdapter saImageItems = new SimpleAdapter(this, 
+                lstImageItem,
+                R.layout.grid_item,
                 new String[] { "ItemImage", "ItemText" },
                 // ImageItem的XML文件里面的一个ImageView,两个TextView ID
                 new int[] { R.id.ItemImage, R.id.ItemText });
-        // 添加并且显示
         gridview.setAdapter(saImageItems);
-        // 添加消息处理
         gridview.setOnItemClickListener(new ItemClickListener());
     }
 
@@ -504,13 +548,13 @@ public class SchoolNoticeActivity extends TabChildActivity {
     }
 
     public void handleGridViewClick(int position) {
-        //未获取到小孩信息时，不能响应按键
+        // 未获取到小孩信息时，不能响应按键
         if (selectedChild == null) {
-            Toast.makeText(SchoolNoticeActivity.this, R.string.reget_child_info,
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(SchoolNoticeActivity.this, R.string.reget_child_info, Toast.LENGTH_SHORT)
+                    .show();
             return;
         }
-        
+
         switch (position) {
         case COOK_NOTICE:
             startToCookbookActivity();

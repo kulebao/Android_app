@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
+    android:background="@drawable/bg"
     android:orientation="vertical" >
 
     <include layout="@layout/topbar" />
@@ -15,7 +15,8 @@
         android:divider="@drawable/list_divider_timeline"
         android:dividerHeight="1.0dip"
         android:fadingEdge="none"
-        android:fastScrollEnabled="true" >
+        android:fastScrollEnabled="true"
+        android:listSelector="@android:color/transparent" >
     </ListView>
 
 </LinearLayout>

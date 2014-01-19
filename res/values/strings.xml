@@ -174,4 +174,7 @@
     
     <string name="child_info_is_null">小孩信息还未同步，请稍后再试,谢谢！</string>
     <string name="user_response">用户反馈</string>
+    
+    <string name="upload_icon_failed">上传头像失败</string>
+    <string name="uploading_icon">正在上传头像...</string>
 </resources>

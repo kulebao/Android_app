@@ -11,8 +11,6 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -23,12 +21,14 @@ import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.params.ConnManagerParams;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
@@ -36,6 +36,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
+
 import android.util.Log;
 
 import com.djc.logintest.constant.ConstantValue;
@@ -64,7 +65,6 @@ public class HttpClientHelper {
                 HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
                 HttpProtocolParams.setContentCharset(params, HTTP.DEFAULT_CONTENT_CHARSET);
                 HttpProtocolParams.setUseExpectContinue(params, true);
-
                 // 设置连接管理器的超时
                 ConnManagerParams.setTimeout(params, 10000);
                 // 设置连接超时
@@ -85,6 +85,48 @@ public class HttpClientHelper {
             }
         }
         return httpClient;
+    }
+
+    public static HttpResult executePost(String url, String content) throws Exception {
+        int status = HttpStatus.SC_UNAUTHORIZED;
+        HttpResult httpResult = new HttpResult();
+        BufferedReader in = null;
+        try {
+            // 定义HttpClient
+            HttpClient client = getHttpClient();
+            // 实例化HTTP方法
+            HttpPost request = new HttpPost();
+            request.setURI(new URI(url));
+            // 所有访问数据的请求，都必须加上token
+            request.setHeader(ConstantValue.HEADER_TOKEN, Utils.getProp(JSONConstant.ACCESS_TOKEN));
+            request.setHeader("Content-type", "application/json;charset=UTF-8");
+            request.setEntity(new StringEntity(content));
+
+            HttpResponse response = client.execute(request);
+            status = response.getStatusLine().getStatusCode();
+            Log.d("DDD code:", "" + status);
+
+            if (status == HttpStatus.SC_OK) {
+                in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuffer sb = new StringBuffer("");
+                String line = "";
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                }
+                httpResult.setContent(sb.toString());
+                Log.d("DDD code:", "content =" + sb.toString());
+            }
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();// 最后要关闭BufferedReader
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        httpResult.setResCode(status);
+        return httpResult;
     }
 
     public static HttpResult executeGet(String url) throws Exception {

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="schedule_width">90dp</dimen>
+    <dimen name="schedule_item_height">80dp</dimen>
+    <dimen name="schedule_header_height">30dp</dimen>
+</resources> 

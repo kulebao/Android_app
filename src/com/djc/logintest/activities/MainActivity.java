@@ -44,6 +44,7 @@ public class MainActivity extends TabActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client_tab);
+        ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.app_name);
         initUI();
         initHandler();
         checkNew();

@@ -1,5 +1,7 @@
 package com.djc.logintest.utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,6 +50,7 @@ public class Utils {
     public static final String APP_DIR_TMP = "cocobaby/tmp";
     public static final String APP_DIR_PIC = "cocobaby/pic";
     public static final String APP_LOGS = "cocobaby/logs";
+    private static String CHILD_PHOTO = "child_photo";
 
     // 获取AppKey
     public static String getMetaValue(Context context, String metaKey) {
@@ -227,7 +230,9 @@ public class Utils {
 
     public static void bindPushTags() {
         PushModel pushModel = PushModel.getPushModel();
-        pushModel.bind();
+        if (!pushModel.isBinded()) {
+            pushModel.bind();
+        }
 
         // 如果没有设置默认tag，则设置tag
         if (pushModel.getTags().isEmpty()) {
@@ -412,6 +417,20 @@ public class Utils {
         }
     }
 
+    public static InputStream Bitmap2InputStream(Bitmap bm, int quality) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+        InputStream is = new ByteArrayInputStream(baos.toByteArray());
+        return is;
+    }
+
+    // 上传到oss的小孩照片固定地址
+    public static String getUpload2OssChildUrl() {
+        return CHILD_PHOTO + File.separator + DataMgr.getInstance().getSchoolID() + File.separator
+                + DataMgr.getInstance().getSelectedChild().getServer_id() + File.separator
+                + DataMgr.getInstance().getSelectedChild().getServer_id() + ".jpg";
+    }
+    
     // url是针对sd卡，应用保存图片路径+name
     public static Bitmap getLoacalBitmapByName(String name) {
         // url 类似mnt/sdcard/cocobaby/pic name 类似school_logo

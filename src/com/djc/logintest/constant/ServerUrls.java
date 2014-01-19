@@ -38,6 +38,9 @@ public class ServerUrls {
     public static final String GET_ALL_CHILDREN_INFO = HTTPS_HOST_ADDR + ROOT_RES_PATH + "/%s/"
             + PARENT_RES_PATH + "/%s/" + CHILD_RES_PATH;
 
+    public static final String UPLOAD_CHILD_INFO = HTTPS_HOST_ADDR + ROOT_RES_PATH + "/%s/"
+            + PARENT_RES_PATH + "/%s/" + CHILD_RES_PATH + "/%s";
+
     public static final String GET_SCHOOL_PRIVIEW = HTTPS_HOST_ADDR + ROOT_RES_PATH + "/%s/"
             + GET_TYPE_PREVIEW;
 
