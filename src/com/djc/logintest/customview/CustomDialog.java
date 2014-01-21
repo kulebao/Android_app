@@ -205,6 +205,13 @@ public class CustomDialog extends Dialog {
                                     dialog.cancel();
                                 }
                             });
+                }else{
+                    ((Button) layout.findViewById(R.id.negativeButton))
+                    .setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            dialog.cancel();
+                        }
+                    });
                 }
             } else {
                 // if no confirm button just set the visibility to GONE
@@ -212,7 +219,9 @@ public class CustomDialog extends Dialog {
             }
             // set the content message
             if (message != null) {
-                ((TextView) layout.findViewById(R.id.message)).setText(message);
+                TextView msgView = (TextView) layout.findViewById(R.id.message);
+                msgView.setText(message);
+                msgView.setVisibility(View.VISIBLE);
             } else if (contentView != null) {
                 // if no message set
                 // add the contentView to the dialog body

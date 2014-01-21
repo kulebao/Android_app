@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_1" >
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/topbar" />
+
+    <EditText
+        android:id="@+id/feedbackContent"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/header"
+        android:background="@android:color/transparent"
+        android:hint="请写下您宝贵的意见，您的建议是我们前进的动力"
+        android:maxLength="200"
+        android:gravity="top"
+        android:padding="4dp"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/sendbtn"
+        style="@style/btn_style"
+        android:layout_below="@+id/feedbackContent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/sub_btn"
+        android:text="@string/send" />
+
+</RelativeLayout>

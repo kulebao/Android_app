@@ -126,4 +126,12 @@ public class Notice {
         this.publisher = publisher;
     }
 
+    @Override
+    public String toString() {
+        return "Notice [title=" + title + ", content=" + content + ", timestamp=" + timestamp
+                + ", publisher=" + publisher + ", child_id=" + child_id + ", type=" + type
+                + ", custom_content=" + custom_content + ", id=" + id + ", read=" + read
+                + ", clear=" + clear + ", ticker=" + ticker + ", toClass=" + toClass + "]";
+    }
+
 }

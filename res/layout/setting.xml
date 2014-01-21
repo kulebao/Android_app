@@ -3,14 +3,14 @@
     xmlns:my="http://schemas.android.com/apk/res/com.djc.logintest"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     android:orientation="vertical" >
 
     <include layout="@layout/topbar" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg" >
+        android:layout_height="match_parent" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,38 +20,40 @@
             <Button
                 android:id="@+id/checkVersion"
                 style="@style/btn_style"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/sub_btn"
                 android:gravity="center"
                 android:text="@string/check_version"
                 android:textSize="24sp" />
-            
+
             <Button
                 android:id="@+id/userResponse"
                 style="@style/btn_style"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
                 android:gravity="center"
                 android:text="@string/user_response"
                 android:textSize="24sp" />
-            
+
             <Button
                 android:id="@+id/aboutSchool"
                 style="@style/btn_style"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
                 android:gravity="center"
                 android:text="@string/school_info"
-                android:visibility="gone"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/bindLocation"
                 style="@style/btn_style"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
                 android:gravity="center"
                 android:text="@string/bind_location"
@@ -61,7 +63,8 @@
             <Button
                 android:id="@+id/exitLogin"
                 style="@style/btn_style"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
                 android:gravity="center"
                 android:text="@string/exit_login"
@@ -70,7 +73,8 @@
             <Button
                 android:id="@+id/changePWD"
                 style="@style/btn_style"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
                 android:gravity="center"
                 android:text="@string/change_pwd"
@@ -79,7 +83,8 @@
             <Button
                 android:id="@+id/changeChild"
                 style="@style/btn_style"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
                 android:gravity="center"
                 android:text="@string/change_child"
@@ -88,7 +93,8 @@
             <Button
                 android:id="@+id/about_cocobabys"
                 style="@style/btn_style"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
                 android:gravity="center"
                 android:text="@string/about_cocobabys"

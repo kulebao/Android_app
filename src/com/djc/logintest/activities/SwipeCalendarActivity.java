@@ -391,13 +391,15 @@ public class SwipeCalendarActivity extends Activity {
         String checkout = DataMgr.getInstance().getLatestSwipeOutNotice(format);
 
         if (!checkout.isEmpty()) {
-
             long out = Long.valueOf(Timestamp.valueOf(checkout).getTime());
-            long in = Long.valueOf(Timestamp.valueOf(checkin).getTime());
 
-            // 如果最晚入园时间大于最晚离园时间，说明小孩在中途离园后，重新入园且未离园
-            if (in > out) {
-                checkout = "";
+            // 如果最晚入园时间大于最晚离园时间，说明小孩在中途离园后，重新入园且未离园,中途离园记录不显示
+            // 如果当天没有入园记录，那么离园记录有效，需要显示
+            if (!checkin.isEmpty()) {
+                long in = Long.valueOf(Timestamp.valueOf(checkin).getTime());
+                if (in > out) {
+                    checkout = "";
+                }
             }
         }
 

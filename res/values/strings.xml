@@ -177,4 +177,11 @@
     
     <string name="upload_icon_failed">上传头像失败</string>
     <string name="uploading_icon">正在上传头像...</string>
+    <string name="uploading_child_info">正在上传小孩信息...</string>
+    <string name="uploading_child_info_failed">上传小孩信息失败</string>
+    <string name="feed_back">用户反馈</string>
+    <string name="sending">发送中，请稍候</string>
+    <string name="send_success">发送信息成功!</string>
+    <string name="send_fail">发送信息失败!</string>
+    
 </resources>

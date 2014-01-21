@@ -42,6 +42,7 @@ public class SwapCardNoticePaser implements NoticePaser {
             final ChildInfo childinfo = DataMgr.getInstance().getChildByID(child_id);
             if (childinfo != null) {
                 final Notice notice = getNotice(object, context, childinfo);
+                Log.w("DDD", "saveData notice:" + notice.toString());
                 final long id = DataMgr.getInstance().addNotice(notice);
                 // 保存数据库中，该条记录的行号，传递给activity使用
                 notice.setId((int) id);
@@ -70,6 +71,7 @@ public class SwapCardNoticePaser implements NoticePaser {
 
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e("DDD", "saveData error e:" + e.toString());
         }
         return null;
     }

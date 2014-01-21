@@ -7,7 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/bg_a"
+        android:background="@drawable/cook_bg"
         android:orientation="vertical" >
 
         <RelativeLayout
@@ -79,7 +79,7 @@
             android:id="@+id/line"
             android:layout_width="fill_parent"
             android:layout_height="2px"
-            android:background="@color/yellow"
+            android:background="@color/gray"
             android:visibility="visible" />
 
         <RelativeLayout
@@ -126,7 +126,7 @@
             android:id="@+id/line"
             android:layout_width="fill_parent"
             android:layout_height="2px"
-            android:background="@color/yellow"
+            android:background="@color/gray"
             android:visibility="visible" />
 
         <RelativeLayout
@@ -173,7 +173,7 @@
             android:id="@+id/line"
             android:layout_width="fill_parent"
             android:layout_height="2px"
-            android:background="@color/yellow"
+            android:background="@color/gray"
             android:visibility="visible" />
 
         <RelativeLayout

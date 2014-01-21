@@ -49,8 +49,9 @@ public class ValidatePhoneNumActivity extends MyActivity {
                             ValidatePhoneNumActivity.this);
                     break;
                 case EventType.PHONE_NUM_IS_FIRST_USE:
-                    // 首次使用，进入获取验证码界面
-                    startAuthCodeActivity();
+                    // 首次使用，进入获取验证码界面,目前短信通道断了，直接进入登录
+                    // startAuthCodeActivity();
+                    startLoginActivity();
                     break;
                 case EventType.PHONE_NUM_IS_ALREADY_BIND:
                     // 已经绑定，直接进入登录界面

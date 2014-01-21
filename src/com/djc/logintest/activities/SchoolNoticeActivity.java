@@ -44,6 +44,7 @@ import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.dbmgr.info.InfoHelper;
 import com.djc.logintest.dlgmgr.DlgMgr;
 import com.djc.logintest.handler.MyHandler;
+import com.djc.logintest.handler.TaskResultHandler;
 import com.djc.logintest.taskmgr.CheckChildrenInfoTask;
 import com.djc.logintest.taskmgr.DownLoadImgAndSaveTask;
 import com.djc.logintest.taskmgr.UploadInfoTask;
@@ -74,20 +75,20 @@ public class SchoolNoticeActivity extends TabChildActivity {
     private ChildInfo selectedChild;
     private AsyncTask<Void, Void, Integer> downloadIconTask;
     private Handler handler;
-    private ProgressDialog dialog;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.school_notice);
-        initUI();
+        initProgressDlg();
         initHandler();
+        initUI();
         // 检查小孩信息是否有更新，有更新需要及时更新
         runCheckChildrenInfoTask();
     }
 
     public void initUI() {
-        initProgressDlg();
         initGridView();
         initBtn();
         initTitle();
@@ -96,8 +97,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
     }
 
     private void initProgressDlg() {
-        dialog = new ProgressDialog(this);
-        dialog.setCancelable(false);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
     }
 
     private void runCheckChildrenInfoTask() {
@@ -105,7 +106,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
     }
 
     private void initHandler() {
-        handler = new MyHandler(this, dialog) {
+        handler = new MyHandler(this, progressDialog) {
             @Override
             public void handleMessage(Message msg) {
                 if (SchoolNoticeActivity.this.isFinishing()) {
@@ -125,14 +126,6 @@ public class SchoolNoticeActivity extends TabChildActivity {
                     Toast.makeText(SchoolNoticeActivity.this, R.string.get_child_info_fail,
                             Toast.LENGTH_SHORT);
                     break;
-                case EventType.UPLOAD_SUCCESS:
-                    updateChildPhoto((Bitmap) msg.obj);
-                    break;
-                case EventType.UPLOAD_FAILED:
-                    Toast.makeText(SchoolNoticeActivity.this, R.string.upload_icon_failed,
-                            Toast.LENGTH_SHORT);
-                    break;
-
                 default:
                     break;
                 }
@@ -297,8 +290,20 @@ public class SchoolNoticeActivity extends TabChildActivity {
                 Bitmap bitmap = getBitmap(data);
                 JSONObject obj = new JSONObject();
                 obj.put(PHOTO, OSSMgr.OSS_HOST + Utils.getUpload2OssChildUrl());
+
                 runUploadTask(obj.toString(), bitmap,
-                        getResources().getString(R.string.uploading_icon));
+                        getResources().getString(R.string.uploading_icon), new TaskResultHandler() {
+                            @Override
+                            public void handleResult(int result, Object param) {
+                                progressDialog.cancel();
+                                if (result == EventType.UPLOAD_SUCCESS) {
+                                    updateChildPhoto((Bitmap) param);
+                                } else {
+                                    Toast.makeText(SchoolNoticeActivity.this,
+                                            R.string.upload_icon_failed, Toast.LENGTH_SHORT);
+                                }
+                            }
+                        });
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -327,13 +332,15 @@ public class SchoolNoticeActivity extends TabChildActivity {
         return photo;
     }
 
-    private void runUploadTask(String content, Bitmap bitmap, String notice) {
-        UploadInfoTask uploadIconTask = new UploadInfoTask(handler, content);
+    private void runUploadTask(String content, Bitmap bitmap, String notice, TaskResultHandler task) {
+        UploadInfoTask uploadIconTask = new UploadInfoTask(task, content);
+
         if (bitmap != null) {
             uploadIconTask.setBitmap(bitmap);
         }
-        dialog.setMessage(notice);
-        dialog.show();
+
+        progressDialog.setMessage(notice);
+        progressDialog.show();
         uploadIconTask.execute();
     }
 
@@ -361,13 +368,11 @@ public class SchoolNoticeActivity extends TabChildActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         if (selectedChild != null
                 && selectedChild.getId() != DataMgr.getInstance().getSelectedChild().getId()) {
             Log.d("DDD", "selectedChild changed redraw!");
             setTabTitle();
         }
-
         // 查看学校信息后，学校信息可能会变化，这里更新ui
         setSchoolName();
     }
@@ -417,6 +422,36 @@ public class SchoolNoticeActivity extends TabChildActivity {
         }
     }
 
+    public void uploadBirthday(Calendar birthday) {
+        final long born = birthday.getTimeInMillis();
+
+        try {
+            JSONObject obj;
+            obj = new JSONObject();
+            obj.put(BIRTHDAY, born);
+
+            runUploadTask(obj.toString(), null,
+                    getResources().getString(R.string.uploading_child_info),
+                    new TaskResultHandler() {
+                        @Override
+                        public void handleResult(int result, Object param) {
+                            progressDialog.cancel();
+                            if (result == EventType.UPLOAD_SUCCESS) {
+                                DataMgr.getInstance().updateBirthday(selectedChild.getServer_id(),
+                                        born);
+                                selectedChild.setChild_birthday(String.valueOf(born));
+                                setBirthDay();
+                            } else {
+                                Toast.makeText(SchoolNoticeActivity.this,
+                                        R.string.uploading_child_info_failed, Toast.LENGTH_SHORT);
+                            }
+                        }
+                    });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void showDateDlg() {
         Calendar calendar = Calendar.getInstance();
         OnDateSetListener dateListener = new OnDateSetListener() {
@@ -432,12 +467,10 @@ public class SchoolNoticeActivity extends TabChildActivity {
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
-                long born = birthday.getTimeInMillis();
 
-                DataMgr.getInstance().updateBirthday(selectedChild.getServer_id(), born);
-                selectedChild.setChild_birthday(String.valueOf(born));
-                setBirthDay();
+                uploadBirthday(birthday);
             }
+
         };
 
         // 把日期控件的初始时间设置为小孩当前生日
@@ -454,7 +487,6 @@ public class SchoolNoticeActivity extends TabChildActivity {
     protected boolean checkValid(Calendar birthday) {
         Calendar current = Calendar.getInstance();
         long time = current.getTimeInMillis() - birthday.getTimeInMillis();
-
         // 幼儿年龄必须超过1岁
         if (time > ONE_YEAR) {
             return true;
@@ -475,13 +507,39 @@ public class SchoolNoticeActivity extends TabChildActivity {
                         new android.content.DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                String nick = nicknameEdit.getText().toString();
+                                final String nick = nicknameEdit.getText().toString();
+                                uploadNick(nick);
+                            }
+
+                        }).setNegativeButton(R.string.back, null).create().show();
+    }
+
+    public void uploadNick(final String nick) {
+        try {
+            JSONObject obj;
+            obj = new JSONObject();
+            obj.put(NICK, nick);
+
+            runUploadTask(obj.toString(), null,
+                    getResources().getString(R.string.uploading_child_info),
+                    new TaskResultHandler() {
+                        @Override
+                        public void handleResult(int result, Object param) {
+                            progressDialog.cancel();
+                            if (result == EventType.UPLOAD_SUCCESS) {
                                 DataMgr.getInstance()
                                         .updateNick(selectedChild.getServer_id(), nick);
                                 selectedChild.setChild_nick_name(nick);
                                 setNickName();
+                            } else {
+                                Toast.makeText(SchoolNoticeActivity.this,
+                                        R.string.uploading_child_info_failed, Toast.LENGTH_SHORT);
                             }
-                        }).setNegativeButton(R.string.back, null).create().show();
+                        }
+                    });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initBtn() {
@@ -498,9 +556,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
     public void initGridView() {
         gridview = (GridView) findViewById(R.id.gridview);
         ArrayList<HashMap<String, Object>> lstImageItem = initData();
-        SimpleAdapter saImageItems = new SimpleAdapter(this, 
-                lstImageItem,
-                R.layout.grid_item,
+        SimpleAdapter saImageItems = new SimpleAdapter(this, lstImageItem, R.layout.grid_item,
                 new String[] { "ItemImage", "ItemText" },
                 // ImageItem的XML文件里面的一个ImageView,两个TextView ID
                 new int[] { R.id.ItemImage, R.id.ItemText });
@@ -536,13 +592,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
     // 当AdapterView被单击(触摸屏或者键盘)，则返回的Item单击事件
     private class ItemClickListener implements OnItemClickListener {
-        public void onItemClick(AdapterView<?> parent,// The AdapterView where
-                                                      // the
-                                                      // click happened
-                View view,// The view within the AdapterView that was clicked
-                int position,// The position of the view in the adapter
-                long id// The row id of the item that was clicked
-        ) {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             handleGridViewClick(position);
         }
     }

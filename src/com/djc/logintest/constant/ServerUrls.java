@@ -31,8 +31,8 @@ public class ServerUrls {
             + "get_reset_pwd_authcode.do";
 
     public static final String LOCATION = HTTPS_HOST_ADDR + "location.do";
-
     public static final String CHECK_UPDATE = HTTPS_HOST_ADDR + "upgrade?version=%s";
+    public static final String FEED_BACK = HTTPS_HOST_ADDR + "feedback";
 
     // 类似kindergarten/93740362/parent/13408654680/child
     public static final String GET_ALL_CHILDREN_INFO = HTTPS_HOST_ADDR + ROOT_RES_PATH + "/%s/"

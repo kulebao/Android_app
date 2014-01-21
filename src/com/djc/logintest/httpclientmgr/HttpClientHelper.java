@@ -56,6 +56,7 @@ public class HttpClientHelper {
         if (null == httpClient) {
             // 初始化工作
             try {
+                String test = " \"\"";
                 KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
                 trustStore.load(null, null);
                 SSLSocketFactory sf = new SSLSocketFactoryEx(trustStore);
@@ -100,7 +101,7 @@ public class HttpClientHelper {
             // 所有访问数据的请求，都必须加上token
             request.setHeader(ConstantValue.HEADER_TOKEN, Utils.getProp(JSONConstant.ACCESS_TOKEN));
             request.setHeader("Content-type", "application/json;charset=UTF-8");
-            request.setEntity(new StringEntity(content));
+            request.setEntity(new StringEntity(content, HTTP.UTF_8));
 
             HttpResponse response = client.execute(request);
             status = response.getStatusLine().getStatusCode();

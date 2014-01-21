@@ -14,7 +14,7 @@
         android:autoText="false"
         android:capitalize="none"
         android:gravity="fill_horizontal"
-        android:maxLength="8"
+        android:maxLength="4"
         android:scrollHorizontally="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

@@ -86,7 +86,21 @@ public class SettingActivity extends Activity {
                 startToSelectChildActivity();
             }
         });
+        
+        Button userResponse = (Button) findViewById(R.id.userResponse);
+        userResponse.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startToFeedBackActivity();
+            }
+        });
 
+    }
+
+    protected void startToFeedBackActivity() {
+        Intent intent = new Intent();
+        intent.setClass(this, FeedBackActivity.class);
+        startActivity(intent);        
     }
 
     public void initSwitch() {
