@@ -244,7 +244,7 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 		// long[] vibrate = { 0, 250 };
 		// notif.vibrate = vibrate;
 		notif.flags |= Notification.FLAG_AUTO_CANCEL; // 在通知栏上点击此通知后自动清除此通知
-		notif.icon = R.drawable.small_logo;
+		notif.icon = R.drawable.tiny_logo;
 		if (!notice.isClear()) {
 			notif.flags |= Notification.FLAG_NO_CLEAR; // 表明在点击了通知栏中的"清除通知"后，此通知不清除，
 		}

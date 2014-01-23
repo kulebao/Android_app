@@ -61,4 +61,6 @@ public class ConstantValue {
 
     public static final String HEADER_TOKEN = "token";
 
+	public static final int GET_NORMAL_NOTICE_MAX_COUNT = 25;
+
 }

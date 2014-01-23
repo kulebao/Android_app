@@ -18,16 +18,16 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:text="@string/input_old_pwd" />
+        android:text="@string/input_old_pwd"
+        android:textColor="@color/juhong" />
 
     <EditText
         android:id="@+id/inputOldPwdView"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/input_old_pwdView"
         android:layout_below="@+id/input_old_pwdView"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:background="@drawable/input_b"
         android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:hint="@string/inuputpwd"
@@ -48,16 +48,16 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:text="@string/input_new_pwd" />
+        android:text="@string/input_new_pwd"
+        android:textColor="@color/juhong" />
 
     <EditText
         android:id="@+id/inuputNewPWDView"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/input_old_pwdView"
         android:layout_below="@+id/input_new_pwdView"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:background="@drawable/input_b"
         android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:hint="@string/inuputpwd"
@@ -78,16 +78,16 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:text="@string/reinput_new_pwd" />
+        android:text="@string/reinput_new_pwd"
+        android:textColor="@color/juhong" />
 
     <EditText
         android:id="@+id/reInuputNewPWDView"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/input_old_pwdView"
         android:layout_below="@+id/reinput_new_pwdView"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:background="@drawable/input_b"
         android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:hint="@string/inuputpwd"
@@ -103,10 +103,10 @@
         android:id="@+id/changePWDBtn"
         style="@style/btn_style"
         android:layout_below="@+id/reInuputNewPWDView"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/common_btn"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/sub_btn"
         android:text="@string/reset_pwd" />
 
 </RelativeLayout>

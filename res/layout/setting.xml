@@ -20,6 +20,7 @@
             <Button
                 android:id="@+id/checkVersion"
                 style="@style/btn_style"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
@@ -31,6 +32,7 @@
             <Button
                 android:id="@+id/userResponse"
                 style="@style/btn_style"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
@@ -41,6 +43,7 @@
             <Button
                 android:id="@+id/aboutSchool"
                 style="@style/btn_style"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
@@ -52,6 +55,7 @@
             <Button
                 android:id="@+id/bindLocation"
                 style="@style/btn_style"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
@@ -63,6 +67,7 @@
             <Button
                 android:id="@+id/exitLogin"
                 style="@style/btn_style"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
@@ -73,6 +78,7 @@
             <Button
                 android:id="@+id/changePWD"
                 style="@style/btn_style"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
@@ -83,6 +89,7 @@
             <Button
                 android:id="@+id/changeChild"
                 style="@style/btn_style"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"
@@ -93,6 +100,7 @@
             <Button
                 android:id="@+id/about_cocobabys"
                 style="@style/btn_style"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/sub_btn"

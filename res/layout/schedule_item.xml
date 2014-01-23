@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/gray"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent" >
 
     <RelativeLayout
         android:id="@+id/timeView"
@@ -19,7 +19,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:text="星期二"
-                android:textColor="@color/bule" />
+                android:textColor="@color/schedule" />
 
             <TextView
                 android:id="@+id/dateView"
@@ -28,7 +28,7 @@
                 android:layout_centerHorizontal="true"
                 android:paddingTop="10dp"
                 android:text="2014-01-15"
-                android:textColor="@color/red"
+                android:textColor="@color/schedule"
                 android:textSize="14sp"
                 android:textStyle="normal" />
         </RelativeLayout>
@@ -56,7 +56,7 @@
                 android:gravity="fill_vertical"
                 android:padding="4dp"
                 android:text="@string/am"
-                android:textColor="@color/black"
+                android:textColor="@color/schedule"
                 android:textSize="13sp" />
 
             <View
@@ -75,7 +75,7 @@
                 android:gravity="fill_vertical"
                 android:padding="4dp"
                 android:text="@string/pm"
-                android:textColor="@color/black"
+                android:textColor="@color/schedule"
                 android:textSize="13sp" />
         </LinearLayout>
     </RelativeLayout>

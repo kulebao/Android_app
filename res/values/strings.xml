@@ -133,7 +133,7 @@
     <string name="set_birthday">设置宝宝生日</string>
     <string name="school_info">关于我园</string>
     <string name="contact_school">联系我们</string>
-    <string name="about_cocobabys">版权信息</string>
+    <string name="about_cocobabys">关于我们</string>
     <string name="get_school_info">获取幼儿园信息...</string>
     <string name="get_child_info_fail">获取幼儿信息失败</string>
     <string name="reget_child_info">获取幼儿信息失败,请确认网络正常后，重新启动应用！</string>

@@ -45,7 +45,6 @@ public class EventType {
     public static final int GET_NOTICE_SUCCESS = 1540;
     public static final int GET_NOTICE_FAILED = 1541;
     
-    
     public static final int LOGIN_SUCCESS = 1600;
     public static final int PWD_INCORRECT = 1601;
 

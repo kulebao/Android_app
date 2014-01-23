@@ -54,6 +54,11 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black" />
+
     <ListView
         android:id="@+id/schedule_list"
         android:layout_width="fill_parent"

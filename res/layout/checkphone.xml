@@ -29,7 +29,7 @@
             android:background="@drawable/text_a"
             android:padding="10dp"
             android:text="@string/warning"
-            android:textColor="@color/black"
+            android:textColor="@color/juhong"
             android:textSize="16sp"
             android:textStyle="bold" />
 
