@@ -5,6 +5,7 @@ public class ConstantValue {
     public static final String FIRST_LOGIN = "first_login";
 
     public static final String CONF_INI = "conf.ini";
+    public static final String PUSH_CONFIG = "push.ini";
 
     public static final String HTTP_POST = "POST";
     public static final String HTTP_GET = "GET";

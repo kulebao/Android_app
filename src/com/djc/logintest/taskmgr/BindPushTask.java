@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
@@ -30,6 +31,7 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
         try {
             // 检查是否之前已经绑定成功过了，如果绑定成功了，就只需要向服务器发送绑定信息
             if (checkBindInfo()) {
+            	Log.w("DJC", "BindPushTask aleady bind send it to server!");
                 return sendInfoToSelfServer();
             }
 
@@ -58,8 +60,8 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
     }
 
     public int sendInfoToSelfServer() {
-        return HttpsMethod.sendBinfInfo(phonenum, Utils.getProp(JSONConstant.USER_ID),
-                Utils.getProp(JSONConstant.CHANNEL_ID));
+        return HttpsMethod.sendBinfInfo(phonenum, Utils.getPushProp(JSONConstant.USER_ID),
+                Utils.getPushProp(JSONConstant.CHANNEL_ID));
     }
 
     @Override
@@ -71,6 +73,6 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
     }
 
     private boolean checkBindInfo() {
-        return !"".equals(Utils.getProp(JSONConstant.USER_ID));
+        return !"".equals(Utils.getPushProp(JSONConstant.USER_ID));
     }
 }

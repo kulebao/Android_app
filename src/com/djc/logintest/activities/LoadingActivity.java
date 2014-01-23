@@ -8,6 +8,7 @@ import android.os.Message;
 
 import com.djc.logintest.R;
 import com.djc.logintest.constant.EventType;
+import com.djc.logintest.push.PushModel;
 import com.djc.logintest.taskmgr.LoadingTask;
 import com.djc.logintest.utils.Utils;
 
@@ -20,6 +21,7 @@ public class LoadingActivity extends Activity {
         setContentView(R.layout.loading);
         initHandler();
         new LoadingTask(handler).execute();
+        PushModel.getPushModel().enableDebug(true);
     }
 
     private void initHandler() {

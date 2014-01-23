@@ -39,9 +39,5 @@ public class TransitActivity extends Activity {
 	}
 	
 	private void startToMainActivity() {
-        Intent intent = new Intent();
-        intent.setClass(this, DjcMainActivity.class);
-        startActivity(intent);
-        finish();		
 	}
 }

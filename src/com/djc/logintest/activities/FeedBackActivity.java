@@ -15,7 +15,6 @@ import com.djc.logintest.R;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.FeedBackTask;
-import com.djc.logintest.utils.Utils;
 
 public class FeedBackActivity extends Activity {
     private EditText feedbackContent;

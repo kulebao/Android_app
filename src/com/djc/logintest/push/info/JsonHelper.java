@@ -18,8 +18,8 @@ public class JsonHelper {
             String channelid = params.getString(JSONConstant.CHANNEL_ID);
             String userid = params.getString(JSONConstant.USER_ID);
             Log.d("bbind","saveBindInfo userid="+userid);
-            Utils.saveProp(JSONConstant.CHANNEL_ID, channelid);
-            Utils.saveProp(JSONConstant.USER_ID, userid);
+            Utils.savePushProp(JSONConstant.CHANNEL_ID, channelid);
+            Utils.savePushProp(JSONConstant.USER_ID, userid);
         } catch (JSONException e) {
             Log.e("", "Parse bind json infos error: " + e);
         }

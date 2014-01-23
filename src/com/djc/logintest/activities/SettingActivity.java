@@ -86,7 +86,7 @@ public class SettingActivity extends Activity {
                 startToSelectChildActivity();
             }
         });
-        
+
         Button userResponse = (Button) findViewById(R.id.userResponse);
         userResponse.setOnClickListener(new OnClickListener() {
             @Override
@@ -94,13 +94,26 @@ public class SettingActivity extends Activity {
                 startToFeedBackActivity();
             }
         });
+        Button about_cocobabys = (Button) findViewById(R.id.about_cocobabys);
+        about_cocobabys.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startToAboutUsActivity();
+            }
+        });
 
+    }
+
+    protected void startToAboutUsActivity() {
+        Intent intent = new Intent();
+        intent.setClass(this, AboutUsActivity.class);
+        startActivity(intent);        
     }
 
     protected void startToFeedBackActivity() {
         Intent intent = new Intent();
         intent.setClass(this, FeedBackActivity.class);
-        startActivity(intent);        
+        startActivity(intent);
     }
 
     public void initSwitch() {
@@ -160,7 +173,7 @@ public class SettingActivity extends Activity {
         DataMgr.getInstance().upgradeAll();
         Utils.clearSDFolder();
         setResult(ConstantValue.EXIT_LOGIN_RESULT);
-        //设置一下，否则还会进入导引页面
+        // 设置一下，否则还会进入导引页面
         Utils.setGuided();
         finish();
     }

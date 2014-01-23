@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
+import com.baidu.android.pushservice.PushSettings;
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.JSONConstant;
@@ -18,64 +19,70 @@ import com.djc.logintest.utils.Utils;
 
 public class PushModel {
 
-    private PushModel() {
+	private PushModel() {
 
-    }
+	}
 
-    public static PushModel getPushModel() {
-        return new PushModel();
-    }
+	public void enableDebug(boolean enable) {
+		PushSettings.enableDebugMode(MyApplication.getInstance(), enable);
+	}
 
-    public void bind() {
-        Log.d("bbind", "do bind!");
-        PushManager.startWork(MyApplication.getInstance(), PushConstants.LOGIN_TYPE_API_KEY,
-                Utils.getMetaValue(MyApplication.getInstance(), ConstantValue.API_KEY));
-    }
+	public static PushModel getPushModel() {
+		return new PushModel();
+	}
 
-    public void unBind() {
-        PushManager.stopWork(MyApplication.getInstance());
-    }
+	public void bind() {
+		Log.d("bbind", "do bind!");
+		PushManager.startWork(MyApplication.getInstance(),
+				PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(
+						MyApplication.getInstance(), ConstantValue.API_KEY));
+	}
 
-    public void setTag(List<String> tags) {
-        PushManager.setTags(MyApplication.getInstance(), tags);
-    }
+	public void unBind() {
+		PushManager.stopWork(MyApplication.getInstance());
+	}
 
-    //设置学校id和班级id为默认tag,注意调用时机为，学校信息和小孩信息都同时获取到之后
-    public void setAllDefaultTag() {
-        try {
-            List<String> tags = new ArrayList<String>();
-            String schoolTag = DataMgr.getInstance().getSchoolID();
-            List<ChildInfo> allChildrenInfo = DataMgr.getInstance().getAllChildrenInfo();
-            
-            if(!allChildrenInfo.isEmpty()&&!"".equals(schoolTag)){
-                for(ChildInfo info : allChildrenInfo){
-                    if(!TextUtils.isEmpty(info.getClass_id())){
-                        tags.add(info.getClass_id());
-                    }
-                }
-                tags.add(schoolTag);
-                Log.d("DJC 10-16", "setTag tags=" + tags);
-                PushModel.getPushModel().setTag(tags);
-            }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	public void setTag(List<String> tags) {
+		PushManager.setTags(MyApplication.getInstance(), tags);
+	}
 
-    public boolean isBinded() {
-        return PushManager.isPushEnabled(MyApplication.getInstance());
-    }
+	// 设置学校id和班级id为默认tag,注意调用时机为，学校信息和小孩信息都同时获取到之后
+	public void setAllDefaultTag() {
+		try {
+			List<String> tags = new ArrayList<String>();
+			String schoolTag = DataMgr.getInstance().getSchoolID();
+			List<ChildInfo> allChildrenInfo = DataMgr.getInstance()
+					.getAllChildrenInfo();
 
-    public List<String> getTags() {
-        List<String> tags = new ArrayList<String>();
-        String tagsStr = Utils.getProp(JSONConstant.PUSH_TAGS);
-        Log.d("DJC 10-16", "tags =" + tagsStr);
-        if (!"".equals(tagsStr)) {
-            String[] split = tagsStr.split(",");
-            tags = Arrays.asList(split);
-        }
+			if (!allChildrenInfo.isEmpty() && !"".equals(schoolTag)) {
+				for (ChildInfo info : allChildrenInfo) {
+					if (!TextUtils.isEmpty(info.getClass_id())) {
+						tags.add(info.getClass_id());
+					}
+				}
+				tags.add(schoolTag);
+				Log.d("DJC 10-16", "setTag tags=" + tags);
+				PushModel.getPushModel().setTag(tags);
+			}
 
-        return tags;
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean isBinded() {
+		return PushManager.isPushEnabled(MyApplication.getInstance());
+	}
+
+	public List<String> getTags() {
+		List<String> tags = new ArrayList<String>();
+		String tagsStr = Utils.getPushProp(JSONConstant.PUSH_TAGS);
+		Log.d("DJC 10-16", "tags =" + tagsStr);
+		if (!"".equals(tagsStr)) {
+			String[] split = tagsStr.split(",");
+			tags = Arrays.asList(split);
+		}
+
+		return tags;
+	}
 }
