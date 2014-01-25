@@ -35,7 +35,7 @@
 
         <EditText
             android:id="@+id/inuputpwdView"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/accountView"
             android:layout_centerHorizontal="true"
@@ -44,7 +44,7 @@
             android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:hint="@string/inuputpwd"
             android:maxLength="11"
-            android:paddingLeft="40dp"
+            android:paddingLeft="50dp"
             android:paddingRight="4dp"
             android:password="true"
             android:singleLine="true"
@@ -59,7 +59,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/common_btn"
+            android:background="@drawable/sub_btn"
             android:focusable="true"
             android:text="@string/login" />
     </RelativeLayout>
@@ -72,7 +72,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/common_btn"
+        android:background="@drawable/small_btn"
         android:text="@string/forget_pwd"
         android:visibility="gone" />
 

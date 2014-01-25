@@ -10,22 +10,26 @@ import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.dbmgr.info.Notice;
 import com.djc.logintest.net.GetNormalNoticeMethod;
-import com.djc.logintest.net.GetSchoolInfoMethod;
 import com.djc.logintest.utils.Utils;
 
 public class GetNormalNoticeTask extends AsyncTask<Void, Void, Integer> {
+	public static final int Type_INSERT_HEAD = 0;
+	public static final int Type_INSERT_TAIl = 1;
 
 	private Handler handler;
 	private int most;
 	private long from;
 	private long to;
 	private List<Notice> list;
+	private int addType = Type_INSERT_HEAD;
 
-	public GetNormalNoticeTask(Handler handler, int most, long from, long to) {
+	public GetNormalNoticeTask(Handler handler, int most, long from, long to,
+			int addType) {
 		this.handler = handler;
 		this.most = most;
 		this.from = from;
 		this.to = to;
+		this.addType = addType;
 	}
 
 	@Override
@@ -52,6 +56,8 @@ public class GetNormalNoticeTask extends AsyncTask<Void, Void, Integer> {
 		Message msg = Message.obtain();
 		msg.what = result;
 		msg.obj = list;
+		msg.arg1 = addType;
 		handler.sendMessage(msg);
 	}
+
 }

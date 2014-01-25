@@ -23,7 +23,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/common_btn"
+        android:background="@drawable/sub_btn"
         android:text="@string/getAuthCode" />
 
     <EditText
@@ -90,7 +90,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/common_btn"
+        android:background="@drawable/small_btn"
         android:text="@string/reset_pwd" />
 
 </RelativeLayout>

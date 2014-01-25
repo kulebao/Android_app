@@ -37,8 +37,9 @@
             android:id="@+id/updateBtn"
             style="@style/btn_style"
             android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_margin="4dp"
-            android:background="@drawable/common_btn"
+            android:background="@drawable/sub_btn"
             android:text="@string/update" />
 
         <Button
@@ -46,7 +47,8 @@
             style="@style/btn_style"
             android:layout_margin="4dp"
             android:layout_weight="1"
-            android:background="@drawable/common_btn"
+            android:layout_width="0dp"
+            android:background="@drawable/sub_btn"
             android:text="@string/back" />
     </LinearLayout>
 
