@@ -25,14 +25,14 @@ import com.djc.logintest.customview.MsgListView;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.Notice;
 import com.djc.logintest.handler.MyHandler;
-import com.djc.logintest.taskmgr.GetNormalNoticeTask;
+import com.djc.logintest.taskmgr.GetNormalNewsTask;
 
 public class NoticePullRefreshOldActivity extends Activity {
     private NoticeListAdapter adapter;
     private MsgListView msgListView;
     private View footer;
     private Handler myhandler;
-    private GetNormalNoticeTask getNoticeTask;
+    private GetNormalNewsTask getNoticeTask;
     private List<Notice> noticeList;
     private TaskConf conf = new TaskConf();
 

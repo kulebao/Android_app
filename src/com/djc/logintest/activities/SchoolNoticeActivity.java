@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.DatePicker;
@@ -36,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djc.logintest.R;
+import com.djc.logintest.adapter.MyGridViewAdapter;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
@@ -556,11 +558,12 @@ public class SchoolNoticeActivity extends TabChildActivity {
     public void initGridView() {
         gridview = (GridView) findViewById(R.id.gridview);
         ArrayList<HashMap<String, Object>> lstImageItem = initData();
-        SimpleAdapter saImageItems = new SimpleAdapter(this, lstImageItem, R.layout.grid_item,
-                new String[] { "ItemImage", "ItemText" },
-                // ImageItem的XML文件里面的一个ImageView,两个TextView ID
-                new int[] { R.id.ItemImage, R.id.ItemText });
-        gridview.setAdapter(saImageItems);
+        // saImageItems = new SimpleAdapter(this, lstImageItem,
+        // R.layout.grid_item, new String[] { "ItemImage", "ItemText" },
+        // // ImageItem的XML文件里面的一个ImageView,两个TextView ID
+        // new int[] { R.id.ItemImage, R.id.ItemText });
+        MyGridViewAdapter adapter = new MyGridViewAdapter(this, lstImageItem);
+        gridview.setAdapter(adapter);
         gridview.setOnItemClickListener(new ItemClickListener());
     }
 

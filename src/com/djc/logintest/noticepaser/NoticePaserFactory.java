@@ -14,17 +14,8 @@ public class NoticePaserFactory {
         case JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKOUT:
             noticePaser = new SwapCardNoticePaser();
             break;
-        case JSONConstant.NOTICE_TYPE_COOKBOOK:
-            noticePaser = new CookBookNoticePaser();
-            break;
         case JSONConstant.NOTICE_TYPE_NORMAL:
             noticePaser = new NormalNoticePaser();
-            break;
-        case JSONConstant.NOTICE_TYPE_STUDY:
-            noticePaser = new StudyNoticePaser();
-            break;
-        case JSONConstant.NOTICE_TYPE_CHILD_STATUS:
-            noticePaser = new ChildStatusNoticePaser();
             break;
         default:
             break;

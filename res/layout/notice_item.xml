@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/notice_item"
     android:paddingBottom="10dp"
-    android:paddingLeft="10dp"
+    android:paddingLeft="20dp"
     android:paddingTop="25dp" >
 
     <TextView

@@ -3,6 +3,20 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
 
+    <TextView
+        android:id="@+id/noticeImg"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/star"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:text="18"
+        android:textColor="@color/red"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
     <ImageView
         android:id="@+id/ItemImage"
         android:layout_width="90dp"
@@ -16,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ItemImage"
         android:layout_centerHorizontal="true"
-        android:text="TextView01"
         android:textColor="@color/juhong"
         android:textStyle="bold" />
 

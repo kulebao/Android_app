@@ -21,24 +21,25 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 import com.djc.logintest.R;
-import com.djc.logintest.adapter.NoticeListAdapter;
+import com.djc.logintest.adapter.NewsListAdapter;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.customview.MsgListView;
 import com.djc.logintest.dbmgr.DataMgr;
+import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.dbmgr.info.Notice;
 import com.djc.logintest.handler.MyHandler;
-import com.djc.logintest.taskmgr.GetNormalNoticeTask;
+import com.djc.logintest.taskmgr.GetNormalNewsTask;
 import com.djc.logintest.utils.Utils;
 
 public class NoticePullRefreshActivity extends Activity {
-	private NoticeListAdapter adapter;
+	private NewsListAdapter adapter;
 	private MsgListView msgListView;
 	private View footer;
 	private Handler myhandler;
-	private GetNormalNoticeTask getNoticeTask;
-	private List<Notice> noticeList;
+	private GetNormalNewsTask getNoticeTask;
+	private List<News> newsList;
 	private boolean bDataChanged = false;
 
 	@Override
@@ -54,7 +55,7 @@ public class NoticePullRefreshActivity extends Activity {
 		boolean bret = true;
 		if (getNoticeTask == null
 				|| getNoticeTask.getStatus() != AsyncTask.Status.RUNNING) {
-			getNoticeTask = new GetNormalNoticeTask(myhandler,
+			getNoticeTask = new GetNormalNewsTask(myhandler,
 					ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT, from, to, type);
 			getNoticeTask.execute();
 		} else {
@@ -69,14 +70,14 @@ public class NoticePullRefreshActivity extends Activity {
 		super.onDestroy();
 		// 最多保存最新的25条通知
 		if (bDataChanged) {
-			if (noticeList.size() > ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
-				noticeList = noticeList.subList(0,
+			if (newsList.size() > ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
+				newsList = newsList.subList(0,
 						ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT);
 			}
 
-			DataMgr.getInstance().removeAllNoticeByType(
+			DataMgr.getInstance().removeAllNewsByType(
 					JSONConstant.NOTICE_TYPE_NORMAL);
-			DataMgr.getInstance().addNoticeList(noticeList);
+			DataMgr.getInstance().addNewsList(newsList);
 		}
 	}
 
@@ -106,18 +107,18 @@ public class NoticePullRefreshActivity extends Activity {
 	}
 
 	protected void handleSuccess(Message msg) {
-		List<Notice> list = (List<Notice>) msg.obj;
+		List<News> list = (List<News>) msg.obj;
 		if (!list.isEmpty()) {
 			bDataChanged = true;
-			if (msg.arg1 == GetNormalNoticeTask.Type_INSERT_HEAD) {
+			if (msg.arg1 == GetNormalNewsTask.Type_INSERT_HEAD) {
 				// 如果大于等于25条，就说明很可能还有公告没有一次性获取完，为了获取
 				// 到连续的公告数据，避免排序和获取复杂化，删除旧的全部公告，只保留最新的25条
 				if (list.size() >= ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
-					noticeList.clear();
+					newsList.clear();
 				}
-				noticeList.addAll(0, list);
-			} else if (msg.arg1 == GetNormalNoticeTask.Type_INSERT_TAIl) {
-				noticeList.addAll(list);
+				newsList.addAll(0, list);
+			} else if (msg.arg1 == GetNormalNewsTask.Type_INSERT_TAIl) {
+				newsList.addAll(list);
 			} else {
 				Log.e("DDD", "handleSuccess bad param arg1=" + msg.arg1);
 			}
@@ -126,10 +127,10 @@ public class NoticePullRefreshActivity extends Activity {
 	}
 
 	private void initCustomListView() {
-		noticeList = DataMgr.getInstance().getNoticeByType(
+		newsList = DataMgr.getInstance().getNewsByType(
 				JSONConstant.NOTICE_TYPE_NORMAL,
 				ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT);
-		adapter = new NoticeListAdapter(this, noticeList);
+		adapter = new NewsListAdapter(this, newsList);
 		msgListView = (MsgListView) findViewById(R.id.noticelist);// 继承ListActivity，id要写成android.R.id.list，否则报异常
 		setRefreshListener();
 		msgListView.setAdapter(adapter);
@@ -151,17 +152,16 @@ public class NoticePullRefreshActivity extends Activity {
 
 	private void refreshHead() {
 		long from = 0;
-		if (!noticeList.isEmpty()) {
+		if (!newsList.isEmpty()) {
 			try {
-                // from = Long.parseLong(noticeList.get(0)
-                // .getTimestampWithLongType());
+				from = newsList.get(0).getNews_server_id();
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
 		}
 
 		boolean runtask = runGetNoticeTask(from, 0,
-				GetNormalNoticeTask.Type_INSERT_HEAD);
+				GetNormalNewsTask.Type_INSERT_HEAD);
 		if (!runtask) {
 			// 任务没有执行，立即去掉下拉显示
 			msgListView.onRefreshComplete();
@@ -181,7 +181,7 @@ public class NoticePullRefreshActivity extends Activity {
 					// 当底部条出现时，index会大于count造成数组越界异常，这里处理一下
 					return;
 				}
-				Notice info = (Notice) adapter.getItem(currentIndex);
+				News info = (News) adapter.getItem(currentIndex);
 				startTo(info);
 			}
 		});
@@ -208,16 +208,15 @@ public class NoticePullRefreshActivity extends Activity {
 		if (view.getLastVisiblePosition() == view.getCount() - 1) {
 			Log.d("djc", "on the end!!!!!!!!!!!!!!!!");
 			long to = 0;
-			if (!noticeList.isEmpty()) {
-//				try {
-//					to = Long.parseLong(noticeList.get(noticeList.size() - 1)
-//							.getTimestampWithLongType());
-//				} catch (NumberFormatException e) {
-//					e.printStackTrace();
-//				}
+			if (!newsList.isEmpty()) {
+				try {
+					to = newsList.get(newsList.size() - 1).getNews_server_id();
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
 			}
 			boolean runtask = runGetNoticeTask(0, to,
-					GetNormalNoticeTask.Type_INSERT_TAIl);
+					GetNormalNewsTask.Type_INSERT_TAIl);
 			if (runtask) {
 				footer.setVisibility(View.VISIBLE);
 			} else {
@@ -232,12 +231,13 @@ public class NoticePullRefreshActivity extends Activity {
 		msgListView.addFooterView(footer);
 	}
 
-	private void startTo(Notice info) {
+	private void startTo(News info) {
 		Intent intent = new Intent(this, NoticeActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
 		intent.putExtra(JSONConstant.NOTIFICATION_BODY, info.getContent());
 		intent.putExtra(JSONConstant.TIME_STAMP, info.getTimestamp());
+		intent.putExtra(JSONConstant.PUBLISHER, info.getPublisher());
 		startActivity(intent);
 	}
 

@@ -232,10 +232,6 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 
 		String content = notice.getContent();
 		Log.d("DDD ", "content =" + content);
-		if (notice.getType() == JSONConstant.NOTICE_TYPE_COOKBOOK) {
-			// 食谱太长，就不在通知栏显示了
-			content = "";
-		}
 
 		notif.setLatestEventInfo(context, notice.getTitle(), content,
 				contentIntent);

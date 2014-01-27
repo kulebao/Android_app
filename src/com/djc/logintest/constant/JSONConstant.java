@@ -32,10 +32,7 @@ public class JSONConstant {
     public static final int NOTICE_TYPE_SWIPECARD_CHECKOUT = 0;
     public static final int NOTICE_TYPE_SWIPECARD_CHECKIN = 1;
     public static final int NOTICE_TYPE_NORMAL = 2;
-    public static final int NOTICE_TYPE_COOKBOOK = 4;
     public static final int NOTICE_TYPE_LOCATION = 6;
-    public static final int NOTICE_TYPE_STUDY = 7;
-    public static final int NOTICE_TYPE_CHILD_STATUS = 8;
     public static final int NOTICE_TYPE_OTHER = 11;
     public static final int CHECK_NEW_COMMAND = 51;
 

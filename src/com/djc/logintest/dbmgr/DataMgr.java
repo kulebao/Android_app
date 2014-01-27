@@ -15,6 +15,7 @@ import com.djc.logintest.dbmgr.info.BindedNumInfo;
 import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.dbmgr.info.CookBookInfo;
 import com.djc.logintest.dbmgr.info.LocationInfo;
+import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.dbmgr.info.Notice;
 import com.djc.logintest.dbmgr.info.ScheduleInfo;
 import com.djc.logintest.dbmgr.info.SchoolInfo;
@@ -32,6 +33,7 @@ public class DataMgr {
     private SchoolInfoMgr schoolInfoMgr;
     private ScheduleInfoMgr scheduleInfoMgr;
     private CookBookInfoMgr cookBookInfoMgr;
+	private NewsMgr newsMgr;
 
     public static synchronized DataMgr getInstance() {
         synchronized (mLock) {
@@ -50,6 +52,7 @@ public class DataMgr {
         schoolInfoMgr = new SchoolInfoMgr(dbHelper);
         scheduleInfoMgr = new ScheduleInfoMgr(dbHelper);
         cookBookInfoMgr = new CookBookInfoMgr(dbHelper);
+		newsMgr = new NewsMgr(dbHelper);
     }
 
     public long addLocationInfo(LocationInfo info) {
@@ -426,7 +429,31 @@ public class DataMgr {
     public CookBookInfo getCookBookInfo() {
         return cookBookInfoMgr.getCookBookInfo();
     }
+    
+	public long addNews(News info) {
+		return newsMgr.addNews(info);
+	}
+	
+	public void addNewsList(List<News> list) {
+		newsMgr.addNewsList(list);
+	}
+	
+	public News getNewsByID(int id) {
+		return newsMgr.getNewsByID(id);
+	}
+	
+	public List<News> getAllNewsByType(int type) {
+		return newsMgr.getAllNewsByType(type);
+	}
 
+	public List<News> getNewsByType(int type, int max) {
+		return newsMgr.getNewsByType(type, max);
+	}
+	
+	public void removeAllNewsByType(int type) {
+		newsMgr.removeAllNewsByType(type);
+	}
+	
     public void clearSchoolInfoTable() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DELETE FROM " + SqliteHelper.SCHOOL_INFO_TAB);

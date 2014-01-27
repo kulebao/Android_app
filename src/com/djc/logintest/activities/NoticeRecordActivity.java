@@ -66,11 +66,7 @@ public class NoticeRecordActivity extends Activity {
     }
 
     private void startTo(Notice info) {
-        Class<?> toClass = NoticeActivity.class;
-        if (info.getType() == JSONConstant.NOTICE_TYPE_COOKBOOK) {
-            toClass = CookBookActivity.class;
-        }
-        Intent intent = new Intent(this, toClass);
+        Intent intent = new Intent(this, NoticeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
