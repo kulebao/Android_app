@@ -7,213 +7,213 @@
     <uses-sdk android:minSdkVersion="10" />
 
     <application
-        android:name=".activities.MyApplication"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
+        android:name=".activities.MyApplication"
         android:theme="@android:style/Theme.NoTitleBar" >
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.ValidatePhoneNumActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.ValidateAuthCodeActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.TransitActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.SettingActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.UpdateActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.LoginActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.SelectChildActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.ResetPWDActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.ChangePWDActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.MainActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.LocationMgrActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.SchoolNoticeActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.LocationRecordActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.NoticePullRefreshActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.NoticeRecordActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.BindLocationMgrActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.SwipeCalendarActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.SwipeListActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.GuideActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.NoticePullRefreshOldActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.FeedBackActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
             android:name=".activities.AboutUsActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:name=".activities.SwipeDetailActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:name=".activities.NoticeActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:name=".activities.CookBookActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:name=".activities.ScheduleActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/locationInfo"
+            android:launchMode="singleTask"
             android:name=".activities.LocationActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/locationInfo"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/locationInfo"
+            android:launchMode="singleTask"
             android:name=".activities.SchoolInfoActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/locationInfo"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.LoadingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
+            android:name=".activities.LoadingActivity"
             android:screenOrientation="portrait" >
-            <intent-filter>
+            <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -224,7 +224,7 @@
 
         <!-- push service client -->
         <receiver android:name="com.djc.logintest.receiver.PushMessageReceiver" >
-            <intent-filter>
+            <intent-filter >
 
                 <!-- 接收push消息 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -239,7 +239,7 @@
         <receiver
             android:name="com.baidu.android.pushservice.PushServiceReceiver"
             android:process=":bdservice_v1" >
-            <intent-filter>
+            <intent-filter >
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
@@ -249,11 +249,11 @@
         <receiver
             android:name="com.baidu.android.pushservice.RegistrationReceiver"
             android:process=":bdservice_v1" >
-            <intent-filter>
+            <intent-filter >
                 <action android:name="com.baidu.android.pushservice.action.METHOD" />
                 <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter >
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
 
                 <data android:scheme="package" />
@@ -261,8 +261,8 @@
         </receiver>
 
         <service
-            android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
+            android:name="com.baidu.android.pushservice.PushService"
             android:process=":bdservice_v1" />
 
         <meta-data
@@ -277,17 +277,17 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!-- for log. -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--
-            暂时去掉发送短信权限和定位权限
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    
+    <!--  其它权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--
+            暂时去掉发送短信权限
     <uses-permission android:name="android.permission.SEND_SMS" />
     -->
     <supports-screens

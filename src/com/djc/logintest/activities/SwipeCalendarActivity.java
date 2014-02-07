@@ -94,25 +94,15 @@ public class SwipeCalendarActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDeviceConfig();
-
         bindview();
-
         initCalendarView();
-
-        // new Thread() {
-        // @Override
-        // public void run() {
-        // int day = GetNumFromDate(calToday, startDate);
-        //
-        // if (calendar_Hashtable != null
-        // && calendar_Hashtable.containsKey(day)) {
-        // dayvalue = calendar_Hashtable.get(day);
-        // }
-        // }
-        //
-        // }.start();
-
         initColor();
+        
+        runUpdateCalendarTask();
+    }
+
+    private void runUpdateCalendarTask() {
+        
     }
 
     public void initCalendarView() {
