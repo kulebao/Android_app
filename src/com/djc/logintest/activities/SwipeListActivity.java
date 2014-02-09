@@ -15,16 +15,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.djc.logintest.R;
-import com.djc.logintest.adapter.NoticeListAdapter;
+import com.djc.logintest.adapter.SwipeListAdapter;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.DataMgr;
-import com.djc.logintest.dbmgr.info.Notice;
+import com.djc.logintest.dbmgr.info.SwipeInfo;
 import com.djc.logintest.utils.Utils;
 
 public class SwipeListActivity extends Activity {
     private ListView list;
-    private NoticeListAdapter adapter;
+    private SwipeListAdapter adapter;
     private String date;
 
     @Override
@@ -41,20 +41,20 @@ public class SwipeListActivity extends Activity {
     }
 
     private void initListAdapter() {
-        List<Notice> listinfo = DataMgr.getInstance().getAllSwipeCardNotice(date);
-        adapter = new NoticeListAdapter(this, listinfo);
+        List<SwipeInfo> listinfo = DataMgr.getInstance().getAllSwipeCardNotice(date);
+        adapter = new SwipeListAdapter(this, listinfo);
         list = (ListView) findViewById(R.id.notice_list);
         list.setAdapter(adapter);
         list.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Notice info = (Notice) adapter.getItem(position);
+                SwipeInfo info = (SwipeInfo) adapter.getItem(position);
                 startToSwipeDetailActivity(info);
             }
         });
     }
 
-    private void startToSwipeDetailActivity(Notice info) {
+    private void startToSwipeDetailActivity(SwipeInfo info) {
         Intent intent = new Intent(this, SwipeDetailActivity.class);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

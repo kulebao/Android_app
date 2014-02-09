@@ -538,7 +538,7 @@ public class Utils {
 		return downloader.download();
 	}
 
-	public static void mkDir(String dir) {
+	public static void mkDirs(String dir) {
 		File file = new File(dir);
 		if (!file.exists()) {
 			file.mkdirs();

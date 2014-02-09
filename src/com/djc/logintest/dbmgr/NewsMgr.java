@@ -9,14 +9,14 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.djc.logintest.dbmgr.info.News;
 
-public class NewsMgr {
+class NewsMgr {
 	private SqliteHelper dbHelper;
 
-	public NewsMgr(SqliteHelper dbHelper) {
+	NewsMgr(SqliteHelper dbHelper) {
 		this.dbHelper = dbHelper;
 	}
 
-	public long addNews(News info) {
+	long addNews(News info) {
 		ContentValues values = buildNewsInfo(info);
 		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
 		return writableDatabase.insert(SqliteHelper.NEWS_TAB, null, values);
@@ -33,7 +33,7 @@ public class NewsMgr {
 		return values;
 	}
 
-	public void addNewsList(List<News> list) {
+	void addNewsList(List<News> list) {
 		if (list == null || list.isEmpty()) {
 			return;
 		}
@@ -49,7 +49,7 @@ public class NewsMgr {
 		writableDatabase.endTransaction(); // 处理完成
 	}
 
-	public News getNewsByID(int id) {
+	News getNewsByID(int id) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NEWS_TAB
 				+ " WHERE " + News.ID + " = " + id, null);
@@ -57,7 +57,7 @@ public class NewsMgr {
 		return list.isEmpty() ? null : list.get(0);
 	}
 
-	public List<News> getAllNews() {
+	List<News> getAllNews() {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NEWS_TAB
 				+ " ORDER BY " + News.TIMESTAMP + " DESC", null);
@@ -65,7 +65,7 @@ public class NewsMgr {
 		return getNewsList(cursor);
 	}
 
-	public List<News> getAllNewsByType(int type) {
+	List<News> getAllNewsByType(int type) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NEWS_TAB
 				+ " WHERE " + News.NEWS_TYPE + " = " + type + " ORDER BY "
@@ -74,7 +74,7 @@ public class NewsMgr {
 		return getNewsList(cursor);
 	}
 
-	public List<News> getNewsByType(int type, int max) {
+	List<News> getNewsByType(int type, int max) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NEWS_TAB
 				+ " WHERE " + News.NEWS_TYPE + " = " + type + " ORDER BY "
@@ -83,7 +83,7 @@ public class NewsMgr {
 		return getNewsList(cursor);
 	}
 
-	public void removeAllNewsByType(int type) {
+	void removeAllNewsByType(int type) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		db.execSQL("DELETE FROM " + SqliteHelper.NEWS_TAB + " WHERE "
 				+ News.NEWS_TYPE + " = " + type);

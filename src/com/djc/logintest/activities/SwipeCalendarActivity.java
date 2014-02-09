@@ -7,9 +7,14 @@ import java.util.Date;
 import java.util.Hashtable;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,14 +29,15 @@ import android.widget.TextView;
 import com.djc.logintest.R;
 import com.djc.logintest.bean.SwipeInfoOnCalendar;
 import com.djc.logintest.constant.ConstantValue;
-import com.djc.logintest.constant.JSONConstant;
+import com.djc.logintest.constant.EventType;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.InfoHelper;
-import com.djc.logintest.dbmgr.info.Notice;
+import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.mycalendar.DateWidgetDayCell;
 import com.djc.logintest.mycalendar.DateWidgetDayHeader;
 import com.djc.logintest.mycalendar.DayStyle;
 import com.djc.logintest.mycalendar.MyCalendarFont;
+import com.djc.logintest.taskmgr.UpdateCalendarTask;
 
 /**
  * 
@@ -86,23 +92,70 @@ public class SwipeCalendarActivity extends Activity {
     public static int special_Reminder = 0;
     public static int common_Reminder = 0;
     public static int Calendar_WeekFontColor = 0;
-
     String UserName = "";
     private MyCalendarFont calendarFont;
+    private Handler handler;
+    private ProgressDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDeviceConfig();
         bindview();
+        initDlg();
         initCalendarView();
         initColor();
-        
+        initHandler();
         runUpdateCalendarTask();
     }
 
+    private void initDlg() {
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
+        dialog.setMessage(getResources().getString(R.string.getting_swipe_info));
+    }
+
+    private void initHandler() {
+        handler = new MyHandler(this, dialog) {
+            @Override
+            public void handleMessage(Message msg) {
+                if (SwipeCalendarActivity.this.isFinishing()) {
+                    Log.w("djc", "do nothing when activity finishing!");
+                    return;
+                }
+                super.handleMessage(msg);
+                Log.d("DDD", "SwipeCalendarActivity receice msg:" + msg.what);
+                switch (msg.what) {
+                case EventType.GET_SWIPE_RECORD_SUCCESS:
+                    updateCalendar();
+                    break;
+                default:
+                    // 错对都得刷新
+                    updateCalendar();
+                    break;
+                }
+            }
+
+        };
+    }
+
     private void runUpdateCalendarTask() {
-        
+        dialog.show();
+        Calendar current = Calendar.getInstance();
+        current.set(Calendar.MONTH, iMonthViewCurrentMonth);
+        current.set(Calendar.YEAR, iMonthViewCurrentYear);
+        current.set(Calendar.DATE, 1);// 把日期设置为当月第一天
+        current.set(Calendar.HOUR_OF_DAY, 0);
+        current.set(Calendar.MINUTE, 0);
+        current.set(Calendar.SECOND, 0);
+        current.set(Calendar.MILLISECOND, 0);
+        long from = current.getTimeInMillis();
+        current.roll(Calendar.DATE, -1);// 日期回滚一天，也就是最后一天
+        int maxDate = current.get(Calendar.DATE);
+        // 误差30s左右，也就是说当晚11点59分30秒之后的刷卡记录可能无法获取，但是不影响
+        long to = from + maxDate * (24L * 60 * 60 - 1L) * 1000L;
+
+        new UpdateCalendarTask(handler, from, to).execute();
     }
 
     public void initCalendarView() {
@@ -185,7 +238,7 @@ public class SwipeCalendarActivity extends Activity {
     }
 
     // 得到当天在日历中的序号
-    private int GetNumFromDate(Calendar now, Calendar returnDate) {
+    private int getNumFromDate(Calendar now, Calendar returnDate) {
         Calendar cNow = (Calendar) now.clone();
         Calendar cReturnDate = (Calendar) returnDate.clone();
         setTimeToMidnight(cNow);
@@ -377,8 +430,8 @@ public class SwipeCalendarActivity extends Activity {
 
     private SwipeInfoOnCalendar getRecord(Calendar calendar) {
         String format = InfoHelper.YEAR_MONTH_DAY_FORMAT.format(calendar.getTime());
-        String checkin = DataMgr.getInstance().getLastestSwipeInNotice(format);
-        String checkout = DataMgr.getInstance().getLatestSwipeOutNotice(format);
+        String checkin = DataMgr.getInstance().getLastestSwipeIn(format);
+        String checkout = DataMgr.getInstance().getLatestSwipeOut(format);
 
         if (!checkout.isEmpty()) {
             long out = Long.valueOf(Timestamp.valueOf(checkout).getTime());
@@ -420,7 +473,6 @@ public class SwipeCalendarActivity extends Activity {
     class Pre_MonthOnClickListener implements OnClickListener {
         @Override
         public void onClick(View v) {
-            // TODO Auto-generated method stub
             arrange_text.setText("");
             calSelected.setTimeInMillis(0);
             iMonthViewCurrentMonth--;
@@ -441,21 +493,8 @@ public class SwipeCalendarActivity extends Activity {
 
             startDate = (Calendar) calStartDate.clone();
             endDate = GetEndDate(startDate);
-
-            // new Thread() {
-            // @Override
-            // public void run() {
-            //
-            // int day = GetNumFromDate(calToday, startDate);
-            //
-            // if (calendar_Hashtable != null &&
-            // calendar_Hashtable.containsKey(day)) {
-            // dayvalue = calendar_Hashtable.get(day);
-            // }
-            // }
-            // }.start();
-
-            updateCalendar();
+            // updateCalendar();
+            runUpdateCalendarTask();
         }
 
     }
@@ -480,20 +519,8 @@ public class SwipeCalendarActivity extends Activity {
 
             startDate = (Calendar) calStartDate.clone();
             endDate = GetEndDate(startDate);
-
-            // new Thread() {
-            // @Override
-            // public void run() {
-            // int day = 5;
-            //
-            // if (calendar_Hashtable != null &&
-            // calendar_Hashtable.containsKey(day)) {
-            // dayvalue = calendar_Hashtable.get(day);
-            // }
-            // }
-            // }.start();
-
-            updateCalendar();
+            // updateCalendar();
+            runUpdateCalendarTask();
         }
     }
 

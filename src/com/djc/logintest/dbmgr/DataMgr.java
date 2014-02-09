@@ -19,6 +19,7 @@ import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.dbmgr.info.Notice;
 import com.djc.logintest.dbmgr.info.ScheduleInfo;
 import com.djc.logintest.dbmgr.info.SchoolInfo;
+import com.djc.logintest.dbmgr.info.SwipeInfo;
 
 public class DataMgr {
     private static int DB_VERSION = 2;
@@ -33,7 +34,8 @@ public class DataMgr {
     private SchoolInfoMgr schoolInfoMgr;
     private ScheduleInfoMgr scheduleInfoMgr;
     private CookBookInfoMgr cookBookInfoMgr;
-	private NewsMgr newsMgr;
+    private NewsMgr newsMgr;
+    private SwipeMgr swipeMgr;
 
     public static synchronized DataMgr getInstance() {
         synchronized (mLock) {
@@ -52,7 +54,8 @@ public class DataMgr {
         schoolInfoMgr = new SchoolInfoMgr(dbHelper);
         scheduleInfoMgr = new ScheduleInfoMgr(dbHelper);
         cookBookInfoMgr = new CookBookInfoMgr(dbHelper);
-		newsMgr = new NewsMgr(dbHelper);
+        newsMgr = new NewsMgr(dbHelper);
+        swipeMgr = new SwipeMgr(dbHelper);
     }
 
     public long addLocationInfo(LocationInfo info) {
@@ -213,6 +216,14 @@ public class DataMgr {
         writableDatabase.endTransaction(); // 处理完成
     }
 
+    public Notice getNoticeByTimeStamp(long timestamp) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB + " WHERE "
+                + Notice.TIMESTAMP + " = " + timestamp, null);
+        List<Notice> noticeList = getNoticeList(cursor);
+        return noticeList.isEmpty() ? null : noticeList.get(0);
+    }
+
     public Notice getNoticeByID(int id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB + " WHERE "
@@ -249,48 +260,57 @@ public class DataMgr {
 
     // 获取某天的，全部刷卡记录，其中date的格式必须满足yyyy-mm-dd形式
     // 且只能显示当前选中孩子的信息
-    public List<Notice> getAllSwipeCardNotice(String date) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB + " WHERE ("
-                + Notice.NOTICE_TYPE + " = " + JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN + " OR "
-                + Notice.NOTICE_TYPE + " = " + JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKOUT
-                + ") AND " + Notice.CHILD_ID + " = '"
-                + childrenInfoMgr.getSelectedChild().getServer_id() + "' AND DATE("
-                + Notice.TIMESTAMP + ") = '" + date + "' ORDER BY " + Notice.TIMESTAMP + " DESC",
-                null);
-
-        return getNoticeList(cursor);
-    }
+    // public List<Notice> getAllSwipeCardNotice(String date) {
+    // SQLiteDatabase db = dbHelper.getReadableDatabase();
+    // Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB +
+    // " WHERE ("
+    // + Notice.NOTICE_TYPE + " = " + JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN
+    // + " OR "
+    // + Notice.NOTICE_TYPE + " = " +
+    // JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKOUT
+    // + ") AND " + Notice.CHILD_ID + " = '"
+    // + childrenInfoMgr.getSelectedChild().getServer_id() + "' AND DATE("
+    // + Notice.TIMESTAMP + ") = '" + date + "' ORDER BY " + Notice.TIMESTAMP +
+    // " DESC",
+    // null);
+    //
+    // return getNoticeList(cursor);
+    // }
 
     // 获取某天的，最晚的刷卡入园记录，如果没有返回""
     // 且只能显示当前选中孩子的信息
-    public String getLastestSwipeInNotice(String date) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String sql = "SELECT * FROM " + SqliteHelper.NOTICE_TAB + " WHERE " + Notice.NOTICE_TYPE
-                + " = " + JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN + " AND " + Notice.CHILD_ID
-                + " = '" + childrenInfoMgr.getSelectedChild().getServer_id() + "' AND DATE("
-                + Notice.TIMESTAMP + ") = '" + date + "' ORDER BY " + Notice.TIMESTAMP
-                + " DESC LIMIT 1";
-        Cursor cursor = db.rawQuery(sql, null);
-
-        List<Notice> noticeList = getNoticeList(cursor);
-        return noticeList.isEmpty() ? "" : noticeList.get(0).getTimestamp();
-    }
+    // public String getLastestSwipeInNotice(String date) {
+    // SQLiteDatabase db = dbHelper.getReadableDatabase();
+    // String sql = "SELECT * FROM " + SqliteHelper.NOTICE_TAB + " WHERE " +
+    // Notice.NOTICE_TYPE
+    // + " = " + JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN + " AND " +
+    // Notice.CHILD_ID
+    // + " = '" + childrenInfoMgr.getSelectedChild().getServer_id() +
+    // "' AND DATE("
+    // + Notice.TIMESTAMP + ") = '" + date + "' ORDER BY " + Notice.TIMESTAMP
+    // + " DESC LIMIT 1";
+    // Cursor cursor = db.rawQuery(sql, null);
+    //
+    // List<Notice> noticeList = getNoticeList(cursor);
+    // return noticeList.isEmpty() ? "" : noticeList.get(0).getTimestamp();
+    // }
 
     // 获取某天的，最晚的刷卡离园记录，如果没有返回""
     // 且只能显示当前选中孩子的信息
-    public String getLatestSwipeOutNotice(String date) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB + " WHERE "
-                + Notice.NOTICE_TYPE + " = " + JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKOUT
-                + " AND " + Notice.CHILD_ID + " = '"
-                + childrenInfoMgr.getSelectedChild().getServer_id() + "' AND DATE("
-                + Notice.TIMESTAMP + ") = '" + date + "' ORDER BY " + Notice.TIMESTAMP
-                + " DESC LIMIT 1", null);
-
-        List<Notice> noticeList = getNoticeList(cursor);
-        return noticeList.isEmpty() ? "" : noticeList.get(0).getTimestamp();
-    }
+    // public String getLatestSwipeOutNotice(String date) {
+    // SQLiteDatabase db = dbHelper.getReadableDatabase();
+    // Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB +
+    // " WHERE "
+    // + Notice.NOTICE_TYPE + " = " +
+    // JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKOUT
+    // + " AND " + Notice.CHILD_ID + " = '"
+    // + childrenInfoMgr.getSelectedChild().getServer_id() + "' AND DATE("
+    // + Notice.TIMESTAMP + ") = '" + date + "' ORDER BY " + Notice.TIMESTAMP
+    // + " DESC LIMIT 1", null);
+    //
+    // List<Notice> noticeList = getNoticeList(cursor);
+    // return noticeList.isEmpty() ? "" : noticeList.get(0).getTimestamp();
+    // }
 
     public void deleteNotice(int id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -429,31 +449,60 @@ public class DataMgr {
     public CookBookInfo getCookBookInfo() {
         return cookBookInfoMgr.getCookBookInfo();
     }
-    
-	public long addNews(News info) {
-		return newsMgr.addNews(info);
-	}
-	
-	public void addNewsList(List<News> list) {
-		newsMgr.addNewsList(list);
-	}
-	
-	public News getNewsByID(int id) {
-		return newsMgr.getNewsByID(id);
-	}
-	
-	public List<News> getAllNewsByType(int type) {
-		return newsMgr.getAllNewsByType(type);
-	}
 
-	public List<News> getNewsByType(int type, int max) {
-		return newsMgr.getNewsByType(type, max);
-	}
-	
-	public void removeAllNewsByType(int type) {
-		newsMgr.removeAllNewsByType(type);
-	}
-	
+    public long addNews(News info) {
+        return newsMgr.addNews(info);
+    }
+
+    public void addNewsList(List<News> list) {
+        newsMgr.addNewsList(list);
+    }
+
+    public News getNewsByID(int id) {
+        return newsMgr.getNewsByID(id);
+    }
+
+    public List<News> getAllNewsByType(int type) {
+        return newsMgr.getAllNewsByType(type);
+    }
+
+    public List<News> getNewsByType(int type, int max) {
+        return newsMgr.getNewsByType(type, max);
+    }
+
+    public void removeAllNewsByType(int type) {
+        newsMgr.removeAllNewsByType(type);
+    }
+
+    public long addSwipeData(SwipeInfo info) {
+        return swipeMgr.addData(info);
+    }
+
+    public void addSwipeDataList(List<SwipeInfo> list) {
+        swipeMgr.addDataList(list);
+    }
+
+    public SwipeInfo getSwipeDataByID(int id) {
+        return swipeMgr.getDataByID(id);
+    }
+
+    public SwipeInfo getSwipeDataByTimeStamp(long timestamp) {
+        return swipeMgr.getDataByTimeStamp(timestamp);
+    }
+
+    public String getLastestSwipeIn(String date) {
+        return swipeMgr.getLastestSwipeIn(date, childrenInfoMgr.getSelectedChild().getServer_id());
+    }
+
+    public String getLatestSwipeOut(String date) {
+        return swipeMgr.getLatestSwipeOut(date, childrenInfoMgr.getSelectedChild().getServer_id());
+    }
+
+    public List<SwipeInfo> getAllSwipeCardNotice(String date) {
+        return swipeMgr.getAllSwipeCardNotice(date, childrenInfoMgr.getSelectedChild()
+                .getServer_id());
+    }
+
     public void clearSchoolInfoTable() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DELETE FROM " + SqliteHelper.SCHOOL_INFO_TAB);

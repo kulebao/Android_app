@@ -9,7 +9,6 @@ import android.os.Message;
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.dbmgr.info.News;
-import com.djc.logintest.dbmgr.info.Notice;
 import com.djc.logintest.net.GetNormalNewsMethod;
 import com.djc.logintest.utils.Utils;
 

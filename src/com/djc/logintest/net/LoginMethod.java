@@ -1,7 +1,5 @@
 package com.djc.logintest.net;
 
-import java.io.IOException;
-
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;

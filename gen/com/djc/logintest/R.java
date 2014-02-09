@@ -329,8 +329,8 @@ containing a value of this type.
     }
     public static final class string {
         public static final int about_cocobabys=0x7f070077;
-        public static final int about_us=0x7f07009c;
-        public static final int about_us_content=0x7f07009d;
+        public static final int about_us=0x7f07009d;
+        public static final int about_us_content=0x7f07009e;
         public static final int account_name=0x7f070017;
         public static final int add=0x7f07004e;
         public static final int add_location_num=0x7f070045;
@@ -376,8 +376,8 @@ containing a value of this type.
         public static final int delete_notice_confirm=0x7f070043;
         public static final int dinner=0x7f070066;
         public static final int doLocation=0x7f07005d;
-        public static final int email=0x7f070098;
-        public static final int email_address=0x7f070099;
+        public static final int email=0x7f070099;
+        public static final int email_address=0x7f07009a;
         public static final int error=0x7f07000f;
         public static final int exit_app=0x7f070013;
         public static final int exit_login=0x7f070018;
@@ -394,9 +394,10 @@ containing a value of this type.
         public static final int get_child_info_fail=0x7f070079;
         public static final int get_school_info=0x7f070078;
         public static final int getting_auth_code=0x7f070024;
+        public static final int getting_swipe_info=0x7f070094;
         public static final int hello=0x7f070000;
-        public static final int homepage=0x7f070096;
-        public static final int homepage_url=0x7f070097;
+        public static final int homepage=0x7f070097;
+        public static final int homepage_url=0x7f070098;
         public static final int input_new_pwd=0x7f07001e;
         public static final int input_old_pwd=0x7f07001d;
         public static final int inuput_auth_code=0x7f070005;
@@ -465,8 +466,8 @@ containing a value of this type.
         public static final int setting=0x7f070016;
         public static final int startmain=0x7f070026;
         public static final int study=0x7f07006b;
-        public static final int support_phone=0x7f07009a;
-        public static final int support_phone_num=0x7f07009b;
+        public static final int support_phone=0x7f07009b;
+        public static final int support_phone_num=0x7f07009c;
         public static final int swap=0x7f07006d;
         public static final int swipcard_notice=0x7f070056;
         public static final int swipcard_record=0x7f070057;
@@ -484,8 +485,8 @@ containing a value of this type.
         public static final int validate_phone_num=0x7f070023;
         public static final int warning=0x7f070002;
         public static final int wed=0x7f07007d;
-        public static final int weibo=0x7f070094;
-        public static final int weibo_account=0x7f070095;
+        public static final int weibo=0x7f070095;
+        public static final int weibo_account=0x7f070096;
     }
     public static final class style {
         public static final int Dialog=0x7f080005;

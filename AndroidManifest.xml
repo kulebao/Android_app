@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.djc.logintest"
-    android:versionCode="23"
-    android:versionName="V1.1.3" >
+    android:versionCode="24"
+    android:versionName="V1.1.4" >
 
     <uses-sdk android:minSdkVersion="10" />
 
@@ -222,6 +222,12 @@
 
         <service android:name=".service.MyService" />
 
+        <receiver android:name="com.djc.logintest.receiver.NetStateChangeReceiver" >
+            <intent-filter >
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
         <!-- push service client -->
         <receiver android:name="com.djc.logintest.receiver.PushMessageReceiver" >
             <intent-filter >
@@ -283,8 +289,8 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    
-    <!--  其它权限 -->
+
+    <!-- 其它权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!--
             暂时去掉发送短信权限

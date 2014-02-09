@@ -37,6 +37,9 @@ public class EventType {
     
     public static final int UPLOAD_SUCCESS = 1505;
     public static final int UPLOAD_FAILED = 1506;
+    
+    public static final int GET_SWIPE_RECORD_SUCCESS = 1510;
+    public static final int GET_SWIPE_RECORD_FAILED = 1511;
 
     public static final int GET_COOKBOOK_FAILED = 1525;
     public static final int GET_COOKBOOK_SUCCESS = 1526;

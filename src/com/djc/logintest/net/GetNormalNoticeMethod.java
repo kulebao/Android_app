@@ -16,7 +16,6 @@ import com.djc.logintest.constant.ServerUrls;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.Notice;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
-import com.djc.logintest.noticepaser.NoticePaserHelper;
 import com.djc.logintest.utils.Utils;
 
 public class GetNormalNoticeMethod {

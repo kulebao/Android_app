@@ -14,7 +14,6 @@ import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.InfoHelper;
 import com.djc.logintest.dbmgr.info.ScheduleInfo;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
-import com.djc.logintest.utils.Utils;
 
 public class GetScheduleMethod {
 

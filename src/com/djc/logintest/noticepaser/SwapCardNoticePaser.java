@@ -1,14 +1,13 @@
 package com.djc.logintest.noticepaser;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.djc.logintest.R;
@@ -18,20 +17,12 @@ import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.dbmgr.info.Notice;
+import com.djc.logintest.dbmgr.info.SwipeInfo;
 import com.djc.logintest.receiver.IntentPaser;
 import com.djc.logintest.threadpool.MyThreadPoolMgr;
 import com.djc.logintest.utils.Utils;
 
 public class SwapCardNoticePaser implements NoticePaser {
-    public static final String SWIPE_CARD_TITLE = "尊敬的用户 %s 您好:";
-
-    public static final String SWIPE_CARD_IN_BODY = "您的小孩 %s 已于%s刷卡入园!";
-    public static final String SWIPE_CARD_OUT_BODY = "您的小孩 %s 已于%s刷卡离园!";
-
-    public static final SimpleDateFormat FORMAT = new SimpleDateFormat("MM月dd日 HH时mm分");
-
-    private long timestamp;
-
     private static String SWIPE_ICON = "swipe_icon";
 
     @Override
@@ -41,21 +32,19 @@ public class SwapCardNoticePaser implements NoticePaser {
             String child_id = object.getString("child_id");
             final ChildInfo childinfo = DataMgr.getInstance().getChildByID(child_id);
             if (childinfo != null) {
-                final Notice notice = getNotice(object, context, childinfo);
+                final SwipeInfo swipeInfo = saveSwipeInfo(object);
+                final Notice notice = getNotice(swipeInfo, context, childinfo);
                 Log.w("DDD", "saveData notice:" + notice.toString());
-                final long id = DataMgr.getInstance().addNotice(notice);
-                // 保存数据库中，该条记录的行号，传递给activity使用
-                notice.setId((int) id);
 
-                final String record_url = object.getString("record_url");
-                if (record_url != null) {
+                final String record_url = swipeInfo.getUrl();
+                if (!TextUtils.isEmpty(record_url)) {
                     MyThreadPoolMgr.getGenericService().execute(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                // 就用通知id作为文件名
+                                // 就用通知时间搓作为文件名
                                 Log.d("LIYI", "downloadIcon begain record_url=" + record_url);
-                                downloadIcon(record_url, String.valueOf(id));
+                                downloadIcon(record_url, String.valueOf(swipeInfo.getTimestamp()));
                             } catch (Exception e) {
                                 Log.d("LIYI", "downloadIcon exp:" + e.toString());
                                 e.printStackTrace();
@@ -76,29 +65,30 @@ public class SwapCardNoticePaser implements NoticePaser {
         return null;
     }
 
-    public Notice getNotice(JSONObject object, Context context, ChildInfo childinfo)
+    public Notice getNotice(SwipeInfo swipeInfo, Context context, ChildInfo childinfo)
             throws JSONException {
-        int type = object.getInt(JSONConstant.NOTIFICATION_TYPE);
+        int type = swipeInfo.getType();
         final Notice notice = new Notice();
-        timestamp = Long.valueOf(object.getString(JSONConstant.TIME_STAMP));
-        notice.setChild_id(childinfo.getServer_id());
-
-        String sample = (type == JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN ? SWIPE_CARD_IN_BODY
-                : SWIPE_CARD_OUT_BODY);
-
-        String body = String.format(sample, childinfo.getChild_nick_name(),
-                FORMAT.format(new Date(timestamp)));
-        notice.setContent(body);
-        String title = String.format(SWIPE_CARD_TITLE, Utils.getProp(JSONConstant.USERNAME));
-        notice.setTitle(title);
-        notice.setTimestamp(Utils.convertTime(timestamp));
-
+        notice.setChild_id(swipeInfo.getChild_id());
+        notice.setContent(swipeInfo.getNoticeBody(childinfo.getChild_nick_name()));
+        notice.setTitle(swipeInfo.getNoticeTitle());
+        notice.setTimestamp(swipeInfo.getFormattedTime());
         notice.setToClass(SwipeDetailActivity.class);
         String ticker = context.getResources().getString(R.string.swipcard_notice);
         notice.setType(type);
         notice.setTicker(ticker);
 
+        // 保存数据库中，该条记录的行号，传递给activity使用
+        notice.setId((int) swipeInfo.getId());
         return notice;
+    }
+
+    public static SwipeInfo saveSwipeInfo(JSONObject object) throws JSONException {
+        SwipeInfo info = SwipeInfo.toSwipeInfo(object);
+        long id = DataMgr.getInstance().addSwipeData(info);
+        // 应该不会超过int最大值
+        info.setId((int) id);
+        return info;
     }
 
     // record_url 下载地址,iconname 下载成功后保存的文件名
@@ -113,7 +103,7 @@ public class SwapCardNoticePaser implements NoticePaser {
 
     public static String createSwipeIconPath(String iconname) {
         String dir = Utils.getSDCardPicRootPath() + File.separator + SWIPE_ICON + File.separator;
-        Utils.mkDir(dir);
+        Utils.mkDirs(dir);
         String url = dir + iconname;
         Log.d("DDD", "getChildrenDefaultLocalIconPath url=" + url);
         return url;

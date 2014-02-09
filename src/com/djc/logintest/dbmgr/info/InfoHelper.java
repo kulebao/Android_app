@@ -18,7 +18,7 @@ public class InfoHelper {
         String dir = Utils.getSDCardPicRootPath() + File.separator + BABY_ICON_NAME
                 + File.separator;
 
-        Utils.mkDir(dir);
+        Utils.mkDirs(dir);
         String url = dir + childid;
         Log.d("DDD", "getChildrenDefaultLocalIconPath url=" + url);
         return url;

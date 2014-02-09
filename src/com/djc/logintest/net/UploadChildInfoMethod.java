@@ -1,7 +1,6 @@
 package com.djc.logintest.net;
 
 import org.apache.http.HttpStatus;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

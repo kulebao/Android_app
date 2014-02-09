@@ -28,7 +28,6 @@ import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.customview.MsgListView;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.News;
-import com.djc.logintest.dbmgr.info.Notice;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.GetNormalNewsTask;
 import com.djc.logintest.utils.Utils;

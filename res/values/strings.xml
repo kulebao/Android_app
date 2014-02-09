@@ -163,6 +163,8 @@
     <string name="send_success">发送信息成功!</string>
     <string name="send_fail">发送信息失败!</string>
     
+    <string name="getting_swipe_info">正在获取刷卡记录...</string>
+    
     <string name="weibo">官方微博 : </string>
     <string name="weibo_account">XXX</string>
     <string name="homepage">官方网站 : </string>
