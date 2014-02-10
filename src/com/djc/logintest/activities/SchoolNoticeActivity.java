@@ -638,8 +638,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
         Intent intent = new Intent();
         intent.putExtra(ConstantValue.NOTICE_TYPE, noticeType);
         // 后续需要实现的下拉时列表
-        // intent.setClass(this, NoticePullRefreshActivity.class);
-        intent.setClass(this, NoticeRecordActivity.class);
+        intent.setClass(this, NoticePullRefreshActivity.class);
+        // intent.setClass(this, NoticeRecordActivity.class);
         startActivity(intent);
     }
 

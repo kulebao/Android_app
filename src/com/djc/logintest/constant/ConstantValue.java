@@ -2,6 +2,9 @@ package com.djc.logintest.constant;
 
 public class ConstantValue {
 
+    public static final String COMMAND_CHECK_NOTICE = "command_check_notice";
+    public static final int COMMAND_TYPE_CHECK_NOTICE = 1;
+    
     public static final String FIRST_LOGIN = "first_login";
 
     public static final String CONF_INI = "conf.ini";
@@ -61,6 +64,6 @@ public class ConstantValue {
 
     public static final String HEADER_TOKEN = "token";
 
-	public static final int GET_NORMAL_NOTICE_MAX_COUNT = 1;
+	public static final int GET_NORMAL_NOTICE_MAX_COUNT = 25;
 
 }

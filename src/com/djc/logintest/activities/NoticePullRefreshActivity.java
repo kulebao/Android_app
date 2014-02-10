@@ -3,6 +3,7 @@ package com.djc.logintest.activities;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -33,238 +34,249 @@ import com.djc.logintest.taskmgr.GetNormalNewsTask;
 import com.djc.logintest.utils.Utils;
 
 public class NoticePullRefreshActivity extends Activity {
-	private NewsListAdapter adapter;
-	private MsgListView msgListView;
-	private View footer;
-	private Handler myhandler;
-	private GetNormalNewsTask getNoticeTask;
-	private List<News> newsList;
-	private boolean bDataChanged = false;
+    private NewsListAdapter adapter;
+    private MsgListView msgListView;
+    private View footer;
+    private Handler myhandler;
+    private GetNormalNewsTask getNoticeTask;
+    private List<News> newsList;
+    private boolean bDataChanged = false;
+    private ProgressDialog dialog;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.notice_pull_refresh_list);
-		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.schoolnotice);
-		initHander();
-		initCustomListView();
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.notice_pull_refresh_list);
+        ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.schoolnotice);
+        initDialog();
+        initHander();
+        initCustomListView();
+        loadNewData();
+    }
 
-	private boolean runGetNoticeTask(long from, long to, int type) {
-		boolean bret = true;
-		if (getNoticeTask == null
-				|| getNoticeTask.getStatus() != AsyncTask.Status.RUNNING) {
-			getNoticeTask = new GetNormalNewsTask(myhandler,
-					ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT, from, to, type);
-			getNoticeTask.execute();
-		} else {
-			bret = false;
-			Log.d("djc", "should not getNewsImpl task already running!");
-		}
-		return bret;
-	}
+    public void loadNewData() {
+        dialog.show();
+        refreshHead();
+    }
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		// 最多保存最新的25条通知
-		if (bDataChanged) {
-			if (newsList.size() > ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
-				newsList = newsList.subList(0,
-						ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT);
-			}
+    private void initDialog() {
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
+        dialog.setMessage(getResources().getString(R.string.loading_data));
+    }
 
-			DataMgr.getInstance().removeAllNewsByType(
-					JSONConstant.NOTICE_TYPE_NORMAL);
-			DataMgr.getInstance().addNewsList(newsList);
-		}
-	}
+    private boolean runGetNoticeTask(long from, long to, int type) {
+        boolean bret = true;
+        if (getNoticeTask == null || getNoticeTask.getStatus() != AsyncTask.Status.RUNNING) {
+            getNoticeTask = new GetNormalNewsTask(myhandler,
+                    ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT, from, to, type);
+            getNoticeTask.execute();
+        } else {
+            bret = false;
+            Log.d("djc", "should not getNewsImpl task already running!");
+        }
+        return bret;
+    }
 
-	private void initHander() {
-		myhandler = new MyHandler(this, null) {
-			@Override
-			public void handleMessage(Message msg) {
-				msgListView.onRefreshComplete();
-				switch (msg.what) {
-				case EventType.GET_NOTICE_SUCCESS:
-					// Toast.makeText(NoticePullRefreshActivity.this,
-					// "get suceess!", Toast.LENGTH_SHORT).show();
-					handleSuccess(msg);
-					footer.setVisibility(View.GONE);
-					break;
-				case EventType.GET_NOTICE_FAILED:
-					Toast.makeText(NoticePullRefreshActivity.this, "获取公告消息失败",
-							Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 最多保存最新的25条通知
+        if (bDataChanged) {
+            if (newsList.size() > ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
+                newsList = newsList.subList(0, ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT);
+            }
 
-					footer.setVisibility(View.GONE);
-					break;
-				default:
-					break;
-				}
-			}
-		};
-	}
+            DataMgr.getInstance().removeAllNewsByType(JSONConstant.NOTICE_TYPE_NORMAL);
+            DataMgr.getInstance().addNewsList(newsList);
+        }
+    }
 
-	protected void handleSuccess(Message msg) {
-		List<News> list = (List<News>) msg.obj;
-		if (!list.isEmpty()) {
-			bDataChanged = true;
-			if (msg.arg1 == GetNormalNewsTask.Type_INSERT_HEAD) {
-				// 如果大于等于25条，就说明很可能还有公告没有一次性获取完，为了获取
-				// 到连续的公告数据，避免排序和获取复杂化，删除旧的全部公告，只保留最新的25条
-				if (list.size() >= ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
-					newsList.clear();
-				}
-				newsList.addAll(0, list);
-			} else if (msg.arg1 == GetNormalNewsTask.Type_INSERT_TAIl) {
-				newsList.addAll(list);
-			} else {
-				Log.e("DDD", "handleSuccess bad param arg1=" + msg.arg1);
-			}
-			adapter.notifyDataSetChanged();
-		}
-	}
+    private void initHander() {
+        myhandler = new MyHandler(this, dialog) {
+            @Override
+            public void handleMessage(Message msg) {
+                msgListView.onRefreshComplete();
+                if (NoticePullRefreshActivity.this.isFinishing()) {
+                    Log.w("djc", "do nothing when activity finishing!");
+                    return;
+                }
+                super.handleMessage(msg);
+                switch (msg.what) {
+                case EventType.GET_NOTICE_SUCCESS:
+                    // Toast.makeText(NoticePullRefreshActivity.this,
+                    // "get suceess!", Toast.LENGTH_SHORT).show();
+                    handleSuccess(msg);
+                    footer.setVisibility(View.GONE);
+                    break;
+                case EventType.GET_NOTICE_FAILED:
+                    Toast.makeText(NoticePullRefreshActivity.this, "获取公告消息失败", Toast.LENGTH_SHORT)
+                            .show();
 
-	private void initCustomListView() {
-		newsList = DataMgr.getInstance().getNewsByType(
-				JSONConstant.NOTICE_TYPE_NORMAL,
-				ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT);
-		adapter = new NewsListAdapter(this, newsList);
-		msgListView = (MsgListView) findViewById(R.id.noticelist);// 继承ListActivity，id要写成android.R.id.list，否则报异常
-		setRefreshListener();
-		msgListView.setAdapter(adapter);
-		setItemClickListener();
-		setScrollListener();
-		addFooter();
-	}
+                    footer.setVisibility(View.GONE);
+                    break;
+                default:
+                    break;
+                }
+            }
+        };
+    }
 
-	private void setRefreshListener() {
-		msgListView
-				.setonRefreshListener(new com.djc.logintest.customview.MsgListView.OnRefreshListener() {
-					@Override
-					public void onRefresh() {
-						refreshHead();
-					}
+    protected void handleSuccess(Message msg) {
+        List<News> list = (List<News>) msg.obj;
+        if (!list.isEmpty()) {
+            bDataChanged = true;
+            if (msg.arg1 == GetNormalNewsTask.Type_INSERT_HEAD) {
+                // 如果大于等于25条，就说明很可能还有公告没有一次性获取完，为了获取
+                // 到连续的公告数据，避免排序和获取复杂化，删除旧的全部公告，只保留最新的25条
+                if (list.size() >= ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
+                    newsList.clear();
+                }
+                newsList.addAll(0, list);
+            } else if (msg.arg1 == GetNormalNewsTask.Type_INSERT_TAIl) {
+                newsList.addAll(list);
+            } else {
+                Log.e("DDD", "handleSuccess bad param arg1=" + msg.arg1);
+            }
+            adapter.notifyDataSetChanged();
+        }
+    }
 
-				});
-	}
+    private void initCustomListView() {
+        newsList = DataMgr.getInstance().getNewsByType(JSONConstant.NOTICE_TYPE_NORMAL,
+                ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT);
+        adapter = new NewsListAdapter(this, newsList);
+        msgListView = (MsgListView) findViewById(R.id.noticelist);// 继承ListActivity，id要写成android.R.id.list，否则报异常
+        setRefreshListener();
+        msgListView.setAdapter(adapter);
+        setItemClickListener();
+        setScrollListener();
+        addFooter();
+    }
 
-	private void refreshHead() {
-		long from = 0;
-		if (!newsList.isEmpty()) {
-			try {
-				from = newsList.get(0).getNews_server_id();
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			}
-		}
+    private void setRefreshListener() {
+        msgListView
+                .setonRefreshListener(new com.djc.logintest.customview.MsgListView.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        refreshHead();
+                    }
 
-		boolean runtask = runGetNoticeTask(from, 0,
-				GetNormalNewsTask.Type_INSERT_HEAD);
-		if (!runtask) {
-			// 任务没有执行，立即去掉下拉显示
-			msgListView.onRefreshComplete();
-		} else {
-			Toast.makeText(NoticePullRefreshActivity.this, "Head Head Head!",
-					Toast.LENGTH_SHORT).show();
-		}
-	}
+                });
+    }
 
-	private void setItemClickListener() {
-		msgListView.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// 自定义listview headview占了一个，所以真实数据从1开始
-				int currentIndex = position - 1;
-				if (currentIndex >= adapter.getCount()) {
-					// 当底部条出现时，index会大于count造成数组越界异常，这里处理一下
-					return;
-				}
-				News info = (News) adapter.getItem(currentIndex);
-				startTo(info);
-			}
-		});
-	}
+    private void refreshHead() {
+        long from = 0;
+        if (!newsList.isEmpty()) {
+            try {
+                from = newsList.get(0).getNews_server_id();
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
 
-	private void setScrollListener() {
-		msgListView.setOnScrollListener(new OnScrollListener() {
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
-					refreshTail(view);
-				}
-			}
+        boolean runtask = runGetNoticeTask(from, 0, GetNormalNewsTask.Type_INSERT_HEAD);
+        if (!runtask) {
+            // 任务没有执行，立即去掉下拉显示
+            msgListView.onRefreshComplete();
+        } else {
+            Toast.makeText(NoticePullRefreshActivity.this, "Head Head Head!", Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
 
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
-			}
-		});
-	}
+    private void setItemClickListener() {
+        msgListView.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 自定义listview headview占了一个，所以真实数据从1开始
+                int currentIndex = position - 1;
+                if (currentIndex >= adapter.getCount()) {
+                    // 当底部条出现时，index会大于count造成数组越界异常，这里处理一下
+                    return;
+                }
+                News info = (News) adapter.getItem(currentIndex);
+                startTo(info);
+            }
+        });
+    }
 
-	private void refreshTail(AbsListView view) {
-		// 判断是否滚动到底部
-		if (view.getLastVisiblePosition() == view.getCount() - 1) {
-			Log.d("djc", "on the end!!!!!!!!!!!!!!!!");
-			long to = 0;
-			if (!newsList.isEmpty()) {
-				try {
-					to = newsList.get(newsList.size() - 1).getNews_server_id();
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				}
-			}
-			boolean runtask = runGetNoticeTask(0, to,
-					GetNormalNewsTask.Type_INSERT_TAIl);
-			if (runtask) {
-				footer.setVisibility(View.VISIBLE);
-			} else {
-				Toast.makeText(NoticePullRefreshActivity.this,
-						"Tail Tail Tail!", Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
+    private void setScrollListener() {
+        msgListView.setOnScrollListener(new OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == OnScrollListener.SCROLL_STATE_IDLE
+                        //0,1都不行，因为有一个隐藏的header，所以必须是大于1才刷新尾部
+                        && msgListView.getFirstVisiblePosition() > 1) {
+                    refreshTail(view);
+                }
+            }
 
-	public void addFooter() {
-		footer = getLayoutInflater().inflate(R.layout.footerview, null);
-		msgListView.addFooterView(footer);
-	}
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                    int totalItemCount) {
+            }
+        });
+    }
 
-	private void startTo(News info) {
-		Intent intent = new Intent(this, NoticeActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
-		intent.putExtra(JSONConstant.NOTIFICATION_BODY, info.getContent());
-		intent.putExtra(JSONConstant.TIME_STAMP, info.getTimestamp());
-		intent.putExtra(JSONConstant.PUBLISHER, info.getPublisher());
-		startActivity(intent);
-	}
+    private void refreshTail(AbsListView view) {
+        // 判断是否滚动到底部
+        if (view.getLastVisiblePosition() == view.getCount() - 1) {
+            Log.d("djc", "on the end!!!!!!!!!!!!!!!!");
+            long to = 0;
+            if (!newsList.isEmpty()) {
+                try {
+                    to = newsList.get(newsList.size() - 1).getNews_server_id();
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+            boolean runtask = runGetNoticeTask(0, to, GetNormalNewsTask.Type_INSERT_TAIl);
+            if (runtask) {
+                footer.setVisibility(View.VISIBLE);
+                Toast.makeText(NoticePullRefreshActivity.this, "Tail Tail Tail!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		menu.add(1, // 组号
-				Menu.FIRST, // 唯一的ID号
-				Menu.FIRST, // 排序号
-				"清空"); // 标题
+    public void addFooter() {
+        footer = getLayoutInflater().inflate(R.layout.footerview, null);
+        msgListView.addFooterView(footer);
+    }
 
-		return true;
-	}
+    private void startTo(News info) {
+        Intent intent = new Intent(this, NoticeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
+        intent.putExtra(JSONConstant.NOTIFICATION_BODY, info.getContent());
+        intent.putExtra(JSONConstant.TIME_STAMP, info.getTimestamp());
+        intent.putExtra(JSONConstant.PUBLISHER, info.getPublisher());
+        startActivity(intent);
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == Menu.FIRST) {
-			Utils.showTwoBtnResDlg(R.string.delete_all_notice_confirm, this,
-					new OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							DataMgr.getInstance().removeAllNoticeByType(
-									JSONConstant.NOTICE_TYPE_NORMAL);
-							adapter.clear();
-						}
-					});
-		}
-		return true;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.add(1, // 组号
+                Menu.FIRST, // 唯一的ID号
+                Menu.FIRST, // 排序号
+                "清空"); // 标题
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == Menu.FIRST) {
+            Utils.showTwoBtnResDlg(R.string.delete_all_notice_confirm, this, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    DataMgr.getInstance().removeAllNewsByType(JSONConstant.NOTICE_TYPE_NORMAL);
+                    adapter.clear();
+                }
+            });
+        }
+        return true;
+    }
 
 }

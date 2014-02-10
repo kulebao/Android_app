@@ -101,7 +101,10 @@ public class SwipeDetailActivity extends Activity {
     }
 
     public void setTitle() {
-        contentView.setText(swipeinfo.getNoticeTitle());
+        contentView.setText(swipeinfo.getNoticeTitle()
+                + "\n"
+                + swipeinfo.getNoticeBody(DataMgr.getInstance().getSelectedChild()
+                        .getChild_nick_name()));
     }
 
     public void setTimestamp() {
