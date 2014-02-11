@@ -1,0 +1,97 @@
+package com.djc.logintest.utils;
+
+import java.util.List;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+
+import com.djc.logintest.R;
+import com.djc.logintest.activities.MyApplication;
+import com.djc.logintest.activities.NoticePullRefreshActivity;
+import com.djc.logintest.constant.ConstantValue;
+import com.djc.logintest.constant.JSONConstant;
+import com.djc.logintest.dbmgr.DataMgr;
+import com.djc.logintest.dbmgr.info.News;
+import com.djc.logintest.net.GetNormalNewsMethod;
+import com.djc.logintest.service.MyService;
+
+public class MethodUtils {
+
+	public static final int CHECK_NEWS = 1001;
+
+	// 检查是否有新公告
+	public static boolean checkNews() {
+		boolean existNews = false;
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication
+				.getInstance());
+		if (networkConnected) {
+			GetNormalNewsMethod method = GetNormalNewsMethod.getMethod();
+			try {
+				long from = getFrom();
+				existNews = !method.getNormalNews(1, from, 0).isEmpty();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return existNews;
+	}
+
+	private static long getFrom() {
+		long from = 0;
+		List<News> list = DataMgr.getInstance().getNewsByType(
+				JSONConstant.NOTICE_TYPE_NORMAL, 1);
+		if (!list.isEmpty()) {
+			from = list.get(0).getNews_server_id();
+		}
+		return from;
+	}
+
+	public static void removeNewsNotification() {
+		Context context = MyApplication.getInstance();
+		// look up the notification manager service
+		NotificationManager nm = (NotificationManager) context
+				.getSystemService(Context.NOTIFICATION_SERVICE);
+		nm.cancel(CHECK_NEWS);
+	}
+
+	// 设置新公告通知栏提示
+	public static void setNewsNotification() {
+		Context context = MyApplication.getInstance();
+		// look up the notification manager service
+		NotificationManager nm = (NotificationManager) context
+				.getSystemService(Context.NOTIFICATION_SERVICE);
+		Intent intent = new Intent(context, NoticePullRefreshActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+		// 每次调用到这句时，第二个参数一定要不同，否则多个通知同时存在时，对于同一个id的通知
+		// 点击后，始终会使用最后一次发送时的intent，这样导致每次打开activity看到的都是最后一次
+		// 通知的内容
+		PendingIntent contentIntent = PendingIntent.getActivity(context,
+				MethodUtils.CHECK_NEWS, intent,
+				PendingIntent.FLAG_UPDATE_CURRENT);
+
+		Notification notif = new Notification(R.drawable.small_logo, "您有新的公告",
+				System.currentTimeMillis());
+
+		notif.setLatestEventInfo(context, "您有新的公告", "", contentIntent);
+		notif.defaults |= Notification.DEFAULT_SOUND;
+		notif.defaults |= Notification.DEFAULT_VIBRATE;
+		// long[] vibrate = { 0, 250 };
+		// notif.vibrate = vibrate;
+		notif.flags |= Notification.FLAG_AUTO_CANCEL; // 在通知栏上点击此通知后自动清除此通知
+		notif.icon = R.drawable.tiny_logo;
+
+		nm.notify(MethodUtils.CHECK_NEWS, notif);
+	}
+
+	public static void executeCheckNewsCommand(Context context) {
+		Intent myintent = new Intent(context, MyService.class);
+		myintent.putExtra(ConstantValue.COMMAND_CHECK_NOTICE,
+				ConstantValue.COMMAND_TYPE_CHECK_NOTICE);
+		context.startService(myintent);
+	}
+}

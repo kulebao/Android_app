@@ -48,6 +48,7 @@ import com.djc.logintest.dlgmgr.DlgMgr;
 import com.djc.logintest.push.PushModel;
 
 public class Utils {
+	public static final int NETWORK_NOT_CONNECTED = -1;
 	public static final String TAG = "Utils";
 	private static SimpleDateFormat fomat = new SimpleDateFormat(
 			"yyyy-MM-dd HH:mm:ss");
@@ -322,7 +323,7 @@ public class Utils {
 				return mNetworkInfo.getType();
 			}
 		}
-		return -1;
+		return NETWORK_NOT_CONNECTED;
 	}
 
 	public boolean isMobileConnected(Context context) {

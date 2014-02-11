@@ -19,6 +19,7 @@ import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.BindPushTask;
 import com.djc.logintest.taskmgr.LoginTask;
+import com.djc.logintest.utils.MethodUtils;
 import com.djc.logintest.utils.Utils;
 
 public class LoginActivity extends MyActivity {
@@ -72,7 +73,7 @@ public class LoginActivity extends MyActivity {
                 case EventType.SERVER_BUSY:
                   //绑定失败，删除登录成功时保存的用户信息
                     Utils.clearProp();
-                    Toast.makeText(LoginActivity.this, "服务器忙，请稍后再试，谢谢！", Toast.LENGTH_SHORT);
+                    Toast.makeText(LoginActivity.this, "服务器忙，请稍后再试，谢谢！", Toast.LENGTH_SHORT).show();
                     break;
                 default:
                     break;
@@ -82,7 +83,8 @@ public class LoginActivity extends MyActivity {
     }
 
     public void handBindSuccess() {
-        // PushModel.getPushModel().setSchollIDAsTag();
+    	//check news
+    	MethodUtils.executeCheckNewsCommand(this);
         startToMainActivity();
     }
 

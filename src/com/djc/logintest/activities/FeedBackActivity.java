@@ -26,7 +26,6 @@ public class FeedBackActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feed_back);
         ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.feed_back);
-        Log.d("DDD JJJ", "NoticeActivity onCreate");
         initView();
         initHandler();
     }

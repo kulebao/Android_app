@@ -23,6 +23,8 @@ public class ConstantValue {
     public static final String BABY_ICONNAME = "baby_icon";
     
     public static final String IS_FIRST_IN = "isFirstIn";
+    //是否有新公告
+    public static final String HAVE_NEWS_NOTICE = "have_news_notice";
     
     public static final String SCHOOL_INFO_TIMESTAMP = "school_info_timestamp";
     

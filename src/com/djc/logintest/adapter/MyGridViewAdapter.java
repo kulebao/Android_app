@@ -17,6 +17,7 @@ import com.djc.logintest.R;
 public class MyGridViewAdapter extends BaseAdapter {
 	private Context context = null;
 	private List<? extends Map<String, ?>> data;
+	private boolean showNews = false;
 
 	public MyGridViewAdapter(Context context,
 			List<? extends Map<String, ?>> data) {
@@ -62,11 +63,20 @@ public class MyGridViewAdapter extends BaseAdapter {
 
 		return convertView;
 	}
+	
+	public void setNewsNotice(boolean show){
+		this.showNews = show;
+		notifyDataSetChanged();
+	}
 
 	private void setDataToViews(final int position, FlagHolder flagholder) {
-        // if (position == 0) {
-        // flagholder.numberView.setVisibility(View.VISIBLE);
-        // }
+		if (position == 0) {
+			if(showNews){
+				flagholder.numberView.setVisibility(View.VISIBLE);
+			}else{
+				flagholder.numberView.setVisibility(View.GONE);
+			}
+		}
 		
 		HashMap<String, Object> map = (HashMap<String, Object>) getItem(position);
 		int object = (Integer) map.get("ItemImage");

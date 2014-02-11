@@ -19,7 +19,8 @@ class NewsMgr {
 	long addNews(News info) {
 		ContentValues values = buildNewsInfo(info);
 		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
-		return writableDatabase.insert(SqliteHelper.NEWS_TAB, null, values);
+		return writableDatabase.insertWithOnConflict(SqliteHelper.NEWS_TAB,
+				null, values, SQLiteDatabase.CONFLICT_IGNORE);
 	}
 
 	private ContentValues buildNewsInfo(News info) {
@@ -42,7 +43,8 @@ class NewsMgr {
 
 		for (News info : list) {
 			ContentValues values = buildNewsInfo(info);
-			writableDatabase.insert(SqliteHelper.NEWS_TAB, null, values);
+			writableDatabase.insertWithOnConflict(SqliteHelper.NEWS_TAB, null,
+					values, SQLiteDatabase.CONFLICT_IGNORE);
 		}
 		// 数据插入操作循环
 		writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交

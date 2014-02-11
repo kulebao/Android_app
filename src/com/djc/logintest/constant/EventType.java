@@ -29,6 +29,10 @@ public class EventType {
     public static final int OLD_PWD_NOT_EQUAL = 1322;
 
     public static final int LOADING_SUCCESS = 1400;
+    public static final int LOADING_TO_GUARD = 1401;
+    public static final int LOADING_TO_MAIN = 1402;
+    public static final int LOADING_TO_VALIDATEPHONE = 1403;
+    
     public static final int RESET_PWD_SUCCESS = 1410;
     public static final int RESET_PWD_FAILED = 1411;
 

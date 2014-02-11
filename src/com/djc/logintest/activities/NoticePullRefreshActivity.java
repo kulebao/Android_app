@@ -31,6 +31,7 @@ import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.GetNormalNewsTask;
+import com.djc.logintest.utils.MethodUtils;
 import com.djc.logintest.utils.Utils;
 
 public class NoticePullRefreshActivity extends Activity {
@@ -52,6 +53,7 @@ public class NoticePullRefreshActivity extends Activity {
         initHander();
         initCustomListView();
         loadNewData();
+        MethodUtils.removeNewsNotification();
     }
 
     public void loadNewData() {
@@ -125,15 +127,13 @@ public class NoticePullRefreshActivity extends Activity {
     protected void handleSuccess(Message msg) {
         List<News> list = (List<News>) msg.obj;
         if (!list.isEmpty()) {
+        	//刷出新公告了，去掉有新公告的标志
+        	Utils.saveProp(ConstantValue.HAVE_NEWS_NOTICE,"false");
             bDataChanged = true;
             if (msg.arg1 == GetNormalNewsTask.Type_INSERT_HEAD) {
-                // 如果大于等于25条，就说明很可能还有公告没有一次性获取完，为了获取
-                // 到连续的公告数据，避免排序和获取复杂化，删除旧的全部公告，只保留最新的25条
-                if (list.size() >= ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
-                    newsList.clear();
-                }
-                newsList.addAll(0, list);
+                addToHead(list);
             } else if (msg.arg1 == GetNormalNewsTask.Type_INSERT_TAIl) {
+            	//旧数据不保存数据库
                 newsList.addAll(list);
             } else {
                 Log.e("DDD", "handleSuccess bad param arg1=" + msg.arg1);
@@ -141,6 +141,18 @@ public class NoticePullRefreshActivity extends Activity {
             adapter.notifyDataSetChanged();
         }
     }
+
+	private void addToHead(List<News> list) {
+		// 如果大于等于25条，就说明很可能还有公告没有一次性获取完，为了获取
+		// 到连续的公告数据，避免排序和获取复杂化，删除旧的全部公告，只保留最新的25条
+		if (list.size() >= ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
+		    newsList.clear();
+		    DataMgr.getInstance().removeAllNewsByType(JSONConstant.NOTICE_TYPE_NORMAL);
+		}
+		
+		newsList.addAll(0, list);
+		DataMgr.getInstance().addNewsList(list);
+	}
 
     private void initCustomListView() {
         newsList = DataMgr.getInstance().getNewsByType(JSONConstant.NOTICE_TYPE_NORMAL,
@@ -249,7 +261,7 @@ public class NoticePullRefreshActivity extends Activity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
         intent.putExtra(JSONConstant.NOTIFICATION_BODY, info.getContent());
-        intent.putExtra(JSONConstant.TIME_STAMP, info.getTimestamp());
+        intent.putExtra(JSONConstant.TIME_STAMP, info.getFormattedTime());
         intent.putExtra(JSONConstant.PUBLISHER, info.getPublisher());
         startActivity(intent);
     }
@@ -278,5 +290,11 @@ public class NoticePullRefreshActivity extends Activity {
         }
         return true;
     }
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		loadNewData();
+	}
 
 }

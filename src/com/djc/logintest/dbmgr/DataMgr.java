@@ -22,7 +22,7 @@ import com.djc.logintest.dbmgr.info.SchoolInfo;
 import com.djc.logintest.dbmgr.info.SwipeInfo;
 
 public class DataMgr {
-    private static int DB_VERSION = 2;
+    private static int DB_VERSION = 1;
     private static final String DB_NAME = "coolbao" + ".db";
     private static Object mLock = new Object();
     private static DataMgr instance;

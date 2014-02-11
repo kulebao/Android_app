@@ -67,7 +67,7 @@ public class MsgListView extends ListView implements OnScrollListener {
 
     private final static int DISTANCE = -180;
     private static final int MIN_HEITHT = 120;
-    private static final int DURATION = 400;
+    private static final int DURATION = 250;
 
     public MsgListView(Context context, AttributeSet attrs) {
         super(context, attrs);
