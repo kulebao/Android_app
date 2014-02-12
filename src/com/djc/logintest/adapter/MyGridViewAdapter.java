@@ -18,6 +18,7 @@ public class MyGridViewAdapter extends BaseAdapter {
 	private Context context = null;
 	private List<? extends Map<String, ?>> data;
 	private boolean showNews = false;
+	private boolean showCookbook;
 
 	public MyGridViewAdapter(Context context,
 			List<? extends Map<String, ?>> data) {
@@ -63,25 +64,36 @@ public class MyGridViewAdapter extends BaseAdapter {
 
 		return convertView;
 	}
-	
-	public void setNewsNotice(boolean show){
+
+	public void setNewsNotice(boolean show) {
 		this.showNews = show;
+		notifyDataSetChanged();
+	}
+
+	public void setCookbookNotice(boolean show) {
+		this.showCookbook = show;
 		notifyDataSetChanged();
 	}
 
 	private void setDataToViews(final int position, FlagHolder flagholder) {
 		if (position == 0) {
-			if(showNews){
+			if (showNews) {
 				flagholder.numberView.setVisibility(View.VISIBLE);
-			}else{
+			} else {
+				flagholder.numberView.setVisibility(View.GONE);
+			}
+		} else if (position == 1) {
+			if (showCookbook) {
+				flagholder.numberView.setVisibility(View.VISIBLE);
+			} else {
 				flagholder.numberView.setVisibility(View.GONE);
 			}
 		}
-		
+
 		HashMap<String, Object> map = (HashMap<String, Object>) getItem(position);
 		int object = (Integer) map.get("ItemImage");
 		flagholder.headView.setBackgroundResource(object);
-		
+
 		String content = (String) map.get("ItemText");
 		flagholder.nameView.setText(content);
 	}

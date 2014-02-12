@@ -2,8 +2,11 @@ package com.djc.logintest.constant;
 
 public class ConstantValue {
 
-    public static final String COMMAND_CHECK_NOTICE = "command_check_notice";
+    public static final String CHECK_NEW_COMMAND = "check_new_command";
+    //检查新公告
     public static final int COMMAND_TYPE_CHECK_NOTICE = 1;
+    //检查食谱
+    public static final int COMMAND_TYPE_CHECK_COOKBOOK = 2;
     
     public static final String FIRST_LOGIN = "first_login";
 
@@ -25,6 +28,8 @@ public class ConstantValue {
     public static final String IS_FIRST_IN = "isFirstIn";
     //是否有新公告
     public static final String HAVE_NEWS_NOTICE = "have_news_notice";
+    //是否有新食谱
+    public static final String HAVE_COOKBOOK_NOTICE = "have_cookbook_notice";
     
     public static final String SCHOOL_INFO_TIMESTAMP = "school_info_timestamp";
     

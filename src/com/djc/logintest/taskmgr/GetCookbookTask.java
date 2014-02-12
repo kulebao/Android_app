@@ -23,7 +23,7 @@ public class GetCookbookTask extends AsyncTask<Void, Void, Integer> {
         boolean networkConnected = Utils.isNetworkConnected(MyApplication.getInstance());
         if (networkConnected) {
             GetCookbookMethod method = GetCookbookMethod.getMethod();
-            result = method.checkCookBook();
+            result = method.getCookBook();
         }
         return result;
     }

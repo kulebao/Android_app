@@ -192,8 +192,9 @@ public class NoticePullRefreshActivity extends Activity {
             // 任务没有执行，立即去掉下拉显示
             msgListView.onRefreshComplete();
         } else {
-            Toast.makeText(NoticePullRefreshActivity.this, "Head Head Head!", Toast.LENGTH_SHORT)
-                    .show();
+			// Toast.makeText(NoticePullRefreshActivity.this, "Head Head Head!",
+			// Toast.LENGTH_SHORT)
+			// .show();
         }
     }
 
@@ -245,8 +246,9 @@ public class NoticePullRefreshActivity extends Activity {
             boolean runtask = runGetNoticeTask(0, to, GetNormalNewsTask.Type_INSERT_TAIl);
             if (runtask) {
                 footer.setVisibility(View.VISIBLE);
-                Toast.makeText(NoticePullRefreshActivity.this, "Tail Tail Tail!",
-                        Toast.LENGTH_SHORT).show();
+				// Toast.makeText(NoticePullRefreshActivity.this,
+				// "Tail Tail Tail!",
+				// Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -262,9 +264,19 @@ public class NoticePullRefreshActivity extends Activity {
         intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
         intent.putExtra(JSONConstant.NOTIFICATION_BODY, info.getContent());
         intent.putExtra(JSONConstant.TIME_STAMP, info.getFormattedTime());
-        intent.putExtra(JSONConstant.PUBLISHER, info.getPublisher());
+        intent.putExtra(JSONConstant.PUBLISHER, getPublisher());
         startActivity(intent);
     }
+
+	private String getPublisher() {
+		String school_name = "";
+		try {
+			school_name = DataMgr.getInstance().getSchoolInfo().getSchool_name();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return school_name;
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

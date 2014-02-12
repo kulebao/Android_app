@@ -92,14 +92,19 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		// 检查小孩信息是否有更新，有更新需要及时更新
 		runCheckChildrenInfoTask();
 		registObserver();
+		checkNewDatas();
+	}
+
+	private void checkNewDatas() {
 		MethodUtils.executeCheckNewsCommand(this);
+		MethodUtils.executeCheckCookbookCommand(this);
 	}
 
 	private void registObserver() {
 		notificationObserver = new NotificationObserver() {
 			@Override
 			public void update(int noticeType, int param) {
-				setNewsNotice();
+				setNotice();
 			}
 		};
 		MyApplication.getInstance().addObserver(notificationObserver);
@@ -109,13 +114,23 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		MyApplication.getInstance().addObserver(notificationObserver);
 	}
 
-	private void setNewsNotice() {
+	private void setNotice() {
+		//设置新公告提示
 		String prop = Utils.getProp(ConstantValue.HAVE_NEWS_NOTICE);
 		Log.d("DDD", "setNewsNotice prop=" + prop);
 		if ("true".equals(prop)) {
 			adapter.setNewsNotice(true);
 		} else {
 			adapter.setNewsNotice(false);
+		}
+
+		//设置新食谱提示
+		prop = Utils.getProp(ConstantValue.HAVE_COOKBOOK_NOTICE);
+		Log.d("DDD", "setNewsNotice prop=" + prop);
+		if ("true".equals(prop)) {
+			adapter.setCookbookNotice(true);
+		} else {
+			adapter.setCookbookNotice(false);
 		}
 	}
 
@@ -418,7 +433,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		setNewsNotice();
+		setNotice();
 		if (selectedChild != null
 				&& selectedChild.getId() != DataMgr.getInstance()
 						.getSelectedChild().getId()) {
