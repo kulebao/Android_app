@@ -3,6 +3,7 @@ package com.djc.logintest.dbmgr;
 import com.djc.logintest.dbmgr.info.BindedNumInfo;
 import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.dbmgr.info.CookBookInfo;
+import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.dbmgr.info.InfoHelper;
 import com.djc.logintest.dbmgr.info.LocationInfo;
 import com.djc.logintest.dbmgr.info.News;
@@ -27,6 +28,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	public static final String COOKBOOK_INFO_TAB = "cookbook_info_tab";
 	public static final String NEWS_TAB = "news_tab";
 	public static final String SWIPE_TAB = "swipe_tab";
+	public static final String HOMEWORK_TAB = "homework_tab";
 
 	public SqliteHelper(Context context, String name, CursorFactory factory,
 			int version) {
@@ -99,6 +101,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
 				+ SwipeInfo.ICON_URL + " varchar," + "UNIQUE("
 				+ SwipeInfo.TIMESTAMP + ") " + ")");
 
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + HOMEWORK_TAB + "(" + Homework.ID
+				+ " integer primary key autoincrement," + Homework.TITLE
+				+ " varchar," + Homework.CONTENT + " varchar," + Homework.TIMESTAMP
+				+ " biginteger ," + Homework.ICON_URL + " varchar,"
+				+ Homework.SERVER_ID + " integer," + Homework.PUBLISHER
+				+ " varchar," + "UNIQUE(" + Homework.SERVER_ID + ") " + ")");
 		// 对于用到联合查询的字段，需要增加索引，否则效率很低
 		// db.execSQL("create index propindex on propertytab(property_value)");
 		// db.execSQL("create index rindex on contacttab(rosterid)");
@@ -125,6 +133,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + COOKBOOK_INFO_TAB);
 		db.execSQL("DROP TABLE IF EXISTS " + NEWS_TAB);
 		db.execSQL("DROP TABLE IF EXISTS " + SWIPE_TAB);
+		db.execSQL("DROP TABLE IF EXISTS " + HOMEWORK_TAB);
 		onCreate(db);
 	}
 }

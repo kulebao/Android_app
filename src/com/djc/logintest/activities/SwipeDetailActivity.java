@@ -35,7 +35,7 @@ public class SwipeDetailActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notice);
-        Log.d("DDD JJJ", "NoticeActivity onCreate");
+        Log.d("DDD JJJ", "SwipeDetailActivity onCreate");
         initHandler();
         initView();
         setData(getIntent());
@@ -129,7 +129,7 @@ public class SwipeDetailActivity extends Activity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Log.d("DDD JJJ", "NoticeActivity onNewIntent");
+        Log.d("DDD JJJ", "SwipeDetailActivity onNewIntent");
         setIntent(intent);
         setData(intent);
     }

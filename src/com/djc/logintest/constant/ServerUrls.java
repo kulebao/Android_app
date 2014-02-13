@@ -8,6 +8,7 @@ public class ServerUrls {
     public static final String SCHEDULE_RES_PATH = "schedule";
     public static final String COOKBOOK_RES_PATH = "cookbook";
     public static final String NEWS_RES_PATH = "news";
+    public static final String ASSIGNMENT_RES_PATH = "assignment";
 
     public static final String GET_TYPE_PREVIEW = "preview";
     public static final String GET_TYPE_DETAIL = "detail";
@@ -39,6 +40,9 @@ public class ServerUrls {
     // https://www.cocobabys.com/kindergarten/93740362/news?most=25&from=1389718964408&to=1389801005344
     public static final String GET_NORMAL_NOTICE = HTTPS_HOST_ADDR + ROOT_RES_PATH + "/%s/"
             + NEWS_RES_PATH + "?";
+    
+    public static final String GET_HOMEWORK = HTTPS_HOST_ADDR + ROOT_RES_PATH + "/%s/"
+    		+ ASSIGNMENT_RES_PATH + "?";
 
     // 类似kindergarten/93740362/parent/13408654680/child
     public static final String GET_ALL_CHILDREN_INFO = HTTPS_HOST_ADDR + ROOT_RES_PATH + "/%s/"

@@ -9,21 +9,22 @@ import android.os.Message;
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
-import com.djc.logintest.dbmgr.info.News;
-import com.djc.logintest.net.GetNormalNewsMethod;
+import com.djc.logintest.dbmgr.info.Homework;
+import com.djc.logintest.net.GetHomeworkMethod;
 import com.djc.logintest.utils.Utils;
 
-public class GetNormalNewsTask extends AsyncTask<Void, Void, Integer> {
+public class GetHomeworkTask extends AsyncTask<Void, Void, Integer> {
     //最少等2s
     private static final int LIMIT_TIME = 2000;
+
     private Handler handler;
     private int most;
     private long from;
     private long to;
-    private List<News> list;
+    private List<Homework> list;
     private int addType = ConstantValue.Type_INSERT_HEAD;
 
-    public GetNormalNewsTask(Handler handler, int most, long from, long to, int addType) {
+    public GetHomeworkTask(Handler handler, int most, long from, long to, int addType) {
         this.handler = handler;
         this.most = most;
         this.from = from;
@@ -37,12 +38,12 @@ public class GetNormalNewsTask extends AsyncTask<Void, Void, Integer> {
         int result = EventType.NET_WORK_INVALID;
         boolean networkConnected = Utils.isNetworkConnected(MyApplication.getInstance());
         if (networkConnected) {
-            GetNormalNewsMethod method = GetNormalNewsMethod.getMethod();
+        	GetHomeworkMethod method = GetHomeworkMethod.getMethod();
             try {
-                list = method.getNormalNews(most, from, to);
-                result = EventType.GET_NOTICE_SUCCESS;
+                list = method.getGetHomework(most, from, to);
+                result = EventType.SUCCESS;
             } catch (Exception e) {
-                result = EventType.GET_NOTICE_FAILED;
+                result = EventType.FAIL;
                 e.printStackTrace();
             }
         }

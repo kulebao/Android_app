@@ -60,6 +60,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	private static final int COOK_NOTICE = 1;
 	private static final int SWAPCARD_NOTICE = 2;
 	private static final int SCHEDULE = 3;
+	private static final int HOMEWORK = 4;
 
 	// 下列序号与资源文件arrays.xml中的baby_setting_items配置保持一致
 	private static final int SET_BABY_NICKNAME = 0;
@@ -104,7 +105,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		notificationObserver = new NotificationObserver() {
 			@Override
 			public void update(int noticeType, int param) {
-				setNotice();
+				adapter.notifyDataSetChanged();
 			}
 		};
 		MyApplication.getInstance().addObserver(notificationObserver);
@@ -112,26 +113,6 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private void unRegistObserver() {
 		MyApplication.getInstance().addObserver(notificationObserver);
-	}
-
-	private void setNotice() {
-		//设置新公告提示
-		String prop = Utils.getProp(ConstantValue.HAVE_NEWS_NOTICE);
-		Log.d("DDD", "setNewsNotice prop=" + prop);
-		if ("true".equals(prop)) {
-			adapter.setNewsNotice(true);
-		} else {
-			adapter.setNewsNotice(false);
-		}
-
-		//设置新食谱提示
-		prop = Utils.getProp(ConstantValue.HAVE_COOKBOOK_NOTICE);
-		Log.d("DDD", "setNewsNotice prop=" + prop);
-		if ("true".equals(prop)) {
-			adapter.setCookbookNotice(true);
-		} else {
-			adapter.setCookbookNotice(false);
-		}
 	}
 
 	public void initUI() {
@@ -433,7 +414,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		setNotice();
+		adapter.notifyDataSetChanged();
 		if (selectedChild != null
 				&& selectedChild.getId() != DataMgr.getInstance()
 						.getSelectedChild().getId()) {
@@ -665,6 +646,11 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		map.put("ItemText", getResources().getText(R.string.schedule));
 		lstImageItem.add(map);
 
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.schedule);
+		map.put("ItemText", getResources().getText(R.string.homework));
+		lstImageItem.add(map);
+
 		return lstImageItem;
 	}
 
@@ -697,6 +683,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		case SCHEDULE:
 			startToScheduleActivity();
 			break;
+		case HOMEWORK:
+			startToHomeworkActivity();
+			break;
 
 		default:
 			Toast.makeText(this, "暂未实现！", Toast.LENGTH_SHORT).show();
@@ -716,6 +705,12 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		// 后续需要实现的下拉时列表
 		intent.setClass(this, NoticePullRefreshActivity.class);
 		// intent.setClass(this, NoticeRecordActivity.class);
+		startActivity(intent);
+	}
+
+	private void startToHomeworkActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, HomeworkPullRefreshActivity.class);
 		startActivity(intent);
 	}
 
@@ -750,9 +745,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
 		unRegistObserver();
 		MyThreadPoolMgr.shutdown();
+		super.onDestroy();
 	}
 
 }

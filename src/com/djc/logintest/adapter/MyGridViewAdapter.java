@@ -13,12 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.djc.logintest.R;
+import com.djc.logintest.constant.ConstantValue;
+import com.djc.logintest.utils.Utils;
 
 public class MyGridViewAdapter extends BaseAdapter {
 	private Context context = null;
 	private List<? extends Map<String, ?>> data;
-	private boolean showNews = false;
-	private boolean showCookbook;
 
 	public MyGridViewAdapter(Context context,
 			List<? extends Map<String, ?>> data) {
@@ -47,7 +47,7 @@ public class MyGridViewAdapter extends BaseAdapter {
 			FlagHolder flagholder = this.new FlagHolder();
 			convertView = LayoutInflater.from(this.context).inflate(
 					R.layout.grid_item, null);
-			flagholder.numberView = (TextView) convertView
+			flagholder.newDataSymble = (ImageView) convertView
 					.findViewById(R.id.noticeImg);
 			flagholder.nameView = (TextView) convertView
 					.findViewById(R.id.ItemText);
@@ -65,28 +65,20 @@ public class MyGridViewAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	public void setNewsNotice(boolean show) {
-		this.showNews = show;
-		notifyDataSetChanged();
-	}
-
-	public void setCookbookNotice(boolean show) {
-		this.showCookbook = show;
-		notifyDataSetChanged();
-	}
-
 	private void setDataToViews(final int position, FlagHolder flagholder) {
 		if (position == 0) {
-			if (showNews) {
-				flagholder.numberView.setVisibility(View.VISIBLE);
+			String prop = Utils.getProp(ConstantValue.HAVE_NEWS_NOTICE);
+			if ("true".equals(prop)) {
+				flagholder.newDataSymble.setVisibility(View.VISIBLE);
 			} else {
-				flagholder.numberView.setVisibility(View.GONE);
+				flagholder.newDataSymble.setVisibility(View.GONE);
 			}
 		} else if (position == 1) {
-			if (showCookbook) {
-				flagholder.numberView.setVisibility(View.VISIBLE);
+			String prop = Utils.getProp(ConstantValue.HAVE_COOKBOOK_NOTICE);
+			if ("true".equals(prop)) {
+				flagholder.newDataSymble.setVisibility(View.VISIBLE);
 			} else {
-				flagholder.numberView.setVisibility(View.GONE);
+				flagholder.newDataSymble.setVisibility(View.GONE);
 			}
 		}
 
@@ -99,7 +91,7 @@ public class MyGridViewAdapter extends BaseAdapter {
 	}
 
 	private class FlagHolder {
-		public TextView numberView;
+		public ImageView newDataSymble;
 		public TextView nameView;
 		public ImageView headView;
 	}

@@ -14,43 +14,43 @@ import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.constant.ServerUrls;
 import com.djc.logintest.dbmgr.DataMgr;
-import com.djc.logintest.dbmgr.info.News;
+import com.djc.logintest.dbmgr.info.ChildInfo;
+import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
 
-public class GetNormalNewsMethod {
+public class GetHomeworkMethod {
 
 	private static final String MOST = "most";
 	private static final String FROM = "from";
 	private static final String TO = "to";
 
-	private GetNormalNewsMethod() {
+	private GetHomeworkMethod() {
 	}
 
-	public static GetNormalNewsMethod getMethod() {
-		return new GetNormalNewsMethod();
+	public static GetHomeworkMethod getMethod() {
+		return new GetHomeworkMethod();
 	}
 
-	public List<News> getNormalNews(int most, long from, long to)
+	public List<Homework> getGetHomework(int most, long from, long to)
 			throws Exception {
-		List<News> list = new ArrayList<News>();
+		List<Homework> list = new ArrayList<Homework>();
 		HttpResult result = new HttpResult();
-		String command = createNormalNoticeCommand(most, from, to);
+		String command = createGetHomeworkCommand(most, from, to);
 		Log.e("DDDDD ", "getSchoolInfo cmd:" + command);
 		result = HttpClientHelper.executeGet(command);
-		list = handleGetNormalNewsResult(result);
+		list = handleGetHomeworkResult(result);
 		return list;
 	}
 
-	private List<News> handleGetNormalNewsResult(HttpResult result)
+	private List<Homework> handleGetHomeworkResult(HttpResult result)
 			throws JSONException {
-		List<News> list = new ArrayList<News>();
+		List<Homework> list = new ArrayList<Homework>();
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			JSONArray array = result.getJSONArray();
 
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject object = array.getJSONObject(i);
-				News info = parseNews(object);
-				// NoticePaserHelper.setNormalParams(object, notice);
+				Homework info = parseHomework(object);
 				list.add(info);
 			}
 		}
@@ -58,27 +58,29 @@ public class GetNormalNewsMethod {
 		return list;
 	}
 
-	private News parseNews(JSONObject object) throws JSONException {
-		News info = new News();
+	private Homework parseHomework(JSONObject object) throws JSONException {
+		Homework info = new Homework();
 		String title = object.getString("title");
 		long timestamp = object.getLong(JSONConstant.TIME_STAMP);
 		String body = object.getString("content");
-		int serverID = object.getInt("news_id");
+		int serverID = object.getInt("id");
+		String publisher = object.getString("publisher");
+		String icon_url = object.getString("icon_url");
 
 		info.setContent(body);
-		info.setNews_server_id(serverID);
-		// info.setPublisher("测试djc");
+		info.setServer_id(serverID);
+		info.setPublisher(publisher);
 		info.setTitle(title);
 		info.setTimestamp(timestamp);
-		info.setType(JSONConstant.NOTICE_TYPE_NORMAL);
+		info.setIcon_url(icon_url);
 		return info;
 	}
 
-	private String createNormalNoticeCommand(int most, long from, long to) {
+	private String createGetHomeworkCommand(int most, long from, long to) {
 		if (most == 0) {
 			most = ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT;
 		}
-		String cmd = String.format(ServerUrls.GET_NORMAL_NOTICE, DataMgr
+		String cmd = String.format(ServerUrls.GET_HOMEWORK, DataMgr
 				.getInstance().getSchoolID());
 
 		cmd += MOST + "=" + most;
@@ -89,7 +91,20 @@ public class GetNormalNewsMethod {
 		if (to != 0) {
 			cmd += "&" + TO + "=" + to;
 		}
-		Log.d("DDD", "createNormalNoticeCommand cmd=" + cmd);
+
+		cmd += "&" + "classId=" + getAllClassid();
+
+		Log.d("DDD", "createGetHomeworkCommand cmd=" + cmd);
 		return cmd;
+	}
+
+	private String getAllClassid() {
+		String classIDs = "";
+		List<ChildInfo> allChildrenInfo = DataMgr.getInstance()
+				.getAllChildrenInfo();
+		for (ChildInfo childInfo : allChildrenInfo) {
+			classIDs += childInfo.getClass_id() + ",";
+		}
+		return classIDs.substring(0, classIDs.length() - 1);
 	}
 }

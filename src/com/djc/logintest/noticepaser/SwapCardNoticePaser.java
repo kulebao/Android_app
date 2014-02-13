@@ -18,7 +18,7 @@ import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.dbmgr.info.Notice;
 import com.djc.logintest.dbmgr.info.SwipeInfo;
-import com.djc.logintest.receiver.IntentPaser;
+import com.djc.logintest.receiver.PushMessageReceiver;
 import com.djc.logintest.threadpool.MyThreadPoolMgr;
 import com.djc.logintest.utils.Utils;
 
@@ -49,7 +49,7 @@ public class SwapCardNoticePaser implements NoticePaser {
                                 Log.d("LIYI", "downloadIcon exp:" + e.toString());
                                 e.printStackTrace();
                             }
-                            IntentPaser.setNotification(notice, context);
+                            PushMessageReceiver.setNotification(notice, context);
                         }
                     });
                     // 此时不要设置通知，等到图片下载完毕后再设置

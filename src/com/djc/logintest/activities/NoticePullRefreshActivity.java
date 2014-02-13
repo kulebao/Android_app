@@ -130,9 +130,9 @@ public class NoticePullRefreshActivity extends Activity {
         	//刷出新公告了，去掉有新公告的标志
         	Utils.saveProp(ConstantValue.HAVE_NEWS_NOTICE,"false");
             bDataChanged = true;
-            if (msg.arg1 == GetNormalNewsTask.Type_INSERT_HEAD) {
+            if (msg.arg1 == ConstantValue.Type_INSERT_HEAD) {
                 addToHead(list);
-            } else if (msg.arg1 == GetNormalNewsTask.Type_INSERT_TAIl) {
+            } else if (msg.arg1 == ConstantValue.Type_INSERT_TAIl) {
             	//旧数据不保存数据库
                 newsList.addAll(list);
             } else {
@@ -187,7 +187,7 @@ public class NoticePullRefreshActivity extends Activity {
             }
         }
 
-        boolean runtask = runGetNoticeTask(from, 0, GetNormalNewsTask.Type_INSERT_HEAD);
+        boolean runtask = runGetNoticeTask(from, 0, ConstantValue.Type_INSERT_HEAD);
         if (!runtask) {
             // 任务没有执行，立即去掉下拉显示
             msgListView.onRefreshComplete();
@@ -243,7 +243,7 @@ public class NoticePullRefreshActivity extends Activity {
                     e.printStackTrace();
                 }
             }
-            boolean runtask = runGetNoticeTask(0, to, GetNormalNewsTask.Type_INSERT_TAIl);
+            boolean runtask = runGetNoticeTask(0, to, ConstantValue.Type_INSERT_TAIl);
             if (runtask) {
                 footer.setVisibility(View.VISIBLE);
 				// Toast.makeText(NoticePullRefreshActivity.this,

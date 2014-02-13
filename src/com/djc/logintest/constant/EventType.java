@@ -73,5 +73,10 @@ public class EventType {
 
     public static final int HAS_NEW_VERSION = 1700;
     public static final int HAS_NO_VERSION = 1701;
+    
+    public static final int SUCCESS = 2000;
+    public static final int FAIL = 2001;
+    
+    
 
 }
