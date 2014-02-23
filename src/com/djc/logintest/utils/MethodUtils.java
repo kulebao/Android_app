@@ -14,8 +14,10 @@ import com.djc.logintest.activities.NoticePullRefreshActivity;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.DataMgr;
+import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.net.GetCookbookMethod;
+import com.djc.logintest.net.GetHomeworkMethod;
 import com.djc.logintest.net.GetNormalNewsMethod;
 import com.djc.logintest.service.MyService;
 
@@ -31,8 +33,26 @@ public class MethodUtils {
 		if (networkConnected) {
 			GetNormalNewsMethod method = GetNormalNewsMethod.getMethod();
 			try {
-				long from = getFrom();
+				long from = getMaxNewsID();
 				existNews = !method.getNormalNews(1, from, 0).isEmpty();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return existNews;
+	}
+
+	// 检查是否有新亲子作业
+	public static boolean checkHomework() {
+		boolean existNews = false;
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication
+				.getInstance());
+		if (networkConnected) {
+			GetHomeworkMethod method = GetHomeworkMethod.getMethod();
+			try {
+				long from = getMaxHomeworkID();
+				existNews = !method.getGetHomework(1, from, 0).isEmpty();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -58,7 +78,16 @@ public class MethodUtils {
 		return has_new;
 	}
 
-	private static long getFrom() {
+	private static long getMaxHomeworkID() {
+		long from = 0;
+		List<Homework> list = DataMgr.getInstance().getHomeworkWithLimite(1);
+		if (!list.isEmpty()) {
+			from = list.get(0).getServer_id();
+		}
+		return from;
+	}
+
+	private static long getMaxNewsID() {
 		long from = 0;
 		List<News> list = DataMgr.getInstance().getNewsByType(
 				JSONConstant.NOTICE_TYPE_NORMAL, 1);
@@ -138,6 +167,13 @@ public class MethodUtils {
 		Intent myintent = new Intent(context, MyService.class);
 		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_NOTICE);
+		context.startService(myintent);
+	}
+
+	public static void executeCheckHomeworkCommand(Context context) {
+		Intent myintent = new Intent(context, MyService.class);
+		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
+				ConstantValue.COMMAND_TYPE_CHECK_HOMEWORK);
 		context.startService(myintent);
 	}
 

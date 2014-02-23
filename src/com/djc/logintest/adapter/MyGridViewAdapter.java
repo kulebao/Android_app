@@ -80,6 +80,13 @@ public class MyGridViewAdapter extends BaseAdapter {
 			} else {
 				flagholder.newDataSymble.setVisibility(View.GONE);
 			}
+		} else if (position == 4) {
+			String prop = Utils.getProp(ConstantValue.HAVE_HOMEWORK_NOTICE);
+			if ("true".equals(prop)) {
+				flagholder.newDataSymble.setVisibility(View.VISIBLE);
+			} else {
+				flagholder.newDataSymble.setVisibility(View.GONE);
+			}
 		}
 
 		HashMap<String, Object> map = (HashMap<String, Object>) getItem(position);

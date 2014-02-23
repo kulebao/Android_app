@@ -23,6 +23,10 @@ public class CommandFactory {
 			Log.d("ddd", "onStartCommand COMMAND_TYPE_CHECK_COOKBOOK");
 			command = new CommandCheckCookBook();
 			break;
+		case ConstantValue.COMMAND_TYPE_CHECK_HOMEWORK:
+			Log.d("ddd", "onStartCommand COMMAND_TYPE_CHECK_HOMEWORK");
+			command = new CommandCheckHomework();
+			break;
 
 		default:
 			command = new CommandEmpty();

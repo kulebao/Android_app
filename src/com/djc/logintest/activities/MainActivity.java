@@ -66,7 +66,7 @@ public class MainActivity extends TabActivity {
 				new Runnable() {
 					@Override
 					public void run() {
-						Utils.bindPushTags();
+						Utils.bindPush();
 					}
 				}, FIRST_DELAY_TIME, DELAY_TIME, TimeUnit.SECONDS);
 	}

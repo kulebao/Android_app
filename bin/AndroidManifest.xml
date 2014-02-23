@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.djc.logintest"
-    android:versionCode="26"
-    android:versionName="V1.1.6" >
+    android:versionCode="27"
+    android:versionName="V1.1.7" >
 
     <uses-sdk android:minSdkVersion="10" />
 
@@ -182,7 +182,12 @@
         <activity
             android:name=".activities.HomeworkPullRefreshActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.InteractionActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
@@ -197,6 +202,12 @@
             android:name=".activities.ScheduleActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.SendChatActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>

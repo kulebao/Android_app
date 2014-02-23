@@ -61,6 +61,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	private static final int SWAPCARD_NOTICE = 2;
 	private static final int SCHEDULE = 3;
 	private static final int HOMEWORK = 4;
+	private static final int INTERACTION = 5;
 
 	// 下列序号与资源文件arrays.xml中的baby_setting_items配置保持一致
 	private static final int SET_BABY_NICKNAME = 0;
@@ -98,6 +99,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private void checkNewDatas() {
 		MethodUtils.executeCheckNewsCommand(this);
+		MethodUtils.executeCheckHomeworkCommand(this);
 		MethodUtils.executeCheckCookbookCommand(this);
 	}
 
@@ -650,6 +652,11 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		map.put("ItemImage", R.drawable.schedule);
 		map.put("ItemText", getResources().getText(R.string.homework));
 		lstImageItem.add(map);
+		
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.schedule);
+		map.put("ItemText", getResources().getText(R.string.interaction));
+		lstImageItem.add(map);
 
 		return lstImageItem;
 	}
@@ -686,11 +693,20 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		case HOMEWORK:
 			startToHomeworkActivity();
 			break;
+		case INTERACTION:
+		    startToInteractionActivity();
+		    break;
 
 		default:
 			Toast.makeText(this, "暂未实现！", Toast.LENGTH_SHORT).show();
 			break;
 		}
+	}
+
+	private void startToInteractionActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, InteractionActivity.class);
+		startActivity(intent);
 	}
 
 	private void startToSettingActivity() {

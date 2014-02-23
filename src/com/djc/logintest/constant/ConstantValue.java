@@ -7,6 +7,8 @@ public class ConstantValue {
 	public static final int COMMAND_TYPE_CHECK_NOTICE = 1;
 	// 检查食谱
 	public static final int COMMAND_TYPE_CHECK_COOKBOOK = 2;
+	// 检查亲子作业
+	public static final int COMMAND_TYPE_CHECK_HOMEWORK = 3;
 
 	public static final String FIRST_LOGIN = "first_login";
 
@@ -31,6 +33,8 @@ public class ConstantValue {
 	public static final String HAVE_NEWS_NOTICE = "have_news_notice";
 	// 是否有新食谱
 	public static final String HAVE_COOKBOOK_NOTICE = "have_cookbook_notice";
+	//是否有新亲子作业
+	public static final String HAVE_HOMEWORK_NOTICE = "have_homework_notice";
 
 	public static final String SCHOOL_INFO_TIMESTAMP = "school_info_timestamp";
 
@@ -68,12 +72,17 @@ public class ConstantValue {
 	public static final String RESPONSE_METHOD = "method";
 
 	public static final int START_SETTING = 100;
+	public static final int START_SEND_CHAT = 110;
+	
 	public static final int EXIT_LOGIN_RESULT = 10;
+	public static final int SEND_CHAT_SUCCESS = 20;
+	public static final int SEND_CHAT_FAIL = 21;
 
 	public static final String HEADER_TOKEN = "token";
 
 	public static final int GET_NORMAL_NOTICE_MAX_COUNT = 25;
 	
+	public static final int GET_CHATINFO_MAX_COUNT = 10;
 	public static final int GET_HOMEWORK_MAX_COUNT = 25;
 	public static final int Type_INSERT_HEAD = 0;
 	public static final int Type_INSERT_TAIl = 1;

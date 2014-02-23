@@ -73,6 +73,11 @@ public class MsgListView extends ListView implements OnScrollListener {
         super(context, attrs);
         init(context);
     }
+    
+    public void enableTimestamp(boolean enable){
+    	int type = enable?View.VISIBLE:View.GONE;
+    	lastUpdatedTextView.setVisibility(type);
+    }
 
     private void init(Context context) {
         inflater = LayoutInflater.from(context);

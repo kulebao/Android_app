@@ -167,6 +167,9 @@
     <string name="getting_swipe_info">正在获取刷卡记录...</string>
     <string name="loading_data">正在获取数据...</string>
     
+    <string name="new_chat">新建留言 </string>
+    <string name="write_notice">写留言 </string>
+    <string name="interaction">留言板 </string>
     <string name="weibo">官方微博 : </string>
     <string name="weibo_account">XXX</string>
     <string name="homepage">官方网站 : </string>
@@ -177,5 +180,5 @@
     <string name="support_phone_num">XXX</string>
     <string name="about_us">关于我们</string>
     <string name="about_us_content">幼乐宝（成都库乐宝信息技术有限公司）---提供宝宝、家长和幼儿园三方互动沟通和信息发布服务，并提供丰富的后续服务和专业的技术保障。</string>
-
+    <string name="xfactor">1</string>
 </resources>

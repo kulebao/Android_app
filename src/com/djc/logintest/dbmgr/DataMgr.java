@@ -12,6 +12,7 @@ import android.util.Log;
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.info.BindedNumInfo;
+import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.dbmgr.info.CookBookInfo;
 import com.djc.logintest.dbmgr.info.Homework;
@@ -38,6 +39,7 @@ public class DataMgr {
 	private NewsMgr newsMgr;
 	private SwipeMgr swipeMgr;
 	private HomeworkMgr homeworkMgr;
+	private ChatMgr chatMgr;
 
 	public static synchronized DataMgr getInstance() {
 		synchronized (mLock) {
@@ -59,6 +61,7 @@ public class DataMgr {
 		newsMgr = new NewsMgr(dbHelper);
 		swipeMgr = new SwipeMgr(dbHelper);
 		homeworkMgr = new HomeworkMgr(dbHelper);
+		chatMgr = new ChatMgr(dbHelper);
 	}
 
 	public long addLocationInfo(LocationInfo info) {
@@ -518,11 +521,11 @@ public class DataMgr {
 	public long addHomework(Homework info) {
 		return homeworkMgr.addHomework(info);
 	}
-	
+
 	public void addHomeworkList(List<Homework> list) {
 		homeworkMgr.addHomeworkList(list);
 	}
-	
+
 	public Homework getHomeworkByID(int id) {
 		return homeworkMgr.getHomeworkByID(id);
 	}
@@ -530,30 +533,30 @@ public class DataMgr {
 	public List<Homework> getHomeworkWithLimite(int max) {
 		return homeworkMgr.getHomeworkWithLimite(max);
 	}
-	
+
 	public void removeAllHomework() {
 		homeworkMgr.removeAllHomework();
 	}
-	
-	// public void clearSchoolInfoTable() {
-	// SQLiteDatabase db = dbHelper.getWritableDatabase();
-	// db.execSQL("DELETE FROM " + SqliteHelper.SCHOOL_INFO_TAB);
-	// }
-	//
-	// public void clearChildrenInfoTable() {
-	// SQLiteDatabase db = dbHelper.getWritableDatabase();
-	// db.execSQL("DELETE FROM " + SqliteHelper.CHILDREN_INFO_TAB);
-	// }
-	//
-	// public void clearNoticeTable() {
-	// SQLiteDatabase db = dbHelper.getWritableDatabase();
-	// db.execSQL("DELETE FROM " + SqliteHelper.NOTICE_TAB);
-	// }
-	//
-	// public void clearLocationTable() {
-	// SQLiteDatabase db = dbHelper.getWritableDatabase();
-	// db.execSQL("DELETE FROM " + SqliteHelper.LOCATION_TAB);
-	// }
+
+	public List<ChatInfo> getChatInfoWithLimite(int max) {
+		return chatMgr.getChatInfoWithLimite(max);
+	}
+
+	public List<ChatInfo> getChatInfoWithLimite(int max, long to) {
+		return chatMgr.getChatInfoWithLimite(max, to);
+	}
+
+	public void removeAllChatInfo() {
+		chatMgr.removeAllChatInfo();
+	}
+
+	public void addChatInfoList(List<ChatInfo> list) {
+		chatMgr.addChatInfoList(list);
+	}
+
+	public int getLastChatServerid() {
+		return chatMgr.getLastServerid();
+	}
 
 	public void close() {
 		synchronized (mLock) {

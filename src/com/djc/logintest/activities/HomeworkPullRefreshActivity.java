@@ -25,6 +25,7 @@ import com.djc.logintest.R;
 import com.djc.logintest.adapter.HomeworkListAdapter;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
+import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.customview.MsgListView;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.Homework;
@@ -98,6 +99,7 @@ public class HomeworkPullRefreshActivity extends Activity {
 			@Override
 			public void handleMessage(Message msg) {
 				msgListView.onRefreshComplete();
+				footer.setVisibility(View.GONE);
 				if (HomeworkPullRefreshActivity.this.isFinishing()) {
 					Log.w("djc", "do nothing when activity finishing!");
 					return;
@@ -106,13 +108,10 @@ public class HomeworkPullRefreshActivity extends Activity {
 				switch (msg.what) {
 				case EventType.SUCCESS:
 					handleSuccess(msg);
-					footer.setVisibility(View.GONE);
 					break;
 				case EventType.FAIL:
-					Toast.makeText(HomeworkPullRefreshActivity.this,
-							"获取数据失败", Toast.LENGTH_SHORT).show();
-
-					footer.setVisibility(View.GONE);
+					Toast.makeText(HomeworkPullRefreshActivity.this, "获取数据失败",
+							Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;
@@ -125,6 +124,7 @@ public class HomeworkPullRefreshActivity extends Activity {
 		List<Homework> list = (List<Homework>) msg.obj;
 		if (!list.isEmpty()) {
 			bDataChanged = true;
+			Utils.saveProp(ConstantValue.HAVE_HOMEWORK_NOTICE, "false");
 			if (msg.arg1 == ConstantValue.Type_INSERT_HEAD) {
 				addToHead(list);
 			} else if (msg.arg1 == ConstantValue.Type_INSERT_TAIl) {
@@ -250,8 +250,13 @@ public class HomeworkPullRefreshActivity extends Activity {
 
 	private void startTo(Homework info) {
 		Intent intent = new Intent(this, NoticeActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.putExtra(ConstantValue.DATA_ID, info.getId());
+		// intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
+		intent.putExtra(JSONConstant.NOTIFICATION_BODY, info.getContent());
+		intent.putExtra(JSONConstant.TIME_STAMP, info.getFormattedTime());
+		intent.putExtra(JSONConstant.PUBLISHER, info.getPublisher());
+		intent.putExtra(JSONConstant.NET_URL, info.getIcon_url());
+		intent.putExtra(JSONConstant.LOCAL_URL, info.getHomeWorkLocalIconPath());
 		startActivity(intent);
 	}
 
@@ -279,12 +284,6 @@ public class HomeworkPullRefreshActivity extends Activity {
 					});
 		}
 		return true;
-	}
-
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		loadNewData();
 	}
 
 }

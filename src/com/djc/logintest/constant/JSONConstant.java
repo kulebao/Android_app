@@ -43,6 +43,9 @@ public class JSONConstant {
     public static final String NOTIFICATION_TITLE = "notice_title";
     public static final String NOTIFICATION_BODY = "notice_body";
     public static final String PUBLISHER = "publisher";
+    
+    public static final String NET_URL = "net_url";
+    public static final String LOCAL_URL = "local_url";
 
     // 设备的pushid，服务器用来进行消息推送,以下常量定义的值与百度服务器匹配
     public static final String USER_ID = "user_id";

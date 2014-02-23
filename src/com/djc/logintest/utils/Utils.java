@@ -257,7 +257,7 @@ public class Utils {
 		return pwd.matches(regexExp);
 	}
 
-	public static void bindPushTags() {
+	public static void bindPush() {
 		try {
             if(!Utils.isNetworkConnected(MyApplication.getInstance())){
             	return;
@@ -272,12 +272,13 @@ public class Utils {
             }
 
             // 如果没有设置默认tag，则设置tag
-            if (pushModel.getTags().isEmpty()) {
-            	Log.w("DJC", "tag not set,do it now!");
-            	pushModel.setAllDefaultTag();
-            }else{
-            	Log.w("DJC", "alreay set tag");
-            }
+            //暂时去掉组播tag，改为客户端pull
+			// if (pushModel.getTags().isEmpty()) {
+			// Log.w("DJC", "tag not set,do it now!");
+			// pushModel.setAllDefaultTag();
+			// }else{
+			// Log.w("DJC", "alreay set tag");
+			// }
         } catch (Exception e) {
             e.printStackTrace();
         }

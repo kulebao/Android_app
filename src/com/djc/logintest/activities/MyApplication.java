@@ -9,6 +9,7 @@ import android.content.Intent;
 
 import com.baidu.frontia.FrontiaApplication;
 import com.djc.logintest.constant.ConstantValue;
+import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.handler.CrashHandler;
 import com.djc.logintest.net.HttpsModel;
 import com.djc.logintest.push.info.PushEvent;
@@ -21,6 +22,7 @@ public class MyApplication extends FrontiaApplication {
 			ConstantValue.PUSH_ACTION_QUEUE_MAX_SIZE);
 
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
+	private List<ChatInfo> tmpList = new ArrayList<ChatInfo>();
 
 	public BlockingQueue<PushEvent> getBlockingQueue() {
 		return blockingQueue;
@@ -53,5 +55,14 @@ public class MyApplication extends FrontiaApplication {
 		instance = this;
 		Intent service = new Intent(instance, MyService.class);
 		instance.startService(service);
+	}
+
+	public List<ChatInfo> getTmpList() {
+		return tmpList;
+	}
+
+	public void setTmpList(List<ChatInfo> tmpList) {
+		this.tmpList.clear();
+		this.tmpList = tmpList;
 	}
 }

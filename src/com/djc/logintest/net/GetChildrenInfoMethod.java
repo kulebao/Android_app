@@ -100,7 +100,7 @@ public class GetChildrenInfoMethod {
 				}
 			}
 		}
-		Utils.bindPushTags();
+		// Utils.bindPushTags();
 		return event;
 	}
 
