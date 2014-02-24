@@ -326,7 +326,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	public void uploadIcon(Intent data) {
+	private void uploadIcon(Intent data) {
 		if (data != null) {
 			try {
 				Bitmap bitmap = getBitmap(data);

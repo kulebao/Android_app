@@ -1,24 +1,30 @@
 package com.djc.logintest.activities;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.djc.logintest.R;
@@ -41,9 +47,16 @@ public class InteractionActivity extends Activity {
 	private List<ChatInfo> chatlist;
 	private GetChatTask getChatTask;
 
+	private static final int IMAGE_REQUEST_CODE = 0;
+	private static final int CAMERA_REQUEST_CODE = 1;
+	private static final int CHECK_ICON_CODE = 2;
+	private static final int START_SEND_CHAT = 3;
+
 	// 该参数暂时无效，不用考虑
 	private static final String SORT_ASC = "asc";
 	private static final String SORT_DESC = "desc";
+	private static final String TMP_BMP = "tmp_bmp_for_chat.jpg";
+	private Uri uri;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +64,7 @@ public class InteractionActivity extends Activity {
 		setContentView(R.layout.chat_pull_refresh_list);
 		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.interaction);
 		// test();
+		initImageUri();
 		initDialog();
 		initBtn();
 		initHander();
@@ -59,7 +73,7 @@ public class InteractionActivity extends Activity {
 	}
 
 	private void initBtn() {
-		Button newchatBtn = (Button) findViewById(R.id.new_chat);
+		ImageView newchatBtn = (ImageView) findViewById(R.id.new_chat);
 		newchatBtn.setOnClickListener(new android.view.View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -67,14 +81,110 @@ public class InteractionActivity extends Activity {
 			}
 
 		});
+
+		ImageView camera = (ImageView) findViewById(R.id.camera);
+		camera.setOnClickListener(new android.view.View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				chooseIconFromCamera();
+			}
+
+		});
+
+		ImageView gallery = (ImageView) findViewById(R.id.gallery);
+		gallery.setOnClickListener(new android.view.View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				chooseIconFromGallery();
+			}
+
+		});
+	}
+
+	private void startToShowIconActivity() {
+		Intent intent = new Intent(this, CheckIconActivity.class);
+		intent.putExtra(ConstantValue.TMP_CHAT_PATH, uri.getPath());
+		startActivityForResult(intent, CHECK_ICON_CODE);
+	}
+
+	private void chooseIconFromGallery() {
+		if (!Utils.isSdcardExisting()) {
+			Toast.makeText(this, "未找到存储卡，无法保存图片！", Toast.LENGTH_LONG).show();
+			return;
+		}
+		Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+		galleryIntent.addCategory(Intent.CATEGORY_OPENABLE);
+		galleryIntent.setType("image/*");
+		startActivityForResult(galleryIntent, IMAGE_REQUEST_CODE);
+	}
+
+	private void chooseIconFromCamera() {
+		if (!Utils.isSdcardExisting()) {
+			Toast.makeText(this, "未找到存储卡，无法保存图片！", Toast.LENGTH_LONG).show();
+			return;
+		}
+
+		Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+		cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+		cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+		startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+	}
+
+	private void initImageUri() {
+		uri = Uri.fromFile(new File(Utils.getSDCardFileDir(Utils.APP_DIR_TMP),
+				TMP_BMP));
+	}
+
+	// 拷贝图库图片到sd卡上
+	private void saveBitmap(Intent data) {
+		Uri currentUri = data.getData();
+		ContentResolver cr = this.getContentResolver();
+		try {
+			Bitmap bitmap = BitmapFactory.decodeStream(cr
+					.openInputStream(currentUri));
+			Utils.saveBitmapToSDCard(bitmap, uri.getPath());
+			bitmap.recycle();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		switch (requestCode) {
+		case START_SEND_CHAT:
+			if (resultCode == ConstantValue.SEND_CHAT_SUCCESS) {
+				handleSendChat();
+			}
+			break;
+		case IMAGE_REQUEST_CODE:
+			if (Utils.isSdcardExisting()) {
+				saveBitmap(data);
+				startToShowIconActivity();
+			}
+			break;
+		case CAMERA_REQUEST_CODE:
+			startToShowIconActivity();
+			break;
+		case CHECK_ICON_CODE:
+			if (resultCode == ConstantValue.SEND_CHAT_SUCCESS) {
+				handleSendChat();
+			}
+			break;
+
+		default:
+			break;
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	private void handleSendBtn() {
-		if(!Utils.isNetworkConnected(this)){
+		if (!Utils.isNetworkConnected(this)) {
 			Toast.makeText(this, R.string.net_error, Toast.LENGTH_SHORT).show();
 			return;
 		}
-		
+
 		// 进入到发送chat界面，先取消获取chat的任务，避免重复获取
 		if (getChatTask != null
 				&& getChatTask.getStatus() == AsyncTask.Status.RUNNING) {
@@ -85,7 +195,7 @@ public class InteractionActivity extends Activity {
 
 	protected void startToSendChatActivity() {
 		Intent intent = new Intent(this, SendChatActivity.class);
-		startActivityForResult(intent, ConstantValue.START_SEND_CHAT);
+		startActivityForResult(intent, START_SEND_CHAT);
 	}
 
 	private void test() {
@@ -311,19 +421,22 @@ public class InteractionActivity extends Activity {
 		};
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == ConstantValue.START_SEND_CHAT) {
-			if (resultCode == ConstantValue.SEND_CHAT_SUCCESS) {
-				List<ChatInfo> list = MyApplication.getInstance().getTmpList();
-				chatlist.addAll(list);
-				adapter.notifyDataSetChanged();
-				DataMgr.getInstance().addChatInfoList(list);
-			} else if (resultCode == ConstantValue.SEND_CHAT_FAIL) {
+	private void handleSendChat() {
+		List<ChatInfo> list = MyApplication.getInstance().getTmpList();
+		int size = chatlist.size();
 
-			}
+		chatlist.addAll(list);
+		adapter.notifyDataSetChanged();
+
+		if (!list.isEmpty()) {
+			// 减去footer
+			size -= 1;
+			// 把焦点移到当前最后一条再后面一条，也就是新增的第一条
+			size += 1;
+			msgListView.setSelection(size);
 		}
-		super.onActivityResult(requestCode, resultCode, data);
+
+		DataMgr.getInstance().addChatInfoList(list);
 	}
 
 	protected void handleSuccess(Message msg) {

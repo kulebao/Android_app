@@ -13,7 +13,7 @@
         android:id="@+id/chatlist"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/new_chat"
+        android:layout_above="@+id/end"
         android:layout_below="@+id/top"
         android:cacheColorHint="#00000000"
         android:divider="@android:color/transparent"
@@ -22,14 +22,39 @@
         android:fadingEdgeLength="0dip"
         android:scrollbars="vertical" />
 
-    <Button
-        android:id="@+id/new_chat"
-        style="@style/btn_style"
+    <RelativeLayout
+        android:id="@+id/end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@drawable/sub_btn"
-        android:text="@string/new_chat" />
+        android:background="@drawable/bottom" >
+
+        <ImageView
+            android:id="@+id/new_chat"
+            android:layout_width="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/write_chat" />
+        
+        <ImageView
+            android:id="@+id/camera"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/camera" />
+        
+        <ImageView
+            android:id="@+id/gallery"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/gallery" />
+        
+    </RelativeLayout>
+
 
 </RelativeLayout>

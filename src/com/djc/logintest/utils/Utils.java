@@ -1,8 +1,5 @@
 package com.djc.logintest.utils;
 
-
-
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
@@ -35,6 +32,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -57,6 +55,7 @@ public class Utils {
 	public static final String APP_DIR_PIC = "cocobaby/pic";
 	public static final String APP_LOGS = "cocobaby/logs";
 	private static String CHILD_PHOTO = "child_photo";
+	public static String CHAT_ICON = "chat_icon";
 
 	// 获取AppKey
 	public static String getMetaValue(Context context, String metaKey) {
@@ -259,29 +258,29 @@ public class Utils {
 
 	public static void bindPush() {
 		try {
-            if(!Utils.isNetworkConnected(MyApplication.getInstance())){
-            	return;
-            }
-            
-            PushModel pushModel = PushModel.getPushModel();
-            if (!pushModel.isBinded()) {
-            	Log.w("DJC", "not bind,do it now!");
-            	pushModel.bind();
-            }else{
-            	Log.w("DJC", "aleady bind!");
-            }
+			if (!Utils.isNetworkConnected(MyApplication.getInstance())) {
+				return;
+			}
 
-            // 如果没有设置默认tag，则设置tag
-            //暂时去掉组播tag，改为客户端pull
+			PushModel pushModel = PushModel.getPushModel();
+			if (!pushModel.isBinded()) {
+				Log.w("DJC", "not bind,do it now!");
+				pushModel.bind();
+			} else {
+				Log.w("DJC", "aleady bind!");
+			}
+
+			// 如果没有设置默认tag，则设置tag
+			// 暂时去掉组播tag，改为客户端pull
 			// if (pushModel.getTags().isEmpty()) {
 			// Log.w("DJC", "tag not set,do it now!");
 			// pushModel.setAllDefaultTag();
 			// }else{
 			// Log.w("DJC", "alreay set tag");
 			// }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static String convertTime(long timestamp) {
@@ -395,6 +394,25 @@ public class Utils {
 				.getAbsolutePath();
 	}
 
+	public static boolean makeDirs(String dir) {
+		File file = new File(dir);
+		if (!file.exists()) {
+			return file.mkdirs();
+		}
+		return false;
+	}
+
+	public static String getDir(String path) {
+		if (TextUtils.isEmpty(path)) {
+			return "";
+		}
+		int lastindex = path.lastIndexOf(File.separator);
+		if (lastindex != -1) {
+			return path.substring(0, lastindex);
+		}
+		return path;
+	}
+
 	public static boolean makeAppDirInSDCard(String dir) {
 		if (isSdcardExisting()) {
 			File file = new File(Environment.getExternalStorageDirectory(), dir);
@@ -461,6 +479,14 @@ public class Utils {
 				+ File.separator
 				+ DataMgr.getInstance().getSelectedChild().getServer_id()
 				+ ".jpg";
+	}
+
+	public static String getOssChatIconUrl(long timestamp) {
+		String dir = CHAT_ICON + File.separator
+				+ DataMgr.getInstance().getSchoolID() + File.separator
+				+ Utils.getAccount();
+		makeDirs(dir);
+		return dir + File.separator + timestamp + ".jpg";
 	}
 
 	// url是针对sd卡，应用保存图片路径+name

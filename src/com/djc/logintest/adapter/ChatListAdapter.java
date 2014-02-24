@@ -1,9 +1,12 @@
 package com.djc.logintest.adapter;
 
+import java.io.File;
 import java.util.List;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.djc.logintest.R;
 import com.djc.logintest.activities.SchoolNoticeActivity;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.dlgmgr.DlgMgr;
+import com.djc.logintest.upload.OSSMgr;
 import com.djc.logintest.utils.Utils;
 
 public class ChatListAdapter extends BaseAdapter {
@@ -71,6 +75,8 @@ public class ChatListAdapter extends BaseAdapter {
 					.findViewById(R.id.resend);
 			flagholder.headiconView = (ImageView) convertView
 					.findViewById(R.id.headicon);
+			flagholder.chaticonView = (ImageView) convertView
+					.findViewById(R.id.chat_icon);
 			setDataToViews(position, flagholder);
 			convertView.setTag(flagholder);
 		} else {
@@ -86,9 +92,34 @@ public class ChatListAdapter extends BaseAdapter {
 	private void setDataToViews(final int position, FlagHolder flagholder) {
 		final ChatInfo info = dataList.get(position);
 		flagholder.sendView.setText(info.getSender());
-		flagholder.bodyView.setText(info.getContent());
+		setContent(flagholder, info);
 		setTimeView(position, flagholder);
 		setResendView(position, flagholder);
+	}
+
+	private void setContent(FlagHolder flagholder, final ChatInfo info) {
+		if (TextUtils.isEmpty(info.getIcon_url())) {
+			flagholder.bodyView.setVisibility(View.VISIBLE);
+			flagholder.bodyView.setText(info.getContent());
+			flagholder.chaticonView.setVisibility(View.GONE);
+		} else {
+			flagholder.bodyView.setVisibility(View.GONE);
+			flagholder.chaticonView.setVisibility(View.VISIBLE);
+			setIcon(flagholder.chaticonView, info.getIcon_url());
+		}
+	}
+
+	private void setIcon(ImageView view, String url) {
+		url = url.replace(OSSMgr.getOssHost(), Utils.getSDCardPicRootPath()
+				+ File.separator);
+		Log.d("DDD", "setIcon url =" + url);
+
+		Bitmap loacalBitmap = Utils.getLoacalBitmap(url);
+		if (loacalBitmap != null) {
+			Utils.setImg(view, loacalBitmap);
+		} else {
+			view.setImageResource(R.drawable.default_icon);
+		}
 	}
 
 	private void setTimeView(final int position, FlagHolder flagholder) {
@@ -146,5 +177,6 @@ public class ChatListAdapter extends BaseAdapter {
 		public TextView timestampView;
 		public ImageView resendView;
 		public ImageView headiconView;
+		public ImageView chaticonView;
 	}
 }

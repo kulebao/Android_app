@@ -31,18 +31,21 @@ public class OSSMgr {
     public static String OSS_HOST = "http://cocobabys.oss.aliyuncs.com/";
 
     /**
+     * @param url 
      * @param input
      * @param length
      * @param args
      */
-    public static void UploadPhoto(Bitmap bitmap) {
+    public static void UploadPhoto(Bitmap bitmap, String url) {
         OSSClient client = new OSSClient(ACCESS_ID, ACCESS_KEY);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
 
-        String url = Utils.getUpload2OssChildUrl();
-
         client.uploadObject(BUCKETNAME, url, baos.toByteArray());
+    }
+    
+    public static String getOssHost(){
+    	return OSS_HOST;
     }
 }

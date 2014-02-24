@@ -7,6 +7,7 @@ import com.djc.logintest.constant.EventType;
 import com.djc.logintest.handler.TaskResultHandler;
 import com.djc.logintest.net.UploadChildInfoMethod;
 import com.djc.logintest.upload.OSSMgr;
+import com.djc.logintest.utils.Utils;
 
 public class UploadInfoTask extends AsyncTask<Void, Void, Integer> {
     private TaskResultHandler hander;
@@ -27,7 +28,8 @@ public class UploadInfoTask extends AsyncTask<Void, Void, Integer> {
         int bret = EventType.UPLOAD_FAILED;
         if (bitmap != null) {
             try {
-                OSSMgr.UploadPhoto(bitmap);
+            	String url = Utils.getUpload2OssChildUrl();
+                OSSMgr.UploadPhoto(bitmap,url);
             } catch (Exception e) {
                 // 如果上传文件失败，直接返回错误
                 e.printStackTrace();

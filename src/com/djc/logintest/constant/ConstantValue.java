@@ -54,6 +54,8 @@ public class ConstantValue {
 	// 检查更新间隔时间为720小时
 	public static final long CHECK_NEW_TIME_SPAN = 720 * 60 * 60 * 1000L;
 
+	public static final String TMP_CHAT_PATH = "tmp_chat_path";
+	
 	// 以下是百度服务需要的，不要修改值
 	public static final String EXTRA_MESSAGE = "message";
 
@@ -72,7 +74,6 @@ public class ConstantValue {
 	public static final String RESPONSE_METHOD = "method";
 
 	public static final int START_SETTING = 100;
-	public static final int START_SEND_CHAT = 110;
 	
 	public static final int EXIT_LOGIN_RESULT = 10;
 	public static final int SEND_CHAT_SUCCESS = 20;
@@ -82,7 +83,7 @@ public class ConstantValue {
 
 	public static final int GET_NORMAL_NOTICE_MAX_COUNT = 25;
 	
-	public static final int GET_CHATINFO_MAX_COUNT = 10;
+	public static final int GET_CHATINFO_MAX_COUNT = 25;
 	public static final int GET_HOMEWORK_MAX_COUNT = 25;
 	public static final int Type_INSERT_HEAD = 0;
 	public static final int Type_INSERT_TAIl = 1;

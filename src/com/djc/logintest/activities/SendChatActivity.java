@@ -9,11 +9,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djc.logintest.R;
@@ -35,7 +36,6 @@ public class SendChatActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.write_notice);
-		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.write_notice);
 		initView();
 		initHandler();
 	}
@@ -47,13 +47,30 @@ public class SendChatActivity extends Activity {
 
 	public void initBtn() {
 		chatContent = (EditText) findViewById(R.id.edit_notice);
-		Button sendBtn = (Button) findViewById(R.id.sendbtn);
+		TextView sendBtn = (TextView) findViewById(R.id.send);
 		sendBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (isEmptyInput()) {
+					Toast.makeText(SendChatActivity.this,
+							R.string.pls_input_chat, Toast.LENGTH_SHORT).show();
+					return;
+				}
 				runSendChatTask();
 			}
 		});
+
+		TextView cancel = (TextView) findViewById(R.id.cancel);
+		cancel.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				SendChatActivity.this.finish();
+			}
+		});
+	}
+
+	private boolean isEmptyInput() {
+		return TextUtils.isEmpty(chatContent.getText().toString());
 	}
 
 	private void initDialog() {
