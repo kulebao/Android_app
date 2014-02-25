@@ -12,6 +12,8 @@ import com.djc.logintest.activities.MyApplication;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 public class ImageDownloader {
@@ -34,7 +36,7 @@ public class ImageDownloader {
 	}
 
 	public ImageDownloader(String imageUrl, float limitWith, float limitHeight) {
-		this(imageUrl);
+		this.imageUrl = imageUrl;
 		this.limitHeight = limitHeight;
 		this.limitWith = limitWith;
 	}
@@ -150,6 +152,26 @@ public class ImageDownloader {
 		Log.e("", "for w/h " + w + "/" + h + " returning " + candidate + "("
 				+ (w / candidate) + " / " + (h / candidate));
 		return candidate;
+	}
+
+	public static Bitmap getResizedBmp(int maxPixel, String path) {
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(path, options);
+		options.inSampleSize = computeSampleSize(options, -1,
+				maxPixel);
+		options.inJustDecodeBounds = false;
+		return BitmapFactory.decodeFile(path, options);
+	}
+
+	public static int getMaxPix() {
+		DisplayMetrics dm = new DisplayMetrics();
+		dm = MyApplication.getInstance().getResources().getDisplayMetrics();
+	
+		Log.d("DDD", "w = " + dm.widthPixels + " h=" + dm.heightPixels
+				+ " density=" + dm.density);
+		int maxPixel = (int) (dm.widthPixels * dm.heightPixels * dm.density);
+		return maxPixel;
 	}
 
 	public static int computeSampleSize(BitmapFactory.Options options,

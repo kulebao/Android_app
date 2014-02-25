@@ -1,16 +1,19 @@
 package com.djc.logintest.adapter;
 
-import java.io.File;
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,25 +21,42 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.djc.logintest.R;
-import com.djc.logintest.activities.SchoolNoticeActivity;
+import com.djc.logintest.constant.EventType;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.dlgmgr.DlgMgr;
-import com.djc.logintest.upload.OSSMgr;
+import com.djc.logintest.taskmgr.GlobleDownloadImgeTask;
 import com.djc.logintest.utils.Utils;
 
 public class ChatListAdapter extends BaseAdapter {
 	// 最小显示时间间隔为2分钟
 	private static final long MIN_TIME_LIMIT = 2 * 60 * 1000L;
+	// private static Map<String, Bitmap> map = new HashMap<String, Bitmap>();
+	private static Map<String, SoftReference<Bitmap>> softMap = new HashMap<String, SoftReference<Bitmap>>();
 	private final Context context;
 	private List<ChatInfo> dataList;
+	private GlobleDownloadImgeTask task;
+	private Handler handler;
 
 	public void setLocationInfoList(List<ChatInfo> list) {
 		this.dataList = list;
 	}
 
-	public ChatListAdapter(Context activityContext, List<ChatInfo> list) {
+	public ChatListAdapter(Context activityContext, List<ChatInfo> list,
+			GlobleDownloadImgeTask task) {
 		this.context = activityContext;
-		dataList = list;
+		this.dataList = list;
+		this.task = task;
+		handler = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				if (msg.what == EventType.SUCCESS) {
+					notifyDataSetChanged();
+				}
+			}
+
+		};
+		this.task.setHanlder(handler);
 	}
 
 	public void clear() {
@@ -79,13 +99,13 @@ public class ChatListAdapter extends BaseAdapter {
 					.findViewById(R.id.chat_icon);
 			setDataToViews(position, flagholder);
 			convertView.setTag(flagholder);
+			convertView.setId(position);
 		} else {
 			FlagHolder flagholder = (FlagHolder) convertView.getTag();
 			if (flagholder != null) {
 				setDataToViews(position, flagholder);
 			}
 		}
-
 		return convertView;
 	}
 
@@ -105,20 +125,48 @@ public class ChatListAdapter extends BaseAdapter {
 		} else {
 			flagholder.bodyView.setVisibility(View.GONE);
 			flagholder.chaticonView.setVisibility(View.VISIBLE);
-			setIcon(flagholder.chaticonView, info.getIcon_url());
+			setIcon(flagholder.chaticonView, info);
 		}
 	}
 
-	private void setIcon(ImageView view, String url) {
-		url = url.replace(OSSMgr.getOssHost(), Utils.getSDCardPicRootPath()
-				+ File.separator);
-		Log.d("DDD", "setIcon url =" + url);
+	private void setIcon(ImageView view, ChatInfo info) {
+		String localUrl = info.getLocalUrl();
 
-		Bitmap loacalBitmap = Utils.getLoacalBitmap(url);
+		Bitmap loacalBitmap = getLocalBmp(localUrl);
+
 		if (loacalBitmap != null) {
+			Log.d("DJC", "setIcon url =" + localUrl);
 			Utils.setImg(view, loacalBitmap);
 		} else {
-			view.setImageResource(R.drawable.default_icon);
+			downloadIcon(view, info);
+		}
+	}
+
+	private Bitmap getLocalBmp(String localUrl) {
+		Bitmap loacalBitmap = null;
+		if (softMap.containsKey(localUrl)) {
+			loacalBitmap = softMap.get(localUrl).get();
+		}
+		
+		if (loacalBitmap == null) {
+			loacalBitmap = Utils.getLoacalBitmap(localUrl);
+			if (loacalBitmap != null) {
+				Log.d("DJC", "getLoacalBitmap url =" + localUrl);
+				softMap.put(localUrl, new SoftReference<Bitmap>(loacalBitmap));
+			}
+		}
+		return loacalBitmap;
+	}
+
+	private void downloadIcon(ImageView view, ChatInfo info) {
+		view.setImageResource(R.drawable.default_icon);
+		// 本地路径和oss路径的相对路径保持一致，只有前缀不同
+		String savePath = info.getLocalUrl();
+		String dir = Utils.getDir(savePath);
+		Utils.makeDirs(dir);
+		Log.d("DDD", "savePath =" + savePath);
+		if (!"".equals(info.getSender())) {
+			task.addTask(info.getIcon_url(), savePath);
 		}
 	}
 

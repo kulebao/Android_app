@@ -485,7 +485,6 @@ public class Utils {
 		String dir = CHAT_ICON + File.separator
 				+ DataMgr.getInstance().getSchoolID() + File.separator
 				+ Utils.getAccount();
-		makeDirs(dir);
 		return dir + File.separator + timestamp + ".jpg";
 	}
 
@@ -563,6 +562,12 @@ public class Utils {
 
 	public static Bitmap downloadImgWithJudgement(String url) {
 		ImageDownloader downloader = new ImageDownloader(url);
+		return downloader.download();
+	}
+
+	public static Bitmap downloadImgWithJudgement(String url, float limitWidth,
+			float limitHeight) {
+		ImageDownloader downloader = new ImageDownloader(url,limitWidth,limitHeight);
 		return downloader.download();
 	}
 

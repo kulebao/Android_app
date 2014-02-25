@@ -3,6 +3,7 @@ package com.djc.logintest.activities;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -24,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AbsListView.RecyclerListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -36,6 +38,8 @@ import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.GetChatTask;
+import com.djc.logintest.taskmgr.GlobleDownloadImgeTask;
+import com.djc.logintest.utils.ImageDownloader;
 import com.djc.logintest.utils.Utils;
 
 public class InteractionActivity extends Activity {
@@ -57,6 +61,7 @@ public class InteractionActivity extends Activity {
 	private static final String SORT_DESC = "desc";
 	private static final String TMP_BMP = "tmp_bmp_for_chat.jpg";
 	private Uri uri;
+	private GlobleDownloadImgeTask task;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -138,25 +143,37 @@ public class InteractionActivity extends Activity {
 	// 拷贝图库图片到sd卡上
 	private void saveBitmap(Intent data) {
 		Uri currentUri = data.getData();
+		Bitmap bitmap = null;
 		ContentResolver cr = this.getContentResolver();
 		try {
-			Bitmap bitmap = BitmapFactory.decodeStream(cr
-					.openInputStream(currentUri));
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inJustDecodeBounds = true;
+			BitmapFactory.decodeStream(cr.openInputStream(currentUri), null,
+					options);
+			options.inSampleSize = ImageDownloader.computeSampleSize(options,
+					-1, ImageDownloader.getMaxPix());
+			options.inJustDecodeBounds = false;
+
+			bitmap = BitmapFactory.decodeStream(cr.openInputStream(currentUri),
+					null, options);
 			Utils.saveBitmapToSDCard(bitmap, uri.getPath());
-			bitmap.recycle();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (bitmap != null) {
+				bitmap.recycle();
+			}
 		}
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+		if (resultCode != RESULT_OK) {
+			return;
+		}
 		switch (requestCode) {
 		case START_SEND_CHAT:
-			if (resultCode == ConstantValue.SEND_CHAT_SUCCESS) {
-				handleSendChat();
-			}
+			handleSendChat();
 			break;
 		case IMAGE_REQUEST_CODE:
 			if (Utils.isSdcardExisting()) {
@@ -168,9 +185,7 @@ public class InteractionActivity extends Activity {
 			startToShowIconActivity();
 			break;
 		case CHECK_ICON_CODE:
-			if (resultCode == ConstantValue.SEND_CHAT_SUCCESS) {
-				handleSendChat();
-			}
+			handleSendChat();
 			break;
 
 		default:
@@ -236,14 +251,47 @@ public class InteractionActivity extends Activity {
 	private void initCustomListView() {
 		chatlist = DataMgr.getInstance().getChatInfoWithLimite(
 				ConstantValue.GET_CHATINFO_MAX_COUNT);
-		adapter = new ChatListAdapter(this, chatlist);
+		task = new GlobleDownloadImgeTask();
+		adapter = new ChatListAdapter(this, chatlist, task);
 		msgListView = (MsgListView) findViewById(R.id.chatlist);// 继承ListActivity，id要写成android.R.id.list，否则报异常
 		setRefreshListener();
 		msgListView.setAdapter(adapter);
 		msgListView.enableTimestamp(false);
+		msgListView.setRecyclerListener(new RecyclerListener() {
+			@Override
+			public void onMovedToScrapHeap(View view) {
+				recycleNotVisibleBmp(view);
+			}
+
+			private void recycleNotVisibleBmp(View view) {
+				ChatInfo chatInfo = getChatInfo(view);
+				if (chatInfo != null && !"".equals(chatInfo.getLocalUrl())) {
+					// 释放看不见的bmp，但是会导致"使用回收过的bmp"异常，已经做了同步，实在没找到原因
+					// 只能暂时注释掉了
+					// adapter.remove(chatInfo.getLocalUrl());
+				}
+			}
+
+			private ChatInfo getChatInfo(View view) {
+				ChatInfo chatInfo = null;
+				try {
+					chatInfo = chatlist.get(view.getId());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				return chatInfo;
+			}
+		});
 		setScrollListener();
 		addFooter();
 		moveToEndOfList();
+	}
+
+	@Override
+	protected void onDestroy() {
+		task.stopTask();
+		super.onDestroy();
 	}
 
 	private void moveToEndOfList() {

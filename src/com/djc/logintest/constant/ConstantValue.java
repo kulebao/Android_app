@@ -1,5 +1,7 @@
 package com.djc.logintest.constant;
 
+import android.app.Activity;
+
 public class ConstantValue {
 
 	public static final String CHECK_NEW_COMMAND = "check_new_command";
@@ -76,7 +78,7 @@ public class ConstantValue {
 	public static final int START_SETTING = 100;
 	
 	public static final int EXIT_LOGIN_RESULT = 10;
-	public static final int SEND_CHAT_SUCCESS = 20;
+	public static final int SEND_CHAT_SUCCESS = Activity.RESULT_OK;
 	public static final int SEND_CHAT_FAIL = 21;
 
 	public static final String HEADER_TOKEN = "token";
