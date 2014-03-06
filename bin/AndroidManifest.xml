@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.djc.logintest"
-    android:versionCode="28"
-    android:versionName="V1.1.8" >
+    android:versionCode="30"
+    android:versionName="V1.2.0" >
 
     <uses-sdk android:minSdkVersion="10" />
 
@@ -207,6 +207,12 @@
         </activity>
         <activity
             android:name=".activities.SendChatActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.ShowIconActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >

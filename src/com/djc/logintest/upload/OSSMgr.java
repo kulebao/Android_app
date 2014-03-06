@@ -41,7 +41,6 @@ public class OSSMgr {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-
         client.uploadObject(BUCKETNAME, url, baos.toByteArray());
     }
     

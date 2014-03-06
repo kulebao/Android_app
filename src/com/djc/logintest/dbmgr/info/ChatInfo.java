@@ -2,7 +2,6 @@ package com.djc.logintest.dbmgr.info;
 
 import java.io.File;
 
-import android.support.v4.content.Loader;
 import android.util.Log;
 
 import com.djc.logintest.upload.OSSMgr;

@@ -29,6 +29,7 @@ public class ConstantValue {
 	public static final String BABY_ICONURL = "baby_iconurl";
 	public static final String BABY_ICONNAME = "baby_icon";
 
+	public static final String LOCAL_URL = "local_url";
 	public static final String DATA_ID = "data_id";
 	public static final String IS_FIRST_IN = "isFirstIn";
 	// 是否有新公告

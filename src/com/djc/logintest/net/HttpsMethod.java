@@ -230,6 +230,7 @@ public class HttpsMethod {
             jsonObject.put(JSONConstant.PHONE_NUM, phonenum);
             jsonObject.put(JSONConstant.USER_ID, userid);
             jsonObject.put(JSONConstant.CHANNEL_ID, channelid);
+            jsonObject.put(JSONConstant.DEVICE_TYPE, "android");
         } catch (JSONException e) {
             e.printStackTrace();
         }

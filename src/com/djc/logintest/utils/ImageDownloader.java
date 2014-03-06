@@ -7,14 +7,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.djc.logintest.R;
-import com.djc.logintest.activities.MyApplication;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 import android.util.DisplayMetrics;
 import android.util.Log;
+
+import com.djc.logintest.R;
+import com.djc.logintest.activities.MyApplication;
 
 public class ImageDownloader {
 	private static final int LIMIT_WITH = 320;
@@ -30,9 +29,9 @@ public class ImageDownloader {
 		this.imageUrl = imageUrl;
 		float xfactor = Float.valueOf(MyApplication.getInstance()
 				.getResources().getString(R.string.xfactor));
-
 		this.limitHeight = xfactor * LIMIT_HEIGHT;
 		this.limitWith = xfactor * LIMIT_WITH;
+
 	}
 
 	public ImageDownloader(String imageUrl, float limitWith, float limitHeight) {
@@ -106,7 +105,8 @@ public class ImageDownloader {
 			// true,只是读图片大小，不申请bitmap内存
 			opts.inJustDecodeBounds = true;
 			BitmapFactory.decodeStream(bis, null, opts);
-			Log.e("", "width=" + opts.outWidth + "; height=" + opts.outHeight);
+			Log.e("DIMG", "width=" + opts.outWidth + "; height="
+					+ opts.outHeight);
 
 			opts.inSampleSize = computeSampleSize(opts.outWidth, opts.outHeight);
 			// opts.inSampleSize = computeSampleSize(opts,LIMIT_WITH,
@@ -158,8 +158,7 @@ public class ImageDownloader {
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(path, options);
-		options.inSampleSize = computeSampleSize(options, -1,
-				maxPixel);
+		options.inSampleSize = computeSampleSize(options, -1, maxPixel);
 		options.inJustDecodeBounds = false;
 		return BitmapFactory.decodeFile(path, options);
 	}
@@ -167,10 +166,17 @@ public class ImageDownloader {
 	public static int getMaxPix() {
 		DisplayMetrics dm = new DisplayMetrics();
 		dm = MyApplication.getInstance().getResources().getDisplayMetrics();
-	
+
 		Log.d("DDD", "w = " + dm.widthPixels + " h=" + dm.heightPixels
 				+ " density=" + dm.density);
 		int maxPixel = (int) (dm.widthPixels * dm.heightPixels * dm.density);
+		return maxPixel;
+	}
+
+	public static int getMaxPixWithDensity(int width, int height) {
+		DisplayMetrics dm = new DisplayMetrics();
+		dm = MyApplication.getInstance().getResources().getDisplayMetrics();
+		int maxPixel = (int) (width * height * dm.density);
 		return maxPixel;
 	}
 

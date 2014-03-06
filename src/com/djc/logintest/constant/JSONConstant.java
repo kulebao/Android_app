@@ -50,6 +50,8 @@ public class JSONConstant {
     // 设备的pushid，服务器用来进行消息推送,以下常量定义的值与百度服务器匹配
     public static final String USER_ID = "user_id";
     public static final String CHANNEL_ID = "channel_id";
+    public static final String DEVICE_TYPE = "android";
+    
     public static final String RESPONSE_PARAMS = "response_params";
     public static final String TAGS_DETAIL = "details";
     public static final String TAGS_RESULT = "result";

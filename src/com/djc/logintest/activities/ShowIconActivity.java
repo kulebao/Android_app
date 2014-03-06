@@ -3,10 +3,7 @@ package com.djc.logintest.activities;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.djc.logintest.R;
 import com.djc.logintest.constant.ConstantValue;
@@ -19,33 +16,13 @@ public class ShowIconActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.check_icon);
+		setContentView(R.layout.show_icon);
 		showIcon();
-		initBtn();
-	}
-
-	private void initBtn() {
-		TextView send = (TextView) findViewById(R.id.send);
-		send.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-			}
-		});
-
-		TextView cancel = (TextView) findViewById(R.id.cancel);
-		cancel.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				ShowIconActivity.this.finish();
-			}
-		});
 	}
 
 	private void showIcon() {
 		ImageView image = (ImageView) findViewById(R.id.imageview);
-		String path = getIntent().getStringExtra(ConstantValue.TMP_CHAT_PATH);
+		String path = getIntent().getStringExtra(ConstantValue.LOCAL_URL);
 
 		int maxPixel = ImageDownloader.getMaxPix();
 

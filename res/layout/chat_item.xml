@@ -65,7 +65,7 @@
                 android:layout_height="100dp"
                 android:layout_centerVertical="true"
                 android:padding="15dp"
-                android:scaleType="centerInside"
+                android:scaleType="fitXY"
                 android:src="@drawable/default_icon"
                 android:visibility="gone" />
         </RelativeLayout>

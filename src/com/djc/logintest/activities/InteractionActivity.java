@@ -3,7 +3,6 @@ package com.djc.logintest.activities;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -106,7 +105,7 @@ public class InteractionActivity extends Activity {
 		});
 	}
 
-	private void startToShowIconActivity() {
+	private void startToCheckIconActivity() {
 		Intent intent = new Intent(this, CheckIconActivity.class);
 		intent.putExtra(ConstantValue.TMP_CHAT_PATH, uri.getPath());
 		startActivityForResult(intent, CHECK_ICON_CODE);
@@ -178,11 +177,11 @@ public class InteractionActivity extends Activity {
 		case IMAGE_REQUEST_CODE:
 			if (Utils.isSdcardExisting()) {
 				saveBitmap(data);
-				startToShowIconActivity();
+				startToCheckIconActivity();
 			}
 			break;
 		case CAMERA_REQUEST_CODE:
-			startToShowIconActivity();
+			startToCheckIconActivity();
 			break;
 		case CHECK_ICON_CODE:
 			handleSendChat();

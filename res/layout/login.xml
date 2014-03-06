@@ -43,10 +43,10 @@
             android:background="@drawable/input_b"
             android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:hint="@string/inuputpwd"
+            android:inputType="textPassword"
             android:maxLength="11"
             android:paddingLeft="50dp"
             android:paddingRight="4dp"
-            android:password="true"
             android:singleLine="true"
             android:textSize="16sp"
             android:textStyle="bold" />

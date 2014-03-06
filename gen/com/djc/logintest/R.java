@@ -353,15 +353,16 @@ containing a value of this type.
         public static final int school_info=0x7f030026;
         public static final int school_notice=0x7f030027;
         public static final int setting=0x7f030028;
-        public static final int tab_widget=0x7f030029;
-        public static final int topbar=0x7f03002a;
-        public static final int transit=0x7f03002b;
-        public static final int update=0x7f03002c;
-        public static final int what_new_four=0x7f03002d;
-        public static final int what_new_one=0x7f03002e;
-        public static final int what_new_three=0x7f03002f;
-        public static final int what_new_two=0x7f030030;
-        public static final int write_notice=0x7f030031;
+        public static final int show_icon=0x7f030029;
+        public static final int tab_widget=0x7f03002a;
+        public static final int topbar=0x7f03002b;
+        public static final int transit=0x7f03002c;
+        public static final int update=0x7f03002d;
+        public static final int what_new_four=0x7f03002e;
+        public static final int what_new_one=0x7f03002f;
+        public static final int what_new_three=0x7f030030;
+        public static final int what_new_two=0x7f030031;
+        public static final int write_notice=0x7f030032;
     }
     public static final class string {
         public static final int about_cocobabys=0x7f070078;

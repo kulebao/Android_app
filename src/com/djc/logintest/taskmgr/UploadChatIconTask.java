@@ -60,7 +60,7 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 	private String formatChatContent(String image) {
 		JSONObject jsonObject = new JSONObject();
 		try {
-			jsonObject.put(ChatInfo.CONTENT, image);
+			jsonObject.put(ChatInfo.CONTENT, "");
 			jsonObject.put("phone", Utils.getProp(JSONConstant.ACCOUNT_NAME));
 			jsonObject.put(JSONConstant.TIME_STAMP, System.currentTimeMillis());
 			jsonObject.put(ChatInfo.SENDER, "");

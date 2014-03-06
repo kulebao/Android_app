@@ -16,7 +16,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 public class GlobleDownloadImgeTask {
-	private int maxThreads = 3;
+	private int maxThreads = 2;
 	private ExecutorService service = Executors.newFixedThreadPool(maxThreads);
 	private Map<String, String> map = new HashMap<String, String>();
 	private float limitWidth = 0;

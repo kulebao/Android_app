@@ -518,6 +518,15 @@ public class Utils {
 		}
 		return null;
 	}
+	public static Bitmap getLoacalBitmap(String url,int maxpix) {
+		Bitmap bmp = null;
+		try {
+			bmp = ImageDownloader.getResizedBmp(maxpix,url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bmp;
+	}
 
 	public static Bitmap getBitmapFromUrl(String url) {
 		return getBitmapFromUrl(url, 1);

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -21,10 +23,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.djc.logintest.R;
+import com.djc.logintest.activities.ShowIconActivity;
+import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.dlgmgr.DlgMgr;
 import com.djc.logintest.taskmgr.GlobleDownloadImgeTask;
+import com.djc.logintest.utils.ImageDownloader;
 import com.djc.logintest.utils.Utils;
 
 public class ChatListAdapter extends BaseAdapter {
@@ -147,9 +152,10 @@ public class ChatListAdapter extends BaseAdapter {
 		if (softMap.containsKey(localUrl)) {
 			loacalBitmap = softMap.get(localUrl).get();
 		}
-		
+
 		if (loacalBitmap == null) {
-			loacalBitmap = Utils.getLoacalBitmap(localUrl);
+			loacalBitmap = Utils.getLoacalBitmap(localUrl,
+					ImageDownloader.getMaxPixWithDensity(100, 100));
 			if (loacalBitmap != null) {
 				Log.d("DJC", "getLoacalBitmap url =" + localUrl);
 				softMap.put(localUrl, new SoftReference<Bitmap>(loacalBitmap));
@@ -160,14 +166,15 @@ public class ChatListAdapter extends BaseAdapter {
 
 	private void downloadIcon(ImageView view, ChatInfo info) {
 		view.setImageResource(R.drawable.default_icon);
-		// 本地路径和oss路径的相对路径保持一致，只有前缀不同
+		// 本地路径按照学校id+家长手机号码+时间搓.jpg保存
 		String savePath = info.getLocalUrl();
 		String dir = Utils.getDir(savePath);
 		Utils.makeDirs(dir);
 		Log.d("DDD", "savePath =" + savePath);
-		if (!"".equals(info.getSender())) {
-			task.addTask(info.getIcon_url(), savePath);
-		}
+		// if (!"".equals(info.getSender())) {
+		// task.addTask(info.getIcon_url(), savePath);
+		// }
+		task.addTask(info.getIcon_url(), savePath);
 	}
 
 	private void setTimeView(final int position, FlagHolder flagholder) {
@@ -217,6 +224,20 @@ public class ChatListAdapter extends BaseAdapter {
 		} else {
 			flagholder.resendView.setVisibility(View.GONE);
 		}
+
+		flagholder.chaticonView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startToShowIconActivity(((ChatInfo) getItem(position))
+						.getLocalUrl());
+			}
+		});
+	}
+
+	protected void startToShowIconActivity(String iconUrl) {
+		Intent intent = new Intent(context, ShowIconActivity.class);
+		intent.putExtra(ConstantValue.LOCAL_URL, iconUrl);
+		context.startActivity(intent);
 	}
 
 	private class FlagHolder {
