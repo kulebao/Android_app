@@ -10,15 +10,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.djc.logintest.activities.MyApplication;
-import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.info.BindedNumInfo;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.dbmgr.info.CookBookInfo;
+import com.djc.logintest.dbmgr.info.EducationInfo;
 import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.dbmgr.info.LocationInfo;
 import com.djc.logintest.dbmgr.info.News;
-import com.djc.logintest.dbmgr.info.Notice;
 import com.djc.logintest.dbmgr.info.ScheduleInfo;
 import com.djc.logintest.dbmgr.info.SchoolInfo;
 import com.djc.logintest.dbmgr.info.SwipeInfo;
@@ -40,6 +39,7 @@ public class DataMgr {
 	private SwipeMgr swipeMgr;
 	private HomeworkMgr homeworkMgr;
 	private ChatMgr chatMgr;
+	private EducationMgr educationMgr;
 
 	public static synchronized DataMgr getInstance() {
 		synchronized (mLock) {
@@ -62,6 +62,7 @@ public class DataMgr {
 		swipeMgr = new SwipeMgr(dbHelper);
 		homeworkMgr = new HomeworkMgr(dbHelper);
 		chatMgr = new ChatMgr(dbHelper);
+		educationMgr = new EducationMgr(dbHelper);
 	}
 
 	public long addLocationInfo(LocationInfo info) {
@@ -193,195 +194,9 @@ public class DataMgr {
 		return info;
 	}
 
-	public long addNotice(Notice info) {
-		ContentValues values = buildNoticeInfo(info);
-		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
-		return writableDatabase.insert(SqliteHelper.NOTICE_TAB, null, values);
-	}
-
-	private ContentValues buildNoticeInfo(Notice info) {
-		ContentValues values = new ContentValues();
-		values.put(Notice.TITLE, info.getTitle());
-		values.put(Notice.CONTENT, info.getContent());
-		values.put(Notice.TIMESTAMP, info.getTimestamp());
-		values.put(Notice.NOTICE_TYPE, info.getType());
-		values.put(Notice.PUBLISHER, info.getPublisher());
-		values.put(Notice.READ, info.getRead());
-		values.put(Notice.CHILD_ID, info.getChild_id());
-		return values;
-	}
-
-	public void addNoticeList(List<Notice> list) {
-		if (list == null || list.isEmpty()) {
-			return;
-		}
-		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
-		writableDatabase.beginTransaction(); // 手动设置开始事务
-
-		for (Notice notice : list) {
-			ContentValues values = buildNoticeInfo(notice);
-			writableDatabase.insert(SqliteHelper.NOTICE_TAB, null, values);
-		}
-		// 数据插入操作循环
-		writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
-		writableDatabase.endTransaction(); // 处理完成
-	}
-
-	public Notice getNoticeByTimeStamp(long timestamp) {
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB
-				+ " WHERE " + Notice.TIMESTAMP + " = " + timestamp, null);
-		List<Notice> noticeList = getNoticeList(cursor);
-		return noticeList.isEmpty() ? null : noticeList.get(0);
-	}
-
-	public Notice getNoticeByID(int id) {
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB
-				+ " WHERE " + Notice.ID + " = " + id, null);
-		List<Notice> noticeList = getNoticeList(cursor);
-		return noticeList.isEmpty() ? null : noticeList.get(0);
-	}
-
-	public List<Notice> getAllNotice() {
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB
-				+ " ORDER BY " + Notice.TIMESTAMP + " DESC", null);
-
-		return getNoticeList(cursor);
-	}
-
-	public List<Notice> getAllNoticeByType(int type) {
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB
-				+ " WHERE " + Notice.NOTICE_TYPE + " = " + type + " ORDER BY "
-				+ Notice.TIMESTAMP + " DESC", null);
-
-		return getNoticeList(cursor);
-	}
-
-	public List<Notice> getNoticeByType(int type, int max) {
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB
-				+ " WHERE " + Notice.NOTICE_TYPE + " = " + type + " ORDER BY "
-				+ Notice.TIMESTAMP + " DESC LIMIT " + max, null);
-
-		return getNoticeList(cursor);
-	}
-
-	// 获取某天的，全部刷卡记录，其中date的格式必须满足yyyy-mm-dd形式
-	// 且只能显示当前选中孩子的信息
-	// public List<Notice> getAllSwipeCardNotice(String date) {
-	// SQLiteDatabase db = dbHelper.getReadableDatabase();
-	// Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB +
-	// " WHERE ("
-	// + Notice.NOTICE_TYPE + " = " + JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN
-	// + " OR "
-	// + Notice.NOTICE_TYPE + " = " +
-	// JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKOUT
-	// + ") AND " + Notice.CHILD_ID + " = '"
-	// + childrenInfoMgr.getSelectedChild().getServer_id() + "' AND DATE("
-	// + Notice.TIMESTAMP + ") = '" + date + "' ORDER BY " + Notice.TIMESTAMP +
-	// " DESC",
-	// null);
-	//
-	// return getNoticeList(cursor);
-	// }
-
-	// 获取某天的，最晚的刷卡入园记录，如果没有返回""
-	// 且只能显示当前选中孩子的信息
-	// public String getLastestSwipeInNotice(String date) {
-	// SQLiteDatabase db = dbHelper.getReadableDatabase();
-	// String sql = "SELECT * FROM " + SqliteHelper.NOTICE_TAB + " WHERE " +
-	// Notice.NOTICE_TYPE
-	// + " = " + JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN + " AND " +
-	// Notice.CHILD_ID
-	// + " = '" + childrenInfoMgr.getSelectedChild().getServer_id() +
-	// "' AND DATE("
-	// + Notice.TIMESTAMP + ") = '" + date + "' ORDER BY " + Notice.TIMESTAMP
-	// + " DESC LIMIT 1";
-	// Cursor cursor = db.rawQuery(sql, null);
-	//
-	// List<Notice> noticeList = getNoticeList(cursor);
-	// return noticeList.isEmpty() ? "" : noticeList.get(0).getTimestamp();
-	// }
-
-	// 获取某天的，最晚的刷卡离园记录，如果没有返回""
-	// 且只能显示当前选中孩子的信息
-	// public String getLatestSwipeOutNotice(String date) {
-	// SQLiteDatabase db = dbHelper.getReadableDatabase();
-	// Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NOTICE_TAB +
-	// " WHERE "
-	// + Notice.NOTICE_TYPE + " = " +
-	// JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKOUT
-	// + " AND " + Notice.CHILD_ID + " = '"
-	// + childrenInfoMgr.getSelectedChild().getServer_id() + "' AND DATE("
-	// + Notice.TIMESTAMP + ") = '" + date + "' ORDER BY " + Notice.TIMESTAMP
-	// + " DESC LIMIT 1", null);
-	//
-	// List<Notice> noticeList = getNoticeList(cursor);
-	// return noticeList.isEmpty() ? "" : noticeList.get(0).getTimestamp();
-	// }
-
-	public void deleteNotice(int id) {
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		db.execSQL("DELETE FROM " + SqliteHelper.NOTICE_TAB + " WHERE "
-				+ Notice.ID + " = " + id);
-	}
-
-	private List<Notice> getNoticeList(Cursor cursor) {
-		List<Notice> list = new ArrayList<Notice>();
-		try {
-			cursor.moveToFirst();
-			while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
-				Notice info = getNoticeByCursor(cursor);
-				list.add(info);
-				cursor.moveToNext();
-			}
-		} finally {
-			if (cursor != null) {
-				cursor.close();
-			}
-		}
-		return list;
-	}
-
-	private Notice getNoticeByCursor(Cursor cursor) {
-		Notice info = new Notice();
-
-		info.setId(cursor.getInt(0));
-		info.setTitle(cursor.getString(1));
-		info.setContent(cursor.getString(2));
-		info.setTimestamp(cursor.getString(3));
-		info.setType(cursor.getInt(4));
-		info.setPublisher(cursor.getString(5));
-		info.setRead(cursor.getInt(6));
-		info.setChild_id(cursor.getString(7));
-		return info;
-	}
-
 	public void upgradeAll() {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		dbHelper.clearAll(db);
-	}
-
-	public void removeAllNoticeByType(int type) {
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		db.execSQL("DELETE FROM " + SqliteHelper.NOTICE_TAB + " WHERE "
-				+ Notice.NOTICE_TYPE + " = " + type);
-	}
-
-	public void removeAllSwipCardNotice() {
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		db.execSQL("DELETE FROM " + SqliteHelper.NOTICE_TAB + " WHERE "
-				+ Notice.NOTICE_TYPE + " = "
-				+ JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN);
-	}
-
-	public void removeAllOtherNotice() {
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		db.execSQL("DELETE FROM " + SqliteHelper.NOTICE_TAB + " WHERE "
-				+ Notice.NOTICE_TYPE + " = " + JSONConstant.NOTICE_TYPE_OTHER);
 	}
 
 	// 简单起见，每次更新小孩数据，都是全部删除后插入，因为小孩数量不会很多，大部分只有一个
@@ -556,6 +371,18 @@ public class DataMgr {
 
 	public int getLastChatServerid() {
 		return chatMgr.getLastServerid();
+	}
+
+	public void addEduRecordList(List<EducationInfo> list) {
+		educationMgr.addEduRecordList(list);
+	}
+
+	public List<EducationInfo> getEduRecordByChildID(String childid) {
+		return educationMgr.getEduRecordByChildID(childid);
+	}
+
+	public void removeEduRecord(String childid) {
+		educationMgr.removeEduRecord(childid);
 	}
 
 	public void close() {

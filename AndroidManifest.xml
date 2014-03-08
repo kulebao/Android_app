@@ -218,6 +218,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activities.EducationActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activities.CheckIconActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"

@@ -14,11 +14,13 @@ import android.widget.ListView;
 import com.djc.logintest.R;
 import com.djc.logintest.adapter.CookBookListAdapter;
 import com.djc.logintest.bean.CookbookItem;
+import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.CookBookInfo;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.GetCookbookTask;
+import com.djc.logintest.utils.Utils;
 
 public class CookBookActivity extends Activity {
     private CookBookListAdapter adapter;
@@ -47,10 +49,13 @@ public class CookBookActivity extends Activity {
                 super.handleMessage(msg);
                 switch (msg.what) {
                 case EventType.GET_COOKBOOK_SUCCESS:
+            		// 获取到新的食谱，将新食谱的标志置为false
+            		Utils.saveProp(ConstantValue.HAVE_COOKBOOK_NOTICE, "false");
                     initData();
                     break;
                 // 已是最新
                 case EventType.GET_COOKBOOK_LATEST:
+                	Utils.saveProp(ConstantValue.HAVE_COOKBOOK_NOTICE, "false");
                     break;
                 default:
                     break;

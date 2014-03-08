@@ -92,9 +92,6 @@ public class SwipeListAdapter extends BaseAdapter {
                         new android.content.DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                DataMgr.getInstance().deleteNotice(info.getId());
-                                list.remove(position);
-                                notifyDataSetChanged();
                             }
                         });
             }

@@ -12,6 +12,7 @@ import com.djc.logintest.R;
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.activities.NoticePullRefreshActivity;
 import com.djc.logintest.constant.ConstantValue;
+import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.Homework;
@@ -19,6 +20,7 @@ import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.net.GetCookbookMethod;
 import com.djc.logintest.net.GetHomeworkMethod;
 import com.djc.logintest.net.GetNormalNewsMethod;
+import com.djc.logintest.net.ScheduleMethod;
 import com.djc.logintest.service.MyService;
 
 public class MethodUtils {
@@ -75,6 +77,25 @@ public class MethodUtils {
 			}
 		}
 
+		return has_new;
+	}
+	
+	// 检查是否有新课程表
+	public static boolean checkSchedule() {
+		boolean has_new = false;
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication
+				.getInstance());
+		if (networkConnected) {
+			ScheduleMethod method = ScheduleMethod.getMethod();
+			try {
+				if(method.checkSchedule() == EventType.GET_SCHEDULE_SUCCESS){
+					has_new = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return has_new;
 	}
 
@@ -181,6 +202,13 @@ public class MethodUtils {
 		Intent myintent = new Intent(context, MyService.class);
 		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_COOKBOOK);
+		context.startService(myintent);
+	}
+	
+	public static void executeCheckScheduleCommand(Context context) {
+		Intent myintent = new Intent(context, MyService.class);
+		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
+				ConstantValue.COMMAND_TYPE_CHECK_SCHEDULE);
 		context.startService(myintent);
 	}
 }

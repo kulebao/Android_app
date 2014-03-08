@@ -8,6 +8,7 @@ public class ServerUrls {
 	public static final String SCHEDULE_RES_PATH = "schedule";
 	public static final String COOKBOOK_RES_PATH = "cookbook";
 	public static final String NEWS_RES_PATH = "news";
+	public static final String EDU_RES_PATH = "assess";
 	public static final String ASSIGNMENT_RES_PATH = "assignment";
 	public static final String CONVERSATION = "conversation";
 
@@ -49,13 +50,17 @@ public class ServerUrls {
 	public static final String GET_NORMAL_NOTICE = HTTPS_HOST_ADDR
 			+ ROOT_RES_PATH + "/%s/" + NEWS_RES_PATH + "?";
 
+	// https://www.cocobabys.com/kindergarten/93740362/child/1_93740362_456/assess?from=1&to=10&most=5
+	public static final String GET_EDUCATION = HTTPS_HOST_ADDR + ROOT_RES_PATH
+			+ "/%s/" + CHILD_RES_PATH + "/%s/" + EDU_RES_PATH + "?";
+
 	public static final String GET_HOMEWORK = HTTPS_HOST_ADDR + ROOT_RES_PATH
 			+ "/%s/" + ASSIGNMENT_RES_PATH + "?";
 
 	// https://www.cocobabys.com/kindergarten/93740362/conversation/123456789?from=1&to=2&most=25&sort=desc
 	public static final String GET_CHAT = HTTPS_HOST_ADDR + ROOT_RES_PATH
 			+ "/%s/" + CONVERSATION + "/%s" + "?";
-	
+
 	// https://www.cocobabys.com/kindergarten/93740362/conversation/123456789?from=1&to=2&most=25&sort=desc
 	public static final String SEND_CHAT = HTTPS_HOST_ADDR + ROOT_RES_PATH
 			+ "/%s/" + CONVERSATION + "/%s";

@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.djc.logintest.R;
-import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.utils.Utils;
 
@@ -86,9 +85,6 @@ public class NewsListAdapter extends BaseAdapter {
                         new android.content.DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                DataMgr.getInstance().deleteNotice(info.getId());
-                                newsList.remove(position);
-                                notifyDataSetChanged();
                             }
                         });
             }

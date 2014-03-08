@@ -15,13 +15,13 @@ import com.djc.logintest.dbmgr.info.InfoHelper;
 import com.djc.logintest.dbmgr.info.ScheduleInfo;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
 
-public class GetScheduleMethod {
+public class ScheduleMethod {
 
-    private GetScheduleMethod() {
+    private ScheduleMethod() {
     }
 
-    public static GetScheduleMethod getMethod() {
-        return new GetScheduleMethod();
+    public static ScheduleMethod getMethod() {
+        return new ScheduleMethod();
     }
 
     public int checkSchedule() {

@@ -6,7 +6,7 @@ import android.os.Message;
 
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.EventType;
-import com.djc.logintest.net.GetScheduleMethod;
+import com.djc.logintest.net.ScheduleMethod;
 import com.djc.logintest.utils.Utils;
 
 public class GetScheduleTask extends AsyncTask<Void, Void, Integer> {
@@ -22,7 +22,7 @@ public class GetScheduleTask extends AsyncTask<Void, Void, Integer> {
         int result = EventType.NET_WORK_INVALID;
         boolean networkConnected = Utils.isNetworkConnected(MyApplication.getInstance());
         if (networkConnected) {
-            GetScheduleMethod method = GetScheduleMethod.getMethod();
+            ScheduleMethod method = ScheduleMethod.getMethod();
             result = method.checkSchedule();
         }
         return result;

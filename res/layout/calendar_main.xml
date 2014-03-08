@@ -32,7 +32,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
-            android:background="@drawable/previous_month" />
+            android:background="@drawable/left_arrow" />
 
         <Button
             android:id="@+id/btn_next_month"
@@ -41,7 +41,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="30dp"
-            android:background="@drawable/next_month" />
+            android:background="@drawable/right_arrow" />
     </RelativeLayout>
 
 </LinearLayout>

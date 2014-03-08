@@ -56,12 +56,13 @@ import com.djc.logintest.utils.Utils;
 
 public class SchoolNoticeActivity extends TabChildActivity {
 	private GridView gridview;
-	private static final int NORMAL_NOTICE = 0;
-	private static final int COOK_NOTICE = 1;
-	private static final int SWAPCARD_NOTICE = 2;
-	private static final int SCHEDULE = 3;
-	private static final int HOMEWORK = 4;
-	private static final int INTERACTION = 5;
+	public static final int NORMAL_NOTICE = 0;
+	public static final int COOK_NOTICE = 1;
+	public static final int SWAPCARD_NOTICE = 2;
+	public static final int SCHEDULE = 3;
+	public static final int HOMEWORK = 4;
+	public static final int INTERACTION = 5;
+	public static final int EDUCATION = 6;
 
 	// 下列序号与资源文件arrays.xml中的baby_setting_items配置保持一致
 	private static final int SET_BABY_NICKNAME = 0;
@@ -101,6 +102,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		MethodUtils.executeCheckNewsCommand(this);
 		MethodUtils.executeCheckHomeworkCommand(this);
 		MethodUtils.executeCheckCookbookCommand(this);
+		MethodUtils.executeCheckScheduleCommand(this);
 	}
 
 	private void registObserver() {
@@ -652,10 +654,15 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		map.put("ItemImage", R.drawable.schedule);
 		map.put("ItemText", getResources().getText(R.string.homework));
 		lstImageItem.add(map);
-		
+
 		map = new HashMap<String, Object>();
 		map.put("ItemImage", R.drawable.schedule);
 		map.put("ItemText", getResources().getText(R.string.interaction));
+		lstImageItem.add(map);
+
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.schedule);
+		map.put("ItemText", getResources().getText(R.string.education));
 		lstImageItem.add(map);
 
 		return lstImageItem;
@@ -694,13 +701,22 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			startToHomeworkActivity();
 			break;
 		case INTERACTION:
-		    startToInteractionActivity();
-		    break;
+			startToInteractionActivity();
+			break;
+		case EDUCATION:
+			startToEducationActivity();
+			break;
 
 		default:
 			Toast.makeText(this, "暂未实现！", Toast.LENGTH_SHORT).show();
 			break;
 		}
+	}
+
+	private void startToEducationActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, EducationActivity.class);
+		startActivity(intent);	
 	}
 
 	private void startToInteractionActivity() {

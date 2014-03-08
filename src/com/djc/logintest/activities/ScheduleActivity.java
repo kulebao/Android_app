@@ -14,11 +14,13 @@ import android.widget.ListView;
 import com.djc.logintest.R;
 import com.djc.logintest.adapter.ScheduleListAdapter;
 import com.djc.logintest.bean.ScheduleListItem;
+import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.ScheduleInfo;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.GetScheduleTask;
+import com.djc.logintest.utils.Utils;
 
 public class ScheduleActivity extends Activity {
     private ScheduleListAdapter adapter;
@@ -47,10 +49,12 @@ public class ScheduleActivity extends Activity {
                 super.handleMessage(msg);
                 switch (msg.what) {
                 case EventType.GET_SCHEDULE_SUCCESS:
+                	Utils.saveProp(ConstantValue.HAVE_SCHEDULE_NOTICE, "false");
                     initData();
                     break;
                 // 已是最新
                 case EventType.GET_SCHEDULE_LATEST:
+					Utils.saveProp(ConstantValue.HAVE_SCHEDULE_NOTICE, "false");
                     break;
                 default:
                     break;

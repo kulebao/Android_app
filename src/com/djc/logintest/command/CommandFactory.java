@@ -27,6 +27,10 @@ public class CommandFactory {
 			Log.d("ddd", "onStartCommand COMMAND_TYPE_CHECK_HOMEWORK");
 			command = new CommandCheckHomework();
 			break;
+		case ConstantValue.COMMAND_TYPE_CHECK_SCHEDULE:
+			Log.d("ddd", "onStartCommand COMMAND_TYPE_CHECK_SCHEDULE");
+			command = new CommandCheckSchedule();
+			break;
 
 		default:
 			command = new CommandEmpty();

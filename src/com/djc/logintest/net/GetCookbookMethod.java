@@ -7,7 +7,6 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.constant.ServerUrls;
@@ -15,7 +14,6 @@ import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.CookBookInfo;
 import com.djc.logintest.dbmgr.info.InfoHelper;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
-import com.djc.logintest.utils.Utils;
 
 public class GetCookbookMethod {
 
@@ -33,7 +31,7 @@ public class GetCookbookMethod {
 		Log.e("DDDDD ", "createGetChildrenInfoUrl cmd:" + url);
 		try {
 			result = HttpClientHelper.executeGet(url);
-			bret = handleCheckCookbookResult(result);
+			bret = handleCookbookResult(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,6 +46,9 @@ public class GetCookbookMethod {
 		try {
 			result = HttpClientHelper.executeGet(url);
 			CookBookPreview cookBookPreview = paraseCookBookPreview(result);
+			if (cookBookPreview.errorcode != 0) {
+				return false;
+			}
 			bret = compareTime(cookBookPreview);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,13 +58,11 @@ public class GetCookbookMethod {
 
 	private boolean compareTime(CookBookPreview cookBookPreview) {
 		boolean bret = false;
-		if (cookBookPreview.errorcode == 0) {
-			CookBookInfo cookBookInfo = DataMgr.getInstance().getCookBookInfo();
-			if (cookBookInfo == null
-					|| (cookBookPreview.timestamp > Long.parseLong(cookBookInfo
-							.getTimestamp()))) {
-				bret = true;
-			}
+		CookBookInfo cookBookInfo = DataMgr.getInstance().getCookBookInfo();
+		if (cookBookInfo == null
+				|| (cookBookPreview.timestamp > Long.parseLong(cookBookInfo
+						.getTimestamp()))) {
+			bret = true;
 		}
 		return bret;
 	}
@@ -95,16 +94,20 @@ public class GetCookbookMethod {
 		return cookBookPreview;
 	}
 
-	private int handleCheckCookbookResult(HttpResult result) {
+	private int handleCookbookResult(HttpResult result) {
 		int event = EventType.NET_WORK_INVALID;
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			try {
 				CookBookPreview cookBookPreview = paraseCookBookPreview(result);
+				if (cookBookPreview.errorcode != 0) {
+					return EventType.GET_COOKBOOK_FAILED;
+				}
+
 				boolean bret = compareTime(cookBookPreview);
 				if (bret) {
-					event = getCookbook(cookBookPreview.cookbookid);
+					event = getCookbookImpl(cookBookPreview.cookbookid);
 				} else {
-					event = EventType.GET_COOKBOOK_FAILED;
+					event = EventType.GET_COOKBOOK_LATEST;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -116,19 +119,7 @@ public class GetCookbookMethod {
 		return event;
 	}
 
-	public int handleSuccess(JSONObject jsonObject) throws JSONException {
-		String newtimestamp = jsonObject.getString(InfoHelper.TIMESTAMP);
-		long newTime = Long.parseLong(newtimestamp);
-		CookBookInfo cookBookInfo = DataMgr.getInstance().getCookBookInfo();
-
-		if (cookBookInfo == null
-				|| (newTime > Long.parseLong(cookBookInfo.getTimestamp()))) {
-			return getCookbook(jsonObject.getString(CookBookInfo.COOKBOOK_ID));
-		}
-		return EventType.GET_COOKBOOK_LATEST;
-	}
-
-	public int getCookbook(String cookbookID) {
+	private int getCookbookImpl(String cookbookID) {
 		int bret = EventType.NET_WORK_INVALID;
 		HttpResult result = new HttpResult();
 		String url = createGetCookbookUrl(cookbookID);
@@ -177,8 +168,6 @@ public class GetCookbookMethod {
 		info.setCookbook_id(jsonObject.getString(CookBookInfo.COOKBOOK_ID));
 		info.setCookbook_content(jsonObject.getString(InfoHelper.WEEK_DETAIL));
 		DataMgr.getInstance().updateCookBookInfo(info);
-		// 获取到新的食谱，将新食谱的标志置为false
-		Utils.saveProp(ConstantValue.HAVE_COOKBOOK_NOTICE, "false");
 	}
 
 	private class CookBookPreview {

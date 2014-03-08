@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.djc.logintest.R;
+import com.djc.logintest.activities.SchoolNoticeActivity;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.utils.Utils;
 
@@ -66,28 +67,7 @@ public class MyGridViewAdapter extends BaseAdapter {
 	}
 
 	private void setDataToViews(final int position, FlagHolder flagholder) {
-		if (position == 0) {
-			String prop = Utils.getProp(ConstantValue.HAVE_NEWS_NOTICE);
-			if ("true".equals(prop)) {
-				flagholder.newDataSymble.setVisibility(View.VISIBLE);
-			} else {
-				flagholder.newDataSymble.setVisibility(View.GONE);
-			}
-		} else if (position == 1) {
-			String prop = Utils.getProp(ConstantValue.HAVE_COOKBOOK_NOTICE);
-			if ("true".equals(prop)) {
-				flagholder.newDataSymble.setVisibility(View.VISIBLE);
-			} else {
-				flagholder.newDataSymble.setVisibility(View.GONE);
-			}
-		} else if (position == 4) {
-			String prop = Utils.getProp(ConstantValue.HAVE_HOMEWORK_NOTICE);
-			if ("true".equals(prop)) {
-				flagholder.newDataSymble.setVisibility(View.VISIBLE);
-			} else {
-				flagholder.newDataSymble.setVisibility(View.GONE);
-			}
-		}
+		setNoticeImg(position, flagholder);
 
 		HashMap<String, Object> map = (HashMap<String, Object>) getItem(position);
 		int object = (Integer) map.get("ItemImage");
@@ -95,6 +75,38 @@ public class MyGridViewAdapter extends BaseAdapter {
 
 		String content = (String) map.get("ItemText");
 		flagholder.nameView.setText(content);
+	}
+
+	private void setNoticeImg(final int position, FlagHolder flagholder) {
+		if (position == SchoolNoticeActivity.NORMAL_NOTICE) {
+			String prop = Utils.getProp(ConstantValue.HAVE_NEWS_NOTICE);
+			if ("true".equals(prop)) {
+				flagholder.newDataSymble.setVisibility(View.VISIBLE);
+			} else {
+				flagholder.newDataSymble.setVisibility(View.GONE);
+			}
+		} else if (position == SchoolNoticeActivity.COOK_NOTICE) {
+			String prop = Utils.getProp(ConstantValue.HAVE_COOKBOOK_NOTICE);
+			if ("true".equals(prop)) {
+				flagholder.newDataSymble.setVisibility(View.VISIBLE);
+			} else {
+				flagholder.newDataSymble.setVisibility(View.GONE);
+			}
+		} else if (position == SchoolNoticeActivity.HOMEWORK) {
+			String prop = Utils.getProp(ConstantValue.HAVE_HOMEWORK_NOTICE);
+			if ("true".equals(prop)) {
+				flagholder.newDataSymble.setVisibility(View.VISIBLE);
+			} else {
+				flagholder.newDataSymble.setVisibility(View.GONE);
+			}
+		}else if (position == SchoolNoticeActivity.SCHEDULE) {
+			String prop = Utils.getProp(ConstantValue.HAVE_SCHEDULE_NOTICE);
+			if ("true".equals(prop)) {
+				flagholder.newDataSymble.setVisibility(View.VISIBLE);
+			} else {
+				flagholder.newDataSymble.setVisibility(View.GONE);
+			}
+		}
 	}
 
 	private class FlagHolder {
