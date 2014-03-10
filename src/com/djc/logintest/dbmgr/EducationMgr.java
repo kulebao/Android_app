@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.djc.logintest.dbmgr.info.EducationInfo;
 import com.djc.logintest.dbmgr.info.News;
 
-public class EducationMgr {
+class EducationMgr {
 	private SqliteHelper dbHelper;
 
 	EducationMgr(SqliteHelper dbHelper) {
@@ -59,7 +59,7 @@ public class EducationMgr {
 		values.put(EducationInfo.CHILD_ID, info.getChild_id());
 		return values;
 	}
-
+	
 	List<EducationInfo> getEduRecordByChildID(String childid) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT * FROM "

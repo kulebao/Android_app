@@ -487,6 +487,7 @@ public class InteractionActivity extends Activity {
 	}
 
 	protected void handleSuccess(Message msg) {
+		Utils.saveProp(ConstantValue.HAVE_CHAT_NOTICE, "false");
 		List<ChatInfo> list = (List<ChatInfo>) msg.obj;
 		if (!list.isEmpty()) {
 			// Utils.saveProp(ConstantValue.HAVE_HOMEWORK_NOTICE, "false");

@@ -13,6 +13,10 @@ public class ConstantValue {
 	public static final int COMMAND_TYPE_CHECK_HOMEWORK = 3;
 	// 检查课程表
 	public static final int COMMAND_TYPE_CHECK_SCHEDULE = 4;
+	// 检查家园互动
+	public static final int COMMAND_TYPE_CHECK_CHAT = 5;
+	// 检查在园表现
+	public static final int COMMAND_TYPE_CHECK_EDU = 6;
 
 	public static final String FIRST_LOGIN = "first_login";
 
@@ -40,6 +44,10 @@ public class ConstantValue {
 	public static final String HAVE_COOKBOOK_NOTICE = "have_cookbook_notice";
 	// 是否有新亲子作业
 	public static final String HAVE_HOMEWORK_NOTICE = "have_homework_notice";
+	// 是否有新在园表现评价
+	public static final String HAVE_EDUCATION_NOTICE = "have_education_notice";
+	// 是否有新留言
+	public static final String HAVE_CHAT_NOTICE = "have_chat_notice";
 	
 	// 是否有新课程表
 	public static final String HAVE_SCHEDULE_NOTICE = "have_schedule_notice";

@@ -5,6 +5,7 @@ import java.io.File;
 import android.util.Log;
 
 import com.djc.logintest.upload.OSSMgr;
+import com.djc.logintest.upload.UploadFactory;
 import com.djc.logintest.utils.Utils;
 
 public class ChatInfo {
@@ -100,7 +101,8 @@ public class ChatInfo {
 		String localUrl = "";
 		if (!"".equals(icon_url)) {
 			if ("".equals(getSender())) {
-				localUrl = getIcon_url().replace(OSSMgr.getOssHost(),
+				localUrl = getIcon_url().replace(
+						UploadFactory.CLOUD_STORAGE_HOST,
 						Utils.getSDCardPicRootPath() + File.separator);
 			} else {
 				// 老师发的图片，不一定是来自阿里oss,可能是七牛，后续要统一
@@ -109,7 +111,7 @@ public class ChatInfo {
 						+ Utils.getOssChatIconUrl(getTimestamp());
 			}
 		}
-		Log.d("DDD", "getLocalUrl ="+localUrl);
+		Log.d("DDD", "getLocalUrl =" + localUrl);
 		return localUrl;
 	}
 

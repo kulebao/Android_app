@@ -2,11 +2,14 @@ package com.djc.logintest.taskmgr;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.handler.TaskResultHandler;
 import com.djc.logintest.net.UploadChildInfoMethod;
+import com.djc.logintest.net.UploadTokenMethod;
 import com.djc.logintest.upload.OSSMgr;
+import com.djc.logintest.upload.UploadFactory;
 import com.djc.logintest.utils.Utils;
 
 public class UploadInfoTask extends AsyncTask<Void, Void, Integer> {
@@ -28,8 +31,15 @@ public class UploadInfoTask extends AsyncTask<Void, Void, Integer> {
         int bret = EventType.UPLOAD_FAILED;
         if (bitmap != null) {
             try {
-            	String url = Utils.getUpload2OssChildUrl();
-                OSSMgr.UploadPhoto(bitmap,url);
+            	//url 是保存在云存储的相对路径
+            	String url = Utils.getUploadChildUrl();
+            	String uploadToken = UploadTokenMethod.getMethod().getUploadToken(url);
+            	if(TextUtils.isEmpty(uploadToken)){
+            		return bret;
+            	}
+//                OSSMgr.UploadPhoto(bitmap,url);
+            	UploadFactory.createUploadMgr().UploadPhoto(bitmap, url, uploadToken);
+            	
             } catch (Exception e) {
                 // 如果上传文件失败，直接返回错误
                 e.printStackTrace();

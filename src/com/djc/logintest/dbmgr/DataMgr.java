@@ -381,6 +381,16 @@ public class DataMgr {
 		return educationMgr.getEduRecordByChildID(childid);
 	}
 
+	public List<EducationInfo> getSelectedChildEduRecord() {
+		return educationMgr.getEduRecordByChildID(childrenInfoMgr
+				.getSelectedChild().getServer_id());
+	}
+
+	public void removeSelectedChildEduRecord() {
+		educationMgr.removeEduRecord(childrenInfoMgr.getSelectedChild()
+				.getServer_id());
+	}
+
 	public void removeEduRecord(String childid) {
 		educationMgr.removeEduRecord(childid);
 	}

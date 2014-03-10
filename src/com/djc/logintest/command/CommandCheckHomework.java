@@ -11,10 +11,10 @@ public class CommandCheckHomework implements Command {
 
 	@Override
 	public void execute() {
-		new CheckNewsTask().execute();
+		new CheckTask().execute();
 	}
 
-	class CheckNewsTask extends AsyncTask<Void, Void, Void> {
+	class CheckTask extends AsyncTask<Void, Void, Void> {
 		boolean has_new = false;
 
 		@Override

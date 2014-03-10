@@ -27,7 +27,6 @@ import com.djc.logintest.R;
 import com.djc.logintest.adapter.EducationGridViewAdapter;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
-import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.EducationInfo;
 import com.djc.logintest.dbmgr.info.InfoHelper;
@@ -138,6 +137,8 @@ public class EducationActivity extends Activity {
 	}
 
 	protected void handleSuccess(Message msg) {
+		Utils.saveProp(ConstantValue.HAVE_EDUCATION_NOTICE, "false");
+		@SuppressWarnings("unchecked")
 		List<EducationInfo> list = (List<EducationInfo>) msg.obj;
 		if (!list.isEmpty()) {
 			// 刷出新公告了，去掉有新公告的标志
@@ -246,8 +247,7 @@ public class EducationActivity extends Activity {
 				eduList = eduList.subList(0, ConstantValue.GET_EDU_MAX_COUNT);
 			}
 
-			DataMgr.getInstance().removeEduRecord(
-					DataMgr.getInstance().getSelectedChild().getServer_id());
+			DataMgr.getInstance().removeSelectedChildEduRecord();
 			DataMgr.getInstance().addEduRecordList(eduList);
 		}
 	}
@@ -257,8 +257,7 @@ public class EducationActivity extends Activity {
 		// 到连续的数据，避免排序和获取复杂化，删除旧的全部数据，只保留最新的25条
 		if (list.size() >= ConstantValue.GET_EDU_MAX_COUNT) {
 			eduList.clear();
-			DataMgr.getInstance().removeEduRecord(
-					DataMgr.getInstance().getSelectedChild().getServer_id());
+			DataMgr.getInstance().removeSelectedChildEduRecord();
 		}
 
 		eduList.addAll(0, list);
@@ -266,8 +265,7 @@ public class EducationActivity extends Activity {
 	}
 
 	public void initData() {
-		eduList = DataMgr.getInstance().getEduRecordByChildID(
-				DataMgr.getInstance().getSelectedChild().getServer_id());
+		eduList = DataMgr.getInstance().getSelectedChildEduRecord();
 
 		if (eduList.isEmpty()) {
 			// 如果没有数据，则初始化为空的记录
@@ -343,9 +341,8 @@ public class EducationActivity extends Activity {
 					new OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							DataMgr.getInstance().removeEduRecord(
-									DataMgr.getInstance().getSelectedChild()
-											.getServer_id());
+							DataMgr.getInstance()
+									.removeSelectedChildEduRecord();
 							currentEdu = new EducationInfo();
 							eduList.clear();
 							refresh();

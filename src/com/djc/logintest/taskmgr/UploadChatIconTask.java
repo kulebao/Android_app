@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.djc.logintest.activities.MyApplication;
@@ -18,7 +19,9 @@ import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.net.ChatMethod;
+import com.djc.logintest.net.UploadTokenMethod;
 import com.djc.logintest.upload.OSSMgr;
+import com.djc.logintest.upload.UploadFactory;
 import com.djc.logintest.utils.Utils;
 
 public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
@@ -42,9 +45,9 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 			try {
 				String url = uploadBmpToOss();
 				saveBmpToSDCard(url);
-				
-				// 上传到oss后，生成的外部链接
-				String image = OSSMgr.getOssHost() + url;
+
+				// 上传到云服务器后，生成的外部链接
+				String image = UploadFactory.CLOUD_STORAGE_HOST + url;
 				list = ChatMethod.getMethod().sendChat(
 						formatChatContent(image), lastid);
 				result = EventType.SUCCESS;
@@ -83,7 +86,13 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 
 	private String uploadBmpToOss() {
 		String url = Utils.getOssChatIconUrl(System.currentTimeMillis());
-		OSSMgr.UploadPhoto(bitmap, url);
+		// OSSMgr.UploadPhoto(bitmap, url);
+		// url 是保存在云存储的相对路径
+		String uploadToken = UploadTokenMethod.getMethod().getUploadToken(url);
+		if (TextUtils.isEmpty(uploadToken)) {
+			throw new RuntimeException("getUploadToken failed ");
+		}
+		UploadFactory.createUploadMgr().UploadPhoto(bitmap, url, uploadToken);
 		return url;
 	}
 

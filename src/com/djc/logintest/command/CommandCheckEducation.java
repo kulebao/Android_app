@@ -7,7 +7,7 @@ import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.utils.MethodUtils;
 import com.djc.logintest.utils.Utils;
 
-public class CommandCheckSchedule implements Command {
+public class CommandCheckEducation implements Command {
 
 	@Override
 	public void execute() {
@@ -19,7 +19,7 @@ public class CommandCheckSchedule implements Command {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			has_new = MethodUtils.checkSchedule();
+			has_new = MethodUtils.checkEdu();
 			return null;
 		}
 
@@ -27,7 +27,7 @@ public class CommandCheckSchedule implements Command {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			if (has_new) {
-				Utils.saveProp(ConstantValue.HAVE_SCHEDULE_NOTICE, "true");
+				Utils.saveProp(ConstantValue.HAVE_EDUCATION_NOTICE, "true");
 				MyApplication instance = MyApplication.getInstance();
 				if (instance != null) {
 					instance.updateNotify(0, 0);

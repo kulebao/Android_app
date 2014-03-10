@@ -32,7 +32,9 @@ public class ShowIconActivity extends Activity {
 
 	@Override
 	protected void onDestroy() {
-		bitmap.recycle();
+		if (bitmap != null) {
+			bitmap.recycle();
+		}
 		super.onDestroy();
 	}
 

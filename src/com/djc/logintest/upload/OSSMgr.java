@@ -1,13 +1,10 @@
 package com.djc.logintest.upload;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 
 import android.graphics.Bitmap;
 
 import com.aliyun.android.oss.OSSClient;
-import com.djc.logintest.utils.Utils;
 
 /**
  * 该示例代码展示了如果在OSS中创建和删除一个Bucket，以及如何上传和下载一个文件。
@@ -24,27 +21,28 @@ import com.djc.logintest.utils.Utils;
  */
 public class OSSMgr {
 
-    private static final String ACCESS_ID = "0qt02QY9NRHDX24H";
-    private static final String ACCESS_KEY = "pr4QP3C10dzyKOOKL7jFR3VCkwFPbn";
-    private static final String OSS_ENDPOINT = "http://oss.aliyuncs.com/";
-    private static String BUCKETNAME = "cocobabys";
-    public static String OSS_HOST = "http://cocobabys.oss.aliyuncs.com/";
-
-    /**
-     * @param url 
-     * @param input
-     * @param length
-     * @param args
-     */
-    public static void UploadPhoto(Bitmap bitmap, String url) {
-        OSSClient client = new OSSClient(ACCESS_ID, ACCESS_KEY);
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-        client.uploadObject(BUCKETNAME, url, baos.toByteArray());
-    }
-    
-    public static String getOssHost(){
-    	return OSS_HOST;
-    }
+	// private static final String ACCESS_ID = "0qt02QY9NRHDX24H";
+	// private static final String ACCESS_KEY =
+	// "pr4QP3C10dzyKOOKL7jFR3VCkwFPbn";
+	// private static final String OSS_ENDPOINT = "http://oss.aliyuncs.com/";
+	// private static String BUCKETNAME = "cocobabys";
+	// public static String OSS_HOST = "http://cocobabys.oss.aliyuncs.com/";
+	//
+	// /**
+	// * @param url
+	// * @param input
+	// * @param length
+	// * @param args
+	// */
+	// public static void UploadPhoto(Bitmap bitmap, String url) {
+	// OSSClient client = new OSSClient(ACCESS_ID, ACCESS_KEY);
+	//
+	// ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	// bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+	// client.uploadObject(BUCKETNAME, url, baos.toByteArray());
+	// }
+	//
+	// public static String getOssHost() {
+	// return OSS_HOST;
+	// }
 }

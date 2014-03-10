@@ -106,6 +106,20 @@ public class MyGridViewAdapter extends BaseAdapter {
 			} else {
 				flagholder.newDataSymble.setVisibility(View.GONE);
 			}
+		}else if (position == SchoolNoticeActivity.INTERACTION) {
+			String prop = Utils.getProp(ConstantValue.HAVE_CHAT_NOTICE);
+			if ("true".equals(prop)) {
+				flagholder.newDataSymble.setVisibility(View.VISIBLE);
+			} else {
+				flagholder.newDataSymble.setVisibility(View.GONE);
+			}
+		}else if (position == SchoolNoticeActivity.EDUCATION) {
+			String prop = Utils.getProp(ConstantValue.HAVE_EDUCATION_NOTICE);
+			if ("true".equals(prop)) {
+				flagholder.newDataSymble.setVisibility(View.VISIBLE);
+			} else {
+				flagholder.newDataSymble.setVisibility(View.GONE);
+			}
 		}
 	}
 

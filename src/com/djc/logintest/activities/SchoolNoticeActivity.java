@@ -51,6 +51,7 @@ import com.djc.logintest.taskmgr.DownLoadImgAndSaveTask;
 import com.djc.logintest.taskmgr.UploadInfoTask;
 import com.djc.logintest.threadpool.MyThreadPoolMgr;
 import com.djc.logintest.upload.OSSMgr;
+import com.djc.logintest.upload.UploadFactory;
 import com.djc.logintest.utils.MethodUtils;
 import com.djc.logintest.utils.Utils;
 
@@ -103,6 +104,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		MethodUtils.executeCheckHomeworkCommand(this);
 		MethodUtils.executeCheckCookbookCommand(this);
 		MethodUtils.executeCheckScheduleCommand(this);
+		MethodUtils.executeCheckChatCommand(this);
+		MethodUtils.executeCheckEducationCommand(this);
 	}
 
 	private void registObserver() {
@@ -333,7 +336,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			try {
 				Bitmap bitmap = getBitmap(data);
 				JSONObject obj = new JSONObject();
-				obj.put(PHOTO, OSSMgr.OSS_HOST + Utils.getUpload2OssChildUrl());
+				obj.put(PHOTO,
+						UploadFactory.CLOUD_STORAGE_HOST
+								+ Utils.getUploadChildUrl());
 
 				runUploadTask(obj.toString(), bitmap,
 						getResources().getString(R.string.uploading_icon),
@@ -716,7 +721,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	private void startToEducationActivity() {
 		Intent intent = new Intent();
 		intent.setClass(this, EducationActivity.class);
-		startActivity(intent);	
+		startActivity(intent);
 	}
 
 	private void startToInteractionActivity() {

@@ -472,7 +472,7 @@ public class Utils {
 	}
 
 	// 上传到oss的小孩照片固定地址
-	public static String getUpload2OssChildUrl() {
+	public static String getUploadChildUrl() {
 		return CHILD_PHOTO + File.separator
 				+ DataMgr.getInstance().getSchoolID() + File.separator
 				+ DataMgr.getInstance().getSelectedChild().getServer_id()

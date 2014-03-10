@@ -15,8 +15,12 @@ import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.DataMgr;
+import com.djc.logintest.dbmgr.info.ChatInfo;
+import com.djc.logintest.dbmgr.info.EducationInfo;
 import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.dbmgr.info.News;
+import com.djc.logintest.net.ChatMethod;
+import com.djc.logintest.net.EducationMethod;
 import com.djc.logintest.net.GetCookbookMethod;
 import com.djc.logintest.net.GetHomeworkMethod;
 import com.djc.logintest.net.GetNormalNewsMethod;
@@ -29,38 +33,73 @@ public class MethodUtils {
 
 	// 检查是否有新公告
 	public static boolean checkNews() {
-		boolean existNews = false;
+		boolean has_new = false;
 		boolean networkConnected = Utils.isNetworkConnected(MyApplication
 				.getInstance());
 		if (networkConnected) {
 			GetNormalNewsMethod method = GetNormalNewsMethod.getMethod();
 			try {
 				long from = getMaxNewsID();
-				existNews = !method.getNormalNews(1, from, 0).isEmpty();
+				has_new = !method.getNormalNews(1, from, 0).isEmpty();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-		return existNews;
+		return has_new;
 	}
 
 	// 检查是否有新亲子作业
 	public static boolean checkHomework() {
-		boolean existNews = false;
+		boolean has_new = false;
 		boolean networkConnected = Utils.isNetworkConnected(MyApplication
 				.getInstance());
 		if (networkConnected) {
 			GetHomeworkMethod method = GetHomeworkMethod.getMethod();
 			try {
 				long from = getMaxHomeworkID();
-				existNews = !method.getGetHomework(1, from, 0).isEmpty();
+				has_new = !method.getGetHomework(1, from, 0).isEmpty();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-		return existNews;
+		return has_new;
+	}
+	// 检查是否有新在园表现评价
+	public static boolean checkEdu() {
+		boolean has_new = false;
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication
+				.getInstance());
+		if (networkConnected) {
+			EducationMethod method = EducationMethod.getMethod();
+			try {
+				long from = getMaxEducationID();
+				has_new = !method.getEdus(1, from, 0).isEmpty();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return has_new;
+	}
+	
+	// 检查是否有新教师留言
+	public static boolean checkChat() {
+		boolean has_new = false;
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication
+				.getInstance());
+		if (networkConnected) {
+			ChatMethod method = ChatMethod.getMethod();
+			try {
+				long from = getMaxChatID();
+				has_new = !method.getChatInfo(1, from, 0, "").isEmpty();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return has_new;
 	}
 
 	// 检查是否有新食谱
@@ -99,9 +138,27 @@ public class MethodUtils {
 		return has_new;
 	}
 
+	private static long getMaxChatID() {
+		long from = 0;
+		List<ChatInfo> list = DataMgr.getInstance().getChatInfoWithLimite(1);
+		if (!list.isEmpty()) {
+			from = list.get(0).getServer_id();
+		}
+		return from;
+	}
+	
 	private static long getMaxHomeworkID() {
 		long from = 0;
 		List<Homework> list = DataMgr.getInstance().getHomeworkWithLimite(1);
+		if (!list.isEmpty()) {
+			from = list.get(0).getServer_id();
+		}
+		return from;
+	}
+	
+	private static long getMaxEducationID() {
+		long from = 0;
+		List<EducationInfo> list = DataMgr.getInstance().getSelectedChildEduRecord();
 		if (!list.isEmpty()) {
 			from = list.get(0).getServer_id();
 		}
@@ -209,6 +266,20 @@ public class MethodUtils {
 		Intent myintent = new Intent(context, MyService.class);
 		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_SCHEDULE);
+		context.startService(myintent);
+	}
+	
+	public static void executeCheckChatCommand(Context context) {
+		Intent myintent = new Intent(context, MyService.class);
+		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
+				ConstantValue.COMMAND_TYPE_CHECK_CHAT);
+		context.startService(myintent);
+	}
+	
+	public static void executeCheckEducationCommand(Context context) {
+		Intent myintent = new Intent(context, MyService.class);
+		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
+				ConstantValue.COMMAND_TYPE_CHECK_EDU);
 		context.startService(myintent);
 	}
 }
