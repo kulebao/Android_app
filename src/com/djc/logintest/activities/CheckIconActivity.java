@@ -73,6 +73,8 @@ public class CheckIconActivity extends Activity {
 		};
 	}
 
+
+	@SuppressWarnings("unchecked")
 	private void handleSuccess(Message msg) {
 		Toast.makeText(CheckIconActivity.this, R.string.send_icon_success,
 				Toast.LENGTH_SHORT).show();

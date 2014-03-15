@@ -72,41 +72,82 @@ public class GetChildrenInfoMethod {
 	}
 
 	public int checkUpdate(JSONObject jsonObject) throws JSONException {
-		int event;
-		event = EventType.CHILDREN_INFO_IS_LATEST;
+		DataMgr instance = DataMgr.getInstance();
+		int event = EventType.CHILDREN_INFO_IS_LATEST;
 		String jsonSrc = jsonObject.getString("children");
 		JSONArray array = new JSONArray(jsonSrc);
-		ChildInfo selectedChild = DataMgr.getInstance().getSelectedChild();
-		if (selectedChild == null) {
-			// 首次使用，把全部小孩数据更新到数据库
-			updateAll(array);
+
+		ChildInfo selectedChild = instance.getSelectedChild();
+		if (selectedChild == null
+				|| (instance.getAllChildrenInfo().size() != array.length())) {
+			updateAll(array, selectedChild);
 			event = EventType.UPDATE_CHILDREN_INFO;
 		} else {
-			// 只对选中小孩进行判断是否更新
-			for (int i = 0; i < array.length(); i++) {
-				JSONObject obj = array.getJSONObject(i);
-				ChildInfo childinfo = ChildInfo.jsonObjToChildInfo(obj);
-				if (childinfo.getServer_id().equals(
-						selectedChild.getServer_id())) {
-					// 检查更新时间
-					if (Long.parseLong(childinfo.getTimestamp()) > Long
-							.parseLong(selectedChild.getTimestamp())) {
-						childinfo.setSelected(ChildInfo.STATUS_SELECTED);
-						DataMgr.getInstance().updateChildInfo(
-								childinfo.getServer_id(), childinfo);
-						event = EventType.UPDATE_CHILDREN_INFO;
-						break;
-					}
-				}
+			long latestChildTimestamp = Long.parseLong(instance
+					.getLatestChildTimestamp());
+			long curLatest = getLatestTime(array);
+
+			if (curLatest > latestChildTimestamp) {
+				updateAll(array, selectedChild);
+				event = EventType.UPDATE_CHILDREN_INFO;
 			}
+			// event = compareSelecteChild(instance, event, array,
+			// selectedChild);
 		}
 		// Utils.bindPushTags();
 		return event;
 	}
 
-	private void updateAll(JSONArray array) {
+	private long getLatestTime(JSONArray array) {
+		long latest = 0;
 		List<ChildInfo> list = ChildInfo.jsonArrayToList(array);
-		DataMgr.getInstance().addChildrenInfoList(list);
+		for (ChildInfo info : list) {
+			if (Long.parseLong(info.getTimestamp()) > latest) {
+				latest = Long.parseLong(info.getTimestamp());
+			}
+		}
+		return latest;
+	}
+
+	private void updateAll(JSONArray array, ChildInfo selectedChild) {
+		DataMgr.getInstance().clearChildInfo();
+
+		if (selectedChild == null) {
+			// 首次使用，把全部小孩数据更新到数据库
+			List<ChildInfo> list = ChildInfo.jsonArrayToList(array);
+			DataMgr.getInstance().addChildrenInfoList(list);
+		} else {
+			List<ChildInfo> list = ChildInfo.jsonArrayToList(array);
+			DataMgr.getInstance().addChildrenInfoList(list);
+			int setSelectedChild = DataMgr.getInstance().setSelectedChild(
+					selectedChild.getServer_id());
+			Log.d("DDD", "updateAll setSelectedChild=" + setSelectedChild);
+			// 如果刷新数据后，之前的选中小孩不存在了，随便设置一个小孩为选中小孩
+			if (setSelectedChild < 1) {
+				DataMgr.getInstance().setSelectedChild(
+						list.get(0).getServer_id());
+			}
+		}
+	}
+
+	private int compareSelecteChild(DataMgr instance, int event,
+			JSONArray array, ChildInfo selectedChild) throws JSONException {
+		for (int i = 0; i < array.length(); i++) {
+			JSONObject obj = array.getJSONObject(i);
+			ChildInfo childinfo = ChildInfo.jsonObjToChildInfo(obj);
+			if (childinfo.getServer_id().equals(selectedChild.getServer_id())) {
+				// 检查更新时间
+				if (Long.parseLong(childinfo.getTimestamp()) > Long
+						.parseLong(selectedChild.getTimestamp())) {
+					childinfo.setSelected(ChildInfo.STATUS_SELECTED);
+					instance.updateChildInfo(childinfo.getServer_id(),
+							childinfo);
+					event = EventType.UPDATE_CHILDREN_INFO;
+					break;
+				}
+			}
+		}
+		return event;
 	}
 
 }

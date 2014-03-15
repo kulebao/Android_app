@@ -85,10 +85,10 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 	}
 
 	private String uploadBmpToOss() {
-		String url = Utils.getOssChatIconUrl(System.currentTimeMillis());
+		String url = Utils.getChatIconUrl(System.currentTimeMillis());
 		// OSSMgr.UploadPhoto(bitmap, url);
 		// url 是保存在云存储的相对路径
-		String uploadToken = UploadTokenMethod.getMethod().getUploadToken(url);
+		String uploadToken = UploadTokenMethod.getMethod().getUploadToken("");
 		if (TextUtils.isEmpty(uploadToken)) {
 			throw new RuntimeException("getUploadToken failed ");
 		}

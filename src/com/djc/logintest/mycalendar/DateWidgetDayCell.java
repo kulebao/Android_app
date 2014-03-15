@@ -222,7 +222,7 @@ public class DateWidgetDayCell extends View {
             return SwipeCalendarActivity.isToday_BgColor;
         // if (bHoliday) //如需周末有特殊背景色，可去掉注释
         // return Calendar_TestActivity.isHoliday_BgColor;
-        return SwipeCalendarActivity.Calendar_DayBgColor;
+        return SwipeCalendarActivity.calendar_DayBgColor;
     }
 
     // 设置是否被选中

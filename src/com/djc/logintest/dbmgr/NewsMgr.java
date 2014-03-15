@@ -20,7 +20,7 @@ class NewsMgr {
 		ContentValues values = buildNewsInfo(info);
 		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
 		return writableDatabase.insertWithOnConflict(SqliteHelper.NEWS_TAB,
-				null, values, SQLiteDatabase.CONFLICT_IGNORE);
+				null, values, SQLiteDatabase.CONFLICT_REPLACE);
 	}
 
 	private ContentValues buildNewsInfo(News info) {
@@ -31,6 +31,8 @@ class NewsMgr {
 		values.put(News.NEWS_TYPE, info.getType());
 		values.put(News.PUBLISHER, info.getPublisher());
 		values.put(News.NEWS_SERVER_ID, info.getNews_server_id());
+		values.put(News.ICON_URL, info.getIcon_url());
+		values.put(News.CLASS_ID, info.getClass_id());
 		return values;
 	}
 
@@ -44,7 +46,7 @@ class NewsMgr {
 		for (News info : list) {
 			ContentValues values = buildNewsInfo(info);
 			writableDatabase.insertWithOnConflict(SqliteHelper.NEWS_TAB, null,
-					values, SQLiteDatabase.CONFLICT_IGNORE);
+					values, SQLiteDatabase.CONFLICT_REPLACE);
 		}
 		// 数据插入操作循环
 		writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
@@ -118,6 +120,8 @@ class NewsMgr {
 		info.setType(cursor.getInt(4));
 		info.setNews_server_id(cursor.getInt(5));
 		info.setPublisher(cursor.getString(6));
+		info.setIcon_url(cursor.getString(7));
+		info.setClass_id(cursor.getInt(8));
 		return info;
 	}
 }

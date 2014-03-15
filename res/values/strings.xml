@@ -164,6 +164,9 @@
     <string name="send_success">发送信息成功!</string>
     <string name="send_fail">发送信息失败!</string>
     
+    <string name="from">来自 %1$s</string>
+    <string name="delete_data">删除数据?</string>
+    
     <string name="getting_swipe_info">正在获取刷卡记录...</string>
     <string name="loading_data">正在获取数据...</string>
     <string name="coment_from">来自 %1$s 的评语:</string>
@@ -188,5 +191,15 @@
     <string name="support_phone_num">XXX</string>
     <string name="about_us">关于我们</string>
     <string name="about_us_content">幼乐宝（成都库乐宝信息技术有限公司）---提供宝宝、家长和幼儿园三方互动沟通和信息发布服务，并提供丰富的后续服务和专业的技术保障。</string>
-    <string name="xfactor">1</string>
+    
+    <string name="emotion_explain">情绪稳定、适应集体生活、乐于亲近老师和同学</string>
+    <string name="dining_explain">能愉快的进餐、不挑食、能吃完一份饭菜</string>
+    <string name="rest_explain">能安静的就寝、正确地穿脱衣帽和鞋袜、按时起床</string>
+    <string name="activity_explain">乐于参加各种集体活动、注意力集中、能积极发言</string>
+    <string name="exercise_explain">喜欢参加体育活动、能坚持锻炼身体、并注意运动安全</string>
+    <string name="self_care_explain">能自己收拾整理玩具和用具、自己入厕</string>
+    <string name="manner_explain">对人有礼貌、会主动使用礼貌用语、尊重他人、不打扰别人</string>
+    <string name="game_explain">喜欢玩游戏、能与同学分享玩具，学习并遵守游戏规则</string>
+    
+    
 </resources>

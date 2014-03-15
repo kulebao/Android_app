@@ -53,7 +53,6 @@ public class NoticePullRefreshActivity extends Activity {
 		initHander();
 		initCustomListView();
 		loadNewData();
-		MethodUtils.removeNewsNotification();
 	}
 
 	public void loadNewData() {
@@ -128,6 +127,7 @@ public class NoticePullRefreshActivity extends Activity {
 	}
 
 	protected void handleSuccess(Message msg) {
+		MethodUtils.removeNewsNotification();
 		List<News> list = (List<News>) msg.obj;
 		if (!list.isEmpty()) {
 			// 刷出新公告了，去掉有新公告的标志
@@ -272,19 +272,10 @@ public class NoticePullRefreshActivity extends Activity {
 		intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
 		intent.putExtra(JSONConstant.NOTIFICATION_BODY, info.getContent());
 		intent.putExtra(JSONConstant.TIME_STAMP, info.getFormattedTime());
-		intent.putExtra(JSONConstant.PUBLISHER, getPublisher());
+		intent.putExtra(JSONConstant.PUBLISHER, info.getFrom());
+		intent.putExtra(JSONConstant.NET_URL, info.getIcon_url());
+		intent.putExtra(JSONConstant.LOCAL_URL, info.getNewsLocalIconPath());
 		startActivity(intent);
-	}
-
-	private String getPublisher() {
-		String school_name = "";
-		try {
-			school_name = DataMgr.getInstance().getSchoolInfo()
-					.getSchool_name();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return school_name;
 	}
 
 	@Override

@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/itemImg"
         android:layout_width="@dimen/education_griditem_width"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/education_griditem_width"
         android:layout_centerHorizontal="true"
         android:scaleType="fitCenter" />
 

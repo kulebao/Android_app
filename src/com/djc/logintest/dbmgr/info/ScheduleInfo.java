@@ -70,7 +70,7 @@ public class ScheduleInfo {
                 if (!oneday.isEmpty()) {
                     ScheduleListItem item = getItem(oneday);
                     item.setDayofweek(resources.getString(R.string.mon));
-                    item.setDate(InfoHelper.YEAR_MONTH_DAY_FORMAT.format(cal.getTime()));
+                    item.setDate(InfoHelper.getYearMonthDayFormat().format(cal.getTime()));
                     list.add(item);
                 }
 
@@ -79,7 +79,7 @@ public class ScheduleInfo {
                     ScheduleListItem item = getItem(oneday);
                     item.setDayofweek(resources.getString(R.string.tue));
                     cal.add(Calendar.DATE, 1);
-                    item.setDate(InfoHelper.YEAR_MONTH_DAY_FORMAT.format(cal.getTime()));
+                    item.setDate(InfoHelper.getYearMonthDayFormat().format(cal.getTime()));
                     list.add(item);
                 }
 
@@ -88,7 +88,7 @@ public class ScheduleInfo {
                     ScheduleListItem item = getItem(oneday);
                     item.setDayofweek(resources.getString(R.string.wed));
                     cal.add(Calendar.DATE, 1);
-                    item.setDate(InfoHelper.YEAR_MONTH_DAY_FORMAT.format(cal.getTime()));
+                    item.setDate(InfoHelper.getYearMonthDayFormat().format(cal.getTime()));
                     list.add(item);
                 }
 
@@ -97,7 +97,7 @@ public class ScheduleInfo {
                     ScheduleListItem item = getItem(oneday);
                     item.setDayofweek(resources.getString(R.string.thu));
                     cal.add(Calendar.DATE, 1);
-                    item.setDate(InfoHelper.YEAR_MONTH_DAY_FORMAT.format(cal.getTime()));
+                    item.setDate(InfoHelper.getYearMonthDayFormat().format(cal.getTime()));
                     list.add(item);
                 }
 
@@ -106,7 +106,7 @@ public class ScheduleInfo {
                     ScheduleListItem item = getItem(oneday);
                     item.setDayofweek(resources.getString(R.string.fri));
                     cal.add(Calendar.DATE, 1);
-                    item.setDate(InfoHelper.YEAR_MONTH_DAY_FORMAT.format(cal.getTime()));
+                    item.setDate(InfoHelper.getYearMonthDayFormat().format(cal.getTime()));
                     list.add(item);
                 }
 

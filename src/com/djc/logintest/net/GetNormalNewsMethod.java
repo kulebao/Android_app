@@ -16,6 +16,7 @@ import com.djc.logintest.constant.ServerUrls;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
+import com.djc.logintest.utils.MethodUtils;
 
 public class GetNormalNewsMethod {
 
@@ -64,7 +65,9 @@ public class GetNormalNewsMethod {
 		long timestamp = object.getLong(JSONConstant.TIME_STAMP);
 		String body = object.getString("content");
 		int serverID = object.getInt("news_id");
+		int class_id = object.getInt("class_id");
 
+		info.setClass_id(class_id);
 		info.setContent(body);
 		info.setNews_server_id(serverID);
 		// info.setPublisher("测试djc");
@@ -89,7 +92,12 @@ public class GetNormalNewsMethod {
 		if (to != 0) {
 			cmd += "&" + TO + "=" + to;
 		}
+
+		cmd += "&class_id=" + MethodUtils.getAllFormatedClassid();
+		;
+
 		Log.d("DDD", "createNormalNoticeCommand cmd=" + cmd);
 		return cmd;
 	}
+
 }

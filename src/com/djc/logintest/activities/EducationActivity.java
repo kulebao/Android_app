@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -18,6 +19,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -35,6 +38,8 @@ import com.djc.logintest.taskmgr.GetEducationTask;
 import com.djc.logintest.utils.Utils;
 
 public class EducationActivity extends Activity {
+	private static final String RANK = "rank";
+	private static final String ITEM_IMAGE = "ItemImage";
 	private GridView gridview;
 	private ProgressDialog dialog;
 	private List<EducationInfo> eduList;
@@ -48,6 +53,20 @@ public class EducationActivity extends Activity {
 	private TextView comentfromView;
 	private TextView comentView;
 	private TextView commentTimeView;
+	private Map<Integer, Integer> explainMap = new HashMap<Integer, Integer>() {
+		private static final long serialVersionUID = 1L;
+
+		{
+			put(R.drawable.emotion, R.string.emotion_explain);
+			put(R.drawable.dining, R.string.dining_explain);
+			put(R.drawable.rest, R.string.rest_explain);
+			put(R.drawable.manner, R.string.manner_explain);
+			put(R.drawable.game, R.string.game_explain);
+			put(R.drawable.self_care, R.string.self_care_explain);
+			put(R.drawable.exercise, R.string.exercise_explain);
+			put(R.drawable.activity, R.string.activity_explain);
+		}
+	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -201,8 +220,23 @@ public class EducationActivity extends Activity {
 		initData();
 		adapter = new EducationGridViewAdapter(this, lstImageItem);
 		gridview.setAdapter(adapter);
-		// gridview.setOnItemClickListener(new ItemClickListener());
+		gridview.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				handleClick(position);
+			}
+		});
 		initCommentView();
+	}
+
+	protected void handleClick(int position) {
+		@SuppressWarnings("unchecked")
+		Map<String, Integer> item = (Map<String, Integer>) adapter
+				.getItem(position);
+		int image_id = item.get(ITEM_IMAGE);
+		Integer explain_id = explainMap.get(image_id);
+		Toast.makeText(this, explain_id, Toast.LENGTH_SHORT).show();
 	}
 
 	private void initCommentView() {
@@ -227,8 +261,8 @@ public class EducationActivity extends Activity {
 		if (currentEdu.getTimestamp() == 0) {
 			commentTimeView.setText(getResources().getString(R.string.no_edu));
 		} else {
-			commentTimeView.setText(InfoHelper.YEAR_MONTH_DAY_FORMAT
-					.format(new Date(currentEdu.getTimestamp())));
+			commentTimeView.setText(InfoHelper.getYearMonthDayFormat().format(
+					new Date(currentEdu.getTimestamp())));
 		}
 
 	}
@@ -283,42 +317,42 @@ public class EducationActivity extends Activity {
 		lstImageItem.clear();
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.cook);
-		map.put("rank", currentEdu.getEmotion());
+		map.put(ITEM_IMAGE, R.drawable.emotion);
+		map.put(RANK, currentEdu.getEmotion());
 		lstImageItem.add(map);
 
 		map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.cook);
-		map.put("rank", currentEdu.getDining());
+		map.put(ITEM_IMAGE, R.drawable.dining);
+		map.put(RANK, currentEdu.getDining());
 		lstImageItem.add(map);
 
 		map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.cook);
-		map.put("rank", currentEdu.getRest());
+		map.put(ITEM_IMAGE, R.drawable.rest);
+		map.put(RANK, currentEdu.getRest());
 		lstImageItem.add(map);
 
 		map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.cook);
-		map.put("rank", currentEdu.getActivity());
+		map.put(ITEM_IMAGE, R.drawable.activity);
+		map.put(RANK, currentEdu.getActivity());
 		lstImageItem.add(map);
 
-		map.put("ItemImage", R.drawable.cook);
-		map.put("rank", currentEdu.getExercise());
-		lstImageItem.add(map);
-
-		map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.cook);
-		map.put("rank", currentEdu.getSelf_care());
+		map.put(ITEM_IMAGE, R.drawable.exercise);
+		map.put(RANK, currentEdu.getExercise());
 		lstImageItem.add(map);
 
 		map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.cook);
-		map.put("rank", currentEdu.getManner());
+		map.put(ITEM_IMAGE, R.drawable.self_care);
+		map.put(RANK, currentEdu.getSelf_care());
 		lstImageItem.add(map);
 
 		map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.cook);
-		map.put("rank", currentEdu.getGame());
+		map.put(ITEM_IMAGE, R.drawable.manner);
+		map.put(RANK, currentEdu.getManner());
+		lstImageItem.add(map);
+
+		map = new HashMap<String, Object>();
+		map.put(ITEM_IMAGE, R.drawable.game);
+		map.put(RANK, currentEdu.getGame());
 		lstImageItem.add(map);
 		return lstImageItem;
 	}
@@ -337,7 +371,7 @@ public class EducationActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == Menu.FIRST) {
-			Utils.showTwoBtnResDlg(R.string.delete_all_notice_confirm, this,
+			Utils.showTwoBtnResDlg(R.string.delete_data, this,
 					new OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {

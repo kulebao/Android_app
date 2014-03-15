@@ -131,7 +131,7 @@ public class InputStreamAt implements Closeable {
 			if (is != null)
 				is.close();
 			return f;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}

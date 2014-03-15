@@ -73,6 +73,8 @@ public class ChildListAdapter extends BaseAdapter {
         Bitmap loacalBitmap = Utils.getLoacalBitmap(childInfo.getLocal_url());
         if(loacalBitmap !=null){
             Utils.setImg(flagholder.headView, loacalBitmap);
+        }else{
+        	flagholder.headView.setImageResource(R.drawable.default_child_head_icon);
         }
     }
 

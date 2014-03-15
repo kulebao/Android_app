@@ -1,6 +1,9 @@
 package com.djc.logintest.activities;
 
 import java.io.File;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -50,10 +53,10 @@ import com.djc.logintest.taskmgr.CheckChildrenInfoTask;
 import com.djc.logintest.taskmgr.DownLoadImgAndSaveTask;
 import com.djc.logintest.taskmgr.UploadInfoTask;
 import com.djc.logintest.threadpool.MyThreadPoolMgr;
-import com.djc.logintest.upload.OSSMgr;
 import com.djc.logintest.upload.UploadFactory;
 import com.djc.logintest.utils.MethodUtils;
 import com.djc.logintest.utils.Utils;
+import com.umeng.analytics.MobclickAgent;
 
 public class SchoolNoticeActivity extends TabChildActivity {
 	private GridView gridview;
@@ -96,7 +99,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		// 检查小孩信息是否有更新，有更新需要及时更新
 		runCheckChildrenInfoTask();
 		registObserver();
-		checkNewDatas();
+		// checkNewDatas();
+		// umeng
+		MobclickAgent.updateOnlineConfig(this);
 	}
 
 	private void checkNewDatas() {
@@ -156,6 +161,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				case EventType.DOWNLOAD_IMG_SUCCESS:
 					handleDownloadImgSuccess((String) msg.obj);
 					break;
+				case EventType.CHECK_NEW_DATA:
+					checkNewDatas();
+					break;
 				case EventType.SERVER_INNER_ERROR:
 					Toast.makeText(SchoolNoticeActivity.this,
 							R.string.get_child_info_fail, Toast.LENGTH_SHORT)
@@ -210,11 +218,13 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private void setHeadIcon() {
 		String url = selectedChild.getLocal_url();
+		babyHeadIcon.setImageResource(R.drawable.default_child_head_icon);
 		if (!"".equals(url)) {
 			Bitmap loacalBitmap = Utils.getLoacalBitmap(url);
-			Utils.setImg(babyHeadIcon, loacalBitmap);
+			if(loacalBitmap!=null){
+				Utils.setImg(babyHeadIcon, loacalBitmap);
+			}
 		} else if (!"".equals(selectedChild.getServer_url())) {
-
 			if (downloadIconTask != null
 					&& downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
 				// 后执行的取消先执行的
@@ -691,31 +701,73 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 		switch (position) {
 		case COOK_NOTICE:
-			startToCookbookActivity();
+			startToActivity(new ActivityLauncher() {
+				@Override
+				public void startActivity() {
+					startToCookbookActivity();
+				}
+			});
 			break;
 		case SWAPCARD_NOTICE:
-			startToSwipeCalendarActivity();
+			startToActivity(new ActivityLauncher() {
+				@Override
+				public void startActivity() {
+					startToSwipeCalendarActivity();
+				}
+			});
 			break;
 		case NORMAL_NOTICE:
-			startToNoticeRecordActivity(JSONConstant.NOTICE_TYPE_NORMAL);
+			startToActivity(new ActivityLauncher() {
+				@Override
+				public void startActivity() {
+					startToNoticeRecordActivity(JSONConstant.NOTICE_TYPE_NORMAL);
+				}
+			});
 			break;
 		case SCHEDULE:
-			startToScheduleActivity();
+			startToActivity(new ActivityLauncher() {
+				@Override
+				public void startActivity() {
+					startToScheduleActivity();
+				}
+			});
+			
 			break;
 		case HOMEWORK:
-			startToHomeworkActivity();
+			startToActivity(new ActivityLauncher() {
+				@Override
+				public void startActivity() {
+					startToHomeworkActivity();
+				}
+			});
 			break;
 		case INTERACTION:
-			startToInteractionActivity();
+			startToActivity(new ActivityLauncher() {
+				@Override
+				public void startActivity() {
+					startToInteractionActivity();
+				}
+			});
 			break;
 		case EDUCATION:
-			startToEducationActivity();
+			startToActivity(new ActivityLauncher() {
+				@Override
+				public void startActivity() {
+					startToEducationActivity();
+				}
+			});
 			break;
 
 		default:
 			Toast.makeText(this, "暂未实现！", Toast.LENGTH_SHORT).show();
 			break;
 		}
+	}
+
+	private void startToActivity(ActivityLauncher launcher) {
+		ActivityLauncherProxy proxy = new ActivityLauncherProxy();
+		ActivityLauncher launcherimpl = (ActivityLauncher) proxy.bind(launcher);
+		launcherimpl.startActivity();
 	}
 
 	private void startToEducationActivity() {
@@ -787,4 +839,43 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		super.onDestroy();
 	}
 
+	private interface ActivityLauncher {
+		public void startActivity();
+	}
+
+	private class ActivityLauncherProxy implements InvocationHandler {
+		private Object target;
+
+		/**
+		 * 绑定委托对象并返回一个代理类
+		 * 
+		 * @param target
+		 * @return
+		 */
+		public Object bind(Object target) {
+			this.target = target;
+			// 取得代理对象
+			return Proxy.newProxyInstance(target.getClass().getClassLoader(),
+					target.getClass().getInterfaces(), this); // 要绑定接口(这是一个缺陷，cglib弥补了这一缺陷)
+		}
+
+		@Override
+		/** 
+		 * 调用方法 
+		 */
+		public Object invoke(Object proxy, Method method, Object[] args)
+				throws Throwable {
+			Object result = null;
+			Log.d("DDD", "check child info!!!!");
+			if (DataMgr.getInstance().getSelectedChild() == null) {
+				Toast.makeText(SchoolNoticeActivity.this,
+						R.string.child_info_is_null, Toast.LENGTH_SHORT).show();
+				return null;
+			}
+			// 执行方法
+			result = method.invoke(target, args);
+			return result;
+		}
+
+	}
 }

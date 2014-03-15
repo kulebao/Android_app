@@ -1,10 +1,5 @@
 package com.djc.logintest.upload;
 
-import java.io.ByteArrayOutputStream;
-
-import android.graphics.Bitmap;
-
-import com.aliyun.android.oss.OSSClient;
 
 /**
  * 该示例代码展示了如果在OSS中创建和删除一个Bucket，以及如何上传和下载一个文件。

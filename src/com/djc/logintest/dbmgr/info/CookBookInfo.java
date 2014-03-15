@@ -70,7 +70,7 @@ public class CookBookInfo {
                 if (!oneday.isEmpty()) {
                     CookbookItem item = getItem(oneday);
                     item.setCookWeek(resources.getString(R.string.mon));
-                    item.setCookDate(InfoHelper.YEAR_MONTH_DAY_FORMAT.format(cal.getTime()));
+                    item.setCookDate(InfoHelper.getYearMonthDayFormat().format(cal.getTime()));
                     list.add(item);
                 }
                 
@@ -79,7 +79,7 @@ public class CookBookInfo {
                     CookbookItem item = getItem(oneday);
                     item.setCookWeek(resources.getString(R.string.tue));
                     cal.add(Calendar.DATE, 1);
-                    item.setCookDate(InfoHelper.YEAR_MONTH_DAY_FORMAT.format(cal.getTime()));
+                    item.setCookDate(InfoHelper.getYearMonthDayFormat().format(cal.getTime()));
                     list.add(item);
                 }
                 
@@ -88,7 +88,7 @@ public class CookBookInfo {
                     CookbookItem item = getItem(oneday);
                     item.setCookWeek(resources.getString(R.string.wed));
                     cal.add(Calendar.DATE, 1);
-                    item.setCookDate(InfoHelper.YEAR_MONTH_DAY_FORMAT.format(cal.getTime()));
+                    item.setCookDate(InfoHelper.getYearMonthDayFormat().format(cal.getTime()));
                     list.add(item);
                 }
                 
@@ -97,7 +97,7 @@ public class CookBookInfo {
                     CookbookItem item = getItem(oneday);
                     item.setCookWeek(resources.getString(R.string.thu));
                     cal.add(Calendar.DATE, 1);
-                    item.setCookDate(InfoHelper.YEAR_MONTH_DAY_FORMAT.format(cal.getTime()));
+                    item.setCookDate(InfoHelper.getYearMonthDayFormat().format(cal.getTime()));
                     list.add(item);
                 }
                 
@@ -106,7 +106,7 @@ public class CookBookInfo {
                     CookbookItem item = getItem(oneday);
                     item.setCookWeek(resources.getString(R.string.fri));
                     cal.add(Calendar.DATE, 1);
-                    item.setCookDate(InfoHelper.YEAR_MONTH_DAY_FORMAT.format(cal.getTime()));
+                    item.setCookDate(InfoHelper.getYearMonthDayFormat().format(cal.getTime()));
                     list.add(item);
                 }
             } catch (JSONException e) {

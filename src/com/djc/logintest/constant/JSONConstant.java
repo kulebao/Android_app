@@ -19,7 +19,7 @@ public class JSONConstant {
     // token，ini文件的key
     public static final String ACCESS_TOKEN = "access_token";
     public static final String PHONE_NUM = "phonenum";
-    public static final String AUTH_CODE = "authcode";
+    public static final String AUTH_CODE = "code";
     public static final String SCHOOL_ID = "school_id";
     // public static final String CLASS_ID = "class_id";
 

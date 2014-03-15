@@ -37,9 +37,9 @@ public class SelectChildActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ChildInfo info = (ChildInfo) adapter.getItem(position);
-                int wantedid = info.getId();
-                int currentid = DataMgr.getInstance().getSelectedChild().getId();
-                if (wantedid != currentid) {
+                String wantedid = info.getServer_id();
+                String currentid = DataMgr.getInstance().getSelectedChild().getServer_id();
+                if (!currentid.equals(wantedid)) {
                     DataMgr.getInstance().setSelectedChild(wantedid);
                 }
                 Toast.makeText(SelectChildActivity.this, SelectChildActivity.this.getResources()

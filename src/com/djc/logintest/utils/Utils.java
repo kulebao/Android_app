@@ -14,6 +14,7 @@ import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -48,8 +49,6 @@ import com.djc.logintest.push.PushModel;
 public class Utils {
 	public static final int NETWORK_NOT_CONNECTED = -1;
 	public static final String TAG = "Utils";
-	private static SimpleDateFormat fomat = new SimpleDateFormat(
-			"yyyy-MM-dd HH:mm:ss");
 	public static final String APP_DIR_ROOT = "cocobaby";
 	public static final String APP_DIR_TMP = "cocobaby/tmp";
 	public static final String APP_DIR_PIC = "cocobaby/pic";
@@ -94,26 +93,26 @@ public class Utils {
 	}
 
 	public static void showSingleBtnEventDlg(int errorEventType, Context context) {
-		AlertDialog.Builder builder = DlgMgr.getSingleBtnDlg(context);
+		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context);
 		builder.setMessage(EventMap.getErrorResID(errorEventType));
 		builder.create().show();
 	}
 
 	public static void showSingleBtnResDlg(int resID, Context context) {
-		AlertDialog.Builder builder = DlgMgr.getSingleBtnDlg(context);
+		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context);
 		builder.setMessage(context.getResources().getString(resID));
 		builder.create().show();
 	}
 
 	public static void showSingleBtnResDlg(String content, Context context) {
-		AlertDialog.Builder builder = DlgMgr.getSingleBtnDlg(context);
+		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context);
 		builder.setMessage(content);
 		builder.create().show();
 	}
 
 	public static void showSingleBtnResDlg(int resID, Context context,
 			OnClickListener configListener) {
-		AlertDialog.Builder builder = DlgMgr.getSingleBtnDlg(context,
+		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context,
 				configListener);
 		builder.setMessage(context.getResources().getString(resID));
 		builder.create().show();
@@ -214,12 +213,13 @@ public class Utils {
 		return editor;
 	}
 
-	// push相关的内容不要清空，包括pushi，channelid，pushtag等，
-	// 因为这些值对于某一客户端来说是固定的,用户退出登录也不会改变
 	public static void clearProp() {
-		SharedPreferences.Editor editor = getEditor();
+		SharedPreferences.Editor editor = getEditor(ConstantValue.CONF_INI);
 		editor.clear();
 		editor.commit();
+		// editor = getEditor(ConstantValue.PUSH_CONFIG);
+		// editor.clear();
+		// editor.commit();
 	}
 
 	// 应用是否登录 true 未登录 false已经登录
@@ -244,9 +244,9 @@ public class Utils {
 		return phonenum.matches(regexExp);
 	}
 
-	// 判断验证码是否合法，6位数字
+	// 判断验证码是否合法，4位数字
 	public static boolean checkAuthCode(String phonenum) {
-		String regexExp = "^[0-9]{6}$";
+		String regexExp = "^[0-9]{4}$";
 		return phonenum.matches(regexExp);
 	}
 
@@ -284,6 +284,8 @@ public class Utils {
 	}
 
 	public static String convertTime(long timestamp) {
+		SimpleDateFormat fomat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss",Locale.CHINESE);
 		return fomat.format(new Date(timestamp));
 	}
 
@@ -367,8 +369,14 @@ public class Utils {
 		}
 	}
 
+	private static File getAppSDCardPath() {
+		// return Environment.getExternalStorageDirectory();
+		return MyApplication.getInstance().getExternalFilesDir(
+				Environment.DIRECTORY_PICTURES);
+	}
+
 	public static File getSDCardFileDir(String dir) {
-		return new File(Environment.getExternalStorageDirectory(), dir);
+		return new File(getAppSDCardPath(), dir);
 	}
 
 	public static boolean isSdcardExisting() {
@@ -390,8 +398,7 @@ public class Utils {
 	}
 
 	public static String getSDCardPicRootPath() {
-		return new File(Environment.getExternalStorageDirectory(), APP_DIR_PIC)
-				.getAbsolutePath();
+		return new File(getAppSDCardPath(), APP_DIR_PIC).getAbsolutePath();
 	}
 
 	public static boolean makeDirs(String dir) {
@@ -415,7 +422,7 @@ public class Utils {
 
 	public static boolean makeAppDirInSDCard(String dir) {
 		if (isSdcardExisting()) {
-			File file = new File(Environment.getExternalStorageDirectory(), dir);
+			File file = new File(getAppSDCardPath(), dir);
 			if (!file.exists()) {
 				return file.mkdirs();
 			}
@@ -425,8 +432,7 @@ public class Utils {
 
 	public static void clearSDFolder() {
 		if (isSdcardExisting()) {
-			File file = new File(Environment.getExternalStorageDirectory(),
-					APP_DIR_ROOT);
+			File file = new File(getAppSDCardPath(), APP_DIR_ROOT);
 			if (file.exists()) {
 				RecursionDeleteFile(file);
 			}
@@ -481,7 +487,7 @@ public class Utils {
 				+ ".jpg";
 	}
 
-	public static String getOssChatIconUrl(long timestamp) {
+	public static String getChatIconUrl(long timestamp) {
 		String dir = CHAT_ICON + File.separator
 				+ DataMgr.getInstance().getSchoolID() + File.separator
 				+ Utils.getAccount();
@@ -518,10 +524,11 @@ public class Utils {
 		}
 		return null;
 	}
-	public static Bitmap getLoacalBitmap(String url,int maxpix) {
+
+	public static Bitmap getLoacalBitmap(String url, int maxpix) {
 		Bitmap bmp = null;
 		try {
-			bmp = ImageDownloader.getResizedBmp(maxpix,url);
+			bmp = ImageDownloader.getResizedBmp(maxpix, url);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -576,7 +583,8 @@ public class Utils {
 
 	public static Bitmap downloadImgWithJudgement(String url, float limitWidth,
 			float limitHeight) {
-		ImageDownloader downloader = new ImageDownloader(url,limitWidth,limitHeight);
+		ImageDownloader downloader = new ImageDownloader(url, limitWidth,
+				limitHeight);
 		return downloader.download();
 	}
 

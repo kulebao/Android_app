@@ -10,16 +10,15 @@
         android:layout_height="60dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_launcher" />
+        android:scaleType="fitCenter" />
 
     <TextView
         android:id="@+id/nameView"
         style="@style/item_style"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:textSize="24sp"
         android:layout_toRightOf="@+id/headView"
-        android:textColor="@color/juhong" />
+        android:textColor="@color/juhong"
+        android:textSize="24sp" />
 
 </RelativeLayout>

@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.djc.logintest.dbmgr.info.EducationInfo;
-import com.djc.logintest.dbmgr.info.News;
 
 class EducationMgr {
 	private SqliteHelper dbHelper;

@@ -16,6 +16,7 @@ import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.ChatInfo;
+import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.dbmgr.info.EducationInfo;
 import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.dbmgr.info.News;
@@ -66,6 +67,7 @@ public class MethodUtils {
 
 		return has_new;
 	}
+
 	// 检查是否有新在园表现评价
 	public static boolean checkEdu() {
 		boolean has_new = false;
@@ -80,10 +82,10 @@ public class MethodUtils {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return has_new;
 	}
-	
+
 	// 检查是否有新教师留言
 	public static boolean checkChat() {
 		boolean has_new = false;
@@ -98,7 +100,7 @@ public class MethodUtils {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return has_new;
 	}
 
@@ -118,7 +120,7 @@ public class MethodUtils {
 
 		return has_new;
 	}
-	
+
 	// 检查是否有新课程表
 	public static boolean checkSchedule() {
 		boolean has_new = false;
@@ -127,14 +129,14 @@ public class MethodUtils {
 		if (networkConnected) {
 			ScheduleMethod method = ScheduleMethod.getMethod();
 			try {
-				if(method.checkSchedule() == EventType.GET_SCHEDULE_SUCCESS){
+				if (method.checkSchedule() == EventType.GET_SCHEDULE_SUCCESS) {
 					has_new = true;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return has_new;
 	}
 
@@ -146,7 +148,7 @@ public class MethodUtils {
 		}
 		return from;
 	}
-	
+
 	private static long getMaxHomeworkID() {
 		long from = 0;
 		List<Homework> list = DataMgr.getInstance().getHomeworkWithLimite(1);
@@ -155,10 +157,11 @@ public class MethodUtils {
 		}
 		return from;
 	}
-	
+
 	private static long getMaxEducationID() {
 		long from = 0;
-		List<EducationInfo> list = DataMgr.getInstance().getSelectedChildEduRecord();
+		List<EducationInfo> list = DataMgr.getInstance()
+				.getSelectedChildEduRecord();
 		if (!list.isEmpty()) {
 			from = list.get(0).getServer_id();
 		}
@@ -261,25 +264,34 @@ public class MethodUtils {
 				ConstantValue.COMMAND_TYPE_CHECK_COOKBOOK);
 		context.startService(myintent);
 	}
-	
+
 	public static void executeCheckScheduleCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
 		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_SCHEDULE);
 		context.startService(myintent);
 	}
-	
+
 	public static void executeCheckChatCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
 		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_CHAT);
 		context.startService(myintent);
 	}
-	
+
 	public static void executeCheckEducationCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
 		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_EDU);
 		context.startService(myintent);
+	}
+
+	public static String getAllFormatedClassid() {
+		String classIDs = "";
+		List<String> class_ids = DataMgr.getInstance().getAllClassID();
+		for (String id : class_ids) {
+			classIDs += id + ",";
+		}
+		return classIDs.substring(0, classIDs.length() - 1);
 	}
 }

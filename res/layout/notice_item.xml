@@ -34,6 +34,18 @@
         android:textColor="@android:color/black"
         android:textSize="12sp" />
 
+    <TextView
+        android:id="@+id/fromview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bodyView"
+        android:layout_toRightOf="@+id/timeStampView"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/from"
+        android:textColor="@android:color/black"
+        android:textSize="12sp" />
+
     <ImageView
         android:id="@+id/deleteView"
         android:layout_width="wrap_content"

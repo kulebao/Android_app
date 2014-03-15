@@ -14,9 +14,9 @@ import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.constant.ServerUrls;
 import com.djc.logintest.dbmgr.DataMgr;
-import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
+import com.djc.logintest.utils.MethodUtils;
 
 public class GetHomeworkMethod {
 
@@ -36,7 +36,7 @@ public class GetHomeworkMethod {
 		List<Homework> list = new ArrayList<Homework>();
 		HttpResult result = new HttpResult();
 		String command = createGetHomeworkCommand(most, from, to);
-		Log.e("DDDDD ", "getSchoolInfo cmd:" + command);
+		Log.e("DDDDD ", "getGetHomework cmd:" + command);
 		result = HttpClientHelper.executeGet(command);
 		list = handleGetHomeworkResult(result);
 		return list;
@@ -92,19 +92,9 @@ public class GetHomeworkMethod {
 			cmd += "&" + TO + "=" + to;
 		}
 
-		cmd += "&" + "classId=" + getAllClassid();
+		cmd += "&" + "classId=" + MethodUtils.getAllFormatedClassid();
 
 		Log.d("DDD", "createGetHomeworkCommand cmd=" + cmd);
 		return cmd;
-	}
-
-	private String getAllClassid() {
-		String classIDs = "";
-		List<ChildInfo> allChildrenInfo = DataMgr.getInstance()
-				.getAllChildrenInfo();
-		for (ChildInfo childInfo : allChildrenInfo) {
-			classIDs += childInfo.getClass_id() + ",";
-		}
-		return classIDs.substring(0, classIDs.length() - 1);
 	}
 }

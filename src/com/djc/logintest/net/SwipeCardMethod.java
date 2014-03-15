@@ -11,68 +11,66 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.djc.logintest.constant.EventType;
-import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.constant.ServerUrls;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.SwipeInfo;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
-import com.djc.logintest.utils.Utils;
 
 public class SwipeCardMethod {
 
-    // 需要获取的最大刷卡记录数，这里设置为1000，表示需要获取时间段内全部数据
-    // 时间段都是按月的，所以1000足够了
-    private static final int MOST = 1000;
+	// 需要获取的最大刷卡记录数，这里设置为1000，表示需要获取时间段内全部数据
+	// 时间段都是按月的，所以1000足够了
+	private static final int MOST = 1000;
 
-    private SwipeCardMethod() {
-    }
+	private SwipeCardMethod() {
+	}
 
-    public static SwipeCardMethod getMethod() {
-        return new SwipeCardMethod();
-    }
+	public static SwipeCardMethod getMethod() {
+		return new SwipeCardMethod();
+	}
 
-    public int getSwipecardRecord(long from, long to) {
-        int bret = EventType.NET_WORK_INVALID;
-        HttpResult result = new HttpResult();
-        String url = createGetSwipeUrl(from, to);
-        Log.e("DDDDD ", "createGetSwipeUrl cmd:" + url);
-        try {
-            result = HttpClientHelper.executeGet(url);
-            bret = handlegetSwipecardRecordResult(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bret;
-    }
+	public int getSwipecardRecord(long from, long to) {
+		int bret = EventType.NET_WORK_INVALID;
+		HttpResult result = new HttpResult();
+		String url = createGetSwipeUrl(from, to);
+		Log.e("DDDDD ", "createGetSwipeUrl cmd:" + url);
+		try {
+			result = HttpClientHelper.executeGet(url);
+			bret = handlegetSwipecardRecordResult(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bret;
+	}
 
-    private String createGetSwipeUrl(long from, long to) {
-        String url = String.format(ServerUrls.GET_SWIPE_RECORD,
-                DataMgr.getInstance().getSchoolID(), Utils.getProp(JSONConstant.ACCOUNT_NAME),
-                DataMgr.getInstance().getSelectedChild().getServer_id(), from, to, MOST);
-        return url;
-    }
+	private String createGetSwipeUrl(long from, long to) {
+		String url = String.format(ServerUrls.GET_SWIPE_RECORD, DataMgr
+				.getInstance().getSchoolID(), DataMgr.getInstance()
+				.getSelectedChild().getServer_id(), from, to, MOST);
+		return url;
+	}
 
-    private int handlegetSwipecardRecordResult(HttpResult result) {
-        int event = EventType.NET_WORK_INVALID;
-        if (result.getResCode() == HttpStatus.SC_OK) {
-            try {
-                // 返回单一元素数组，保存最新食谱
-                List<SwipeInfo> list = new ArrayList<SwipeInfo>();
-                JSONArray array = result.getJSONArray();
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject obj = array.getJSONObject(i);
-                    list.add(SwipeInfo.toSwipeInfo(obj));
-                }
-                DataMgr.getInstance().addSwipeDataList(list);
-                event = EventType.GET_SWIPE_RECORD_SUCCESS;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        } else {
-            event = EventType.SERVER_INNER_ERROR;
-        }
+	private int handlegetSwipecardRecordResult(HttpResult result) {
+		int event = EventType.NET_WORK_INVALID;
+		if (result.getResCode() == HttpStatus.SC_OK) {
+			try {
+				// 返回单一元素数组，保存最新食谱
+				List<SwipeInfo> list = new ArrayList<SwipeInfo>();
+				JSONArray array = result.getJSONArray();
+				for (int i = 0; i < array.length(); i++) {
+					JSONObject obj = array.getJSONObject(i);
+					list.add(SwipeInfo.toSwipeInfo(obj));
+				}
+				DataMgr.getInstance().addSwipeDataList(list);
+				event = EventType.GET_SWIPE_RECORD_SUCCESS;
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		} else {
+			event = EventType.SERVER_INNER_ERROR;
+		}
 
-        return event;
-    }
+		return event;
+	}
 
 }

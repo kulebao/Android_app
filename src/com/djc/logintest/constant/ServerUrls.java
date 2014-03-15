@@ -11,6 +11,7 @@ public class ServerUrls {
 	public static final String EDU_RES_PATH = "assess";
 	public static final String ASSIGNMENT_RES_PATH = "assignment";
 	public static final String CONVERSATION = "conversation";
+	public static final String RELATIONSHIP = "relationship";
 
 	public static final String GET_TYPE_PREVIEW = "preview";
 	public static final String GET_TYPE_DETAIL = "detail";
@@ -41,10 +42,13 @@ public class ServerUrls {
 
 	private static final String DAILYLOG = "dailylog?from=%d&to=%d&most=%d";
 
+	// https://www.cocobabys.com/ws/verify/phone/13227882592
+	public static final String GET_AUTH_CODE_URL = HTTPS_HOST_ADDR
+			+ "ws/verify/phone/%s";
+
 	// https://www.cocobabys.com/kindergarten/93740362/parent/13279491366/child/1_1390238560925/dailylog?from=1390897657033&to=1390899235261&most=25
 	public static final String GET_SWIPE_RECORD = HTTPS_HOST_ADDR
-			+ ROOT_RES_PATH + "/%s/" + PARENT_RES_PATH + "/%s/"
-			+ CHILD_RES_PATH + "/%s/" + DAILYLOG;
+			+ ROOT_RES_PATH + "/%s/" + CHILD_RES_PATH + "/%s/" + DAILYLOG;
 
 	// https://www.cocobabys.com/kindergarten/93740362/news?most=25&from=1389718964408&to=1389801005344
 	public static final String GET_NORMAL_NOTICE = HTTPS_HOST_ADDR
@@ -69,6 +73,10 @@ public class ServerUrls {
 	public static final String GET_ALL_CHILDREN_INFO = HTTPS_HOST_ADDR
 			+ ROOT_RES_PATH + "/%s/" + PARENT_RES_PATH + "/%s/"
 			+ CHILD_RES_PATH;
+
+	// https://www.cocobabys.com/kindergarten/93740362/relationship?parent=13408654680
+	// public static final String GET_ALL_CHILDREN_INFO = HTTPS_HOST_ADDR
+	// + ROOT_RES_PATH + "/%s/" + RELATIONSHIP + "?parent=%s";
 
 	public static final String UPLOAD_CHILD_INFO = HTTPS_HOST_ADDR
 			+ ROOT_RES_PATH + "/%s/" + PARENT_RES_PATH + "/%s/"

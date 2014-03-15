@@ -128,47 +128,6 @@ public class HttpsMethod {
         return result;
     }
 
-    public static int validateRegAuthCode(String phonenum, String authCode) {
-        return validateAuthCodeImpl(phonenum, authCode, ServerUrls.CHECK_REG_AUTH_CODE_URL);
-    }
-
-    public static int validateAuthCodeImpl(String phonenum, String authCode, String url) {
-        int ret = EventType.NET_WORK_INVALID;
-
-        // 拼接为json格式
-        String command = getAuthCommand(phonenum, authCode);
-        HttpResult result = new HttpResult();
-        try {
-            result = sendPostCommand(url, command);
-            ret = handleValidateAuthCodeResult(result);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return ret;
-    }
-
-    private static int handleValidateAuthCodeResult(HttpResult result) {
-        int event = EventType.NET_WORK_INVALID;
-        if (result.getResCode() == HttpStatus.SC_OK) {
-            try {
-                JSONObject jsonObject = result.getJsonObject();
-                Log.d("DDD LOGIN", "str : " + jsonObject.toString());
-
-                int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
-                // 校验成功，保存token以及用户姓名
-                if (errorcode == 0) {
-                    event = EventType.AUTH_CODE_IS_VALID;
-                } else {
-                    event = EventType.AUTH_CODE_IS_INVALID;
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return event;
-    }
 
     // 向服务器发送，从百度push服务器获取到的信息，作为后续推送的标识
     public static int sendBinfInfo(String phonenum, String userid, String channelid) {
@@ -237,15 +196,4 @@ public class HttpsMethod {
         return jsonObject.toString();
     }
 
-    private static String getAuthCommand(String phonenum, String authCode) {
-        JSONObject jsonObject = new JSONObject();
-
-        try {
-            jsonObject.put(JSONConstant.PHONE_NUM, phonenum);
-            jsonObject.put(JSONConstant.AUTH_CODE, authCode);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject.toString();
-    }
 }

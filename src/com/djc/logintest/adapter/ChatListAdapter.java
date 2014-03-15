@@ -1,5 +1,6 @@
 package com.djc.logintest.adapter;
 
+import java.io.File;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ import com.djc.logintest.R;
 import com.djc.logintest.activities.ShowIconActivity;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
+import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.dlgmgr.DlgMgr;
 import com.djc.logintest.taskmgr.GlobleDownloadImgeTask;
@@ -41,10 +43,6 @@ public class ChatListAdapter extends BaseAdapter {
 	private List<ChatInfo> dataList;
 	private GlobleDownloadImgeTask task;
 	private Handler handler;
-
-	public void setLocationInfoList(List<ChatInfo> list) {
-		this.dataList = list;
-	}
 
 	public ChatListAdapter(Context activityContext, List<ChatInfo> list,
 			GlobleDownloadImgeTask task) {
@@ -86,31 +84,39 @@ public class ChatListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			FlagHolder flagholder = this.new FlagHolder();
-			convertView = LayoutInflater.from(this.context).inflate(
-					R.layout.chat_item, null);
-			flagholder.sendView = (TextView) convertView
-					.findViewById(R.id.sender);
-			flagholder.bodyView = (TextView) convertView
-					.findViewById(R.id.content);
-			flagholder.timestampView = (TextView) convertView
-					.findViewById(R.id.timestamp);
-			flagholder.resendView = (ImageView) convertView
-					.findViewById(R.id.resend);
-			flagholder.headiconView = (ImageView) convertView
-					.findViewById(R.id.headicon);
-			flagholder.chaticonView = (ImageView) convertView
-					.findViewById(R.id.chat_icon);
-			setDataToViews(position, flagholder);
-			convertView.setTag(flagholder);
-			convertView.setId(position);
-		} else {
-			FlagHolder flagholder = (FlagHolder) convertView.getTag();
-			if (flagholder != null) {
-				setDataToViews(position, flagholder);
-			}
-		}
+		// if (convertView == null) {
+		ChatInfo info = (ChatInfo) getItem(position);
+		convertView = LayoutInflater.from(this.context).inflate(
+				info.getLayoutID(), null);
+
+		Log.d("DJCDDD", "null getLayoutID="
+				+ ((info.getLayoutID() == R.layout.chat_item_left) ? "left"
+						: "right"));
+		Log.d("DJCDDD", "null sender=" + info.getSender());
+
+		FlagHolder flagholder = new FlagHolder();
+
+		flagholder.bLeft = (info.getLayoutID() == R.layout.chat_item_left);
+		flagholder.sendView = (TextView) convertView.findViewById(R.id.sender);
+		flagholder.bodyView = (TextView) convertView.findViewById(R.id.content);
+		flagholder.timestampView = (TextView) convertView
+				.findViewById(R.id.timestamp);
+		flagholder.resendView = (ImageView) convertView
+				.findViewById(R.id.resend);
+		flagholder.headiconView = (ImageView) convertView
+				.findViewById(R.id.headicon);
+		flagholder.chaticonView = (ImageView) convertView
+				.findViewById(R.id.chat_icon);
+		setDataToViews(position, flagholder);
+		convertView.setTag(flagholder);
+		convertView.setId(position);
+		// } else {
+		// FlagHolder flagholder = (FlagHolder) convertView.getTag();
+		// if (flagholder != null) {
+		// setDataToViews(position, flagholder);
+		// }
+		//
+		// }
 		return convertView;
 	}
 
@@ -120,6 +126,30 @@ public class ChatListAdapter extends BaseAdapter {
 		setContent(flagholder, info);
 		setTimeView(position, flagholder);
 		setResendView(position, flagholder);
+		setHeadIcon(info, flagholder);
+		Log.d("DJCDDD", "exist getLayoutID="
+				+ (flagholder.bLeft ? "left" : "right"));
+		Log.d("DJCDDD", "exist sender=" + info.getSender());
+	}
+
+	private void setHeadIcon(ChatInfo info, FlagHolder flagholder) {
+		Bitmap bitmap = getHeadIcon(info);
+		if (bitmap != null) {
+			Utils.setImg(flagholder.headiconView, bitmap);
+		} else {
+			flagholder.headiconView.setImageResource(R.drawable.chat_head_icon);
+		}
+	}
+
+	private Bitmap getHeadIcon(ChatInfo info) {
+		Bitmap loacalBitmap = null;
+		if (info.isSendBySelf()
+				&& !TextUtils.isEmpty(DataMgr.getInstance().getSelectedChild()
+						.getLocal_url())) {
+			loacalBitmap = Utils.getLoacalBitmap(DataMgr.getInstance()
+					.getSelectedChild().getLocal_url());
+		}
+		return loacalBitmap;
 	}
 
 	private void setContent(FlagHolder flagholder, final ChatInfo info) {
@@ -228,8 +258,11 @@ public class ChatListAdapter extends BaseAdapter {
 		flagholder.chaticonView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startToShowIconActivity(((ChatInfo) getItem(position))
-						.getLocalUrl());
+				String iconurl = ((ChatInfo) getItem(position)).getLocalUrl();
+				// 文件存在才显示大图
+				if (new File(iconurl).exists()) {
+					startToShowIconActivity(iconurl);
+				}
 			}
 		});
 	}
@@ -247,5 +280,6 @@ public class ChatListAdapter extends BaseAdapter {
 		public ImageView resendView;
 		public ImageView headiconView;
 		public ImageView chaticonView;
+		public boolean bLeft;
 	}
 }

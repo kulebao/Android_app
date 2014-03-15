@@ -120,8 +120,8 @@ public class ImageBufferedInputStream extends BufferedInputStream {
 
 				markpos = -1;
 				pos = 0;
-				count = result == -1 ? 0 : result;
 			}
+			count = (result == -1 ? 0 : result);
 			return result;
 		}
 		if (markpos == 0 && marklimit > localBuf.length) {

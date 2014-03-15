@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/timestamp"
+        style="@style/item_style"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:text="2014-12-3 22:45"
+        android:textColor="@color/juhong"
+        android:textSize="14sp"
+        android:textStyle="normal" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timestamp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" >
+
+        <ImageView
+            android:id="@+id/headicon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:padding="5dp"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:id="@+id/sender"
+            style="@style/item_style"
+            android:layout_alignTop="@+id/headicon"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/headicon"
+            android:text="title"
+            android:textColor="@color/juhong"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sender"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/headicon"
+            android:background="@drawable/chat_content_right" >
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="@dimen/chat_max_width"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:text="time"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/chat_icon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:padding="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/default_icon"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/resend"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignTop="@+id/content"
+            android:layout_toLeftOf="@+id/content"
+            android:src="@drawable/resend_normal"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</RelativeLayout>

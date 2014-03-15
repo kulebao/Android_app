@@ -45,7 +45,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:columnWidth="@dimen/education_griditem_width"
         android:gravity="center"
         android:horizontalSpacing="10dp"
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/gridview"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:textSize="20sp"
         android:textColor="@color/juhong"
         android:textStyle="bold" />
@@ -66,14 +66,15 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="140dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/comment"
         android:layout_below="@+id/comentfrom" >
 
         <TextView
             android:id="@+id/coment"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="6dp"
+            android:padding="3dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />

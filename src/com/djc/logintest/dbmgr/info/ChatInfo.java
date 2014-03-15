@@ -2,8 +2,11 @@ package com.djc.logintest.dbmgr.info;
 
 import java.io.File;
 
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 
+import com.djc.logintest.R;
 import com.djc.logintest.upload.OSSMgr;
 import com.djc.logintest.upload.UploadFactory;
 import com.djc.logintest.utils.Utils;
@@ -96,7 +99,22 @@ public class ChatInfo {
 		}
 		return ret;
 	}
+	
+	public int getLayoutID(){
+		int layoutid =0;
+		if (TextUtils.isEmpty(getSender())) {
+			layoutid = R.layout.chat_item_right;
+		} else {
+			layoutid = R.layout.chat_item_left;
+		}
+		
+		return layoutid;
+	}
 
+	public boolean isSendBySelf(){
+		return TextUtils.isEmpty(getSender());
+	}
+	
 	public String getLocalUrl() {
 		String localUrl = "";
 		if (!"".equals(icon_url)) {
@@ -108,7 +126,7 @@ public class ChatInfo {
 				// 老师发的图片，不一定是来自阿里oss,可能是七牛，后续要统一
 				// 保存到本地时，以服务器端时间搓作为文件名
 				localUrl = Utils.getSDCardPicRootPath() + File.separator
-						+ Utils.getOssChatIconUrl(getTimestamp());
+						+ Utils.getChatIconUrl(getTimestamp());
 			}
 		}
 		Log.d("DDD", "getLocalUrl =" + localUrl);

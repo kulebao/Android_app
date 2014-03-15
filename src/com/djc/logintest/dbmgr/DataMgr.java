@@ -206,20 +206,32 @@ public class DataMgr {
 		childrenInfoMgr.addChildrenInfoList(list);
 	}
 
+	public void clearChildInfo() {
+		childrenInfoMgr.clearChildInfo();
+	}
+
 	public ChildInfo getSelectedChild() {
 		return childrenInfoMgr.getSelectedChild();
 	}
 
 	public ChildInfo getChildByID(String id) {
-		return childrenInfoMgr.getSelectedChildByID(id);
+		return childrenInfoMgr.getChildByID(id);
 	}
 
 	public List<ChildInfo> getAllChildrenInfo() {
 		return childrenInfoMgr.getAllChildrenInfo();
 	}
+	
+	public List<String> getAllClassID() {
+		return childrenInfoMgr.getAllClassID();
+	}
 
-	public void setSelectedChild(int childid) {
-		childrenInfoMgr.setSelectedChild(childid);
+	public int setSelectedChild(String childid) {
+		return childrenInfoMgr.setSelectedChild(childid);
+	}
+
+	public String getLatestChildTimestamp() {
+		return childrenInfoMgr.getLatestTimestamp();
 	}
 
 	public void updateChildInfo(String serverid, ChildInfo info) {
@@ -236,6 +248,10 @@ public class DataMgr {
 
 	public void updateBirthday(String serverid, long birthday) {
 		childrenInfoMgr.updateBirthday(serverid, birthday);
+	}
+	
+	public String getClassNameByClassID(int classid) {
+		return childrenInfoMgr.getClassNameByClassID(classid);
 	}
 
 	public void updateSchoolInfo(String schoolid, SchoolInfo info) {
