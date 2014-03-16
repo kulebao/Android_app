@@ -38,7 +38,7 @@ public class ChatMethod {
 		String command = createGetChatInfoCommand(most, from, to, sort);
 		Log.e("DDDDD ", "getSchoolInfo cmd:" + command);
 		result = HttpClientHelper.executeGet(command);
-		if (result.getResCode() != HttpStatus.SC_OK) {
+		if (!result.isRequestOK()) {
 			throw new Exception("request faile error =" + result.getResCode());
 		}
 		list = handleGetChatMethodResult(result);

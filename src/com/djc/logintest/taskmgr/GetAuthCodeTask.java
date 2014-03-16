@@ -23,7 +23,7 @@ public class GetAuthCodeTask extends AsyncTask<Void, Void, Integer> {
 
 	@Override
 	protected Integer doInBackground(Void... params) {
-		int result = EventType.NET_WORK_INVALID;
+		int result = EventType.GET_AUTH_CODE_FAIL;
 		try {
 			boolean networkConnected = Utils.isNetworkConnected(MyApplication
 					.getInstance());

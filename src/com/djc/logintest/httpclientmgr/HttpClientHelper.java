@@ -42,6 +42,7 @@ import android.util.Log;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.net.HttpResult;
+import com.djc.logintest.net.HttpsMethod;
 import com.djc.logintest.utils.Utils;
 
 public class HttpClientHelper {
@@ -107,7 +108,7 @@ public class HttpClientHelper {
             status = response.getStatusLine().getStatusCode();
             Log.d("DDD code:", "" + status);
 
-            if (status == HttpStatus.SC_OK) {
+			if (HttpsMethod.isHttpRequestOK(status)) {
                 in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 StringBuffer sb = new StringBuffer("");
                 String line = "";
@@ -147,7 +148,7 @@ public class HttpClientHelper {
             status = response.getStatusLine().getStatusCode();
             Log.d("DDD code:", "" + status);
 
-            if (status == HttpStatus.SC_OK) {
+            if (HttpsMethod.isHttpRequestOK(status)) {
                 in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 StringBuffer sb = new StringBuffer("");
                 String line = "";

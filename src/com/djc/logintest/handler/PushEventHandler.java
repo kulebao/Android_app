@@ -90,7 +90,7 @@ public class PushEventHandler {
             } else if (PushConstants.METHOD_SET_TAGS.equals(event.getMethod())
                     && event.getErrorCode() == 0) {
                 // 绑定tag成功,保存数据
-                Utils.savePushProp(JSONConstant.PUSH_TAGS, getTags(event));
+                Utils.saveUndeleteableProp(JSONConstant.PUSH_TAGS, getTags(event));
                 bret = true;
             }
         } catch (Exception e) {

@@ -13,6 +13,10 @@ public class NetStateChangeReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		if (Utils.isLoginout()) {
+			return;
+		}
+
 		String action = intent.getAction();
 		Log.d("DDD", "NetStateChangeReceiver onReceive action=" + action);
 		int connectedType = Utils.getConnectedType(context);

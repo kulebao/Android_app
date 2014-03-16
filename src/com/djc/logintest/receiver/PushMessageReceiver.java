@@ -60,8 +60,8 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 
 		// 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
 		if (errorCode == 0) {
-			Utils.savePushProp(JSONConstant.CHANNEL_ID, channelId);
-			Utils.savePushProp(JSONConstant.USER_ID, userId);
+			Utils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, channelId);
+			Utils.saveUndeleteableProp(JSONConstant.USER_ID, userId);
 		}
 	}
 
@@ -286,7 +286,7 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 				+ " sucessTags=" + sucessTags + " failTags=" + failTags
 				+ " requestId=" + requestId;
 		Log.d(TAG, responseString);
-		Utils.savePushProp(JSONConstant.PUSH_TAGS, listToString(sucessTags));
+		Utils.saveUndeleteableProp(JSONConstant.PUSH_TAGS, listToString(sucessTags));
 	}
 
 	private String listToString(List<String> list) {

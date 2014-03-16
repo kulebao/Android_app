@@ -188,16 +188,17 @@ public class Utils {
 		editor.commit();
 	}
 
-	public static void savePushProp(String key, String value) {
-		SharedPreferences.Editor editor = getEditor(ConstantValue.PUSH_CONFIG);
+	//调用该接口保存的数据，退出登录后，不会清空
+	public static void saveUndeleteableProp(String key, String value) {
+		SharedPreferences.Editor editor = getEditor(ConstantValue.UNDELETEABLE_CONFIG);
 		editor.putString(key, value);
 		editor.commit();
 	}
 
-	public static String getPushProp(String key) {
+	public static String getUndeleteableProp(String key) {
 		Context context = MyApplication.getInstance().getApplicationContext();
 		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.PUSH_CONFIG, Context.MODE_PRIVATE);
+				ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
 		return conf.getString(key, "");
 	}
 
@@ -244,9 +245,9 @@ public class Utils {
 		return phonenum.matches(regexExp);
 	}
 
-	// 判断验证码是否合法，4位数字
+	// 判断验证码是否合法，6位数字
 	public static boolean checkAuthCode(String phonenum) {
-		String regexExp = "^[0-9]{4}$";
+		String regexExp = "^[0-9]{6}$";
 		return phonenum.matches(regexExp);
 	}
 
@@ -284,8 +285,8 @@ public class Utils {
 	}
 
 	public static String convertTime(long timestamp) {
-		SimpleDateFormat fomat = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss",Locale.CHINESE);
+		SimpleDateFormat fomat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+				Locale.CHINESE);
 		return fomat.format(new Date(timestamp));
 	}
 

@@ -21,7 +21,7 @@ public class ConstantValue {
 	public static final String FIRST_LOGIN = "first_login";
 
 	public static final String CONF_INI = "conf.ini";
-	public static final String PUSH_CONFIG = "push.ini";
+	public static final String UNDELETEABLE_CONFIG = "push.ini";
 
 	public static final String HTTP_POST = "POST";
 	public static final String HTTP_GET = "GET";
@@ -58,7 +58,7 @@ public class ConstantValue {
 
 	public static final int PUSH_ACTION_QUEUE_MAX_SIZE = 100;
 
-	public static final int TIME_LIMIT_TO_GET_AUTHCODE_AGAIN = 60;
+	public static final int TIME_LIMIT_TO_GET_AUTHCODE_AGAIN = 60*10;
 
 	public static final int DO_NOT_CANCEL_DIALOG = 100;
 

@@ -1,5 +1,6 @@
 package com.djc.logintest.net;
 
+import org.apache.http.HttpStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +16,10 @@ public class HttpResult {
         return resCode;
     }
 
+    public boolean isRequestOK(){
+    	return (resCode == HttpStatus.SC_OK || resCode == HttpStatus.SC_BAD_REQUEST);
+    }
+    
     public void setResCode(int resCode) {
         this.resCode = resCode;
     }

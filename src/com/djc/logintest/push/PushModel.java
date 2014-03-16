@@ -76,7 +76,7 @@ public class PushModel {
 
 	public List<String> getTags() {
 		List<String> tags = new ArrayList<String>();
-		String tagsStr = Utils.getPushProp(JSONConstant.PUSH_TAGS);
+		String tagsStr = Utils.getUndeleteableProp(JSONConstant.PUSH_TAGS);
 		Log.d("DJC 10-16", "tags =" + tagsStr);
 		if (!"".equals(tagsStr)) {
 			String[] split = tagsStr.split(",");

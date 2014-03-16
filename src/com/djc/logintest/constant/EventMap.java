@@ -15,6 +15,7 @@ public class EventMap {
 
             put(EventType.AUTH_CODE_IS_INVALID, R.string.auth_code_invalid);
             put(EventType.AUTH_CODE_INPUT_ERROR, R.string.auth_code_input_error);
+            put(EventType.GET_AUTH_CODE_FAIL, R.string.get_auth_code_fail);
 
             put(EventType.NET_WORK_INVALID, R.string.net_error);
 

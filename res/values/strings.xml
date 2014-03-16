@@ -52,7 +52,7 @@
 		\n\n提示：如需修改密码，请在进入应用后，点击屏幕右上角的"设置"按钮，进行修改.
 	</string>
     <string name="aucodeContent">您的手机号码%1$s已经通过验证，稍后会有一个6位数字的验证码，通过短信发送到该手机上，请在下方的输入框内填入此验证码，点击"绑定"按钮，进行手机绑定，谢谢！\n\n特别提示:
-		该验证码的有效时间为1小时,请在1小时内进行绑定操作
+		该验证码的有效时间为10分钟,请在10分钟内进行绑定操作
 	</string>
     <string name="reset_pwd_success">密码重置成功，请使用新密码进行登录，谢谢！</string>
     <string name="change_pwd_success">密码修改成功！</string>
@@ -192,6 +192,7 @@
     <string name="about_us">关于我们</string>
     <string name="about_us_content">幼乐宝（成都库乐宝信息技术有限公司）---提供宝宝、家长和幼儿园三方互动沟通和信息发布服务，并提供丰富的后续服务和专业的技术保障。</string>
     
+    <string name="get_auth_code_fail">获取验证码失败</string>
     <string name="emotion_explain">情绪稳定、适应集体生活、乐于亲近老师和同学</string>
     <string name="dining_explain">能愉快的进餐、不挑食、能吃完一份饭菜</string>
     <string name="rest_explain">能安静的就寝、正确地穿脱衣帽和鞋袜、按时起床</string>

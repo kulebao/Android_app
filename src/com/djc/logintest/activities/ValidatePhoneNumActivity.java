@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,27 +43,37 @@ public class ValidatePhoneNumActivity extends MyActivity {
 					return;
 				}
 				super.handleMessage(msg);
-
+				Log.w("ValidatePhoneNumActivity",
+						"ValidatePhoneNumActivity msg.what=" + msg.what);
 				switch (msg.what) {
 				case EventType.PHONE_NUM_IS_INVALID:
 					Utils.showSingleBtnEventDlg(EventType.PHONE_NUM_IS_INVALID,
 							ValidatePhoneNumActivity.this);
 					break;
 				case EventType.PHONE_NUM_IS_FIRST_USE:
-					// 首次使用，进入获取验证码界面,目前短信通道断了，直接进入登录
 					startAuthCodeActivity();
-					// startLoginActivity();
 					break;
 				case EventType.PHONE_NUM_IS_ALREADY_BIND:
-					// 已经绑定，直接进入登录界面
-					// startLoginActivity();
-					startAuthCodeActivity();
+					handleAlreadyBind();
 					break;
 				default:
 					break;
 				}
 			}
+
 		};
+	}
+
+	private void handleAlreadyBind() {
+		String phone = inuputnumView.getText().toString();
+		if (TextUtils.isEmpty(Utils.getUndeleteableProp(phone))) {
+			// 该号码之前没有在此机器上登录过，进入获取短信验证码流程
+			startAuthCodeActivity();
+
+		} else {
+			// 该号码已经在此机器上登录过，直接进入登录流程
+			startLoginActivity();
+		}
 	}
 
 	private void startLoginActivity() {

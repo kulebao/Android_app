@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal" >
-
+
             <Button
                 android:id="@+id/positiveButton"
                 android:layout_width="0dip"
@@ -56,13 +56,13 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="3dip"
                 android:layout_weight="1"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
                 android:background="@drawable/small_btn"
                 android:singleLine="true"
-                android:text="测试" />
-
+                android:text="测试"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <Button
                 android:id="@+id/negativeButton"
                 android:layout_width="0dip"
@@ -77,7 +77,6 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
     </LinearLayout>
 

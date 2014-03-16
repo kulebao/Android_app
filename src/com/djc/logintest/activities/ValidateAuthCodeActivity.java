@@ -39,8 +39,8 @@ public class ValidateAuthCodeActivity extends MyActivity {
 		setContentView(R.layout.authcode);
 		initView();
 		initHandler();
-		runGetAuthCodeTask();
-		runAuthCodeCountDownTask();
+		// runGetAuthCodeTask();
+		// runAuthCodeCountDownTask();
 	}
 
 	private void initView() {
@@ -70,7 +70,6 @@ public class ValidateAuthCodeActivity extends MyActivity {
 				runGetAuthCodeTask();
 			}
 		});
-		getAuthCodeBtn.setEnabled(false);
 	}
 
 	private void initSendAuthCodeBtn() {
@@ -161,7 +160,7 @@ public class ValidateAuthCodeActivity extends MyActivity {
 					handleCountDownOver();
 					break;
 				case EventType.BIND_SUCCESS:
-					handleBindSuccess();
+					// handleBindSuccess();
 					break;
 				case EventType.BIND_FAILED:
 					Utils.showSingleBtnEventDlg(EventType.BIND_FAILED,
@@ -175,29 +174,30 @@ public class ValidateAuthCodeActivity extends MyActivity {
 		};
 	}
 
-	public void handleBindSuccess() {
-		// PushModel.getPushModel().setSchollIDAsTag();
-		startToTransitActivity();
-	}
+	// public void handleBindSuccess() {
+	// // PushModel.getPushModel().setSchollIDAsTag();
+	// startToTransitActivity();
+	// }
 
 	protected void handleAuthCodeSuccess() {
 		// runBindPushTask();
 		startLoginActivity();
 	}
 
-	private void runBindPushTask() {
-		new BindPushTask(handler, phoneNum).execute();
-	}
-
-	private void startToTransitActivity() {
-		Log.d("DJC DDD", "startToTransitActivity");
-		getAuthCodeBtn.setEnabled(false);
-		sendAuthCodeBtn.setEnabled(false);
-		Intent intent = new Intent();
-		intent.setClass(this, TransitActivity.class);
-		startActivity(intent);
-		finish();
-	}
+	//
+	// private void runBindPushTask() {
+	// new BindPushTask(handler, phoneNum).execute();
+	// }
+	//
+	// private void startToTransitActivity() {
+	// Log.d("DJC DDD", "startToTransitActivity");
+	// getAuthCodeBtn.setEnabled(false);
+	// sendAuthCodeBtn.setEnabled(false);
+	// Intent intent = new Intent();
+	// intent.setClass(this, TransitActivity.class);
+	// startActivity(intent);
+	// finish();
+	// }
 
 	private Intent createIntent() {
 		Bundle bundle = new Bundle();
@@ -217,13 +217,13 @@ public class ValidateAuthCodeActivity extends MyActivity {
 	}
 
 	private void handleGetAuthCodeFail() {
-		Utils.showSingleBtnEventDlg(EventType.NET_WORK_INVALID,
+		Utils.showSingleBtnEventDlg(EventType.GET_AUTH_CODE_FAIL,
 				ValidateAuthCodeActivity.this);
 		getAuthCodeBtn.setEnabled(true);
 	}
 
 	private void handleGetAuthCodeSuccess() {
-		Toast.makeText(this, R.string.getAuthCodeSuccess, Toast.LENGTH_LONG)
+		Toast.makeText(this, R.string.getAuthCodeSuccess, Toast.LENGTH_SHORT)
 				.show();
 		runAuthCodeCountDownTask();
 	}

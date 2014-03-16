@@ -65,8 +65,8 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 
 	public int sendInfoToSelfServer() {
 		return HttpsMethod.sendBinfInfo(phonenum,
-				Utils.getPushProp(JSONConstant.USER_ID),
-				Utils.getPushProp(JSONConstant.CHANNEL_ID));
+				Utils.getUndeleteableProp(JSONConstant.USER_ID),
+				Utils.getUndeleteableProp(JSONConstant.CHANNEL_ID));
 	}
 
 	@Override
@@ -78,6 +78,6 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 	}
 
 	private boolean checkBindInfo() {
-		return !"".equals(Utils.getPushProp(JSONConstant.USER_ID));
+		return !"".equals(Utils.getUndeleteableProp(JSONConstant.USER_ID));
 	}
 }

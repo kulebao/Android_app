@@ -20,7 +20,7 @@ public class AuthCodeMethod {
 	}
 
 	public int getAuthCode(String phone, int type) {
-		int bret = EventType.NET_WORK_INVALID;
+		int bret = EventType.GET_AUTH_CODE_FAIL;
 		HttpResult result = new HttpResult();
 		String url = createAuthCodeCommand(phone);
 		Log.e("DDDDD ", "createGetAuthCodeCommand cmd:" + url);
@@ -66,8 +66,8 @@ public class AuthCodeMethod {
 	}
 
 	private int handleGetAuthCodeResult(HttpResult result) {
-		int event = EventType.NET_WORK_INVALID;
-		if (result.getResCode() == HttpStatus.SC_OK) {
+		int event = EventType.GET_AUTH_CODE_FAIL;
+		if (result.isRequestOK()) {
 			try {
 				JSONObject jsonObject = result.getJsonObject();
 				Log.d("DDD handleGetAuthCodeResult",
@@ -78,8 +78,6 @@ public class AuthCodeMethod {
 				// 登录成功，保存token
 				if (errorcode == 0) {
 					event = EventType.GET_AUTH_CODE_SUCCESS;
-				} else {
-					event = EventType.GET_AUTH_CODE_FAIL;
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
