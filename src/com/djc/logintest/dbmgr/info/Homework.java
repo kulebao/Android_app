@@ -2,6 +2,8 @@ package com.djc.logintest.dbmgr.info;
 
 import java.io.File;
 
+import android.text.TextUtils;
+
 import com.djc.logintest.utils.Utils;
 
 public class Homework {
@@ -88,13 +90,18 @@ public class Homework {
 		}
 		return ret;
 	}
-	
-	//返回亲子作业本地图片保存路径，如果不存在则返回null
-	public String getHomeWorkLocalIconPath(){
-        String dir = Utils.getSDCardPicRootPath() + File.separator + HOMEWORK_ICON + File.separator;
-        Utils.mkDirs(dir);
-        String url = dir + server_id;
-        return url;
+
+	// 返回亲子作业本地图片保存路径，如果不存在则返回null
+	public String getHomeWorkLocalIconPath() {
+		// 服务器上不存在图片，本地一定不存在
+		if (TextUtils.isEmpty(icon_url)) {
+			return "";
+		}
+		String dir = Utils.getSDCardPicRootPath() + File.separator
+				+ HOMEWORK_ICON + File.separator;
+		Utils.mkDirs(dir);
+		String url = dir + server_id;
+		return url;
 	}
 
 }

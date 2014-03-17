@@ -2,7 +2,6 @@ package com.djc.logintest.activities;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -21,7 +20,7 @@ import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.LocationInfo;
 import com.djc.logintest.utils.Utils;
 
-public class LocationRecordActivity extends Activity {
+public class LocationRecordActivity extends UmengStatisticsActivity {
 
 	private ListView list;
 	private LocationInfoListAdapter adapter;

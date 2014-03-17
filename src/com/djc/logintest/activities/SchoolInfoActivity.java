@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,7 +24,7 @@ import com.djc.logintest.taskmgr.DownLoadImgAndSaveTask;
 import com.djc.logintest.taskmgr.GetSchoolInfoTask;
 import com.djc.logintest.utils.Utils;
 
-public class SchoolInfoActivity extends Activity {
+public class SchoolInfoActivity extends UmengStatisticsActivity {
 
     private ImageView logo;
     private TextView desc;

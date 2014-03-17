@@ -12,6 +12,8 @@ public class EventType {
 	public static final int GET_AUTH_CODE_SUCCESS = 1140;
 	public static final int GET_AUTH_CODE_FAIL = 1141;
 
+	public static final int TOKEN_INVALID = 1151;
+
 	public static final int NET_WORK_INVALID = 1201;
 	public static final int AUTHCODE_COUNTDOWN_GO = 1210;
 	public static final int AUTHCODE_COUNTDOWN_OVER = 1211;

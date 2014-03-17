@@ -10,12 +10,12 @@ import android.util.Log;
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
-import com.djc.logintest.net.HttpsMethod;
+import com.djc.logintest.net.PushMethod;
 import com.djc.logintest.push.PushModel;
 import com.djc.logintest.utils.Utils;
 
 public class BindPushTask extends AsyncTask<Void, Void, Integer> {
-	// 最多等待30秒，bind过程
+	// 最多等待60秒，bind过程
 	private static final int MAX_WAIT_FOR_BIND = 60;
 	private Handler hander;
 	private String phonenum;
@@ -26,27 +26,27 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 	}
 
 	@Override
-    protected Integer doInBackground(Void... params) {
-    	if(!Utils.isNetworkConnected(MyApplication.getInstance())){
-    		return EventType.NET_WORK_INVALID;
-    	}
-    	
-        int result = EventType.BIND_FAILED;
-        try {
-            // 检查是否之前已经绑定成功过了，如果绑定成功了，就只需要向服务器发送绑定信息
-            if (checkBindInfo()) {
-            	Log.w("DJC", "BindPushTask aleady bind send it to server!");
-                return sendInfoToSelfServer();
-            }
+	protected Integer doInBackground(Void... params) {
+		if (!Utils.isNetworkConnected(MyApplication.getInstance())) {
+			return EventType.NET_WORK_INVALID;
+		}
 
-            result = doBindToSelfServer();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+		int result = EventType.BIND_FAILED;
+		try {
+			// 检查是否之前已经绑定成功过了，如果绑定成功了，就只需要向服务器发送绑定信息
+			if (checkBindInfo()) {
+				Log.w("DJC", "BindPushTask aleady bind send it to server!");
+				return sendInfoToSelfServer();
+			}
 
-	public int doBindToSelfServer() throws InterruptedException {
+			result = doBindToSelfServer();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int doBindToSelfServer() throws Exception {
 		int result = EventType.BIND_FAILED;
 		// 发起绑定
 		PushModel.getPushModel().bind();
@@ -63,8 +63,9 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 		return result;
 	}
 
-	public int sendInfoToSelfServer() {
-		return HttpsMethod.sendBinfInfo(phonenum,
+	public int sendInfoToSelfServer() throws Exception {
+		PushMethod method = PushMethod.getMethod();
+		return method.sendBinfInfo(phonenum,
 				Utils.getUndeleteableProp(JSONConstant.USER_ID),
 				Utils.getUndeleteableProp(JSONConstant.CHANNEL_ID));
 	}

@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.ChangePWDTask;
 import com.djc.logintest.utils.Utils;
 
-public class ChangePWDActivity extends Activity {
+public class ChangePWDActivity extends UmengStatisticsActivity {
     private Handler handler;
     private ProgressDialog dialog;
     private EditText inputOldPwdView;

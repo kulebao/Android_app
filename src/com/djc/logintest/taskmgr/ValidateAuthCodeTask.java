@@ -45,11 +45,6 @@ public class ValidateAuthCodeTask extends AsyncTask<Void, Void, Integer> {
 		super.onPostExecute(result);
 		// Account fakeAccount = createFakeAccount();
 		Message msg = Message.obtain();
-		// 当消息是EventType.AUTH_CODE_IS_VALID时，不要取消dialog，因为后续还要发起push绑定
-		// 以及回传绑定成功后id等操作
-		if (result == EventType.AUTH_CODE_IS_VALID) {
-			msg.arg2 = ConstantValue.DO_NOT_CANCEL_DIALOG;
-		}
 		msg.what = result;
 		// msg.obj = fakeAccount;
 		hander.sendMessage(msg);

@@ -431,7 +431,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 		adapter.notifyDataSetChanged();
 		if (selectedChild != null
@@ -666,17 +666,17 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		lstImageItem.add(map);
 
 		map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.schedule);
+		map.put("ItemImage", R.drawable.homework);
 		map.put("ItemText", getResources().getText(R.string.homework));
 		lstImageItem.add(map);
 
 		map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.schedule);
+		map.put("ItemImage", R.drawable.chat);
 		map.put("ItemText", getResources().getText(R.string.interaction));
 		lstImageItem.add(map);
 
 		map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.schedule);
+		map.put("ItemImage", R.drawable.education);
 		map.put("ItemText", getResources().getText(R.string.education));
 		lstImageItem.add(map);
 

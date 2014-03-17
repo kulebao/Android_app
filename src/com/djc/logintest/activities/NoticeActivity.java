@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -17,11 +16,10 @@ import com.djc.logintest.R;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.handler.MyHandler;
-import com.djc.logintest.noticepaser.SwapCardNoticePaser;
 import com.djc.logintest.taskmgr.DownLoadImgAndSaveTask;
 import com.djc.logintest.utils.Utils;
 
-public class NoticeActivity extends Activity {
+public class NoticeActivity extends UmengStatisticsActivity {
 	private TextView contentView;
 	private ImageView noticeiconView;
 	private TextView signView;
@@ -93,6 +91,8 @@ public class NoticeActivity extends Activity {
 					//如果本地图片有路径却没有文件，那么从服务器重新下载并保存到本地
 					if (!TextUtils.isEmpty(net_url)) {
 						runDownloadIconTask();
+						noticeiconView.setVisibility(View.VISIBLE);
+						noticeiconView.setImageResource(R.drawable.default_icon);
 					}
 				}
 			}

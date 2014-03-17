@@ -2,7 +2,6 @@ package com.djc.logintest.activities;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -33,7 +32,7 @@ import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.GetHomeworkTask;
 import com.djc.logintest.utils.Utils;
 
-public class HomeworkPullRefreshActivity extends Activity {
+public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 	private HomeworkListAdapter adapter;
 	private MsgListView msgListView;
 	private View footer;

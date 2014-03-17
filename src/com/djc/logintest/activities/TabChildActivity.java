@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -8,7 +7,7 @@ import android.content.DialogInterface.OnClickListener;
 import com.djc.logintest.R;
 import com.djc.logintest.customview.CustomDialog;
 
-public class TabChildActivity extends Activity {
+public class TabChildActivity extends UmengStatisticsActivity {
 
     @Override
     public void onBackPressed() {

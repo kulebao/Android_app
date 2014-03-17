@@ -3,8 +3,7 @@
 
     <string name="hello">Hello World, LoginTestActivity!</string>
     <string name="app_name">幼乐宝</string>
-    <string name="warning">请输入您在幼儿园登记的手机号码进行验证，该功能需要连接网络，谢谢！
-	</string>
+    <string name="warning">请输入您在幼儿园登记的手机号码进行验证，该功能需要连接网络，谢谢！</string>
     <string name="inuputnum">请输入您的手机号码</string>
     <string name="inuputpwd">请输入您的密码</string>
     <string name="inuput_auth_code">请输入6位数字验证码</string>
@@ -15,8 +14,7 @@
     <string name="phone_invalid">手机号码没有注册，请确认输入是否正确或联系幼儿园处理，谢谢！</string>
     <string name="phone_input_error">手机号码输入错误，请检查后重新输入，谢谢!</string>
     <string name="auth_code_input_error">验证码输入错误,请检查后重新输入，谢谢!</string>
-    <string name="auth_code_invalid">验证码错误，请确认输入是否正确，如果点击了重新获取验证码，请输入最后一次收到的验证码，谢谢！
-	</string>
+    <string name="auth_code_invalid">验证码错误，请确认输入是否正确，如果点击了重新获取验证码，请输入最后一次收到的验证码，谢谢！</string>
     <string name="notice">提示</string>
     <string name="error">错误</string>
     <string name="confirm">确认</string>
@@ -31,16 +29,12 @@
     <string name="change_pwd">修改密码</string>
     <string name="forget_pwd">忘记密码</string>
     <string name="reset_pwd">重置密码</string>
-    <string name="forget_pwd_notice">
-		1.点击下方按钮获取验证码，验证码会以短信的方式发送到该手机上\n
-		2.按照提示,输入验证码和新密码，然后点击重置密码按钮
-	</string>
+    <string name="forget_pwd_notice">		1.点击下方按钮获取验证码，验证码会以短信的方式发送到该手机上\n
+		2.按照提示,输入验证码和新密码，然后点击重置密码按钮</string>
     <string name="input_old_pwd">请输入旧密码</string>
     <string name="input_new_pwd">请输入新密码</string>
     <string name="reinput_new_pwd">请重复输入新密码</string>
-    <string name="change_pwd_notice">
-		请按照提示,输入旧密码和新密码，然后点击修改密码按钮
-	</string>
+    <string name="change_pwd_notice">		请按照提示,输入旧密码和新密码，然后点击修改密码按钮</string>
     <string name="server_error">服务器忙，请稍后再试，谢谢！</string>
     <string name="net_error">网络异常，请确认wifi或数据连接已经打开，稍后再试，谢谢！</string>
     <string name="validate_phone_num">正在校验手机号码，请稍候...</string>
@@ -49,11 +43,9 @@
     <string name="startmain">进入应用</string>
     <string name="firstwelcome">尊敬的用户 %1$s 先生/女士:\n您的手机 %2$s
 		已经绑定成功并自动登录。您的账号名就是手机号码，初始密码是手机号码的后8位。
-		\n\n提示：如需修改密码，请在进入应用后，点击屏幕右上角的"设置"按钮，进行修改.
-	</string>
+		\n\n提示：如需修改密码，请在进入应用后，点击屏幕右上角的"设置"按钮，进行修改.</string>
     <string name="aucodeContent">您的手机号码%1$s已经通过验证，稍后会有一个6位数字的验证码，通过短信发送到该手机上，请在下方的输入框内填入此验证码，点击"绑定"按钮，进行手机绑定，谢谢！\n\n特别提示:
-		该验证码的有效时间为10分钟,请在10分钟内进行绑定操作
-	</string>
+		该验证码的有效时间为10分钟,请在10分钟内进行绑定操作</string>
     <string name="reset_pwd_success">密码重置成功，请使用新密码进行登录，谢谢！</string>
     <string name="change_pwd_success">密码修改成功！</string>
     <string name="change_pwd_failed">密码修改失败！</string>
@@ -96,8 +88,7 @@
     <string name="must">必填</string>
     <string name="opt">可选</string>
     <string name="choose_lbs_num">请选择定位号码</string>
-    <string name="pls_bind_lbs_num">还未绑定定位号码，请通过“设置->定位号码管理->添加定位号码”，绑定定位号码,谢谢！
-	</string>
+    <string name="pls_bind_lbs_num">还未绑定定位号码，请通过“设置->定位号码管理->添加定位号码”，绑定定位号码,谢谢！</string>
     <string name="old_pwd_not_equal">旧密码错误，请重新输入</string>
     <string name="bind_location">定位号码管理</string>
     <string name="swipcard_notice">刷卡通知</string>
@@ -163,17 +154,14 @@
     <string name="sending">发送中，请稍候</string>
     <string name="send_success">发送信息成功!</string>
     <string name="send_fail">发送信息失败!</string>
-    
     <string name="from">来自 %1$s</string>
     <string name="delete_data">删除数据?</string>
-    
     <string name="getting_swipe_info">正在获取刷卡记录...</string>
     <string name="loading_data">正在获取数据...</string>
     <string name="coment_from">来自 %1$s 的评语:</string>
     <string name="load_data_fail">获取数据失败</string>
     <string name="no_more_edu">没有更多的评价了</string>
     <string name="no_edu">没有评价</string>
-    
     <string name="pls_input_chat">请输入留言内容</string>
     <string name="send_icon_success">发送图片成功! </string>
     <string name="send_icon_fail">发送图片失败! </string>
@@ -182,16 +170,15 @@
     <string name="education">在园表现 </string>
     <string name="interaction">家园互动 </string>
     <string name="weibo">官方微博 : </string>
-    <string name="weibo_account">XXX</string>
+    <string name="weibo_account">weibo.com/5066323670</string>
     <string name="homepage">官方网站 : </string>
     <string name="homepage_url">www.cocobabys.com</string>
     <string name="email">电子邮箱 : </string>
     <string name="email_address">support@cocobabys.com</string>
     <string name="support_phone">联系电话 : </string>
-    <string name="support_phone_num">XXX</string>
+    <string name="support_phone_num">4009984998\n028-69190987</string>
     <string name="about_us">关于我们</string>
     <string name="about_us_content">幼乐宝（成都库乐宝信息技术有限公司）---提供宝宝、家长和幼儿园三方互动沟通和信息发布服务，并提供丰富的后续服务和专业的技术保障。</string>
-    
     <string name="get_auth_code_fail">获取验证码失败</string>
     <string name="emotion_explain">情绪稳定、适应集体生活、乐于亲近老师和同学</string>
     <string name="dining_explain">能愉快的进餐、不挑食、能吃完一份饭菜</string>
@@ -201,6 +188,6 @@
     <string name="self_care_explain">能自己收拾整理玩具和用具、自己入厕</string>
     <string name="manner_explain">对人有礼貌、会主动使用礼貌用语、尊重他人、不打扰别人</string>
     <string name="game_explain">喜欢玩游戏、能与同学分享玩具，学习并遵守游戏规则</string>
-    
-    
+    <string name="token_invalid">无效账号，请注销后重新登录，或联系学校处理，谢谢！</string>
+
 </resources>

@@ -2,7 +2,6 @@ package com.djc.logintest.activities;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -22,7 +21,7 @@ import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.SwipeInfo;
 import com.djc.logintest.utils.Utils;
 
-public class SwipeListActivity extends Activity {
+public class SwipeListActivity extends UmengStatisticsActivity {
     private ListView list;
     private SwipeListAdapter adapter;
     private String date;

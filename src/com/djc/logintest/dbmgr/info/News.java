@@ -2,6 +2,7 @@ package com.djc.logintest.dbmgr.info;
 
 import java.io.File;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.djc.logintest.dbmgr.DataMgr;
@@ -116,8 +117,13 @@ public class News {
 		return from;
 	}
 
-	// 返回公告本地图片保存路径，如果不存在则返回null
+	// 返回公告本地图片保存路径，如果不存在则返回""
 	public String getNewsLocalIconPath() {
+		//服务器上不存在图片，本地一定不存在
+		if(TextUtils.isEmpty(icon_url)){
+			return "";
+		}
+		
 		String dir = Utils.getSDCardPicRootPath() + File.separator + NEWS_ICON
 				+ File.separator;
 		Utils.mkDirs(dir);

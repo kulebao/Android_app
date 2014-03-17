@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,7 +18,7 @@ import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.BindedNumInfo;
 
-public class LocationActivity extends Activity {
+public class LocationActivity extends UmengStatisticsActivity {
     private static final int MIN_ZOOM = 12;
     private static final int MAX_ZOOM = 19;
     private WebView myWebView;
@@ -167,7 +166,7 @@ public class LocationActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         Log.d("", "onResume");
         super.onResume();
     }

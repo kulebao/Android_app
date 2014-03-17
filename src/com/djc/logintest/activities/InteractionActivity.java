@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
@@ -41,7 +40,7 @@ import com.djc.logintest.taskmgr.GlobleDownloadImgeTask;
 import com.djc.logintest.utils.ImageDownloader;
 import com.djc.logintest.utils.Utils;
 
-public class InteractionActivity extends Activity {
+public class InteractionActivity extends UmengStatisticsActivity {
 	private ProgressDialog dialog;
 	private ChatListAdapter adapter;
 	private MsgListView msgListView;

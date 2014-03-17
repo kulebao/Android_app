@@ -5,7 +5,6 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Message;
@@ -27,7 +26,7 @@ import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.SendChatTask;
 import com.djc.logintest.utils.Utils;
 
-public class SendChatActivity extends Activity {
+public class SendChatActivity extends UmengStatisticsActivity {
 	private EditText chatContent;
 	private MyHandler handler;
 	private ProgressDialog dialog;

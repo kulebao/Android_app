@@ -17,13 +17,13 @@
 
     <Button
         android:id="@+id/getAuthCodeBtn"
-        style="@style/btn_style"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/resetPwdNoticeView"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/sub_btn"
         android:text="@string/getAuthCode" />
 
     <EditText
@@ -90,7 +90,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/small_btn"
+        android:background="@drawable/sub_btn"
         android:text="@string/reset_pwd" />
 
 </RelativeLayout>

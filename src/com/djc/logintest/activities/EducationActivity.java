@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -37,7 +36,7 @@ import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.GetEducationTask;
 import com.djc.logintest.utils.Utils;
 
-public class EducationActivity extends Activity {
+public class EducationActivity extends UmengStatisticsActivity {
 	private static final String RANK = "rank";
 	private static final String ITEM_IMAGE = "ItemImage";
 	private GridView gridview;

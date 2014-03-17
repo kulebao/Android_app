@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,7 +22,7 @@ import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.CheckUpdateTask;
 import com.djc.logintest.utils.Utils;
 
-public class SettingActivity extends Activity {
+public class SettingActivity extends UmengStatisticsActivity {
     private Handler handler;
     private ProgressDialog dialog;
 
@@ -173,8 +172,6 @@ public class SettingActivity extends Activity {
         DataMgr.getInstance().upgradeAll();
         Utils.clearSDFolder();
         setResult(ConstantValue.EXIT_LOGIN_RESULT);
-        // 设置一下，否则还会进入导引页面
-        Utils.setGuided();
         finish();
     }
 

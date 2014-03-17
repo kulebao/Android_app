@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Message;
@@ -16,7 +15,7 @@ import com.djc.logintest.constant.EventType;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.FeedBackTask;
 
-public class FeedBackActivity extends Activity {
+public class FeedBackActivity extends UmengStatisticsActivity {
     private EditText feedbackContent;
     private MyHandler handler;
     private ProgressDialog dialog;

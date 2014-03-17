@@ -141,7 +141,7 @@ public class Utils {
 	 * method desc：设置已经引导过了，下次启动不用再次引导
 	 */
 	public static void setGuided() {
-		Editor editor = getEditor();
+		Editor editor = getEditor(ConstantValue.UNDELETEABLE_CONFIG);
 		// 存入数据
 		editor.putBoolean(ConstantValue.IS_FIRST_IN, false);
 		// 提交修改
@@ -151,14 +151,14 @@ public class Utils {
 	public static boolean isFirstStart() {
 		Context context = MyApplication.getInstance().getApplicationContext();
 		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
+				ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
 		return conf.getBoolean(ConstantValue.IS_FIRST_IN, true);
 	}
 
 	public static String getProp(String key, String defaultValue) {
 		Context context = MyApplication.getInstance().getApplicationContext();
 		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
+				ConstantValue.CONF_INI,  Context.MODE_PRIVATE);
 		return conf.getString(key, defaultValue);
 	}
 
@@ -188,7 +188,7 @@ public class Utils {
 		editor.commit();
 	}
 
-	//调用该接口保存的数据，退出登录后，不会清空
+	// 调用该接口保存的数据，退出登录后，不会清空
 	public static void saveUndeleteableProp(String key, String value) {
 		SharedPreferences.Editor editor = getEditor(ConstantValue.UNDELETEABLE_CONFIG);
 		editor.putString(key, value);

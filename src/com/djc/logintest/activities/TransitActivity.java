@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,7 +10,7 @@ import com.djc.logintest.R;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.utils.Utils;
 
-public class TransitActivity extends Activity {
+public class TransitActivity extends UmengStatisticsActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

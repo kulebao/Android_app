@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -22,7 +21,7 @@ import com.djc.logintest.noticepaser.SwapCardNoticePaser;
 import com.djc.logintest.taskmgr.DownLoadImgAndSaveTask;
 import com.djc.logintest.utils.Utils;
 
-public class SwipeDetailActivity extends Activity {
+public class SwipeDetailActivity extends UmengStatisticsActivity {
     private TextView contentView;
     private ImageView noticeiconView;
     private TextView signView;

@@ -19,32 +19,24 @@ public class AuthCodeMethod {
 		return new AuthCodeMethod();
 	}
 
-	public int getAuthCode(String phone, int type) {
+	public int getAuthCode(String phone, int type) throws Exception {
 		int bret = EventType.GET_AUTH_CODE_FAIL;
 		HttpResult result = new HttpResult();
 		String url = createAuthCodeCommand(phone);
 		Log.e("DDDDD ", "createGetAuthCodeCommand cmd:" + url);
-		try {
-			result = HttpClientHelper.executeGet(url);
-			bret = handleGetAuthCodeResult(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		result = HttpClientHelper.executeGet(url);
+		bret = handleGetAuthCodeResult(result);
 		return bret;
 	}
 
-	public int validateAuthCode(String phone, String authcode) {
+	public int validateAuthCode(String phone, String authcode) throws Exception {
 		int bret = EventType.NET_WORK_INVALID;
 		HttpResult result = new HttpResult();
 		String url = createAuthCodeCommand(phone);
 		Log.e("DDDDD ", "createGetAuthCodeCommand cmd:" + url);
-		try {
-			result = HttpClientHelper.executePost(url,
-					getAuthCommand(phone, authcode));
-			bret = handleValidateAuthCodeResult(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		result = HttpClientHelper.executePost(url,
+				getAuthCommand(phone, authcode));
+		bret = handleValidateAuthCodeResult(result);
 		return bret;
 	}
 
@@ -53,7 +45,7 @@ public class AuthCodeMethod {
 
 		try {
 			jsonObject.put("phone", phonenum);
-			jsonObject.put(JSONConstant.AUTH_CODE, authCode);
+			jsonObject.put("code", authCode);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -9,7 +8,7 @@ import android.widget.TextView;
 
 import com.djc.logintest.R;
 
-public class AboutUsActivity extends Activity {
+public class AboutUsActivity extends UmengStatisticsActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

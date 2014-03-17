@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -9,7 +8,7 @@ import com.djc.logintest.R;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.utils.ImageDownloader;
 
-public class ShowIconActivity extends Activity {
+public class ShowIconActivity extends UmengStatisticsActivity {
 
 	private Bitmap bitmap;
 

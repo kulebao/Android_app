@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +12,7 @@ import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.push.PushModel;
 import com.djc.logintest.taskmgr.LoadingTask;
 
-public class LoadingActivity extends Activity {
+public class LoadingActivity extends UmengStatisticsActivity {
 	private Handler handler;
 
 	@Override

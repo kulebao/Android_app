@@ -2,7 +2,6 @@ package com.djc.logintest.activities;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -34,7 +33,7 @@ import com.djc.logintest.taskmgr.GetNormalNewsTask;
 import com.djc.logintest.utils.MethodUtils;
 import com.djc.logintest.utils.Utils;
 
-public class NoticePullRefreshActivity extends Activity {
+public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 	private NewsListAdapter adapter;
 	private MsgListView msgListView;
 	private View footer;

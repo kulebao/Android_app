@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +14,7 @@ import com.djc.logintest.R;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.utils.Utils;
 
-public class UpdateActivity extends Activity {
+public class UpdateActivity extends UmengStatisticsActivity {
     private String url;
 
     @Override

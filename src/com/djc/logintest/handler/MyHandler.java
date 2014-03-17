@@ -37,6 +37,9 @@ public class MyHandler extends Handler {
         }
 
         switch (msg.what) {
+        case EventType.TOKEN_INVALID:
+        	Toast.makeText(activity, R.string.token_invalid, Toast.LENGTH_SHORT).show();
+        	break;
         case EventType.NET_WORK_INVALID:
             Toast.makeText(activity, R.string.net_error, Toast.LENGTH_SHORT).show();
             break;

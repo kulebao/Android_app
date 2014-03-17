@@ -1,14 +1,13 @@
 package com.djc.logintest.activities;
 
-import com.djc.logintest.R;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
-public class MyActivity extends Activity {
+import com.djc.logintest.R;
+
+public class MyActivity extends UmengStatisticsActivity {
     @Override
     public void onBackPressed() {
         showConfirmDlg();

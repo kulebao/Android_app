@@ -9,6 +9,7 @@ import android.util.Log;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.constant.ServerUrls;
+import com.djc.logintest.httpclientmgr.HttpClientHelper;
 import com.djc.logintest.utils.Utils;
 
 public class LoginMethod {
@@ -24,7 +25,7 @@ public class LoginMethod {
         HttpResult result = new HttpResult();
         String command = createCommand(pwd, account);
         try {
-            result = HttpsMethod.sendPostCommand(ServerUrls.LOGIN_URL, command);
+            result = HttpClientHelper.executePost(ServerUrls.LOGIN_URL, command);
             bret = handle(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,7 +37,7 @@ public class LoginMethod {
         int event = EventType.NET_WORK_INVALID;
         if (result.getResCode() == HttpStatus.SC_OK) {
             try {
-                Log.d("DDD LOGIN", "str : " + result.getContent());
+                Log.d("DDD LOGIN", " str : " + result.getContent());
                 JSONObject jsonObject = result.getJsonObject();
 
                 int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);

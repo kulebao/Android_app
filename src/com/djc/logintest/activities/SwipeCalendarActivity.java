@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -50,7 +49,7 @@ import com.djc.logintest.taskmgr.UpdateCalendarTask;
  * 
  * @Version V1.0
  */
-public class SwipeCalendarActivity extends Activity {
+public class SwipeCalendarActivity extends UmengStatisticsActivity {
 	// 每一个日历单元格，高度比宽度多8，因为需要绘制刷卡信息
 	private static final int EXTRA_HEIGHT = 8;
 	private LinearLayout layContent = null;

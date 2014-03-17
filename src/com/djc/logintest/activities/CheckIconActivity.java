@@ -2,7 +2,6 @@ package com.djc.logintest.activities;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,7 +25,7 @@ import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.UploadChatIconTask;
 import com.djc.logintest.utils.ImageDownloader;
 
-public class CheckIconActivity extends Activity {
+public class CheckIconActivity extends UmengStatisticsActivity {
 
 	private Bitmap bitmap;
 	private Handler handler;

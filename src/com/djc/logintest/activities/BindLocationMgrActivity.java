@@ -2,7 +2,6 @@ package com.djc.logintest.activities;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -24,7 +23,7 @@ import com.djc.logintest.dbmgr.info.BindedNumInfo;
 import com.djc.logintest.dlgmgr.DlgMgr;
 import com.djc.logintest.utils.Utils;
 
-public class BindLocationMgrActivity extends Activity {
+public class BindLocationMgrActivity extends UmengStatisticsActivity {
     protected static final int MAX_BIND_INFO = 4;
     private BindedNumInfoListAdapter adapter;
     private ListView list;

@@ -4,7 +4,10 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 
+import com.djc.logintest.constant.EventType;
 import com.djc.logintest.net.ChechUpdateMethod;
+import com.djc.logintest.proxy.MyProxy;
+import com.djc.logintest.proxy.MyProxyImpl;
 
 public class CheckUpdateTask extends AsyncTask<Void, Void, Integer> {
 
@@ -20,8 +23,23 @@ public class CheckUpdateTask extends AsyncTask<Void, Void, Integer> {
 
     @Override
     protected Integer doInBackground(Void... params) {
-        ChechUpdateMethod chechUpdateMethod = ChechUpdateMethod.getChechUpdateMethod();
-        return chechUpdateMethod.chechUpdate(versionCode);
+    	MyProxy proxy = new MyProxy();
+    	MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
+			
+			@Override
+			public Object handle() throws Exception {
+		        ChechUpdateMethod chechUpdateMethod = ChechUpdateMethod.getChechUpdateMethod();
+		        int result = chechUpdateMethod.chechUpdate(versionCode);
+		        return result;
+			}
+		});
+    	Integer result = EventType.NET_WORK_INVALID;
+		try {
+			result = (Integer) bind.handle();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
     }
 
     @Override

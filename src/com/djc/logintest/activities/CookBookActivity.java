@@ -3,7 +3,6 @@ package com.djc.logintest.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,7 +21,7 @@ import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.GetCookbookTask;
 import com.djc.logintest.utils.Utils;
 
-public class CookBookActivity extends Activity {
+public class CookBookActivity extends UmengStatisticsActivity {
     private CookBookListAdapter adapter;
     private ListView list;
     private Handler handler;

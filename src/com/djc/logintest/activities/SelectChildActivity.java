@@ -2,20 +2,19 @@ package com.djc.logintest.activities;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.djc.logintest.R;
 import com.djc.logintest.adapter.ChildListAdapter;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.ChildInfo;
 
-public class SelectChildActivity extends Activity {
+public class SelectChildActivity extends UmengStatisticsActivity {
 
     private ListView list;
     private ChildListAdapter adapter;

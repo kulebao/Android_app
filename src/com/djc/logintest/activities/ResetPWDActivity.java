@@ -1,6 +1,5 @@
 package com.djc.logintest.activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import com.djc.logintest.taskmgr.GetAuthCodeTask;
 import com.djc.logintest.taskmgr.ResetPWDTask;
 import com.djc.logintest.utils.Utils;
 
-public class ResetPWDActivity extends Activity {
+public class ResetPWDActivity extends UmengStatisticsActivity {
 	private Handler handler;
 	private Button getAuthCodeBtn;
 	private ProgressDialog dialog;
@@ -99,9 +98,10 @@ public class ResetPWDActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				getAuthCodeBtn.setEnabled(false);
+				disableGetAuthBtn();
 				runGetAuthCodeTask();
 			}
+
 		});
 		resetPWDBtn = (Button) findViewById(R.id.resetPWDBtn);
 		resetPWDBtn.setOnClickListener(new OnClickListener() {
@@ -116,11 +116,19 @@ public class ResetPWDActivity extends Activity {
 		});
 
 		inputAuthCodeView = (EditText) findViewById(R.id.inputAuthCodeView);
-		// test
-		// inputAuthCodeView.setText("113455");
 
 		inuputPWDView = (EditText) findViewById(R.id.inuputPWDView);
 		reInuputPWDView = (EditText) findViewById(R.id.reInuputPWDView);
+	}
+
+	private void disableGetAuthBtn() {
+		getAuthCodeBtn.setTextColor(getResources().getColor(R.color.dark_gray));
+		getAuthCodeBtn.setEnabled(false);
+	}
+
+	private void enableGetAuthBtn() {
+		getAuthCodeBtn.setEnabled(true);
+		getAuthCodeBtn.setTextColor(getResources().getColor(R.color.black));
 	}
 
 	private void runResetPWDTask() {
@@ -185,7 +193,7 @@ public class ResetPWDActivity extends Activity {
 	private void handleGetAuthCodeFail() {
 		Utils.showSingleBtnEventDlg(EventType.GET_AUTH_CODE_FAIL,
 				ResetPWDActivity.this);
-		getAuthCodeBtn.setEnabled(true);
+		enableGetAuthBtn();
 	}
 
 	private void runGetAuthCodeTask() {
@@ -203,6 +211,7 @@ public class ResetPWDActivity extends Activity {
 
 	private void handleCountDownOver() {
 		getAuthCodeBtn.setText(getResources().getString(R.string.getAuthCode));
-		getAuthCodeBtn.setEnabled(true);
+		enableGetAuthBtn();
 	}
+
 }
