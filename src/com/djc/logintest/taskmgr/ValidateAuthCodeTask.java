@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.djc.logintest.activities.MyApplication;
-import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.net.AuthCodeMethod;
 import com.djc.logintest.utils.Utils;

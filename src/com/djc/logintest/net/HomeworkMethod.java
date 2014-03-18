@@ -18,17 +18,17 @@ import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
 import com.djc.logintest.utils.MethodUtils;
 
-public class GetHomeworkMethod {
+public class HomeworkMethod {
 
 	private static final String MOST = "most";
 	private static final String FROM = "from";
 	private static final String TO = "to";
 
-	private GetHomeworkMethod() {
+	private HomeworkMethod() {
 	}
 
-	public static GetHomeworkMethod getMethod() {
-		return new GetHomeworkMethod();
+	public static HomeworkMethod getMethod() {
+		return new HomeworkMethod();
 	}
 
 	public List<Homework> getGetHomework(int most, long from, long to)
@@ -66,6 +66,7 @@ public class GetHomeworkMethod {
 		int serverID = object.getInt("id");
 		String publisher = object.getString("publisher");
 		String icon_url = object.getString("icon_url");
+		int class_id = object.getInt("class_id");
 
 		info.setContent(body);
 		info.setServer_id(serverID);
@@ -73,6 +74,7 @@ public class GetHomeworkMethod {
 		info.setTitle(title);
 		info.setTimestamp(timestamp);
 		info.setIcon_url(icon_url);
+		info.setClass_id(class_id);
 		return info;
 	}
 
@@ -92,7 +94,7 @@ public class GetHomeworkMethod {
 			cmd += "&" + TO + "=" + to;
 		}
 
-		cmd += "&" + "classId=" + MethodUtils.getAllFormatedClassid();
+		cmd += "&" + "class_id=" + MethodUtils.getAllFormatedClassid();
 
 		Log.d("DDD", "createGetHomeworkCommand cmd=" + cmd);
 		return cmd;

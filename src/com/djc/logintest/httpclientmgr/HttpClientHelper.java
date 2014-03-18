@@ -3,6 +3,7 @@ package com.djc.logintest.httpclientmgr;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -98,6 +99,29 @@ public class HttpClientHelper {
 
 	public static HttpResult executePost(String url, String content)
 			throws Exception {
+		HttpResult result = doPostImpl(url, content);
+
+		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
+			PushMethod method = PushMethod.getMethod();
+			int ret = method.sendBinfInfo();
+			if (ret == EventType.BIND_SUCCESS) {
+				// bind 成功，刷新cookie，重新请求
+				Log.d("DDD code:", "" + "doGetImpl again!");
+				result = doPostImpl(url, content);
+			} else if (ret == EventType.BIND_FAILED) {
+				throw new InvalidTokenException(
+						"token invalid and bind network error");
+			} else {
+				throw new BindFailException(
+						"token invalid and bind network error");
+			}
+		}
+		return result;
+	}
+
+	private static HttpResult doPostImpl(String url, String content)
+			throws URISyntaxException, UnsupportedEncodingException,
+			IOException, ClientProtocolException, Exception {
 		int status = HttpStatus.SC_UNAUTHORIZED;
 		HttpResult httpResult = new HttpResult();
 		BufferedReader in = null;
@@ -144,17 +168,19 @@ public class HttpClientHelper {
 
 	public static HttpResult executeGet(String url) throws Exception {
 		HttpResult result = doGetImpl(url);
-		if(result.getResCode() == HttpStatus.SC_UNAUTHORIZED){
+		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
 			PushMethod method = PushMethod.getMethod();
 			int ret = method.sendBinfInfo();
 			if (ret == EventType.BIND_SUCCESS) {
-				//bind 成功，刷新cookie，重新请求
+				// bind 成功，刷新cookie，重新请求
 				Log.d("DDD code:", "" + "doGetImpl again!");
 				result = doGetImpl(url);
-			}else if(ret == EventType.BIND_FAILED){
-				throw new InvalidTokenException("token invalid and bind network error");
-			}else{
-				throw new BindFailException("token invalid and bind network error");
+			} else if (ret == EventType.BIND_FAILED) {
+				throw new InvalidTokenException(
+						"token invalid and bind network error");
+			} else {
+				throw new BindFailException(
+						"token invalid and bind network error");
 			}
 		}
 		return result;

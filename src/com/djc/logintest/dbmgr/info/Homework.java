@@ -15,12 +15,22 @@ public class Homework {
 	public static final String SERVER_ID = "server_id";
 	public static final String ICON_URL = "icon_url";
 	private static final String HOMEWORK_ICON = "homework_icon";
+	public static final String CLASS_ID = "class_id";
 
 	private String title = "";
 	private String content = "";
 	private long timestamp = 0;
 	private String publisher = "";
 	private String icon_url = "";
+	private int class_id = 0;
+
+	public int getClass_id() {
+		return class_id;
+	}
+
+	public void setClass_id(int class_id) {
+		this.class_id = class_id;
+	}
 
 	private int id = 0;
 	private int server_id = 0;

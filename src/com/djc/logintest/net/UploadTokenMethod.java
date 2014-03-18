@@ -11,7 +11,7 @@ import com.djc.logintest.httpclientmgr.HttpClientHelper;
 import com.djc.logintest.upload.UploadFactory;
 
 public class UploadTokenMethod {
-
+	// 获取七牛的上传token
 	private UploadTokenMethod() {
 	}
 
@@ -19,17 +19,13 @@ public class UploadTokenMethod {
 		return new UploadTokenMethod();
 	}
 
-	public String getUploadToken(String key) {
+	public String getUploadToken(String key) throws Exception {
 		String token = "";
 		HttpResult result = new HttpResult();
 		String command = createGetUploadTokenCommand(key);
 		Log.e("DDDDD ", "getSchoolInfo cmd:" + command);
-		try {
-			result = HttpClientHelper.executeGet(command);
-			token = handleGetUploadTokenResult(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		result = HttpClientHelper.executeGet(command);
+		token = handleGetUploadTokenResult(result);
 		return token;
 	}
 

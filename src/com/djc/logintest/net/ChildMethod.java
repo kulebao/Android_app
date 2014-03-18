@@ -17,26 +17,22 @@ import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
 import com.djc.logintest.utils.Utils;
 
-public class GetChildrenInfoMethod {
+public class ChildMethod {
 
-	private GetChildrenInfoMethod() {
+	private ChildMethod() {
 	}
 
-	public static GetChildrenInfoMethod getMethod() {
-		return new GetChildrenInfoMethod();
+	public static ChildMethod getMethod() {
+		return new ChildMethod();
 	}
 
-	public int updateChildrenInfo() {
+	public int updateChildrenInfo() throws Exception {
 		int bret = EventType.NET_WORK_INVALID;
 		HttpResult result = new HttpResult();
 		String url = createAllGetChildrenInfoUrl();
 		Log.e("DDDDD ", "createGetChildrenInfoUrl cmd:" + url);
-		try {
-			result = HttpClientHelper.executeGet(url);
-			bret = handleGetChildInfoResult(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		result = HttpClientHelper.executeGet(url);
+		bret = handleGetChildInfoResult(result);
 		return bret;
 	}
 
@@ -71,7 +67,7 @@ public class GetChildrenInfoMethod {
 		return event;
 	}
 
-	public int checkUpdate(JSONObject jsonObject) throws JSONException {
+	private int checkUpdate(JSONObject jsonObject) throws JSONException {
 		DataMgr instance = DataMgr.getInstance();
 		int event = EventType.CHILDREN_INFO_IS_LATEST;
 		String jsonSrc = jsonObject.getString("children");

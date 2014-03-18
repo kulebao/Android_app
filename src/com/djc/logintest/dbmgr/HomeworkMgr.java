@@ -31,6 +31,7 @@ class HomeworkMgr {
 		values.put(Homework.ICON_URL, info.getIcon_url());
 		values.put(Homework.SERVER_ID, info.getServer_id());
 		values.put(Homework.PUBLISHER, info.getPublisher());
+		values.put(Homework.CLASS_ID, info.getClass_id());
 		return values;
 	}
 
@@ -100,7 +101,8 @@ class HomeworkMgr {
 		info.setTimestamp(cursor.getLong(3));
 		info.setIcon_url(cursor.getString(4));
 		info.setServer_id(cursor.getInt(5));
-		info.setPublisher(cursor.getString(6));
+		info.setClass_id(cursor.getInt(6));
+		info.setPublisher(cursor.getString(7));
 		return info;
 	}
 }

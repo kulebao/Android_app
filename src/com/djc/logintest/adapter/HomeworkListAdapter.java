@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.djc.logintest.R;
+import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.utils.Utils;
 
@@ -62,6 +63,8 @@ public class HomeworkListAdapter extends BaseAdapter {
 					.findViewById(R.id.bodyView);
 			flagholder.timestampView = (TextView) convertView
 					.findViewById(R.id.timeStampView);
+			flagholder.fromView = (TextView) convertView
+					.findViewById(R.id.fromview);
 			flagholder.deleteView = (ImageView) convertView
 					.findViewById(R.id.deleteView);
 			setDataToViews(position, flagholder);
@@ -81,6 +84,9 @@ public class HomeworkListAdapter extends BaseAdapter {
 		flagholder.titleView.setText(info.getTitle());
 		flagholder.bodyView.setText(info.getContent());
 		flagholder.timestampView.setText(info.getFormattedTime());
+
+		flagholder.fromView.setText(DataMgr.getInstance()
+				.getClassNameByClassID(info.getClass_id()));
 
 		flagholder.deleteView.setOnClickListener(new OnClickListener() {
 			@Override
@@ -104,6 +110,7 @@ public class HomeworkListAdapter extends BaseAdapter {
 		public TextView titleView;
 		public TextView bodyView;
 		public TextView timestampView;
+		public TextView fromView;
 		public ImageView deleteView;
 	}
 }

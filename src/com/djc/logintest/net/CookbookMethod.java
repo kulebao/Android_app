@@ -15,44 +15,36 @@ import com.djc.logintest.dbmgr.info.CookBookInfo;
 import com.djc.logintest.dbmgr.info.InfoHelper;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
 
-public class GetCookbookMethod {
+public class CookbookMethod {
 
-	private GetCookbookMethod() {
+	private CookbookMethod() {
 	}
 
-	public static GetCookbookMethod getMethod() {
-		return new GetCookbookMethod();
+	public static CookbookMethod getMethod() {
+		return new CookbookMethod();
 	}
 
-	public int getCookBook() {
+	public int getCookBook() throws Exception {
 		int bret = EventType.NET_WORK_INVALID;
 		HttpResult result = new HttpResult();
 		String url = createCookbookPreviewUrl();
 		Log.e("DDDDD ", "createGetChildrenInfoUrl cmd:" + url);
-		try {
-			result = HttpClientHelper.executeGet(url);
-			bret = handleCookbookResult(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		result = HttpClientHelper.executeGet(url);
+		bret = handleCookbookResult(result);
 		return bret;
 	}
 
-	public boolean checkCookBook() {
+	public boolean checkCookBook() throws Exception {
 		boolean bret = false;
 		HttpResult result = new HttpResult();
 		String url = createCookbookPreviewUrl();
 		Log.e("DDDDD ", "createGetChildrenInfoUrl cmd:" + url);
-		try {
-			result = HttpClientHelper.executeGet(url);
-			CookBookPreview cookBookPreview = paraseCookBookPreview(result);
-			if (cookBookPreview.errorcode != 0) {
-				return false;
-			}
-			bret = compareTime(cookBookPreview);
-		} catch (Exception e) {
-			e.printStackTrace();
+		result = HttpClientHelper.executeGet(url);
+		CookBookPreview cookBookPreview = paraseCookBookPreview(result);
+		if (cookBookPreview.errorcode != 0) {
+			return false;
 		}
+		bret = compareTime(cookBookPreview);
 		return bret;
 	}
 

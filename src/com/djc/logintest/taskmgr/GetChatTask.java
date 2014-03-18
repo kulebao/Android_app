@@ -9,6 +9,7 @@ import android.os.Message;
 
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.EventType;
+import com.djc.logintest.customexception.InvalidTokenException;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.net.ChatMethod;
 import com.djc.logintest.utils.Utils;
@@ -49,6 +50,8 @@ public class GetChatTask extends AsyncTask<Void, Void, Integer> {
 			try {
 				list = method.getChatInfo(most, from, to, sort);
 				result = EventType.SUCCESS;
+			} catch (InvalidTokenException e) {
+				result = EventType.TOKEN_INVALID;
 			} catch (Exception e) {
 				result = EventType.FAIL;
 				e.printStackTrace();

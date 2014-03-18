@@ -103,8 +103,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
 				+ Homework.TITLE + " varchar," + Homework.CONTENT + " varchar,"
 				+ Homework.TIMESTAMP + " biginteger ," + Homework.ICON_URL
 				+ " varchar," + Homework.SERVER_ID + " integer,"
-				+ Homework.PUBLISHER + " varchar," + "UNIQUE("
-				+ Homework.SERVER_ID + ") " + ")");
+				+ Homework.CLASS_ID + " integer," + Homework.PUBLISHER
+				+ " varchar," + "UNIQUE(" + Homework.SERVER_ID + ") " + ")");
 
 		db.execSQL("CREATE TABLE IF NOT EXISTS " + CHAT_TAB + "(" + ChatInfo.ID
 				+ " integer primary key autoincrement," + ChatInfo.SENDER

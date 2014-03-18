@@ -29,17 +29,13 @@ public class SwipeCardMethod {
 		return new SwipeCardMethod();
 	}
 
-	public int getSwipecardRecord(long from, long to) {
+	public int getSwipecardRecord(long from, long to) throws Exception {
 		int bret = EventType.NET_WORK_INVALID;
 		HttpResult result = new HttpResult();
 		String url = createGetSwipeUrl(from, to);
 		Log.e("DDDDD ", "createGetSwipeUrl cmd:" + url);
-		try {
-			result = HttpClientHelper.executeGet(url);
-			bret = handlegetSwipecardRecordResult(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		result = HttpClientHelper.executeGet(url);
+		bret = handlegetSwipecardRecordResult(result);
 		return bret;
 	}
 

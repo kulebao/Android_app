@@ -21,19 +21,14 @@ public class ValidatePhoneMethod {
 		return new ValidatePhoneMethod();
 	}
 
-	public int validatePhone(String phone) {
+	public int validatePhone(String phone) throws Exception {
 		int bret = EventType.NET_WORK_INVALID;
 		HttpResult result = new HttpResult();
 		Log.e("DDDDD ", "createGetAuthCodeCommand cmd:"
 				+ ServerUrls.CHECK_PHONE_NUM_URL);
-		try {
-			result = HttpClientHelper.executePost(
-					ServerUrls.CHECK_PHONE_NUM_URL,
-					getValidatePhoneCommand(phone));
-			bret = handleValidateAuthCodeResult(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		result = HttpClientHelper.executePost(ServerUrls.CHECK_PHONE_NUM_URL,
+				getValidatePhoneCommand(phone));
+		bret = handleValidateAuthCodeResult(result);
 		return bret;
 	}
 

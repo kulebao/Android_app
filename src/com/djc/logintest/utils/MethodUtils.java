@@ -22,9 +22,9 @@ import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.net.ChatMethod;
 import com.djc.logintest.net.EducationMethod;
-import com.djc.logintest.net.GetCookbookMethod;
-import com.djc.logintest.net.GetHomeworkMethod;
-import com.djc.logintest.net.GetNormalNewsMethod;
+import com.djc.logintest.net.CookbookMethod;
+import com.djc.logintest.net.HomeworkMethod;
+import com.djc.logintest.net.NewsMethod;
 import com.djc.logintest.net.ScheduleMethod;
 import com.djc.logintest.service.MyService;
 
@@ -38,7 +38,7 @@ public class MethodUtils {
 		boolean networkConnected = Utils.isNetworkConnected(MyApplication
 				.getInstance());
 		if (networkConnected) {
-			GetNormalNewsMethod method = GetNormalNewsMethod.getMethod();
+			NewsMethod method = NewsMethod.getMethod();
 			try {
 				long from = getMaxNewsID();
 				has_new = !method.getNormalNews(1, from, 0).isEmpty();
@@ -56,7 +56,7 @@ public class MethodUtils {
 		boolean networkConnected = Utils.isNetworkConnected(MyApplication
 				.getInstance());
 		if (networkConnected) {
-			GetHomeworkMethod method = GetHomeworkMethod.getMethod();
+			HomeworkMethod method = HomeworkMethod.getMethod();
 			try {
 				long from = getMaxHomeworkID();
 				has_new = !method.getGetHomework(1, from, 0).isEmpty();
@@ -110,7 +110,7 @@ public class MethodUtils {
 		boolean networkConnected = Utils.isNetworkConnected(MyApplication
 				.getInstance());
 		if (networkConnected) {
-			GetCookbookMethod method = GetCookbookMethod.getMethod();
+			CookbookMethod method = CookbookMethod.getMethod();
 			try {
 				has_new = method.checkCookBook();
 			} catch (Exception e) {

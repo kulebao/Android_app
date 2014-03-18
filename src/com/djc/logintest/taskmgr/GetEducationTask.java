@@ -9,6 +9,7 @@ import android.os.Message;
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
+import com.djc.logintest.customexception.InvalidTokenException;
 import com.djc.logintest.dbmgr.info.EducationInfo;
 import com.djc.logintest.net.EducationMethod;
 import com.djc.logintest.utils.Utils;
@@ -40,6 +41,8 @@ public class GetEducationTask extends AsyncTask<Void, Void, Integer> {
 			try {
 				list = method.getEdus(most, from, to);
 				result = EventType.GET_NOTICE_SUCCESS;
+			} catch (InvalidTokenException e) {
+				result = EventType.TOKEN_INVALID;
 			} catch (Exception e) {
 				result = EventType.GET_NOTICE_FAILED;
 				e.printStackTrace();

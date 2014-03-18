@@ -1,7 +1,5 @@
 package com.djc.logintest.net;
 
-import java.io.IOException;
-
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,32 +22,26 @@ public class ResetPWDMethod {
 	}
 
 	// 在知道旧密码的情况下，修改密码
-	public int changePwd(String oldPwd, String newPwd, String account) {
+	public int changePwd(String oldPwd, String newPwd, String account)
+			throws Exception {
 		int bret = EventType.NET_WORK_INVALID;
 		HttpResult result = new HttpResult();
 		String command = createChangePWDCommand(oldPwd, newPwd, account);
-		try {
-			result = HttpClientHelper.executePost(ServerUrls.CHANGE_PWD_URL,
-					command);
-			bret = handleChangePwdResult(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		result = HttpClientHelper.executePost(ServerUrls.CHANGE_PWD_URL,
+				command);
+		bret = handleChangePwdResult(result);
 		return bret;
 	}
 
 	// 在忘记密码的情况下，通过短信收到的校验码进行密码重置
-	public int resetPwd(String authcode, String newPwd, String account) {
+	public int resetPwd(String authcode, String newPwd, String account)
+			throws Exception {
 		int bret = EventType.NET_WORK_INVALID;
 		HttpResult result = new HttpResult();
 		String command = createResetPWDCommand(authcode, newPwd, account);
-		try {
-			result = HttpClientHelper.executePost(ServerUrls.RESET_PWD_URL,
-					command);
-			bret = handleResetPwdResult(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		result = HttpClientHelper
+				.executePost(ServerUrls.RESET_PWD_URL, command);
+		bret = handleResetPwdResult(result);
 		return bret;
 	}
 

@@ -6,9 +6,11 @@ import java.lang.reflect.Proxy;
 
 import android.util.Log;
 
+import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.customexception.BindFailException;
 import com.djc.logintest.customexception.InvalidTokenException;
+import com.djc.logintest.utils.Utils;
 
 public class MyProxy implements InvocationHandler {
 
@@ -30,19 +32,26 @@ public class MyProxy implements InvocationHandler {
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
-		Object result = null;
+		Object result = EventType.NET_WORK_INVALID;
 		Log.d("DDD", "MyProxy");
 		// 执行方法
 		try {
-			result = method.invoke(target, args);
+	        if(Utils.isNetworkConnected(MyApplication.getInstance())){
+	        	result = method.invoke(target, args);
+	        }
 		} catch (Exception e) {
-			if (e.getCause() instanceof BindFailException) {
-				result = EventType.NET_WORK_INVALID;
-			} else if (e.getCause() instanceof InvalidTokenException) {
-				result = EventType.TOKEN_INVALID;
-			} else {
-				throw e;
-			}
+			result = handleException(result, e);
+		}
+		return result;
+	}
+
+	private Object handleException(Object result, Exception e) throws Exception {
+		if (e.getCause() instanceof BindFailException) {
+			result = EventType.NET_WORK_INVALID;
+		} else if (e.getCause() instanceof InvalidTokenException) {
+			result = EventType.TOKEN_INVALID;
+		} else {
+			throw e;
 		}
 		return result;
 	}

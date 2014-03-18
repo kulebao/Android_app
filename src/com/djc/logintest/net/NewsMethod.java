@@ -18,17 +18,17 @@ import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
 import com.djc.logintest.utils.MethodUtils;
 
-public class GetNormalNewsMethod {
+public class NewsMethod {
 
 	private static final String MOST = "most";
 	private static final String FROM = "from";
 	private static final String TO = "to";
 
-	private GetNormalNewsMethod() {
+	private NewsMethod() {
 	}
 
-	public static GetNormalNewsMethod getMethod() {
-		return new GetNormalNewsMethod();
+	public static NewsMethod getMethod() {
+		return new NewsMethod();
 	}
 
 	public List<News> getNormalNews(int most, long from, long to)

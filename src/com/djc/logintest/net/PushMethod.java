@@ -23,7 +23,7 @@ public class PushMethod {
 		return new PushMethod();
 	}
 
-	public int sendBinfInfo(){
+	public int sendBinfInfo() {
 		// 拼接为json格式
 		int ret = EventType.NET_WORK_INVALID;
 		try {
@@ -32,8 +32,8 @@ public class PushMethod {
 					Utils.getUndeleteableProp(JSONConstant.USER_ID),
 					Utils.getUndeleteableProp(JSONConstant.CHANNEL_ID));
 			HttpResult result = new HttpResult();
-			result = HttpClientHelper.executePost(ServerUrls.SEND_BIND_INFO_URL,
-					bindCommand);
+			result = HttpClientHelper.executePost(
+					ServerUrls.SEND_BIND_INFO_URL, bindCommand);
 			ret = handleSendBinfInfoResult(result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,7 +72,7 @@ public class PushMethod {
 							.getString(JSONConstant.SCHOOL_ID);
 					String schoolname = jsonObject
 							.getString(JSONConstant.SCHOOL_NAME);
-					// Utils.saveProp(JSONConstant.ACCESS_TOKEN, token);
+					Utils.saveProp(JSONConstant.ACCESS_TOKEN, token);
 					Utils.saveProp(JSONConstant.ACCOUNT_NAME, accountname);
 					Utils.saveUndeleteableProp(accountname, "true");
 					SchoolInfo info = new SchoolInfo();

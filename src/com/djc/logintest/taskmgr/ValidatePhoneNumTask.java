@@ -8,8 +8,11 @@ import android.os.Message;
 
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.ServerUrls;
+import com.djc.logintest.net.FeedBackMethod;
 import com.djc.logintest.net.HttpsMethod;
 import com.djc.logintest.net.ValidatePhoneMethod;
+import com.djc.logintest.proxy.MyProxy;
+import com.djc.logintest.proxy.MyProxyImpl;
 
 public class ValidatePhoneNumTask extends AsyncTask<Void, Void, Integer> {
 
@@ -23,17 +26,22 @@ public class ValidatePhoneNumTask extends AsyncTask<Void, Void, Integer> {
 
 	@Override
 	protected Integer doInBackground(Void... params) {
-		int result = EventType.PHONE_NUM_IS_INVALID;
+		MyProxy proxy = new MyProxy();
+		MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
+			@Override
+			public Object handle() throws Exception {
+				int result = ValidatePhoneMethod.getMethod().validatePhone(
+						phonenum);
+				return result;
+			}
+		});
+		Integer bret = EventType.PHONE_NUM_IS_INVALID;
 		try {
-			// result =
-			// HttpsMethod.validatePhone(ServerUrls.CHECK_PHONE_NUM_URL,
-			// phonenum);
-			result = ValidatePhoneMethod.getMethod().validatePhone(phonenum);
+			bret = (Integer) bind.handle();
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = EventType.NET_WORK_INVALID;
 		}
-		return result;
+		return bret;
 	}
 
 	@Override

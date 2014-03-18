@@ -19,89 +19,99 @@ import com.djc.logintest.dbmgr.info.SwipeInfo;
 import com.djc.logintest.utils.Utils;
 
 public class SwipeListAdapter extends BaseAdapter {
-    private final Context context;
-    private List<SwipeInfo> list;
-    private String nick;
+	private final Context context;
+	private List<SwipeInfo> list;
+	private String nick;
 
-    public void setLocationInfoList(List<SwipeInfo> list) {
-        this.list = list;
-    }
+	public void setLocationInfoList(List<SwipeInfo> list) {
+		this.list = list;
+	}
 
-    public SwipeListAdapter(Context activityContext, List<SwipeInfo> list) {
-        this.context = activityContext;
-        this.list = list;
-        getNick();
-    }
+	public SwipeListAdapter(Context activityContext, List<SwipeInfo> list) {
+		this.context = activityContext;
+		this.list = list;
+		getNick();
+	}
 
-    public void getNick() {
-        nick = DataMgr.getInstance().getSelectedChild().getChild_nick_name();
-    }
+	public void getNick() {
+		nick = DataMgr.getInstance().getSelectedChild().getChild_nick_name();
+	}
 
-    public void clear() {
-        list.clear();
-        notifyDataSetChanged();
-    }
+	public void clear() {
+		list.clear();
+		notifyDataSetChanged();
+	}
 
-    @Override
-    public int getCount() {
-        return list.size();
-    }
+	@Override
+	public int getCount() {
+		return list.size();
+	}
 
-    @Override
-    public Object getItem(int position) {
-        return list.get(position);
-    }
+	@Override
+	public Object getItem(int position) {
+		return list.get(position);
+	}
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            FlagHolder flagholder = this.new FlagHolder();
-            convertView = LayoutInflater.from(this.context).inflate(R.layout.notice_item, null);
-            flagholder.titleView = (TextView) convertView.findViewById(R.id.titleView);
-            flagholder.bodyView = (TextView) convertView.findViewById(R.id.bodyView);
-            flagholder.timestampView = (TextView) convertView.findViewById(R.id.timeStampView);
-            flagholder.deleteView = (ImageView) convertView.findViewById(R.id.deleteView);
-            setDataToViews(position, flagholder);
-            convertView.setTag(flagholder);
-        } else {
-            FlagHolder flagholder = (FlagHolder) convertView.getTag();
-            if (flagholder != null) {
-                setDataToViews(position, flagholder);
-            }
-        }
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		if (convertView == null) {
+			FlagHolder flagholder = this.new FlagHolder();
+			convertView = LayoutInflater.from(this.context).inflate(
+					R.layout.notice_item, null);
+			flagholder.titleView = (TextView) convertView
+					.findViewById(R.id.titleView);
+			flagholder.bodyView = (TextView) convertView
+					.findViewById(R.id.bodyView);
+			flagholder.timestampView = (TextView) convertView
+					.findViewById(R.id.timeStampView);
+			flagholder.fromView = (TextView) convertView
+					.findViewById(R.id.fromview);
+			flagholder.deleteView = (ImageView) convertView
+					.findViewById(R.id.deleteView);
+			setDataToViews(position, flagholder);
+			convertView.setTag(flagholder);
+		} else {
+			FlagHolder flagholder = (FlagHolder) convertView.getTag();
+			if (flagholder != null) {
+				setDataToViews(position, flagholder);
+			}
+		}
 
-        return convertView;
-    }
+		return convertView;
+	}
 
-    private void setDataToViews(final int position, FlagHolder flagholder) {
-        final SwipeInfo info = list.get(position);
-        flagholder.titleView.setText(info.getNoticeTitle());
-        flagholder.bodyView.setText(info.getNoticeBody(nick));
-        flagholder.timestampView.setText(info.getFormattedTime());
+	private void setDataToViews(final int position, FlagHolder flagholder) {
+		final SwipeInfo info = list.get(position);
+		flagholder.titleView.setText(info.getNoticeTitle());
+		flagholder.bodyView.setText(info.getNoticeBody(nick));
+		flagholder.timestampView.setText(info.getFormattedTime());
+		flagholder.fromView.setText(DataMgr.getInstance().getSchoolInfo()
+				.getSchool_name());
+		flagholder.deleteView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.d("DDD pos", "position =" + position);
+				Utils.showTwoBtnResDlg(R.string.delete_notice_confirm, context,
+						new android.content.DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+							}
+						});
+			}
+		});
+	}
 
-        flagholder.deleteView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("DDD pos", "position =" + position);
-                Utils.showTwoBtnResDlg(R.string.delete_notice_confirm, context,
-                        new android.content.DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-            }
-        });
-    }
-
-    private class FlagHolder {
-        public TextView titleView;
-        public TextView bodyView;
-        public TextView timestampView;
-        public ImageView deleteView;
-    }
+	private class FlagHolder {
+		public TextView titleView;
+		public TextView bodyView;
+		public TextView timestampView;
+		public TextView fromView;
+		public ImageView deleteView;
+	}
 }

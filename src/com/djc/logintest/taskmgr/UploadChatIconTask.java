@@ -17,6 +17,7 @@ import android.util.Log;
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
+import com.djc.logintest.customexception.InvalidTokenException;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.net.ChatMethod;
 import com.djc.logintest.net.UploadTokenMethod;
@@ -51,6 +52,8 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 				list = ChatMethod.getMethod().sendChat(
 						formatChatContent(image), lastid);
 				result = EventType.SUCCESS;
+			} catch (InvalidTokenException e) {
+				result = EventType.TOKEN_INVALID;
 			} catch (Exception e) {
 				// 如果上传文件失败，直接返回错误
 				e.printStackTrace();
@@ -84,7 +87,7 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 		Utils.saveBitmapToSDCard(bitmap, path);
 	}
 
-	private String uploadBmpToOss() {
+	private String uploadBmpToOss() throws Exception {
 		String url = Utils.getChatIconUrl(System.currentTimeMillis());
 		// OSSMgr.UploadPhoto(bitmap, url);
 		// url 是保存在云存储的相对路径

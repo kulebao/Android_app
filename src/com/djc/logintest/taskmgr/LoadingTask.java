@@ -6,7 +6,9 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 
+import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.EventType;
+import com.djc.logintest.net.PushMethod;
 import com.djc.logintest.utils.Utils;
 
 public class LoadingTask extends AsyncTask<Void, Void, Void> {
@@ -29,6 +31,10 @@ public class LoadingTask extends AsyncTask<Void, Void, Void> {
 				resultEvent = EventType.LOADING_TO_VALIDATEPHONE;
 			} else {
 				resultEvent = EventType.LOADING_TO_MAIN;
+				// 如果是已经登录过的，每次启动都bind一次，刷新cookie
+				if (Utils.isNetworkConnected(MyApplication.getInstance())) {
+					PushMethod.getMethod().sendBinfInfo();
+				}
 			}
 			long now = System.currentTimeMillis();
 			long ellapse = now - current;
