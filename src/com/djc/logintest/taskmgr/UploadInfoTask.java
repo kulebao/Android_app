@@ -6,12 +6,10 @@ import android.text.TextUtils;
 
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.handler.TaskResultHandler;
-import com.djc.logintest.net.SwipeCardMethod;
 import com.djc.logintest.net.UploadChildInfoMethod;
 import com.djc.logintest.net.UploadTokenMethod;
 import com.djc.logintest.proxy.MyProxy;
 import com.djc.logintest.proxy.MyProxyImpl;
-import com.djc.logintest.upload.OSSMgr;
 import com.djc.logintest.upload.UploadFactory;
 import com.djc.logintest.utils.Utils;
 

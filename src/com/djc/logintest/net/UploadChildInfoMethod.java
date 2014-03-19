@@ -30,7 +30,7 @@ public class UploadChildInfoMethod {
 		Log.e("DDDDD ", "uploadChildInfo cmd:" + url);
 		Log.e("DDDDD ", "uploadChildInfo content:" + content);
 		result = HttpClientHelper.executePost(url, content);
-		bret = handleGetChildInfoResult(result);
+		bret = handleGetChildInfoResultEx(result);
 		return bret;
 	}
 
@@ -39,6 +39,24 @@ public class UploadChildInfoMethod {
 				.getInstance().getSchoolID(), DataMgr.getInstance()
 				.getSelectedChild().getServer_id());
 		return url;
+	}
+
+	private int handleGetChildInfoResultEx(HttpResult result) {
+		int event = EventType.SERVER_BUSY;
+		if (result.getResCode() == HttpStatus.SC_OK) {
+			try {
+				JSONObject jsonObject = result.getJsonObject();
+				Log.d("DDD handleGetChildInfoResult",
+						"str : " + jsonObject.toString());
+				event = checkUpdate(jsonObject);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		} else {
+			event = EventType.UPLOAD_FAILED;
+		}
+
+		return event;
 	}
 
 	private int handleGetChildInfoResult(HttpResult result) {
@@ -65,10 +83,8 @@ public class UploadChildInfoMethod {
 		return event;
 	}
 
-	private int checkUpdate(JSONObject jsonObject) throws JSONException {
-		int event = EventType.SERVER_BUSY;
-		String jsonSrc = jsonObject.getString("child_info");
-		JSONObject obj = new JSONObject(jsonSrc);
+	private int checkUpdate(JSONObject obj) throws JSONException {
+		int event = EventType.UPLOAD_FAILED;
 		ChildInfo selectedChild = DataMgr.getInstance().getSelectedChild();
 		if (selectedChild != null) {
 			// 只对选中小孩进行判断是否更新

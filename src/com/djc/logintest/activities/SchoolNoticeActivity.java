@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -499,8 +500,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 		try {
 			JSONObject obj = InfoHelper.childInfoToJSONObject(selectedChild);
-			obj.put(InfoHelper.BIRTHDAY, InfoHelper.getYearMonthDayFormat().format(
-					new Date(born)));
+			obj.put(InfoHelper.BIRTHDAY, InfoHelper.getYearMonthDayFormat()
+					.format(new Date(born)));
 
 			runUploadTask(obj.toString(), null,
 					getResources().getString(R.string.uploading_child_info),
@@ -583,7 +584,16 @@ public class SchoolNoticeActivity extends TabChildActivity {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								final String nick = nicknameEdit.getText()
-										.toString();
+										.toString().replace(" ", "");
+
+								if (TextUtils.isEmpty(nick)) {
+									Toast.makeText(
+											SchoolNoticeActivity.this,
+											getResources().getString(
+													R.string.invalid_nick),
+											Toast.LENGTH_SHORT).show();
+									return;
+								}
 								uploadNick(nick);
 							}
 

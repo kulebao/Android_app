@@ -178,6 +178,7 @@
     <string name="email">电子邮箱 : </string>
     <string name="email_address">support@cocobabys.com</string>
     <string name="support_phone">联系电话 : </string>
+    <string name="invalid_nick">昵称不能为空</string>
     <string name="support_phone_num">4009984998\n028-69190987</string>
     <string name="about_us">关于我们</string>
     <string name="about_us_content">幼乐宝（成都库乐宝信息技术有限公司）---提供宝宝、家长和幼儿园三方互动沟通和信息发布服务，并提供丰富的后续服务和专业的技术保障。</string>
