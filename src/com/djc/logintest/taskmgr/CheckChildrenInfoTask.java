@@ -24,7 +24,7 @@ public class CheckChildrenInfoTask extends AsyncTask<Void, Void, Integer> {
 			@Override
 			public Object handle() throws Exception {
 				int result = ChildMethod.getMethod()
-						.updateChildrenInfo();
+						.getChildrenInfo();
 				return result;
 			}
 		});

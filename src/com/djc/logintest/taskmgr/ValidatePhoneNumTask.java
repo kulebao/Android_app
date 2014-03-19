@@ -1,15 +1,10 @@
 package com.djc.logintest.taskmgr;
 
-import java.io.IOException;
-
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 
 import com.djc.logintest.constant.EventType;
-import com.djc.logintest.constant.ServerUrls;
-import com.djc.logintest.net.FeedBackMethod;
-import com.djc.logintest.net.HttpsMethod;
 import com.djc.logintest.net.ValidatePhoneMethod;
 import com.djc.logintest.proxy.MyProxy;
 import com.djc.logintest.proxy.MyProxyImpl;

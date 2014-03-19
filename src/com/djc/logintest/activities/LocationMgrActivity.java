@@ -29,8 +29,6 @@ import com.djc.logintest.dbmgr.info.BindedNumInfo;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
 import com.djc.logintest.net.HttpResult;
-import com.djc.logintest.net.HttpsMethod;
-import com.djc.logintest.push.PushModel;
 import com.djc.logintest.utils.Utils;
 
 public class LocationMgrActivity extends TabChildActivity {

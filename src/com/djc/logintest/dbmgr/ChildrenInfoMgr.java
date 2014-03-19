@@ -36,6 +36,8 @@ public class ChildrenInfoMgr {
 		values.put(ChildInfo.SELECTED, info.getSelected());
 		values.put(ChildInfo.CLASS_ID, info.getClass_id());
 		values.put(ChildInfo.CLASS_NAME, info.getClass_name());
+		values.put(ChildInfo.CHILD_NAME, info.getChild_name());
+		values.put(ChildInfo.GENDER, info.getGender());
 		return values;
 	}
 
@@ -235,12 +237,14 @@ public class ChildrenInfoMgr {
 		info.setChild_nick_name(cursor.getString(1));
 		info.setLocal_url(cursor.getString(2));
 		info.setServer_url(cursor.getString(3));
-		info.setChild_birthday(cursor.getString(4));
+		info.setChild_birthday(cursor.getLong(4));
 		info.setSelected(cursor.getInt(5));
-		info.setTimestamp(cursor.getString(6));
+		info.setTimestamp(cursor.getLong(6));
 		info.setServer_id(cursor.getString(7));
 		info.setClass_id(cursor.getString(8));
 		info.setClass_name(cursor.getString(9));
+		info.setChild_name(cursor.getString(10));
+		info.setGender(cursor.getInt(11));
 		return info;
 	}
 }

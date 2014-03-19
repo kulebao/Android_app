@@ -195,7 +195,7 @@ public class SettingActivity extends UmengStatisticsActivity {
 
     private void startToSelectChildActivity() {
         Intent intent = new Intent();
-        intent.setClass(this, SelectChildActivity.class);
+        intent.setClass(this, ChildListActivity.class);
         startActivity(intent);
     }
 

@@ -403,10 +403,10 @@ containing a value of this type.
     }
     public static final class string {
         public static final int about_cocobabys=0x7f070078;
-        public static final int about_us=0x7f0700ac;
-        public static final int about_us_content=0x7f0700ad;
+        public static final int about_us=0x7f0700ae;
+        public static final int about_us_content=0x7f0700af;
         public static final int account_name=0x7f070017;
-        public static final int activity_explain=0x7f0700b2;
+        public static final int activity_explain=0x7f0700b4;
         public static final int add=0x7f07004e;
         public static final int add_location_num=0x7f070045;
         public static final int age_month=0x7f070074;
@@ -451,16 +451,16 @@ containing a value of this type.
         public static final int delete_data=0x7f070096;
         public static final int delete_location_confirm=0x7f070041;
         public static final int delete_notice_confirm=0x7f070043;
-        public static final int density_title=0x7f0700b9;
-        public static final int dining_explain=0x7f0700b0;
+        public static final int density_title=0x7f0700bb;
+        public static final int dining_explain=0x7f0700b2;
         public static final int dinner=0x7f070066;
         public static final int doLocation=0x7f07005d;
         public static final int education=0x7f0700a2;
-        public static final int email=0x7f0700a8;
-        public static final int email_address=0x7f0700a9;
-        public static final int emotion_explain=0x7f0700af;
+        public static final int email=0x7f0700aa;
+        public static final int email_address=0x7f0700ab;
+        public static final int emotion_explain=0x7f0700b1;
         public static final int error=0x7f07000f;
-        public static final int exercise_explain=0x7f0700b3;
+        public static final int exercise_explain=0x7f0700b5;
         public static final int exit_app=0x7f070013;
         public static final int exit_login=0x7f070018;
         public static final int extralunch=0x7f070065;
@@ -471,18 +471,18 @@ containing a value of this type.
         public static final int forget_pwd_notice=0x7f07001c;
         public static final int fri=0x7f070080;
         public static final int from=0x7f070095;
-        public static final int game_explain=0x7f0700b6;
+        public static final int game_explain=0x7f0700b8;
         public static final int getAuthCode=0x7f070007;
         public static final int getAuthCodeCountDown=0x7f070009;
         public static final int getAuthCodeSuccess=0x7f070008;
-        public static final int get_auth_code_fail=0x7f0700ae;
+        public static final int get_auth_code_fail=0x7f0700b0;
         public static final int get_child_info_fail=0x7f07007a;
         public static final int get_school_info=0x7f070079;
         public static final int getting_auth_code=0x7f070024;
         public static final int getting_swipe_info=0x7f070097;
         public static final int hello=0x7f070000;
-        public static final int homepage=0x7f0700a6;
-        public static final int homepage_url=0x7f0700a7;
+        public static final int homepage=0x7f0700a8;
+        public static final int homepage_url=0x7f0700a9;
         public static final int homework=0x7f070068;
         public static final int input_new_pwd=0x7f07001e;
         public static final int input_old_pwd=0x7f07001d;
@@ -503,7 +503,7 @@ containing a value of this type.
         public static final int login_notice=0x7f070035;
         public static final int loginning=0x7f070030;
         public static final int lunch=0x7f070064;
-        public static final int manner_explain=0x7f0700b5;
+        public static final int manner_explain=0x7f0700b7;
         public static final int max_binded_num_alert=0x7f07004f;
         public static final int mon=0x7f07007c;
         public static final int must=0x7f070050;
@@ -541,13 +541,13 @@ containing a value of this type.
         public static final int remove_all=0x7f070040;
         public static final int reset_pwd=0x7f07001b;
         public static final int reset_pwd_success=0x7f070029;
-        public static final int rest_explain=0x7f0700b1;
+        public static final int rest_explain=0x7f0700b3;
         public static final int schedule=0x7f07006f;
         public static final int school_info=0x7f070076;
         public static final int schoolnotice=0x7f070067;
         public static final int select_child=0x7f070085;
         public static final int select_success=0x7f070086;
-        public static final int self_care_explain=0x7f0700b4;
+        public static final int self_care_explain=0x7f0700b6;
         public static final int send=0x7f070006;
         public static final int sendSmsNotice=0x7f070061;
         public static final int send_fail=0x7f070094;
@@ -564,14 +564,14 @@ containing a value of this type.
         public static final int setting=0x7f070016;
         public static final int startmain=0x7f070026;
         public static final int study=0x7f07006c;
-        public static final int support_phone=0x7f0700aa;
-        public static final int support_phone_num=0x7f0700ab;
+        public static final int support_phone=0x7f0700ac;
+        public static final int support_phone_num=0x7f0700ad;
         public static final int swap=0x7f07006e;
         public static final int swipcard_notice=0x7f070056;
         public static final int swipcard_record=0x7f070057;
         public static final int swipe_calendar=0x7f070083;
         public static final int thu=0x7f07007f;
-        public static final int token_invalid=0x7f0700b7;
+        public static final int token_invalid=0x7f0700b9;
         public static final int tue=0x7f07007d;
         public static final int unknow_error=0x7f070015;
         public static final int update=0x7f07002c;
@@ -585,9 +585,11 @@ containing a value of this type.
         public static final int warning=0x7f070002;
         public static final int wed=0x7f07007e;
         public static final int weibo=0x7f0700a4;
-        public static final int weibo_account=0x7f0700a5;
+        public static final int weibo_account=0x7f0700a7;
+        public static final int weixin=0x7f0700a5;
+        public static final int weixin_account=0x7f0700a6;
         public static final int write_notice=0x7f0700a1;
-        public static final int xfactor=0x7f0700b8;
+        public static final int xfactor=0x7f0700ba;
     }
     public static final class style {
         public static final int Dialog=0x7f080005;

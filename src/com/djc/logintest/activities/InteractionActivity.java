@@ -211,14 +211,6 @@ public class InteractionActivity extends UmengStatisticsActivity {
 		startActivityForResult(intent, START_SEND_CHAT);
 	}
 
-	private void test() {
-		if (DataMgr.getInstance()
-				.getChatInfoWithLimite(ConstantValue.GET_CHATINFO_MAX_COUNT)
-				.isEmpty()) {
-			addTestData();
-		}
-	}
-
 	private void addTestData() {
 		List<ChatInfo> list = new ArrayList<ChatInfo>();
 
@@ -334,7 +326,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 			// 任务没有执行，立即去掉下拉显示
 			msgListView.onRefreshComplete();
 		} else {
-			Toast.makeText(this, "refresh head!", Toast.LENGTH_SHORT).show();
+			// Toast.makeText(this, "refresh head!", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -386,8 +378,8 @@ public class InteractionActivity extends UmengStatisticsActivity {
 			boolean runtask = refreshTailImpl();
 			if (runtask) {
 				footer.setVisibility(View.VISIBLE);
-				Toast.makeText(this, "refresh tail!", Toast.LENGTH_SHORT)
-						.show();
+				// Toast.makeText(this, "refresh tail!", Toast.LENGTH_SHORT)
+				// .show();
 			}
 		}
 	}

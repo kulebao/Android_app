@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.json.JSONException;
@@ -78,9 +79,6 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	private static final int CAMERA_REQUEST_CODE = 1;
 	private static final int RESIZE_REQUEST_CODE = 2;
 	private static final String IMAGE_FILE_NAME = "header.jpg";
-	private static String PHOTO = "icon_url";
-	private static String BIRTHDAY = "birthday";
-	private static String NICK = "nick";
 	private ImageView babyHeadIcon;
 	private ChildInfo selectedChild;
 	private AsyncTask<Void, Void, Integer> downloadIconTask;
@@ -221,7 +219,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		babyHeadIcon.setImageResource(R.drawable.default_child_head_icon);
 		if (!"".equals(url)) {
 			Bitmap loacalBitmap = Utils.getLoacalBitmap(url);
-			if(loacalBitmap!=null){
+			if (loacalBitmap != null) {
 				Utils.setImg(babyHeadIcon, loacalBitmap);
 			}
 		} else if (!"".equals(selectedChild.getServer_url())) {
@@ -239,7 +237,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	}
 
 	private void setBirthDay() {
-		Long birthDay = Long.parseLong(selectedChild.getChild_birthday());
+		Long birthDay = selectedChild.getChild_birthday();
 		String age = getAge(birthDay);
 		if (!"".equals(age)) {
 			TextView birthdayView = (TextView) findViewById(R.id.child_age);
@@ -345,10 +343,10 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		if (data != null) {
 			try {
 				Bitmap bitmap = getBitmap(data);
-				JSONObject obj = new JSONObject();
-				obj.put(PHOTO,
-						UploadFactory.CLOUD_STORAGE_HOST
-								+ Utils.getUploadChildUrl());
+				JSONObject obj = InfoHelper
+						.childInfoToJSONObject(selectedChild);
+				obj.put(InfoHelper.PHOTO, UploadFactory.CLOUD_STORAGE_HOST
+						+ Utils.getUploadChildUrl());
 
 				runUploadTask(obj.toString(), bitmap,
 						getResources().getString(R.string.uploading_icon),
@@ -500,9 +498,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		final long born = birthday.getTimeInMillis();
 
 		try {
-			JSONObject obj;
-			obj = new JSONObject();
-			obj.put(BIRTHDAY, born);
+			JSONObject obj = InfoHelper.childInfoToJSONObject(selectedChild);
+			obj.put(InfoHelper.BIRTHDAY, InfoHelper.getYearMonthDayFormat().format(
+					new Date(born)));
 
 			runUploadTask(obj.toString(), null,
 					getResources().getString(R.string.uploading_child_info),
@@ -513,8 +511,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 							if (result == EventType.UPLOAD_SUCCESS) {
 								DataMgr.getInstance().updateBirthday(
 										selectedChild.getServer_id(), born);
-								selectedChild.setChild_birthday(String
-										.valueOf(born));
+								selectedChild.setChild_birthday(born);
 								setBirthDay();
 							} else {
 								Toast.makeText(SchoolNoticeActivity.this,
@@ -551,7 +548,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		};
 
 		// 把日期控件的初始时间设置为小孩当前生日
-		Long birthDay = Long.parseLong(selectedChild.getChild_birthday());
+		Long birthDay = selectedChild.getChild_birthday();
 		calendar.setTimeInMillis(birthDay);
 
 		DatePickerDialog dialog = new DatePickerDialog(this, dateListener,
@@ -596,9 +593,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	public void uploadNick(final String nick) {
 		try {
-			JSONObject obj;
-			obj = new JSONObject();
-			obj.put(NICK, nick);
+			JSONObject obj = InfoHelper.childInfoToJSONObject(selectedChild);
+			obj.put(InfoHelper.NICK, nick);
 
 			runUploadTask(obj.toString(), null,
 					getResources().getString(R.string.uploading_child_info),
@@ -731,7 +727,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					startToScheduleActivity();
 				}
 			});
-			
+
 			break;
 		case HOMEWORK:
 			startToActivity(new ActivityLauncher() {

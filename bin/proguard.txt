@@ -22,6 +22,9 @@
 # view AndroidManifest.xml #generated:226
 -keep class com.djc.logintest.activities.CheckIconActivity { <init>(...); }
 
+# view AndroidManifest.xml #generated:56
+-keep class com.djc.logintest.activities.ChildListActivity { <init>(...); }
+
 # view AndroidManifest.xml #generated:194
 -keep class com.djc.logintest.activities.CookBookActivity { <init>(...); }
 
@@ -84,9 +87,6 @@
 
 # view AndroidManifest.xml #generated:91
 -keep class com.djc.logintest.activities.SchoolNoticeActivity { <init>(...); }
-
-# view AndroidManifest.xml #generated:56
--keep class com.djc.logintest.activities.SelectChildActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:208
 -keep class com.djc.logintest.activities.SendChatActivity { <init>(...); }

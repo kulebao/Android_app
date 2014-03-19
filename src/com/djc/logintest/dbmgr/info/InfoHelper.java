@@ -2,7 +2,11 @@ package com.djc.logintest.dbmgr.info;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.util.Log;
 
@@ -43,6 +47,26 @@ public class InfoHelper {
 		return url;
 	}
 
+	// 不要修改，与服务器约定好的
+	public static JSONObject childInfoToJSONObject(ChildInfo info) {
+		JSONObject object = new JSONObject();
+		try {
+			object.put("name", info.getChild_name());
+			object.put(NICK, info.getChild_nick_name());
+			object.put(
+					BIRTHDAY,
+					InfoHelper.getYearMonthDayFormat().format(
+							new Date(info.getChild_birthday())));
+			object.put("gender", info.getGender());
+			object.put(PHOTO, info.getServer_url());
+			object.put("class_id", Integer.valueOf(info.getClass_id()));
+			object.put("child_id", info.getServer_id());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return object;
+	}
+
 	public static final String WEEK_DETAIL = "week";
 	public static final String MON = "mon";
 	public static final String TUE = "tue";
@@ -52,6 +76,10 @@ public class InfoHelper {
 	public static final String TIME = "time";
 	public static final String AM = "am";
 	public static final String PM = "pm";
+
+	public static String BIRTHDAY = "birthday";
+	public static String PHOTO = "portrait";
+	public static String NICK = "nick";
 
 	// 学校信息最近更新时间
 }

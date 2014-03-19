@@ -39,6 +39,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
 
@@ -73,8 +74,11 @@ public class HttpClientHelper {
 				HttpProtocolParams.setContentCharset(params,
 						HTTP.DEFAULT_CONTENT_CHARSET);
 				HttpProtocolParams.setUseExpectContinue(params, true);
-				// 设置连接管理器的超时
+				// 设置最大连接数
+				ConnManagerParams.setMaxTotalConnections(params, 50);
+				// 设置获取连接管理器的超时
 				ConnManagerParams.setTimeout(params, 10000);
+
 				// 设置连接超时
 				HttpConnectionParams.setConnectionTimeout(params, 10000);
 				// 设置socket超时
@@ -120,16 +124,15 @@ public class HttpClientHelper {
 	}
 
 	private static HttpResult doPostImpl(String url, String content)
-			throws URISyntaxException, UnsupportedEncodingException,
-			IOException, ClientProtocolException, Exception {
+			throws Exception {
 		int status = HttpStatus.SC_UNAUTHORIZED;
 		HttpResult httpResult = new HttpResult();
 		BufferedReader in = null;
+		HttpPost request = new HttpPost();
 		try {
 			// 定义HttpClient
 			HttpClient client = getHttpClient();
 			// 实例化HTTP方法
-			HttpPost request = new HttpPost();
 			request.setURI(new URI(url));
 			// 所有访问数据的请求，都必须加上token
 			request.setHeader(ConstantValue.HEADER_TOKEN,
@@ -140,19 +143,19 @@ public class HttpClientHelper {
 			HttpResponse response = client.execute(request);
 			status = response.getStatusLine().getStatusCode();
 			Log.d("DDD code:", "" + status);
-
+			// String c = EntityUtils.toString(response.getEntity());
+			// if (HttpClientHelper.isHttpRequestOK(status)) {
+			// in = readContent(httpResult, response);
+			// } else if (status == HttpStatus.SC_UNAUTHORIZED) {
+			// refreshCookie();
+			// }
+			in = readContent(httpResult, response);
 			if (HttpClientHelper.isHttpRequestOK(status)) {
-				in = new BufferedReader(new InputStreamReader(response
-						.getEntity().getContent()));
-				StringBuffer sb = new StringBuffer("");
-				String line = "";
-				while ((line = in.readLine()) != null) {
-					sb.append(line);
-				}
-				httpResult.setContent(sb.toString());
-			} else if (status == HttpStatus.SC_UNAUTHORIZED) {
-				refreshCookie();
+				request.abort();
 			}
+		} catch (Exception e) {
+			request.abort();
+			throw e;
 		} finally {
 			if (in != null) {
 				try {
@@ -164,6 +167,22 @@ public class HttpClientHelper {
 		}
 		httpResult.setResCode(status);
 		return httpResult;
+	}
+
+	private static BufferedReader readContent(HttpResult httpResult,
+			HttpResponse response) throws IOException {
+		BufferedReader in;
+		in = new BufferedReader(new InputStreamReader(response.getEntity()
+				.getContent()));
+		StringBuffer sb = new StringBuffer("");
+		String line = "";
+		while ((line = in.readLine()) != null) {
+			sb.append(line);
+		}
+		Log.d("DDD code:", "content =" + sb.toString());
+
+		httpResult.setContent(sb.toString());
+		return in;
 	}
 
 	public static HttpResult executeGet(String url) throws Exception {
@@ -186,8 +205,7 @@ public class HttpClientHelper {
 		return result;
 	}
 
-	private static HttpResult doGetImpl(String url) throws URISyntaxException,
-			IOException, ClientProtocolException {
+	private static HttpResult doGetImpl(String url) throws Exception {
 		int status = HttpStatus.SC_UNAUTHORIZED;
 		HttpResult httpResult = new HttpResult();
 		BufferedReader in = null;
@@ -205,16 +223,9 @@ public class HttpClientHelper {
 			status = response.getStatusLine().getStatusCode();
 			Log.d("DDD code:", "" + status);
 
+			in = readContent(httpResult, response);
 			if (HttpClientHelper.isHttpRequestOK(status)) {
-				in = new BufferedReader(new InputStreamReader(response
-						.getEntity().getContent()));
-				StringBuffer sb = new StringBuffer("");
-				String line = "";
-				while ((line = in.readLine()) != null) {
-					sb.append(line);
-				}
-				httpResult.setContent(sb.toString());
-				Log.d("DDD code:", "content =" + sb.toString());
+				request.abort();
 			}
 		} finally {
 			if (in != null) {
@@ -227,15 +238,6 @@ public class HttpClientHelper {
 		}
 		httpResult.setResCode(status);
 		return httpResult;
-	}
-
-	// 向服务器端刷新cookie
-	private static void refreshCookie() throws Exception {
-		PushMethod method = PushMethod.getMethod();
-		int result = method.sendBinfInfo();
-		if (result != EventType.BIND_SUCCESS) {
-			throw new Exception("send bind fail when token invalid!");
-		}
 	}
 
 	private static boolean isHttpRequestOK(int status) {

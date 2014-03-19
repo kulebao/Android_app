@@ -57,10 +57,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
 				+ ChildInfo.CHILD_NICK_NAME + " varchar,"
 				+ ChildInfo.CHILD_LOCAL_HEAD_ICON + " varchar,"
 				+ ChildInfo.CHILD_SERVER_HEAD_ICON + " varchar,"
-				+ ChildInfo.CHILD_BIRTHDAY + " varchar," + ChildInfo.SELECTED
-				+ " integer," + InfoHelper.TIMESTAMP + " varchar,"
-				+ ChildInfo.SERVER_ID + " varchar," + ChildInfo.CLASS_ID
-				+ " varchar," + ChildInfo.CLASS_NAME + " varchar" + ")");
+				+ ChildInfo.CHILD_BIRTHDAY + " biginteger,"
+				+ ChildInfo.SELECTED + " integer," + InfoHelper.TIMESTAMP
+				+ " biginteger," + ChildInfo.SERVER_ID + " varchar,"
+				+ ChildInfo.CLASS_ID + " varchar," + ChildInfo.CLASS_NAME
+				+ " varchar," + ChildInfo.CHILD_NAME + " varchar,"
+				+ ChildInfo.GENDER + " integer" + ")");
 
 		db.execSQL("CREATE TABLE IF NOT EXISTS " + SCHOOL_INFO_TAB + "("
 				+ SchoolInfo.ID + " integer primary key autoincrement,"

@@ -28,6 +28,7 @@ public class UploadChildInfoMethod {
 		HttpResult result = new HttpResult();
 		String url = createUploadChildInfoUrl();
 		Log.e("DDDDD ", "uploadChildInfo cmd:" + url);
+		Log.e("DDDDD ", "uploadChildInfo content:" + content);
 		result = HttpClientHelper.executePost(url, content);
 		bret = handleGetChildInfoResult(result);
 		return bret;
@@ -35,8 +36,7 @@ public class UploadChildInfoMethod {
 
 	private String createUploadChildInfoUrl() {
 		String url = String.format(ServerUrls.UPLOAD_CHILD_INFO, DataMgr
-				.getInstance().getSchoolID(), Utils
-				.getProp(JSONConstant.ACCOUNT_NAME), DataMgr.getInstance()
+				.getInstance().getSchoolID(), DataMgr.getInstance()
 				.getSelectedChild().getServer_id());
 		return url;
 	}
