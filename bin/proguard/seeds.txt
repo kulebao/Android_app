@@ -4533,6 +4533,8 @@ com.djc.logintest.activities.ChangePWDActivity
 com.djc.logintest.activities.ChangePWDActivity: ChangePWDActivity()
 com.djc.logintest.activities.CheckIconActivity
 com.djc.logintest.activities.CheckIconActivity: CheckIconActivity()
+com.djc.logintest.activities.ChildListActivity
+com.djc.logintest.activities.ChildListActivity: ChildListActivity()
 com.djc.logintest.activities.CookBookActivity
 com.djc.logintest.activities.CookBookActivity: CookBookActivity()
 com.djc.logintest.activities.EducationActivity
@@ -4573,8 +4575,6 @@ com.djc.logintest.activities.SchoolInfoActivity
 com.djc.logintest.activities.SchoolInfoActivity: SchoolInfoActivity()
 com.djc.logintest.activities.SchoolNoticeActivity
 com.djc.logintest.activities.SchoolNoticeActivity: SchoolNoticeActivity()
-com.djc.logintest.activities.SelectChildActivity
-com.djc.logintest.activities.SelectChildActivity: SelectChildActivity()
 com.djc.logintest.activities.SendChatActivity
 com.djc.logintest.activities.SendChatActivity: SendChatActivity()
 com.djc.logintest.activities.SettingActivity

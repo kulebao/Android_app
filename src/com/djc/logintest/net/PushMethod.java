@@ -80,6 +80,8 @@ public class PushMethod {
 					info.setSchool_name(schoolname);
 					DataMgr.getInstance().addSchoolInfo(info);
 					event = EventType.BIND_SUCCESS;
+				} else if (errorcode == 2) {
+					event = EventType.PHONE_NUM_IS_INVALID;
 				} else {
 					event = EventType.BIND_FAILED;
 				}

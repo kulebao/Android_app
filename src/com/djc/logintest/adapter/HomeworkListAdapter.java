@@ -1,13 +1,16 @@
 package com.djc.logintest.adapter;
 
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
-import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -16,11 +19,13 @@ import android.widget.TextView;
 import com.djc.logintest.R;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.Homework;
+import com.djc.logintest.utils.ImageDownloader;
 import com.djc.logintest.utils.Utils;
 
 public class HomeworkListAdapter extends BaseAdapter {
 	private final Context context;
 	private List<Homework> dataList;
+	private static Map<String, SoftReference<Bitmap>> softMap = new HashMap<String, SoftReference<Bitmap>>();
 
 	public void setLocationInfoList(List<Homework> list) {
 		this.dataList = list;
@@ -65,12 +70,14 @@ public class HomeworkListAdapter extends BaseAdapter {
 					.findViewById(R.id.timeStampView);
 			flagholder.fromView = (TextView) convertView
 					.findViewById(R.id.fromview);
-			flagholder.deleteView = (ImageView) convertView
-					.findViewById(R.id.deleteView);
+			flagholder.iconView = (ImageView) convertView
+					.findViewById(R.id.iconView);
 			setDataToViews(position, flagholder);
+			convertView.setBackgroundResource(R.drawable.homework_item);
 			convertView.setTag(flagholder);
 		} else {
 			FlagHolder flagholder = (FlagHolder) convertView.getTag();
+			convertView.setBackgroundResource(R.drawable.homework_item);
 			if (flagholder != null) {
 				setDataToViews(position, flagholder);
 			}
@@ -87,23 +94,41 @@ public class HomeworkListAdapter extends BaseAdapter {
 
 		flagholder.fromView.setText(DataMgr.getInstance()
 				.getClassNameByClassID(info.getClass_id()));
+		setIcon(flagholder.iconView,info);
 
-		flagholder.deleteView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Log.d("DDD pos", "position =" + position);
-				Utils.showTwoBtnResDlg(R.string.delete_notice_confirm, context,
-						new android.content.DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// DataMgr.getInstance().deleteNotice(info.getId());
-								dataList.remove(position);
-								notifyDataSetChanged();
-							}
-						});
+	}
+
+	private void setIcon(ImageView view, Homework info) {
+		String localUrl = info.getHomeWorkLocalIconPath();
+		if (TextUtils.isEmpty(localUrl)) {
+			view.setVisibility(View.GONE);
+		} else {
+			Bitmap loacalBitmap = getLocalBmp(localUrl);
+			if (loacalBitmap != null) {
+				Log.d("DJC", "setIcon url =" + localUrl);
+				Utils.setImg(view, loacalBitmap);
+			} else {
+				view.setImageResource(R.drawable.default_icon);
 			}
-		});
+			view.setVisibility(View.VISIBLE);
+		}
+	}
+
+	private Bitmap getLocalBmp(String localUrl) {
+		Bitmap loacalBitmap = null;
+		if (softMap.containsKey(localUrl)) {
+			loacalBitmap = softMap.get(localUrl).get();
+		}
+
+		if (loacalBitmap == null) {
+			loacalBitmap = Utils.getLoacalBitmap(localUrl,
+					ImageDownloader.getMaxPixWithDensity(40, 40));
+			if (loacalBitmap != null) {
+				Log.d("DJC", "getLoacalBitmap url =" + localUrl);
+				softMap.put(localUrl, new SoftReference<Bitmap>(loacalBitmap));
+			}
+		}
+		return loacalBitmap;
 	}
 
 	private class FlagHolder {
@@ -111,6 +136,6 @@ public class HomeworkListAdapter extends BaseAdapter {
 		public TextView bodyView;
 		public TextView timestampView;
 		public TextView fromView;
-		public ImageView deleteView;
+		public ImageView iconView;
 	}
 }

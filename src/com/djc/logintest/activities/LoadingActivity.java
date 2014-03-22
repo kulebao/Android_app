@@ -7,10 +7,13 @@ import android.os.Message;
 import android.util.Log;
 
 import com.djc.logintest.R;
+import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
+import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.push.PushModel;
 import com.djc.logintest.taskmgr.LoadingTask;
+import com.djc.logintest.utils.Utils;
 
 public class LoadingActivity extends UmengStatisticsActivity {
 	private Handler handler;
@@ -20,8 +23,19 @@ public class LoadingActivity extends UmengStatisticsActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.loading);
 		initHandler();
+		initData();
 		new LoadingTask(handler).execute();
 		PushModel.getPushModel().enableDebug(true);
+	}
+
+	private void initData() {
+		if (MyApplication.getInstance().isForAutoTest()) {
+			Utils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, "133d");
+			Utils.saveUndeleteableProp(JSONConstant.USER_ID,
+					"963386802751977894");
+			Utils.saveUndeleteableProp(ConstantValue.TEST_PHONE, "true");
+			Utils.setGuided();
+		}
 	}
 
 	private void initHandler() {
@@ -33,7 +47,7 @@ public class LoadingActivity extends UmengStatisticsActivity {
 					return;
 				}
 				super.handleMessage(msg);
-				
+
 				switch (msg.what) {
 				case EventType.LOADING_SUCCESS:
 					break;

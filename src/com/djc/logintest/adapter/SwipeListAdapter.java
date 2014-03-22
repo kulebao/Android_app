@@ -1,9 +1,14 @@
 package com.djc.logintest.adapter;
 
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +20,17 @@ import android.widget.TextView;
 
 import com.djc.logintest.R;
 import com.djc.logintest.dbmgr.DataMgr;
+import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.dbmgr.info.SwipeInfo;
+import com.djc.logintest.noticepaser.SwapCardNoticePaser;
+import com.djc.logintest.utils.ImageDownloader;
 import com.djc.logintest.utils.Utils;
 
 public class SwipeListAdapter extends BaseAdapter {
 	private final Context context;
 	private List<SwipeInfo> list;
 	private String nick;
+	private static Map<String, SoftReference<Bitmap>> softMap = new HashMap<String, SoftReference<Bitmap>>();
 
 	public void setLocationInfoList(List<SwipeInfo> list) {
 		this.list = list;
@@ -71,8 +80,8 @@ public class SwipeListAdapter extends BaseAdapter {
 					.findViewById(R.id.timeStampView);
 			flagholder.fromView = (TextView) convertView
 					.findViewById(R.id.fromview);
-			flagholder.deleteView = (ImageView) convertView
-					.findViewById(R.id.deleteView);
+			flagholder.iconView = (ImageView) convertView
+					.findViewById(R.id.iconView);
 			setDataToViews(position, flagholder);
 			convertView.setTag(flagholder);
 		} else {
@@ -85,6 +94,40 @@ public class SwipeListAdapter extends BaseAdapter {
 		return convertView;
 	}
 
+	private void setIcon(ImageView view, SwipeInfo info) {
+		String localUrl = SwapCardNoticePaser.createSwipeIconPath(String
+				.valueOf(info.getTimestamp()));
+		if (TextUtils.isEmpty(localUrl)) {
+			view.setVisibility(View.GONE);
+		} else {
+			Bitmap loacalBitmap = getLocalBmp(localUrl);
+			if (loacalBitmap != null) {
+				Log.d("DJC", "setIcon url =" + localUrl);
+				Utils.setImg(view, loacalBitmap);
+			} else {
+				view.setImageResource(R.drawable.default_icon);
+			}
+			view.setVisibility(View.VISIBLE);
+		}
+	}
+
+	private Bitmap getLocalBmp(String localUrl) {
+		Bitmap loacalBitmap = null;
+		if (softMap.containsKey(localUrl)) {
+			loacalBitmap = softMap.get(localUrl).get();
+		}
+
+		if (loacalBitmap == null) {
+			loacalBitmap = Utils.getLoacalBitmap(localUrl,
+					ImageDownloader.getMaxPixWithDensity(40, 40));
+			if (loacalBitmap != null) {
+				Log.d("DJC", "getLoacalBitmap url =" + localUrl);
+				softMap.put(localUrl, new SoftReference<Bitmap>(loacalBitmap));
+			}
+		}
+		return loacalBitmap;
+	}
+
 	private void setDataToViews(final int position, FlagHolder flagholder) {
 		final SwipeInfo info = list.get(position);
 		flagholder.titleView.setText(info.getNoticeTitle());
@@ -92,19 +135,7 @@ public class SwipeListAdapter extends BaseAdapter {
 		flagholder.timestampView.setText(info.getFormattedTime());
 		flagholder.fromView.setText(DataMgr.getInstance().getSchoolInfo()
 				.getSchool_name());
-		flagholder.deleteView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Log.d("DDD pos", "position =" + position);
-				Utils.showTwoBtnResDlg(R.string.delete_notice_confirm, context,
-						new android.content.DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-							}
-						});
-			}
-		});
+		setIcon(flagholder.iconView, info);
 	}
 
 	private class FlagHolder {
@@ -112,6 +143,6 @@ public class SwipeListAdapter extends BaseAdapter {
 		public TextView bodyView;
 		public TextView timestampView;
 		public TextView fromView;
-		public ImageView deleteView;
+		public ImageView iconView;
 	}
 }

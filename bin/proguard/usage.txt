@@ -26,7 +26,7 @@ com.djc.logintest.R$style
 com.djc.logintest.R$styleable:
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    600:600:public R$styleable()
+    606:606:public R$styleable()
 com.djc.logintest.activities.ActivityHelper:
     10:10:public ActivityHelper()
 com.djc.logintest.activities.BindLocationMgrActivity:
@@ -45,8 +45,7 @@ com.djc.logintest.activities.InteractionActivity:
     private static final java.lang.String SORT_ASC
     private static final java.lang.String SORT_DESC
     private static final java.lang.String TMP_BMP
-    215:220:private void test()
-    223:242:private void addTestData()
+    215:234:private void addTestData()
 com.djc.logintest.activities.LocationActivity:
     private static final int MIN_ZOOM
     private static final int MAX_ZOOM
@@ -62,8 +61,8 @@ com.djc.logintest.activities.MainActivity:
     private static final int TAB_WIDGET_HEIGHT
     196:196:public android.os.AsyncTask getUpdateTask()
 com.djc.logintest.activities.MyApplication:
-    28:28:public java.util.concurrent.BlockingQueue getBlockingQueue()
-    40:41:public void removeObserver(com.djc.logintest.receiver.NotificationObserver)
+    34:34:public java.util.concurrent.BlockingQueue getBlockingQueue()
+    46:47:public void removeObserver(com.djc.logintest.receiver.NotificationObserver)
 com.djc.logintest.activities.SchoolNoticeActivity:
     public static final int NORMAL_NOTICE
     public static final int COOK_NOTICE
@@ -99,11 +98,11 @@ com.djc.logintest.adapter.CookBookListAdapter:
     20:21:public void setCookInfoList(java.util.List)
     29:31:public void clear()
 com.djc.logintest.adapter.HomeworkListAdapter:
-    26:27:public void setLocationInfoList(java.util.List)
+    31:32:public void setLocationInfoList(java.util.List)
 com.djc.logintest.adapter.LocationInfoListAdapter:
     26:27:public void setLocationInfoList(java.util.List)
 com.djc.logintest.adapter.NewsListAdapter:
-    25:26:public void setLocationInfoList(java.util.List)
+    33:34:public void setLocationInfoList(java.util.List)
 com.djc.logintest.adapter.ScheduleListAdapter:
     20:21:public void setCookInfoList(java.util.List)
     29:31:public void clear()
@@ -265,6 +264,8 @@ com.djc.logintest.dbmgr.info.ChildInfo:
     public static final java.lang.String SERVER_ID
     public static final java.lang.String CLASS_ID
     public static final java.lang.String CLASS_NAME
+    public static final java.lang.String CHILD_NAME
+    public static final java.lang.String GENDER
 com.djc.logintest.dbmgr.info.CookBookInfo:
     public static final java.lang.String ID
     public static final java.lang.String COOKBOOK_ID
@@ -311,7 +312,7 @@ com.djc.logintest.dbmgr.info.InfoHelper:
     public static final java.lang.String TIME
     public static final java.lang.String AM
     public static final java.lang.String PM
-    11:11:public InfoHelper()
+    15:15:public InfoHelper()
 com.djc.logintest.dbmgr.info.LocationInfo:
     public static final java.lang.String ID
     public static final java.lang.String LONGITUDE
@@ -379,7 +380,7 @@ com.djc.logintest.handler.CrashHandler:
     public static final java.lang.String TAG
     75:88:private void selfHandleWithToast(java.lang.Thread,java.lang.Throwable)
     98:107:private boolean handleException(java.lang.Throwable)
-    35:35:static synthetic android.content.Context access$0(com.djc.logintest.handler.CrashHandler)
+    26:26:static synthetic android.content.Context access$000(com.djc.logintest.handler.CrashHandler)
 com.djc.logintest.handler.CrashHandler$1
 com.djc.logintest.handler.MyHandler:
     20:21:public MyHandler(android.app.Activity)
@@ -404,7 +405,9 @@ com.djc.logintest.net.ChatMethod:
     private static final java.lang.String FROM
     private static final java.lang.String TO
 com.djc.logintest.net.ChildMethod:
-    131:146:private int compareSelecteChild(com.djc.logintest.dbmgr.DataMgr,int,org.json.JSONArray,com.djc.logintest.dbmgr.info.ChildInfo)
+    113:133:private int handleGetChildInfoResult(com.djc.logintest.net.HttpResult)
+    137:160:private int checkUpdate(org.json.JSONObject)
+    175:193:private void updateAll(org.json.JSONArray,com.djc.logintest.dbmgr.info.ChildInfo)
 com.djc.logintest.net.EducationMethod:
     private static final java.lang.String MOST
     private static final java.lang.String FROM
@@ -427,6 +430,8 @@ com.djc.logintest.net.NewsMethod:
     private static final java.lang.String TO
 com.djc.logintest.net.SwipeCardMethod:
     private static final int MOST
+com.djc.logintest.net.UploadChildInfoMethod:
+    63:83:private int handleGetChildInfoResult(com.djc.logintest.net.HttpResult)
 com.djc.logintest.net.ValidatePhoneMethod:
     private static final java.lang.String CHECK_PHONE_RESULT
 com.djc.logintest.noticepaser.NoticePaserFactory:
@@ -518,7 +523,7 @@ com.djc.logintest.upload.qiniu.utils.InputStreamAt:
     73:76:public long getCrc32(long,int)
     202:202:public int read(byte[])
     207:208:public org.apache.http.HttpEntity toHttpEntity(long,int,com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor)
-    27:27:static synthetic boolean access$0(com.djc.logintest.upload.qiniu.utils.InputStreamAt)
+    22:22:static synthetic boolean access$000(com.djc.logintest.upload.qiniu.utils.InputStreamAt)
 com.djc.logintest.upload.qiniu.utils.InputStreamAt$1
 com.djc.logintest.upload.qiniu.utils.MultipartEntity:
     86:87:public void setProcessNotify(com.djc.logintest.upload.qiniu.utils.IOnProcess)

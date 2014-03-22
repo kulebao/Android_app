@@ -11,7 +11,6 @@
     <string name="getAuthCode">获取验证码</string>
     <string name="getAuthCodeSuccess">获取验证码成功，稍后会用短信将该验证码发送到您的手机上，谢谢！</string>
     <string name="getAuthCodeCountDown">重新获取验证码 (%1$s秒)</string>
-    <string name="phone_invalid">手机号码没有注册，请确认输入是否正确或联系幼儿园处理，谢谢！</string>
     <string name="phone_input_error">手机号码输入错误，请检查后重新输入，谢谢!</string>
     <string name="auth_code_input_error">验证码输入错误,请检查后重新输入，谢谢!</string>
     <string name="auth_code_invalid">验证码错误，请确认输入是否正确，如果点击了重新获取验证码，请输入最后一次收到的验证码，谢谢！</string>
@@ -191,6 +190,7 @@
     <string name="self_care_explain">能自己收拾整理玩具和用具、自己入厕</string>
     <string name="manner_explain">对人有礼貌、会主动使用礼貌用语、尊重他人、不打扰别人</string>
     <string name="game_explain">喜欢玩游戏、能与同学分享玩具，学习并遵守游戏规则</string>
-    <string name="token_invalid">无效账号，请注销后重新登录，或联系学校处理，谢谢！</string>
+    <string name="token_invalid">无效账号，请注销后重新登录，或联系幼儿园处理，谢谢！</string>
+    <string name="phone_invalid">账号未激活或已过期，请联系幼儿园处理，谢谢！</string>
 
 </resources>

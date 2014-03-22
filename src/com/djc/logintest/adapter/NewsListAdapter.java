@@ -1,9 +1,14 @@
 package com.djc.logintest.adapter;
 
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +19,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.djc.logintest.R;
+import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.dbmgr.info.News;
+import com.djc.logintest.utils.ImageDownloader;
 import com.djc.logintest.utils.Utils;
 
 public class NewsListAdapter extends BaseAdapter {
 	private final Context context;
 	private List<News> newsList;
+	private static Map<String, SoftReference<Bitmap>> softMap = new HashMap<String, SoftReference<Bitmap>>();
 
 	public void setLocationInfoList(List<News> list) {
 		this.newsList = list;
@@ -62,13 +70,16 @@ public class NewsListAdapter extends BaseAdapter {
 					.findViewById(R.id.bodyView);
 			flagholder.timestampView = (TextView) convertView
 					.findViewById(R.id.timeStampView);
-			flagholder.deleteView = (ImageView) convertView
-					.findViewById(R.id.deleteView);
+			flagholder.iconView = (ImageView) convertView
+					.findViewById(R.id.iconView);
 			flagholder.fromview = (TextView) convertView
 					.findViewById(R.id.fromview);
 			setDataToViews(position, flagholder);
+
+			convertView.setBackgroundResource(R.drawable.news_item);
 			convertView.setTag(flagholder);
 		} else {
+			convertView.setBackgroundResource(R.drawable.news_item);
 			FlagHolder flagholder = (FlagHolder) convertView.getTag();
 			if (flagholder != null) {
 				setDataToViews(position, flagholder);
@@ -84,21 +95,53 @@ public class NewsListAdapter extends BaseAdapter {
 		flagholder.bodyView.setText(info.getContent());
 		flagholder.timestampView.setText(info.getFormattedTime());
 		flagholder.fromview.setText(info.getFrom());
+		setIcon(flagholder.iconView, info);
+		// flagholder.deleteView.setOnClickListener(new OnClickListener() {
+		// @Override
+		// public void onClick(View v) {
+		// Log.d("DDD pos", "position =" + position);
+		// Utils.showTwoBtnResDlg(R.string.delete_notice_confirm, context,
+		// new android.content.DialogInterface.OnClickListener() {
+		// @Override
+		// public void onClick(DialogInterface dialog,
+		// int which) {
+		// }
+		// });
+		// }
+		// });
+	}
 
-		flagholder.deleteView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Log.d("DDD pos", "position =" + position);
-				Utils.showTwoBtnResDlg(R.string.delete_notice_confirm, context,
-						new android.content.DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-							}
-						});
+	private void setIcon(ImageView view, News info) {
+		String localUrl = info.getNewsLocalIconPath();
+		if(TextUtils.isEmpty(localUrl)){
+			view.setVisibility(View.GONE);
+		}else{
+			Bitmap loacalBitmap = getLocalBmp(localUrl);
+			if (loacalBitmap != null) {
+				Log.d("DJC", "setIcon url =" + localUrl);
+				Utils.setImg(view, loacalBitmap);
+			} else {
+				view.setImageResource(R.drawable.default_icon);
 			}
-		});
+			view.setVisibility(View.VISIBLE);
+		}
+	}
 
+	private Bitmap getLocalBmp(String localUrl) {
+		Bitmap loacalBitmap = null;
+		if (softMap.containsKey(localUrl)) {
+			loacalBitmap = softMap.get(localUrl).get();
+		}
+
+		if (loacalBitmap == null) {
+			loacalBitmap = Utils.getLoacalBitmap(localUrl,
+					ImageDownloader.getMaxPixWithDensity(40, 40));
+			if (loacalBitmap != null) {
+				Log.d("DJC", "getLoacalBitmap url =" + localUrl);
+				softMap.put(localUrl, new SoftReference<Bitmap>(loacalBitmap));
+			}
+		}
+		return loacalBitmap;
 	}
 
 	private class FlagHolder {
@@ -106,6 +149,6 @@ public class NewsListAdapter extends BaseAdapter {
 		public TextView bodyView;
 		public TextView timestampView;
 		public TextView fromview;
-		public ImageView deleteView;
+		public ImageView iconView;
 	}
 }

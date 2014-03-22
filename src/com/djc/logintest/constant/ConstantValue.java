@@ -104,5 +104,7 @@ public class ConstantValue {
 	public static final int GET_HOMEWORK_MAX_COUNT = 25;
 	public static final int Type_INSERT_HEAD = 0;
 	public static final int Type_INSERT_TAIl = 1;
+	public static final String TEST_PHONE = "13408654680";
+	public static final String TEST_PHONE_PWD = "zzzzzz";
 
 }

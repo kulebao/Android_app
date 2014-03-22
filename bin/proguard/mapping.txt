@@ -4103,19 +4103,19 @@ com.djc.logintest.activities.BindLocationMgrActivity -> com.djc.logintest.activi
     java.util.List listinfo -> c
     android.app.AlertDialog dialog -> d
     void onCreate(android.os.Bundle) -> onCreate
-    void access$0(com.djc.logintest.activities.BindLocationMgrActivity) -> a
-    void access$1(com.djc.logintest.activities.BindLocationMgrActivity,android.widget.EditText,android.widget.EditText) -> a
-    android.app.AlertDialog access$2(com.djc.logintest.activities.BindLocationMgrActivity) -> b
+    void access$000(com.djc.logintest.activities.BindLocationMgrActivity) -> a
+    android.app.AlertDialog access$100(com.djc.logintest.activities.BindLocationMgrActivity) -> b
+    void access$200(com.djc.logintest.activities.BindLocationMgrActivity,android.widget.EditText,android.widget.EditText) -> a
 com.djc.logintest.activities.BindLocationMgrActivity$1 -> com.djc.logintest.activities.c:
     com.djc.logintest.activities.BindLocationMgrActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.djc.logintest.activities.BindLocationMgrActivity$2 -> com.djc.logintest.activities.d:
     com.djc.logintest.activities.BindLocationMgrActivity this$0 -> a
-    android.widget.EditText val$nicknameEdit -> b
-    android.widget.EditText val$numEdit -> c
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.activities.BindLocationMgrActivity$3 -> com.djc.logintest.activities.e:
-    com.djc.logintest.activities.BindLocationMgrActivity this$0 -> a
+    android.widget.EditText val$nicknameEdit -> a
+    android.widget.EditText val$numEdit -> b
+    com.djc.logintest.activities.BindLocationMgrActivity this$0 -> c
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.activities.BindLocationMgrActivity$4 -> com.djc.logintest.activities.f:
     com.djc.logintest.activities.BindLocationMgrActivity this$0 -> a
@@ -4131,9 +4131,9 @@ com.djc.logintest.activities.ChangePWDActivity -> com.djc.logintest.activities.C
     void clearInputView() -> a
     java.lang.String getNewPwd() -> b
     java.lang.String getOldPwd() -> c
-    void access$0(com.djc.logintest.activities.ChangePWDActivity) -> a
-    boolean access$1(com.djc.logintest.activities.ChangePWDActivity) -> b
-    void access$2(com.djc.logintest.activities.ChangePWDActivity) -> c
+    void access$000(com.djc.logintest.activities.ChangePWDActivity) -> a
+    boolean access$100(com.djc.logintest.activities.ChangePWDActivity) -> b
+    void access$200(com.djc.logintest.activities.ChangePWDActivity) -> c
 com.djc.logintest.activities.ChangePWDActivity$1 -> com.djc.logintest.activities.g:
     com.djc.logintest.activities.ChangePWDActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
@@ -4150,7 +4150,7 @@ com.djc.logintest.activities.CheckIconActivity -> com.djc.logintest.activities.C
     void onCreate(android.os.Bundle) -> onCreate
     void runSendPicTask() -> a
     void onDestroy() -> onDestroy
-    void access$0(com.djc.logintest.activities.CheckIconActivity,android.os.Message) -> a
+    void access$000(com.djc.logintest.activities.CheckIconActivity,android.os.Message) -> a
 com.djc.logintest.activities.CheckIconActivity$1 -> com.djc.logintest.activities.j:
     com.djc.logintest.activities.CheckIconActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
@@ -4160,6 +4160,14 @@ com.djc.logintest.activities.CheckIconActivity$2 -> com.djc.logintest.activities
 com.djc.logintest.activities.CheckIconActivity$3 -> com.djc.logintest.activities.l:
     com.djc.logintest.activities.CheckIconActivity this$0 -> a
     void onClick(android.view.View) -> onClick
+com.djc.logintest.activities.ChildListActivity -> com.djc.logintest.activities.ChildListActivity:
+    android.widget.ListView list -> a
+    com.djc.logintest.adapter.ChildListAdapter adapter -> b
+    void onCreate(android.os.Bundle) -> onCreate
+    com.djc.logintest.adapter.ChildListAdapter access$000(com.djc.logintest.activities.ChildListActivity) -> a
+com.djc.logintest.activities.ChildListActivity$1 -> com.djc.logintest.activities.m:
+    com.djc.logintest.activities.ChildListActivity this$0 -> a
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 com.djc.logintest.activities.CookBookActivity -> com.djc.logintest.activities.CookBookActivity:
     com.djc.logintest.adapter.CookBookListAdapter adapter -> a
     android.widget.ListView list -> b
@@ -4168,8 +4176,8 @@ com.djc.logintest.activities.CookBookActivity -> com.djc.logintest.activities.Co
     void onCreate(android.os.Bundle) -> onCreate
     void initData() -> a
     void onNewIntent(android.content.Intent) -> onNewIntent
-    void access$0(com.djc.logintest.activities.CookBookActivity) -> a
-com.djc.logintest.activities.CookBookActivity$1 -> com.djc.logintest.activities.m:
+    void access$000(com.djc.logintest.activities.CookBookActivity) -> a
+com.djc.logintest.activities.CookBookActivity$1 -> com.djc.logintest.activities.n:
     com.djc.logintest.activities.CookBookActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.djc.logintest.activities.EducationActivity -> com.djc.logintest.activities.EducationActivity:
@@ -4198,24 +4206,24 @@ com.djc.logintest.activities.EducationActivity -> com.djc.logintest.activities.E
     java.util.ArrayList buildItem() -> e
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
-    void access$0(com.djc.logintest.activities.EducationActivity,com.djc.logintest.dbmgr.info.EducationInfo) -> a
-    java.util.List access$1(com.djc.logintest.activities.EducationActivity) -> a
-    void access$2(com.djc.logintest.activities.EducationActivity) -> b
-com.djc.logintest.activities.EducationActivity$1 -> com.djc.logintest.activities.n:
+    com.djc.logintest.dbmgr.info.EducationInfo access$002(com.djc.logintest.activities.EducationActivity,com.djc.logintest.dbmgr.info.EducationInfo) -> a
+    java.util.List access$100(com.djc.logintest.activities.EducationActivity) -> a
+    void access$200(com.djc.logintest.activities.EducationActivity) -> b
+com.djc.logintest.activities.EducationActivity$1 -> com.djc.logintest.activities.o:
     com.djc.logintest.activities.EducationActivity this$0 -> a
-com.djc.logintest.activities.EducationActivity$2 -> com.djc.logintest.activities.o:
-    com.djc.logintest.activities.EducationActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.EducationActivity$3 -> com.djc.logintest.activities.p:
+com.djc.logintest.activities.EducationActivity$2 -> com.djc.logintest.activities.p:
     com.djc.logintest.activities.EducationActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.EducationActivity$4 -> com.djc.logintest.activities.q:
+com.djc.logintest.activities.EducationActivity$3 -> com.djc.logintest.activities.q:
+    com.djc.logintest.activities.EducationActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.djc.logintest.activities.EducationActivity$4 -> com.djc.logintest.activities.r:
     com.djc.logintest.activities.EducationActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.djc.logintest.activities.EducationActivity$5 -> com.djc.logintest.activities.r:
+com.djc.logintest.activities.EducationActivity$5 -> com.djc.logintest.activities.s:
     com.djc.logintest.activities.EducationActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.djc.logintest.activities.EducationActivity$6 -> com.djc.logintest.activities.s:
+com.djc.logintest.activities.EducationActivity$6 -> com.djc.logintest.activities.t:
     com.djc.logintest.activities.EducationActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.activities.FeedBackActivity -> com.djc.logintest.activities.FeedBackActivity:
@@ -4223,11 +4231,11 @@ com.djc.logintest.activities.FeedBackActivity -> com.djc.logintest.activities.Fe
     com.djc.logintest.handler.MyHandler handler -> b
     android.app.ProgressDialog dialog -> c
     void onCreate(android.os.Bundle) -> onCreate
-    void access$0(com.djc.logintest.activities.FeedBackActivity) -> a
-com.djc.logintest.activities.FeedBackActivity$1 -> com.djc.logintest.activities.t:
+    void access$000(com.djc.logintest.activities.FeedBackActivity) -> a
+com.djc.logintest.activities.FeedBackActivity$1 -> com.djc.logintest.activities.u:
     com.djc.logintest.activities.FeedBackActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.FeedBackActivity$2 -> com.djc.logintest.activities.u:
+com.djc.logintest.activities.FeedBackActivity$2 -> com.djc.logintest.activities.v:
     com.djc.logintest.activities.FeedBackActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.djc.logintest.activities.GuideActivity -> com.djc.logintest.activities.GuideActivity:
@@ -4241,8 +4249,8 @@ com.djc.logintest.activities.GuideActivity -> com.djc.logintest.activities.Guide
     void onPageScrollStateChanged(int) -> onPageScrollStateChanged
     void onPageScrolled(int,float,int) -> onPageScrolled
     void onPageSelected(int) -> onPageSelected
-    void access$0(com.djc.logintest.activities.GuideActivity) -> a
-com.djc.logintest.activities.GuideActivity$1 -> com.djc.logintest.activities.v:
+    void access$000(com.djc.logintest.activities.GuideActivity) -> a
+com.djc.logintest.activities.GuideActivity$1 -> com.djc.logintest.activities.w:
     com.djc.logintest.activities.GuideActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.djc.logintest.activities.HomeworkPullRefreshActivity -> com.djc.logintest.activities.HomeworkPullRefreshActivity:
@@ -4256,31 +4264,32 @@ com.djc.logintest.activities.HomeworkPullRefreshActivity -> com.djc.logintest.ac
     android.app.ProgressDialog dialog -> h
     void onCreate(android.os.Bundle) -> onCreate
     boolean runGetNoticeTask(long,long,int) -> a
+    void onResume() -> onResume
     void onDestroy() -> onDestroy
     void handleSuccess(android.os.Message) -> a
     void refreshHead() -> a
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
-    com.djc.logintest.customview.MsgListView access$0(com.djc.logintest.activities.HomeworkPullRefreshActivity) -> a
-    android.view.View access$1(com.djc.logintest.activities.HomeworkPullRefreshActivity) -> b
-    void access$2(com.djc.logintest.activities.HomeworkPullRefreshActivity) -> c
-    com.djc.logintest.adapter.HomeworkListAdapter access$3(com.djc.logintest.activities.HomeworkPullRefreshActivity) -> d
-    void access$4(com.djc.logintest.activities.HomeworkPullRefreshActivity,com.djc.logintest.dbmgr.info.Homework) -> a
-    void access$5(com.djc.logintest.activities.HomeworkPullRefreshActivity,android.widget.AbsListView) -> a
-com.djc.logintest.activities.HomeworkPullRefreshActivity$1 -> com.djc.logintest.activities.w:
+    com.djc.logintest.customview.MsgListView access$000(com.djc.logintest.activities.HomeworkPullRefreshActivity) -> a
+    android.view.View access$100(com.djc.logintest.activities.HomeworkPullRefreshActivity) -> b
+    void access$200(com.djc.logintest.activities.HomeworkPullRefreshActivity) -> c
+    com.djc.logintest.adapter.HomeworkListAdapter access$300(com.djc.logintest.activities.HomeworkPullRefreshActivity) -> d
+    void access$400(com.djc.logintest.activities.HomeworkPullRefreshActivity,com.djc.logintest.dbmgr.info.Homework) -> a
+    void access$500(com.djc.logintest.activities.HomeworkPullRefreshActivity,android.widget.AbsListView) -> a
+com.djc.logintest.activities.HomeworkPullRefreshActivity$1 -> com.djc.logintest.activities.x:
     com.djc.logintest.activities.HomeworkPullRefreshActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.djc.logintest.activities.HomeworkPullRefreshActivity$2 -> com.djc.logintest.activities.x:
+com.djc.logintest.activities.HomeworkPullRefreshActivity$2 -> com.djc.logintest.activities.y:
     com.djc.logintest.activities.HomeworkPullRefreshActivity this$0 -> a
     void onRefresh() -> a
-com.djc.logintest.activities.HomeworkPullRefreshActivity$3 -> com.djc.logintest.activities.y:
+com.djc.logintest.activities.HomeworkPullRefreshActivity$3 -> com.djc.logintest.activities.z:
     com.djc.logintest.activities.HomeworkPullRefreshActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.djc.logintest.activities.HomeworkPullRefreshActivity$4 -> com.djc.logintest.activities.z:
+com.djc.logintest.activities.HomeworkPullRefreshActivity$4 -> com.djc.logintest.activities.aa:
     com.djc.logintest.activities.HomeworkPullRefreshActivity this$0 -> a
     void onScrollStateChanged(android.widget.AbsListView,int) -> onScrollStateChanged
     void onScroll(android.widget.AbsListView,int,int,int) -> onScroll
-com.djc.logintest.activities.HomeworkPullRefreshActivity$5 -> com.djc.logintest.activities.aa:
+com.djc.logintest.activities.HomeworkPullRefreshActivity$5 -> com.djc.logintest.activities.ab:
     com.djc.logintest.activities.HomeworkPullRefreshActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.activities.InteractionActivity -> com.djc.logintest.activities.InteractionActivity:
@@ -4304,48 +4313,48 @@ com.djc.logintest.activities.InteractionActivity -> com.djc.logintest.activities
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     void handleSendChat() -> d
     void handleSuccess(android.os.Message) -> a
-    void access$0(com.djc.logintest.activities.InteractionActivity) -> a
-    void access$1(com.djc.logintest.activities.InteractionActivity) -> b
-    void access$2(com.djc.logintest.activities.InteractionActivity) -> c
-    java.util.List access$3(com.djc.logintest.activities.InteractionActivity) -> d
-    boolean access$4(com.djc.logintest.activities.InteractionActivity) -> e
-    void access$5(com.djc.logintest.activities.InteractionActivity) -> f
-    com.djc.logintest.customview.MsgListView access$6(com.djc.logintest.activities.InteractionActivity) -> g
-    void access$7(com.djc.logintest.activities.InteractionActivity,android.widget.AbsListView) -> a
-    com.djc.logintest.adapter.ChatListAdapter access$8(com.djc.logintest.activities.InteractionActivity) -> h
-    android.view.View access$9(com.djc.logintest.activities.InteractionActivity) -> i
-com.djc.logintest.activities.InteractionActivity$1 -> com.djc.logintest.activities.ab:
+    void access$000(com.djc.logintest.activities.InteractionActivity) -> a
+    void access$100(com.djc.logintest.activities.InteractionActivity) -> b
+    void access$200(com.djc.logintest.activities.InteractionActivity) -> c
+    java.util.List access$300(com.djc.logintest.activities.InteractionActivity) -> d
+    boolean access$400(com.djc.logintest.activities.InteractionActivity) -> e
+    void access$500(com.djc.logintest.activities.InteractionActivity) -> f
+    com.djc.logintest.customview.MsgListView access$600(com.djc.logintest.activities.InteractionActivity) -> g
+    void access$700(com.djc.logintest.activities.InteractionActivity,android.widget.AbsListView) -> a
+    com.djc.logintest.adapter.ChatListAdapter access$800(com.djc.logintest.activities.InteractionActivity) -> h
+    android.view.View access$900(com.djc.logintest.activities.InteractionActivity) -> i
+com.djc.logintest.activities.InteractionActivity$1 -> com.djc.logintest.activities.ac:
     com.djc.logintest.activities.InteractionActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.InteractionActivity$2 -> com.djc.logintest.activities.ac:
+com.djc.logintest.activities.InteractionActivity$2 -> com.djc.logintest.activities.ad:
     com.djc.logintest.activities.InteractionActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.InteractionActivity$3 -> com.djc.logintest.activities.ad:
+com.djc.logintest.activities.InteractionActivity$3 -> com.djc.logintest.activities.ae:
     com.djc.logintest.activities.InteractionActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.InteractionActivity$4 -> com.djc.logintest.activities.ae:
+com.djc.logintest.activities.InteractionActivity$4 -> com.djc.logintest.activities.af:
     com.djc.logintest.activities.InteractionActivity this$0 -> a
     void onMovedToScrapHeap(android.view.View) -> onMovedToScrapHeap
     com.djc.logintest.dbmgr.info.ChatInfo getChatInfo(android.view.View) -> a
-com.djc.logintest.activities.InteractionActivity$5 -> com.djc.logintest.activities.af:
+com.djc.logintest.activities.InteractionActivity$5 -> com.djc.logintest.activities.ag:
     com.djc.logintest.activities.InteractionActivity this$0 -> a
     void onRefresh() -> a
-com.djc.logintest.activities.InteractionActivity$6 -> com.djc.logintest.activities.ag:
+com.djc.logintest.activities.InteractionActivity$6 -> com.djc.logintest.activities.ah:
     com.djc.logintest.activities.InteractionActivity this$0 -> a
     void onScrollStateChanged(android.widget.AbsListView,int) -> onScrollStateChanged
     void onScroll(android.widget.AbsListView,int,int,int) -> onScroll
-com.djc.logintest.activities.InteractionActivity$7 -> com.djc.logintest.activities.ah:
+com.djc.logintest.activities.InteractionActivity$7 -> com.djc.logintest.activities.ai:
     com.djc.logintest.activities.InteractionActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.activities.InteractionActivity$8 -> com.djc.logintest.activities.ai:
+com.djc.logintest.activities.InteractionActivity$8 -> com.djc.logintest.activities.aj:
     com.djc.logintest.activities.InteractionActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.djc.logintest.activities.LoadingActivity -> com.djc.logintest.activities.LoadingActivity:
     android.os.Handler handler -> a
     void onCreate(android.os.Bundle) -> onCreate
     void onBackPressed() -> onBackPressed
-    void access$0(com.djc.logintest.activities.LoadingActivity,java.lang.Class) -> a
-com.djc.logintest.activities.LoadingActivity$1 -> com.djc.logintest.activities.aj:
+    void access$000(com.djc.logintest.activities.LoadingActivity,java.lang.Class) -> a
+com.djc.logintest.activities.LoadingActivity$1 -> com.djc.logintest.activities.ak:
     com.djc.logintest.activities.LoadingActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.djc.logintest.activities.LocationActivity -> com.djc.logintest.activities.LocationActivity:
@@ -4364,17 +4373,17 @@ com.djc.logintest.activities.LocationActivity -> com.djc.logintest.activities.Lo
     void onDestroy() -> onDestroy
     void onNewIntent(android.content.Intent) -> onNewIntent
     void onResume() -> onResume
-    android.app.ProgressDialog access$0(com.djc.logintest.activities.LocationActivity) -> a
-com.djc.logintest.activities.LocationActivity$1 -> com.djc.logintest.activities.ak:
+    android.app.ProgressDialog access$000(com.djc.logintest.activities.LocationActivity) -> a
+com.djc.logintest.activities.LocationActivity$1 -> com.djc.logintest.activities.al:
     com.djc.logintest.activities.LocationActivity this$0 -> a
     boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String) -> shouldOverrideUrlLoading
     void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap) -> onPageStarted
     void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
     void onReceivedError(android.webkit.WebView,int,java.lang.String,java.lang.String) -> onReceivedError
-com.djc.logintest.activities.LocationActivity$2 -> com.djc.logintest.activities.al:
+com.djc.logintest.activities.LocationActivity$2 -> com.djc.logintest.activities.am:
     com.djc.logintest.activities.LocationActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.LocationActivity$3 -> com.djc.logintest.activities.am:
+com.djc.logintest.activities.LocationActivity$3 -> com.djc.logintest.activities.an:
     com.djc.logintest.activities.LocationActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.djc.logintest.activities.LocationMgrActivity -> com.djc.logintest.activities.LocationMgrActivity:
@@ -4388,39 +4397,38 @@ com.djc.logintest.activities.LocationMgrActivity -> com.djc.logintest.activities
     void startToRecordActivity() -> a
     void onDestroy() -> onDestroy
     void testLocation() -> b
-    android.app.ProgressDialog access$0(com.djc.logintest.activities.LocationMgrActivity) -> a
-    void access$1(com.djc.logintest.activities.LocationMgrActivity,java.util.List) -> a
-    java.util.List access$2(com.djc.logintest.activities.LocationMgrActivity) -> b
-    void access$3$58210ab6(com.djc.logintest.activities.LocationMgrActivity) -> c
-    void access$4(com.djc.logintest.activities.LocationMgrActivity,java.util.List) -> b
-    void access$5(com.djc.logintest.activities.LocationMgrActivity,com.djc.logintest.dbmgr.info.BindedNumInfo) -> a
-    com.djc.logintest.dbmgr.info.BindedNumInfo access$6(com.djc.logintest.activities.LocationMgrActivity) -> d
-com.djc.logintest.activities.LocationMgrActivity$1 -> com.djc.logintest.activities.an:
+    java.util.List access$002(com.djc.logintest.activities.LocationMgrActivity,java.util.List) -> a
+    java.util.List access$000(com.djc.logintest.activities.LocationMgrActivity) -> a
+    void access$100$58210ab6(com.djc.logintest.activities.LocationMgrActivity) -> b
+    void access$200(com.djc.logintest.activities.LocationMgrActivity,java.util.List) -> b
+    com.djc.logintest.dbmgr.info.BindedNumInfo access$300(com.djc.logintest.activities.LocationMgrActivity) -> c
+    com.djc.logintest.dbmgr.info.BindedNumInfo access$302(com.djc.logintest.activities.LocationMgrActivity,com.djc.logintest.dbmgr.info.BindedNumInfo) -> a
+    android.app.ProgressDialog access$500(com.djc.logintest.activities.LocationMgrActivity) -> d
+com.djc.logintest.activities.LocationMgrActivity$1 -> com.djc.logintest.activities.ao:
     com.djc.logintest.activities.LocationMgrActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.LocationMgrActivity$2 -> com.djc.logintest.activities.ao:
+com.djc.logintest.activities.LocationMgrActivity$2 -> com.djc.logintest.activities.ap:
     com.djc.logintest.activities.LocationMgrActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.LocationMgrActivity$3 -> com.djc.logintest.activities.ap:
+com.djc.logintest.activities.LocationMgrActivity$3 -> com.djc.logintest.activities.aq:
     com.djc.logintest.activities.LocationMgrActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.activities.LocationMgrActivity$4 -> com.djc.logintest.activities.aq:
+com.djc.logintest.activities.LocationMgrActivity$4 -> com.djc.logintest.activities.ar:
     com.djc.logintest.activities.LocationMgrActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.activities.LocationMgrActivity$5 -> com.djc.logintest.activities.ar:
+com.djc.logintest.activities.LocationMgrActivity$5 -> com.djc.logintest.activities.as:
     com.djc.logintest.activities.LocationMgrActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.activities.LocationMgrActivity$6 -> com.djc.logintest.activities.as:
+com.djc.logintest.activities.LocationMgrActivity$6 -> com.djc.logintest.activities.at:
     com.djc.logintest.activities.LocationMgrActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.djc.logintest.activities.LocationMgrActivity$7 -> com.djc.logintest.activities.at:
+com.djc.logintest.activities.LocationMgrActivity$7 -> com.djc.logintest.activities.au:
     com.djc.logintest.activities.LocationMgrActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-    com.djc.logintest.activities.LocationMgrActivity access$0(com.djc.logintest.activities.LocationMgrActivity$7) -> a
-com.djc.logintest.activities.LocationMgrActivity$7$1 -> com.djc.logintest.activities.au:
+com.djc.logintest.activities.LocationMgrActivity$7$1 -> com.djc.logintest.activities.av:
     com.djc.logintest.activities.LocationMgrActivity$7 this$1 -> a
     void run() -> run
-com.djc.logintest.activities.LocationMgrActivity$SmsBroadcastReceiver -> com.djc.logintest.activities.av:
+com.djc.logintest.activities.LocationMgrActivity$SmsBroadcastReceiver -> com.djc.logintest.activities.aw:
     com.djc.logintest.activities.LocationMgrActivity this$0 -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
 com.djc.logintest.activities.LocationRecordActivity -> com.djc.logintest.activities.LocationRecordActivity:
@@ -4429,12 +4437,12 @@ com.djc.logintest.activities.LocationRecordActivity -> com.djc.logintest.activit
     void onCreate(android.os.Bundle) -> onCreate
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
-    com.djc.logintest.adapter.LocationInfoListAdapter access$0(com.djc.logintest.activities.LocationRecordActivity) -> a
-    void access$1(com.djc.logintest.activities.LocationRecordActivity,com.djc.logintest.dbmgr.info.LocationInfo) -> a
-com.djc.logintest.activities.LocationRecordActivity$1 -> com.djc.logintest.activities.aw:
+    com.djc.logintest.adapter.LocationInfoListAdapter access$000(com.djc.logintest.activities.LocationRecordActivity) -> a
+    void access$100(com.djc.logintest.activities.LocationRecordActivity,com.djc.logintest.dbmgr.info.LocationInfo) -> a
+com.djc.logintest.activities.LocationRecordActivity$1 -> com.djc.logintest.activities.ax:
     com.djc.logintest.activities.LocationRecordActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.djc.logintest.activities.LocationRecordActivity$2 -> com.djc.logintest.activities.ax:
+com.djc.logintest.activities.LocationRecordActivity$2 -> com.djc.logintest.activities.ay:
     com.djc.logintest.activities.LocationRecordActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.activities.LoginActivity -> com.djc.logintest.activities.LoginActivity:
@@ -4448,16 +4456,18 @@ com.djc.logintest.activities.LoginActivity -> com.djc.logintest.activities.Login
     void handleLoginSuccess() -> b
     void handlePWDIncorrect() -> c
     java.lang.String getPwd() -> d
-    void access$0(com.djc.logintest.activities.LoginActivity) -> a
-    java.lang.String access$1(com.djc.logintest.activities.LoginActivity) -> b
-    void access$2(com.djc.logintest.activities.LoginActivity) -> c
-com.djc.logintest.activities.LoginActivity$1 -> com.djc.logintest.activities.ay:
+    void access$000(com.djc.logintest.activities.LoginActivity) -> a
+    android.app.ProgressDialog access$100(com.djc.logintest.activities.LoginActivity) -> b
+    android.os.Handler access$200(com.djc.logintest.activities.LoginActivity) -> c
+    java.lang.String access$300(com.djc.logintest.activities.LoginActivity) -> d
+    void access$400(com.djc.logintest.activities.LoginActivity) -> e
+com.djc.logintest.activities.LoginActivity$1 -> com.djc.logintest.activities.az:
     com.djc.logintest.activities.LoginActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.djc.logintest.activities.LoginActivity$2 -> com.djc.logintest.activities.az:
+com.djc.logintest.activities.LoginActivity$2 -> com.djc.logintest.activities.ba:
     com.djc.logintest.activities.LoginActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.LoginActivity$3 -> com.djc.logintest.activities.ba:
+com.djc.logintest.activities.LoginActivity$3 -> com.djc.logintest.activities.bb:
     com.djc.logintest.activities.LoginActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.djc.logintest.activities.MainActivity -> com.djc.logintest.activities.MainActivity:
@@ -4469,25 +4479,24 @@ com.djc.logintest.activities.MainActivity -> com.djc.logintest.activities.MainAc
     android.os.AsyncTask uodateTask -> f
     void onCreate(android.os.Bundle) -> onCreate
     void setTabWidgetParams() -> b
-    void access$0(com.djc.logintest.activities.MainActivity) -> a
-    android.widget.TabHost access$1(com.djc.logintest.activities.MainActivity) -> b
-    java.lang.String[] access$2() -> a
-com.djc.logintest.activities.MainActivity$1 -> com.djc.logintest.activities.bb:
+    void access$000(com.djc.logintest.activities.MainActivity) -> a
+    android.widget.TabHost access$100(com.djc.logintest.activities.MainActivity) -> b
+    java.lang.String[] access$200() -> a
+com.djc.logintest.activities.MainActivity$1 -> com.djc.logintest.activities.bc:
     com.djc.logintest.activities.MainActivity this$0 -> a
     void run() -> run
-com.djc.logintest.activities.MainActivity$2 -> com.djc.logintest.activities.bc:
+com.djc.logintest.activities.MainActivity$2 -> com.djc.logintest.activities.bd:
     com.djc.logintest.activities.MainActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-    com.djc.logintest.activities.MainActivity access$0(com.djc.logintest.activities.MainActivity$2) -> a
-com.djc.logintest.activities.MainActivity$2$1 -> com.djc.logintest.activities.bd:
+com.djc.logintest.activities.MainActivity$2$1 -> com.djc.logintest.activities.be:
     com.djc.logintest.activities.MainActivity$2 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.activities.MainActivity$3 -> com.djc.logintest.activities.be:
+com.djc.logintest.activities.MainActivity$3 -> com.djc.logintest.activities.bf:
     com.djc.logintest.activities.MainActivity this$0 -> a
     void onTabChanged(java.lang.String) -> onTabChanged
 com.djc.logintest.activities.MyActivity -> com.djc.logintest.activities.MyActivity:
     void onBackPressed() -> onBackPressed
-com.djc.logintest.activities.MyActivity$1 -> com.djc.logintest.activities.bf:
+com.djc.logintest.activities.MyActivity$1 -> com.djc.logintest.activities.bg:
     com.djc.logintest.activities.MyActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.activities.MyApplication -> com.djc.logintest.activities.MyApplication:
@@ -4495,11 +4504,13 @@ com.djc.logintest.activities.MyApplication -> com.djc.logintest.activities.MyApp
     java.util.concurrent.BlockingQueue blockingQueue -> b
     java.util.List observers -> c
     java.util.List tmpList -> d
-    com.djc.logintest.activities.MyApplication getInstance() -> a
+    boolean forAutoTest -> e
+    boolean isForAutoTest() -> a
+    com.djc.logintest.activities.MyApplication getInstance() -> b
     void addObserver(com.djc.logintest.receiver.NotificationObserver) -> a
-    void updateNotify$255f295() -> b
+    void updateNotify$255f295() -> c
     void onCreate() -> onCreate
-    java.util.List getTmpList() -> c
+    java.util.List getTmpList() -> d
     void setTmpList(java.util.List) -> a
 com.djc.logintest.activities.NoticeActivity -> com.djc.logintest.activities.NoticeActivity:
     android.widget.TextView contentView -> a
@@ -4514,8 +4525,8 @@ com.djc.logintest.activities.NoticeActivity -> com.djc.logintest.activities.Noti
     void setData(android.content.Intent) -> a
     void setIcon() -> a
     void onNewIntent(android.content.Intent) -> onNewIntent
-    void access$0(com.djc.logintest.activities.NoticeActivity) -> a
-com.djc.logintest.activities.NoticeActivity$1 -> com.djc.logintest.activities.bg:
+    void access$000(com.djc.logintest.activities.NoticeActivity) -> a
+com.djc.logintest.activities.NoticeActivity$1 -> com.djc.logintest.activities.bh:
     com.djc.logintest.activities.NoticeActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.djc.logintest.activities.NoticePullRefreshActivity -> com.djc.logintest.activities.NoticePullRefreshActivity:
@@ -4531,31 +4542,32 @@ com.djc.logintest.activities.NoticePullRefreshActivity -> com.djc.logintest.acti
     void loadNewData() -> a
     boolean runGetNoticeTask(long,long,int) -> a
     void onDestroy() -> onDestroy
+    void onResume() -> onResume
     void handleSuccess(android.os.Message) -> a
     void refreshHead() -> b
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     void onNewIntent(android.content.Intent) -> onNewIntent
-    com.djc.logintest.customview.MsgListView access$0(com.djc.logintest.activities.NoticePullRefreshActivity) -> a
-    android.view.View access$1(com.djc.logintest.activities.NoticePullRefreshActivity) -> b
-    void access$2(com.djc.logintest.activities.NoticePullRefreshActivity) -> c
-    com.djc.logintest.adapter.NewsListAdapter access$3(com.djc.logintest.activities.NoticePullRefreshActivity) -> d
-    void access$4(com.djc.logintest.activities.NoticePullRefreshActivity,com.djc.logintest.dbmgr.info.News) -> a
-    void access$5(com.djc.logintest.activities.NoticePullRefreshActivity,android.widget.AbsListView) -> a
-com.djc.logintest.activities.NoticePullRefreshActivity$1 -> com.djc.logintest.activities.bh:
+    com.djc.logintest.customview.MsgListView access$000(com.djc.logintest.activities.NoticePullRefreshActivity) -> a
+    android.view.View access$100(com.djc.logintest.activities.NoticePullRefreshActivity) -> b
+    void access$200(com.djc.logintest.activities.NoticePullRefreshActivity) -> c
+    com.djc.logintest.adapter.NewsListAdapter access$300(com.djc.logintest.activities.NoticePullRefreshActivity) -> d
+    void access$400(com.djc.logintest.activities.NoticePullRefreshActivity,com.djc.logintest.dbmgr.info.News) -> a
+    void access$500(com.djc.logintest.activities.NoticePullRefreshActivity,android.widget.AbsListView) -> a
+com.djc.logintest.activities.NoticePullRefreshActivity$1 -> com.djc.logintest.activities.bi:
     com.djc.logintest.activities.NoticePullRefreshActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.djc.logintest.activities.NoticePullRefreshActivity$2 -> com.djc.logintest.activities.bi:
+com.djc.logintest.activities.NoticePullRefreshActivity$2 -> com.djc.logintest.activities.bj:
     com.djc.logintest.activities.NoticePullRefreshActivity this$0 -> a
     void onRefresh() -> a
-com.djc.logintest.activities.NoticePullRefreshActivity$3 -> com.djc.logintest.activities.bj:
+com.djc.logintest.activities.NoticePullRefreshActivity$3 -> com.djc.logintest.activities.bk:
     com.djc.logintest.activities.NoticePullRefreshActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.djc.logintest.activities.NoticePullRefreshActivity$4 -> com.djc.logintest.activities.bk:
+com.djc.logintest.activities.NoticePullRefreshActivity$4 -> com.djc.logintest.activities.bl:
     com.djc.logintest.activities.NoticePullRefreshActivity this$0 -> a
     void onScrollStateChanged(android.widget.AbsListView,int) -> onScrollStateChanged
     void onScroll(android.widget.AbsListView,int,int,int) -> onScroll
-com.djc.logintest.activities.NoticePullRefreshActivity$5 -> com.djc.logintest.activities.bl:
+com.djc.logintest.activities.NoticePullRefreshActivity$5 -> com.djc.logintest.activities.bm:
     com.djc.logintest.activities.NoticePullRefreshActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.activities.ResetPWDActivity -> com.djc.logintest.activities.ResetPWDActivity:
@@ -4572,25 +4584,25 @@ com.djc.logintest.activities.ResetPWDActivity -> com.djc.logintest.activities.Re
     void clearInputView() -> b
     java.lang.String getPwd() -> c
     java.lang.String getAuthCode() -> d
-    void access$0(com.djc.logintest.activities.ResetPWDActivity) -> a
-    void access$1(com.djc.logintest.activities.ResetPWDActivity) -> b
-    void access$2(com.djc.logintest.activities.ResetPWDActivity) -> c
-    void access$3(com.djc.logintest.activities.ResetPWDActivity,int) -> a
-    void access$4(com.djc.logintest.activities.ResetPWDActivity) -> d
-    void access$5(com.djc.logintest.activities.ResetPWDActivity) -> e
-    void access$6(com.djc.logintest.activities.ResetPWDActivity) -> f
-    boolean access$7(com.djc.logintest.activities.ResetPWDActivity) -> g
-    void access$8(com.djc.logintest.activities.ResetPWDActivity) -> h
-com.djc.logintest.activities.ResetPWDActivity$1 -> com.djc.logintest.activities.bm:
+    void access$000(com.djc.logintest.activities.ResetPWDActivity) -> a
+    void access$100(com.djc.logintest.activities.ResetPWDActivity) -> b
+    void access$200(com.djc.logintest.activities.ResetPWDActivity) -> c
+    void access$300(com.djc.logintest.activities.ResetPWDActivity,int) -> a
+    void access$400(com.djc.logintest.activities.ResetPWDActivity) -> d
+    void access$500(com.djc.logintest.activities.ResetPWDActivity) -> e
+    void access$600(com.djc.logintest.activities.ResetPWDActivity) -> f
+    boolean access$700(com.djc.logintest.activities.ResetPWDActivity) -> g
+    void access$800(com.djc.logintest.activities.ResetPWDActivity) -> h
+com.djc.logintest.activities.ResetPWDActivity$1 -> com.djc.logintest.activities.bn:
     com.djc.logintest.activities.ResetPWDActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.djc.logintest.activities.ResetPWDActivity$2 -> com.djc.logintest.activities.bn:
+com.djc.logintest.activities.ResetPWDActivity$2 -> com.djc.logintest.activities.bo:
     com.djc.logintest.activities.ResetPWDActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.ResetPWDActivity$3 -> com.djc.logintest.activities.bo:
+com.djc.logintest.activities.ResetPWDActivity$3 -> com.djc.logintest.activities.bp:
     com.djc.logintest.activities.ResetPWDActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.ResetPWDActivity$4 -> com.djc.logintest.activities.bp:
+com.djc.logintest.activities.ResetPWDActivity$4 -> com.djc.logintest.activities.bq:
     com.djc.logintest.activities.ResetPWDActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.activities.ScheduleActivity -> com.djc.logintest.activities.ScheduleActivity:
@@ -4601,8 +4613,8 @@ com.djc.logintest.activities.ScheduleActivity -> com.djc.logintest.activities.Sc
     void onCreate(android.os.Bundle) -> onCreate
     void initData() -> a
     void onNewIntent(android.content.Intent) -> onNewIntent
-    void access$0(com.djc.logintest.activities.ScheduleActivity) -> a
-com.djc.logintest.activities.ScheduleActivity$1 -> com.djc.logintest.activities.bq:
+    void access$000(com.djc.logintest.activities.ScheduleActivity) -> a
+com.djc.logintest.activities.ScheduleActivity$1 -> com.djc.logintest.activities.br:
     com.djc.logintest.activities.ScheduleActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.djc.logintest.activities.SchoolInfoActivity -> com.djc.logintest.activities.SchoolInfoActivity:
@@ -4616,27 +4628,24 @@ com.djc.logintest.activities.SchoolInfoActivity -> com.djc.logintest.activities.
     void onCreate(android.os.Bundle) -> onCreate
     void handleDownloadSchoolLogoSuccess(java.lang.String) -> a
     boolean showSchoolInfo() -> a
-    boolean access$0(com.djc.logintest.activities.SchoolInfoActivity) -> a
-    com.djc.logintest.dbmgr.info.SchoolInfo access$1(com.djc.logintest.activities.SchoolInfoActivity) -> b
-    void access$2(com.djc.logintest.activities.SchoolInfoActivity,java.lang.String) -> a
-com.djc.logintest.activities.SchoolInfoActivity$1 -> com.djc.logintest.activities.br:
+    boolean access$000(com.djc.logintest.activities.SchoolInfoActivity) -> a
+    com.djc.logintest.dbmgr.info.SchoolInfo access$100(com.djc.logintest.activities.SchoolInfoActivity) -> b
+    void access$200(com.djc.logintest.activities.SchoolInfoActivity,java.lang.String) -> a
+com.djc.logintest.activities.SchoolInfoActivity$1 -> com.djc.logintest.activities.bs:
     com.djc.logintest.activities.SchoolInfoActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.djc.logintest.activities.SchoolInfoActivity$2 -> com.djc.logintest.activities.bs:
+com.djc.logintest.activities.SchoolInfoActivity$2 -> com.djc.logintest.activities.bt:
     com.djc.logintest.activities.SchoolInfoActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.djc.logintest.activities.SchoolNoticeActivity -> com.djc.logintest.activities.SchoolNoticeActivity:
     android.widget.GridView gridview -> a
-    java.lang.String PHOTO -> b
-    java.lang.String BIRTHDAY -> c
-    java.lang.String NICK -> d
-    android.widget.ImageView babyHeadIcon -> e
-    com.djc.logintest.dbmgr.info.ChildInfo selectedChild -> f
-    android.os.AsyncTask downloadIconTask -> g
-    android.os.Handler handler -> h
-    android.app.ProgressDialog progressDialog -> i
-    com.djc.logintest.adapter.MyGridViewAdapter adapter -> j
-    com.djc.logintest.receiver.NotificationObserver notificationObserver -> k
+    android.widget.ImageView babyHeadIcon -> b
+    com.djc.logintest.dbmgr.info.ChildInfo selectedChild -> c
+    android.os.AsyncTask downloadIconTask -> d
+    android.os.Handler handler -> e
+    android.app.ProgressDialog progressDialog -> f
+    com.djc.logintest.adapter.MyGridViewAdapter adapter -> g
+    com.djc.logintest.receiver.NotificationObserver notificationObserver -> h
     void onCreate(android.os.Bundle) -> onCreate
     void handleDownloadImgSuccess(java.lang.String) -> a
     void setTabTitle() -> a
@@ -4656,97 +4665,88 @@ com.djc.logintest.activities.SchoolNoticeActivity -> com.djc.logintest.activitie
     void handleGridViewClick(int) -> a
     void startToActivity(com.djc.logintest.activities.SchoolNoticeActivity$ActivityLauncher) -> a
     void onDestroy() -> onDestroy
-    com.djc.logintest.adapter.MyGridViewAdapter access$0(com.djc.logintest.activities.SchoolNoticeActivity) -> a
-    void access$1(com.djc.logintest.activities.SchoolNoticeActivity) -> b
-    void access$2(com.djc.logintest.activities.SchoolNoticeActivity) -> c
-    android.app.ProgressDialog access$3(com.djc.logintest.activities.SchoolNoticeActivity) -> d
-    com.djc.logintest.dbmgr.info.ChildInfo access$4(com.djc.logintest.activities.SchoolNoticeActivity) -> e
-    void access$5(com.djc.logintest.activities.SchoolNoticeActivity,int) -> a
-    void access$6(com.djc.logintest.activities.SchoolNoticeActivity) -> f
-    void access$7(com.djc.logintest.activities.SchoolNoticeActivity) -> g
-    void access$8(com.djc.logintest.activities.SchoolNoticeActivity) -> h
-    void access$9(com.djc.logintest.activities.SchoolNoticeActivity) -> i
-    void access$10(com.djc.logintest.activities.SchoolNoticeActivity) -> j
-    void access$11$5e3c9820(com.djc.logintest.activities.SchoolNoticeActivity) -> k
-    void access$12(com.djc.logintest.activities.SchoolNoticeActivity) -> l
-    void access$13(com.djc.logintest.activities.SchoolNoticeActivity) -> m
-    void access$14(com.djc.logintest.activities.SchoolNoticeActivity) -> n
-    void access$15(com.djc.logintest.activities.SchoolNoticeActivity) -> o
-com.djc.logintest.activities.SchoolNoticeActivity$1 -> com.djc.logintest.activities.bt:
+    com.djc.logintest.adapter.MyGridViewAdapter access$000(com.djc.logintest.activities.SchoolNoticeActivity) -> a
+    void access$100(com.djc.logintest.activities.SchoolNoticeActivity) -> b
+    void access$200(com.djc.logintest.activities.SchoolNoticeActivity) -> c
+    android.app.ProgressDialog access$300(com.djc.logintest.activities.SchoolNoticeActivity) -> d
+    com.djc.logintest.dbmgr.info.ChildInfo access$400(com.djc.logintest.activities.SchoolNoticeActivity) -> e
+    void access$500(com.djc.logintest.activities.SchoolNoticeActivity,int) -> a
+    void access$600(com.djc.logintest.activities.SchoolNoticeActivity) -> f
+    void access$700(com.djc.logintest.activities.SchoolNoticeActivity) -> g
+    void access$800(com.djc.logintest.activities.SchoolNoticeActivity) -> h
+    void access$1000(com.djc.logintest.activities.SchoolNoticeActivity) -> i
+    void access$1100(com.djc.logintest.activities.SchoolNoticeActivity) -> j
+    void access$1200$5e3c9820(com.djc.logintest.activities.SchoolNoticeActivity) -> k
+    void access$1300(com.djc.logintest.activities.SchoolNoticeActivity) -> l
+    void access$1400(com.djc.logintest.activities.SchoolNoticeActivity) -> m
+    void access$1500(com.djc.logintest.activities.SchoolNoticeActivity) -> n
+    void access$1600(com.djc.logintest.activities.SchoolNoticeActivity) -> o
+com.djc.logintest.activities.SchoolNoticeActivity$1 -> com.djc.logintest.activities.bu:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void update$255f295() -> a
-com.djc.logintest.activities.SchoolNoticeActivity$10 -> com.djc.logintest.activities.bu:
+com.djc.logintest.activities.SchoolNoticeActivity$10 -> com.djc.logintest.activities.bv:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.SchoolNoticeActivity$11 -> com.djc.logintest.activities.bv:
+com.djc.logintest.activities.SchoolNoticeActivity$11 -> com.djc.logintest.activities.bw:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.djc.logintest.activities.SchoolNoticeActivity$12 -> com.djc.logintest.activities.bw:
+com.djc.logintest.activities.SchoolNoticeActivity$12 -> com.djc.logintest.activities.bx:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.djc.logintest.activities.SchoolNoticeActivity$13 -> com.djc.logintest.activities.bx:
+com.djc.logintest.activities.SchoolNoticeActivity$13 -> com.djc.logintest.activities.by:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.djc.logintest.activities.SchoolNoticeActivity$14 -> com.djc.logintest.activities.by:
+com.djc.logintest.activities.SchoolNoticeActivity$14 -> com.djc.logintest.activities.bz:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.djc.logintest.activities.SchoolNoticeActivity$15 -> com.djc.logintest.activities.bz:
+com.djc.logintest.activities.SchoolNoticeActivity$15 -> com.djc.logintest.activities.ca:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.djc.logintest.activities.SchoolNoticeActivity$16 -> com.djc.logintest.activities.ca:
+com.djc.logintest.activities.SchoolNoticeActivity$16 -> com.djc.logintest.activities.cb:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.djc.logintest.activities.SchoolNoticeActivity$17 -> com.djc.logintest.activities.cb:
+com.djc.logintest.activities.SchoolNoticeActivity$17 -> com.djc.logintest.activities.cc:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.djc.logintest.activities.SchoolNoticeActivity$2 -> com.djc.logintest.activities.cc:
+com.djc.logintest.activities.SchoolNoticeActivity$2 -> com.djc.logintest.activities.cd:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.djc.logintest.activities.SchoolNoticeActivity$3 -> com.djc.logintest.activities.cd:
+com.djc.logintest.activities.SchoolNoticeActivity$3 -> com.djc.logintest.activities.ce:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.djc.logintest.activities.SchoolNoticeActivity$4 -> com.djc.logintest.activities.ce:
+com.djc.logintest.activities.SchoolNoticeActivity$4 -> com.djc.logintest.activities.cf:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void handleResult(int,java.lang.Object) -> a
-com.djc.logintest.activities.SchoolNoticeActivity$5 -> com.djc.logintest.activities.cf:
+com.djc.logintest.activities.SchoolNoticeActivity$5 -> com.djc.logintest.activities.cg:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-    com.djc.logintest.activities.SchoolNoticeActivity access$0(com.djc.logintest.activities.SchoolNoticeActivity$5) -> a
-com.djc.logintest.activities.SchoolNoticeActivity$5$1 -> com.djc.logintest.activities.cg:
+com.djc.logintest.activities.SchoolNoticeActivity$5$1 -> com.djc.logintest.activities.ch:
     com.djc.logintest.activities.SchoolNoticeActivity$5 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.activities.SchoolNoticeActivity$6 -> com.djc.logintest.activities.ch:
-    com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
-    long val$born -> b
+com.djc.logintest.activities.SchoolNoticeActivity$6 -> com.djc.logintest.activities.ci:
+    long val$born -> a
+    com.djc.logintest.activities.SchoolNoticeActivity this$0 -> b
     void handleResult(int,java.lang.Object) -> a
-com.djc.logintest.activities.SchoolNoticeActivity$7 -> com.djc.logintest.activities.ci:
+com.djc.logintest.activities.SchoolNoticeActivity$7 -> com.djc.logintest.activities.cj:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     void onDateSet(android.widget.DatePicker,int,int,int) -> onDateSet
-com.djc.logintest.activities.SchoolNoticeActivity$8 -> com.djc.logintest.activities.cj:
-    com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
-    android.widget.EditText val$nicknameEdit -> b
+com.djc.logintest.activities.SchoolNoticeActivity$8 -> com.djc.logintest.activities.ck:
+    android.widget.EditText val$nicknameEdit -> a
+    com.djc.logintest.activities.SchoolNoticeActivity this$0 -> b
     void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.activities.SchoolNoticeActivity$9 -> com.djc.logintest.activities.ck:
-    com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
-    java.lang.String val$nick -> b
+com.djc.logintest.activities.SchoolNoticeActivity$9 -> com.djc.logintest.activities.cl:
+    java.lang.String val$nick -> a
+    com.djc.logintest.activities.SchoolNoticeActivity this$0 -> b
     void handleResult(int,java.lang.Object) -> a
-com.djc.logintest.activities.SchoolNoticeActivity$ActivityLauncher -> com.djc.logintest.activities.cl:
+com.djc.logintest.activities.SchoolNoticeActivity$ActivityLauncher -> com.djc.logintest.activities.cm:
     void startActivity() -> a
-com.djc.logintest.activities.SchoolNoticeActivity$ActivityLauncherProxy -> com.djc.logintest.activities.cm:
+com.djc.logintest.activities.SchoolNoticeActivity$ActivityLauncherProxy -> com.djc.logintest.activities.cn:
     java.lang.Object target -> b
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
     java.lang.Object bind(java.lang.Object) -> a
     java.lang.Object invoke(java.lang.Object,java.lang.reflect.Method,java.lang.Object[]) -> invoke
-com.djc.logintest.activities.SchoolNoticeActivity$ItemClickListener -> com.djc.logintest.activities.cn:
+com.djc.logintest.activities.SchoolNoticeActivity$ItemClickListener -> com.djc.logintest.activities.co:
     com.djc.logintest.activities.SchoolNoticeActivity this$0 -> a
-    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.djc.logintest.activities.SelectChildActivity -> com.djc.logintest.activities.SelectChildActivity:
-    android.widget.ListView list -> a
-    com.djc.logintest.adapter.ChildListAdapter adapter -> b
-    void onCreate(android.os.Bundle) -> onCreate
-    com.djc.logintest.adapter.ChildListAdapter access$0(com.djc.logintest.activities.SelectChildActivity) -> a
-com.djc.logintest.activities.SelectChildActivity$1 -> com.djc.logintest.activities.co:
-    com.djc.logintest.activities.SelectChildActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 com.djc.logintest.activities.SendChatActivity -> com.djc.logintest.activities.SendChatActivity:
     android.widget.EditText chatContent -> a
@@ -4754,9 +4754,9 @@ com.djc.logintest.activities.SendChatActivity -> com.djc.logintest.activities.Se
     android.app.ProgressDialog dialog -> c
     void onCreate(android.os.Bundle) -> onCreate
     java.lang.String formatChatContent() -> a
-    boolean access$0(com.djc.logintest.activities.SendChatActivity) -> a
-    void access$1(com.djc.logintest.activities.SendChatActivity) -> b
-    void access$2(com.djc.logintest.activities.SendChatActivity,android.os.Message) -> a
+    boolean access$000(com.djc.logintest.activities.SendChatActivity) -> a
+    void access$100(com.djc.logintest.activities.SendChatActivity) -> b
+    void access$200(com.djc.logintest.activities.SendChatActivity,android.os.Message) -> a
 com.djc.logintest.activities.SendChatActivity$1 -> com.djc.logintest.activities.cp:
     com.djc.logintest.activities.SendChatActivity this$0 -> a
     void onClick(android.view.View) -> onClick
@@ -4773,15 +4773,14 @@ com.djc.logintest.activities.SettingActivity -> com.djc.logintest.activities.Set
     void startToAboutUsActivity() -> a
     void startToFeedBackActivity() -> b
     void runCheckUpdateTask() -> c
-    void access$0(com.djc.logintest.activities.SettingActivity) -> a
-    void access$1(com.djc.logintest.activities.SettingActivity) -> b
-    void access$2(com.djc.logintest.activities.SettingActivity) -> c
-    void access$3(com.djc.logintest.activities.SettingActivity) -> d
-    void access$4(com.djc.logintest.activities.SettingActivity) -> e
+    void access$000(com.djc.logintest.activities.SettingActivity) -> a
+    void access$100(com.djc.logintest.activities.SettingActivity) -> b
+    void access$200(com.djc.logintest.activities.SettingActivity) -> c
+    void access$300(com.djc.logintest.activities.SettingActivity) -> d
+    void access$400(com.djc.logintest.activities.SettingActivity) -> e
 com.djc.logintest.activities.SettingActivity$1 -> com.djc.logintest.activities.cs:
     com.djc.logintest.activities.SettingActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-    com.djc.logintest.activities.SettingActivity access$0(com.djc.logintest.activities.SettingActivity$1) -> a
 com.djc.logintest.activities.SettingActivity$1$1 -> com.djc.logintest.activities.ct:
     com.djc.logintest.activities.SettingActivity$1 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
@@ -4859,21 +4858,24 @@ com.djc.logintest.activities.SwipeCalendarActivity -> com.djc.logintest.activiti
     com.djc.logintest.mycalendar.DateWidgetDayCell updateCalendar() -> d
     java.lang.String getFormattedResult(java.lang.String) -> a
     java.util.Calendar GetEndDate(java.util.Calendar) -> a
-    void access$0(com.djc.logintest.activities.SwipeCalendarActivity,java.lang.String) -> a
-    java.util.Calendar access$1(com.djc.logintest.activities.SwipeCalendarActivity) -> a
-    int access$2(com.djc.logintest.activities.SwipeCalendarActivity) -> b
-    void access$3(com.djc.logintest.activities.SwipeCalendarActivity,int) -> a
-    int access$4(com.djc.logintest.activities.SwipeCalendarActivity) -> c
-    void access$5(com.djc.logintest.activities.SwipeCalendarActivity,int) -> b
-    void access$6(com.djc.logintest.activities.SwipeCalendarActivity) -> d
-    void access$7(com.djc.logintest.activities.SwipeCalendarActivity) -> e
-    com.djc.logintest.mycalendar.DateWidgetDayCell access$8(com.djc.logintest.activities.SwipeCalendarActivity) -> f
+    com.djc.logintest.mycalendar.DateWidgetDayCell access$000(com.djc.logintest.activities.SwipeCalendarActivity) -> a
+    java.util.Calendar access$100(com.djc.logintest.activities.SwipeCalendarActivity) -> b
+    int access$210(com.djc.logintest.activities.SwipeCalendarActivity) -> c
+    int access$200(com.djc.logintest.activities.SwipeCalendarActivity) -> d
+    int access$202(com.djc.logintest.activities.SwipeCalendarActivity,int) -> a
+    int access$310(com.djc.logintest.activities.SwipeCalendarActivity) -> e
+    int access$300(com.djc.logintest.activities.SwipeCalendarActivity) -> f
+    void access$400(com.djc.logintest.activities.SwipeCalendarActivity) -> g
+    void access$500(com.djc.logintest.activities.SwipeCalendarActivity) -> h
+    int access$208(com.djc.logintest.activities.SwipeCalendarActivity) -> i
+    int access$308(com.djc.logintest.activities.SwipeCalendarActivity) -> j
+    void access$600(com.djc.logintest.activities.SwipeCalendarActivity,java.lang.String) -> a
 com.djc.logintest.activities.SwipeCalendarActivity$1 -> com.djc.logintest.activities.dc:
     com.djc.logintest.activities.SwipeCalendarActivity this$0 -> a
-    void OnClick(com.djc.logintest.mycalendar.DateWidgetDayCell) -> a
+    void handleMessage(android.os.Message) -> handleMessage
 com.djc.logintest.activities.SwipeCalendarActivity$2 -> com.djc.logintest.activities.dd:
     com.djc.logintest.activities.SwipeCalendarActivity this$0 -> a
-    void handleMessage(android.os.Message) -> handleMessage
+    void OnClick(com.djc.logintest.mycalendar.DateWidgetDayCell) -> a
 com.djc.logintest.activities.SwipeCalendarActivity$Next_MonthOnClickListener -> com.djc.logintest.activities.de:
     com.djc.logintest.activities.SwipeCalendarActivity this$0 -> a
     void onClick(android.view.View) -> onClick
@@ -4902,8 +4904,8 @@ com.djc.logintest.activities.SwipeListActivity -> com.djc.logintest.activities.S
     void onCreate(android.os.Bundle) -> onCreate
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
-    com.djc.logintest.adapter.SwipeListAdapter access$0(com.djc.logintest.activities.SwipeListActivity) -> a
-    void access$1(com.djc.logintest.activities.SwipeListActivity,com.djc.logintest.dbmgr.info.SwipeInfo) -> a
+    com.djc.logintest.adapter.SwipeListAdapter access$000(com.djc.logintest.activities.SwipeListActivity) -> a
+    void access$100(com.djc.logintest.activities.SwipeListActivity,com.djc.logintest.dbmgr.info.SwipeInfo) -> a
 com.djc.logintest.activities.SwipeListActivity$1 -> com.djc.logintest.activities.dh:
     com.djc.logintest.activities.SwipeListActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
@@ -4917,7 +4919,7 @@ com.djc.logintest.activities.TabChildActivity$1 -> com.djc.logintest.activities.
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.activities.TransitActivity -> com.djc.logintest.activities.TransitActivity:
     void onCreate(android.os.Bundle) -> onCreate
-    void access$0$47dd32d0() -> a
+    void access$000$47dd32d0() -> a
 com.djc.logintest.activities.TransitActivity$1 -> com.djc.logintest.activities.dk:
     com.djc.logintest.activities.TransitActivity this$0 -> a
     void onClick(android.view.View) -> onClick
@@ -4927,7 +4929,7 @@ com.djc.logintest.activities.UmengStatisticsActivity -> com.djc.logintest.activi
 com.djc.logintest.activities.UpdateActivity -> com.djc.logintest.activities.UpdateActivity:
     java.lang.String url -> a
     void onCreate(android.os.Bundle) -> onCreate
-    java.lang.String access$0(com.djc.logintest.activities.UpdateActivity) -> a
+    java.lang.String access$000(com.djc.logintest.activities.UpdateActivity) -> a
 com.djc.logintest.activities.UpdateActivity$1 -> com.djc.logintest.activities.dl:
     com.djc.logintest.activities.UpdateActivity this$0 -> a
     void onClick(android.view.View) -> onClick
@@ -4946,14 +4948,14 @@ com.djc.logintest.activities.ValidateAuthCodeActivity -> com.djc.logintest.activ
     java.lang.String getAuthcode() -> b
     void handleAuthCodeSuccess() -> a
     void enableGetAuthBtn() -> c
-    void access$0(com.djc.logintest.activities.ValidateAuthCodeActivity) -> a
-    void access$1(com.djc.logintest.activities.ValidateAuthCodeActivity) -> b
-    java.lang.String access$2(com.djc.logintest.activities.ValidateAuthCodeActivity) -> c
-    void access$3(com.djc.logintest.activities.ValidateAuthCodeActivity) -> d
-    void access$4(com.djc.logintest.activities.ValidateAuthCodeActivity) -> e
-    void access$5(com.djc.logintest.activities.ValidateAuthCodeActivity) -> f
-    void access$6(com.djc.logintest.activities.ValidateAuthCodeActivity,int) -> a
-    void access$7(com.djc.logintest.activities.ValidateAuthCodeActivity) -> g
+    void access$000(com.djc.logintest.activities.ValidateAuthCodeActivity) -> a
+    void access$100(com.djc.logintest.activities.ValidateAuthCodeActivity) -> b
+    java.lang.String access$200(com.djc.logintest.activities.ValidateAuthCodeActivity) -> c
+    void access$300(com.djc.logintest.activities.ValidateAuthCodeActivity) -> d
+    void access$400(com.djc.logintest.activities.ValidateAuthCodeActivity) -> e
+    void access$500(com.djc.logintest.activities.ValidateAuthCodeActivity) -> f
+    void access$600(com.djc.logintest.activities.ValidateAuthCodeActivity,int) -> a
+    void access$700(com.djc.logintest.activities.ValidateAuthCodeActivity) -> g
 com.djc.logintest.activities.ValidateAuthCodeActivity$1 -> com.djc.logintest.activities.dn:
     com.djc.logintest.activities.ValidateAuthCodeActivity this$0 -> a
     void onClick(android.view.View) -> onClick
@@ -4972,10 +4974,10 @@ com.djc.logintest.activities.ValidatePhoneNumActivity -> com.djc.logintest.activ
     void startAuthCodeActivity() -> b
     android.content.Intent createIntent() -> c
     java.lang.String getPhoneNum() -> a
-    void access$0(com.djc.logintest.activities.ValidatePhoneNumActivity) -> a
-    void access$1(com.djc.logintest.activities.ValidatePhoneNumActivity) -> b
-    android.app.ProgressDialog access$2(com.djc.logintest.activities.ValidatePhoneNumActivity) -> c
-    void access$3(com.djc.logintest.activities.ValidatePhoneNumActivity) -> d
+    void access$000(com.djc.logintest.activities.ValidatePhoneNumActivity) -> a
+    void access$100(com.djc.logintest.activities.ValidatePhoneNumActivity) -> b
+    android.app.ProgressDialog access$200(com.djc.logintest.activities.ValidatePhoneNumActivity) -> c
+    void access$300(com.djc.logintest.activities.ValidatePhoneNumActivity) -> d
 com.djc.logintest.activities.ValidatePhoneNumActivity$1 -> com.djc.logintest.activities.dq:
     com.djc.logintest.activities.ValidatePhoneNumActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
@@ -4992,35 +4994,32 @@ com.djc.logintest.adapter.BindedNumInfoListAdapter -> com.djc.logintest.adapter.
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.BindedNumInfoListAdapter$FlagHolder) -> a
     java.lang.Object getItem(int) -> getItem
-    void access$1(com.djc.logintest.adapter.BindedNumInfoListAdapter,int) -> a
-    android.content.Context access$2(com.djc.logintest.adapter.BindedNumInfoListAdapter) -> a
-    java.util.List access$3(com.djc.logintest.adapter.BindedNumInfoListAdapter) -> b
-    void access$4(com.djc.logintest.adapter.BindedNumInfoListAdapter,android.widget.EditText,android.widget.EditText,int,int) -> a
-    android.app.AlertDialog access$5(com.djc.logintest.adapter.BindedNumInfoListAdapter) -> c
+    void access$100(com.djc.logintest.adapter.BindedNumInfoListAdapter,int) -> a
+    android.content.Context access$200(com.djc.logintest.adapter.BindedNumInfoListAdapter) -> a
+    java.util.List access$300(com.djc.logintest.adapter.BindedNumInfoListAdapter) -> b
+    android.app.AlertDialog access$400(com.djc.logintest.adapter.BindedNumInfoListAdapter) -> c
+    void access$500(com.djc.logintest.adapter.BindedNumInfoListAdapter,android.widget.EditText,android.widget.EditText,int,int) -> a
 com.djc.logintest.adapter.BindedNumInfoListAdapter$1 -> com.djc.logintest.adapter.b:
-    com.djc.logintest.adapter.BindedNumInfoListAdapter this$0 -> a
-    int val$position -> b
+    int val$position -> a
+    com.djc.logintest.adapter.BindedNumInfoListAdapter this$0 -> b
     void onClick(android.view.View) -> onClick
 com.djc.logintest.adapter.BindedNumInfoListAdapter$2 -> com.djc.logintest.adapter.c:
-    com.djc.logintest.adapter.BindedNumInfoListAdapter this$0 -> a
-    int val$position -> b
-    com.djc.logintest.dbmgr.info.BindedNumInfo val$info -> c
+    int val$position -> a
+    com.djc.logintest.dbmgr.info.BindedNumInfo val$info -> b
+    com.djc.logintest.adapter.BindedNumInfoListAdapter this$0 -> c
     void onClick(android.view.View) -> onClick
-    com.djc.logintest.adapter.BindedNumInfoListAdapter access$0(com.djc.logintest.adapter.BindedNumInfoListAdapter$2) -> a
 com.djc.logintest.adapter.BindedNumInfoListAdapter$2$1 -> com.djc.logintest.adapter.d:
     com.djc.logintest.adapter.BindedNumInfoListAdapter$2 this$1 -> a
-    com.djc.logintest.dbmgr.info.BindedNumInfo val$info -> b
-    int val$position -> c
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.adapter.BindedNumInfoListAdapter$3 -> com.djc.logintest.adapter.e:
     com.djc.logintest.adapter.BindedNumInfoListAdapter this$0 -> a
-    android.widget.EditText val$nicknameEdit -> b
-    android.widget.EditText val$numEdit -> c
-    com.djc.logintest.dbmgr.info.BindedNumInfo val$info -> d
-    int val$pos -> e
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.adapter.BindedNumInfoListAdapter$4 -> com.djc.logintest.adapter.f:
-    com.djc.logintest.adapter.BindedNumInfoListAdapter this$0 -> a
+    android.widget.EditText val$nicknameEdit -> a
+    android.widget.EditText val$numEdit -> b
+    com.djc.logintest.dbmgr.info.BindedNumInfo val$info -> c
+    int val$pos -> d
+    com.djc.logintest.adapter.BindedNumInfoListAdapter this$0 -> e
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.adapter.BindedNumInfoListAdapter$FlagHolder -> com.djc.logintest.adapter.g:
     android.widget.TextView numView -> a
@@ -5040,21 +5039,20 @@ com.djc.logintest.adapter.ChatListAdapter -> com.djc.logintest.adapter.h:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void startToShowIconActivity(java.lang.String) -> a
-    android.content.Context access$0(com.djc.logintest.adapter.ChatListAdapter) -> a
+    android.content.Context access$100(com.djc.logintest.adapter.ChatListAdapter) -> a
 com.djc.logintest.adapter.ChatListAdapter$1 -> com.djc.logintest.adapter.i:
     com.djc.logintest.adapter.ChatListAdapter this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.djc.logintest.adapter.ChatListAdapter$2 -> com.djc.logintest.adapter.j:
-    com.djc.logintest.adapter.ChatListAdapter this$0 -> a
-    int val$position -> b
+    int val$position -> a
+    com.djc.logintest.adapter.ChatListAdapter this$0 -> b
     boolean onLongClick(android.view.View) -> onLongClick
 com.djc.logintest.adapter.ChatListAdapter$2$1 -> com.djc.logintest.adapter.k:
     com.djc.logintest.adapter.ChatListAdapter$2 this$1 -> a
-    int val$position -> b
     void onClick(android.content.DialogInterface,int) -> onClick
 com.djc.logintest.adapter.ChatListAdapter$3 -> com.djc.logintest.adapter.l:
-    com.djc.logintest.adapter.ChatListAdapter this$0 -> a
-    int val$position -> b
+    int val$position -> a
+    com.djc.logintest.adapter.ChatListAdapter this$0 -> b
     void onClick(android.view.View) -> onClick
 com.djc.logintest.adapter.ChatListAdapter$FlagHolder -> com.djc.logintest.adapter.m:
     android.widget.TextView sendView -> a
@@ -5108,31 +5106,21 @@ com.djc.logintest.adapter.EducationGridViewAdapter$FlagHolder -> com.djc.loginte
 com.djc.logintest.adapter.HomeworkListAdapter -> com.djc.logintest.adapter.t:
     android.content.Context context -> a
     java.util.List dataList -> b
+    java.util.Map softMap -> c
     void clear() -> a
     int getCount() -> getCount
     java.lang.Object getItem(int) -> getItem
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.HomeworkListAdapter$FlagHolder) -> a
-    android.content.Context access$0(com.djc.logintest.adapter.HomeworkListAdapter) -> a
-    java.util.List access$1(com.djc.logintest.adapter.HomeworkListAdapter) -> b
-com.djc.logintest.adapter.HomeworkListAdapter$1 -> com.djc.logintest.adapter.u:
-    com.djc.logintest.adapter.HomeworkListAdapter this$0 -> a
-    int val$position -> b
-    void onClick(android.view.View) -> onClick
-    com.djc.logintest.adapter.HomeworkListAdapter access$0(com.djc.logintest.adapter.HomeworkListAdapter$1) -> a
-com.djc.logintest.adapter.HomeworkListAdapter$1$1 -> com.djc.logintest.adapter.v:
-    com.djc.logintest.adapter.HomeworkListAdapter$1 this$1 -> a
-    int val$position -> b
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.adapter.HomeworkListAdapter$FlagHolder -> com.djc.logintest.adapter.w:
+com.djc.logintest.adapter.HomeworkListAdapter$FlagHolder -> com.djc.logintest.adapter.u:
     android.widget.TextView titleView -> a
     android.widget.TextView bodyView -> b
     android.widget.TextView timestampView -> c
     android.widget.TextView fromView -> d
-    android.widget.ImageView deleteView -> e
+    android.widget.ImageView iconView -> e
     com.djc.logintest.adapter.HomeworkListAdapter this$0 -> f
-com.djc.logintest.adapter.LocationInfoListAdapter -> com.djc.logintest.adapter.x:
+com.djc.logintest.adapter.LocationInfoListAdapter -> com.djc.logintest.adapter.v:
     android.content.Context context -> a
     java.util.List locationInfoList -> b
     void clear() -> a
@@ -5141,26 +5129,23 @@ com.djc.logintest.adapter.LocationInfoListAdapter -> com.djc.logintest.adapter.x
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.LocationInfoListAdapter$FlagHolder) -> a
-    android.content.Context access$0(com.djc.logintest.adapter.LocationInfoListAdapter) -> a
-    java.util.List access$1(com.djc.logintest.adapter.LocationInfoListAdapter) -> b
-com.djc.logintest.adapter.LocationInfoListAdapter$1 -> com.djc.logintest.adapter.y:
-    com.djc.logintest.adapter.LocationInfoListAdapter this$0 -> a
-    int val$position -> b
-    com.djc.logintest.dbmgr.info.LocationInfo val$locationInfo -> c
-    void onClick(android.view.View) -> onClick
-    com.djc.logintest.adapter.LocationInfoListAdapter access$0(com.djc.logintest.adapter.LocationInfoListAdapter$1) -> a
-com.djc.logintest.adapter.LocationInfoListAdapter$1$1 -> com.djc.logintest.adapter.z:
-    com.djc.logintest.adapter.LocationInfoListAdapter$1 this$1 -> a
+    android.content.Context access$100(com.djc.logintest.adapter.LocationInfoListAdapter) -> a
+    java.util.List access$200(com.djc.logintest.adapter.LocationInfoListAdapter) -> b
+com.djc.logintest.adapter.LocationInfoListAdapter$1 -> com.djc.logintest.adapter.w:
+    int val$position -> a
     com.djc.logintest.dbmgr.info.LocationInfo val$locationInfo -> b
-    int val$position -> c
+    com.djc.logintest.adapter.LocationInfoListAdapter this$0 -> c
+    void onClick(android.view.View) -> onClick
+com.djc.logintest.adapter.LocationInfoListAdapter$1$1 -> com.djc.logintest.adapter.x:
+    com.djc.logintest.adapter.LocationInfoListAdapter$1 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.adapter.LocationInfoListAdapter$FlagHolder -> com.djc.logintest.adapter.aa:
+com.djc.logintest.adapter.LocationInfoListAdapter$FlagHolder -> com.djc.logintest.adapter.y:
     android.widget.TextView lbsNumView -> a
     android.widget.TextView addressView -> b
     android.widget.TextView timestampView -> c
     android.widget.ImageView deleteView -> d
     com.djc.logintest.adapter.LocationInfoListAdapter this$0 -> e
-com.djc.logintest.adapter.MyGridViewAdapter -> com.djc.logintest.adapter.ab:
+com.djc.logintest.adapter.MyGridViewAdapter -> com.djc.logintest.adapter.z:
     android.content.Context context -> a
     java.util.List data -> b
     int getCount() -> getCount
@@ -5168,36 +5153,29 @@ com.djc.logintest.adapter.MyGridViewAdapter -> com.djc.logintest.adapter.ab:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.MyGridViewAdapter$FlagHolder) -> a
-com.djc.logintest.adapter.MyGridViewAdapter$FlagHolder -> com.djc.logintest.adapter.ac:
+com.djc.logintest.adapter.MyGridViewAdapter$FlagHolder -> com.djc.logintest.adapter.aa:
     android.widget.ImageView newDataSymble -> a
     android.widget.TextView nameView -> b
     android.widget.ImageView headView -> c
     com.djc.logintest.adapter.MyGridViewAdapter this$0 -> d
-com.djc.logintest.adapter.NewsListAdapter -> com.djc.logintest.adapter.ad:
+com.djc.logintest.adapter.NewsListAdapter -> com.djc.logintest.adapter.ab:
     android.content.Context context -> a
     java.util.List newsList -> b
+    java.util.Map softMap -> c
     void clear() -> a
     int getCount() -> getCount
     java.lang.Object getItem(int) -> getItem
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.NewsListAdapter$FlagHolder) -> a
-    android.content.Context access$0(com.djc.logintest.adapter.NewsListAdapter) -> a
-com.djc.logintest.adapter.NewsListAdapter$1 -> com.djc.logintest.adapter.ae:
-    com.djc.logintest.adapter.NewsListAdapter this$0 -> a
-    int val$position -> b
-    void onClick(android.view.View) -> onClick
-com.djc.logintest.adapter.NewsListAdapter$1$1 -> com.djc.logintest.adapter.af:
-    com.djc.logintest.adapter.NewsListAdapter$1 this$1 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.adapter.NewsListAdapter$FlagHolder -> com.djc.logintest.adapter.ag:
+com.djc.logintest.adapter.NewsListAdapter$FlagHolder -> com.djc.logintest.adapter.ac:
     android.widget.TextView titleView -> a
     android.widget.TextView bodyView -> b
     android.widget.TextView timestampView -> c
     android.widget.TextView fromview -> d
-    android.widget.ImageView deleteView -> e
+    android.widget.ImageView iconView -> e
     com.djc.logintest.adapter.NewsListAdapter this$0 -> f
-com.djc.logintest.adapter.ScheduleListAdapter -> com.djc.logintest.adapter.ah:
+com.djc.logintest.adapter.ScheduleListAdapter -> com.djc.logintest.adapter.ad:
     android.content.Context context -> a
     java.util.List items -> b
     int getCount() -> getCount
@@ -5205,13 +5183,13 @@ com.djc.logintest.adapter.ScheduleListAdapter -> com.djc.logintest.adapter.ah:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.ScheduleListAdapter$FlagHolder) -> a
-com.djc.logintest.adapter.ScheduleListAdapter$FlagHolder -> com.djc.logintest.adapter.ai:
+com.djc.logintest.adapter.ScheduleListAdapter$FlagHolder -> com.djc.logintest.adapter.ae:
     android.widget.TextView dateView -> a
     android.widget.TextView weekView -> b
     android.widget.TextView amContentView -> c
     android.widget.TextView pmContentView -> d
     com.djc.logintest.adapter.ScheduleListAdapter this$0 -> e
-com.djc.logintest.adapter.SwipeListAdapter -> com.djc.logintest.adapter.aj:
+com.djc.logintest.adapter.SwipeListAdapter -> com.djc.logintest.adapter.af:
     android.content.Context context -> a
     java.util.List list -> b
     java.lang.String nick -> c
@@ -5220,15 +5198,15 @@ com.djc.logintest.adapter.SwipeListAdapter -> com.djc.logintest.adapter.aj:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.SwipeListAdapter$FlagHolder) -> a
-    android.content.Context access$0(com.djc.logintest.adapter.SwipeListAdapter) -> a
-com.djc.logintest.adapter.SwipeListAdapter$1 -> com.djc.logintest.adapter.ak:
-    com.djc.logintest.adapter.SwipeListAdapter this$0 -> a
-    int val$position -> b
+    android.content.Context access$100(com.djc.logintest.adapter.SwipeListAdapter) -> a
+com.djc.logintest.adapter.SwipeListAdapter$1 -> com.djc.logintest.adapter.ag:
+    int val$position -> a
+    com.djc.logintest.adapter.SwipeListAdapter this$0 -> b
     void onClick(android.view.View) -> onClick
-com.djc.logintest.adapter.SwipeListAdapter$1$1 -> com.djc.logintest.adapter.al:
+com.djc.logintest.adapter.SwipeListAdapter$1$1 -> com.djc.logintest.adapter.ah:
     com.djc.logintest.adapter.SwipeListAdapter$1 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.adapter.SwipeListAdapter$FlagHolder -> com.djc.logintest.adapter.am:
+com.djc.logintest.adapter.SwipeListAdapter$FlagHolder -> com.djc.logintest.adapter.ai:
     android.widget.TextView titleView -> a
     android.widget.TextView bodyView -> b
     android.widget.TextView timestampView -> c
@@ -5364,19 +5342,24 @@ com.djc.logintest.customview.CustomDialog$Builder -> com.djc.logintest.customvie
     com.djc.logintest.customview.CustomDialog$Builder setNegativeButton$4122d19b() -> b
     com.djc.logintest.customview.CustomDialog$Builder setNegativeButton(java.lang.String,android.content.DialogInterface$OnClickListener) -> b
     com.djc.logintest.customview.CustomDialog create() -> c
-    android.content.DialogInterface$OnClickListener access$0(com.djc.logintest.customview.CustomDialog$Builder) -> a
-    android.content.DialogInterface$OnClickListener access$1(com.djc.logintest.customview.CustomDialog$Builder) -> b
+    com.djc.logintest.customview.CustomDialog createTwoBtn() -> d
+    android.content.DialogInterface$OnClickListener access$000(com.djc.logintest.customview.CustomDialog$Builder) -> a
+    android.content.DialogInterface$OnClickListener access$100(com.djc.logintest.customview.CustomDialog$Builder) -> b
 com.djc.logintest.customview.CustomDialog$Builder$1 -> com.djc.logintest.customview.c:
-    com.djc.logintest.customview.CustomDialog$Builder this$1 -> a
-    com.djc.logintest.customview.CustomDialog val$dialog -> b
+    com.djc.logintest.customview.CustomDialog val$dialog -> a
+    com.djc.logintest.customview.CustomDialog$Builder this$0 -> b
     void onClick(android.view.View) -> onClick
 com.djc.logintest.customview.CustomDialog$Builder$2 -> com.djc.logintest.customview.d:
-    com.djc.logintest.customview.CustomDialog$Builder this$1 -> a
-    com.djc.logintest.customview.CustomDialog val$dialog -> b
+    com.djc.logintest.customview.CustomDialog val$dialog -> a
+    com.djc.logintest.customview.CustomDialog$Builder this$0 -> b
     void onClick(android.view.View) -> onClick
 com.djc.logintest.customview.CustomDialog$Builder$3 -> com.djc.logintest.customview.e:
-    com.djc.logintest.customview.CustomDialog$Builder this$1 -> a
-    com.djc.logintest.customview.CustomDialog val$dialog -> b
+    com.djc.logintest.customview.CustomDialog val$dialog -> a
+    com.djc.logintest.customview.CustomDialog$Builder this$0 -> b
+    void onClick(android.view.View) -> onClick
+com.djc.logintest.customview.CustomDialog$Builder$4 -> com.djc.logintest.customview.f:
+    com.djc.logintest.customview.CustomDialog val$dialog -> a
+    com.djc.logintest.customview.CustomDialog$Builder this$0 -> b
     void onClick(android.view.View) -> onClick
 com.djc.logintest.customview.MsgListView -> com.djc.logintest.customview.MsgListView:
     android.view.LayoutInflater inflater -> b
@@ -5402,7 +5385,7 @@ com.djc.logintest.customview.MsgListView -> com.djc.logintest.customview.MsgList
     void changeHeaderViewByState() -> c
     void setonRefreshListener(com.djc.logintest.customview.MsgListView$OnRefreshListener) -> a
     void onRefreshComplete() -> b
-com.djc.logintest.customview.MsgListView$OnRefreshListener -> com.djc.logintest.customview.f:
+com.djc.logintest.customview.MsgListView$OnRefreshListener -> com.djc.logintest.customview.g:
     void onRefresh() -> a
 com.djc.logintest.customview.SwitchButton -> com.djc.logintest.customview.SwitchButton:
     android.widget.TextView view_text_on -> a
@@ -5436,7 +5419,7 @@ com.djc.logintest.customview.SwitchButton -> com.djc.logintest.customview.Switch
     boolean onSingleTapUp(android.view.MotionEvent) -> onSingleTapUp
     void on() -> c
     void off() -> d
-com.djc.logintest.customview.SwitchButton$OnCheckedChangeListener -> com.djc.logintest.customview.g:
+com.djc.logintest.customview.SwitchButton$OnCheckedChangeListener -> com.djc.logintest.customview.h:
     void checkedChange(boolean) -> a
 com.djc.logintest.dbmgr.ChatMgr -> com.djc.logintest.e.a:
     com.djc.logintest.dbmgr.SqliteHelper dbHelper -> a
@@ -5618,33 +5601,39 @@ com.djc.logintest.dbmgr.info.ChildInfo -> com.djc.logintest.e.a.c:
     java.lang.String child_nick_name -> a
     java.lang.String local_url -> b
     java.lang.String server_url -> c
-    java.lang.String child_birthday -> d
+    long child_birthday -> d
     int selected -> e
-    java.lang.String timestamp -> f
+    long timestamp -> f
     java.lang.String server_id -> g
     java.lang.String class_id -> h
     java.lang.String class_name -> i
-    int id -> j
-    java.lang.String getClass_name() -> a
-    void setClass_name(java.lang.String) -> a
-    java.lang.String getClass_id() -> b
-    void setClass_id(java.lang.String) -> b
-    java.lang.String getTimestamp() -> c
-    void setTimestamp(java.lang.String) -> c
-    java.lang.String getServer_id() -> d
+    java.lang.String child_name -> j
+    int gender -> k
+    int id -> l
+    int getGender() -> a
+    void setGender(int) -> a
+    java.lang.String getChild_name() -> b
+    void setChild_name(java.lang.String) -> a
+    java.lang.String getClass_name() -> c
+    void setClass_name(java.lang.String) -> b
+    java.lang.String getClass_id() -> d
+    void setClass_id(java.lang.String) -> c
+    long getTimestamp() -> e
+    void setTimestamp(long) -> a
+    java.lang.String getServer_id() -> f
     void setServer_id(java.lang.String) -> d
-    int getSelected() -> e
-    void setSelected(int) -> a
-    int getId() -> f
-    void setId(int) -> b
-    java.lang.String getChild_nick_name() -> g
+    int getSelected() -> g
+    void setSelected(int) -> b
+    int getId() -> h
+    void setId(int) -> c
+    java.lang.String getChild_nick_name() -> i
     void setChild_nick_name(java.lang.String) -> e
-    java.lang.String getLocal_url() -> h
+    java.lang.String getLocal_url() -> j
     void setLocal_url(java.lang.String) -> f
-    java.lang.String getServer_url() -> i
+    java.lang.String getServer_url() -> k
     void setServer_url(java.lang.String) -> g
-    java.lang.String getChild_birthday() -> j
-    void setChild_birthday(java.lang.String) -> h
+    long getChild_birthday() -> l
+    void setChild_birthday(long) -> b
     java.util.List jsonArrayToList(org.json.JSONArray) -> a
     com.djc.logintest.dbmgr.info.ChildInfo jsonObjToChildInfo(org.json.JSONObject) -> a
 com.djc.logintest.dbmgr.info.CookBookInfo -> com.djc.logintest.e.a.d:
@@ -5732,8 +5721,14 @@ com.djc.logintest.dbmgr.info.Homework -> com.djc.logintest.e.a.f:
     java.lang.String getFormattedTime() -> h
     java.lang.String getHomeWorkLocalIconPath() -> i
 com.djc.logintest.dbmgr.info.InfoHelper -> com.djc.logintest.e.a.g:
+    java.lang.String BIRTHDAY -> a
+    java.lang.String PHOTO -> b
+    java.lang.String NICK -> c
     java.text.SimpleDateFormat getYearMonthDayFormat() -> a
+    java.text.SimpleDateFormat getHourMinuteFormat() -> b
     java.lang.String getChildrenLocalIconPath(java.lang.String) -> a
+    java.lang.String getDefaultSchoolLocalIconPath() -> c
+    org.json.JSONObject childInfoToJSONObject(com.djc.logintest.dbmgr.info.ChildInfo) -> a
 com.djc.logintest.dbmgr.info.LocationInfo -> com.djc.logintest.e.a.h:
     java.lang.String longitude -> a
     java.lang.String latitude -> b
@@ -5911,8 +5906,8 @@ com.djc.logintest.handler.PushEventHandler -> com.djc.logintest.g.c:
     boolean handle(com.djc.logintest.push.info.PushEvent) -> a
     java.lang.String getTags(com.djc.logintest.push.info.PushEvent) -> b
     void notifyObservers$49f1f74() -> c
-    java.util.concurrent.ScheduledExecutorService access$0(com.djc.logintest.handler.PushEventHandler) -> a
-    java.util.concurrent.BlockingQueue access$1(com.djc.logintest.handler.PushEventHandler) -> b
+    java.util.concurrent.ScheduledExecutorService access$000(com.djc.logintest.handler.PushEventHandler) -> a
+    java.util.concurrent.BlockingQueue access$100(com.djc.logintest.handler.PushEventHandler) -> b
 com.djc.logintest.handler.PushEventHandler$1 -> com.djc.logintest.g.d:
     com.djc.logintest.handler.PushEventHandler this$0 -> a
     void run() -> run
@@ -6000,10 +5995,10 @@ com.djc.logintest.net.ChechUpdateMethod -> com.djc.logintest.j.c:
     int handle(com.djc.logintest.net.HttpResult) -> a
 com.djc.logintest.net.ChildMethod -> com.djc.logintest.j.d:
     com.djc.logintest.net.ChildMethod getMethod() -> a
-    int updateChildrenInfo() -> b
-    int handleGetChildInfoResult(com.djc.logintest.net.HttpResult) -> a
+    int getChildrenInfo() -> b
+    int handleGetChildInfoResultEx(com.djc.logintest.net.HttpResult) -> a
+    void updateAllEx(org.json.JSONArray,com.djc.logintest.dbmgr.info.ChildInfo) -> a
     long getLatestTime(org.json.JSONArray) -> a
-    void updateAll(org.json.JSONArray,com.djc.logintest.dbmgr.info.ChildInfo) -> a
 com.djc.logintest.net.CookbookMethod -> com.djc.logintest.j.e:
     com.djc.logintest.net.CookbookMethod getMethod() -> a
     int getCookBook() -> b
@@ -6089,7 +6084,7 @@ com.djc.logintest.net.SwipeCardMethod -> com.djc.logintest.j.s:
 com.djc.logintest.net.UploadChildInfoMethod -> com.djc.logintest.j.t:
     com.djc.logintest.net.UploadChildInfoMethod getMethod() -> a
     int uploadChildInfo(java.lang.String) -> a
-    int handleGetChildInfoResult(com.djc.logintest.net.HttpResult) -> a
+    int handleGetChildInfoResultEx(com.djc.logintest.net.HttpResult) -> a
 com.djc.logintest.net.UploadTokenMethod -> com.djc.logintest.j.u:
     com.djc.logintest.net.UploadTokenMethod getMethod() -> a
     java.lang.String getUploadToken(java.lang.String) -> a
@@ -6108,11 +6103,11 @@ com.djc.logintest.noticepaser.SwapCardNoticePaser -> com.djc.logintest.k.c:
     void downloadIcon(java.lang.String,java.lang.String) -> a
     java.lang.String createSwipeIconPath(java.lang.String) -> a
 com.djc.logintest.noticepaser.SwapCardNoticePaser$1 -> com.djc.logintest.k.d:
-    com.djc.logintest.noticepaser.SwapCardNoticePaser this$0 -> a
-    java.lang.String val$record_url -> b
-    com.djc.logintest.dbmgr.info.SwipeInfo val$swipeInfo -> c
-    com.djc.logintest.dbmgr.info.Notice val$notice -> d
-    android.content.Context val$context -> e
+    java.lang.String val$record_url -> a
+    com.djc.logintest.dbmgr.info.SwipeInfo val$swipeInfo -> b
+    com.djc.logintest.dbmgr.info.Notice val$notice -> c
+    android.content.Context val$context -> d
+    com.djc.logintest.noticepaser.SwapCardNoticePaser this$0 -> e
     void run() -> run
 com.djc.logintest.proxy.MyProxy -> com.djc.logintest.l.a:
     java.lang.Object target -> a
@@ -6177,9 +6172,9 @@ com.djc.logintest.taskmgr.ChangePWDTask -> com.djc.logintest.n.c:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    java.lang.String access$2(com.djc.logintest.taskmgr.ChangePWDTask) -> a
-    java.lang.String access$3(com.djc.logintest.taskmgr.ChangePWDTask) -> b
-    java.lang.String access$4(com.djc.logintest.taskmgr.ChangePWDTask) -> c
+    java.lang.String access$000(com.djc.logintest.taskmgr.ChangePWDTask) -> a
+    java.lang.String access$100(com.djc.logintest.taskmgr.ChangePWDTask) -> b
+    java.lang.String access$200(com.djc.logintest.taskmgr.ChangePWDTask) -> c
 com.djc.logintest.taskmgr.ChangePWDTask$1 -> com.djc.logintest.n.d:
     com.djc.logintest.taskmgr.ChangePWDTask this$0 -> a
     java.lang.Object handle() -> a
@@ -6197,7 +6192,7 @@ com.djc.logintest.taskmgr.CheckUpdateTask -> com.djc.logintest.n.g:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    int access$2(com.djc.logintest.taskmgr.CheckUpdateTask) -> a
+    int access$000(com.djc.logintest.taskmgr.CheckUpdateTask) -> a
 com.djc.logintest.taskmgr.CheckUpdateTask$1 -> com.djc.logintest.n.h:
     com.djc.logintest.taskmgr.CheckUpdateTask this$0 -> a
     java.lang.Object handle() -> a
@@ -6214,7 +6209,7 @@ com.djc.logintest.taskmgr.FeedBackTask -> com.djc.logintest.n.j:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    java.lang.String access$2(com.djc.logintest.taskmgr.FeedBackTask) -> a
+    java.lang.String access$000(com.djc.logintest.taskmgr.FeedBackTask) -> a
 com.djc.logintest.taskmgr.FeedBackTask$1 -> com.djc.logintest.n.k:
     com.djc.logintest.taskmgr.FeedBackTask this$0 -> a
     java.lang.Object handle() -> a
@@ -6301,11 +6296,11 @@ com.djc.logintest.taskmgr.GlobleDownloadImgeTask -> com.djc.logintest.n.w:
     void setHanlder(android.os.Handler) -> a
     void addTask(java.lang.String,java.lang.String) -> a
     void stopTask() -> a
-    java.util.Map access$0(com.djc.logintest.taskmgr.GlobleDownloadImgeTask) -> a
-    float access$1(com.djc.logintest.taskmgr.GlobleDownloadImgeTask) -> b
-    float access$2(com.djc.logintest.taskmgr.GlobleDownloadImgeTask) -> c
-    boolean access$3(com.djc.logintest.taskmgr.GlobleDownloadImgeTask) -> d
-    android.os.Handler access$4(com.djc.logintest.taskmgr.GlobleDownloadImgeTask) -> e
+    float access$000(com.djc.logintest.taskmgr.GlobleDownloadImgeTask) -> a
+    float access$100(com.djc.logintest.taskmgr.GlobleDownloadImgeTask) -> b
+    java.util.Map access$200(com.djc.logintest.taskmgr.GlobleDownloadImgeTask) -> c
+    boolean access$300(com.djc.logintest.taskmgr.GlobleDownloadImgeTask) -> d
+    android.os.Handler access$400(com.djc.logintest.taskmgr.GlobleDownloadImgeTask) -> e
 com.djc.logintest.taskmgr.GlobleDownloadImgeTask$DownloadRunnable -> com.djc.logintest.n.x:
     java.lang.String imgaeUrl -> b
     java.lang.String savePath -> c
@@ -6325,8 +6320,8 @@ com.djc.logintest.taskmgr.LoginTask -> com.djc.logintest.n.z:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    java.lang.String access$2(com.djc.logintest.taskmgr.LoginTask) -> a
-    java.lang.String access$3(com.djc.logintest.taskmgr.LoginTask) -> b
+    java.lang.String access$000(com.djc.logintest.taskmgr.LoginTask) -> a
+    java.lang.String access$100(com.djc.logintest.taskmgr.LoginTask) -> b
 com.djc.logintest.taskmgr.LoginTask$1 -> com.djc.logintest.n.aa:
     com.djc.logintest.taskmgr.LoginTask this$0 -> a
     java.lang.Object handle() -> a
@@ -6338,9 +6333,9 @@ com.djc.logintest.taskmgr.ResetPWDTask -> com.djc.logintest.n.ab:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    java.lang.String access$2(com.djc.logintest.taskmgr.ResetPWDTask) -> a
-    java.lang.String access$3(com.djc.logintest.taskmgr.ResetPWDTask) -> b
-    java.lang.String access$4(com.djc.logintest.taskmgr.ResetPWDTask) -> c
+    java.lang.String access$000(com.djc.logintest.taskmgr.ResetPWDTask) -> a
+    java.lang.String access$100(com.djc.logintest.taskmgr.ResetPWDTask) -> b
+    java.lang.String access$200(com.djc.logintest.taskmgr.ResetPWDTask) -> c
 com.djc.logintest.taskmgr.ResetPWDTask$1 -> com.djc.logintest.n.ac:
     com.djc.logintest.taskmgr.ResetPWDTask this$0 -> a
     java.lang.Object handle() -> a
@@ -6359,8 +6354,8 @@ com.djc.logintest.taskmgr.UpdateCalendarTask -> com.djc.logintest.n.ae:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    long access$2(com.djc.logintest.taskmgr.UpdateCalendarTask) -> a
-    long access$3(com.djc.logintest.taskmgr.UpdateCalendarTask) -> b
+    long access$000(com.djc.logintest.taskmgr.UpdateCalendarTask) -> a
+    long access$100(com.djc.logintest.taskmgr.UpdateCalendarTask) -> b
 com.djc.logintest.taskmgr.UpdateCalendarTask$1 -> com.djc.logintest.n.af:
     com.djc.logintest.taskmgr.UpdateCalendarTask this$0 -> a
     java.lang.Object handle() -> a
@@ -6381,7 +6376,7 @@ com.djc.logintest.taskmgr.UploadInfoTask -> com.djc.logintest.n.ah:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    java.lang.String access$2(com.djc.logintest.taskmgr.UploadInfoTask) -> a
+    java.lang.String access$000(com.djc.logintest.taskmgr.UploadInfoTask) -> a
 com.djc.logintest.taskmgr.UploadInfoTask$1 -> com.djc.logintest.n.ai:
     com.djc.logintest.taskmgr.UploadInfoTask this$0 -> a
     java.lang.Object handle() -> a
@@ -6398,7 +6393,7 @@ com.djc.logintest.taskmgr.ValidatePhoneNumTask -> com.djc.logintest.n.ak:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    java.lang.String access$2(com.djc.logintest.taskmgr.ValidatePhoneNumTask) -> a
+    java.lang.String access$000(com.djc.logintest.taskmgr.ValidatePhoneNumTask) -> a
 com.djc.logintest.taskmgr.ValidatePhoneNumTask$1 -> com.djc.logintest.n.al:
     com.djc.logintest.taskmgr.ValidatePhoneNumTask this$0 -> a
     java.lang.Object handle() -> a
@@ -6470,6 +6465,7 @@ com.djc.logintest.upload.qiniu.utils.MultipartEntity -> com.djc.logintest.p.a.c.
     void writeTo(java.io.OutputStream) -> writeTo
     boolean isStreaming() -> isStreaming
     java.lang.String getRandomString$47921032() -> a
+    long access$214(com.djc.logintest.upload.qiniu.utils.MultipartEntity,long) -> a
 com.djc.logintest.upload.qiniu.utils.MultipartEntity$FileInfo -> com.djc.logintest.p.a.c.d:
     java.lang.String mField -> a
     java.lang.String mContentType -> b
@@ -6489,6 +6485,7 @@ com.djc.logintest.utils.ImageDownloader -> com.djc.logintest.q.b:
     android.graphics.Bitmap getBitmapformInputStream(java.io.InputStream,java.lang.String) -> a
     android.graphics.Bitmap getResizedBmp(int,java.lang.String) -> a
     int getMaxPix() -> b
+    int getMaxPixWithDensity(int,int) -> a
     int computeSampleSize$50b5669a(android.graphics.BitmapFactory$Options,int) -> a
 com.djc.logintest.utils.MethodUtils -> com.djc.logintest.q.c:
     boolean checkNews() -> a

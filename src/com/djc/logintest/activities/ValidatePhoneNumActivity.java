@@ -106,8 +106,9 @@ public class ValidatePhoneNumActivity extends MyActivity {
 
 	private void initView() {
 		inuputnumView = (EditText) findViewById(R.id.inuputnumView);
-		// test
+		// test 7987654
 		inuputnumView.setText("13408654680");
+		// inuputnumView.setText("13333333333");
 
 		sendPhoneNumBtn = (Button) findViewById(R.id.sendPhoneNumBtn);
 		sendPhoneNumBtn.setOnClickListener(new OnClickListener() {

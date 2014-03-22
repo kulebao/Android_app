@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djc.logintest.R;
+import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.handler.MyHandler;
@@ -69,6 +70,11 @@ public class LoginActivity extends MyActivity {
 					// 绑定失败，删除登录成功时保存的用户信息
 					Utils.clearProp();
 					Utils.showSingleBtnEventDlg(EventType.BIND_FAILED,
+							LoginActivity.this);
+					break;
+				case EventType.PHONE_NUM_IS_INVALID:
+					Utils.clearProp();
+					Utils.showSingleBtnEventDlg(EventType.PHONE_NUM_IS_INVALID,
 							LoginActivity.this);
 					break;
 				case EventType.SERVER_BUSY:
@@ -134,6 +140,13 @@ public class LoginActivity extends MyActivity {
 
 			@Override
 			public void onClick(View v) {
+				if (MyApplication.getInstance().isForAutoTest()) {
+					dialog.show();
+					new LoginTask(handler, ConstantValue.TEST_PHONE,
+							ConstantValue.TEST_PHONE_PWD).execute();
+					return;
+				}
+
 				if (Utils.checkPWD(getPwd())) {
 					// 发起登录
 					runLoginTask();

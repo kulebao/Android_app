@@ -78,6 +78,15 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 		return bret;
 	}
 
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(adapter != null){
+			adapter.notifyDataSetChanged();
+		}
+	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

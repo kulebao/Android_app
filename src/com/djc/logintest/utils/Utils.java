@@ -123,7 +123,7 @@ public class Utils {
 		CustomDialog.Builder builder = DlgMgr.getTwoBtnDlg(context,
 				configListener);
 		builder.setMessage(context.getResources().getString(resID));
-		builder.create().show();
+		builder.createTwoBtn().show();
 	}
 
 	public static void deleteProp(String key) {

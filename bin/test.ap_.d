@@ -30,7 +30,7 @@ E:\coolbao\LoginTest\res\drawable-hdpi\add_icon.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\badrank.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\bg.jpg \
 E:\coolbao\LoginTest\res\drawable-hdpi\bg_1.jpg \
-E:\coolbao\LoginTest\res\drawable-hdpi\bg_2.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\bg_2.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\bg_a.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\bottom.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\breakfast.png \
@@ -79,8 +79,8 @@ E:\coolbao\LoginTest\res\drawable-hdpi\guide4.jpg \
 E:\coolbao\LoginTest\res\drawable-hdpi\guide_btn_normal.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\guide_btn_pressed.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\hasnew.png.9.png \
-E:\coolbao\LoginTest\res\drawable-hdpi\hasnew1.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\homework.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\homework_item.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\ic_pulltorefresh_arrow.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\input_a.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\input_b.png \
@@ -89,6 +89,7 @@ E:\coolbao\LoginTest\res\drawable-hdpi\input_d.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\internal_logo.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\lunch.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\manner.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\news_item.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\normalrank.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\normal_btn.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\normal_btn_pressed.png \
@@ -113,6 +114,7 @@ E:\coolbao\LoginTest\res\drawable-ldpi\ic_launcher.png \
 E:\coolbao\LoginTest\res\drawable-ldpi\ic_pulltorefresh_arrow.png \
 E:\coolbao\LoginTest\res\drawable-mdpi\ic_launcher.png \
 E:\coolbao\LoginTest\res\drawable-mdpi\ic_pulltorefresh_arrow.png \
+E:\coolbao\LoginTest\res\drawable-xhdpi\hasnew.png.9.png \
 E:\coolbao\LoginTest\res\layout\about_us.xml \
 E:\coolbao\LoginTest\res\layout\authcode.xml \
 E:\coolbao\LoginTest\res\layout\baby_nickname_text_entry.xml \
@@ -131,6 +133,7 @@ E:\coolbao\LoginTest\res\layout\client_tab.xml \
 E:\coolbao\LoginTest\res\layout\cook_item.xml \
 E:\coolbao\LoginTest\res\layout\cook_list.xml \
 E:\coolbao\LoginTest\res\layout\dialog.xml \
+E:\coolbao\LoginTest\res\layout\dialog_single_btn.xml \
 E:\coolbao\LoginTest\res\layout\education.xml \
 E:\coolbao\LoginTest\res\layout\education_item.xml \
 E:\coolbao\LoginTest\res\layout\feed_back.xml \
@@ -198,7 +201,7 @@ E:\coolbao\LoginTest\bin\res\drawable-hdpi\about.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\activity.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\add_icon.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\badrank.png \
-E:\coolbao\LoginTest\bin\res\drawable-hdpi\bg_2.png \
+E:\coolbao\LoginTest\bin\res\drawable-hdpi\bg_2.9.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\bg_a.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\bottom.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\breakfast.png \
@@ -234,8 +237,8 @@ E:\coolbao\LoginTest\bin\res\drawable-hdpi\game.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\goodrank.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\guide_btn_normal.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\guide_btn_pressed.png \
-E:\coolbao\LoginTest\bin\res\drawable-hdpi\hasnew1.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\homework.png \
+E:\coolbao\LoginTest\bin\res\drawable-hdpi\homework_item.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\ic_pulltorefresh_arrow.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\input_a.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\input_b.png \
@@ -244,6 +247,7 @@ E:\coolbao\LoginTest\bin\res\drawable-hdpi\input_d.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\internal_logo.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\lunch.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\manner.png \
+E:\coolbao\LoginTest\bin\res\drawable-hdpi\news_item.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\normalrank.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\normal_btn.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\normal_btn_pressed.png \

@@ -21,7 +21,7 @@ public class TabChildActivity extends UmengStatisticsActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                     }
-                }).setNegativeButton(R.string.back, null).create();
+                }).setNegativeButton(R.string.back, null).createTwoBtn();
         dialog.show();
     }
 }

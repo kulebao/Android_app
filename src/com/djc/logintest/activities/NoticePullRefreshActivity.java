@@ -95,6 +95,14 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 		}
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (adapter != null) {
+			adapter.notifyDataSetChanged();
+		}
+	}
+
 	private void initHander() {
 		myhandler = new MyHandler(this, dialog) {
 			@Override
