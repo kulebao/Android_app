@@ -3,10 +3,8 @@ package com.djc.logintest.httpclientmgr;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -21,7 +19,6 @@ import javax.net.ssl.X509TrustManager;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -39,7 +36,6 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
 
@@ -104,7 +100,9 @@ public class HttpClientHelper {
 	public static HttpResult executePost(String url, String content)
 			throws Exception {
 		HttpResult result = doPostImpl(url, content);
-
+		Log.d("execute:", "url =" + url);
+		Log.d("execute:", "content =" + content);
+		
 		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
 			PushMethod method = PushMethod.getMethod();
 			int ret = method.sendBinfInfo();
@@ -187,6 +185,7 @@ public class HttpClientHelper {
 
 	public static HttpResult executeGet(String url) throws Exception {
 		HttpResult result = doGetImpl(url);
+		Log.d("execute:", "url =" + url);
 		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
 			PushMethod method = PushMethod.getMethod();
 			int ret = method.sendBinfInfo();

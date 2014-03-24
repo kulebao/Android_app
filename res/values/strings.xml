@@ -6,11 +6,11 @@
     <string name="warning">请输入您在幼儿园登记的手机号码进行验证，该功能需要连接网络，谢谢！</string>
     <string name="inuputnum">请输入您的手机号码</string>
     <string name="inuputpwd">请输入您的密码</string>
-    <string name="inuput_auth_code">请输入6位数字验证码</string>
+    <string name="inuput_auth_code">输入验证码</string>
     <string name="send">发送</string>
     <string name="getAuthCode">获取验证码</string>
     <string name="getAuthCodeSuccess">获取验证码成功，稍后会用短信将该验证码发送到您的手机上，谢谢！</string>
-    <string name="getAuthCodeCountDown">重新获取验证码 (%1$s秒)</string>
+    <string name="getAuthCodeCountDown">重新获取 %1$s秒</string>
     <string name="phone_input_error">手机号码输入错误，请检查后重新输入，谢谢!</string>
     <string name="auth_code_input_error">验证码输入错误,请检查后重新输入，谢谢!</string>
     <string name="auth_code_invalid">验证码错误，请确认输入是否正确，如果点击了重新获取验证码，请输入最后一次收到的验证码，谢谢！</string>
@@ -26,10 +26,9 @@
     <string name="account_name">账号名称 : %1$s</string>
     <string name="exit_login">退出登录</string>
     <string name="change_pwd">修改密码</string>
-    <string name="forget_pwd">忘记密码</string>
+    <string name="forget_pwd"><u>忘记密码</u></string>
     <string name="reset_pwd">重置密码</string>
-    <string name="forget_pwd_notice">		1.点击下方按钮获取验证码，验证码会以短信的方式发送到该手机上\n
-		2.按照提示,输入验证码和新密码，然后点击重置密码按钮</string>
+    <string name="forget_pwd_notice">1.点击下方按钮获取验证码，验证码会以短信的方式发送到该手机上\n2.按照提示,输入验证码和新密码，然后点击重置密码按钮</string>
     <string name="input_old_pwd">请输入旧密码</string>
     <string name="input_new_pwd">请输入新密码</string>
     <string name="reinput_new_pwd">请重复输入新密码</string>
@@ -182,6 +181,7 @@
     <string name="about_us">关于我们</string>
     <string name="about_us_content">幼乐宝（成都库乐宝信息技术有限公司）---提供宝宝、家长和幼儿园三方互动沟通和信息发布服务，并提供丰富的后续服务和专业的技术保障。</string>
     <string name="get_auth_code_fail">获取验证码失败</string>
+    <string name="get_auth_code_too_often">获取验证码过于频繁，请稍后再试</string>
     <string name="emotion_explain">情绪稳定、适应集体生活、乐于亲近老师和同学</string>
     <string name="dining_explain">能愉快的进餐、不挑食、能吃完一份饭菜</string>
     <string name="rest_explain">能安静的就寝、正确地穿脱衣帽和鞋袜、按时起床</string>

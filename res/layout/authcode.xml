@@ -5,57 +5,71 @@
     android:background="@drawable/bg"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/aucodeContentView"
-        style="@style/NormalTextviewStyle"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:text="@string/aucodeContent" />
-
-    <EditText
-        android:id="@+id/inuputAuthCodeView"
+    <ImageView
+        android:id="@+id/i_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/aucodeContentView"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/input_c"
-        android:digits="0123456789"
-        android:hint="@string/inuput_auth_code"
-        android:maxLength="6"
-        android:padding="4dp"
-        android:singleLine="true"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/internal_logo" />
 
-    <Button
-        android:id="@+id/sendAuthCodeBtn"
-        style="@style/btn_style"
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/inuputAuthCodeView"
-        android:layout_alignRight="@+id/inuputAuthCodeView"
-        android:layout_below="@+id/inuputAuthCodeView"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/sub_btn"
-        android:text="@string/bind" />
+        android:layout_below="@+id/i_logo"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_2" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/inuputAuthCodeView"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/inuputAuthCodeView" >
+        <TextView
+            android:id="@+id/aucodeContentView"
+            style="@style/NormalTextviewStyle"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/text_a"
+            android:padding="6dp"
+            android:text="@string/aucodeContent"
+            android:textColor="@color/juhong" />
 
         <Button
             android:id="@+id/getAuthCodeBtn"
+            style="@style/btn_style"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/aucodeContentView"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/normal_btn"
             android:text="@string/getAuthCode" />
-    </LinearLayout>
+
+        <EditText
+            android:id="@+id/inuputAuthCodeView"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/getAuthCodeBtn"
+            android:layout_below="@+id/getAuthCodeBtn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/input_e"
+            android:digits="0123456789"
+            android:hint="@string/inuput_auth_code"
+            android:maxLength="6"
+            android:padding="4dp"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/sendAuthCodeBtn"
+            style="@style/btn_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/getAuthCodeBtn"
+            android:layout_below="@+id/getAuthCodeBtn"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/inuputAuthCodeView"
+            android:background="@drawable/bind_btn"
+            android:text="@string/bind" />
+    </RelativeLayout>
 
 </RelativeLayout>

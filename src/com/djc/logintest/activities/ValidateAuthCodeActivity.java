@@ -146,7 +146,10 @@ public class ValidateAuthCodeActivity extends MyActivity {
 					break;
 
 				case EventType.GET_AUTH_CODE_FAIL:
-					handleGetAuthCodeFail();
+					handleGetAuthCodeFail(msg.what);
+					break;
+				case EventType.GET_AUTH_CODE_TOO_OFTEN:
+					handleGetAuthCodeFail(msg.what);
 					break;
 
 				case EventType.AUTHCODE_COUNTDOWN_GO:
@@ -191,20 +194,21 @@ public class ValidateAuthCodeActivity extends MyActivity {
 		finish();
 	}
 
-	private void handleGetAuthCodeFail() {
-		Utils.showSingleBtnEventDlg(EventType.GET_AUTH_CODE_FAIL,
-				ValidateAuthCodeActivity.this);
+	private void handleGetAuthCodeFail(int eventtype) {
+		Utils.showSingleBtnEventDlg(eventtype, ValidateAuthCodeActivity.this);
 		enableGetAuthBtn();
 	}
 
 	private void disableGetAuthBtn() {
 		getAuthCodeBtn.setTextColor(getResources().getColor(R.color.dark_gray));
+		getAuthCodeBtn.setBackgroundResource(R.drawable.normal_btn_pressed);
 		getAuthCodeBtn.setEnabled(false);
 	}
 
 	private void enableGetAuthBtn() {
 		getAuthCodeBtn.setEnabled(true);
-		getAuthCodeBtn.setTextColor(getResources().getColor(R.color.black));
+		getAuthCodeBtn.setBackgroundResource(R.drawable.normal_btn);
+		getAuthCodeBtn.setTextColor(getResources().getColor(R.color.white));
 	}
 
 	private void handleGetAuthCodeSuccess() {

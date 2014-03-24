@@ -26,7 +26,7 @@ com.djc.logintest.R$style
 com.djc.logintest.R$styleable:
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    606:606:public R$styleable()
+    611:611:public R$styleable()
 com.djc.logintest.activities.ActivityHelper:
     10:10:public ActivityHelper()
 com.djc.logintest.activities.BindLocationMgrActivity:
@@ -107,8 +107,8 @@ com.djc.logintest.adapter.ScheduleListAdapter:
     20:21:public void setCookInfoList(java.util.List)
     29:31:public void clear()
 com.djc.logintest.adapter.SwipeListAdapter:
-    27:28:public void setLocationInfoList(java.util.List)
-    41:43:public void clear()
+    36:37:public void setLocationInfoList(java.util.List)
+    50:52:public void clear()
 com.djc.logintest.bean.Account
 com.djc.logintest.constant.ConstantValue
 com.djc.logintest.constant.EventMap:
@@ -123,6 +123,7 @@ com.djc.logintest.constant.EventType:
     public static final int AUTH_CODE_IS_INVALID
     public static final int GET_AUTH_CODE_SUCCESS
     public static final int GET_AUTH_CODE_FAIL
+    public static final int GET_AUTH_CODE_TOO_OFTEN
     public static final int TOKEN_INVALID
     public static final int NET_WORK_INVALID
     public static final int AUTHCODE_COUNTDOWN_GO
@@ -393,7 +394,7 @@ com.djc.logintest.handler.PushEventHandler:
     55:56:public void clearObservers()
     136:138:public void clear()
 com.djc.logintest.httpclientmgr.HttpClientHelper:
-    59:60:private HttpClientHelper()
+    55:56:private HttpClientHelper()
 com.djc.logintest.mycalendar.DateWidgetDayCell:
     289:298:public void CreateReminder(android.graphics.Canvas,int)
 com.djc.logintest.mycalendar.DateWidgetDayHeader:

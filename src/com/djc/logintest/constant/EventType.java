@@ -11,6 +11,7 @@ public class EventType {
 
 	public static final int GET_AUTH_CODE_SUCCESS = 1140;
 	public static final int GET_AUTH_CODE_FAIL = 1141;
+	public static final int GET_AUTH_CODE_TOO_OFTEN = 1142;
 
 	public static final int TOKEN_INVALID = 1151;
 

@@ -1,5 +1,6 @@
 E:\coolbao\LoginTest\gen\com\djc\logintest\R.java \
  : E:\coolbao\LoginTest\res\drawable\badrank.png \
+E:\coolbao\LoginTest\res\drawable\bind_btn.xml \
 E:\coolbao\LoginTest\res\drawable\bottom_bar.9.png \
 E:\coolbao\LoginTest\res\drawable\color_btn.xml \
 E:\coolbao\LoginTest\res\drawable\delete.png \
@@ -34,6 +35,8 @@ E:\coolbao\LoginTest\res\drawable-hdpi\bg_2.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\bg_a.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\bottom.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\breakfast.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\btn_bind_normal.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\btn_bind_press.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\btn_normal.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\btn_pressed.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\btn_setting_normal.png \
@@ -86,6 +89,7 @@ E:\coolbao\LoginTest\res\drawable-hdpi\input_a.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\input_b.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\input_c.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\input_d.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\input_e.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\internal_logo.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\lunch.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\manner.png \

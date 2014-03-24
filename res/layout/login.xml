@@ -64,23 +64,17 @@
             android:background="@drawable/sub_btn"
             android:focusable="true"
             android:text="@string/login" />
-    </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" >
-
-        <Button
+        <TextView
             android:id="@+id/forgetPwdView"
-            style="@style/btn_style"
-            android:layout_width="fill_parent"
+            style="@style/NormalTextviewStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/sub_btn"
-            android:text="@string/forget_pwd" />
-    </LinearLayout>
+            android:layout_below="@+id/loginBtn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/forget_pwd"
+            android:textColor="@color/red" />
+    </RelativeLayout>
 
 </RelativeLayout>

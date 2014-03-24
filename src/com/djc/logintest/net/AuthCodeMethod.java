@@ -70,6 +70,8 @@ public class AuthCodeMethod {
 				// 登录成功，保存token
 				if (errorcode == 0) {
 					event = EventType.GET_AUTH_CODE_SUCCESS;
+				} else if (errorcode == 1) {
+					event = EventType.GET_AUTH_CODE_TOO_OFTEN;
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
