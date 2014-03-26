@@ -4521,6 +4521,7 @@ com.djc.logintest.activities.NoticeActivity -> com.djc.logintest.activities.Noti
     java.lang.String net_url -> f
     java.lang.String local_url -> g
     android.os.Handler handler -> h
+    android.widget.TextView titleView -> i
     void onCreate(android.os.Bundle) -> onCreate
     void setData(android.content.Intent) -> a
     void setIcon() -> a
@@ -4651,13 +4652,14 @@ com.djc.logintest.activities.SchoolNoticeActivity -> com.djc.logintest.activitie
     void setTabTitle() -> a
     void setClassName() -> b
     void setSchoolName() -> c
-    void setBirthDay() -> d
+    java.lang.String getFixedUrl() -> d
+    void setBirthDay() -> e
     void onActivityResult(int,int,android.content.Intent) -> onActivityResult
     void resizeImage(android.net.Uri) -> a
     void runUploadTask(java.lang.String,android.graphics.Bitmap,java.lang.String,com.djc.logintest.handler.TaskResultHandler) -> a
     void updateChildPhoto(android.graphics.Bitmap) -> a
-    android.net.Uri getImageUri() -> e
-    void setNickName() -> f
+    android.net.Uri getImageUri() -> f
+    void setNickName() -> g
     void onResume() -> onResume
     void uploadBirthday(java.util.Calendar) -> a
     boolean checkValid(java.util.Calendar) -> b
@@ -4885,11 +4887,11 @@ com.djc.logintest.activities.SwipeCalendarActivity$Pre_MonthOnClickListener -> c
 com.djc.logintest.activities.SwipeDetailActivity -> com.djc.logintest.activities.SwipeDetailActivity:
     android.widget.TextView contentView -> a
     android.widget.ImageView noticeiconView -> b
-    android.widget.TextView signView -> c
-    android.widget.TextView timeView -> d
-    android.os.Handler handler -> e
-    com.djc.logintest.dbmgr.info.SwipeInfo swipeinfo -> f
-    android.os.AsyncTask downloadIconTask -> g
+    android.widget.TextView timeView -> c
+    android.os.Handler handler -> d
+    com.djc.logintest.dbmgr.info.SwipeInfo swipeinfo -> e
+    android.os.AsyncTask downloadIconTask -> f
+    android.widget.TextView swipefromview -> g
     void onCreate(android.os.Bundle) -> onCreate
     void setData(android.content.Intent) -> a
     void setIcon() -> a
@@ -5024,33 +5026,41 @@ com.djc.logintest.adapter.BindedNumInfoListAdapter$FlagHolder -> com.djc.loginte
     android.widget.TextView deleteView -> d
     com.djc.logintest.adapter.BindedNumInfoListAdapter this$0 -> e
 com.djc.logintest.adapter.ChatListAdapter -> com.djc.logintest.adapter.h:
-    java.util.Map softMap -> a
-    android.content.Context context -> b
-    java.util.List dataList -> c
-    com.djc.logintest.taskmgr.GlobleDownloadImgeTask task -> d
-    android.os.Handler handler -> e
+    java.util.Map softMap -> b
+    android.support.v4.util.LruCache lruCache -> a
+    android.content.Context context -> c
+    java.util.List dataList -> d
+    com.djc.logintest.taskmgr.GlobleDownloadImgeTask task -> e
+    android.os.Handler handler -> f
     void clear() -> a
     int getCount() -> getCount
     java.lang.Object getItem(int) -> getItem
     long getItemId(int) -> getItemId
+    int getItemViewType(int) -> getItemViewType
+    int getViewTypeCount() -> getViewTypeCount
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+    android.graphics.Bitmap getLocalIcon$2d447008(java.lang.String,int,int) -> a
+    void releaseCache() -> b
     void startToShowIconActivity(java.lang.String) -> a
     android.content.Context access$100(com.djc.logintest.adapter.ChatListAdapter) -> a
 com.djc.logintest.adapter.ChatListAdapter$1 -> com.djc.logintest.adapter.i:
     com.djc.logintest.adapter.ChatListAdapter this$0 -> a
-    void handleMessage(android.os.Message) -> handleMessage
+    int sizeOf(java.lang.Object,java.lang.Object) -> sizeOf
 com.djc.logintest.adapter.ChatListAdapter$2 -> com.djc.logintest.adapter.j:
+    com.djc.logintest.adapter.ChatListAdapter this$0 -> a
+    void handleMessage(android.os.Message) -> handleMessage
+com.djc.logintest.adapter.ChatListAdapter$3 -> com.djc.logintest.adapter.k:
     int val$position -> a
     com.djc.logintest.adapter.ChatListAdapter this$0 -> b
     boolean onLongClick(android.view.View) -> onLongClick
-com.djc.logintest.adapter.ChatListAdapter$2$1 -> com.djc.logintest.adapter.k:
-    com.djc.logintest.adapter.ChatListAdapter$2 this$1 -> a
+com.djc.logintest.adapter.ChatListAdapter$3$1 -> com.djc.logintest.adapter.l:
+    com.djc.logintest.adapter.ChatListAdapter$3 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.adapter.ChatListAdapter$3 -> com.djc.logintest.adapter.l:
+com.djc.logintest.adapter.ChatListAdapter$4 -> com.djc.logintest.adapter.m:
     int val$position -> a
     com.djc.logintest.adapter.ChatListAdapter this$0 -> b
     void onClick(android.view.View) -> onClick
-com.djc.logintest.adapter.ChatListAdapter$FlagHolder -> com.djc.logintest.adapter.m:
+com.djc.logintest.adapter.ChatListAdapter$FlagHolder -> com.djc.logintest.adapter.n:
     android.widget.TextView sendView -> a
     android.widget.TextView bodyView -> b
     android.widget.TextView timestampView -> c
@@ -5059,7 +5069,7 @@ com.djc.logintest.adapter.ChatListAdapter$FlagHolder -> com.djc.logintest.adapte
     android.widget.ImageView chaticonView -> f
     boolean bLeft -> g
     com.djc.logintest.adapter.ChatListAdapter this$0 -> h
-com.djc.logintest.adapter.ChildListAdapter -> com.djc.logintest.adapter.n:
+com.djc.logintest.adapter.ChildListAdapter -> com.djc.logintest.adapter.o:
     android.content.Context context -> a
     java.util.List mList -> b
     int getCount() -> getCount
@@ -5067,11 +5077,11 @@ com.djc.logintest.adapter.ChildListAdapter -> com.djc.logintest.adapter.n:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.ChildListAdapter$FlagHolder) -> a
-com.djc.logintest.adapter.ChildListAdapter$FlagHolder -> com.djc.logintest.adapter.o:
+com.djc.logintest.adapter.ChildListAdapter$FlagHolder -> com.djc.logintest.adapter.p:
     android.widget.TextView nameView -> a
     android.widget.ImageView headView -> b
     com.djc.logintest.adapter.ChildListAdapter this$0 -> c
-com.djc.logintest.adapter.CookBookListAdapter -> com.djc.logintest.adapter.p:
+com.djc.logintest.adapter.CookBookListAdapter -> com.djc.logintest.adapter.q:
     android.content.Context context -> a
     java.util.List cookInfos -> b
     int getCount() -> getCount
@@ -5079,7 +5089,7 @@ com.djc.logintest.adapter.CookBookListAdapter -> com.djc.logintest.adapter.p:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.CookBookListAdapter$FlagHolder) -> a
-com.djc.logintest.adapter.CookBookListAdapter$FlagHolder -> com.djc.logintest.adapter.q:
+com.djc.logintest.adapter.CookBookListAdapter$FlagHolder -> com.djc.logintest.adapter.r:
     android.widget.TextView fouthcontentView -> a
     android.widget.TextView thirdcontentView -> b
     android.widget.TextView secondcontentView -> c
@@ -5087,7 +5097,7 @@ com.djc.logintest.adapter.CookBookListAdapter$FlagHolder -> com.djc.logintest.ad
     android.widget.TextView weekView -> e
     android.widget.TextView firstcontentView -> f
     com.djc.logintest.adapter.CookBookListAdapter this$0 -> g
-com.djc.logintest.adapter.EducationGridViewAdapter -> com.djc.logintest.adapter.r:
+com.djc.logintest.adapter.EducationGridViewAdapter -> com.djc.logintest.adapter.s:
     android.content.Context context -> a
     java.util.List data -> b
     int getCount() -> getCount
@@ -5095,11 +5105,11 @@ com.djc.logintest.adapter.EducationGridViewAdapter -> com.djc.logintest.adapter.
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.EducationGridViewAdapter$FlagHolder) -> a
-com.djc.logintest.adapter.EducationGridViewAdapter$FlagHolder -> com.djc.logintest.adapter.s:
+com.djc.logintest.adapter.EducationGridViewAdapter$FlagHolder -> com.djc.logintest.adapter.t:
     android.widget.ImageView rankImgView -> a
     android.widget.ImageView itemImgView -> b
     com.djc.logintest.adapter.EducationGridViewAdapter this$0 -> c
-com.djc.logintest.adapter.HomeworkListAdapter -> com.djc.logintest.adapter.t:
+com.djc.logintest.adapter.HomeworkListAdapter -> com.djc.logintest.adapter.u:
     android.content.Context context -> a
     java.util.List dataList -> b
     java.util.Map softMap -> c
@@ -5109,14 +5119,14 @@ com.djc.logintest.adapter.HomeworkListAdapter -> com.djc.logintest.adapter.t:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.HomeworkListAdapter$FlagHolder) -> a
-com.djc.logintest.adapter.HomeworkListAdapter$FlagHolder -> com.djc.logintest.adapter.u:
+com.djc.logintest.adapter.HomeworkListAdapter$FlagHolder -> com.djc.logintest.adapter.v:
     android.widget.TextView titleView -> a
     android.widget.TextView bodyView -> b
     android.widget.TextView timestampView -> c
     android.widget.TextView fromView -> d
     android.widget.ImageView iconView -> e
     com.djc.logintest.adapter.HomeworkListAdapter this$0 -> f
-com.djc.logintest.adapter.LocationInfoListAdapter -> com.djc.logintest.adapter.v:
+com.djc.logintest.adapter.LocationInfoListAdapter -> com.djc.logintest.adapter.w:
     android.content.Context context -> a
     java.util.List locationInfoList -> b
     void clear() -> a
@@ -5127,21 +5137,21 @@ com.djc.logintest.adapter.LocationInfoListAdapter -> com.djc.logintest.adapter.v
     void setDataToViews(int,com.djc.logintest.adapter.LocationInfoListAdapter$FlagHolder) -> a
     android.content.Context access$100(com.djc.logintest.adapter.LocationInfoListAdapter) -> a
     java.util.List access$200(com.djc.logintest.adapter.LocationInfoListAdapter) -> b
-com.djc.logintest.adapter.LocationInfoListAdapter$1 -> com.djc.logintest.adapter.w:
+com.djc.logintest.adapter.LocationInfoListAdapter$1 -> com.djc.logintest.adapter.x:
     int val$position -> a
     com.djc.logintest.dbmgr.info.LocationInfo val$locationInfo -> b
     com.djc.logintest.adapter.LocationInfoListAdapter this$0 -> c
     void onClick(android.view.View) -> onClick
-com.djc.logintest.adapter.LocationInfoListAdapter$1$1 -> com.djc.logintest.adapter.x:
+com.djc.logintest.adapter.LocationInfoListAdapter$1$1 -> com.djc.logintest.adapter.y:
     com.djc.logintest.adapter.LocationInfoListAdapter$1 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.djc.logintest.adapter.LocationInfoListAdapter$FlagHolder -> com.djc.logintest.adapter.y:
+com.djc.logintest.adapter.LocationInfoListAdapter$FlagHolder -> com.djc.logintest.adapter.z:
     android.widget.TextView lbsNumView -> a
     android.widget.TextView addressView -> b
     android.widget.TextView timestampView -> c
     android.widget.ImageView deleteView -> d
     com.djc.logintest.adapter.LocationInfoListAdapter this$0 -> e
-com.djc.logintest.adapter.MyGridViewAdapter -> com.djc.logintest.adapter.z:
+com.djc.logintest.adapter.MyGridViewAdapter -> com.djc.logintest.adapter.aa:
     android.content.Context context -> a
     java.util.List data -> b
     int getCount() -> getCount
@@ -5149,12 +5159,12 @@ com.djc.logintest.adapter.MyGridViewAdapter -> com.djc.logintest.adapter.z:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.MyGridViewAdapter$FlagHolder) -> a
-com.djc.logintest.adapter.MyGridViewAdapter$FlagHolder -> com.djc.logintest.adapter.aa:
+com.djc.logintest.adapter.MyGridViewAdapter$FlagHolder -> com.djc.logintest.adapter.ab:
     android.widget.ImageView newDataSymble -> a
     android.widget.TextView nameView -> b
     android.widget.ImageView headView -> c
     com.djc.logintest.adapter.MyGridViewAdapter this$0 -> d
-com.djc.logintest.adapter.NewsListAdapter -> com.djc.logintest.adapter.ab:
+com.djc.logintest.adapter.NewsListAdapter -> com.djc.logintest.adapter.ac:
     android.content.Context context -> a
     java.util.List newsList -> b
     java.util.Map softMap -> c
@@ -5164,14 +5174,14 @@ com.djc.logintest.adapter.NewsListAdapter -> com.djc.logintest.adapter.ab:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.NewsListAdapter$FlagHolder) -> a
-com.djc.logintest.adapter.NewsListAdapter$FlagHolder -> com.djc.logintest.adapter.ac:
+com.djc.logintest.adapter.NewsListAdapter$FlagHolder -> com.djc.logintest.adapter.ad:
     android.widget.TextView titleView -> a
     android.widget.TextView bodyView -> b
     android.widget.TextView timestampView -> c
     android.widget.TextView fromview -> d
     android.widget.ImageView iconView -> e
     com.djc.logintest.adapter.NewsListAdapter this$0 -> f
-com.djc.logintest.adapter.ScheduleListAdapter -> com.djc.logintest.adapter.ad:
+com.djc.logintest.adapter.ScheduleListAdapter -> com.djc.logintest.adapter.ae:
     android.content.Context context -> a
     java.util.List items -> b
     int getCount() -> getCount
@@ -5179,13 +5189,13 @@ com.djc.logintest.adapter.ScheduleListAdapter -> com.djc.logintest.adapter.ad:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.ScheduleListAdapter$FlagHolder) -> a
-com.djc.logintest.adapter.ScheduleListAdapter$FlagHolder -> com.djc.logintest.adapter.ae:
+com.djc.logintest.adapter.ScheduleListAdapter$FlagHolder -> com.djc.logintest.adapter.af:
     android.widget.TextView dateView -> a
     android.widget.TextView weekView -> b
     android.widget.TextView amContentView -> c
     android.widget.TextView pmContentView -> d
     com.djc.logintest.adapter.ScheduleListAdapter this$0 -> e
-com.djc.logintest.adapter.SwipeListAdapter -> com.djc.logintest.adapter.af:
+com.djc.logintest.adapter.SwipeListAdapter -> com.djc.logintest.adapter.ag:
     android.content.Context context -> a
     java.util.List list -> b
     java.lang.String nick -> c
@@ -5195,7 +5205,7 @@ com.djc.logintest.adapter.SwipeListAdapter -> com.djc.logintest.adapter.af:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.djc.logintest.adapter.SwipeListAdapter$FlagHolder) -> a
-com.djc.logintest.adapter.SwipeListAdapter$FlagHolder -> com.djc.logintest.adapter.ag:
+com.djc.logintest.adapter.SwipeListAdapter$FlagHolder -> com.djc.logintest.adapter.ah:
     android.widget.TextView titleView -> a
     android.widget.TextView bodyView -> b
     android.widget.TextView timestampView -> c
@@ -5584,8 +5594,7 @@ com.djc.logintest.dbmgr.info.ChatInfo -> com.djc.logintest.e.a.b:
     long getTimestamp() -> f
     void setTimestamp(long) -> a
     java.lang.String getFormattedTime() -> g
-    int getLayoutID() -> h
-    java.lang.String getLocalUrl() -> i
+    java.lang.String getLocalUrl() -> h
 com.djc.logintest.dbmgr.info.ChildInfo -> com.djc.logintest.e.a.c:
     java.lang.String child_nick_name -> a
     java.lang.String local_url -> b
@@ -5707,8 +5716,7 @@ com.djc.logintest.dbmgr.info.Homework -> com.djc.logintest.e.a.f:
     void setTimestamp(long) -> a
     java.lang.String getPublisher() -> g
     void setPublisher(java.lang.String) -> d
-    java.lang.String getFormattedTime() -> h
-    java.lang.String getHomeWorkLocalIconPath() -> i
+    java.lang.String getHomeWorkLocalIconPath() -> h
 com.djc.logintest.dbmgr.info.InfoHelper -> com.djc.logintest.e.a.g:
     java.lang.String BIRTHDAY -> a
     java.lang.String PHOTO -> b
@@ -5766,7 +5774,6 @@ com.djc.logintest.dbmgr.info.News -> com.djc.logintest.e.a.i:
     void setClass_id(int) -> d
     java.lang.String getFrom() -> i
     java.lang.String getNewsLocalIconPath() -> j
-    java.lang.String getFormattedTime() -> k
 com.djc.logintest.dbmgr.info.Notice -> com.djc.logintest.e.a.j:
     java.lang.String title -> a
     java.lang.String content -> b
@@ -6515,6 +6522,7 @@ com.djc.logintest.utils.Utils -> com.djc.logintest.q.d:
     boolean isWiFiActive(android.content.Context) -> a
     boolean isNetworkConnected(android.content.Context) -> b
     int getConnectedType(android.content.Context) -> c
+    java.lang.String formatChineseTime(long) -> c
     boolean isVoiceOn() -> i
     java.util.Calendar getMonDayCalendar() -> j
     void setImg(android.widget.ImageView,android.graphics.Bitmap) -> a
@@ -6530,7 +6538,7 @@ com.djc.logintest.utils.Utils -> com.djc.logintest.q.d:
     void RecursionDeleteFile(java.io.File) -> a
     void saveBitmapToSDCard(android.graphics.Bitmap,java.lang.String) -> a
     java.lang.String getUploadChildUrl() -> o
-    java.lang.String getChatIconUrl(long) -> c
+    java.lang.String getChatIconUrl(long) -> d
     android.graphics.Bitmap getLoacalBitmap(java.lang.String) -> i
     android.graphics.Bitmap getLoacalBitmap(java.lang.String,int) -> a
     android.graphics.Bitmap getBitmapFromUrl$676c1c3e(java.lang.String) -> j

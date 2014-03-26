@@ -90,7 +90,6 @@
     <string name="old_pwd_not_equal">旧密码错误，请重新输入</string>
     <string name="bind_location">定位号码管理</string>
     <string name="swipcard_notice">刷卡通知</string>
-    <string name="swipcard_record">刷卡记录</string>
     <string name="cookbook_notice">宝宝食谱</string>
     <string name="other_notice">其它通知</string>
     <string name="location_record">定位历史记录</string>
@@ -106,8 +105,8 @@
     <string name="lunch">午餐</string>
     <string name="extralunch">加餐</string>
     <string name="dinner">晚餐</string>
-    <string name="schoolnotice">幼儿园公告</string>
     <string name="homework">亲子作业</string>
+    <string name="homework_content">作业内容</string>
     <string name="pnotice">园内公告</string>
     <string name="cnotice">班级通知</string>
     <string name="cook">每周食谱</string>
@@ -134,7 +133,6 @@
     <string name="fri">星期五</string>
     <string name="am">上午</string>
     <string name="pm">下午</string>
-    <string name="swipe_calendar">签到一览</string>
     <string name="change_child">切换宝宝</string>
     <string name="select_child">选择宝宝</string>
     <string name="select_success">切换成功!</string>

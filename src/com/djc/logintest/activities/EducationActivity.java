@@ -335,6 +335,7 @@ public class EducationActivity extends UmengStatisticsActivity {
 		map.put(RANK, currentEdu.getActivity());
 		lstImageItem.add(map);
 
+		map = new HashMap<String, Object>();
 		map.put(ITEM_IMAGE, R.drawable.exercise);
 		map.put(RANK, currentEdu.getExercise());
 		lstImageItem.add(map);
@@ -360,10 +361,12 @@ public class EducationActivity extends UmengStatisticsActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		if (MyApplication.getInstance().isForAutoTest()) {
-			menu.add(1, // 组号
-					Menu.FIRST, // 唯一的ID号
-					Menu.FIRST, // 排序号
-					"清空"); // 标题
+			if (MyApplication.getInstance().isForAutoTest()) {
+				menu.add(1, // 组号
+						Menu.FIRST, // 唯一的ID号
+						Menu.FIRST, // 排序号
+						"清空"); // 标题
+			}
 		}
 
 		return true;

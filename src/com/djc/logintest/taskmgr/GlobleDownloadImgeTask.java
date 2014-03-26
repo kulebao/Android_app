@@ -32,13 +32,12 @@ public class GlobleDownloadImgeTask {
 		DisplayMetrics dm = new DisplayMetrics();
 		dm = MyApplication.getInstance().getResources().getDisplayMetrics();
 
-		Log.d("DDD", "w = " + dm.widthPixels + " h=" + dm.heightPixels
-				+ " density=" + dm.density);
-		limitWidth = dm.widthPixels * dm.density;
-		limitHeight = dm.heightPixels * dm.density;
+		Log.d("DDD", "w = " + dm.widthPixels + " h=" + dm.heightPixels + " density=" + dm.density);
+		limitWidth = dm.widthPixels * 0.7f;// * dm.density;
+		limitHeight = dm.heightPixels * 0.7f;// * dm.density;
 	}
 
-	public void addTask(String imgaeUrl, String savePath) {
+	public synchronized void addTask(String imgaeUrl, String savePath) {
 		if (stop || map.containsKey(imgaeUrl)) {
 			Log.d("DDD", "runTask do nothing, stop =" + stop);
 			return;
@@ -66,10 +65,9 @@ public class GlobleDownloadImgeTask {
 			int result = EventType.DOWNLOAD_IMG_FAILED;
 			Bitmap bmp = null;
 			try {
-				Log.d("DDD", "downloadImgImpl url=" + imgaeUrl + " limitWidth="
-						+ limitWidth + " limitHeight=" + limitHeight);
-				bmp = Utils.downloadImgWithJudgement(imgaeUrl, limitWidth,
-						limitHeight);
+				Log.d("DDD", "downloadImgImpl url=" + imgaeUrl + " limitWidth=" + limitWidth + " limitHeight="
+						+ limitHeight);
+				bmp = Utils.downloadImgWithJudgement(imgaeUrl, limitWidth, limitHeight);
 				if (bmp != null) {
 					Log.d("DDD", "downloadImgImpl saveBitmapToSDCard");
 					Utils.saveBitmapToSDCard(bmp, savePath);
@@ -82,7 +80,7 @@ public class GlobleDownloadImgeTask {
 				e.printStackTrace();
 			} finally {
 				sendMsg(result);
-				if(bmp !=null){
+				if (bmp != null) {
 					bmp.recycle();
 				}
 				map.remove(imgaeUrl);

@@ -25,17 +25,19 @@ public class NoticeActivity extends UmengStatisticsActivity {
 	private TextView signView;
 	private TextView timeView;
 	private AsyncTask<Void, Void, Integer> downloadIconTask;
-	//图片在服务器上路径
+	// 图片在服务器上路径
 	private String net_url;
-	//图片本地保存路径
+	// 图片本地保存路径
 	private String local_url;
 	private Handler handler;
+	private TextView titleView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notice);
-		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.notice_title);
+		// ActivityHelper.setBackKeyLitsenerOnTopbar(this,
+		// R.string.notice_title);
 		Log.d("DDD JJJ", "NoticeActivity onCreate");
 		initView();
 		initHandler();
@@ -56,7 +58,8 @@ public class NoticeActivity extends UmengStatisticsActivity {
 		signView.setText(publisher);
 		timeView.setText(time);
 
-		contentView.setText(title + "\n" + "   " + content);
+		titleView.setText(title);
+		contentView.setText(content);
 	}
 
 	private void initHandler() {
@@ -88,11 +91,12 @@ public class NoticeActivity extends UmengStatisticsActivity {
 					noticeiconView.setVisibility(View.VISIBLE);
 					Utils.setImg(noticeiconView, bmp);
 				} else {
-					//如果本地图片有路径却没有文件，那么从服务器重新下载并保存到本地
+					// 如果本地图片有路径却没有文件，那么从服务器重新下载并保存到本地
 					if (!TextUtils.isEmpty(net_url)) {
 						runDownloadIconTask();
 						noticeiconView.setVisibility(View.VISIBLE);
-						noticeiconView.setImageResource(R.drawable.default_icon);
+						noticeiconView
+								.setImageResource(R.drawable.default_icon);
 					}
 				}
 			}
@@ -105,8 +109,8 @@ public class NoticeActivity extends UmengStatisticsActivity {
 	private void runDownloadIconTask() {
 		if (downloadIconTask != null
 				&& downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
-			//有任务执行，则返回
-			Log.d("DDD","NoticeActivity DownloadIconTask already running!");
+			// 有任务执行，则返回
+			Log.d("DDD", "NoticeActivity DownloadIconTask already running!");
 			return;
 		}
 
@@ -119,6 +123,7 @@ public class NoticeActivity extends UmengStatisticsActivity {
 		timeView = (TextView) findViewById(R.id.time);
 		contentView = (TextView) findViewById(R.id.noticecontent);
 		noticeiconView = (ImageView) findViewById(R.id.noticeicon);
+		titleView = (TextView) findViewById(R.id.title);
 	}
 
 	@Override

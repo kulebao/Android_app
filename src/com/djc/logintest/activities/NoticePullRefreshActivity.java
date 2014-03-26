@@ -47,7 +47,7 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notice_pull_refresh_list);
-		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.schoolnotice);
+		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.pnotice);
 		initDialog();
 		initHander();
 		initCustomListView();
@@ -278,7 +278,8 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 		// intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
 		intent.putExtra(JSONConstant.NOTIFICATION_BODY, info.getContent());
-		intent.putExtra(JSONConstant.TIME_STAMP, info.getFormattedTime());
+		intent.putExtra(JSONConstant.TIME_STAMP,
+				Utils.formatChineseTime(info.getTimestamp()));
 		intent.putExtra(JSONConstant.PUBLISHER, info.getFrom());
 		intent.putExtra(JSONConstant.NET_URL, info.getIcon_url());
 		intent.putExtra(JSONConstant.LOCAL_URL, info.getNewsLocalIconPath());

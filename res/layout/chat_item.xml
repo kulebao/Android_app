@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/timestamp"
-        style="@style/item_style"
-        android:layout_centerHorizontal="true"
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:text="2014-12-3 22:45"
-        android:textColor="@color/juhong"
-        android:textSize="14sp"
-        android:textStyle="normal" />
+        android:layout_marginTop="5dp" >
+
+        <TextView
+        android:layout_centerHorizontal="true"
+            android:id="@+id/timestamp"
+            style="@style/item_style"
+            android:text="2014-12-3 22:45"
+            android:textColor="@color/juhong"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/timestamp"
+        android:layout_below="@+id/top"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp" >
 
@@ -80,4 +88,4 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

@@ -2,12 +2,8 @@ package com.djc.logintest.activities;
 
 import java.util.List;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,7 +15,6 @@ import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.SwipeInfo;
-import com.djc.logintest.utils.Utils;
 
 public class SwipeListActivity extends UmengStatisticsActivity {
 	private ListView list;
@@ -32,7 +27,7 @@ public class SwipeListActivity extends UmengStatisticsActivity {
 		setContentView(R.layout.notice_list);
 		getParam();
 		ActivityHelper.setBackKeyLitsenerOnTopbar(this,
-				R.string.swipcard_record);
+				R.string.swap);
 		initListAdapter();
 	}
 

@@ -66,11 +66,13 @@ public class NewsMethod {
 		String body = object.getString("content");
 		int serverID = object.getInt("news_id");
 		int class_id = object.getInt("class_id");
+		String image = object.getString("image");
 
 		info.setClass_id(class_id);
 		info.setContent(body);
 		info.setNews_server_id(serverID);
 		// info.setPublisher("测试djc");
+		info.setIcon_url(image);
 		info.setTitle(title);
 		info.setTimestamp(timestamp);
 		info.setType(JSONConstant.NOTICE_TYPE_NORMAL);

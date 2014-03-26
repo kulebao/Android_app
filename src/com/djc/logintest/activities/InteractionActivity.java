@@ -134,8 +134,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	}
 
 	private void initImageUri() {
-		uri = Uri.fromFile(new File(Utils.getSDCardFileDir(Utils.APP_DIR_TMP),
-				TMP_BMP));
+		uri = Uri.fromFile(new File(Utils.getSDCardFileDir(Utils.APP_DIR_TMP), TMP_BMP));
 	}
 
 	// 拷贝图库图片到sd卡上
@@ -146,14 +145,11 @@ public class InteractionActivity extends UmengStatisticsActivity {
 		try {
 			BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inJustDecodeBounds = true;
-			BitmapFactory.decodeStream(cr.openInputStream(currentUri), null,
-					options);
-			options.inSampleSize = ImageDownloader.computeSampleSize(options,
-					-1, ImageDownloader.getMaxPix());
+			BitmapFactory.decodeStream(cr.openInputStream(currentUri), null, options);
+			options.inSampleSize = ImageDownloader.computeSampleSize(options, -1, ImageDownloader.getMaxPix());
 			options.inJustDecodeBounds = false;
 
-			bitmap = BitmapFactory.decodeStream(cr.openInputStream(currentUri),
-					null, options);
+			bitmap = BitmapFactory.decodeStream(cr.openInputStream(currentUri), null, options);
 			Utils.saveBitmapToSDCard(bitmap, uri.getPath());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -199,8 +195,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 		}
 
 		// 进入到发送chat界面，先取消获取chat的任务，避免重复获取
-		if (getChatTask != null
-				&& getChatTask.getStatus() == AsyncTask.Status.RUNNING) {
+		if (getChatTask != null && getChatTask.getStatus() == AsyncTask.Status.RUNNING) {
 			getChatTask.cancel(true);
 		}
 		startToSendChatActivity();
@@ -239,8 +234,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	}
 
 	private void initCustomListView() {
-		chatlist = DataMgr.getInstance().getChatInfoWithLimite(
-				ConstantValue.GET_CHATINFO_MAX_COUNT);
+		chatlist = DataMgr.getInstance().getChatInfoWithLimite(ConstantValue.GET_CHATINFO_MAX_COUNT);
 		task = new GlobleDownloadImgeTask();
 		adapter = new ChatListAdapter(this, chatlist, task);
 		msgListView = (MsgListView) findViewById(R.id.chatlist);// 继承ListActivity，id要写成android.R.id.list，否则报异常
@@ -280,7 +274,12 @@ public class InteractionActivity extends UmengStatisticsActivity {
 
 	@Override
 	protected void onDestroy() {
-		task.stopTask();
+		if (task != null) {
+			task.stopTask();
+		}
+		if (adapter != null) {
+			adapter.releaseCache();
+		}
 		super.onDestroy();
 	}
 
@@ -291,18 +290,17 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	}
 
 	private void setRefreshListener() {
-		msgListView
-				.setonRefreshListener(new com.djc.logintest.customview.MsgListView.OnRefreshListener() {
-					@Override
-					public void onRefresh() {
-						if (chatlist.isEmpty()) {
-							refreshTailImpl();
-							return;
-						}
-						refreshHead();
-					}
+		msgListView.setonRefreshListener(new com.djc.logintest.customview.MsgListView.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				if (chatlist.isEmpty()) {
+					refreshTailImpl();
+					return;
+				}
+				refreshHead();
+			}
 
-				});
+		});
 	}
 
 	private void refreshHead() {
@@ -320,8 +318,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	private void refreshHeadFromServer() {
 		long to = chatlist.get(0).getServer_id();
 
-		boolean runtask = runGetChatTask(0, to, ConstantValue.Type_INSERT_HEAD,
-				SORT_ASC);
+		boolean runtask = runGetChatTask(0, to, ConstantValue.Type_INSERT_HEAD, SORT_ASC);
 		if (!runtask) {
 			// 任务没有执行，立即去掉下拉显示
 			msgListView.onRefreshComplete();
@@ -332,10 +329,8 @@ public class InteractionActivity extends UmengStatisticsActivity {
 
 	private boolean runGetChatTask(long from, long to, int type, String sort) {
 		boolean bret = true;
-		if (getChatTask == null
-				|| getChatTask.getStatus() != AsyncTask.Status.RUNNING) {
-			getChatTask = new GetChatTask(myhandler,
-					ConstantValue.GET_CHATINFO_MAX_COUNT, from, to, type, sort);
+		if (getChatTask == null || getChatTask.getStatus() != AsyncTask.Status.RUNNING) {
+			getChatTask = new GetChatTask(myhandler, ConstantValue.GET_CHATINFO_MAX_COUNT, from, to, type, sort);
 			getChatTask.execute();
 		} else {
 			bret = false;
@@ -346,12 +341,10 @@ public class InteractionActivity extends UmengStatisticsActivity {
 
 	private List<ChatInfo> getChatFromLocal() {
 		if (chatlist != null && !chatlist.isEmpty()) {
-			return DataMgr.getInstance().getChatInfoWithLimite(
-					ConstantValue.GET_CHATINFO_MAX_COUNT,
+			return DataMgr.getInstance().getChatInfoWithLimite(ConstantValue.GET_CHATINFO_MAX_COUNT,
 					chatlist.get(0).getTimestamp());
 		}
-		return DataMgr.getInstance().getChatInfoWithLimite(
-				ConstantValue.GET_CHATINFO_MAX_COUNT);
+		return DataMgr.getInstance().getChatInfoWithLimite(ConstantValue.GET_CHATINFO_MAX_COUNT);
 	}
 
 	private void setScrollListener() {
@@ -366,8 +359,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 			}
 
 			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
+			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 			}
 		});
 	}
@@ -396,8 +388,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 				e.printStackTrace();
 			}
 		}
-		boolean runtask = runGetChatTask(from, 0,
-				ConstantValue.Type_INSERT_TAIl, sort);
+		boolean runtask = runGetChatTask(from, 0, ConstantValue.Type_INSERT_TAIl, sort);
 		return runtask;
 	}
 
@@ -422,14 +413,13 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == Menu.FIRST) {
-			Utils.showTwoBtnResDlg(R.string.delete_all_notice_confirm, this,
-					new OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							DataMgr.getInstance().removeAllChatInfo();
-							adapter.clear();
-						}
-					});
+			Utils.showTwoBtnResDlg(R.string.delete_all_notice_confirm, this, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					DataMgr.getInstance().removeAllChatInfo();
+					adapter.clear();
+				}
+			});
 		}
 		return true;
 	}
@@ -450,8 +440,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 					handleSuccess(msg);
 					break;
 				case EventType.FAIL:
-					Toast.makeText(InteractionActivity.this, "获取数据失败",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(InteractionActivity.this, "获取数据失败", Toast.LENGTH_SHORT).show();
 
 					break;
 				default:

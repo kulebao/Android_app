@@ -6,20 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.djc.logintest.R;
-import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.utils.ImageDownloader;
 import com.djc.logintest.utils.Utils;
@@ -93,7 +90,8 @@ public class NewsListAdapter extends BaseAdapter {
 		final News info = newsList.get(position);
 		flagholder.titleView.setText(info.getTitle());
 		flagholder.bodyView.setText(info.getContent());
-		flagholder.timestampView.setText(info.getFormattedTime());
+		flagholder.timestampView.setText(Utils.formatChineseTime(info
+				.getTimestamp()));
 		flagholder.fromview.setText(info.getFrom());
 		setIcon(flagholder.iconView, info);
 		// flagholder.deleteView.setOnClickListener(new OnClickListener() {
@@ -113,9 +111,9 @@ public class NewsListAdapter extends BaseAdapter {
 
 	private void setIcon(ImageView view, News info) {
 		String localUrl = info.getNewsLocalIconPath();
-		if(TextUtils.isEmpty(localUrl)){
+		if (TextUtils.isEmpty(localUrl)) {
 			view.setVisibility(View.GONE);
-		}else{
+		} else {
 			Bitmap loacalBitmap = getLocalBmp(localUrl);
 			if (loacalBitmap != null) {
 				Log.d("DJC", "setIcon url =" + localUrl);

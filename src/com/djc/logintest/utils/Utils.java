@@ -342,6 +342,17 @@ public class Utils {
 		return false;
 	}
 
+	// 月日 时分
+	public static String formatChineseTime(long time) {
+		SimpleDateFormat format = new SimpleDateFormat("MM月dd日 HH:mm",
+				Locale.CHINESE);
+		String timestr = format.format(new Date(time));
+		if (timestr.startsWith("0")) {
+			timestr = timestr.replaceFirst("0", "");
+		}
+		return timestr;
+	}
+
 	public static boolean isVoiceOn() {
 		return ConstantValue.VOICE_OPEN.equals(getProp(
 				ConstantValue.VOICE_CONFIG, ConstantValue.VOICE_OPEN));

@@ -24,7 +24,7 @@ public class MyApplication extends FrontiaApplication {
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
 	private List<ChatInfo> tmpList = new ArrayList<ChatInfo>();
 
-	private boolean forAutoTest = false;
+	private boolean forAutoTest = true;
 
 	public boolean isForAutoTest() {
 		return forAutoTest;

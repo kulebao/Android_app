@@ -213,7 +213,7 @@ public class SwipeCalendarActivity extends UmengStatisticsActivity {
 		setContentView(mainLayout);
 
 		ActivityHelper
-				.setBackKeyLitsenerOnTopbar(this, R.string.swipe_calendar);
+				.setBackKeyLitsenerOnTopbar(this, R.string.swap);
 
 		// 声明控件，并绑定事件
 		top_Date = (TextView) findViewById(R.id.Top_Date);

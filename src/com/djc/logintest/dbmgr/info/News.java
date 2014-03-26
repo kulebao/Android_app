@@ -3,7 +3,6 @@ package com.djc.logintest.dbmgr.info;
 import java.io.File;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.utils.Utils;
@@ -107,11 +106,7 @@ public class News {
 	public String getFrom() {
 		String from = DataMgr.getInstance().getSchoolInfo().getSchool_name();
 		if (class_id != 0) {
-			String className = DataMgr.getInstance().getClassNameByClassID(
-					class_id);
-			Log.d("EEE", "getFrom className=" + className + "  class_id="
-					+ class_id);
-			from += className;
+			from = DataMgr.getInstance().getClassNameByClassID(class_id);
 		}
 
 		return from;
@@ -119,11 +114,11 @@ public class News {
 
 	// 返回公告本地图片保存路径，如果不存在则返回""
 	public String getNewsLocalIconPath() {
-		//服务器上不存在图片，本地一定不存在
-		if(TextUtils.isEmpty(icon_url)){
+		// 服务器上不存在图片，本地一定不存在
+		if (TextUtils.isEmpty(icon_url)) {
 			return "";
 		}
-		
+
 		String dir = Utils.getSDCardPicRootPath() + File.separator + NEWS_ICON
 				+ File.separator;
 		Utils.mkDirs(dir);

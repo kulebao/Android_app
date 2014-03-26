@@ -23,7 +23,7 @@ public class LoadingActivity extends UmengStatisticsActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.loading);
 		initHandler();
-		initData();
+		// initData();
 		new LoadingTask(handler).execute();
 		PushModel.getPushModel().enableDebug(true);
 	}
@@ -31,8 +31,7 @@ public class LoadingActivity extends UmengStatisticsActivity {
 	private void initData() {
 		if (MyApplication.getInstance().isForAutoTest()) {
 			Utils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, "133d");
-			Utils.saveUndeleteableProp(JSONConstant.USER_ID,
-					"963386802751977894");
+			Utils.saveUndeleteableProp(JSONConstant.USER_ID, "963386802751977894");
 			Utils.saveUndeleteableProp(ConstantValue.TEST_PHONE, "true");
 			Utils.setGuided();
 		}

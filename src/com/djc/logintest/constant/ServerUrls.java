@@ -89,7 +89,7 @@ public class ServerUrls {
 			+ "%s";
 
 	public static final String GET_SCHOOL_DETAIL = HTTPS_HOST_ADDR
-			+ ROOT_RES_PATH + "/%s/" + GET_TYPE_DETAIL;
+			+ ROOT_RES_PATH + "/%s/";
 
 	public static final String SCHEDULE_PRIVIEW = HTTPS_HOST_ADDR
 			+ ROOT_RES_PATH + "/%s/" + CLASS_RES_PATH + "/%s/"

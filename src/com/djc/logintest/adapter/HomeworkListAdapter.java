@@ -90,12 +90,12 @@ public class HomeworkListAdapter extends BaseAdapter {
 		final Homework info = dataList.get(position);
 		flagholder.titleView.setText(info.getTitle());
 		flagholder.bodyView.setText(info.getContent());
-		flagholder.timestampView.setText(info.getFormattedTime());
+		String timestr = Utils.formatChineseTime(info.getTimestamp());
+		flagholder.timestampView.setText(timestr);
 
 		flagholder.fromView.setText(DataMgr.getInstance()
 				.getClassNameByClassID(info.getClass_id()));
-		setIcon(flagholder.iconView,info);
-
+		setIcon(flagholder.iconView, info);
 	}
 
 	private void setIcon(ImageView view, Homework info) {

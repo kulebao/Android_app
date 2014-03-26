@@ -33,8 +33,7 @@ public class SchoolMethod {
 	}
 
 	private String createCheckSchoolInfoCommand() {
-		return String.format(ServerUrls.GET_SCHOOL_PRIVIEW, DataMgr
-				.getInstance().getSchoolID());
+		return String.format(ServerUrls.GET_SCHOOL_PRIVIEW, DataMgr.getInstance().getSchoolID());
 	}
 
 	private int handleCheckSchoolInfoResult(HttpResult result) {
@@ -43,18 +42,15 @@ public class SchoolMethod {
 			event = EventType.SERVER_INNER_ERROR;
 			try {
 				JSONObject jsonObject = result.getJsonObject();
-				Log.d("DDD handleCheckSchoolInfoResult",
-						"str : " + jsonObject.toString());
+				Log.d("DDD handleCheckSchoolInfoResult", "str : " + jsonObject.toString());
 				int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
 
 				// 登录成功，保存学校动态信息
 				if (errorcode == 0) {
-					long timestamp = Long.parseLong(jsonObject
-							.getString(InfoHelper.TIMESTAMP));
-					SchoolInfo schoolInfo = DataMgr.getInstance()
-							.getSchoolInfo();
-					long oldtimestamp = schoolInfo.getTimestamp().equals("") ? -1
-							: Long.parseLong(schoolInfo.getTimestamp());
+					long timestamp = Long.parseLong(jsonObject.getString(InfoHelper.TIMESTAMP));
+					SchoolInfo schoolInfo = DataMgr.getInstance().getSchoolInfo();
+					long oldtimestamp = schoolInfo.getTimestamp().equals("") ? -1 : Long.parseLong(schoolInfo
+							.getTimestamp());
 					// 信息没有更新，到此结束
 					if (timestamp <= oldtimestamp) {
 						event = EventType.SCHOOL_INFO_IS_LATEST;
@@ -88,8 +84,7 @@ public class SchoolMethod {
 	}
 
 	private String createGetSchoolInfoCommand() {
-		return String.format(ServerUrls.GET_SCHOOL_DETAIL, DataMgr
-				.getInstance().getSchoolID());
+		return String.format(ServerUrls.GET_SCHOOL_DETAIL, DataMgr.getInstance().getSchoolID());
 	}
 
 	private int handleGetSchoolInfoResult(HttpResult result) {
@@ -98,21 +93,12 @@ public class SchoolMethod {
 			event = EventType.SERVER_INNER_ERROR;
 			try {
 				JSONObject jsonObject = result.getJsonObject();
-				Log.d("DDD handleCheckSchoolInfoResult",
-						"str : " + jsonObject.toString());
-				int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
-				// 登录成功，保存学校动态信息
-				if (errorcode == 0) {
-					String content = jsonObject
-							.getString(JSONConstant.SCHOOL_INFO);
-					JSONObject schoolObj = new JSONObject(content);
-					SchoolInfo newInfo = SchoolInfo
-							.jsonObjToChildInfo(schoolObj);
-					// 单独解析school_id
-					DataMgr.getInstance().updateSchoolInfo(
-							DataMgr.getInstance().getSchoolID(), newInfo);
-					event = EventType.UPDATE_SCHOOL_INFO;
-				}
+				Log.d("DDD handleCheckSchoolInfoResult", "str : " + jsonObject.toString());
+				SchoolInfo newInfo = SchoolInfo.jsonObjToChildInfo(jsonObject);
+				// 单独解析school_id
+				DataMgr.getInstance().updateSchoolInfo(DataMgr.getInstance().getSchoolID(), newInfo);
+				event = EventType.UPDATE_SCHOOL_INFO;
+				// }
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -22,115 +22,120 @@ import com.djc.logintest.taskmgr.DownLoadImgAndSaveTask;
 import com.djc.logintest.utils.Utils;
 
 public class SwipeDetailActivity extends UmengStatisticsActivity {
-    private TextView contentView;
-    private ImageView noticeiconView;
-    private TextView signView;
-    private TextView timeView;
-    private Handler handler;
-    private SwipeInfo swipeinfo;
-    private AsyncTask<Void, Void, Integer> downloadIconTask;
+	private TextView contentView;
+	private ImageView noticeiconView;
+	private TextView timeView;
+	private Handler handler;
+	private SwipeInfo swipeinfo;
+	private AsyncTask<Void, Void, Integer> downloadIconTask;
+	private TextView swipefromview;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.notice);
-        Log.d("DDD JJJ", "SwipeDetailActivity onCreate");
-        initHandler();
-        initView();
-        setData(getIntent());
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.notice);
+		Log.d("DDD JJJ", "SwipeDetailActivity onCreate");
+		initHandler();
+		initView();
+		setData(getIntent());
+	}
 
-    private void initHandler() {
-        handler = new MyHandler(this, null) {
-            @Override
-            public void handleMessage(Message msg) {
-                if (SwipeDetailActivity.this.isFinishing()) {
-                    Log.w("djc", "do nothing when activity finishing!");
-                    return;
-                }
-                super.handleMessage(msg);
-                switch (msg.what) {
-                case EventType.DOWNLOAD_IMG_SUCCESS:
-                    setIcon();
-                    break;
-                default:
-                    break;
-                }
-            }
+	private void initHandler() {
+		handler = new MyHandler(this, null) {
+			@Override
+			public void handleMessage(Message msg) {
+				if (SwipeDetailActivity.this.isFinishing()) {
+					Log.w("djc", "do nothing when activity finishing!");
+					return;
+				}
+				super.handleMessage(msg);
+				switch (msg.what) {
+				case EventType.DOWNLOAD_IMG_SUCCESS:
+					setIcon();
+					break;
+				default:
+					break;
+				}
+			}
 
-        };
-    }
+		};
+	}
 
-    private void setData(Intent intent) {
-        int id = intent.getIntExtra(JSONConstant.NOTIFICATION_ID, -1);
-        swipeinfo = DataMgr.getInstance().getSwipeDataByID(id);
-        try {
-            if (swipeinfo != null) {
-                setIcon();
-                setPublisher();
-                setTimestamp();
-                setTitle();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	private void setData(Intent intent) {
+		int id = intent.getIntExtra(JSONConstant.NOTIFICATION_ID, -1);
+		swipeinfo = DataMgr.getInstance().getSwipeDataByID(id);
+		try {
+			if (swipeinfo != null) {
+				setIcon();
+				setPublisher();
+				setContent();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    }
+	}
 
-    public void setIcon() {
-        Bitmap bmp = Utils.getLoacalBitmap(SwapCardNoticePaser.createSwipeIconPath(String
-                .valueOf(swipeinfo.getTimestamp())));
-        if (bmp != null) {
-            noticeiconView.setVisibility(View.VISIBLE);
-            Utils.setImg(noticeiconView, bmp);
-        } else {
-            runDownloadIconTask();
-        }
-    }
+	public void setIcon() {
+		Bitmap bmp = Utils.getLoacalBitmap(SwapCardNoticePaser
+				.createSwipeIconPath(String.valueOf(swipeinfo.getTimestamp())));
+		if (bmp != null) {
+			noticeiconView.setVisibility(View.VISIBLE);
+			Utils.setImg(noticeiconView, bmp);
+		} else {
+			runDownloadIconTask();
+		}
+	}
 
-    private void runDownloadIconTask() {
-        if (downloadIconTask != null && downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
-            // 后执行的取消先执行的
-            downloadIconTask.cancel(true);
-        }
+	private void runDownloadIconTask() {
+		if (downloadIconTask != null
+				&& downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
+			// 后执行的取消先执行的
+			downloadIconTask.cancel(true);
+		}
 
-        downloadIconTask = new DownLoadImgAndSaveTask(handler, swipeinfo.getUrl(),
-                SwapCardNoticePaser.createSwipeIconPath(String.valueOf(swipeinfo.getTimestamp())))
-                .execute();
-    }
+		downloadIconTask = new DownLoadImgAndSaveTask(handler,
+				swipeinfo.getUrl(),
+				SwapCardNoticePaser.createSwipeIconPath(String
+						.valueOf(swipeinfo.getTimestamp()))).execute();
+	}
 
-    public void setTitle() {
-        contentView.setText(swipeinfo.getNoticeTitle()
-                + "\n"
-                + swipeinfo.getNoticeBody(DataMgr.getInstance().getSelectedChild()
-                        .getChild_nick_name()));
-    }
+	public void setContent() {
+		contentView.setText(swipeinfo.getNoticeTitle()
+				+ "\n"
+				+ swipeinfo.getNoticeBody(DataMgr.getInstance()
+						.getSelectedChild().getChild_nick_name()));
+	}
 
-    public void setTimestamp() {
-        timeView.setText(swipeinfo.getFormattedTime());
-    }
+	public void setTimestamp() {
+		timeView.setText(swipeinfo.getFormattedTime());
+	}
 
-    public void setPublisher() {
-        try {
-            signView.setText(DataMgr.getInstance().getSchoolInfo().getSchool_name());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	public void setPublisher() {
+		try {
+			swipefromview.setVisibility(View.VISIBLE);
+			swipefromview.setText(DataMgr.getInstance().getSchoolInfo()
+					.getSchool_name());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-    private void initView() {
-        signView = (TextView) findViewById(R.id.sign);
-        timeView = (TextView) findViewById(R.id.time);
-        contentView = (TextView) findViewById(R.id.noticecontent);
-        noticeiconView = (ImageView) findViewById(R.id.noticeicon);
-    }
+	private void initView() {
+		timeView = (TextView) findViewById(R.id.time);
+		contentView = (TextView) findViewById(R.id.noticecontent);
+		noticeiconView = (ImageView) findViewById(R.id.noticeicon);
+		swipefromview = (TextView) findViewById(R.id.swipefrom);
+		TextView titleView = (TextView) findViewById(R.id.title);
+		titleView.setVisibility(View.GONE);
+	}
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        Log.d("DDD JJJ", "SwipeDetailActivity onNewIntent");
-        setIntent(intent);
-        setData(intent);
-    }
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		Log.d("DDD JJJ", "SwipeDetailActivity onNewIntent");
+		setIntent(intent);
+		setData(intent);
+	}
 
 }

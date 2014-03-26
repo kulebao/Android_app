@@ -6,13 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 
 import com.djc.logintest.R;
 import com.djc.logintest.dbmgr.DataMgr;
-import com.djc.logintest.dbmgr.info.Homework;
 import com.djc.logintest.dbmgr.info.SwipeInfo;
 import com.djc.logintest.noticepaser.SwapCardNoticePaser;
 import com.djc.logintest.utils.ImageDownloader;
@@ -132,7 +129,8 @@ public class SwipeListAdapter extends BaseAdapter {
 		final SwipeInfo info = list.get(position);
 		flagholder.titleView.setText(info.getNoticeTitle());
 		flagholder.bodyView.setText(info.getNoticeBody(nick));
-		flagholder.timestampView.setText(info.getFormattedTime());
+		flagholder.timestampView.setText(Utils.formatChineseTime(info
+				.getTimestamp()));
 		flagholder.fromView.setText(DataMgr.getInstance().getSchoolInfo()
 				.getSchool_name());
 		setIcon(flagholder.iconView, info);

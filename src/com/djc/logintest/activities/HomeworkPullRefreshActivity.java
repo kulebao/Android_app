@@ -46,7 +46,8 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homework_pull_refresh_list);
-		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.homework);
+		ActivityHelper.setBackKeyLitsenerOnTopbar(this,
+				R.string.homework_content);
 		initDialog();
 		initHander();
 		initCustomListView();
@@ -78,11 +79,10 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 		return bret;
 	}
 
-	
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(adapter != null){
+		if (adapter != null) {
 			adapter.notifyDataSetChanged();
 		}
 	}
@@ -261,7 +261,8 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 		// intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
 		intent.putExtra(JSONConstant.NOTIFICATION_BODY, info.getContent());
-		intent.putExtra(JSONConstant.TIME_STAMP, info.getFormattedTime());
+		intent.putExtra(JSONConstant.TIME_STAMP,
+				Utils.formatChineseTime(info.getTimestamp()));
 		intent.putExtra(JSONConstant.PUBLISHER, info.getPublisher());
 		intent.putExtra(JSONConstant.NET_URL, info.getIcon_url());
 		intent.putExtra(JSONConstant.LOCAL_URL, info.getHomeWorkLocalIconPath());

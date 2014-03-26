@@ -25,6 +25,8 @@
 	<color name="isToday_BgColor">#EBDCC1</color>
 	<color name="specialReminder">#FF0000</color>
 	<color name="commonReminder">#BDBAB5</color>
+	
+	<color name="timecolor">#A29E94</color>
 
 	<color name="on_text">#FFFFFF</color><!-- 开启时文字颜色 -->
 	<color name="off_text">#5B5B5B</color><!-- 关闭时文字颜色 -->

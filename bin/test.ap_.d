@@ -33,6 +33,7 @@ E:\coolbao\LoginTest\res\drawable-hdpi\bg.jpg \
 E:\coolbao\LoginTest\res\drawable-hdpi\bg_1.jpg \
 E:\coolbao\LoginTest\res\drawable-hdpi\bg_2.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\bg_a.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\bg_null.jpg \
 E:\coolbao\LoginTest\res\drawable-hdpi\bottom.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\breakfast.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\btn_bind_normal.png \
@@ -90,6 +91,7 @@ E:\coolbao\LoginTest\res\drawable-hdpi\input_b.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\input_c.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\input_d.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\input_e.9.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\input_normal.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\internal_logo.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\lunch.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\manner.png \
@@ -110,6 +112,7 @@ E:\coolbao\LoginTest\res\drawable-hdpi\star.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\sub_bg.jpg \
 E:\coolbao\LoginTest\res\drawable-hdpi\swap.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\text_a.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\text_normal.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\topbar.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\update.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\white_dot.png \
@@ -251,6 +254,7 @@ E:\coolbao\LoginTest\bin\res\drawable-hdpi\input_b.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\input_c.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\input_d.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\input_e.9.png \
+E:\coolbao\LoginTest\bin\res\drawable-hdpi\input_normal.9.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\internal_logo.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\lunch.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\manner.png \
@@ -270,6 +274,7 @@ E:\coolbao\LoginTest\bin\res\drawable-hdpi\small_btn_pressed.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\star.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\swap.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\text_a.png \
+E:\coolbao\LoginTest\bin\res\drawable-hdpi\text_normal.9.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\topbar.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\update.png \
 E:\coolbao\LoginTest\bin\res\drawable-hdpi\white_dot.png \

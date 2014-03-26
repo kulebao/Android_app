@@ -26,7 +26,7 @@ com.djc.logintest.R$style
 com.djc.logintest.R$styleable:
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    611:611:public R$styleable()
+    616:616:public R$styleable()
 com.djc.logintest.activities.ActivityHelper:
     10:10:public ActivityHelper()
 com.djc.logintest.activities.BindLocationMgrActivity:
@@ -45,7 +45,9 @@ com.djc.logintest.activities.InteractionActivity:
     private static final java.lang.String SORT_ASC
     private static final java.lang.String SORT_DESC
     private static final java.lang.String TMP_BMP
-    215:234:private void addTestData()
+    210:229:private void addTestData()
+com.djc.logintest.activities.LoadingActivity:
+    32:38:private void initData()
 com.djc.logintest.activities.LocationActivity:
     private static final int MIN_ZOOM
     private static final int MAX_ZOOM
@@ -86,11 +88,15 @@ com.djc.logintest.activities.SwipeCalendarActivity:
     250:260:private int getNumFromDate(java.util.Calendar,java.util.Calendar)
     264:264:private int millisecondsToDays(long)
     268:272:private void setTimeToMidnight(java.util.Calendar)
+com.djc.logintest.activities.SwipeDetailActivity:
+    111:112:public void setTimestamp()
 com.djc.logintest.adapter.BindedNumInfoListAdapter:
     31:32:public void setLocationInfoList(java.util.List)
     40:42:public void clear()
 com.djc.logintest.adapter.ChatListAdapter:
     private static final long MIN_TIME_LIMIT
+    private static final int LEFT
+    private static final int RIGHT
 com.djc.logintest.adapter.ChildListAdapter:
     23:24:public void setLocationInfoList(java.util.List)
     32:34:public void clear()
@@ -102,13 +108,13 @@ com.djc.logintest.adapter.HomeworkListAdapter:
 com.djc.logintest.adapter.LocationInfoListAdapter:
     26:27:public void setLocationInfoList(java.util.List)
 com.djc.logintest.adapter.NewsListAdapter:
-    33:34:public void setLocationInfoList(java.util.List)
+    30:31:public void setLocationInfoList(java.util.List)
 com.djc.logintest.adapter.ScheduleListAdapter:
     20:21:public void setCookInfoList(java.util.List)
     29:31:public void clear()
 com.djc.logintest.adapter.SwipeListAdapter:
-    36:37:public void setLocationInfoList(java.util.List)
-    50:52:public void clear()
+    33:34:public void setLocationInfoList(java.util.List)
+    47:49:public void clear()
 com.djc.logintest.bean.Account
 com.djc.logintest.constant.ConstantValue
 com.djc.logintest.constant.EventMap:
@@ -252,6 +258,7 @@ com.djc.logintest.dbmgr.info.ChatInfo:
     public static final int SEND_SUCCESS
     public static final int SEND_FAIL
     62:62:public int getId()
+    115:115:public boolean isSendBySelf()
     138:142:public java.lang.String getHomeWorkLocalIconPath()
 com.djc.logintest.dbmgr.info.ChildInfo:
     public static final int STATUS_SELECTED
@@ -300,6 +307,7 @@ com.djc.logintest.dbmgr.info.Homework:
     private static final java.lang.String HOMEWORK_ICON
     public static final java.lang.String CLASS_ID
     55:55:public int getId()
+    95:101:public java.lang.String getFormattedTime()
 com.djc.logintest.dbmgr.info.InfoHelper:
     private static final java.lang.String BABY_ICON_NAME
     private static final java.lang.String SCHOOL_LOGO
@@ -332,7 +340,8 @@ com.djc.logintest.dbmgr.info.News:
     public static final java.lang.String ICON_URL
     public static final java.lang.String CLASS_ID
     private static final java.lang.String NEWS_ICON
-    43:43:public int getId()
+    42:42:public int getId()
+    130:136:public java.lang.String getFormattedTime()
 com.djc.logintest.dbmgr.info.Notice:
     public static final java.lang.String ID
     public static final java.lang.String TITLE
@@ -396,7 +405,7 @@ com.djc.logintest.handler.PushEventHandler:
 com.djc.logintest.httpclientmgr.HttpClientHelper:
     55:56:private HttpClientHelper()
 com.djc.logintest.mycalendar.DateWidgetDayCell:
-    289:298:public void CreateReminder(android.graphics.Canvas,int)
+    295:304:public void CreateReminder(android.graphics.Canvas,int)
 com.djc.logintest.mycalendar.DateWidgetDayHeader:
     private static final int fTextSize
 com.djc.logintest.mycalendar.DayStyle:
@@ -548,11 +557,11 @@ com.djc.logintest.utils.Utils:
     108:111:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
     130:133:public static void deleteProp(java.lang.String)
     333:342:public boolean isMobileConnected(android.content.Context)
-    475:478:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
-    501:512:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
-    540:540:public static android.graphics.Bitmap getBitmapFromUrl(java.lang.String)
-    563:577:public static android.graphics.Bitmap downloadImgImpl(java.lang.String)
-    601:614:public static void saveInSDCard(java.lang.String)
+    486:489:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
+    512:523:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
+    551:551:public static android.graphics.Bitmap getBitmapFromUrl(java.lang.String)
+    574:588:public static android.graphics.Bitmap downloadImgImpl(java.lang.String)
+    612:625:public static void saveInSDCard(java.lang.String)
 com.umeng.analytics.Gender
 com.umeng.analytics.MobclickAgent:
     20:439:public MobclickAgent()

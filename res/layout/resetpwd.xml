@@ -26,7 +26,7 @@
             android:id="@+id/resetPwdNoticeView"
             style="@style/NormalTextviewStyle"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/text_a"
+            android:background="@drawable/text_normal"
             android:padding="6dp"
             android:text="@string/forget_pwd_notice"
             android:textColor="@color/juhong" />
