@@ -4,10 +4,8 @@ import java.io.File;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 
 import com.djc.logintest.R;
-import com.djc.logintest.upload.OSSMgr;
 import com.djc.logintest.upload.UploadFactory;
 import com.djc.logintest.utils.Utils;
 

@@ -13,7 +13,6 @@ import android.util.Log;
 import com.djc.logintest.R;
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.activities.SwipeDetailActivity;
-import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.dbmgr.info.Notice;

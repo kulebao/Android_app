@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.res.Resources;
+import android.text.TextUtils;
 
 import com.djc.logintest.R;
 import com.djc.logintest.activities.MyApplication;
@@ -59,7 +60,7 @@ public class CookBookInfo {
     public List<CookbookItem> getCookbookItemList() {
         Resources resources = MyApplication.getInstance().getResources();
         List<CookbookItem> list = new ArrayList<CookbookItem>();
-        if (!cookbook_content.isEmpty()) {
+        if (!TextUtils.isEmpty(cookbook_content)) {
             try {
                 JSONObject object = new JSONObject(cookbook_content);
 
@@ -67,7 +68,7 @@ public class CookBookInfo {
                 Calendar cal = Utils.getMonDayCalendar();
 
                 String oneday = getDetail(object, InfoHelper.MON);
-                if (!oneday.isEmpty()) {
+                if (!TextUtils.isEmpty(oneday)) {
                     CookbookItem item = getItem(oneday);
                     item.setCookWeek(resources.getString(R.string.mon));
                     item.setCookDate(InfoHelper.getYearMonthDayFormat().format(cal.getTime()));
@@ -75,7 +76,7 @@ public class CookBookInfo {
                 }
                 
                 oneday = getDetail(object, InfoHelper.TUE);
-                if (!oneday.isEmpty()) {
+                if (!TextUtils.isEmpty(oneday)) {
                     CookbookItem item = getItem(oneday);
                     item.setCookWeek(resources.getString(R.string.tue));
                     cal.add(Calendar.DATE, 1);
@@ -84,7 +85,7 @@ public class CookBookInfo {
                 }
                 
                 oneday = getDetail(object, InfoHelper.WED);
-                if (!oneday.isEmpty()) {
+                if (!TextUtils.isEmpty(oneday)) {
                     CookbookItem item = getItem(oneday);
                     item.setCookWeek(resources.getString(R.string.wed));
                     cal.add(Calendar.DATE, 1);
@@ -93,7 +94,7 @@ public class CookBookInfo {
                 }
                 
                 oneday = getDetail(object, InfoHelper.THU);
-                if (!oneday.isEmpty()) {
+                if (!TextUtils.isEmpty(oneday)) {
                     CookbookItem item = getItem(oneday);
                     item.setCookWeek(resources.getString(R.string.thu));
                     cal.add(Calendar.DATE, 1);
@@ -102,7 +103,7 @@ public class CookBookInfo {
                 }
                 
                 oneday = getDetail(object, InfoHelper.FRI);
-                if (!oneday.isEmpty()) {
+                if (!TextUtils.isEmpty(oneday)) {
                     CookbookItem item = getItem(oneday);
                     item.setCookWeek(resources.getString(R.string.fri));
                     cal.add(Calendar.DATE, 1);

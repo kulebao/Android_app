@@ -4,13 +4,10 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 
-import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.EventType;
-import com.djc.logintest.net.FeedBackMethod;
 import com.djc.logintest.net.SchoolMethod;
 import com.djc.logintest.proxy.MyProxy;
 import com.djc.logintest.proxy.MyProxyImpl;
-import com.djc.logintest.utils.Utils;
 
 public class GetSchoolInfoTask extends AsyncTask<Void, Void, Integer> {
 

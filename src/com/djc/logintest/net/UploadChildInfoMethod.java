@@ -7,12 +7,10 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.djc.logintest.constant.EventType;
-import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.constant.ServerUrls;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.ChildInfo;
 import com.djc.logintest.httpclientmgr.HttpClientHelper;
-import com.djc.logintest.utils.Utils;
 
 public class UploadChildInfoMethod {
 
@@ -30,7 +28,7 @@ public class UploadChildInfoMethod {
 		Log.e("DDDDD ", "uploadChildInfo cmd:" + url);
 		Log.e("DDDDD ", "uploadChildInfo content:" + content);
 		result = HttpClientHelper.executePost(url, content);
-		bret = handleGetChildInfoResultEx(result);
+		bret = handleGetChildInfoResult(result);
 		return bret;
 	}
 
@@ -41,7 +39,7 @@ public class UploadChildInfoMethod {
 		return url;
 	}
 
-	private int handleGetChildInfoResultEx(HttpResult result) {
+	private int handleGetChildInfoResult(HttpResult result) {
 		int event = EventType.SERVER_BUSY;
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			try {
@@ -54,30 +52,6 @@ public class UploadChildInfoMethod {
 			}
 		} else {
 			event = EventType.UPLOAD_FAILED;
-		}
-
-		return event;
-	}
-
-	private int handleGetChildInfoResult(HttpResult result) {
-		int event = EventType.SERVER_BUSY;
-		if (result.getResCode() == HttpStatus.SC_OK) {
-			try {
-				JSONObject jsonObject = result.getJsonObject();
-				Log.d("DDD handleGetChildInfoResult",
-						"str : " + jsonObject.toString());
-				int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
-				// 登录成功，保存token
-				if (errorcode == 0) {
-					event = checkUpdate(jsonObject);
-				} else {
-					event = EventType.UPLOAD_FAILED;
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		} else {
-			event = EventType.SERVER_INNER_ERROR;
 		}
 
 		return event;

@@ -21,7 +21,6 @@ import com.djc.logintest.customexception.InvalidTokenException;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.net.ChatMethod;
 import com.djc.logintest.net.UploadTokenMethod;
-import com.djc.logintest.upload.OSSMgr;
 import com.djc.logintest.upload.UploadFactory;
 import com.djc.logintest.utils.Utils;
 

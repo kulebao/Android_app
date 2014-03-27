@@ -64,6 +64,7 @@ E:\coolbao\LoginTest\res\drawable-hdpi\cook_title.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\dark_dot.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\default_child_head_icon.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\default_icon.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\default_small_icon.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\dialog_bg.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\dining.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\dinner.png \

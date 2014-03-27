@@ -77,6 +77,11 @@ public class LoginActivity extends MyActivity {
 					Utils.showSingleBtnEventDlg(EventType.PHONE_NUM_IS_INVALID,
 							LoginActivity.this);
 					break;
+				case EventType.PHONE_NUM_IS_ALREADY_LOGIN:
+					Utils.clearProp();
+					Utils.showSingleBtnEventDlg(EventType.PHONE_NUM_IS_ALREADY_LOGIN,
+							LoginActivity.this);
+					break;
 				case EventType.SERVER_BUSY:
 					// 绑定失败，删除登录成功时保存的用户信息
 					Utils.clearProp();
@@ -140,12 +145,12 @@ public class LoginActivity extends MyActivity {
 
 			@Override
 			public void onClick(View v) {
-				if (MyApplication.getInstance().isForAutoTest()) {
-					dialog.show();
-					new LoginTask(handler, ConstantValue.TEST_PHONE,
-							ConstantValue.TEST_PHONE_PWD).execute();
-					return;
-				}
+				// if (MyApplication.getInstance().isForTest()) {
+				// dialog.show();
+				// new LoginTask(handler, ConstantValue.TEST_PHONE,
+				// ConstantValue.TEST_PHONE_PWD).execute();
+				// return;
+				// }
 
 				if (Utils.checkPWD(getPwd())) {
 					// 发起登录

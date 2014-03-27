@@ -13,6 +13,7 @@ import android.graphics.Shader;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -193,12 +194,12 @@ public class DateWidgetDayCell extends View {
 				textPaint.setTextSize(swipeTextSize);
 				int height = (int) (-textPaint.ascent() + textPaint.descent());
 
-				String checkin = record.getCheckin().isEmpty() ? "未签到" : record
-						.getCheckin();
+				String checkin = TextUtils.isEmpty(record.getCheckin()) ? "未签到"
+						: record.getCheckin();
 				djcdraw(canvas, checkin, rect.width(), iPosY + 1, textPaint);
 				// 注意不要累加高度，执行完上面一句后，canvas的高度就是当前高度，加上textPaint
 				// 的高度就是第二个textPaint的起始y坐标
-				String checkout = record.getCheckout().isEmpty() ? "未签退"
+				String checkout = TextUtils.isEmpty(record.getCheckout()) ? "未签退"
 						: record.getCheckout();
 				djcdraw(canvas, checkout, rect.width(), height, textPaint);
 			}

@@ -223,7 +223,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			if (loacalBitmap != null) {
 				Utils.setImg(babyHeadIcon, loacalBitmap);
 			}
-		} else if (!"".equals(getFixedUrl())) {
+		} else if (!"".equals(selectedChild.getServer_url())) {
 			if (downloadIconTask != null
 					&& downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
 				// 后执行的取消先执行的
@@ -231,15 +231,10 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			}
 
 			downloadIconTask = new DownLoadImgAndSaveTask(handler,
-					getFixedUrl(),
+					selectedChild.getServer_url(),
 					InfoHelper.getChildrenLocalIconPath(selectedChild
 							.getServer_id())).execute();
 		}
-	}
-
-	private String getFixedUrl() {
-		// 七牛服务器支持根据参数获取图片，头像的宽高限制最大80*80
-		return selectedChild.getServer_url() + "?imageView/2/w/80/h/80";
 	}
 
 	private void setBirthDay() {

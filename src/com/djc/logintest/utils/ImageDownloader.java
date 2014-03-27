@@ -15,6 +15,7 @@ import android.util.Log;
 
 import com.djc.logintest.R;
 import com.djc.logintest.activities.MyApplication;
+import com.djc.logintest.customexception.DecodeBitmapException;
 
 public class ImageDownloader {
 	private static final int LIMIT_WITH = 320;
@@ -40,7 +41,7 @@ public class ImageDownloader {
 		this.limitWith = limitWith;
 	}
 
-	Bitmap download() {
+	Bitmap download(){
 		HttpURLConnection connection = null;
 		try {
 			URL url = new URL(imageUrl);
@@ -124,6 +125,7 @@ public class ImageDownloader {
 		} catch (IOException e) {
 			Log.e("", "IOException");
 			e.printStackTrace();
+			throw new DecodeBitmapException(e.toString());
 		}
 		return null;
 	}

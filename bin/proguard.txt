@@ -1,121 +1,121 @@
 # view res/layout/guide.xml #generated:7
 -keep class android.support.v4.view.ViewPager { <init>(...); }
 
-# view AndroidManifest.xml #generated:306
+# view AndroidManifest.xml #generated:308
 -keep class com.baidu.android.pushservice.PushService { <init>(...); }
 
-# view AndroidManifest.xml #generated:282
+# view AndroidManifest.xml #generated:284
 -keep class com.baidu.android.pushservice.PushServiceReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:292
+# view AndroidManifest.xml #generated:294
 -keep class com.baidu.android.pushservice.RegistrationReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:161
+# view AndroidManifest.xml #generated:163
 -keep class com.djc.logintest.activities.AboutUsActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:119
+# view AndroidManifest.xml #generated:121
 -keep class com.djc.logintest.activities.BindLocationMgrActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:70
+# view AndroidManifest.xml #generated:72
 -keep class com.djc.logintest.activities.ChangePWDActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:227
+# view AndroidManifest.xml #generated:229
 -keep class com.djc.logintest.activities.CheckIconActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:56
+# view AndroidManifest.xml #generated:58
 -keep class com.djc.logintest.activities.ChildListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:194
+# view AndroidManifest.xml #generated:196
 -keep class com.djc.logintest.activities.CookBookActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:221
+# view AndroidManifest.xml #generated:223
 -keep class com.djc.logintest.activities.EducationActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:154
+# view AndroidManifest.xml #generated:156
 -keep class com.djc.logintest.activities.FeedBackActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:140
+# view AndroidManifest.xml #generated:142
 -keep class com.djc.logintest.activities.GuideActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:182
+# view AndroidManifest.xml #generated:184
 -keep class com.djc.logintest.activities.HomeworkPullRefreshActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:188
+# view AndroidManifest.xml #generated:190
 -keep class com.djc.logintest.activities.InteractionActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:247
+# view AndroidManifest.xml #generated:249
 -keep class com.djc.logintest.activities.LoadingActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:233
+# view AndroidManifest.xml #generated:235
 -keep class com.djc.logintest.activities.LocationActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:84
+# view AndroidManifest.xml #generated:86
 -keep class com.djc.logintest.activities.LocationMgrActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:98
+# view AndroidManifest.xml #generated:100
 -keep class com.djc.logintest.activities.LocationRecordActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:49
+# view AndroidManifest.xml #generated:51
 -keep class com.djc.logintest.activities.LoginActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:77
+# view AndroidManifest.xml #generated:79
 -keep class com.djc.logintest.activities.MainActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:9
+# view AndroidManifest.xml #generated:11
 -keep class com.djc.logintest.activities.MyApplication { <init>(...); }
 
-# view AndroidManifest.xml #generated:175
+# view AndroidManifest.xml #generated:177
 -keep class com.djc.logintest.activities.NoticeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:105
+# view AndroidManifest.xml #generated:107
 -keep class com.djc.logintest.activities.NoticePullRefreshActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:147
+# view AndroidManifest.xml #generated:149
 -keep class com.djc.logintest.activities.NoticePullRefreshOldActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:112
+# view AndroidManifest.xml #generated:114
 -keep class com.djc.logintest.activities.NoticeRecordActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:63
+# view AndroidManifest.xml #generated:65
 -keep class com.djc.logintest.activities.ResetPWDActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:201
+# view AndroidManifest.xml #generated:203
 -keep class com.djc.logintest.activities.ScheduleActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:240
+# view AndroidManifest.xml #generated:242
 -keep class com.djc.logintest.activities.SchoolInfoActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:91
+# view AndroidManifest.xml #generated:93
 -keep class com.djc.logintest.activities.SchoolNoticeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:208
+# view AndroidManifest.xml #generated:210
 -keep class com.djc.logintest.activities.SendChatActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:35
+# view AndroidManifest.xml #generated:37
 -keep class com.djc.logintest.activities.SettingActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:215
+# view AndroidManifest.xml #generated:217
 -keep class com.djc.logintest.activities.ShowIconActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:126
+# view AndroidManifest.xml #generated:128
 -keep class com.djc.logintest.activities.SwipeCalendarActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:168
+# view AndroidManifest.xml #generated:170
 -keep class com.djc.logintest.activities.SwipeDetailActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:133
+# view AndroidManifest.xml #generated:135
 -keep class com.djc.logintest.activities.SwipeListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:28
+# view AndroidManifest.xml #generated:30
 -keep class com.djc.logintest.activities.TransitActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:42
+# view AndroidManifest.xml #generated:44
 -keep class com.djc.logintest.activities.UpdateActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:21
+# view AndroidManifest.xml #generated:23
 -keep class com.djc.logintest.activities.ValidateAuthCodeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:14
+# view AndroidManifest.xml #generated:16
 -keep class com.djc.logintest.activities.ValidatePhoneNumActivity { <init>(...); }
 
 # view res/layout/chat_pull_refresh_list.xml #generated:12
@@ -126,12 +126,12 @@
 # view res/layout/setting.xml #generated:125
 -keep class com.djc.logintest.customview.SwitchButton { <init>(...); }
 
-# view AndroidManifest.xml #generated:262
+# view AndroidManifest.xml #generated:264
 -keep class com.djc.logintest.receiver.NetStateChangeReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:269
+# view AndroidManifest.xml #generated:271
 -keep class com.djc.logintest.receiver.PushMessageReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:260
+# view AndroidManifest.xml #generated:262
 -keep class com.djc.logintest.service.MyService { <init>(...); }
 

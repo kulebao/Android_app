@@ -2,6 +2,8 @@ package com.djc.logintest.customexception;
 
 public class BindFailException extends CustomException {
 
+	private static final long serialVersionUID = 1L;
+
 	public BindFailException() {
 		super();
 	}

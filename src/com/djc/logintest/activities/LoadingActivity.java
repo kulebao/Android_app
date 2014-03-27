@@ -29,7 +29,7 @@ public class LoadingActivity extends UmengStatisticsActivity {
 	}
 
 	private void initData() {
-		if (MyApplication.getInstance().isForAutoTest()) {
+		if (MyApplication.getInstance().isForTest()) {
 			Utils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, "133d");
 			Utils.saveUndeleteableProp(JSONConstant.USER_ID, "963386802751977894");
 			Utils.saveUndeleteableProp(ConstantValue.TEST_PHONE, "true");

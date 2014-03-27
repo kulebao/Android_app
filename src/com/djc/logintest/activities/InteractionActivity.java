@@ -400,7 +400,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		if (MyApplication.getInstance().isForAutoTest()) {
+		if (MyApplication.getInstance().isForTest()) {
 			menu.add(1, // 组号
 					Menu.FIRST, // 唯一的ID号
 					Menu.FIRST, // 排序号

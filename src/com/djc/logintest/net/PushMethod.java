@@ -82,6 +82,8 @@ public class PushMethod {
 					event = EventType.BIND_SUCCESS;
 				} else if (errorcode == 2) {
 					event = EventType.PHONE_NUM_IS_INVALID;
+				} else if (errorcode == 3) {
+					event = EventType.PHONE_NUM_IS_ALREADY_LOGIN;
 				} else {
 					event = EventType.BIND_FAILED;
 				}

@@ -11,6 +11,7 @@ public class EventMap {
 
 		{
 			put(EventType.PHONE_NUM_IS_INVALID, R.string.phone_invalid);
+			put(EventType.PHONE_NUM_IS_ALREADY_LOGIN, R.string.phone_num_is_already_login);
 			put(EventType.PHONE_NUM_INPUT_ERROR, R.string.phone_input_error);
 
 			put(EventType.AUTH_CODE_IS_INVALID, R.string.auth_code_invalid);

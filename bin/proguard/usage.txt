@@ -26,7 +26,7 @@ com.djc.logintest.R$style
 com.djc.logintest.R$styleable:
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    616:616:public R$styleable()
+    617:617:public R$styleable()
 com.djc.logintest.activities.ActivityHelper:
     10:10:public ActivityHelper()
 com.djc.logintest.activities.BindLocationMgrActivity:
@@ -84,10 +84,10 @@ com.djc.logintest.activities.SchoolNoticeActivity:
     private static final java.lang.String IMAGE_FILE_NAME
 com.djc.logintest.activities.SwipeCalendarActivity:
     private static final int EXTRA_HEIGHT
-    241:245:protected java.lang.String GetDateShortString(java.util.Calendar)
-    250:260:private int getNumFromDate(java.util.Calendar,java.util.Calendar)
-    264:264:private int millisecondsToDays(long)
-    268:272:private void setTimeToMidnight(java.util.Calendar)
+    242:246:protected java.lang.String GetDateShortString(java.util.Calendar)
+    251:261:private int getNumFromDate(java.util.Calendar,java.util.Calendar)
+    265:265:private int millisecondsToDays(long)
+    269:273:private void setTimeToMidnight(java.util.Calendar)
 com.djc.logintest.activities.SwipeDetailActivity:
     111:112:public void setTimestamp()
 com.djc.logintest.adapter.BindedNumInfoListAdapter:
@@ -179,7 +179,13 @@ com.djc.logintest.constant.EventType:
 com.djc.logintest.constant.JSONConstant
 com.djc.logintest.constant.MyErrorCode
 com.djc.logintest.constant.ServerUrls
+com.djc.logintest.customexception.BindFailException:
+    private static final long serialVersionUID
 com.djc.logintest.customexception.CustomException:
+    private static final long serialVersionUID
+com.djc.logintest.customexception.DecodeBitmapException:
+    private static final long serialVersionUID
+com.djc.logintest.customexception.InvalidTokenException:
     private static final long serialVersionUID
 com.djc.logintest.customview.CustomDialog:
     32:33:public CustomDialog(android.content.Context)
@@ -257,9 +263,9 @@ com.djc.logintest.dbmgr.info.ChatInfo:
     private static final java.lang.String CHAT_ICON
     public static final int SEND_SUCCESS
     public static final int SEND_FAIL
-    62:62:public int getId()
-    115:115:public boolean isSendBySelf()
-    138:142:public java.lang.String getHomeWorkLocalIconPath()
+    60:60:public int getId()
+    113:113:public boolean isSendBySelf()
+    136:140:public java.lang.String getHomeWorkLocalIconPath()
 com.djc.logintest.dbmgr.info.ChildInfo:
     public static final int STATUS_SELECTED
     public static final int STATUS_UNSELECTED
@@ -278,7 +284,7 @@ com.djc.logintest.dbmgr.info.CookBookInfo:
     public static final java.lang.String ID
     public static final java.lang.String COOKBOOK_ID
     public static final java.lang.String COOKBOOK_CONTENT
-    44:44:public int getId()
+    45:45:public int getId()
 com.djc.logintest.dbmgr.info.EducationInfo:
     private static final int DEFAULT_RANK
     public static final java.lang.String ID
@@ -362,7 +368,7 @@ com.djc.logintest.dbmgr.info.ScheduleInfo:
     public static final java.lang.String ID
     public static final java.lang.String SCHEDULE_ID
     public static final java.lang.String SCHEDULE_CONTENT
-    27:27:public int getId()
+    28:28:public int getId()
 com.djc.logintest.dbmgr.info.SchoolInfo:
     public static final java.lang.String ID
     public static final java.lang.String SCHOOL_ID
@@ -405,7 +411,7 @@ com.djc.logintest.handler.PushEventHandler:
 com.djc.logintest.httpclientmgr.HttpClientHelper:
     55:56:private HttpClientHelper()
 com.djc.logintest.mycalendar.DateWidgetDayCell:
-    295:304:public void CreateReminder(android.graphics.Canvas,int)
+    296:305:public void CreateReminder(android.graphics.Canvas,int)
 com.djc.logintest.mycalendar.DateWidgetDayHeader:
     private static final int fTextSize
 com.djc.logintest.mycalendar.DayStyle:
@@ -414,10 +420,6 @@ com.djc.logintest.net.ChatMethod:
     private static final java.lang.String MOST
     private static final java.lang.String FROM
     private static final java.lang.String TO
-com.djc.logintest.net.ChildMethod:
-    113:133:private int handleGetChildInfoResult(com.djc.logintest.net.HttpResult)
-    137:160:private int checkUpdate(org.json.JSONObject)
-    175:193:private void updateAll(org.json.JSONArray,com.djc.logintest.dbmgr.info.ChildInfo)
 com.djc.logintest.net.EducationMethod:
     private static final java.lang.String MOST
     private static final java.lang.String FROM
@@ -440,8 +442,6 @@ com.djc.logintest.net.NewsMethod:
     private static final java.lang.String TO
 com.djc.logintest.net.SwipeCardMethod:
     private static final int MOST
-com.djc.logintest.net.UploadChildInfoMethod:
-    63:83:private int handleGetChildInfoResult(com.djc.logintest.net.HttpResult)
 com.djc.logintest.net.ValidatePhoneMethod:
     private static final java.lang.String CHECK_PHONE_RESULT
 com.djc.logintest.noticepaser.NoticePaserFactory:
@@ -544,8 +544,8 @@ com.djc.logintest.utils.ImageDownloader:
     private static final int HTTP_READ_TIMEOUT
 com.djc.logintest.utils.MethodUtils:
     public static final int CHECK_NEWS
-    31:31:public MethodUtils()
-    190:215:public static void setNotification(int,java.lang.String,java.lang.Class)
+    30:30:public MethodUtils()
+    189:214:public static void setNotification(int,java.lang.String,java.lang.Class)
 com.djc.logintest.utils.Utils:
     public static final int NETWORK_NOT_CONNECTED
     public static final java.lang.String TAG
@@ -553,15 +553,16 @@ com.djc.logintest.utils.Utils:
     public static final java.lang.String APP_DIR_TMP
     public static final java.lang.String APP_DIR_PIC
     public static final java.lang.String APP_LOGS
+    private static final int MIN_WIDTH
+    private static final int MIN_HEIGHT
     49:49:public Utils()
-    108:111:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
-    130:133:public static void deleteProp(java.lang.String)
-    333:342:public boolean isMobileConnected(android.content.Context)
-    486:489:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
-    512:523:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
-    551:551:public static android.graphics.Bitmap getBitmapFromUrl(java.lang.String)
-    574:588:public static android.graphics.Bitmap downloadImgImpl(java.lang.String)
-    612:625:public static void saveInSDCard(java.lang.String)
+    110:113:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
+    132:135:public static void deleteProp(java.lang.String)
+    335:344:public boolean isMobileConnected(android.content.Context)
+    496:499:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
+    522:533:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
+    561:561:public static android.graphics.Bitmap getBitmapFromUrl(java.lang.String)
+    638:651:public static void saveInSDCard(java.lang.String)
 com.umeng.analytics.Gender
 com.umeng.analytics.MobclickAgent:
     20:439:public MobclickAgent()

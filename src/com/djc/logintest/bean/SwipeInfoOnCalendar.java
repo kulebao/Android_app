@@ -1,5 +1,7 @@
 package com.djc.logintest.bean;
 
+import android.text.TextUtils;
+
 public class SwipeInfoOnCalendar {
     private String checkin = "";
     private String checkout = "";
@@ -21,6 +23,6 @@ public class SwipeInfoOnCalendar {
     }
 
     public boolean isEmpty(){
-        return checkin.isEmpty() && checkout.isEmpty();
+        return TextUtils.isEmpty(checkin) && TextUtils.isEmpty(checkout);
     }
 }

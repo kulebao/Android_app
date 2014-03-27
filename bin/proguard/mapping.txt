@@ -4457,10 +4457,8 @@ com.djc.logintest.activities.LoginActivity -> com.djc.logintest.activities.Login
     void handlePWDIncorrect() -> c
     java.lang.String getPwd() -> d
     void access$000(com.djc.logintest.activities.LoginActivity) -> a
-    android.app.ProgressDialog access$100(com.djc.logintest.activities.LoginActivity) -> b
-    android.os.Handler access$200(com.djc.logintest.activities.LoginActivity) -> c
-    java.lang.String access$300(com.djc.logintest.activities.LoginActivity) -> d
-    void access$400(com.djc.logintest.activities.LoginActivity) -> e
+    java.lang.String access$100(com.djc.logintest.activities.LoginActivity) -> b
+    void access$200(com.djc.logintest.activities.LoginActivity) -> c
 com.djc.logintest.activities.LoginActivity$1 -> com.djc.logintest.activities.az:
     com.djc.logintest.activities.LoginActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
@@ -4504,8 +4502,8 @@ com.djc.logintest.activities.MyApplication -> com.djc.logintest.activities.MyApp
     java.util.concurrent.BlockingQueue blockingQueue -> b
     java.util.List observers -> c
     java.util.List tmpList -> d
-    boolean forAutoTest -> e
-    boolean isForAutoTest() -> a
+    boolean forTest -> e
+    boolean isForTest() -> a
     com.djc.logintest.activities.MyApplication getInstance() -> b
     void addObserver(com.djc.logintest.receiver.NotificationObserver) -> a
     void updateNotify$255f295() -> c
@@ -4652,14 +4650,13 @@ com.djc.logintest.activities.SchoolNoticeActivity -> com.djc.logintest.activitie
     void setTabTitle() -> a
     void setClassName() -> b
     void setSchoolName() -> c
-    java.lang.String getFixedUrl() -> d
-    void setBirthDay() -> e
+    void setBirthDay() -> d
     void onActivityResult(int,int,android.content.Intent) -> onActivityResult
     void resizeImage(android.net.Uri) -> a
     void runUploadTask(java.lang.String,android.graphics.Bitmap,java.lang.String,com.djc.logintest.handler.TaskResultHandler) -> a
     void updateChildPhoto(android.graphics.Bitmap) -> a
-    android.net.Uri getImageUri() -> f
-    void setNickName() -> g
+    android.net.Uri getImageUri() -> e
+    void setNickName() -> f
     void onResume() -> onResume
     void uploadBirthday(java.util.Calendar) -> a
     boolean checkValid(java.util.Calendar) -> b
@@ -5321,7 +5318,8 @@ com.djc.logintest.constant.EventType -> com.djc.logintest.c.c:
     int NEW_PWD_FORMAT_ERROR -> c
 com.djc.logintest.customexception.BindFailException -> com.djc.logintest.d.a:
 com.djc.logintest.customexception.CustomException -> com.djc.logintest.d.b:
-com.djc.logintest.customexception.InvalidTokenException -> com.djc.logintest.d.c:
+com.djc.logintest.customexception.DecodeBitmapException -> com.djc.logintest.d.c:
+com.djc.logintest.customexception.InvalidTokenException -> com.djc.logintest.d.d:
 com.djc.logintest.customview.CustomDialog -> com.djc.logintest.customview.a:
 com.djc.logintest.customview.CustomDialog$Builder -> com.djc.logintest.customview.b:
     android.content.Context context -> a
@@ -5992,8 +5990,8 @@ com.djc.logintest.net.ChechUpdateMethod -> com.djc.logintest.j.c:
 com.djc.logintest.net.ChildMethod -> com.djc.logintest.j.d:
     com.djc.logintest.net.ChildMethod getMethod() -> a
     int getChildrenInfo() -> b
-    int handleGetChildInfoResultEx(com.djc.logintest.net.HttpResult) -> a
-    void updateAllEx(org.json.JSONArray,com.djc.logintest.dbmgr.info.ChildInfo) -> a
+    int handleGetChildInfoResult(com.djc.logintest.net.HttpResult) -> a
+    void updateAll(org.json.JSONArray,com.djc.logintest.dbmgr.info.ChildInfo) -> a
     long getLatestTime(org.json.JSONArray) -> a
 com.djc.logintest.net.CookbookMethod -> com.djc.logintest.j.e:
     com.djc.logintest.net.CookbookMethod getMethod() -> a
@@ -6080,7 +6078,7 @@ com.djc.logintest.net.SwipeCardMethod -> com.djc.logintest.j.s:
 com.djc.logintest.net.UploadChildInfoMethod -> com.djc.logintest.j.t:
     com.djc.logintest.net.UploadChildInfoMethod getMethod() -> a
     int uploadChildInfo(java.lang.String) -> a
-    int handleGetChildInfoResultEx(com.djc.logintest.net.HttpResult) -> a
+    int handleGetChildInfoResult(com.djc.logintest.net.HttpResult) -> a
 com.djc.logintest.net.UploadTokenMethod -> com.djc.logintest.j.u:
     com.djc.logintest.net.UploadTokenMethod getMethod() -> a
     java.lang.String getUploadToken(java.lang.String) -> a
@@ -6522,6 +6520,7 @@ com.djc.logintest.utils.Utils -> com.djc.logintest.q.d:
     boolean isWiFiActive(android.content.Context) -> a
     boolean isNetworkConnected(android.content.Context) -> b
     int getConnectedType(android.content.Context) -> c
+    java.lang.String getFixedUrl(java.lang.String,int,int) -> a
     java.lang.String formatChineseTime(long) -> c
     boolean isVoiceOn() -> i
     java.util.Calendar getMonDayCalendar() -> j
@@ -6542,6 +6541,7 @@ com.djc.logintest.utils.Utils -> com.djc.logintest.q.d:
     android.graphics.Bitmap getLoacalBitmap(java.lang.String) -> i
     android.graphics.Bitmap getLoacalBitmap(java.lang.String,int) -> a
     android.graphics.Bitmap getBitmapFromUrl$676c1c3e(java.lang.String) -> j
+    android.graphics.Bitmap downloadImgImpl(java.lang.String) -> o
     android.graphics.Bitmap downloadImgWithJudgement(java.lang.String) -> k
     android.graphics.Bitmap downloadImgWithJudgement(java.lang.String,float,float) -> a
     void mkDirs(java.lang.String) -> l

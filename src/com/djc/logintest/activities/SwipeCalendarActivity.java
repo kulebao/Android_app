@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -447,12 +448,12 @@ public class SwipeCalendarActivity extends UmengStatisticsActivity {
 		String checkin = DataMgr.getInstance().getLastestSwipeIn(format);
 		String checkout = DataMgr.getInstance().getLatestSwipeOut(format);
 
-		if (!checkout.isEmpty()) {
+		if (!TextUtils.isEmpty(checkout)) {
 			long out = Long.valueOf(Timestamp.valueOf(checkout).getTime());
 
 			// 如果最晚入园时间大于最晚离园时间，说明小孩在中途离园后，重新入园且未离园,中途离园记录不显示
 			// 如果当天没有入园记录，那么离园记录有效，需要显示
-			if (!checkin.isEmpty()) {
+			if (!TextUtils.isEmpty(checkin)) {
 				long in = Long.valueOf(Timestamp.valueOf(checkin).getTime());
 				if (in > out) {
 					checkout = "";
@@ -468,7 +469,7 @@ public class SwipeCalendarActivity extends UmengStatisticsActivity {
 
 	// 只显示时分信息
 	public String getFormattedResult(String in) {
-		if (in.isEmpty()) {
+		if (TextUtils.isEmpty(in)) {
 			return in;
 		}
 		Timestamp Date = Timestamp.valueOf(in);

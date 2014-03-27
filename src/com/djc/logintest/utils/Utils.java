@@ -16,7 +16,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
@@ -41,6 +40,7 @@ import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventMap;
 import com.djc.logintest.constant.JSONConstant;
+import com.djc.logintest.customexception.DecodeBitmapException;
 import com.djc.logintest.customview.CustomDialog;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dlgmgr.DlgMgr;
@@ -53,6 +53,8 @@ public class Utils {
 	public static final String APP_DIR_TMP = "cocobaby/tmp";
 	public static final String APP_DIR_PIC = "cocobaby/pic";
 	public static final String APP_LOGS = "cocobaby/logs";
+	private static final int MIN_WIDTH = 160;
+	private static final int MIN_HEIGHT = 160;
 	private static String CHILD_PHOTO = "child_photo";
 	public static String CHAT_ICON = "chat_icon";
 
@@ -158,7 +160,7 @@ public class Utils {
 	public static String getProp(String key, String defaultValue) {
 		Context context = MyApplication.getInstance().getApplicationContext();
 		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI,  Context.MODE_PRIVATE);
+				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
 		return conf.getString(key, defaultValue);
 	}
 
@@ -340,6 +342,14 @@ public class Utils {
 			}
 		}
 		return false;
+	}
+
+	public static String getFixedUrl(String originalUrl, int limitwidth,
+			int limitheight) {
+		String fixedUrl = originalUrl
+				+ String.format("?imageView/2/w/%d/h/%d", limitwidth,
+						limitheight);
+		return fixedUrl;
 	}
 
 	// 月日 时分
@@ -590,14 +600,30 @@ public class Utils {
 
 	public static Bitmap downloadImgWithJudgement(String url) {
 		ImageDownloader downloader = new ImageDownloader(url);
-		return downloader.download();
+		Bitmap bitmap = null;
+		try {
+			bitmap = downloader.download();
+		} catch (DecodeBitmapException e) {
+			bitmap = downloadImgImpl(Utils.getFixedUrl(url, MIN_WIDTH,
+					MIN_HEIGHT));
+			e.printStackTrace();
+		}
+		return bitmap;
 	}
 
 	public static Bitmap downloadImgWithJudgement(String url, float limitWidth,
 			float limitHeight) {
 		ImageDownloader downloader = new ImageDownloader(url, limitWidth,
 				limitHeight);
-		return downloader.download();
+		Bitmap bitmap = null;
+		try {
+			bitmap = downloader.download();
+		} catch (DecodeBitmapException e) {
+			bitmap = downloadImgImpl(Utils.getFixedUrl(url, (int) limitWidth,
+					(int) limitHeight));
+			e.printStackTrace();
+		}
+		return bitmap;
 	}
 
 	public static void mkDirs(String dir) {

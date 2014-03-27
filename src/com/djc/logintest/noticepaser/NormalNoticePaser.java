@@ -2,13 +2,6 @@ package com.djc.logintest.noticepaser;
 
 import org.json.JSONObject;
 
-import android.content.Context;
-
-import com.djc.logintest.R;
-import com.djc.logintest.activities.MyApplication;
-import com.djc.logintest.activities.NoticeActivity;
-import com.djc.logintest.constant.JSONConstant;
-import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.Notice;
 
 public class NormalNoticePaser implements NoticePaser {

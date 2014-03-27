@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -107,7 +106,7 @@ public class ValidatePhoneNumActivity extends MyActivity {
 
 	private void initView() {
 		inuputnumView = (EditText) findViewById(R.id.inuputnumView);
-		if (MyApplication.getInstance().isForAutoTest()) {
+		if (MyApplication.getInstance().isForTest()) {
 			inuputnumView.setText("13408654680");
 		}
 

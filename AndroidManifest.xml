@@ -4,7 +4,9 @@
     android:versionCode="40"
     android:versionName="V1.3.0" >
 
-    <uses-sdk android:minSdkVersion="10" />
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="14" />
 
     <application
         android:name=".activities.MyApplication"
