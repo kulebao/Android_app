@@ -30,6 +30,7 @@ import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.ChatInfo;
+import com.djc.logintest.dbmgr.info.Teacher;
 import com.djc.logintest.dlgmgr.DlgMgr;
 import com.djc.logintest.taskmgr.GlobleDownloadImgeTask;
 import com.djc.logintest.utils.ImageDownloader;
@@ -97,6 +98,7 @@ public class ChatListAdapter extends BaseAdapter {
 		return position;
 	}
 
+	// 必须带下面2个override的方法，否则系统会无法识别左右布局，导致显示混乱
 	@Override
 	public int getItemViewType(int position) {
 		ChatInfo chatInfo = dataList.get(position);
@@ -159,8 +161,11 @@ public class ChatListAdapter extends BaseAdapter {
 
 	private void setHeadIcon(ChatInfo info, FlagHolder flagholder) {
 		Bitmap bitmap = null;
-		if (TextUtils.isEmpty(info.getSender())) {
+		if (info.isSendBySelf()) {
 			bitmap = getLocalIcon(softMap, DataMgr.getInstance().getSelectedChild().getLocal_url(), 50, 50);
+		} else {
+			String url = Teacher.getLocalIconPath(info.getPhone());
+			bitmap = Utils.getLoacalBitmap(url, ImageDownloader.getMaxPixWithDensity(50, 50));
 		}
 
 		if (bitmap != null) {
@@ -178,9 +183,6 @@ public class ChatListAdapter extends BaseAdapter {
 		}
 
 		loacalBitmap = lruCache.get(local_url);
-		// if (map.containsKey(local_url)) {
-		// loacalBitmap = map.get(local_url).get();
-		// }
 
 		if (loacalBitmap == null) {
 			loacalBitmap = Utils.getLoacalBitmap(local_url,
@@ -224,26 +226,9 @@ public class ChatListAdapter extends BaseAdapter {
 		}
 	}
 
-	public void releaseCache(){
+	public void releaseCache() {
 		lruCache.evictAll();
 	}
-	
-	// private Bitmap getLocalBmp(String localUrl) {
-	// Bitmap loacalBitmap = null;
-	// if (softMap.containsKey(localUrl)) {
-	// loacalBitmap = softMap.get(localUrl).get();
-	// }
-	//
-	// if (loacalBitmap == null) {
-	// loacalBitmap = Utils.getLoacalBitmap(localUrl,
-	// ImageDownloader.getMaxPixWithDensity(100, 100));
-	// if (loacalBitmap != null) {
-	// Log.d("DJC", "getLoacalBitmap url =" + localUrl);
-	// softMap.put(localUrl, new SoftReference<Bitmap>(loacalBitmap));
-	// }
-	// }
-	// return loacalBitmap;
-	// }
 
 	private void downloadIcon(ImageView view, ChatInfo info) {
 		view.setImageResource(R.drawable.default_icon);

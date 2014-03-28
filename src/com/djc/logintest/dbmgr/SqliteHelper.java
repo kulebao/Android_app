@@ -18,6 +18,7 @@ import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.dbmgr.info.ScheduleInfo;
 import com.djc.logintest.dbmgr.info.SchoolInfo;
 import com.djc.logintest.dbmgr.info.SwipeInfo;
+import com.djc.logintest.dbmgr.info.Teacher;
 
 public class SqliteHelper extends SQLiteOpenHelper {
 	public static final String LOCATION_TAB = "location_tab";
@@ -31,6 +32,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	public static final String HOMEWORK_TAB = "homework_tab";
 	public static final String CHAT_TAB = "chat_tab";
 	public static final String EDUCATION_TAB = "education_tab";
+	public static final String TEACHER_TAB = "teacher_tab";
 
 	public SqliteHelper(Context context, String name, CursorFactory factory,
 			int version) {
@@ -113,8 +115,21 @@ public class SqliteHelper extends SQLiteOpenHelper {
 				+ " varchar," + ChatInfo.CONTENT + " varchar,"
 				+ ChatInfo.TIMESTAMP + " biginteger ," + ChatInfo.ICON_URL
 				+ " varchar," + ChatInfo.SERVER_ID + " integer,"
-				+ ChatInfo.SEND_RESULT + " integer," + "UNIQUE("
-				+ ChatInfo.SERVER_ID + ") " + ")");
+				+ ChatInfo.SEND_RESULT + " integer," 
+				+ ChatInfo.PHONE + " varchar," 
+				+ "UNIQUE("+ ChatInfo.SERVER_ID + ") " + ")");
+		
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + TEACHER_TAB + "(" + Teacher.ID
+				+ " integer primary key autoincrement," + Teacher.NAME
+				+ " varchar," + Teacher.HEAD_ICON + " varchar,"
+				+ Teacher.TIMESTAMP + " biginteger ," + Teacher.BIRTHDAY
+				+ " varchar," + Teacher.SERVER_ID + " varchar,"
+				+ Teacher.WORKGROUP + " varchar," 
+				+ Teacher.WORKDUTY + " varchar," 
+				+ Teacher.GENDER + " integer," 
+				+ Teacher.SHOOL_ID + " integer," 
+				+ Teacher.PHONE + " varchar," 
+				+ "UNIQUE("+ Teacher.PHONE + ") " + ")");
 
 		db.execSQL("CREATE TABLE IF NOT EXISTS " + EDUCATION_TAB + "("
 				+ EducationInfo.ID + " integer primary key autoincrement,"

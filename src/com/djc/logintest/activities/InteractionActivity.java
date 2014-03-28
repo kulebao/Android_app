@@ -2,7 +2,9 @@ package com.djc.logintest.activities;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -17,6 +19,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +39,7 @@ import com.djc.logintest.dbmgr.DataMgr;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.GetChatTask;
+import com.djc.logintest.taskmgr.GetTeacherTask;
 import com.djc.logintest.taskmgr.GlobleDownloadImgeTask;
 import com.djc.logintest.utils.ImageDownloader;
 import com.djc.logintest.utils.Utils;
@@ -48,6 +52,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	private Handler myhandler;
 	private List<ChatInfo> chatlist;
 	private GetChatTask getChatTask;
+	private GetTeacherTask getTeacherTask;
 
 	private static final int IMAGE_REQUEST_CODE = 0;
 	private static final int CAMERA_REQUEST_CODE = 1;
@@ -134,7 +139,8 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	}
 
 	private void initImageUri() {
-		uri = Uri.fromFile(new File(Utils.getSDCardFileDir(Utils.APP_DIR_TMP), TMP_BMP));
+		uri = Uri.fromFile(new File(Utils.getSDCardFileDir(Utils.APP_DIR_TMP),
+				TMP_BMP));
 	}
 
 	// 拷贝图库图片到sd卡上
@@ -145,11 +151,14 @@ public class InteractionActivity extends UmengStatisticsActivity {
 		try {
 			BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inJustDecodeBounds = true;
-			BitmapFactory.decodeStream(cr.openInputStream(currentUri), null, options);
-			options.inSampleSize = ImageDownloader.computeSampleSize(options, -1, ImageDownloader.getMaxPix());
+			BitmapFactory.decodeStream(cr.openInputStream(currentUri), null,
+					options);
+			options.inSampleSize = ImageDownloader.computeSampleSize(options,
+					-1, ImageDownloader.getMaxPix());
 			options.inJustDecodeBounds = false;
 
-			bitmap = BitmapFactory.decodeStream(cr.openInputStream(currentUri), null, options);
+			bitmap = BitmapFactory.decodeStream(cr.openInputStream(currentUri),
+					null, options);
 			Utils.saveBitmapToSDCard(bitmap, uri.getPath());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -195,7 +204,8 @@ public class InteractionActivity extends UmengStatisticsActivity {
 		}
 
 		// 进入到发送chat界面，先取消获取chat的任务，避免重复获取
-		if (getChatTask != null && getChatTask.getStatus() == AsyncTask.Status.RUNNING) {
+		if (getChatTask != null
+				&& getChatTask.getStatus() == AsyncTask.Status.RUNNING) {
 			getChatTask.cancel(true);
 		}
 		startToSendChatActivity();
@@ -234,39 +244,14 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	}
 
 	private void initCustomListView() {
-		chatlist = DataMgr.getInstance().getChatInfoWithLimite(ConstantValue.GET_CHATINFO_MAX_COUNT);
+		chatlist = DataMgr.getInstance().getChatInfoWithLimite(
+				ConstantValue.GET_CHATINFO_MAX_COUNT);
 		task = new GlobleDownloadImgeTask();
 		adapter = new ChatListAdapter(this, chatlist, task);
 		msgListView = (MsgListView) findViewById(R.id.chatlist);// 继承ListActivity，id要写成android.R.id.list，否则报异常
 		setRefreshListener();
 		msgListView.setAdapter(adapter);
 		msgListView.enableTimestamp(false);
-		msgListView.setRecyclerListener(new RecyclerListener() {
-			@Override
-			public void onMovedToScrapHeap(View view) {
-				recycleNotVisibleBmp(view);
-			}
-
-			private void recycleNotVisibleBmp(View view) {
-				ChatInfo chatInfo = getChatInfo(view);
-				if (chatInfo != null && !"".equals(chatInfo.getLocalUrl())) {
-					// 释放看不见的bmp，但是会导致"使用回收过的bmp"异常，已经做了同步，实在没找到原因
-					// 只能暂时注释掉了
-					// adapter.remove(chatInfo.getLocalUrl());
-				}
-			}
-
-			private ChatInfo getChatInfo(View view) {
-				ChatInfo chatInfo = null;
-				try {
-					chatInfo = chatlist.get(view.getId());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-				return chatInfo;
-			}
-		});
 		setScrollListener();
 		addFooter();
 		moveToEndOfList();
@@ -290,17 +275,18 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	}
 
 	private void setRefreshListener() {
-		msgListView.setonRefreshListener(new com.djc.logintest.customview.MsgListView.OnRefreshListener() {
-			@Override
-			public void onRefresh() {
-				if (chatlist.isEmpty()) {
-					refreshTailImpl();
-					return;
-				}
-				refreshHead();
-			}
+		msgListView
+				.setonRefreshListener(new com.djc.logintest.customview.MsgListView.OnRefreshListener() {
+					@Override
+					public void onRefresh() {
+						if (chatlist.isEmpty()) {
+							refreshTailImpl();
+							return;
+						}
+						refreshHead();
+					}
 
-		});
+				});
 	}
 
 	private void refreshHead() {
@@ -318,7 +304,8 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	private void refreshHeadFromServer() {
 		long to = chatlist.get(0).getServer_id();
 
-		boolean runtask = runGetChatTask(0, to, ConstantValue.Type_INSERT_HEAD, SORT_ASC);
+		boolean runtask = runGetChatTask(0, to, ConstantValue.Type_INSERT_HEAD,
+				SORT_ASC);
 		if (!runtask) {
 			// 任务没有执行，立即去掉下拉显示
 			msgListView.onRefreshComplete();
@@ -329,8 +316,10 @@ public class InteractionActivity extends UmengStatisticsActivity {
 
 	private boolean runGetChatTask(long from, long to, int type, String sort) {
 		boolean bret = true;
-		if (getChatTask == null || getChatTask.getStatus() != AsyncTask.Status.RUNNING) {
-			getChatTask = new GetChatTask(myhandler, ConstantValue.GET_CHATINFO_MAX_COUNT, from, to, type, sort);
+		if (getChatTask == null
+				|| getChatTask.getStatus() != AsyncTask.Status.RUNNING) {
+			getChatTask = new GetChatTask(myhandler,
+					ConstantValue.GET_CHATINFO_MAX_COUNT, from, to, type, sort);
 			getChatTask.execute();
 		} else {
 			bret = false;
@@ -341,10 +330,12 @@ public class InteractionActivity extends UmengStatisticsActivity {
 
 	private List<ChatInfo> getChatFromLocal() {
 		if (chatlist != null && !chatlist.isEmpty()) {
-			return DataMgr.getInstance().getChatInfoWithLimite(ConstantValue.GET_CHATINFO_MAX_COUNT,
+			return DataMgr.getInstance().getChatInfoWithLimite(
+					ConstantValue.GET_CHATINFO_MAX_COUNT,
 					chatlist.get(0).getTimestamp());
 		}
-		return DataMgr.getInstance().getChatInfoWithLimite(ConstantValue.GET_CHATINFO_MAX_COUNT);
+		return DataMgr.getInstance().getChatInfoWithLimite(
+				ConstantValue.GET_CHATINFO_MAX_COUNT);
 	}
 
 	private void setScrollListener() {
@@ -359,7 +350,8 @@ public class InteractionActivity extends UmengStatisticsActivity {
 			}
 
 			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
 			}
 		});
 	}
@@ -388,7 +380,8 @@ public class InteractionActivity extends UmengStatisticsActivity {
 				e.printStackTrace();
 			}
 		}
-		boolean runtask = runGetChatTask(from, 0, ConstantValue.Type_INSERT_TAIl, sort);
+		boolean runtask = runGetChatTask(from, 0,
+				ConstantValue.Type_INSERT_TAIl, sort);
 		return runtask;
 	}
 
@@ -413,13 +406,15 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == Menu.FIRST) {
-			Utils.showTwoBtnResDlg(R.string.delete_all_notice_confirm, this, new OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					DataMgr.getInstance().removeAllChatInfo();
-					adapter.clear();
-				}
-			});
+			Utils.showTwoBtnResDlg(R.string.delete_all_notice_confirm, this,
+					new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							DataMgr.getInstance().removeAllChatInfo();
+							DataMgr.getInstance().removeAllTeacher();
+							adapter.clear();
+						}
+					});
 		}
 		return true;
 	}
@@ -440,7 +435,8 @@ public class InteractionActivity extends UmengStatisticsActivity {
 					handleSuccess(msg);
 					break;
 				case EventType.FAIL:
-					Toast.makeText(InteractionActivity.this, "获取数据失败", Toast.LENGTH_SHORT).show();
+					Toast.makeText(InteractionActivity.this, "获取数据失败",
+							Toast.LENGTH_SHORT).show();
 
 					break;
 				default:
@@ -472,7 +468,8 @@ public class InteractionActivity extends UmengStatisticsActivity {
 		Utils.saveProp(ConstantValue.HAVE_CHAT_NOTICE, "false");
 		List<ChatInfo> list = (List<ChatInfo>) msg.obj;
 		if (!list.isEmpty()) {
-			// Utils.saveProp(ConstantValue.HAVE_HOMEWORK_NOTICE, "false");
+			runGetTeacherInfoTask(list);
+
 			if (msg.arg1 == ConstantValue.Type_INSERT_HEAD) {
 				chatlist.addAll(0, list);
 				adapter.notifyDataSetChanged();
@@ -486,6 +483,38 @@ public class InteractionActivity extends UmengStatisticsActivity {
 
 			DataMgr.getInstance().addChatInfoList(list);
 		}
+	}
+
+	private synchronized void runGetTeacherInfoTask(List<ChatInfo> list) {
+		String phones = getPhones(list);
+		if (!TextUtils.isEmpty(phones)) {
+			if (getTeacherTask == null
+					|| getTeacherTask.getStatus() != AsyncTask.Status.RUNNING) {
+				getTeacherTask = new GetTeacherTask(phones);
+				getTeacherTask.execute();
+			}
+		}
+
+	}
+
+	private String getPhones(List<ChatInfo> list) {
+		Set<String> set = new HashSet<String>();
+		String result = "";
+		for (ChatInfo info : list) {
+			if (!info.isSendBySelf() && !TextUtils.isEmpty(info.getPhone())) {
+				set.add(info.getPhone());
+			}
+		}
+
+		StringBuffer buffer = new StringBuffer();
+		for (String phone : set) {
+			buffer.append(phone);
+			buffer.append(ConstantValue.COMMON_SEPEARAOR);
+		}
+		if (buffer.length() > 0) {
+			result = buffer.substring(0, buffer.length() - 1).toString();
+		}
+		return result;
 	}
 
 	private void initDialog() {

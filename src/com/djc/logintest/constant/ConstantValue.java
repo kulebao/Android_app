@@ -4,6 +4,8 @@ import android.app.Activity;
 
 public class ConstantValue {
 
+	public static final String COMMON_SEPEARAOR = ",";
+
 	public static final String CHECK_NEW_COMMAND = "check_new_command";
 	// 检查新公告
 	public static final int COMMAND_TYPE_CHECK_NOTICE = 1;
@@ -48,7 +50,7 @@ public class ConstantValue {
 	public static final String HAVE_EDUCATION_NOTICE = "have_education_notice";
 	// 是否有新留言
 	public static final String HAVE_CHAT_NOTICE = "have_chat_notice";
-	
+
 	// 是否有新课程表
 	public static final String HAVE_SCHEDULE_NOTICE = "have_schedule_notice";
 
@@ -58,7 +60,7 @@ public class ConstantValue {
 
 	public static final int PUSH_ACTION_QUEUE_MAX_SIZE = 100;
 
-	public static final int TIME_LIMIT_TO_GET_AUTHCODE_AGAIN = 60*10;
+	public static final int TIME_LIMIT_TO_GET_AUTHCODE_AGAIN = 60 * 10;
 
 	public static final int DO_NOT_CANCEL_DIALOG = 100;
 

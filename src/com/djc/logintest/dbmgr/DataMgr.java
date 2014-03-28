@@ -21,6 +21,7 @@ import com.djc.logintest.dbmgr.info.News;
 import com.djc.logintest.dbmgr.info.ScheduleInfo;
 import com.djc.logintest.dbmgr.info.SchoolInfo;
 import com.djc.logintest.dbmgr.info.SwipeInfo;
+import com.djc.logintest.dbmgr.info.Teacher;
 
 public class DataMgr {
 	private static int DB_VERSION = 1;
@@ -40,6 +41,7 @@ public class DataMgr {
 	private HomeworkMgr homeworkMgr;
 	private ChatMgr chatMgr;
 	private EducationMgr educationMgr;
+	private TeacherMgr teacherMgr;
 
 	public static synchronized DataMgr getInstance() {
 		synchronized (mLock) {
@@ -63,6 +65,7 @@ public class DataMgr {
 		homeworkMgr = new HomeworkMgr(dbHelper);
 		chatMgr = new ChatMgr(dbHelper);
 		educationMgr = new EducationMgr(dbHelper);
+		teacherMgr = new TeacherMgr(dbHelper);
 	}
 
 	public long addLocationInfo(LocationInfo info) {
@@ -221,7 +224,7 @@ public class DataMgr {
 	public List<ChildInfo> getAllChildrenInfo() {
 		return childrenInfoMgr.getAllChildrenInfo();
 	}
-	
+
 	public List<String> getAllClassID() {
 		return childrenInfoMgr.getAllClassID();
 	}
@@ -249,7 +252,7 @@ public class DataMgr {
 	public void updateBirthday(String serverid, long birthday) {
 		childrenInfoMgr.updateBirthday(serverid, birthday);
 	}
-	
+
 	public String getClassNameByClassID(int classid) {
 		return childrenInfoMgr.getClassNameByClassID(classid);
 	}
@@ -409,6 +412,30 @@ public class DataMgr {
 
 	public void removeEduRecord(String childid) {
 		educationMgr.removeEduRecord(childid);
+	}
+
+	public long addTeacher(Teacher info) {
+		return teacherMgr.add(info);
+	}
+
+	public List<Teacher> getAllTeachers() {
+		return teacherMgr.getAllTeachers();
+	}
+
+	public boolean isTeacherExist(String phone) {
+		return teacherMgr.exist(phone);
+	}
+
+	public void addTeacherList(List<Teacher> list) {
+		teacherMgr.addList(list);
+	}
+
+	public boolean handleIncomingTeacher(Teacher fromnet) {
+		return teacherMgr.handleIncomingTeacher(fromnet);
+	}
+
+	public void removeAllTeacher() {
+		teacherMgr.removeAllTeacher();
 	}
 
 	public void close() {

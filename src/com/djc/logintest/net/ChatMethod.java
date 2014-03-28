@@ -92,6 +92,7 @@ public class ChatMethod {
 		int serverID = object.getInt("id");
 		String icon_url = object.getString("image");
 
+		info.setPhone(object.getString("sender_id"));
 		info.setContent(body);
 		info.setServer_id(serverID);
 		info.setSender(sender);

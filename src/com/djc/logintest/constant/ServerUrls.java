@@ -3,6 +3,7 @@ package com.djc.logintest.constant;
 public class ServerUrls {
 	public static final String ROOT_RES_PATH = "kindergarten";
 	public static final String PARENT_RES_PATH = "parent";
+	public static final String EMPLOYEE_RES_PATH = "employee";
 	public static final String CHILD_RES_PATH = "child";
 	public static final String CLASS_RES_PATH = "class";
 	public static final String SCHEDULE_RES_PATH = "schedule";
@@ -73,6 +74,10 @@ public class ServerUrls {
 	public static final String GET_ALL_CHILDREN_INFO = HTTPS_HOST_ADDR
 			+ ROOT_RES_PATH + "/%s/" + PARENT_RES_PATH + "/%s/"
 			+ CHILD_RES_PATH;
+
+	// 类似kindergarten/93740362/parent/13408654680/child
+	public static final String GET_TEACHER_INFO = HTTPS_HOST_ADDR
+			+ ROOT_RES_PATH + "/%s/" + EMPLOYEE_RES_PATH + "?phone=%s";
 
 	// https://www.cocobabys.com/kindergarten/93740362/relationship?parent=13408654680
 	// public static final String GET_ALL_CHILDREN_INFO = HTTPS_HOST_ADDR
