@@ -2,6 +2,7 @@ package com.djc.logintest.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,6 +32,7 @@ public class ValidateAuthCodeActivity extends MyActivity {
 	private TextView aucodeContentView;
 	private Button getAuthCodeBtn;
 	private String phoneNum;
+	private AsyncTask<Void, Void, Void> authCodeCountDownTask;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -89,8 +91,7 @@ public class ValidateAuthCodeActivity extends MyActivity {
 	}
 
 	private void runAuthCodeCountDownTask() {
-		// 禁止不停的发起获取验证码的操作，默认1分钟后才能重新获取
-		new AuthCodeCountDownTask(handler,
+		authCodeCountDownTask = new AuthCodeCountDownTask(handler,
 				ConstantValue.TIME_LIMIT_TO_GET_AUTHCODE_AGAIN).execute();
 	}
 
@@ -227,4 +228,13 @@ public class ValidateAuthCodeActivity extends MyActivity {
 				getResources().getString(R.string.getAuthCodeCountDown),
 				String.valueOf(second)));
 	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(authCodeCountDownTask != null){
+			authCodeCountDownTask.cancel(true);
+		}
+	}
+	
 }

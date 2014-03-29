@@ -2,6 +2,7 @@ package com.djc.logintest.activities;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,6 +32,7 @@ public class ResetPWDActivity extends UmengStatisticsActivity {
 	private EditText inuputPWDView;
 	private EditText reInuputPWDView;
 	private Button resetPWDBtn;
+	private AsyncTask<Void, Void, Void> authCodeCountDownTask;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -145,7 +147,7 @@ public class ResetPWDActivity extends UmengStatisticsActivity {
 			// ResetPWDJob resetPWDJob = new ResetPWDJob(handler, phonenum,
 			// getAuthCode(), getPwd());
 			// MyThreadPoolMgr.getGenericService().submit(resetPWDJob);
-			
+
 			dialog.setMessage(getResources().getString(R.string.pwdreseting));
 			dialog.show();
 		} catch (Exception e) {
@@ -220,14 +222,21 @@ public class ResetPWDActivity extends UmengStatisticsActivity {
 	}
 
 	private void runAuthCodeCountDownTask() {
-		// 禁止不停的发起获取验证码的操作，默认1分钟后才能重新获取
-		new AuthCodeCountDownTask(handler,
+		authCodeCountDownTask = new AuthCodeCountDownTask(handler,
 				ConstantValue.TIME_LIMIT_TO_GET_AUTHCODE_AGAIN).execute();
 	}
 
 	private void handleCountDownOver() {
 		getAuthCodeBtn.setText(getResources().getString(R.string.getAuthCode));
 		enableGetAuthBtn();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (authCodeCountDownTask != null) {
+			authCodeCountDownTask.cancel(true);
+		}
 	}
 
 }
