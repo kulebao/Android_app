@@ -62,7 +62,6 @@ public class TeacherMethod {
 		DataMgr instance = DataMgr.getInstance();
 		int event = EventType.SUCCESS;
 
-		List<Teacher> localTeachers = instance.getAllTeachers();
 		List<Teacher> fromnetTeachers = Teacher.toTeacherList(array);
 
 		handleIncomingTeacher(instance, fromnetTeachers);

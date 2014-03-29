@@ -3,6 +3,7 @@ package com.djc.logintest.taskmgr;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.net.ResetPWDMethod;
@@ -26,6 +27,7 @@ public class ResetPWDTask extends AsyncTask<Void, Void, Integer> {
 
 	@Override
 	protected Integer doInBackground(Void... params) {
+		Log.w("djc", "ResetPWDTask! doInBackground");
 		MyProxy proxy = new MyProxy();
 		MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
 
@@ -38,8 +40,11 @@ public class ResetPWDTask extends AsyncTask<Void, Void, Integer> {
 		});
 		Integer result = EventType.NET_WORK_INVALID;
 		try {
+			Log.w("djc", "ResetPWDTask!");
 			result = (Integer) bind.handle();
+			Log.w("djc", "ResetPWDTask! result="+result);
 		} catch (Exception e) {
+			Log.w("djc", "Exception e="+e.toString());
 			e.printStackTrace();
 		}
 		return result;

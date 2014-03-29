@@ -115,8 +115,13 @@ public class ValidatePhoneNumActivity extends MyActivity {
 			@Override
 			public void onClick(View v) {
 				if (Utils.checkPhoneNum(getPhoneNum())) {
-					dialog.show();
-					runValidatePhoneNumTask();
+					try {
+						runValidatePhoneNumTask();
+						dialog.show();
+					} catch (Exception e) {
+						dialog.cancel();
+						e.printStackTrace();
+					}
 				} else {
 					Utils.showSingleBtnEventDlg(
 							EventType.PHONE_NUM_INPUT_ERROR,
@@ -138,6 +143,9 @@ public class ValidatePhoneNumActivity extends MyActivity {
 	}
 
 	private void runValidatePhoneNumTask() {
-		new ValidatePhoneNumTask(handler, getPhoneNum()).execute();
+		 new ValidatePhoneNumTask(handler, getPhoneNum()).execute();
+		// ValidatePhoneNumJob validatePhoneNumJob = new ValidatePhoneNumJob(
+		// handler, getPhoneNum());
+		// MyThreadPoolMgr.getGenericService().submit(validatePhoneNumJob);
 	}
 }

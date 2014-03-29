@@ -19,8 +19,8 @@ public class TeacherMgr {
 	long add(Teacher info) {
 		ContentValues values = setProp(info);
 		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
-		return writableDatabase.insertWithOnConflict(SqliteHelper.TEACHER_TAB, null, values,
-				SQLiteDatabase.CONFLICT_REPLACE);
+		return writableDatabase.insertWithOnConflict(SqliteHelper.TEACHER_TAB,
+				null, values, SQLiteDatabase.CONFLICT_REPLACE);
 	}
 
 	void addList(List<Teacher> list) {
@@ -33,8 +33,8 @@ public class TeacherMgr {
 
 		for (Teacher info : list) {
 			ContentValues values = setProp(info);
-			writableDatabase.insertWithOnConflict(SqliteHelper.TEACHER_TAB, null, values,
-					SQLiteDatabase.CONFLICT_REPLACE);
+			writableDatabase.insertWithOnConflict(SqliteHelper.TEACHER_TAB,
+					null, values, SQLiteDatabase.CONFLICT_REPLACE);
 		}
 
 		// 数据插入操作循环
@@ -63,9 +63,10 @@ public class TeacherMgr {
 		Teacher localone = getTeacher(fromnet.getPhone());
 		if (localone == null) {
 			add(fromnet);
-			return true;
+			bret = true;
 		} else if (fromnet.getTimestamp() > localone.getTimestamp()) {
 			add(fromnet);
+			bret = true;
 		}
 
 		return bret;
@@ -78,8 +79,8 @@ public class TeacherMgr {
 	Teacher getTeacher(String phone) {
 		Teacher info = null;
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.TEACHER_TAB + " WHERE " + Teacher.PHONE + " ='"
-				+ phone + "'", null);
+		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.TEACHER_TAB
+				+ " WHERE " + Teacher.PHONE + " ='" + phone + "'", null);
 		try {
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
@@ -99,7 +100,8 @@ public class TeacherMgr {
 	List<Teacher> getAllTeachers() {
 		List<Teacher> list = new ArrayList<Teacher>();
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.TEACHER_TAB, null);
+		Cursor cursor = db.rawQuery(
+				"SELECT * FROM " + SqliteHelper.TEACHER_TAB, null);
 		try {
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
@@ -120,7 +122,7 @@ public class TeacherMgr {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		db.execSQL("DELETE FROM " + SqliteHelper.TEACHER_TAB);
 	}
-	
+
 	private Teacher getInfoByCursor(Cursor cursor) {
 		Teacher info = new Teacher();
 
@@ -137,6 +139,5 @@ public class TeacherMgr {
 		info.setPhone(cursor.getString(10));
 		return info;
 	}
-	
-	
+
 }

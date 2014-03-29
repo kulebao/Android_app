@@ -57,6 +57,7 @@ public class ResetPWDActivity extends UmengStatisticsActivity {
 					Log.w("djc", "do nothing when activity finishing!");
 					return;
 				}
+				Log.w("DDDDDD", "ResetPWDActivity event =" + msg.what);
 				super.handleMessage(msg);
 				switch (msg.what) {
 				case EventType.RESET_PWD_SUCCESS:
@@ -113,6 +114,7 @@ public class ResetPWDActivity extends UmengStatisticsActivity {
 			public void onClick(View v) {
 				if (checkInput()) {
 					// 发起密码重置
+					Log.w("djc", "runResetPWDTask!");
 					runResetPWDTask();
 				}
 			}
@@ -137,9 +139,19 @@ public class ResetPWDActivity extends UmengStatisticsActivity {
 	}
 
 	private void runResetPWDTask() {
-		dialog.setMessage(getResources().getString(R.string.pwdreseting));
-		dialog.show();
-		new ResetPWDTask(handler, phonenum, getAuthCode(), getPwd()).execute();
+		try {
+			new ResetPWDTask(handler, phonenum, getAuthCode(), getPwd())
+					.execute();
+			// ResetPWDJob resetPWDJob = new ResetPWDJob(handler, phonenum,
+			// getAuthCode(), getPwd());
+			// MyThreadPoolMgr.getGenericService().submit(resetPWDJob);
+			
+			dialog.setMessage(getResources().getString(R.string.pwdreseting));
+			dialog.show();
+		} catch (Exception e) {
+			dialog.cancel();
+			e.printStackTrace();
+		}
 	}
 
 	private boolean checkInput() {

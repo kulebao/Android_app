@@ -33,25 +33,27 @@ public class MyProxy implements InvocationHandler {
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
 		Object result = EventType.NET_WORK_INVALID;
-		Log.d("DDD", "MyProxy");
+		Log.d("djc", "MyProxy");
 		// 执行方法
 		try {
-	        if(Utils.isNetworkConnected(MyApplication.getInstance())){
-	        	result = method.invoke(target, args);
-	        }
-		} catch (Exception e) {
+			if (Utils.isNetworkConnected(MyApplication.getInstance())) {
+				result = method.invoke(target, args);
+			}
+		} catch (Throwable e) {
+			Log.w("djc", "MyProxy Throwable e="+e.toString());
+			e.printStackTrace();
 			result = handleException(result, e);
 		}
 		return result;
 	}
 
-	private Object handleException(Object result, Exception e) throws Exception {
+	private Object handleException(Object result, Throwable e) throws Exception {
 		if (e.getCause() instanceof BindFailException) {
 			result = EventType.NET_WORK_INVALID;
 		} else if (e.getCause() instanceof InvalidTokenException) {
 			result = EventType.TOKEN_INVALID;
 		} else {
-			throw e;
+			result = EventType.SERVER_BUSY;
 		}
 		return result;
 	}

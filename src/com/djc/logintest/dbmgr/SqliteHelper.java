@@ -115,21 +115,18 @@ public class SqliteHelper extends SQLiteOpenHelper {
 				+ " varchar," + ChatInfo.CONTENT + " varchar,"
 				+ ChatInfo.TIMESTAMP + " biginteger ," + ChatInfo.ICON_URL
 				+ " varchar," + ChatInfo.SERVER_ID + " integer,"
-				+ ChatInfo.SEND_RESULT + " integer," 
-				+ ChatInfo.PHONE + " varchar," 
-				+ "UNIQUE("+ ChatInfo.SERVER_ID + ") " + ")");
-		
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + TEACHER_TAB + "(" + Teacher.ID
-				+ " integer primary key autoincrement," + Teacher.NAME
-				+ " varchar," + Teacher.HEAD_ICON + " varchar,"
+				+ ChatInfo.SEND_RESULT + " integer," + ChatInfo.PHONE
+				+ " varchar," + "UNIQUE(" + ChatInfo.SERVER_ID + ") " + ")");
+
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + TEACHER_TAB + "("
+				+ Teacher.ID + " integer primary key autoincrement,"
+				+ Teacher.NAME + " varchar," + Teacher.HEAD_ICON + " varchar,"
 				+ Teacher.TIMESTAMP + " biginteger ," + Teacher.BIRTHDAY
 				+ " varchar," + Teacher.SERVER_ID + " varchar,"
-				+ Teacher.WORKGROUP + " varchar," 
-				+ Teacher.WORKDUTY + " varchar," 
-				+ Teacher.GENDER + " integer," 
-				+ Teacher.SHOOL_ID + " integer," 
-				+ Teacher.PHONE + " varchar," 
-				+ "UNIQUE("+ Teacher.PHONE + ") " + ")");
+				+ Teacher.WORKGROUP + " varchar," + Teacher.WORKDUTY
+				+ " varchar," + Teacher.GENDER + " integer," + Teacher.SHOOL_ID
+				+ " integer," + Teacher.PHONE + " varchar," + "UNIQUE("
+				+ Teacher.PHONE + ") " + ")");
 
 		db.execSQL("CREATE TABLE IF NOT EXISTS " + EDUCATION_TAB + "("
 				+ EducationInfo.ID + " integer primary key autoincrement,"
@@ -173,6 +170,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + HOMEWORK_TAB);
 		db.execSQL("DROP TABLE IF EXISTS " + CHAT_TAB);
 		db.execSQL("DROP TABLE IF EXISTS " + EDUCATION_TAB);
+		db.execSQL("DROP TABLE IF EXISTS " + TEACHER_TAB);
 		onCreate(db);
 	}
 }
