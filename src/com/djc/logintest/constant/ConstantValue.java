@@ -109,4 +109,8 @@ public class ConstantValue {
 	public static final String TEST_PHONE = "13408654680";
 	public static final String TEST_PHONE_PWD = "zzzzzz";
 
+	public static final int HEAD_ICON_HEIGHT = 50;
+
+	public static final int HEAD_ICON_WIDTH = 50;
+
 }

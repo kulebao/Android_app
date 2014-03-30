@@ -43,6 +43,7 @@ import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.customexception.BindFailException;
+import com.djc.logintest.customexception.DuplicateLoginException;
 import com.djc.logintest.customexception.InvalidTokenException;
 import com.djc.logintest.net.HttpResult;
 import com.djc.logintest.net.PushMethod;
@@ -102,7 +103,7 @@ public class HttpClientHelper {
 		HttpResult result = doPostImpl(url, content);
 		Log.d("execute:", "url =" + url);
 		Log.d("execute:", "content =" + content);
-		
+
 		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
 			PushMethod method = PushMethod.getMethod();
 			int ret = method.sendBinfInfo();
@@ -111,11 +112,12 @@ public class HttpClientHelper {
 				Log.d("DDD code:", "" + "doGetImpl again!");
 				result = doPostImpl(url, content);
 			} else if (ret == EventType.BIND_FAILED) {
-				throw new InvalidTokenException(
-						"token invalid and bind network error");
+				throw new InvalidTokenException("InvalidTokenException error");
+			} else if (ret == EventType.PHONE_NUM_IS_ALREADY_LOGIN) {
+				throw new DuplicateLoginException(
+						"DuplicateLoginException error");
 			} else {
-				throw new BindFailException(
-						"token invalid and bind network error");
+				throw new BindFailException("BindFailException error");
 			}
 		}
 		return result;
@@ -194,11 +196,12 @@ public class HttpClientHelper {
 				Log.d("DDD code:", "" + "doGetImpl again!");
 				result = doGetImpl(url);
 			} else if (ret == EventType.BIND_FAILED) {
-				throw new InvalidTokenException(
-						"token invalid and bind network error");
+				throw new InvalidTokenException("InvalidTokenException error");
+			} else if (ret == EventType.PHONE_NUM_IS_ALREADY_LOGIN) {
+				throw new DuplicateLoginException(
+						"DuplicateLoginException error");
 			} else {
-				throw new BindFailException(
-						"token invalid and bind network error");
+				throw new BindFailException("BindFailException error");
 			}
 		}
 		return result;

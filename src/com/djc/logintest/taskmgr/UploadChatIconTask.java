@@ -17,6 +17,7 @@ import android.util.Log;
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
+import com.djc.logintest.customexception.DuplicateLoginException;
 import com.djc.logintest.customexception.InvalidTokenException;
 import com.djc.logintest.dbmgr.info.ChatInfo;
 import com.djc.logintest.net.ChatMethod;
@@ -53,6 +54,8 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 				result = EventType.SUCCESS;
 			} catch (InvalidTokenException e) {
 				result = EventType.TOKEN_INVALID;
+			} catch (DuplicateLoginException e) {
+				result = EventType.PHONE_NUM_IS_ALREADY_LOGIN;
 			} catch (Exception e) {
 				// 如果上传文件失败，直接返回错误
 				e.printStackTrace();

@@ -29,7 +29,8 @@ public class ImageDownloader {
 
 	public ImageDownloader(String imageUrl) {
 		this.imageUrl = imageUrl;
-		float xfactor = Float.valueOf(MyApplication.getInstance().getResources().getString(R.string.xfactor));
+		float xfactor = Float.valueOf(MyApplication.getInstance()
+				.getResources().getString(R.string.xfactor));
 		this.limitHeight = xfactor * LIMIT_HEIGHT;
 		this.limitWith = xfactor * LIMIT_WITH;
 
@@ -41,7 +42,7 @@ public class ImageDownloader {
 		this.limitWith = limitWith;
 	}
 
-	Bitmap download(){
+	Bitmap download() {
 		HttpURLConnection connection = null;
 		try {
 			URL url = new URL(imageUrl);
@@ -60,7 +61,8 @@ public class ImageDownloader {
 			connection.setDoOutput(false);
 
 			// connection.setRequestProperty("Range", "bytes=0-");
-			Bitmap bitmap = getBitmapformInputStream(url.openStream(), url.toString());
+			Bitmap bitmap = getBitmapformInputStream(url.openStream(),
+					url.toString());
 			connection.disconnect();
 
 			if (bitmap == null) {
@@ -92,18 +94,25 @@ public class ImageDownloader {
 		}
 	}
 
-	Bitmap getBitmapformInputStream(InputStream ins, String url) throws IOException {
+	Bitmap getBitmapformInputStream(InputStream ins, String url)
+			throws IOException {
 		try {
 
-			ImageBufferedInputStream bis = new ImageBufferedInputStream(ins, url);
+			ImageBufferedInputStream bis = new ImageBufferedInputStream(ins,
+					url);
 			// 标记其实位置，供reset参考
 			bis.mark(0);
 
 			BitmapFactory.Options opts = new BitmapFactory.Options();
 			// true,只是读图片大小，不申请bitmap内存
 			opts.inJustDecodeBounds = true;
-			BitmapFactory.decodeStream(bis, null, opts);
-			Log.e("DIMG", "width=" + opts.outWidth + "; height=" + opts.outHeight);
+			Bitmap tmp = BitmapFactory.decodeStream(bis, null, opts);
+			if (tmp == null) {
+				throw new DecodeBitmapException("url :" + url
+						+ " can not be decoded ");
+			}
+			Log.e("DIMG", "width=" + opts.outWidth + "; height="
+					+ opts.outHeight);
 
 			opts.inSampleSize = computeSampleSize(opts.outWidth, opts.outHeight);
 			// opts.inSampleSize = computeSampleSize(opts,LIMIT_WITH,
@@ -113,7 +122,7 @@ public class ImageDownloader {
 			opts.inJustDecodeBounds = false;
 			// 缓冲输入流定位至头部，mark()
 			bis.reset();
-			Bitmap bm = BitmapFactory.decodeStream(bis, null, opts);
+			Bitmap bm = tmp;
 
 			close(ins);
 			close(bis);
@@ -147,8 +156,8 @@ public class ImageDownloader {
 				candidate -= 1;
 		}
 
-		Log.e("", "for w/h " + w + "/" + h + " returning " + candidate + "(" + (w / candidate) + " / "
-				+ (h / candidate));
+		Log.e("", "for w/h " + w + "/" + h + " returning " + candidate + "("
+				+ (w / candidate) + " / " + (h / candidate));
 		return candidate;
 	}
 
@@ -166,7 +175,8 @@ public class ImageDownloader {
 		DisplayMetrics dm = new DisplayMetrics();
 		dm = MyApplication.getInstance().getResources().getDisplayMetrics();
 
-		Log.d("DDD", "w = " + dm.widthPixels + " h=" + dm.heightPixels + " density=" + dm.density);
+		Log.d("DDD", "w = " + dm.widthPixels + " h=" + dm.heightPixels
+				+ " density=" + dm.density);
 		int maxPixel = (int) (dm.widthPixels * dm.heightPixels * dm.density);
 		return maxPixel;
 	}
@@ -178,8 +188,10 @@ public class ImageDownloader {
 		return maxPixel;
 	}
 
-	public static int computeSampleSize(BitmapFactory.Options options, int minSideLength, int maxNumOfPixels) {
-		int initialSize = computeInitialSampleSize(options, minSideLength, maxNumOfPixels);
+	public static int computeSampleSize(BitmapFactory.Options options,
+			int minSideLength, int maxNumOfPixels) {
+		int initialSize = computeInitialSampleSize(options, minSideLength,
+				maxNumOfPixels);
 
 		int roundedSize;
 		if (initialSize <= 8) {
@@ -194,13 +206,15 @@ public class ImageDownloader {
 		return roundedSize;
 	}
 
-	private static int computeInitialSampleSize(BitmapFactory.Options options, int minSideLength, int maxNumOfPixels) {
+	private static int computeInitialSampleSize(BitmapFactory.Options options,
+			int minSideLength, int maxNumOfPixels) {
 		double w = options.outWidth;
 		double h = options.outHeight;
 
-		int lowerBound = (maxNumOfPixels == -1) ? 1 : (int) Math.ceil(Math.sqrt(w * h / maxNumOfPixels));
-		int upperBound = (minSideLength == -1) ? 128 : (int) Math.min(Math.floor(w / minSideLength),
-				Math.floor(h / minSideLength));
+		int lowerBound = (maxNumOfPixels == -1) ? 1 : (int) Math.ceil(Math
+				.sqrt(w * h / maxNumOfPixels));
+		int upperBound = (minSideLength == -1) ? 128 : (int) Math.min(
+				Math.floor(w / minSideLength), Math.floor(h / minSideLength));
 
 		if (upperBound < lowerBound) {
 			return lowerBound;

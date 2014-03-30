@@ -26,7 +26,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.AbsListView.RecyclerListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 

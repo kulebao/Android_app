@@ -192,6 +192,6 @@
     <string name="token_invalid">无效账号，请注销后重新登录，或联系幼儿园处理，谢谢！</string>
     <string name="invalid_phone">无效电话号码: %1$s</string>
     <string name="phone_invalid">账号未激活或已过期，请联系幼儿园处理，谢谢！</string>
-    <string name="phone_num_is_already_login">该手机号已经在其他手机上登录，为了您账号的安全，请修改密码后再登录！</string>
+    <string name="phone_num_is_already_login">该手机号已经在其他手机上登录，为了您账号的安全，请修改密码后再重新登录！</string>
 
 </resources>

@@ -193,12 +193,13 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 		long from = 0;
 		if (!newsList.isEmpty()) {
 			try {
-				from = newsList.get(0).getNews_server_id();
+				from = newsList.get(0).getTimestamp();
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
 		}
 
+		Log.d("DDD", "refreshHead from=" + from);
 		boolean runtask = runGetNoticeTask(from, 0,
 				ConstantValue.Type_INSERT_HEAD);
 		if (!runtask) {
@@ -248,15 +249,15 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 	private void refreshTail(AbsListView view) {
 		// 判断是否滚动到底部
 		if (view.getLastVisiblePosition() == view.getCount() - 1) {
-			Log.d("djc", "on the end!!!!!!!!!!!!!!!!");
 			long to = 0;
 			if (!newsList.isEmpty()) {
 				try {
-					to = newsList.get(newsList.size() - 1).getNews_server_id();
+					to = newsList.get(newsList.size() - 1).getTimestamp();
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				}
 			}
+			Log.d("djc", "refreshTail to=" + to);
 			boolean runtask = runGetNoticeTask(0, to,
 					ConstantValue.Type_INSERT_TAIl);
 			if (runtask) {

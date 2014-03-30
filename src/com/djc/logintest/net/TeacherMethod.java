@@ -9,6 +9,7 @@ import org.json.JSONException;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.ServerUrls;
 import com.djc.logintest.dbmgr.DataMgr;
@@ -75,7 +76,8 @@ public class TeacherMethod {
 			if (result) {
 				// 头像大小最多50*50
 				Bitmap bmp = Utils.downloadImgWithJudgement(
-						teacher.getHead_icon(), 50, 50);
+						teacher.getHead_icon(), ConstantValue.HEAD_ICON_WIDTH,
+						ConstantValue.HEAD_ICON_HEIGHT);
 				if (bmp != null) {
 					try {
 						Utils.saveBitmapToSDCard(bmp,

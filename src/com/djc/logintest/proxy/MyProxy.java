@@ -9,6 +9,7 @@ import android.util.Log;
 import com.djc.logintest.activities.MyApplication;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.customexception.BindFailException;
+import com.djc.logintest.customexception.DuplicateLoginException;
 import com.djc.logintest.customexception.InvalidTokenException;
 import com.djc.logintest.utils.Utils;
 
@@ -40,7 +41,7 @@ public class MyProxy implements InvocationHandler {
 				result = method.invoke(target, args);
 			}
 		} catch (Throwable e) {
-			Log.w("djc", "MyProxy Throwable e="+e.toString());
+			Log.w("djc", "MyProxy Throwable e=" + e.toString());
 			e.printStackTrace();
 			result = handleException(result, e);
 		}
@@ -52,6 +53,8 @@ public class MyProxy implements InvocationHandler {
 			result = EventType.NET_WORK_INVALID;
 		} else if (e.getCause() instanceof InvalidTokenException) {
 			result = EventType.TOKEN_INVALID;
+		} else if (e.getCause() instanceof DuplicateLoginException) {
+			result = EventType.PHONE_NUM_IS_ALREADY_LOGIN;
 		} else {
 			result = EventType.SERVER_BUSY;
 		}
