@@ -37,6 +37,7 @@
     <string name="net_error">网络异常，请确认wifi或数据连接已经打开，稍后再试，谢谢！</string>
     <string name="validate_phone_num">正在校验手机号码，请稍候...</string>
     <string name="getting_auth_code">正在获取校验码，请稍候...</string>
+    <string name="checking_auth_code">正在验证校验码，请稍候...</string>
     <string name="bind">绑定</string>
     <string name="startmain">进入应用</string>
     <string name="firstwelcome">尊敬的用户 %1$s 先生/女士:\n您的手机 %2$s

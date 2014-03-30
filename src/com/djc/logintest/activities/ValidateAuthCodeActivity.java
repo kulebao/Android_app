@@ -103,14 +103,13 @@ public class ValidateAuthCodeActivity extends MyActivity {
 	}
 
 	private void runValidateAuthCodeTask() {
-		dialog.setMessage(getResources().getString(R.string.validate_phone_num));
+		dialog.setMessage(getResources().getString(R.string.checking_auth_code));
 		dialog.show();
 		new ValidateAuthCodeTask(handler, phoneNum, getAuthcode()).execute();
 	}
 
 	private void initProgressDlg() {
 		dialog = new ProgressDialog(this);
-		dialog.setMessage(getResources().getString(R.string.validate_phone_num));
 		dialog.setCancelable(false);
 	}
 
@@ -232,9 +231,9 @@ public class ValidateAuthCodeActivity extends MyActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if(authCodeCountDownTask != null){
+		if (authCodeCountDownTask != null) {
 			authCodeCountDownTask.cancel(true);
 		}
 	}
-	
+
 }

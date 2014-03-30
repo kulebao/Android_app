@@ -142,6 +142,8 @@ public class ResetPWDActivity extends UmengStatisticsActivity {
 
 	private void runResetPWDTask() {
 		try {
+			
+			//907024 后门验证码
 			new ResetPWDTask(handler, phonenum, getAuthCode(), getPwd())
 					.execute();
 			// ResetPWDJob resetPWDJob = new ResetPWDJob(handler, phonenum,

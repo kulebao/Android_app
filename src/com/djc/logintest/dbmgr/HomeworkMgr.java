@@ -20,7 +20,7 @@ class HomeworkMgr {
 		ContentValues values = buildHomework(info);
 		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
 		return writableDatabase.insertWithOnConflict(SqliteHelper.HOMEWORK_TAB,
-				null, values, SQLiteDatabase.CONFLICT_IGNORE);
+				null, values, SQLiteDatabase.CONFLICT_REPLACE);
 	}
 
 	private ContentValues buildHomework(Homework info) {
@@ -45,7 +45,7 @@ class HomeworkMgr {
 		for (Homework info : list) {
 			ContentValues values = buildHomework(info);
 			writableDatabase.insertWithOnConflict(SqliteHelper.HOMEWORK_TAB,
-					null, values, SQLiteDatabase.CONFLICT_IGNORE);
+					null, values, SQLiteDatabase.CONFLICT_REPLACE);
 		}
 		// 数据插入操作循环
 		writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
