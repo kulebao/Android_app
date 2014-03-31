@@ -26,11 +26,13 @@ com.djc.logintest.R$style
 com.djc.logintest.R$styleable:
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    619:619:public R$styleable()
+    622:622:public R$styleable()
 com.djc.logintest.activities.ActivityHelper:
     10:10:public ActivityHelper()
 com.djc.logintest.activities.BindLocationMgrActivity:
     protected static final int MAX_BIND_INFO
+com.djc.logintest.activities.CookBookActivity$2:
+    private static final long serialVersionUID
 com.djc.logintest.activities.EducationActivity:
     private static final java.lang.String RANK
     private static final java.lang.String ITEM_IMAGE
@@ -45,7 +47,7 @@ com.djc.logintest.activities.InteractionActivity:
     private static final java.lang.String SORT_ASC
     private static final java.lang.String SORT_DESC
     private static final java.lang.String TMP_BMP
-    220:239:private void addTestData()
+    219:238:private void addTestData()
 com.djc.logintest.activities.LoadingActivity:
     32:38:private void initData()
 com.djc.logintest.activities.LocationActivity:
@@ -65,6 +67,8 @@ com.djc.logintest.activities.MainActivity:
 com.djc.logintest.activities.MyApplication:
     34:34:public java.util.concurrent.BlockingQueue getBlockingQueue()
     46:47:public void removeObserver(com.djc.logintest.receiver.NotificationObserver)
+com.djc.logintest.activities.ScheduleActivity$2:
+    private static final long serialVersionUID
 com.djc.logintest.activities.SchoolNoticeActivity:
     public static final int NORMAL_NOTICE
     public static final int COOK_NOTICE
@@ -156,6 +160,7 @@ com.djc.logintest.constant.EventType:
     public static final int GET_COOKBOOK_FAILED
     public static final int GET_COOKBOOK_SUCCESS
     public static final int GET_COOKBOOK_LATEST
+    public static final int NO_COOKBOOK
     public static final int GET_NOTICE_SUCCESS
     public static final int GET_NOTICE_FAILED
     public static final int LOGIN_SUCCESS
@@ -169,6 +174,7 @@ com.djc.logintest.constant.EventType:
     public static final int GET_SCHEDULE_FAILED
     public static final int GET_SCHEDULE_SUCCESS
     public static final int GET_SCHEDULE_LATEST
+    public static final int NO_SCHEDULE
     public static final int DOWNLOAD_IMG_SUCCESS
     public static final int DOWNLOAD_IMG_FAILED
     public static final int HAS_NEW_VERSION
@@ -185,6 +191,8 @@ com.djc.logintest.customexception.BindFailException:
 com.djc.logintest.customexception.CustomException:
     private static final long serialVersionUID
 com.djc.logintest.customexception.DecodeBitmapException:
+    private static final long serialVersionUID
+com.djc.logintest.customexception.DuplicateLoginException:
     private static final long serialVersionUID
 com.djc.logintest.customexception.InvalidTokenException:
     private static final long serialVersionUID
@@ -428,7 +436,7 @@ com.djc.logintest.handler.PushEventHandler:
     55:56:public void clearObservers()
     136:138:public void clear()
 com.djc.logintest.httpclientmgr.HttpClientHelper:
-    55:56:private HttpClientHelper()
+    56:57:private HttpClientHelper()
 com.djc.logintest.mycalendar.DateWidgetDayCell:
     296:305:public void CreateReminder(android.graphics.Canvas,int)
 com.djc.logintest.mycalendar.DateWidgetDayHeader:
@@ -496,7 +504,6 @@ com.djc.logintest.taskmgr.LoadingTask:
     private static final long LIMIT_TIME
 com.djc.logintest.taskmgr.ValidatePhoneNumJob
 com.djc.logintest.taskmgr.ValidatePhoneNumJob$1
-com.djc.logintest.threadpool.MyJob
 com.djc.logintest.threadpool.MyThreadPoolMgr:
     private static final int MAX_THREAD_IN_POOL
     6:6:public MyThreadPoolMgr()
@@ -575,8 +582,8 @@ com.djc.logintest.utils.Utils:
     public static final java.lang.String APP_DIR_TMP
     public static final java.lang.String APP_DIR_PIC
     public static final java.lang.String APP_LOGS
-    private static final int MIN_WIDTH
-    private static final int MIN_HEIGHT
+    public static final int LIMIT_WIDTH
+    public static final int LIMIT_HEIGHT
     49:49:public Utils()
     110:113:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
     132:135:public static void deleteProp(java.lang.String)

@@ -52,6 +52,7 @@ public class EventType {
 	public static final int GET_COOKBOOK_FAILED = 1525;
 	public static final int GET_COOKBOOK_SUCCESS = 1526;
 	public static final int GET_COOKBOOK_LATEST = 1527;
+	public static final int NO_COOKBOOK = 1528;
 
 	public static final int GET_NOTICE_SUCCESS = 1540;
 	public static final int GET_NOTICE_FAILED = 1541;
@@ -70,6 +71,7 @@ public class EventType {
 	public static final int GET_SCHEDULE_FAILED = 1625;
 	public static final int GET_SCHEDULE_SUCCESS = 1626;
 	public static final int GET_SCHEDULE_LATEST = 1627;
+	public static final int NO_SCHEDULE = 1628;
 
 	public static final int DOWNLOAD_IMG_SUCCESS = 1630;
 	public static final int DOWNLOAD_IMG_FAILED = 1631;

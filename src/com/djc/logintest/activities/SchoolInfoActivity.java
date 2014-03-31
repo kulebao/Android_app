@@ -97,6 +97,7 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 		info.setSchool_logo_local_url(filepath);
 		Bitmap loacalBitmap = Utils.getLoacalBitmap(filepath);
 		Log.d("DDD", "handleDownloadSchoolLogoSuccess filepath=" + filepath);
+		logo.setVisibility(View.VISIBLE);
 		Utils.setImg(logo, loacalBitmap);
 	}
 

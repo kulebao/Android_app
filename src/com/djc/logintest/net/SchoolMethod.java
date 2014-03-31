@@ -1,6 +1,7 @@
 package com.djc.logintest.net;
 
 import org.apache.http.HttpStatus;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.util.Log;
@@ -41,7 +42,9 @@ public class SchoolMethod {
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			event = EventType.SERVER_INNER_ERROR;
 			try {
-				JSONObject jsonObject = result.getJsonObject();
+				JSONArray array = result.getJSONArray();
+				JSONObject jsonObject = array.getJSONObject(0);
+
 				Log.d("DDD handleCheckSchoolInfoResult", "str : " + jsonObject.toString());
 				int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
 

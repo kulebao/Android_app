@@ -53,8 +53,8 @@ public class Utils {
 	public static final String APP_DIR_TMP = "cocobaby/tmp";
 	public static final String APP_DIR_PIC = "cocobaby/pic";
 	public static final String APP_LOGS = "cocobaby/logs";
-	private static final int MIN_WIDTH = 160;
-	private static final int MIN_HEIGHT = 160;
+	public static final int LIMIT_WIDTH = 320;
+	public static final int LIMIT_HEIGHT = 480;
 	private static String CHILD_PHOTO = "child_photo";
 	public static String CHAT_ICON = "chat_icon";
 
@@ -604,8 +604,8 @@ public class Utils {
 		try {
 			bitmap = downloader.download();
 		} catch (DecodeBitmapException e) {
-			bitmap = downloadImgImpl(Utils.getFixedUrl(url, MIN_WIDTH,
-					MIN_HEIGHT));
+			bitmap = downloadImgImpl(Utils.getFixedUrl(url, LIMIT_WIDTH,
+					LIMIT_HEIGHT));
 			e.printStackTrace();
 		}
 		return bitmap;

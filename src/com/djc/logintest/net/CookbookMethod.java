@@ -51,17 +51,14 @@ public class CookbookMethod {
 	private boolean compareTime(CookBookPreview cookBookPreview) {
 		boolean bret = false;
 		CookBookInfo cookBookInfo = DataMgr.getInstance().getCookBookInfo();
-		if (cookBookInfo == null
-				|| (cookBookPreview.timestamp > Long.parseLong(cookBookInfo
-						.getTimestamp()))) {
+		if (cookBookInfo == null || (cookBookPreview.timestamp > Long.parseLong(cookBookInfo.getTimestamp()))) {
 			bret = true;
 		}
 		return bret;
 	}
 
 	private String createCookbookPreviewUrl() {
-		String url = String.format(ServerUrls.COOKBOOK_PRIVIEW, DataMgr
-				.getInstance().getSchoolID());
+		String url = String.format(ServerUrls.COOKBOOK_PRIVIEW, DataMgr.getInstance().getSchoolID());
 		return url;
 	}
 
@@ -72,12 +69,9 @@ public class CookbookMethod {
 			try {
 				JSONArray array = result.getJSONArray();
 				JSONObject jsonObject = array.getJSONObject(0);
-				cookBookPreview.cookbookid = jsonObject
-						.getString(CookBookInfo.COOKBOOK_ID);
-				cookBookPreview.timestamp = Long.parseLong(jsonObject
-						.getString(InfoHelper.TIMESTAMP));
-				cookBookPreview.errorcode = jsonObject
-						.getInt(JSONConstant.ERROR_CODE);
+				cookBookPreview.cookbookid = jsonObject.getString(CookBookInfo.COOKBOOK_ID);
+				cookBookPreview.timestamp = Long.parseLong(jsonObject.getString(InfoHelper.TIMESTAMP));
+				cookBookPreview.errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -90,6 +84,10 @@ public class CookbookMethod {
 		int event = EventType.NET_WORK_INVALID;
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			try {
+				if (result.isEmptyContent()) {
+					return EventType.NO_COOKBOOK;
+				}
+
 				CookBookPreview cookBookPreview = paraseCookBookPreview(result);
 				if (cookBookPreview.errorcode != 0) {
 					return EventType.GET_COOKBOOK_FAILED;
@@ -129,9 +127,12 @@ public class CookbookMethod {
 		int event = EventType.NET_WORK_INVALID;
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			try {
+				if (result.isEmptyContent()) {
+					return EventType.NO_COOKBOOK;
+				}
+
 				JSONObject jsonObject = result.getJsonObject();
-				Log.d("DDD handleGetChildInfoResult",
-						"str : " + jsonObject.toString());
+				Log.d("DDD handleGetChildInfoResult", "str : " + jsonObject.toString());
 				int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
 				if (errorcode == 0) {
 					saveCookbook(jsonObject);
@@ -149,8 +150,7 @@ public class CookbookMethod {
 	}
 
 	private String createGetCookbookUrl(String cookbookID) {
-		String url = String.format(ServerUrls.COOKBOOK_DETAIL, DataMgr
-				.getInstance().getSchoolID(), cookbookID);
+		String url = String.format(ServerUrls.COOKBOOK_DETAIL, DataMgr.getInstance().getSchoolID(), cookbookID);
 		return url;
 	}
 

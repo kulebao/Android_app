@@ -35,9 +35,8 @@ public class ScheduleMethod {
 	}
 
 	private String createSchedulePreviewUrl() {
-		String url = String.format(ServerUrls.SCHEDULE_PRIVIEW, DataMgr
-				.getInstance().getSchoolID(), DataMgr.getInstance()
-				.getSelectedChild().getClass_id());
+		String url = String.format(ServerUrls.SCHEDULE_PRIVIEW, DataMgr.getInstance().getSchoolID(), DataMgr
+				.getInstance().getSelectedChild().getClass_id());
 		return url;
 	}
 
@@ -45,11 +44,14 @@ public class ScheduleMethod {
 		int event = EventType.NET_WORK_INVALID;
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			try {
+				if (result.isEmptyContent()) {
+					return EventType.NO_SCHEDULE;
+				}
+
 				// 返回单一元素数组，保存最新课程表
 				JSONArray array = result.getJSONArray();
 				JSONObject jsonObject = array.getJSONObject(0);
-				Log.d("DDD handleGetChildInfoResult",
-						"str : " + jsonObject.toString());
+				Log.d("DDD handleGetChildInfoResult", "str : " + jsonObject.toString());
 				int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
 				if (errorcode == 0) {
 					event = handleSuccess(jsonObject);
@@ -71,8 +73,7 @@ public class ScheduleMethod {
 		long newTime = Long.parseLong(newtimestamp);
 		ScheduleInfo scheduleInfo = DataMgr.getInstance().getScheduleInfo();
 
-		if (scheduleInfo == null
-				|| (newTime > Long.parseLong(scheduleInfo.getTimestamp()))) {
+		if (scheduleInfo == null || (newTime > Long.parseLong(scheduleInfo.getTimestamp()))) {
 			return getSchedule(jsonObject.getString(ScheduleInfo.SCHEDULE_ID));
 		}
 		return EventType.GET_SCHEDULE_LATEST;
@@ -98,8 +99,7 @@ public class ScheduleMethod {
 			try {
 				// 返回单一元素数组，保存最新课程表
 				JSONObject jsonObject = result.getJsonObject();
-				Log.d("DDD handleGetChildInfoResult",
-						"str : " + jsonObject.toString());
+				Log.d("DDD handleGetChildInfoResult", "str : " + jsonObject.toString());
 				int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
 				if (errorcode == 0) {
 					saveSchedule(jsonObject);
@@ -117,8 +117,7 @@ public class ScheduleMethod {
 	}
 
 	private String createGetScheduleUrl(String scheduleID) {
-		String url = String.format(ServerUrls.GET_SCHEDULE, DataMgr
-				.getInstance().getSchoolID(), DataMgr.getInstance()
+		String url = String.format(ServerUrls.GET_SCHEDULE, DataMgr.getInstance().getSchoolID(), DataMgr.getInstance()
 				.getSelectedChild().getClass_id(), scheduleID);
 		return url;
 	}

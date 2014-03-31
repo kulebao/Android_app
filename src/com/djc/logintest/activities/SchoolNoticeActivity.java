@@ -256,7 +256,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			downloadIconTask = new DownLoadImgAndSaveTask(handler,
 					selectedChild.getServer_url(),
 					InfoHelper.getChildrenLocalIconPath(selectedChild
-							.getServer_id())).execute();
+							.getServer_id()), 100, 100).execute();
 		}
 	}
 

@@ -466,7 +466,7 @@ containing a value of this type.
         public static final int delete_data=0x7f070094;
         public static final int delete_location_confirm=0x7f070041;
         public static final int delete_notice_confirm=0x7f070043;
-        public static final int density_title=0x7f0700be;
+        public static final int density_title=0x7f0700c0;
         public static final int dining_explain=0x7f0700b2;
         public static final int dinner=0x7f070065;
         public static final int doLocation=0x7f07005c;
@@ -531,9 +531,11 @@ containing a value of this type.
         public static final int new_pwd_format_error=0x7f070034;
         public static final int nichname=0x7f070047;
         public static final int nichname_title=0x7f07004d;
+        public static final int no_cookbook_yet=0x7f0700bd;
         public static final int no_edu=0x7f07009a;
         public static final int no_more_edu=0x7f070099;
         public static final int no_new_version=0x7f070039;
+        public static final int no_schedule_yet=0x7f0700be;
         public static final int notice=0x7f07000d;
         public static final int noticeTitle=0x7f07005b;
         public static final int notice_title=0x7f070036;
@@ -606,7 +608,7 @@ containing a value of this type.
         public static final int weixin=0x7f0700a3;
         public static final int weixin_account=0x7f0700a4;
         public static final int write_notice=0x7f07009f;
-        public static final int xfactor=0x7f0700bd;
+        public static final int xfactor=0x7f0700bf;
     }
     public static final class style {
         public static final int Dialog=0x7f080006;
