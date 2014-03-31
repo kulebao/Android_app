@@ -75,7 +75,7 @@
                 android:id="@+id/noticeicon"
                 android:layout_width="320dp"
                 android:layout_height="480dp"
-                android:layout_below="@+id/noticecontent"
+                android:layout_below="@+id/swipefrom"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
