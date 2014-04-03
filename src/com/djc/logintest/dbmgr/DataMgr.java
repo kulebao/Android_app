@@ -433,6 +433,10 @@ public class DataMgr {
 	public boolean handleIncomingTeacher(Teacher fromnet) {
 		return teacherMgr.handleIncomingTeacher(fromnet);
 	}
+	
+	public Teacher getTeacher(String phone) {
+		return teacherMgr.getTeacher(phone);
+	}
 
 	public void removeAllTeacher() {
 		teacherMgr.removeAllTeacher();

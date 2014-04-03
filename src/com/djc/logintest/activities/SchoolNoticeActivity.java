@@ -174,6 +174,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					Log.w("djc", "do nothing when activity finishing!");
 					return;
 				}
+				Log.w("dasd", "school notice msg.what="+msg.what);
 				super.handleMessage(msg);
 				switch (msg.what) {
 				case EventType.UPDATE_CHILDREN_INFO:
@@ -221,8 +222,10 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	public void setClassName() {
 		TextView classnameView = (TextView) findViewById(R.id.classname);
-		classnameView.setText(DataMgr.getInstance().getSelectedChild()
-				.getClass_name());
+		ChildInfo child = DataMgr.getInstance().getSelectedChild();
+		if (child != null) {
+			classnameView.setText(child.getClass_name());
+		}
 	}
 
 	public void setSchoolName() {
@@ -477,6 +480,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 							Toast.makeText(SchoolNoticeActivity.this,
 									R.string.net_error, Toast.LENGTH_SHORT)
 									.show();
+							Log.d("DDD", "DDD R.string.net_error");
 							return;
 						} else if (selectedChild == null) {
 							Toast.makeText(SchoolNoticeActivity.this,

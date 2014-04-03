@@ -21,16 +21,15 @@ public class ChechUpdateMethod {
 	}
 
 	public int chechUpdate(int versionCode) throws Exception {
-		int bret = EventType.NET_WORK_INVALID;
 		HttpResult result = new HttpResult();
 		String command = createCommand(versionCode);
 		result = HttpClientHelper.executeGet(command);
-		bret = handle(result);
+		int bret = handle(result);
 		return bret;
 	}
 
 	private int handle(HttpResult result) {
-		int event = EventType.NET_WORK_INVALID;
+		int event = EventType.HAS_NO_VERSION;
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			try {
 				Log.d("DDD ChechUpdateMethod", "str : " + result.getContent());
@@ -53,8 +52,6 @@ public class ChechUpdateMethod {
 							versionName);
 					Utils.saveProp(JSONConstant.FILE_SIZE, String.valueOf(size));
 					event = EventType.HAS_NEW_VERSION;
-				} else {
-					event = EventType.HAS_NO_VERSION;
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();

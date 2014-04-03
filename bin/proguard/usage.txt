@@ -93,7 +93,7 @@ com.djc.logintest.activities.SwipeCalendarActivity:
     265:265:private int millisecondsToDays(long)
     269:273:private void setTimeToMidnight(java.util.Calendar)
 com.djc.logintest.activities.SwipeDetailActivity:
-    111:112:public void setTimestamp()
+    113:114:public void setTimestamp()
 com.djc.logintest.adapter.BindedNumInfoListAdapter:
     31:32:public void setLocationInfoList(java.util.List)
     40:42:public void clear()
@@ -235,6 +235,7 @@ com.djc.logintest.dbmgr.DataMgr:
     418:418:public long addTeacher(com.djc.logintest.dbmgr.info.Teacher)
     426:426:public boolean isTeacherExist(java.lang.String)
     430:431:public void addTeacherList(java.util.List)
+    438:438:public com.djc.logintest.dbmgr.info.Teacher getTeacher(java.lang.String)
 com.djc.logintest.dbmgr.EducationMgr:
     20:22:long addEduRecord(com.djc.logintest.dbmgr.info.EducationInfo)
 com.djc.logintest.dbmgr.HomeworkMgr:
@@ -511,7 +512,7 @@ com.djc.logintest.upload.OSSMgr
 com.djc.logintest.upload.QiniuMgr:
     37:37:public void UploadPhoto(android.graphics.Bitmap,java.lang.String)
 com.djc.logintest.upload.UploadFactory:
-    7:8:private UploadFactory()
+    9:10:private UploadFactory()
 com.djc.logintest.upload.UploadMgr:
     public abstract void UploadPhoto(android.graphics.Bitmap,java.lang.String)
 com.djc.logintest.upload.qiniu.auth.CallRet:

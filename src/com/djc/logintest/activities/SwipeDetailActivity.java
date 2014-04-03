@@ -83,6 +83,8 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 			noticeiconView.setVisibility(View.VISIBLE);
 			Utils.setImg(noticeiconView, bmp);
 		} else {
+			noticeiconView.setVisibility(View.VISIBLE);
+			noticeiconView.setImageResource(R.drawable.default_icon);
 			runDownloadIconTask();
 		}
 	}

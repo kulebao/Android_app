@@ -75,7 +75,7 @@ public class ValidateAuthCodeActivity extends MyActivity {
 		sendAuthCodeBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (getAuthcode() != null && getAuthcode().startsWith("22")) {
+				if (MyApplication.getInstance().isForTest()&&getAuthcode() != null && getAuthcode().startsWith("22")) {
 					handleAuthCodeSuccess();
 					return;
 				}

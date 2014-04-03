@@ -14,13 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.djc.logintest.R;
-import com.djc.logintest.constant.ConstantValue;
 import com.djc.logintest.constant.EventType;
 import com.djc.logintest.constant.JSONConstant;
 import com.djc.logintest.handler.MyHandler;
 import com.djc.logintest.taskmgr.BindPushTask;
 import com.djc.logintest.taskmgr.LoginTask;
-import com.djc.logintest.utils.MethodUtils;
 import com.djc.logintest.utils.Utils;
 
 public class LoginActivity extends MyActivity {
@@ -55,6 +53,8 @@ public class LoginActivity extends MyActivity {
 					Log.w("djc", "do nothing when activity finishing!");
 					return;
 				}
+				
+				Log.w("dasd", "LoginActivity msg.what="+msg.what);
 				super.handleMessage(msg);
 				switch (msg.what) {
 				case EventType.LOGIN_SUCCESS:

@@ -24,7 +24,7 @@ public class MyApplication extends FrontiaApplication {
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
 	private List<ChatInfo> tmpList = new ArrayList<ChatInfo>();
 
-	private boolean forTest = true;
+	private boolean forTest = false;
 
 	public boolean isForTest() {
 		return forTest;

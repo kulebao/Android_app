@@ -44,7 +44,7 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 				.getInstance());
 		if (networkConnected) {
 			try {
-				String url = uploadBmpToOss();
+				String url = uploadBmpToServer();
 				saveBmpToSDCard(url);
 
 				// 上传到云服务器后，生成的外部链接
@@ -89,7 +89,7 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 		Utils.saveBitmapToSDCard(bitmap, path);
 	}
 
-	private String uploadBmpToOss() throws Exception {
+	private String uploadBmpToServer() throws Exception {
 		String url = Utils.getChatIconUrl(System.currentTimeMillis());
 		// OSSMgr.UploadPhoto(bitmap, url);
 		// url 是保存在云存储的相对路径

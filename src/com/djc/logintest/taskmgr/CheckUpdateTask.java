@@ -31,7 +31,7 @@ public class CheckUpdateTask extends AsyncTask<Void, Void, Integer> {
 				return result;
 			}
 		});
-		Integer result = EventType.NET_WORK_INVALID;
+		Integer result = EventType.HAS_NO_VERSION;
 		try {
 			result = (Integer) bind.handle();
 		} catch (Exception e) {
