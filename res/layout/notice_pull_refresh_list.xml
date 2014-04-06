@@ -9,7 +9,7 @@
         android:id="@+id/top"
         layout="@layout/topbar" />
 
-    <com.djc.logintest.customview.MsgListView
+    <com.cocobabys.customview.MsgListView
         android:id="@+id/noticelist"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-E:\coolbao\LoginTest\gen\com\djc\logintest\R.java \
+E:\coolbao\LoginTest\gen\com\cocobabys\R.java \
  : E:\coolbao\LoginTest\res\drawable\badrank.png \
 E:\coolbao\LoginTest\res\drawable\bind_btn.xml \
 E:\coolbao\LoginTest\res\drawable\bottom_bar.9.png \

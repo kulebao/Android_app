@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:my="http://schemas.android.com/apk/res/com.djc.logintest"
+    xmlns:my="http://schemas.android.com/apk/res/com.cocobabys"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
@@ -122,7 +122,7 @@
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
-                <com.djc.logintest.customview.SwitchButton
+                <com.cocobabys.customview.SwitchButton
                     android:id="@+id/voiceswitchbtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

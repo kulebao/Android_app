@@ -4525,93 +4525,93 @@ com.baidu.frontia.api.FrontiaPushUtil$a: void setNotificationVibrate(long[])
 com.baidu.frontia.api.FrontiaPushUtil$a: com.baidu.android.pushservice.internal.PushNotificationBuilder a()
 com.baidu.frontia.framework.IModule
 com.baidu.frontia.framework.IModule: void init(java.lang.String)
-com.djc.logintest.activities.AboutUsActivity
-com.djc.logintest.activities.AboutUsActivity: AboutUsActivity()
-com.djc.logintest.activities.BindLocationMgrActivity
-com.djc.logintest.activities.BindLocationMgrActivity: BindLocationMgrActivity()
-com.djc.logintest.activities.ChangePWDActivity
-com.djc.logintest.activities.ChangePWDActivity: ChangePWDActivity()
-com.djc.logintest.activities.CheckIconActivity
-com.djc.logintest.activities.CheckIconActivity: CheckIconActivity()
-com.djc.logintest.activities.ChildListActivity
-com.djc.logintest.activities.ChildListActivity: ChildListActivity()
-com.djc.logintest.activities.CookBookActivity
-com.djc.logintest.activities.CookBookActivity: CookBookActivity()
-com.djc.logintest.activities.EducationActivity
-com.djc.logintest.activities.EducationActivity: EducationActivity()
-com.djc.logintest.activities.FeedBackActivity
-com.djc.logintest.activities.FeedBackActivity: FeedBackActivity()
-com.djc.logintest.activities.GuideActivity
-com.djc.logintest.activities.GuideActivity: GuideActivity()
-com.djc.logintest.activities.HomeworkPullRefreshActivity
-com.djc.logintest.activities.HomeworkPullRefreshActivity: HomeworkPullRefreshActivity()
-com.djc.logintest.activities.InteractionActivity
-com.djc.logintest.activities.InteractionActivity: InteractionActivity()
-com.djc.logintest.activities.LoadingActivity
-com.djc.logintest.activities.LoadingActivity: LoadingActivity()
-com.djc.logintest.activities.LocationActivity
-com.djc.logintest.activities.LocationActivity: LocationActivity()
-com.djc.logintest.activities.LocationMgrActivity
-com.djc.logintest.activities.LocationMgrActivity: LocationMgrActivity()
-com.djc.logintest.activities.LocationRecordActivity
-com.djc.logintest.activities.LocationRecordActivity: LocationRecordActivity()
-com.djc.logintest.activities.LoginActivity
-com.djc.logintest.activities.LoginActivity: LoginActivity()
-com.djc.logintest.activities.MainActivity
-com.djc.logintest.activities.MainActivity: MainActivity()
-com.djc.logintest.activities.MyActivity
-com.djc.logintest.activities.MyActivity: MyActivity()
-com.djc.logintest.activities.MyApplication
-com.djc.logintest.activities.MyApplication: MyApplication()
-com.djc.logintest.activities.NoticeActivity
-com.djc.logintest.activities.NoticeActivity: NoticeActivity()
-com.djc.logintest.activities.NoticePullRefreshActivity
-com.djc.logintest.activities.NoticePullRefreshActivity: NoticePullRefreshActivity()
-com.djc.logintest.activities.ResetPWDActivity
-com.djc.logintest.activities.ResetPWDActivity: ResetPWDActivity()
-com.djc.logintest.activities.ScheduleActivity
-com.djc.logintest.activities.ScheduleActivity: ScheduleActivity()
-com.djc.logintest.activities.SchoolInfoActivity
-com.djc.logintest.activities.SchoolInfoActivity: SchoolInfoActivity()
-com.djc.logintest.activities.SchoolNoticeActivity
-com.djc.logintest.activities.SchoolNoticeActivity: SchoolNoticeActivity()
-com.djc.logintest.activities.SendChatActivity
-com.djc.logintest.activities.SendChatActivity: SendChatActivity()
-com.djc.logintest.activities.SettingActivity
-com.djc.logintest.activities.SettingActivity: SettingActivity()
-com.djc.logintest.activities.ShowIconActivity
-com.djc.logintest.activities.ShowIconActivity: ShowIconActivity()
-com.djc.logintest.activities.SwipeCalendarActivity
-com.djc.logintest.activities.SwipeCalendarActivity: SwipeCalendarActivity()
-com.djc.logintest.activities.SwipeDetailActivity
-com.djc.logintest.activities.SwipeDetailActivity: SwipeDetailActivity()
-com.djc.logintest.activities.SwipeListActivity
-com.djc.logintest.activities.SwipeListActivity: SwipeListActivity()
-com.djc.logintest.activities.TabChildActivity
-com.djc.logintest.activities.TabChildActivity: TabChildActivity()
-com.djc.logintest.activities.TransitActivity
-com.djc.logintest.activities.TransitActivity: TransitActivity()
-com.djc.logintest.activities.UmengStatisticsActivity
-com.djc.logintest.activities.UmengStatisticsActivity: UmengStatisticsActivity()
-com.djc.logintest.activities.UpdateActivity
-com.djc.logintest.activities.UpdateActivity: UpdateActivity()
-com.djc.logintest.activities.ValidateAuthCodeActivity
-com.djc.logintest.activities.ValidateAuthCodeActivity: ValidateAuthCodeActivity()
-com.djc.logintest.activities.ValidatePhoneNumActivity
-com.djc.logintest.activities.ValidatePhoneNumActivity: ValidatePhoneNumActivity()
-com.djc.logintest.adapter.ViewPagerAdapter
-com.djc.logintest.customview.MsgListView
-com.djc.logintest.customview.MsgListView: MsgListView(android.content.Context,android.util.AttributeSet)
-com.djc.logintest.customview.SwitchButton
-com.djc.logintest.customview.SwitchButton: SwitchButton(android.content.Context)
-com.djc.logintest.customview.SwitchButton: SwitchButton(android.content.Context,android.util.AttributeSet)
-com.djc.logintest.customview.SwitchButton: SwitchButton(android.content.Context,android.util.AttributeSet,int)
-com.djc.logintest.receiver.NetStateChangeReceiver
-com.djc.logintest.receiver.NetStateChangeReceiver: NetStateChangeReceiver()
-com.djc.logintest.receiver.PushMessageReceiver
-com.djc.logintest.receiver.PushMessageReceiver: PushMessageReceiver()
-com.djc.logintest.service.MyService
-com.djc.logintest.service.MyService: MyService()
+com.cocobabys.activities.AboutUsActivity
+com.cocobabys.activities.AboutUsActivity: AboutUsActivity()
+com.cocobabys.activities.BindLocationMgrActivity
+com.cocobabys.activities.BindLocationMgrActivity: BindLocationMgrActivity()
+com.cocobabys.activities.ChangePWDActivity
+com.cocobabys.activities.ChangePWDActivity: ChangePWDActivity()
+com.cocobabys.activities.CheckIconActivity
+com.cocobabys.activities.CheckIconActivity: CheckIconActivity()
+com.cocobabys.activities.ChildListActivity
+com.cocobabys.activities.ChildListActivity: ChildListActivity()
+com.cocobabys.activities.CookBookActivity
+com.cocobabys.activities.CookBookActivity: CookBookActivity()
+com.cocobabys.activities.EducationActivity
+com.cocobabys.activities.EducationActivity: EducationActivity()
+com.cocobabys.activities.FeedBackActivity
+com.cocobabys.activities.FeedBackActivity: FeedBackActivity()
+com.cocobabys.activities.GuideActivity
+com.cocobabys.activities.GuideActivity: GuideActivity()
+com.cocobabys.activities.HomeworkPullRefreshActivity
+com.cocobabys.activities.HomeworkPullRefreshActivity: HomeworkPullRefreshActivity()
+com.cocobabys.activities.InteractionActivity
+com.cocobabys.activities.InteractionActivity: InteractionActivity()
+com.cocobabys.activities.LoadingActivity
+com.cocobabys.activities.LoadingActivity: LoadingActivity()
+com.cocobabys.activities.LocationActivity
+com.cocobabys.activities.LocationActivity: LocationActivity()
+com.cocobabys.activities.LocationMgrActivity
+com.cocobabys.activities.LocationMgrActivity: LocationMgrActivity()
+com.cocobabys.activities.LocationRecordActivity
+com.cocobabys.activities.LocationRecordActivity: LocationRecordActivity()
+com.cocobabys.activities.LoginActivity
+com.cocobabys.activities.LoginActivity: LoginActivity()
+com.cocobabys.activities.MainActivity
+com.cocobabys.activities.MainActivity: MainActivity()
+com.cocobabys.activities.MyActivity
+com.cocobabys.activities.MyActivity: MyActivity()
+com.cocobabys.activities.MyApplication
+com.cocobabys.activities.MyApplication: MyApplication()
+com.cocobabys.activities.NoticeActivity
+com.cocobabys.activities.NoticeActivity: NoticeActivity()
+com.cocobabys.activities.NoticePullRefreshActivity
+com.cocobabys.activities.NoticePullRefreshActivity: NoticePullRefreshActivity()
+com.cocobabys.activities.ResetPWDActivity
+com.cocobabys.activities.ResetPWDActivity: ResetPWDActivity()
+com.cocobabys.activities.ScheduleActivity
+com.cocobabys.activities.ScheduleActivity: ScheduleActivity()
+com.cocobabys.activities.SchoolInfoActivity
+com.cocobabys.activities.SchoolInfoActivity: SchoolInfoActivity()
+com.cocobabys.activities.SchoolNoticeActivity
+com.cocobabys.activities.SchoolNoticeActivity: SchoolNoticeActivity()
+com.cocobabys.activities.SendChatActivity
+com.cocobabys.activities.SendChatActivity: SendChatActivity()
+com.cocobabys.activities.SettingActivity
+com.cocobabys.activities.SettingActivity: SettingActivity()
+com.cocobabys.activities.ShowIconActivity
+com.cocobabys.activities.ShowIconActivity: ShowIconActivity()
+com.cocobabys.activities.SwipeCalendarActivity
+com.cocobabys.activities.SwipeCalendarActivity: SwipeCalendarActivity()
+com.cocobabys.activities.SwipeDetailActivity
+com.cocobabys.activities.SwipeDetailActivity: SwipeDetailActivity()
+com.cocobabys.activities.SwipeListActivity
+com.cocobabys.activities.SwipeListActivity: SwipeListActivity()
+com.cocobabys.activities.TabChildActivity
+com.cocobabys.activities.TabChildActivity: TabChildActivity()
+com.cocobabys.activities.TransitActivity
+com.cocobabys.activities.TransitActivity: TransitActivity()
+com.cocobabys.activities.UmengStatisticsActivity
+com.cocobabys.activities.UmengStatisticsActivity: UmengStatisticsActivity()
+com.cocobabys.activities.UpdateActivity
+com.cocobabys.activities.UpdateActivity: UpdateActivity()
+com.cocobabys.activities.ValidateAuthCodeActivity
+com.cocobabys.activities.ValidateAuthCodeActivity: ValidateAuthCodeActivity()
+com.cocobabys.activities.ValidatePhoneNumActivity
+com.cocobabys.activities.ValidatePhoneNumActivity: ValidatePhoneNumActivity()
+com.cocobabys.adapter.ViewPagerAdapter
+com.cocobabys.customview.MsgListView
+com.cocobabys.customview.MsgListView: MsgListView(android.content.Context,android.util.AttributeSet)
+com.cocobabys.customview.SwitchButton
+com.cocobabys.customview.SwitchButton: SwitchButton(android.content.Context)
+com.cocobabys.customview.SwitchButton: SwitchButton(android.content.Context,android.util.AttributeSet)
+com.cocobabys.customview.SwitchButton: SwitchButton(android.content.Context,android.util.AttributeSet,int)
+com.cocobabys.receiver.NetStateChangeReceiver
+com.cocobabys.receiver.NetStateChangeReceiver: NetStateChangeReceiver()
+com.cocobabys.receiver.PushMessageReceiver
+com.cocobabys.receiver.PushMessageReceiver: PushMessageReceiver()
+com.cocobabys.service.MyService
+com.cocobabys.service.MyService: MyService()
 com.umeng.analytics.Gender: com.umeng.analytics.Gender[] values()
 com.umeng.analytics.Gender: com.umeng.analytics.Gender valueOf(java.lang.String)
 com.umeng.analytics.onlineconfig.a$a

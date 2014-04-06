@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.djc.logintest"
+    package="com.cocobabys"
     android:versionCode="47"
     android:versionName="V1.3.7" >
 
@@ -259,14 +259,14 @@
 
         <service android:name=".service.MyService" />
 
-        <receiver android:name="com.djc.logintest.receiver.NetStateChangeReceiver" >
+        <receiver android:name="com.cocobabys.receiver.NetStateChangeReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
         <!-- push service client -->
-        <receiver android:name="com.djc.logintest.receiver.PushMessageReceiver" >
+        <receiver android:name="com.cocobabys.receiver.PushMessageReceiver" >
             <intent-filter>
 
                 <!-- 接收push消息 -->

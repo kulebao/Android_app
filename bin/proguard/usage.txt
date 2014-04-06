@@ -11,35 +11,35 @@ com.baidu.android.silentupdate.b:
     private static final java.lang.String a
     b()
 com.baidu.android.silentupdate.c
-com.djc.logintest.BuildConfig
-com.djc.logintest.R:
+com.cocobabys.BuildConfig
+com.cocobabys.R:
     10:10:public R()
-com.djc.logintest.R$array
-com.djc.logintest.R$attr
-com.djc.logintest.R$color
-com.djc.logintest.R$dimen
-com.djc.logintest.R$drawable
-com.djc.logintest.R$id
-com.djc.logintest.R$layout
-com.djc.logintest.R$string
-com.djc.logintest.R$style
-com.djc.logintest.R$styleable:
+com.cocobabys.R$array
+com.cocobabys.R$attr
+com.cocobabys.R$color
+com.cocobabys.R$dimen
+com.cocobabys.R$drawable
+com.cocobabys.R$id
+com.cocobabys.R$layout
+com.cocobabys.R$string
+com.cocobabys.R$style
+com.cocobabys.R$styleable:
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
     622:622:public R$styleable()
-com.djc.logintest.activities.ActivityHelper:
-    10:10:public ActivityHelper()
-com.djc.logintest.activities.BindLocationMgrActivity:
+com.cocobabys.activities.ActivityHelper:
+    11:11:public ActivityHelper()
+com.cocobabys.activities.BindLocationMgrActivity:
     protected static final int MAX_BIND_INFO
-com.djc.logintest.activities.CookBookActivity$2:
+com.cocobabys.activities.CookBookActivity$2:
     private static final long serialVersionUID
-com.djc.logintest.activities.EducationActivity:
+com.cocobabys.activities.EducationActivity:
     private static final java.lang.String RANK
     private static final java.lang.String ITEM_IMAGE
     278:286:private void savaLatestData()
-com.djc.logintest.activities.EducationActivity$1:
+com.cocobabys.activities.EducationActivity$1:
     private static final long serialVersionUID
-com.djc.logintest.activities.InteractionActivity:
+com.cocobabys.activities.InteractionActivity:
     private static final int IMAGE_REQUEST_CODE
     private static final int CAMERA_REQUEST_CODE
     private static final int CHECK_ICON_CODE
@@ -47,16 +47,16 @@ com.djc.logintest.activities.InteractionActivity:
     private static final java.lang.String SORT_ASC
     private static final java.lang.String SORT_DESC
     private static final java.lang.String TMP_BMP
-    219:238:private void addTestData()
-com.djc.logintest.activities.LoadingActivity:
+    218:237:private void addTestData()
+com.cocobabys.activities.LoadingActivity:
     32:38:private void initData()
-com.djc.logintest.activities.LocationActivity:
+com.cocobabys.activities.LocationActivity:
     private static final int MIN_ZOOM
     private static final int MAX_ZOOM
-com.djc.logintest.activities.LocationMgrActivity:
+com.cocobabys.activities.LocationMgrActivity:
     private static final java.lang.String SEND_SMS_FILTER
-    208:217:private void send_sms()
-com.djc.logintest.activities.MainActivity:
+    207:216:private void send_sms()
+com.cocobabys.activities.MainActivity:
     private static final int DELAY_TIME
     private static final int FIRST_DELAY_TIME
     private static final java.lang.String TAB_TAG_LOCATION
@@ -64,12 +64,12 @@ com.djc.logintest.activities.MainActivity:
     private static final java.lang.String TAB_TAG_SETTING
     private static final int TAB_WIDGET_HEIGHT
     196:196:public android.os.AsyncTask getUpdateTask()
-com.djc.logintest.activities.MyApplication:
+com.cocobabys.activities.MyApplication:
     34:34:public java.util.concurrent.BlockingQueue getBlockingQueue()
-    46:47:public void removeObserver(com.djc.logintest.receiver.NotificationObserver)
-com.djc.logintest.activities.ScheduleActivity$2:
+    46:47:public void removeObserver(com.cocobabys.receiver.NotificationObserver)
+com.cocobabys.activities.ScheduleActivity$2:
     private static final long serialVersionUID
-com.djc.logintest.activities.SchoolNoticeActivity:
+com.cocobabys.activities.SchoolNoticeActivity:
     public static final int NORMAL_NOTICE
     public static final int COOK_NOTICE
     public static final int SWAPCARD_NOTICE
@@ -86,46 +86,46 @@ com.djc.logintest.activities.SchoolNoticeActivity:
     private static final int CAMERA_REQUEST_CODE
     private static final int RESIZE_REQUEST_CODE
     private static final java.lang.String IMAGE_FILE_NAME
-com.djc.logintest.activities.SwipeCalendarActivity:
+com.cocobabys.activities.SwipeCalendarActivity:
     private static final int EXTRA_HEIGHT
     242:246:protected java.lang.String GetDateShortString(java.util.Calendar)
     251:261:private int getNumFromDate(java.util.Calendar,java.util.Calendar)
     265:265:private int millisecondsToDays(long)
     269:273:private void setTimeToMidnight(java.util.Calendar)
-com.djc.logintest.activities.SwipeDetailActivity:
+com.cocobabys.activities.SwipeDetailActivity:
     113:114:public void setTimestamp()
-com.djc.logintest.adapter.BindedNumInfoListAdapter:
+com.cocobabys.adapter.BindedNumInfoListAdapter:
     31:32:public void setLocationInfoList(java.util.List)
     40:42:public void clear()
-com.djc.logintest.adapter.ChatListAdapter:
+com.cocobabys.adapter.ChatListAdapter:
     private static final long MIN_TIME_LIMIT
     private static final int LEFT
     private static final int RIGHT
-com.djc.logintest.adapter.ChildListAdapter:
+com.cocobabys.adapter.ChildListAdapter:
     23:24:public void setLocationInfoList(java.util.List)
     32:34:public void clear()
-com.djc.logintest.adapter.CookBookListAdapter:
+com.cocobabys.adapter.CookBookListAdapter:
     20:21:public void setCookInfoList(java.util.List)
     29:31:public void clear()
-com.djc.logintest.adapter.HomeworkListAdapter:
+com.cocobabys.adapter.HomeworkListAdapter:
     31:32:public void setLocationInfoList(java.util.List)
-com.djc.logintest.adapter.LocationInfoListAdapter:
+com.cocobabys.adapter.LocationInfoListAdapter:
     26:27:public void setLocationInfoList(java.util.List)
-com.djc.logintest.adapter.NewsListAdapter:
+com.cocobabys.adapter.NewsListAdapter:
     30:31:public void setLocationInfoList(java.util.List)
-com.djc.logintest.adapter.ScheduleListAdapter:
+com.cocobabys.adapter.ScheduleListAdapter:
     20:21:public void setCookInfoList(java.util.List)
     29:31:public void clear()
-com.djc.logintest.adapter.SwipeListAdapter:
+com.cocobabys.adapter.SwipeListAdapter:
     33:34:public void setLocationInfoList(java.util.List)
     47:49:public void clear()
-com.djc.logintest.bean.Account
-com.djc.logintest.constant.ConstantValue
-com.djc.logintest.constant.EventMap:
+com.cocobabys.bean.Account
+com.cocobabys.constant.ConstantValue
+com.cocobabys.constant.EventMap:
     8:8:public EventMap()
-com.djc.logintest.constant.EventMap$1:
+com.cocobabys.constant.EventMap$1:
     private static final long serialVersionUID
-com.djc.logintest.constant.EventType:
+com.cocobabys.constant.EventType:
     public static final int PHONE_NUM_IS_INVALID
     public static final int PHONE_NUM_IS_FIRST_USE
     public static final int PHONE_NUM_IS_ALREADY_BIND
@@ -183,24 +183,24 @@ com.djc.logintest.constant.EventType:
     public static final int FAIL
     public static final int CHECK_NEW_DATA
     3:3:public EventType()
-com.djc.logintest.constant.JSONConstant
-com.djc.logintest.constant.MyErrorCode
-com.djc.logintest.constant.ServerUrls
-com.djc.logintest.customexception.BindFailException:
+com.cocobabys.constant.JSONConstant
+com.cocobabys.constant.MyErrorCode
+com.cocobabys.constant.ServerUrls
+com.cocobabys.customexception.BindFailException:
     private static final long serialVersionUID
-com.djc.logintest.customexception.CustomException:
+com.cocobabys.customexception.CustomException:
     private static final long serialVersionUID
-com.djc.logintest.customexception.DecodeBitmapException:
+com.cocobabys.customexception.DecodeBitmapException:
     private static final long serialVersionUID
-com.djc.logintest.customexception.DuplicateLoginException:
+com.cocobabys.customexception.DuplicateLoginException:
     private static final long serialVersionUID
-com.djc.logintest.customexception.InvalidTokenException:
+com.cocobabys.customexception.InvalidTokenException:
     private static final long serialVersionUID
-com.djc.logintest.customview.CustomDialog:
+com.cocobabys.customview.CustomDialog:
     32:33:public CustomDialog(android.content.Context)
-com.djc.logintest.customview.CustomDialog$Builder:
-    106:107:public com.djc.logintest.customview.CustomDialog$Builder setContentView(android.view.View)
-com.djc.logintest.customview.MsgListView:
+com.cocobabys.customview.CustomDialog$Builder:
+    106:107:public com.cocobabys.customview.CustomDialog$Builder setContentView(android.view.View)
+com.cocobabys.customview.MsgListView:
     private static final int RELEASE_To_REFRESH
     private static final int PULL_To_REFRESH
     private static final int REFRESHING
@@ -209,7 +209,7 @@ com.djc.logintest.customview.MsgListView:
     private static final int DISTANCE
     private static final int MIN_HEITHT
     private static final int DURATION
-com.djc.logintest.customview.SwitchButton:
+com.cocobabys.customview.SwitchButton:
     private static final java.lang.String TEXT_ON_DEFAULT
     private static final java.lang.String TEXT_OFF_DEFAULT
     private static final int TEXTON_ID
@@ -218,35 +218,35 @@ com.djc.logintest.customview.SwitchButton:
     234:234:public java.lang.CharSequence getTextOff()
     243:244:public void setTextOnColor(int)
     252:253:public void setTextOffColor(int)
-com.djc.logintest.dbmgr.ChatMgr:
-    21:23:long addChatInfo(com.djc.logintest.dbmgr.info.ChatInfo)
-    56:60:com.djc.logintest.dbmgr.info.ChatInfo getChatInfoByID(int)
-com.djc.logintest.dbmgr.DataMgr:
+com.cocobabys.dbmgr.ChatMgr:
+    21:23:long addChatInfo(com.cocobabys.dbmgr.info.ChatInfo)
+    56:60:com.cocobabys.dbmgr.info.ChatInfo getChatInfoByID(int)
+com.cocobabys.dbmgr.DataMgr:
     private static final java.lang.String DB_NAME
-    281:281:public long addScheduleInfo(com.djc.logintest.dbmgr.info.ScheduleInfo)
-    301:301:public long addNews(com.djc.logintest.dbmgr.info.News)
-    309:309:public com.djc.logintest.dbmgr.info.News getNewsByID(int)
+    281:281:public long addScheduleInfo(com.cocobabys.dbmgr.info.ScheduleInfo)
+    301:301:public long addNews(com.cocobabys.dbmgr.info.News)
+    309:309:public com.cocobabys.dbmgr.info.News getNewsByID(int)
     313:313:public java.util.List getAllNewsByType(int)
-    337:337:public com.djc.logintest.dbmgr.info.SwipeInfo getSwipeDataByTimeStamp(long)
-    356:356:public long addHomework(com.djc.logintest.dbmgr.info.Homework)
-    364:364:public com.djc.logintest.dbmgr.info.Homework getHomeworkByID(int)
+    337:337:public com.cocobabys.dbmgr.info.SwipeInfo getSwipeDataByTimeStamp(long)
+    356:356:public long addHomework(com.cocobabys.dbmgr.info.Homework)
+    364:364:public com.cocobabys.dbmgr.info.Homework getHomeworkByID(int)
     400:400:public java.util.List getEduRecordByChildID(java.lang.String)
     414:415:public void removeEduRecord(java.lang.String)
-    418:418:public long addTeacher(com.djc.logintest.dbmgr.info.Teacher)
+    418:418:public long addTeacher(com.cocobabys.dbmgr.info.Teacher)
     426:426:public boolean isTeacherExist(java.lang.String)
     430:431:public void addTeacherList(java.util.List)
-    438:438:public com.djc.logintest.dbmgr.info.Teacher getTeacher(java.lang.String)
-com.djc.logintest.dbmgr.EducationMgr:
-    20:22:long addEduRecord(com.djc.logintest.dbmgr.info.EducationInfo)
-com.djc.logintest.dbmgr.HomeworkMgr:
-    20:22:long addHomework(com.djc.logintest.dbmgr.info.Homework)
-    56:61:com.djc.logintest.dbmgr.info.Homework getHomeworkByID(int)
-com.djc.logintest.dbmgr.NewsMgr:
-    20:22:long addNews(com.djc.logintest.dbmgr.info.News)
-    57:61:com.djc.logintest.dbmgr.info.News getNewsByID(int)
+    438:438:public com.cocobabys.dbmgr.info.Teacher getTeacher(java.lang.String)
+com.cocobabys.dbmgr.EducationMgr:
+    20:22:long addEduRecord(com.cocobabys.dbmgr.info.EducationInfo)
+com.cocobabys.dbmgr.HomeworkMgr:
+    20:22:long addHomework(com.cocobabys.dbmgr.info.Homework)
+    56:61:com.cocobabys.dbmgr.info.Homework getHomeworkByID(int)
+com.cocobabys.dbmgr.NewsMgr:
+    20:22:long addNews(com.cocobabys.dbmgr.info.News)
+    57:61:com.cocobabys.dbmgr.info.News getNewsByID(int)
     65:69:java.util.List getAllNews()
     73:78:java.util.List getAllNewsByType(int)
-com.djc.logintest.dbmgr.SqliteHelper:
+com.cocobabys.dbmgr.SqliteHelper:
     public static final java.lang.String LOCATION_TAB
     public static final java.lang.String BINDED_NUM_TAB
     public static final java.lang.String CHILDREN_INFO_TAB
@@ -259,16 +259,16 @@ com.djc.logintest.dbmgr.SqliteHelper:
     public static final java.lang.String CHAT_TAB
     public static final java.lang.String EDUCATION_TAB
     public static final java.lang.String TEACHER_TAB
-com.djc.logintest.dbmgr.SwipeMgr:
-    63:67:com.djc.logintest.dbmgr.info.SwipeInfo getDataByTimeStamp(long)
-com.djc.logintest.dbmgr.TeacherMgr:
+com.cocobabys.dbmgr.SwipeMgr:
+    63:67:com.cocobabys.dbmgr.info.SwipeInfo getDataByTimeStamp(long)
+com.cocobabys.dbmgr.TeacherMgr:
     27:43:void addList(java.util.List)
     76:76:boolean exist(java.lang.String)
-com.djc.logintest.dbmgr.info.BindedNumInfo:
+com.cocobabys.dbmgr.info.BindedNumInfo:
     public static final java.lang.String ID
     public static final java.lang.String PHONE_NUM
     public static final java.lang.String NICKNAME
-com.djc.logintest.dbmgr.info.ChatInfo:
+com.cocobabys.dbmgr.info.ChatInfo:
     public static final java.lang.String ID
     public static final java.lang.String SENDER
     public static final java.lang.String CONTENT
@@ -280,7 +280,7 @@ com.djc.logintest.dbmgr.info.ChatInfo:
     public static final int SEND_SUCCESS
     public static final int SEND_FAIL
     62:62:public int getId()
-com.djc.logintest.dbmgr.info.ChildInfo:
+com.cocobabys.dbmgr.info.ChildInfo:
     public static final int STATUS_SELECTED
     public static final int STATUS_UNSELECTED
     public static final java.lang.String ID
@@ -294,12 +294,12 @@ com.djc.logintest.dbmgr.info.ChildInfo:
     public static final java.lang.String CLASS_NAME
     public static final java.lang.String CHILD_NAME
     public static final java.lang.String GENDER
-com.djc.logintest.dbmgr.info.CookBookInfo:
+com.cocobabys.dbmgr.info.CookBookInfo:
     public static final java.lang.String ID
     public static final java.lang.String COOKBOOK_ID
     public static final java.lang.String COOKBOOK_CONTENT
     45:45:public int getId()
-com.djc.logintest.dbmgr.info.EducationInfo:
+com.cocobabys.dbmgr.info.EducationInfo:
     private static final int DEFAULT_RANK
     public static final java.lang.String ID
     public static final java.lang.String SERVER_ID
@@ -316,7 +316,7 @@ com.djc.logintest.dbmgr.info.EducationInfo:
     public static final java.lang.String GAME
     public static final java.lang.String CHILD_ID
     44:44:public int getId()
-com.djc.logintest.dbmgr.info.Homework:
+com.cocobabys.dbmgr.info.Homework:
     public static final java.lang.String ID
     public static final java.lang.String TITLE
     public static final java.lang.String CONTENT
@@ -328,7 +328,7 @@ com.djc.logintest.dbmgr.info.Homework:
     public static final java.lang.String CLASS_ID
     55:55:public int getId()
     95:101:public java.lang.String getFormattedTime()
-com.djc.logintest.dbmgr.info.InfoHelper:
+com.cocobabys.dbmgr.info.InfoHelper:
     private static final java.lang.String BABY_ICON_NAME
     private static final java.lang.String SCHOOL_LOGO
     public static final java.lang.String TIMESTAMP
@@ -342,14 +342,14 @@ com.djc.logintest.dbmgr.info.InfoHelper:
     public static final java.lang.String AM
     public static final java.lang.String PM
     15:15:public InfoHelper()
-com.djc.logintest.dbmgr.info.LocationInfo:
+com.cocobabys.dbmgr.info.LocationInfo:
     public static final java.lang.String ID
     public static final java.lang.String LONGITUDE
     public static final java.lang.String LATITUDE
     public static final java.lang.String TIMESTAMP
     public static final java.lang.String LBS_NUM
     public static final java.lang.String ADDRESS
-com.djc.logintest.dbmgr.info.News:
+com.cocobabys.dbmgr.info.News:
     public static final java.lang.String ID
     public static final java.lang.String TITLE
     public static final java.lang.String CONTENT
@@ -362,7 +362,7 @@ com.djc.logintest.dbmgr.info.News:
     private static final java.lang.String NEWS_ICON
     42:42:public int getId()
     130:136:public java.lang.String getFormattedTime()
-com.djc.logintest.dbmgr.info.Notice:
+com.cocobabys.dbmgr.info.Notice:
     public static final java.lang.String ID
     public static final java.lang.String TITLE
     public static final java.lang.String CONTENT
@@ -378,12 +378,12 @@ com.djc.logintest.dbmgr.info.Notice:
     98:98:public java.lang.String getCustom_content()
     102:103:public void setCustom_content(java.lang.String)
     126:127:public void setPublisher(java.lang.String)
-com.djc.logintest.dbmgr.info.ScheduleInfo:
+com.cocobabys.dbmgr.info.ScheduleInfo:
     public static final java.lang.String ID
     public static final java.lang.String SCHEDULE_ID
     public static final java.lang.String SCHEDULE_CONTENT
     28:28:public int getId()
-com.djc.logintest.dbmgr.info.SchoolInfo:
+com.cocobabys.dbmgr.info.SchoolInfo:
     public static final java.lang.String ID
     public static final java.lang.String SCHOOL_ID
     public static final java.lang.String SCHOOL_NAME
@@ -394,7 +394,7 @@ com.djc.logintest.dbmgr.info.SchoolInfo:
     52:52:public int getId()
     94:94:public int getShcool_info_version()
     98:99:public void setShcool_info_version(int)
-com.djc.logintest.dbmgr.info.SwipeInfo:
+com.cocobabys.dbmgr.info.SwipeInfo:
     private static final java.lang.String SWIPE_CARD_TITLE
     private static final java.lang.String SWIPE_CARD_IN_BODY
     private static final java.lang.String SWIPE_CARD_OUT_BODY
@@ -403,7 +403,7 @@ com.djc.logintest.dbmgr.info.SwipeInfo:
     public static final java.lang.String TYPE
     public static final java.lang.String CHILD_ID
     public static final java.lang.String ICON_URL
-com.djc.logintest.dbmgr.info.Teacher:
+com.cocobabys.dbmgr.info.Teacher:
     public static final java.lang.String ID
     public static final java.lang.String NAME
     public static final java.lang.String HEAD_ICON
@@ -417,72 +417,72 @@ com.djc.logintest.dbmgr.info.Teacher:
     public static final java.lang.String PHONE
     private static final java.lang.String TEACHER_ICON
     53:53:public int getId()
-com.djc.logintest.dlgmgr.DlgMgr:
+com.cocobabys.dlgmgr.DlgMgr:
     16:16:public DlgMgr()
     83:85:public static android.app.AlertDialog$Builder getTextEntryDialog(android.content.Context,int,int,int,android.content.DialogInterface$OnClickListener)
-com.djc.logintest.handler.CrashHandler:
+com.cocobabys.handler.CrashHandler:
     public static final java.lang.String TAG
     75:88:private void selfHandleWithToast(java.lang.Thread,java.lang.Throwable)
     98:107:private boolean handleException(java.lang.Throwable)
-    26:26:static synthetic android.content.Context access$000(com.djc.logintest.handler.CrashHandler)
-com.djc.logintest.handler.CrashHandler$1
-com.djc.logintest.handler.MyHandler:
+    26:26:static synthetic android.content.Context access$000(com.cocobabys.handler.CrashHandler)
+com.cocobabys.handler.CrashHandler$1
+com.cocobabys.handler.MyHandler:
     20:21:public MyHandler(android.app.Activity)
-com.djc.logintest.handler.PushEventHandler:
+com.cocobabys.handler.PushEventHandler:
     private static final java.lang.String TAGS_SEPERATOR
     private static final int MAX_THREAD_IN_POOL
-    42:44:public void offerEvent(com.djc.logintest.push.info.PushEvent)
-    47:48:public void addObserver(com.djc.logintest.handler.PushEventObserver)
-    51:52:public void removeObserver(com.djc.logintest.handler.PushEventObserver)
+    42:44:public void offerEvent(com.cocobabys.push.info.PushEvent)
+    47:48:public void addObserver(com.cocobabys.handler.PushEventObserver)
+    51:52:public void removeObserver(com.cocobabys.handler.PushEventObserver)
     55:56:public void clearObservers()
     136:138:public void clear()
-com.djc.logintest.httpclientmgr.HttpClientHelper:
+com.cocobabys.httpclientmgr.HttpClientHelper:
     56:57:private HttpClientHelper()
-com.djc.logintest.mycalendar.DateWidgetDayCell:
+com.cocobabys.mycalendar.DateWidgetDayCell:
     296:305:public void CreateReminder(android.graphics.Canvas,int)
-com.djc.logintest.mycalendar.DateWidgetDayHeader:
+com.cocobabys.mycalendar.DateWidgetDayHeader:
     private static final int fTextSize
-com.djc.logintest.mycalendar.DayStyle:
+com.cocobabys.mycalendar.DayStyle:
     19:19:public DayStyle()
-com.djc.logintest.net.ChatMethod:
+com.cocobabys.net.ChatMethod:
     private static final java.lang.String MOST
     private static final java.lang.String FROM
     private static final java.lang.String TO
-com.djc.logintest.net.EducationMethod:
+com.cocobabys.net.EducationMethod:
     private static final java.lang.String MOST
     private static final java.lang.String FROM
     private static final java.lang.String TO
-com.djc.logintest.net.FeedBackMethod:
+com.cocobabys.net.FeedBackMethod:
     private static final java.lang.String PHONE_NUM
     private static final java.lang.String FEEDBACK_CONTENT
-com.djc.logintest.net.HomeworkMethod:
+com.cocobabys.net.HomeworkMethod:
     private static final java.lang.String MOST
     private static final java.lang.String FROM
     private static final java.lang.String TO
-com.djc.logintest.net.HttpsModel:
+com.cocobabys.net.HttpsModel:
     private static final int READ_TIMEOUT
     private static final int CONNECT_TIMEOUT
     14:14:public HttpsModel()
     21:37:public static javax.net.ssl.HttpsURLConnection createHttpsConnection(java.lang.String,java.lang.String)
-com.djc.logintest.net.NewsMethod:
+com.cocobabys.net.NewsMethod:
     private static final java.lang.String MOST
     private static final java.lang.String FROM
     private static final java.lang.String TO
-com.djc.logintest.net.SwipeCardMethod:
+com.cocobabys.net.SwipeCardMethod:
     private static final int MOST
-com.djc.logintest.net.ValidatePhoneMethod:
+com.cocobabys.net.ValidatePhoneMethod:
     private static final java.lang.String CHECK_PHONE_RESULT
-com.djc.logintest.noticepaser.NoticePaserFactory:
+com.cocobabys.noticepaser.NoticePaserFactory:
     6:7:private NoticePaserFactory()
-com.djc.logintest.noticepaser.NoticePaserHelper
-com.djc.logintest.push.PushModel:
+com.cocobabys.noticepaser.NoticePaserHelper
+com.cocobabys.push.PushModel:
     42:43:public void unBind()
     46:47:public void setTag(java.util.List)
     52:71:public void setAllDefaultTag()
     78:86:public java.util.List getTags()
-com.djc.logintest.push.info.JsonHelper:
+com.cocobabys.push.info.JsonHelper:
     11:11:public JsonHelper()
-com.djc.logintest.push.info.PushEvent:
+com.cocobabys.push.info.PushEvent:
     public static final int TYPE_MESSAGE
     public static final int TYPE_NOTIFICATION
     public static final int TYPE_NOTIFICATION_CLICK
@@ -491,92 +491,92 @@ com.djc.logintest.push.info.PushEvent:
     28:29:public void setMethod(java.lang.String)
     36:37:public void setMessage(java.lang.String)
     44:45:public void setErrorCode(int)
-com.djc.logintest.push.info.PushMsg
-com.djc.logintest.taskmgr.BindPushTask:
+com.cocobabys.push.info.PushMsg
+com.cocobabys.taskmgr.BindPushTask:
     private static final int MAX_WAIT_FOR_BIND
-com.djc.logintest.taskmgr.GetChatTask:
+com.cocobabys.taskmgr.GetChatTask:
     private static final int LIMIT_TIME
-com.djc.logintest.taskmgr.GetHomeworkTask:
+com.cocobabys.taskmgr.GetHomeworkTask:
     private static final int LIMIT_TIME
-com.djc.logintest.taskmgr.GetNormalNewsTask:
+com.cocobabys.taskmgr.GetNormalNewsTask:
     private static final int LIMIT_TIME
-com.djc.logintest.taskmgr.GetNoticeTask
-com.djc.logintest.taskmgr.LoadingTask:
+com.cocobabys.taskmgr.GetNoticeTask
+com.cocobabys.taskmgr.LoadingTask:
     private static final long LIMIT_TIME
-com.djc.logintest.taskmgr.ValidatePhoneNumJob
-com.djc.logintest.taskmgr.ValidatePhoneNumJob$1
-com.djc.logintest.threadpool.MyThreadPoolMgr:
+com.cocobabys.taskmgr.ValidatePhoneNumJob
+com.cocobabys.taskmgr.ValidatePhoneNumJob$1
+com.cocobabys.threadpool.MyThreadPoolMgr:
     private static final int MAX_THREAD_IN_POOL
     6:6:public MyThreadPoolMgr()
-com.djc.logintest.upload.OSSMgr
-com.djc.logintest.upload.QiniuMgr:
+com.cocobabys.upload.OSSMgr
+com.cocobabys.upload.QiniuMgr:
     37:37:public void UploadPhoto(android.graphics.Bitmap,java.lang.String)
-com.djc.logintest.upload.UploadFactory:
+com.cocobabys.upload.UploadFactory:
     9:10:private UploadFactory()
-com.djc.logintest.upload.UploadMgr:
+com.cocobabys.upload.UploadMgr:
     public abstract void UploadPhoto(android.graphics.Bitmap,java.lang.String)
-com.djc.logintest.upload.qiniu.auth.CallRet:
+com.cocobabys.upload.qiniu.auth.CallRet:
     6:6:public CallRet()
     7:7:public void onInit(int)
     11:11:public void onPause(java.lang.Object)
-com.djc.logintest.upload.qiniu.auth.Client:
-    33:34:public static com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor get(java.lang.String,com.djc.logintest.upload.qiniu.auth.CallRet)
-    39:44:public com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor call(com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor,java.lang.String,org.apache.http.HttpEntity,com.djc.logintest.upload.qiniu.auth.CallRet)
-    49:55:public com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor call(com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor,java.lang.String,java.lang.String,org.apache.http.HttpEntity,com.djc.logintest.upload.qiniu.auth.CallRet)
-    59:59:public com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor get(com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor,java.lang.String,com.djc.logintest.upload.qiniu.auth.CallRet)
-    68:70:protected com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor execute(com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor,org.apache.http.client.methods.HttpRequestBase,com.djc.logintest.upload.qiniu.auth.CallRet)
-com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor:
-    85:87:public void setup(org.apache.http.client.methods.HttpRequestBase,com.djc.logintest.upload.qiniu.auth.CallRet)
+com.cocobabys.upload.qiniu.auth.Client:
+    33:34:public static com.cocobabys.upload.qiniu.auth.Client$ClientExecutor get(java.lang.String,com.cocobabys.upload.qiniu.auth.CallRet)
+    39:44:public com.cocobabys.upload.qiniu.auth.Client$ClientExecutor call(com.cocobabys.upload.qiniu.auth.Client$ClientExecutor,java.lang.String,org.apache.http.HttpEntity,com.cocobabys.upload.qiniu.auth.CallRet)
+    49:55:public com.cocobabys.upload.qiniu.auth.Client$ClientExecutor call(com.cocobabys.upload.qiniu.auth.Client$ClientExecutor,java.lang.String,java.lang.String,org.apache.http.HttpEntity,com.cocobabys.upload.qiniu.auth.CallRet)
+    59:59:public com.cocobabys.upload.qiniu.auth.Client$ClientExecutor get(com.cocobabys.upload.qiniu.auth.Client$ClientExecutor,java.lang.String,com.cocobabys.upload.qiniu.auth.CallRet)
+    68:70:protected com.cocobabys.upload.qiniu.auth.Client$ClientExecutor execute(com.cocobabys.upload.qiniu.auth.Client$ClientExecutor,org.apache.http.client.methods.HttpRequestBase,com.cocobabys.upload.qiniu.auth.CallRet)
+com.cocobabys.upload.qiniu.auth.Client$ClientExecutor:
+    85:87:public void setup(org.apache.http.client.methods.HttpRequestBase,com.cocobabys.upload.qiniu.auth.CallRet)
     90:91:public void upload(long,long)
-com.djc.logintest.upload.qiniu.auth.JSONObjectRet
-com.djc.logintest.upload.qiniu.conf.Conf
-com.djc.logintest.upload.qiniu.io.IO:
-    54:76:public void put(java.lang.String,com.djc.logintest.upload.qiniu.utils.InputStreamAt,com.djc.logintest.upload.qiniu.io.PutExtra,com.djc.logintest.upload.qiniu.auth.JSONObjectRet)
-    92:105:public void putFile(android.content.Context,java.lang.String,android.net.Uri,com.djc.logintest.upload.qiniu.io.PutExtra,com.djc.logintest.upload.qiniu.auth.JSONObjectRet)
-    109:110:public void putFile(java.lang.String,java.io.File,com.djc.logintest.upload.qiniu.io.PutExtra,com.djc.logintest.upload.qiniu.auth.JSONObjectRet)
-    114:137:public void putAndClose(java.lang.String,com.djc.logintest.upload.qiniu.utils.InputStreamAt,com.djc.logintest.upload.qiniu.io.PutExtra,com.djc.logintest.upload.qiniu.auth.JSONObjectRet)
+com.cocobabys.upload.qiniu.auth.JSONObjectRet
+com.cocobabys.upload.qiniu.conf.Conf
+com.cocobabys.upload.qiniu.io.IO:
+    54:76:public void put(java.lang.String,com.cocobabys.upload.qiniu.utils.InputStreamAt,com.cocobabys.upload.qiniu.io.PutExtra,com.cocobabys.upload.qiniu.auth.JSONObjectRet)
+    92:105:public void putFile(android.content.Context,java.lang.String,android.net.Uri,com.cocobabys.upload.qiniu.io.PutExtra,com.cocobabys.upload.qiniu.auth.JSONObjectRet)
+    109:110:public void putFile(java.lang.String,java.io.File,com.cocobabys.upload.qiniu.io.PutExtra,com.cocobabys.upload.qiniu.auth.JSONObjectRet)
+    114:137:public void putAndClose(java.lang.String,com.cocobabys.upload.qiniu.utils.InputStreamAt,com.cocobabys.upload.qiniu.io.PutExtra,com.cocobabys.upload.qiniu.auth.JSONObjectRet)
     141:153:public static android.net.Uri convertFileUri(android.content.Context,android.net.Uri)
-    158:159:public static void put(java.lang.String,java.lang.String,com.djc.logintest.upload.qiniu.utils.InputStreamAt,com.djc.logintest.upload.qiniu.io.PutExtra,com.djc.logintest.upload.qiniu.auth.JSONObjectRet)
-    163:165:public static void putFile(android.content.Context,java.lang.String,java.lang.String,android.net.Uri,com.djc.logintest.upload.qiniu.io.PutExtra,com.djc.logintest.upload.qiniu.auth.JSONObjectRet)
-    169:170:public static void putFile(java.lang.String,java.lang.String,java.io.File,com.djc.logintest.upload.qiniu.io.PutExtra,com.djc.logintest.upload.qiniu.auth.JSONObjectRet)
-com.djc.logintest.upload.qiniu.io.IO$1
-com.djc.logintest.upload.qiniu.io.IO$2
-com.djc.logintest.upload.qiniu.io.PutExtra:
+    158:159:public static void put(java.lang.String,java.lang.String,com.cocobabys.upload.qiniu.utils.InputStreamAt,com.cocobabys.upload.qiniu.io.PutExtra,com.cocobabys.upload.qiniu.auth.JSONObjectRet)
+    163:165:public static void putFile(android.content.Context,java.lang.String,java.lang.String,android.net.Uri,com.cocobabys.upload.qiniu.io.PutExtra,com.cocobabys.upload.qiniu.auth.JSONObjectRet)
+    169:170:public static void putFile(java.lang.String,java.lang.String,java.io.File,com.cocobabys.upload.qiniu.io.PutExtra,com.cocobabys.upload.qiniu.auth.JSONObjectRet)
+com.cocobabys.upload.qiniu.io.IO$1
+com.cocobabys.upload.qiniu.io.IO$2
+com.cocobabys.upload.qiniu.io.PutExtra:
     public static final int UNUSE_CRC32
     public static final int AUTO_CRC32
     public static final int SPECIFY_CRC32
-com.djc.logintest.upload.qiniu.resumableio.PutExtra
-com.djc.logintest.upload.qiniu.resumableio.PutExtra$INotify
-com.djc.logintest.upload.qiniu.resumableio.PutRet
-com.djc.logintest.upload.qiniu.resumableio.ResumableClient
-com.djc.logintest.upload.qiniu.resumableio.ResumableClient$1
-com.djc.logintest.upload.qiniu.resumableio.ResumableIO
-com.djc.logintest.upload.qiniu.resumableio.ResumableIO$1
-com.djc.logintest.upload.qiniu.resumableio.ResumableIO$2
-com.djc.logintest.upload.qiniu.resumableio.ResumableIO$3
-com.djc.logintest.upload.qiniu.utils.ICancel
-com.djc.logintest.upload.qiniu.utils.InputStreamAt:
-    46:47:public static com.djc.logintest.upload.qiniu.utils.InputStreamAt fromFile(java.io.File)
-    51:51:public static com.djc.logintest.upload.qiniu.utils.InputStreamAt fromString(java.lang.String)
+com.cocobabys.upload.qiniu.resumableio.PutExtra
+com.cocobabys.upload.qiniu.resumableio.PutExtra$INotify
+com.cocobabys.upload.qiniu.resumableio.PutRet
+com.cocobabys.upload.qiniu.resumableio.ResumableClient
+com.cocobabys.upload.qiniu.resumableio.ResumableClient$1
+com.cocobabys.upload.qiniu.resumableio.ResumableIO
+com.cocobabys.upload.qiniu.resumableio.ResumableIO$1
+com.cocobabys.upload.qiniu.resumableio.ResumableIO$2
+com.cocobabys.upload.qiniu.resumableio.ResumableIO$3
+com.cocobabys.upload.qiniu.utils.ICancel
+com.cocobabys.upload.qiniu.utils.InputStreamAt:
+    46:47:public static com.cocobabys.upload.qiniu.utils.InputStreamAt fromFile(java.io.File)
+    51:51:public static com.cocobabys.upload.qiniu.utils.InputStreamAt fromString(java.lang.String)
     55:56:public InputStreamAt(java.io.File)
     68:70:public InputStreamAt(byte[])
     73:76:public long getCrc32(long,int)
     202:202:public int read(byte[])
-    207:208:public org.apache.http.HttpEntity toHttpEntity(long,int,com.djc.logintest.upload.qiniu.auth.Client$ClientExecutor)
-    22:22:static synthetic boolean access$000(com.djc.logintest.upload.qiniu.utils.InputStreamAt)
-com.djc.logintest.upload.qiniu.utils.InputStreamAt$1
-com.djc.logintest.upload.qiniu.utils.MultipartEntity:
-    86:87:public void setProcessNotify(com.djc.logintest.upload.qiniu.utils.IOnProcess)
-com.djc.logintest.utils.ImageDownloader:
+    207:208:public org.apache.http.HttpEntity toHttpEntity(long,int,com.cocobabys.upload.qiniu.auth.Client$ClientExecutor)
+    22:22:static synthetic boolean access$000(com.cocobabys.upload.qiniu.utils.InputStreamAt)
+com.cocobabys.upload.qiniu.utils.InputStreamAt$1
+com.cocobabys.upload.qiniu.utils.MultipartEntity:
+    86:87:public void setProcessNotify(com.cocobabys.upload.qiniu.utils.IOnProcess)
+com.cocobabys.utils.ImageDownloader:
     private static final int LIMIT_WITH
     private static final int LIMIT_HEIGHT
     private static final int HTTP_CONN_TIMEOUT
     private static final int HTTP_READ_TIMEOUT
-com.djc.logintest.utils.MethodUtils:
+com.cocobabys.utils.MethodUtils:
     public static final int CHECK_NEWS
     30:30:public MethodUtils()
     189:214:public static void setNotification(int,java.lang.String,java.lang.Class)
-com.djc.logintest.utils.Utils:
+com.cocobabys.utils.Utils:
     public static final int NETWORK_NOT_CONNECTED
     public static final java.lang.String TAG
     public static final java.lang.String APP_DIR_ROOT

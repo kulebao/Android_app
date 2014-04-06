@@ -2,23 +2,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/notice_item" >
+    android:background="@drawable/homework_item" >
 
-    <ImageView
-        android:id="@+id/headView"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
-        android:scaleType="fitCenter" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" >
 
-    <TextView
-        android:id="@+id/nameView"
-        style="@style/item_style"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/headView"
-        android:textColor="@color/juhong"
-        android:textSize="24sp" />
+        <ImageView
+            android:id="@+id/headView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/nameView"
+            style="@style/item_style"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="35dp"
+            android:layout_toRightOf="@+id/headView"
+            android:textColor="@color/juhong"
+            android:textSize="24sp" />
+    </LinearLayout>
 
 </RelativeLayout>

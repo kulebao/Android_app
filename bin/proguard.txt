@@ -11,127 +11,127 @@
 -keep class com.baidu.android.pushservice.RegistrationReceiver { <init>(...); }
 
 # view AndroidManifest.xml #generated:161
--keep class com.djc.logintest.activities.AboutUsActivity { <init>(...); }
+-keep class com.cocobabys.activities.AboutUsActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:119
--keep class com.djc.logintest.activities.BindLocationMgrActivity { <init>(...); }
+-keep class com.cocobabys.activities.BindLocationMgrActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:70
--keep class com.djc.logintest.activities.ChangePWDActivity { <init>(...); }
+-keep class com.cocobabys.activities.ChangePWDActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:227
--keep class com.djc.logintest.activities.CheckIconActivity { <init>(...); }
+-keep class com.cocobabys.activities.CheckIconActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:56
--keep class com.djc.logintest.activities.ChildListActivity { <init>(...); }
+-keep class com.cocobabys.activities.ChildListActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:194
--keep class com.djc.logintest.activities.CookBookActivity { <init>(...); }
+-keep class com.cocobabys.activities.CookBookActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:221
--keep class com.djc.logintest.activities.EducationActivity { <init>(...); }
+-keep class com.cocobabys.activities.EducationActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:154
--keep class com.djc.logintest.activities.FeedBackActivity { <init>(...); }
+-keep class com.cocobabys.activities.FeedBackActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:140
--keep class com.djc.logintest.activities.GuideActivity { <init>(...); }
+-keep class com.cocobabys.activities.GuideActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:182
--keep class com.djc.logintest.activities.HomeworkPullRefreshActivity { <init>(...); }
+-keep class com.cocobabys.activities.HomeworkPullRefreshActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:188
--keep class com.djc.logintest.activities.InteractionActivity { <init>(...); }
+-keep class com.cocobabys.activities.InteractionActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:247
--keep class com.djc.logintest.activities.LoadingActivity { <init>(...); }
+-keep class com.cocobabys.activities.LoadingActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:233
--keep class com.djc.logintest.activities.LocationActivity { <init>(...); }
+-keep class com.cocobabys.activities.LocationActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:84
--keep class com.djc.logintest.activities.LocationMgrActivity { <init>(...); }
+-keep class com.cocobabys.activities.LocationMgrActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:98
--keep class com.djc.logintest.activities.LocationRecordActivity { <init>(...); }
+-keep class com.cocobabys.activities.LocationRecordActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:49
--keep class com.djc.logintest.activities.LoginActivity { <init>(...); }
+-keep class com.cocobabys.activities.LoginActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:77
--keep class com.djc.logintest.activities.MainActivity { <init>(...); }
+-keep class com.cocobabys.activities.MainActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:9
--keep class com.djc.logintest.activities.MyApplication { <init>(...); }
+-keep class com.cocobabys.activities.MyApplication { <init>(...); }
 
 # view AndroidManifest.xml #generated:175
--keep class com.djc.logintest.activities.NoticeActivity { <init>(...); }
+-keep class com.cocobabys.activities.NoticeActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:105
--keep class com.djc.logintest.activities.NoticePullRefreshActivity { <init>(...); }
+-keep class com.cocobabys.activities.NoticePullRefreshActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:147
--keep class com.djc.logintest.activities.NoticePullRefreshOldActivity { <init>(...); }
+-keep class com.cocobabys.activities.NoticePullRefreshOldActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:112
--keep class com.djc.logintest.activities.NoticeRecordActivity { <init>(...); }
+-keep class com.cocobabys.activities.NoticeRecordActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:63
--keep class com.djc.logintest.activities.ResetPWDActivity { <init>(...); }
+-keep class com.cocobabys.activities.ResetPWDActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:201
--keep class com.djc.logintest.activities.ScheduleActivity { <init>(...); }
+-keep class com.cocobabys.activities.ScheduleActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:240
--keep class com.djc.logintest.activities.SchoolInfoActivity { <init>(...); }
+-keep class com.cocobabys.activities.SchoolInfoActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:91
--keep class com.djc.logintest.activities.SchoolNoticeActivity { <init>(...); }
+-keep class com.cocobabys.activities.SchoolNoticeActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:208
--keep class com.djc.logintest.activities.SendChatActivity { <init>(...); }
+-keep class com.cocobabys.activities.SendChatActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:35
--keep class com.djc.logintest.activities.SettingActivity { <init>(...); }
+-keep class com.cocobabys.activities.SettingActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:215
--keep class com.djc.logintest.activities.ShowIconActivity { <init>(...); }
+-keep class com.cocobabys.activities.ShowIconActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:126
--keep class com.djc.logintest.activities.SwipeCalendarActivity { <init>(...); }
+-keep class com.cocobabys.activities.SwipeCalendarActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:168
--keep class com.djc.logintest.activities.SwipeDetailActivity { <init>(...); }
+-keep class com.cocobabys.activities.SwipeDetailActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:133
--keep class com.djc.logintest.activities.SwipeListActivity { <init>(...); }
+-keep class com.cocobabys.activities.SwipeListActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:28
--keep class com.djc.logintest.activities.TransitActivity { <init>(...); }
+-keep class com.cocobabys.activities.TransitActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:42
--keep class com.djc.logintest.activities.UpdateActivity { <init>(...); }
+-keep class com.cocobabys.activities.UpdateActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:21
--keep class com.djc.logintest.activities.ValidateAuthCodeActivity { <init>(...); }
+-keep class com.cocobabys.activities.ValidateAuthCodeActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:14
--keep class com.djc.logintest.activities.ValidatePhoneNumActivity { <init>(...); }
+-keep class com.cocobabys.activities.ValidatePhoneNumActivity { <init>(...); }
 
 # view res/layout/chat_pull_refresh_list.xml #generated:12
 # view res/layout/homework_pull_refresh_list.xml #generated:12
 # view res/layout/notice_pull_refresh_list.xml #generated:12
--keep class com.djc.logintest.customview.MsgListView { <init>(...); }
+-keep class com.cocobabys.customview.MsgListView { <init>(...); }
 
 # view res/layout/setting.xml #generated:125
--keep class com.djc.logintest.customview.SwitchButton { <init>(...); }
+-keep class com.cocobabys.customview.SwitchButton { <init>(...); }
 
 # view AndroidManifest.xml #generated:262
--keep class com.djc.logintest.receiver.NetStateChangeReceiver { <init>(...); }
+-keep class com.cocobabys.receiver.NetStateChangeReceiver { <init>(...); }
 
 # view AndroidManifest.xml #generated:269
--keep class com.djc.logintest.receiver.PushMessageReceiver { <init>(...); }
+-keep class com.cocobabys.receiver.PushMessageReceiver { <init>(...); }
 
 # view AndroidManifest.xml #generated:260
--keep class com.djc.logintest.service.MyService { <init>(...); }
+-keep class com.cocobabys.service.MyService { <init>(...); }
 
