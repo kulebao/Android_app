@@ -61,6 +61,7 @@
     <string name="login_notice">尊敬的 %1$s 用户，您好！您的手机已经激活过，请输入密码进行登录，谢谢！</string>
     <string name="notice_title">通知消息</string>
     <string name="check_version">检查更新</string>
+    <string name="bind_failed">账号绑定失败，请重新登录</string>
     <string name="checking_new_version">正在检查更新，请稍后...</string>
     <string name="no_new_version">当前已经是最新版本</string>
     <string name="update_now">检查到新版本,是否更新？</string>

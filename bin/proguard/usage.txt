@@ -26,7 +26,7 @@ com.cocobabys.R$style
 com.cocobabys.R$styleable:
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    622:622:public R$styleable()
+    623:623:public R$styleable()
 com.cocobabys.activities.ActivityHelper:
     11:11:public ActivityHelper()
 com.cocobabys.activities.BindLocationMgrActivity:
@@ -227,15 +227,14 @@ com.cocobabys.dbmgr.DataMgr:
     301:301:public long addNews(com.cocobabys.dbmgr.info.News)
     309:309:public com.cocobabys.dbmgr.info.News getNewsByID(int)
     313:313:public java.util.List getAllNewsByType(int)
-    337:337:public com.cocobabys.dbmgr.info.SwipeInfo getSwipeDataByTimeStamp(long)
-    356:356:public long addHomework(com.cocobabys.dbmgr.info.Homework)
-    364:364:public com.cocobabys.dbmgr.info.Homework getHomeworkByID(int)
-    400:400:public java.util.List getEduRecordByChildID(java.lang.String)
-    414:415:public void removeEduRecord(java.lang.String)
-    418:418:public long addTeacher(com.cocobabys.dbmgr.info.Teacher)
-    426:426:public boolean isTeacherExist(java.lang.String)
-    430:431:public void addTeacherList(java.util.List)
-    438:438:public com.cocobabys.dbmgr.info.Teacher getTeacher(java.lang.String)
+    352:352:public long addHomework(com.cocobabys.dbmgr.info.Homework)
+    360:360:public com.cocobabys.dbmgr.info.Homework getHomeworkByID(int)
+    396:396:public java.util.List getEduRecordByChildID(java.lang.String)
+    410:411:public void removeEduRecord(java.lang.String)
+    414:414:public long addTeacher(com.cocobabys.dbmgr.info.Teacher)
+    422:422:public boolean isTeacherExist(java.lang.String)
+    426:427:public void addTeacherList(java.util.List)
+    434:434:public com.cocobabys.dbmgr.info.Teacher getTeacher(java.lang.String)
 com.cocobabys.dbmgr.EducationMgr:
     20:22:long addEduRecord(com.cocobabys.dbmgr.info.EducationInfo)
 com.cocobabys.dbmgr.HomeworkMgr:
@@ -259,8 +258,6 @@ com.cocobabys.dbmgr.SqliteHelper:
     public static final java.lang.String CHAT_TAB
     public static final java.lang.String EDUCATION_TAB
     public static final java.lang.String TEACHER_TAB
-com.cocobabys.dbmgr.SwipeMgr:
-    63:67:com.cocobabys.dbmgr.info.SwipeInfo getDataByTimeStamp(long)
 com.cocobabys.dbmgr.TeacherMgr:
     27:43:void addList(java.util.List)
     76:76:boolean exist(java.lang.String)
@@ -403,6 +400,7 @@ com.cocobabys.dbmgr.info.SwipeInfo:
     public static final java.lang.String TYPE
     public static final java.lang.String CHILD_ID
     public static final java.lang.String ICON_URL
+    public static final java.lang.String PARENT_NAME
 com.cocobabys.dbmgr.info.Teacher:
     public static final java.lang.String ID
     public static final java.lang.String NAME

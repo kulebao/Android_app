@@ -62,8 +62,8 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 	}
 
 	private void setData(Intent intent) {
-		int id = intent.getIntExtra(JSONConstant.NOTIFICATION_ID, -1);
-		swipeinfo = DataMgr.getInstance().getSwipeDataByID(id);
+		long id = intent.getLongExtra(JSONConstant.NOTIFICATION_ID, -1L);
+		swipeinfo = DataMgr.getInstance().getSwipeDataByTimeStamp(id);
 		try {
 			if (swipeinfo != null) {
 				setIcon();

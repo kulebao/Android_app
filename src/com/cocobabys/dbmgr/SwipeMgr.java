@@ -52,14 +52,6 @@ class SwipeMgr {
 		writableDatabase.endTransaction(); // 处理完成
 	}
 
-	SwipeInfo getDataByID(int id) {
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.SWIPE_TAB
-				+ " WHERE " + SwipeInfo.ID + " = " + id, null);
-		List<SwipeInfo> list = getDataList(cursor);
-		return list.isEmpty() ? null : list.get(0);
-	}
-
 	SwipeInfo getDataByTimeStamp(long timestamp) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.SWIPE_TAB

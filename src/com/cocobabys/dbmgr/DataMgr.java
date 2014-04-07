@@ -329,10 +329,6 @@ public class DataMgr {
 		swipeMgr.addDataList(list);
 	}
 
-	public SwipeInfo getSwipeDataByID(int id) {
-		return swipeMgr.getDataByID(id);
-	}
-
 	public SwipeInfo getSwipeDataByTimeStamp(long timestamp) {
 		return swipeMgr.getDataByTimeStamp(timestamp);
 	}
