@@ -20,8 +20,8 @@ class ChatMgr {
 	long addChatInfo(ChatInfo info) {
 		ContentValues values = buildChatInfo(info);
 		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
-		return writableDatabase.insertWithOnConflict(SqliteHelper.CHAT_TAB, null, values,
-				SQLiteDatabase.CONFLICT_IGNORE);
+		return writableDatabase.insertWithOnConflict(SqliteHelper.CHAT_TAB,
+				null, values, SQLiteDatabase.CONFLICT_IGNORE);
 	}
 
 	private ContentValues buildChatInfo(ChatInfo info) {
@@ -45,7 +45,8 @@ class ChatMgr {
 
 		for (ChatInfo info : list) {
 			ContentValues values = buildChatInfo(info);
-			writableDatabase.insertWithOnConflict(SqliteHelper.CHAT_TAB, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+			writableDatabase.insertWithOnConflict(SqliteHelper.CHAT_TAB, null,
+					values, SQLiteDatabase.CONFLICT_IGNORE);
 		}
 		// 数据插入操作循环
 		writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
@@ -54,8 +55,8 @@ class ChatMgr {
 
 	ChatInfo getChatInfoByID(int id) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.CHAT_TAB + " WHERE " + ChatInfo.ID + " = " + id,
-				null);
+		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.CHAT_TAB
+				+ " WHERE " + ChatInfo.ID + " = " + id, null);
 		List<ChatInfo> list = getChatInfoList(cursor);
 		return list.isEmpty() ? null : list.get(0);
 	}
@@ -63,8 +64,9 @@ class ChatMgr {
 	// 返回最多max条chat记录，按照timestamp倒序，再将此list倒序排列
 	List<ChatInfo> getChatInfoWithLimite(int max) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.CHAT_TAB + " ORDER BY " + ChatInfo.TIMESTAMP
-				+ " DESC LIMIT " + max, null);
+		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.CHAT_TAB
+				+ " ORDER BY " + ChatInfo.TIMESTAMP + " DESC LIMIT " + max,
+				null);
 		List<ChatInfo> list = getChatInfoList(cursor);
 		if (!list.isEmpty()) {
 			Collections.reverse(list);
@@ -75,8 +77,9 @@ class ChatMgr {
 	// 返回小于to的所有chat，最多max条，按照timestamp倒序，再将此list倒序排列
 	List<ChatInfo> getChatInfoWithLimite(int max, long to) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.CHAT_TAB + " WHERE " + ChatInfo.TIMESTAMP + " < "
-				+ to + " ORDER BY " + ChatInfo.TIMESTAMP + " DESC LIMIT " + max, null);
+		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.CHAT_TAB
+				+ " WHERE " + ChatInfo.TIMESTAMP + " < " + to + " ORDER BY "
+				+ ChatInfo.TIMESTAMP + " DESC LIMIT " + max, null);
 		List<ChatInfo> list = getChatInfoList(cursor);
 		if (!list.isEmpty()) {
 			Collections.reverse(list);
@@ -86,11 +89,11 @@ class ChatMgr {
 
 	int getLastServerid() {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.CHAT_TAB + " ORDER BY " + ChatInfo.SERVER_ID
-				+ " DESC LIMIT " + 1, null);
+		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.CHAT_TAB
+				+ " ORDER BY " + ChatInfo.SERVER_ID + " DESC LIMIT " + 1, null);
 		List<ChatInfo> list = getChatInfoList(cursor);
 
-		return list.isEmpty() ? 0 : list.get(0).getServer_id();
+		return list.isEmpty() ? -1 : list.get(0).getServer_id();
 	}
 
 	void removeAllChatInfo() {

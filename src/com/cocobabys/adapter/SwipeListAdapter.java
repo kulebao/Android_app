@@ -80,9 +80,11 @@ public class SwipeListAdapter extends BaseAdapter {
 			flagholder.iconView = (ImageView) convertView
 					.findViewById(R.id.iconView);
 			setDataToViews(position, flagholder);
+			convertView.setBackgroundResource(R.drawable.swip_item);
 			convertView.setTag(flagholder);
 		} else {
 			FlagHolder flagholder = (FlagHolder) convertView.getTag();
+			convertView.setBackgroundResource(R.drawable.swip_item);
 			if (flagholder != null) {
 				setDataToViews(position, flagholder);
 			}

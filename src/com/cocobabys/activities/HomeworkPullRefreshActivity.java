@@ -142,6 +142,9 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 				Log.e("DDD", "handleSuccess bad param arg1=" + msg.arg1);
 			}
 			adapter.notifyDataSetChanged();
+		} else {
+			Toast.makeText(this, R.string.no_more_work, Toast.LENGTH_SHORT)
+					.show();
 		}
 	}
 

@@ -1,4 +1,5 @@
 package com.cocobabys.activities;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -480,6 +481,8 @@ public class InteractionActivity extends UmengStatisticsActivity {
 			}
 
 			DataMgr.getInstance().addChatInfoList(list);
+		} else {
+			Toast.makeText(this, R.string.no_more_chat, Toast.LENGTH_SHORT).show();
 		}
 	}
 

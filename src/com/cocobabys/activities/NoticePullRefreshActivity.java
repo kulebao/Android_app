@@ -149,6 +149,8 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 				Log.e("DDD", "handleSuccess bad param arg1=" + msg.arg1);
 			}
 			adapter.notifyDataSetChanged();
+		}else {
+			Toast.makeText(this, R.string.no_more_news, Toast.LENGTH_SHORT).show();
 		}
 	}
 

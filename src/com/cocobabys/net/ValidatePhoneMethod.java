@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.constant.MyErrorCode;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 
@@ -42,9 +43,12 @@ public class ValidatePhoneMethod {
 		int event = EventType.NET_WORK_INVALID;
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			try {
-				event = EventType.PHONE_NUM_IS_INVALID;
 				JSONObject object = result.getJsonObject();
 				event = object.getInt(CHECK_PHONE_RESULT);
+
+				if (event != MyErrorCode.PHONE_VALID) {
+					event = EventType.PHONE_NUM_IS_INVALID;
+				}
 				Log.d("DDD ",
 						"handleValidateAuthCodeResult str : "
 								+ object.toString());

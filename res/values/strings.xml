@@ -11,8 +11,8 @@
     <string name="getAuthCode">获取验证码</string>
     <string name="getAuthCodeSuccess">获取验证码成功，稍后会用短信将该验证码发送到您的手机上，谢谢！</string>
     <string name="getAuthCodeCountDown">重新获取 %1$s秒</string>
-    <string name="phone_input_error">手机号码输入错误，请检查后重新输入，谢谢!</string>
-    <string name="auth_code_input_error">验证码输入错误,请检查后重新输入，谢谢!</string>
+    <string name="phone_input_error">无效手机号码，请检查后重新输入，谢谢!</string>
+    <string name="auth_code_input_error">无效验证码,请检查后重新输入，谢谢!</string>
     <string name="auth_code_invalid">验证码错误，请确认输入是否正确，如果点击了重新获取验证码，请输入最后一次收到的验证码，谢谢！</string>
     <string name="notice">提示</string>
     <string name="error">错误</string>
@@ -126,6 +126,9 @@
     <string name="school_info">关于我园</string>
     <string name="contact_school">联系我们</string>
     <string name="about_cocobabys">关于我们</string>
+    <string name="no_more_chat">没有更多消息了</string>
+    <string name="no_more_news">没有更多公告了</string>
+    <string name="no_more_work">没有更多作业了</string>
     <string name="get_school_info">获取幼儿园信息...</string>
     <string name="get_child_info_fail">获取幼儿信息失败</string>
     <string name="reget_child_info">获取幼儿信息失败,请确认网络正常后，重新启动应用！</string>
@@ -182,7 +185,7 @@
     <string name="about_us">关于我们</string>
     <string name="about_us_content">幼乐宝（成都库乐宝信息技术有限公司）---提供宝宝、家长和幼儿园三方互动沟通和信息发布服务，并提供丰富的后续服务和专业的技术保障。</string>
     <string name="get_auth_code_fail">获取验证码失败</string>
-    <string name="get_auth_code_too_often">获取验证码过于频繁，请稍后再试</string>
+    <string name="get_auth_code_too_often">验证码获取过于频繁，请稍后再试</string>
     <string name="emotion_explain">情绪稳定、适应集体生活、乐于亲近老师和同学</string>
     <string name="dining_explain">能愉快的进餐、不挑食、能吃完一份饭菜</string>
     <string name="rest_explain">能安静的就寝、正确地穿脱衣帽和鞋袜、按时起床</string>
