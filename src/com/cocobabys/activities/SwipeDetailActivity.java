@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -77,8 +78,8 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 	}
 
 	public void setIcon() {
-		Bitmap bmp = Utils.getLoacalBitmap(SwapCardNoticePaser
-				.createSwipeIconPath(String.valueOf(swipeinfo.getTimestamp())));
+		Bitmap bmp = Utils.getLoacalBitmap(SwapCardNoticePaser.createSwipeIconPath(String.valueOf(swipeinfo
+				.getTimestamp())));
 		if (bmp != null) {
 			noticeiconView.setVisibility(View.VISIBLE);
 			Utils.setImg(noticeiconView, bmp);
@@ -90,23 +91,19 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 	}
 
 	private void runDownloadIconTask() {
-		if (downloadIconTask != null
-				&& downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
+		if (downloadIconTask != null && downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
 			// 后执行的取消先执行的
 			downloadIconTask.cancel(true);
 		}
 
-		downloadIconTask = new DownLoadImgAndSaveTask(handler,
-				swipeinfo.getUrl(),
-				SwapCardNoticePaser.createSwipeIconPath(String
-						.valueOf(swipeinfo.getTimestamp()))).execute();
+		downloadIconTask = new DownLoadImgAndSaveTask(handler, swipeinfo.getUrl(),
+				SwapCardNoticePaser.createSwipeIconPath(String.valueOf(swipeinfo.getTimestamp()))).execute();
 	}
 
 	public void setContent() {
-		contentView.setText(swipeinfo.getNoticeTitle()
-				+ "\n"
-				+ swipeinfo.getNoticeBody(DataMgr.getInstance()
-						.getSelectedChild().getChild_nick_name()));
+		String source = swipeinfo.getNoticeTitle() + "\n\n"
+				+ swipeinfo.getNoticeBody(DataMgr.getInstance().getSelectedChild().getChild_nick_name());
+		contentView.setText(source);
 	}
 
 	public void setTimestamp() {
@@ -116,8 +113,7 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 	public void setPublisher() {
 		try {
 			swipefromview.setVisibility(View.VISIBLE);
-			swipefromview.setText(DataMgr.getInstance().getSchoolInfo()
-					.getSchool_name());
+			swipefromview.setText(DataMgr.getInstance().getSchoolInfo().getSchool_name());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

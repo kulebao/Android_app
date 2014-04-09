@@ -4,7 +4,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg" >
 
+    <include
+        android:id="@+id/head"
+        layout="@layout/topbar" />
+
     <RelativeLayout
+        android:layout_below="@+id/head"
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="40dip"
@@ -59,16 +64,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/gridview"
         android:layout_margin="10dp"
-        android:textSize="20sp"
         android:textColor="@color/juhong"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="140dp"
+        android:layout_below="@+id/comentfrom"
         android:layout_margin="10dp"
-        android:background="@drawable/comment"
-        android:layout_below="@+id/comentfrom" >
+        android:background="@drawable/comment" >
 
         <TextView
             android:id="@+id/coment"

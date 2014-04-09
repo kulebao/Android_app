@@ -200,5 +200,9 @@
     <string name="phone_num_is_already_login">该手机号已经在其他手机上登录，为了您账号的安全，请修改密码后再重新登录！</string>
     <string name="no_cookbook_yet">学校目前还未发布食谱</string>
     <string name="no_schedule_yet">学校目前还未发布课程表</string>
+    
+    <string name="versionName">版本号:</string>
+    <string name="size">版本大小:</string>
+    <string name="summary">更新说明:</string>
 
 </resources>

@@ -86,17 +86,14 @@ public class SwipeInfo {
 	}
 
 	public String getNoticeBody(String nickname) {
-		String sample = (type == JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN ? SWIPE_CARD_IN_BODY
-				: SWIPE_CARD_OUT_BODY);
+		String sample = (type == JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN ? SWIPE_CARD_IN_BODY : SWIPE_CARD_OUT_BODY);
 
-		String body = String.format(sample, nickname, getFormattedTime(),
-				parent_name);
+		String body = String.format(sample, nickname, getFormattedTime(), parent_name);
 		return body;
 	}
 
 	public String getNoticeTitle() {
-		String title = String.format(SWIPE_CARD_TITLE,
-				Utils.getProp(JSONConstant.USERNAME));
+		String title = String.format(SWIPE_CARD_TITLE, Utils.getProp(JSONConstant.USERNAME));
 		return title;
 	}
 

@@ -71,6 +71,8 @@ public class EducationActivity extends UmengStatisticsActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.education);
+
+		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.education);
 		initView();
 		initDialog();
 		initHander();
@@ -104,8 +106,7 @@ public class EducationActivity extends UmengStatisticsActivity {
 
 		int currentIndex = eduList.indexOf(currentEdu);
 		if (currentIndex == eduList.size() - 1) {
-			runGetEducationTask(0, currentEdu.getServer_id(),
-					ConstantValue.Type_INSERT_TAIl);
+			runGetEducationTask(0, currentEdu.getServer_id(), ConstantValue.Type_INSERT_TAIl);
 		} else {
 			currentEdu = eduList.get(currentIndex + 1);
 			refresh();
@@ -121,8 +122,7 @@ public class EducationActivity extends UmengStatisticsActivity {
 
 		int currentIndex = eduList.indexOf(currentEdu);
 		if (currentIndex == 0) {
-			runGetEducationTask(currentEdu.getServer_id(), 0,
-					ConstantValue.Type_INSERT_HEAD);
+			runGetEducationTask(currentEdu.getServer_id(), 0, ConstantValue.Type_INSERT_HEAD);
 		} else {
 			currentEdu = eduList.get(currentIndex - 1);
 			refresh();
@@ -144,8 +144,7 @@ public class EducationActivity extends UmengStatisticsActivity {
 					handleSuccess(msg);
 					break;
 				case EventType.GET_NOTICE_FAILED:
-					Toast.makeText(EducationActivity.this,
-							R.string.load_data_fail, Toast.LENGTH_SHORT).show();
+					Toast.makeText(EducationActivity.this, R.string.load_data_fail, Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;
@@ -174,8 +173,7 @@ public class EducationActivity extends UmengStatisticsActivity {
 			currentEdu = list.get(0);
 			refresh();
 		} else {
-			Toast.makeText(this, R.string.no_more_edu, Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(this, R.string.no_more_edu, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -199,11 +197,9 @@ public class EducationActivity extends UmengStatisticsActivity {
 	}
 
 	private void runGetEducationTask(long from, int to, int type) {
-		if (educationTask == null
-				|| educationTask.getStatus() != AsyncTask.Status.RUNNING) {
+		if (educationTask == null || educationTask.getStatus() != AsyncTask.Status.RUNNING) {
 			dialog.show();
-			educationTask = new GetEducationTask(myhandler,
-					ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT, from, to, type);
+			educationTask = new GetEducationTask(myhandler, ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT, from, to, type);
 			educationTask.execute();
 		}
 	}
@@ -221,8 +217,7 @@ public class EducationActivity extends UmengStatisticsActivity {
 		gridview.setAdapter(adapter);
 		gridview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				handleClick(position);
 			}
 		});
@@ -231,8 +226,7 @@ public class EducationActivity extends UmengStatisticsActivity {
 
 	protected void handleClick(int position) {
 		@SuppressWarnings("unchecked")
-		Map<String, Integer> item = (Map<String, Integer>) adapter
-				.getItem(position);
+		Map<String, Integer> item = (Map<String, Integer>) adapter.getItem(position);
 		int image_id = item.get(ITEM_IMAGE);
 		Integer explain_id = explainMap.get(image_id);
 		Toast.makeText(this, explain_id, Toast.LENGTH_SHORT).show();
@@ -250,8 +244,7 @@ public class EducationActivity extends UmengStatisticsActivity {
 			comentfromView.setVisibility(View.GONE);
 		} else {
 			comentfromView.setVisibility(View.VISIBLE);
-			comentfromView.setText(String.format(
-					getResources().getString(R.string.coment_from),
+			comentfromView.setText(String.format(getResources().getString(R.string.coment_from),
 					currentEdu.getPublisher()));
 		}
 
@@ -260,8 +253,7 @@ public class EducationActivity extends UmengStatisticsActivity {
 		if (currentEdu.getTimestamp() == 0) {
 			commentTimeView.setText(getResources().getString(R.string.no_edu));
 		} else {
-			commentTimeView.setText(InfoHelper.getYearMonthDayFormat().format(
-					new Date(currentEdu.getTimestamp())));
+			commentTimeView.setText(InfoHelper.getYearMonthDayFormat().format(new Date(currentEdu.getTimestamp())));
 		}
 
 	}
@@ -375,17 +367,15 @@ public class EducationActivity extends UmengStatisticsActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == Menu.FIRST) {
-			Utils.showTwoBtnResDlg(R.string.delete_data, this,
-					new OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							DataMgr.getInstance()
-									.removeSelectedChildEduRecord();
-							currentEdu = new EducationInfo();
-							eduList.clear();
-							refresh();
-						}
-					});
+			Utils.showTwoBtnResDlg(R.string.delete_data, this, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					DataMgr.getInstance().removeSelectedChildEduRecord();
+					currentEdu = new EducationInfo();
+					eduList.clear();
+					refresh();
+				}
+			});
 		}
 		return true;
 	}

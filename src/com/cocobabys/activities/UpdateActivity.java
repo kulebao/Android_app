@@ -15,65 +15,71 @@ import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.utils.Utils;
 
 public class UpdateActivity extends UmengStatisticsActivity {
-    private String url;
+	private String url;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.update);
-        initView();
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.update);
+		initView();
+	}
 
-    private void initView() {
-        String text = getInfo();
-        Log.d("DJC UpdateActivity", "text =" + text);
-        TextView textView = (TextView) findViewById(R.id.updateTextView);
-        textView.setText(text);
+	private void initView() {
+		initTextview();
 
-        Button updateBtn = (Button) findViewById(R.id.updateBtn);
-        updateBtn.setOnClickListener(new OnClickListener() {
+		initBtn();
+	}
 
-            @Override
-            public void onClick(View v) {
-                try {
-                    Log.d("DJC GET ", "url = " + url);
-                    Uri uri = Uri.parse(url);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
-                    UpdateActivity.this.finish();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(UpdateActivity.this, "更新失败，非法地址:" + url, Toast.LENGTH_SHORT);
-                }
-            }
-        });
+	private void initBtn() {
+		Button updateBtn = (Button) findViewById(R.id.updateBtn);
+		updateBtn.setOnClickListener(new OnClickListener() {
 
-        Button cancelUpdateBtn = (Button) findViewById(R.id.cancelUpdateBtn);
-        cancelUpdateBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					Log.d("DJC GET ", "url = " + url);
+					Uri uri = Uri.parse(url);
+					Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+					startActivity(intent);
+					UpdateActivity.this.finish();
+				} catch (Exception e) {
+					e.printStackTrace();
+					Toast.makeText(UpdateActivity.this, "更新失败，非法地址:" + url, Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 
-            @Override
-            public void onClick(View v) {
-                UpdateActivity.this.finish();
-            }
-        });
-    }
+		Button cancelUpdateBtn = (Button) findViewById(R.id.cancelUpdateBtn);
+		cancelUpdateBtn.setOnClickListener(new OnClickListener() {
 
-    // 在ChechUpdateMethod中保存到文件，这里直接从文件获取
-    public String getInfo() {
-        StringBuffer buffer = new StringBuffer();
-        url = Utils.getProp(JSONConstant.UPDATE_URL);
+			@Override
+			public void onClick(View v) {
+				UpdateActivity.this.finish();
+			}
+		});
+	}
 
-        String content = Utils.getProp(JSONConstant.UPDATE_CONTENT);
-        Log.d("DJC UpdateActivity", "bef content =" + content);
-        content = content.replace("\\n", "\n");
-        Log.d("DJC UpdateActivity", "content =" + content);
-        String versionName = Utils.getProp(JSONConstant.UPDATE_VERSION_NAME);
-        long fileSize = Long.valueOf(Utils.getProp(JSONConstant.FILE_SIZE));
+	// 在ChechUpdateMethod中保存到文件，这里直接从文件获取
+	public void initTextview() {
+		url = Utils.getProp(JSONConstant.UPDATE_URL);
 
-        buffer.append("版本号 " + versionName + "\n");
-        buffer.append("版本大小 " + (fileSize / 1024) + "k" + "\n");
-        buffer.append("更新说明:\n");
-        buffer.append(content);
-        return buffer.toString();
-    }
+		String content = Utils.getProp(JSONConstant.UPDATE_CONTENT);
+		content = content.replace("\\n", "\n");
+		String versionName = Utils.getProp(JSONConstant.UPDATE_VERSION_NAME);
+		long fileSize = Long.valueOf(Utils.getProp(JSONConstant.FILE_SIZE));
+
+		TextView version = (TextView) findViewById(R.id.versionNameContent);
+		version.setText(versionName);
+
+		TextView size = (TextView) findViewById(R.id.sizecontent);
+		size.setText((fileSize / 1024) + "k");
+
+		TextView summarycontent = (TextView) findViewById(R.id.summarycontent);
+		summarycontent.setText(content);
+
+		// buffer.append("版本号 " + versionName + "\n");
+		// buffer.append("版本大小 " + (fileSize / 1024) + "k" + "\n");
+		// buffer.append("更新说明:\n");
+		// buffer.append(content);
+	}
 }

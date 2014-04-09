@@ -35,7 +35,7 @@
 
         <View
             android:id="@+id/line"
-            android:layout_width="1px"
+            android:layout_width="1dp"
             android:layout_height="@dimen/schedule_item_height"
             android:layout_marginLeft="@dimen/schedule_width"
             android:background="@color/black"
@@ -53,7 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/schedule_item_height"
                 android:layout_weight="1"
-                android:gravity="fill_vertical"
+                android:gravity="fill_vertical|center_horizontal"
                 android:padding="4dp"
                 android:text="@string/am"
                 android:textColor="@color/schedule"
@@ -61,7 +61,7 @@
 
             <View
                 android:id="@+id/line2"
-                android:layout_width="1px"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="1dp"
                 android:background="@color/black"
@@ -72,7 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/schedule_item_height"
                 android:layout_weight="1"
-                android:gravity="fill_vertical"
+                android:gravity="fill_vertical|center_horizontal"
                 android:padding="4dp"
                 android:text="@string/pm"
                 android:textColor="@color/schedule"

@@ -26,8 +26,7 @@ public class SwipeListActivity extends UmengStatisticsActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notice_list);
 		getParam();
-		ActivityHelper.setBackKeyLitsenerOnTopbar(this,
-				R.string.swap);
+		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.swap);
 		initListAdapter();
 	}
 
@@ -44,15 +43,13 @@ public class SwipeListActivity extends UmengStatisticsActivity {
 	}
 
 	private void initListAdapter() {
-		List<SwipeInfo> listinfo = DataMgr.getInstance().getAllSwipeCardNotice(
-				date);
+		List<SwipeInfo> listinfo = DataMgr.getInstance().getAllSwipeCardNotice(date);
 		adapter = new SwipeListAdapter(this, listinfo);
 		list = (ListView) findViewById(R.id.notice_list);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				SwipeInfo info = (SwipeInfo) adapter.getItem(position);
 				startToSwipeDetailActivity(info);
 			}
@@ -63,7 +60,7 @@ public class SwipeListActivity extends UmengStatisticsActivity {
 		Intent intent = new Intent(this, SwipeDetailActivity.class);
 
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.putExtra(JSONConstant.NOTIFICATION_ID, info.getId());
+		intent.putExtra(JSONConstant.NOTIFICATION_ID, info.getTimestamp());
 		startActivity(intent);
 	}
 
