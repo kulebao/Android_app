@@ -43,13 +43,17 @@ class NewsMgr {
 		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
 		writableDatabase.beginTransaction(); // 手动设置开始事务
 
-		for (News info : list) {
-			ContentValues values = buildNewsInfo(info);
-			writableDatabase.insertWithOnConflict(SqliteHelper.NEWS_TAB, null,
-					values, SQLiteDatabase.CONFLICT_REPLACE);
+		try {
+			for (News info : list) {
+				ContentValues values = buildNewsInfo(info);
+				writableDatabase.insertWithOnConflict(SqliteHelper.NEWS_TAB, null,
+						values, SQLiteDatabase.CONFLICT_REPLACE);
+			}
+			// 数据插入操作循环
+			writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		// 数据插入操作循环
-		writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
 		writableDatabase.endTransaction(); // 处理完成
 	}
 

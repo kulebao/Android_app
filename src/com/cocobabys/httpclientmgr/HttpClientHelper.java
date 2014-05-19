@@ -51,6 +51,7 @@ import com.cocobabys.utils.Utils;
 
 public class HttpClientHelper {
 
+	private static final String VERSION_CODE = "versioncode";
 	private static HttpClient httpClient;
 
 	private HttpClientHelper() {
@@ -138,6 +139,9 @@ public class HttpClientHelper {
 			request.setHeader(ConstantValue.HEADER_TOKEN,
 					Utils.getProp(JSONConstant.ACCESS_TOKEN));
 			request.setHeader("Content-type", "application/json;charset=UTF-8");
+			// 自定义header，带版本号
+			request.setHeader(VERSION_CODE,
+					String.valueOf(Utils.getVersionCode()));
 			request.setEntity(new StringEntity(content, HTTP.UTF_8));
 
 			HttpResponse response = client.execute(request);
@@ -220,6 +224,8 @@ public class HttpClientHelper {
 			// 所有访问数据的请求，都必须加上token
 			request.setHeader(ConstantValue.HEADER_TOKEN,
 					Utils.getProp(JSONConstant.ACCESS_TOKEN));
+			request.setHeader(VERSION_CODE,
+					String.valueOf(Utils.getVersionCode()));
 
 			HttpResponse response = client.execute(request);
 			status = response.getStatusLine().getStatusCode();

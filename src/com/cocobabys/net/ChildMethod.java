@@ -1,10 +1,12 @@
 package com.cocobabys.net;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.util.Log;
 
@@ -13,6 +15,7 @@ import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
+import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.utils.Utils;
 
@@ -23,6 +26,56 @@ public class ChildMethod {
 
 	public static ChildMethod getMethod() {
 		return new ChildMethod();
+	}
+
+	public int getRelationship() throws Exception {
+		int bret = EventType.NET_WORK_INVALID;
+		HttpResult result = new HttpResult();
+		String url = createGetRelationshipUrl();
+		Log.e("DDDDD ", "createGetChildrenInfoUrl cmd:" + url);
+		result = HttpClientHelper.executeGet(url);
+		bret = handleRelationshipResult(result);
+		return bret;
+	}
+
+	private int handleRelationshipResult(HttpResult result) {
+		int event = EventType.NET_WORK_INVALID;
+		if (result.getResCode() == HttpStatus.SC_OK) {
+			try {
+				JSONArray array = result.getJSONArray();
+				Log.d("DDD handleGetChildInfoResult", "str : " + array.toString());
+				event = parseParentFromArray(array);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		} else {
+			event = EventType.SERVER_INNER_ERROR;
+		}
+
+		return event;
+	}
+
+	private int parseParentFromArray(JSONArray jsonArray) throws JSONException {
+		int event = EventType.CHILDREN_INFO_IS_LATEST;
+		List<ParentInfo> list = new ArrayList<ParentInfo>();
+		JSONArray childArray = new JSONArray();
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject jsonObject = jsonArray.getJSONObject(i);
+			ParentInfo info = ParentInfo.parse(jsonObject);
+			list.add(info);
+			JSONObject childObj = jsonObject.getJSONObject("child");
+			childArray.put(childObj);
+		}
+		DataMgr.getInstance().addParentList(list);
+
+		event = checkUpdate(childArray);
+		return event;
+	}
+
+	private String createGetRelationshipUrl() {
+		String url = String.format(ServerUrls.GET_RELATIONSHIP, DataMgr.getInstance().getSchoolID());
+		url += "parent=" + Utils.getAccount();
+		return url;
 	}
 
 	public int getChildrenInfo() throws Exception {
@@ -36,9 +89,8 @@ public class ChildMethod {
 	}
 
 	private String createAllGetChildrenInfoUrl() {
-		String url = String.format(ServerUrls.GET_ALL_CHILDREN_INFO, DataMgr
-				.getInstance().getSchoolID(), Utils
-				.getProp(JSONConstant.ACCOUNT_NAME));
+		String url = String.format(ServerUrls.GET_ALL_CHILDREN_INFO, DataMgr.getInstance().getSchoolID(),
+				Utils.getProp(JSONConstant.ACCOUNT_NAME));
 		return url;
 	}
 
@@ -47,8 +99,7 @@ public class ChildMethod {
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			try {
 				JSONArray array = result.getJSONArray();
-				Log.d("DDD handleGetChildInfoResult",
-						"str : " + array.toString());
+				Log.d("DDD handleGetChildInfoResult", "str : " + array.toString());
 				event = checkUpdate(array);
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -65,13 +116,11 @@ public class ChildMethod {
 		int event = EventType.CHILDREN_INFO_IS_LATEST;
 
 		ChildInfo selectedChild = instance.getSelectedChild();
-		if (selectedChild == null
-				|| (instance.getAllChildrenInfo().size() != array.length())) {
+		if (selectedChild == null || (instance.getAllChildrenInfo().size() != array.length())) {
 			updateAll(array, selectedChild);
 			event = EventType.UPDATE_CHILDREN_INFO;
 		} else {
-			long latestChildTimestamp = Long.parseLong(instance
-					.getLatestChildTimestamp());
+			long latestChildTimestamp = Long.parseLong(instance.getLatestChildTimestamp());
 			long curLatest = getLatestTime(array);
 
 			if (curLatest > latestChildTimestamp) {
@@ -92,13 +141,11 @@ public class ChildMethod {
 		} else {
 			List<ChildInfo> list = ChildInfo.jsonArrayToList(array);
 			DataMgr.getInstance().addChildrenInfoList(list);
-			int setSelectedChild = DataMgr.getInstance().setSelectedChild(
-					selectedChild.getServer_id());
+			int setSelectedChild = DataMgr.getInstance().setSelectedChild(selectedChild.getServer_id());
 			Log.d("DDD", "updateAll setSelectedChild=" + setSelectedChild);
 			// 如果刷新数据后，之前的选中小孩不存在了，随便设置一个小孩为选中小孩
 			if (setSelectedChild < 1) {
-				DataMgr.getInstance().setSelectedChild(
-						list.get(0).getServer_id());
+				DataMgr.getInstance().setSelectedChild(list.get(0).getServer_id());
 			}
 		}
 	}

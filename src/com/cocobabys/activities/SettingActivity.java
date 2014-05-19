@@ -23,180 +23,254 @@ import com.cocobabys.taskmgr.CheckUpdateTask;
 import com.cocobabys.utils.Utils;
 
 public class SettingActivity extends UmengStatisticsActivity {
-    private Handler handler;
-    private ProgressDialog dialog;
+	private Handler handler;
+	private ProgressDialog dialog;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.setting);
-        ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.setting);
-        initView();
-        initDialog();
-        initHandler();
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.setting);
+		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.setting);
+		initView();
+		initDialog();
+		initHandler();
+	}
 
-    private void initView() {
-        initSwitch();
+	private void initView() {
+		initSwitch();
 
-        Button exitLogin = (Button) findViewById(R.id.exitLogin);
-        exitLogin.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.showTwoBtnResDlg(R.string.confirm_exit, SettingActivity.this,
-                        new android.content.DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                handleExitLogin();
-                            }
+		Button exitLogin = (Button) findViewById(R.id.exitLogin);
+		exitLogin.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Utils.showTwoBtnResDlg(R.string.confirm_exit,
+						SettingActivity.this,
+						new android.content.DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								handleExitLogin();
+							}
 
-                        });
-            }
-        });
+						});
+			}
+		});
 
-        Button changePWDBtn = (Button) findViewById(R.id.changePWD);
-        changePWDBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startToChangePWDActivity();
-            }
-        });
+		Button changePWDBtn = (Button) findViewById(R.id.changePWD);
+		changePWDBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startToChangePWDActivity();
+			}
+		});
 
-        Button checkVersionBtn = (Button) findViewById(R.id.checkVersion);
-        checkVersionBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                runCheckUpdateTask();
-            }
-        });
+		Button checkVersionBtn = (Button) findViewById(R.id.checkVersion);
+		checkVersionBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				runCheckUpdateTask();
+			}
+		});
 
-        Button bindLocationBtn = (Button) findViewById(R.id.bindLocation);
-        bindLocationBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startToBindLocationMgrActivity();
-            }
-        });
+		Button bindLocationBtn = (Button) findViewById(R.id.bindLocation);
+		bindLocationBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startToBindLocationMgrActivity();
+			}
+		});
 
-        Button changeChildBtn = (Button) findViewById(R.id.changeChild);
-        changeChildBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startToSelectChildActivity();
-            }
-        });
+		Button changeChildBtn = (Button) findViewById(R.id.changeChild);
+		changeChildBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startToSelectChildActivity();
+			}
+		});
 
-        Button userResponse = (Button) findViewById(R.id.userResponse);
-        userResponse.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startToFeedBackActivity();
-            }
-        });
-        Button about_cocobabys = (Button) findViewById(R.id.about_cocobabys);
-        about_cocobabys.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startToAboutUsActivity();
-            }
-        });
+		Button userResponse = (Button) findViewById(R.id.userResponse);
+		userResponse.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startToFeedBackActivity();
+			}
+		});
+		Button about_cocobabys = (Button) findViewById(R.id.about_cocobabys);
+		about_cocobabys.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startToAboutUsActivity();
+			}
+		});
 
-    }
+		setTestBtn();
+	}
 
-    protected void startToAboutUsActivity() {
-        Intent intent = new Intent();
-        intent.setClass(this, AboutUsActivity.class);
-        startActivity(intent);        
-    }
+	private void setTestBtn() {
+		if (MyApplication.getInstance().isForTest()) {
+			final Button setversion = (Button) findViewById(R.id.setversion);
+			setversion.setVisibility(View.VISIBLE);
+			setChatVersionText(setversion);
 
-    protected void startToFeedBackActivity() {
-        Intent intent = new Intent();
-        intent.setClass(this, FeedBackActivity.class);
-        startActivity(intent);
-    }
+			setversion.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					boolean oldVersion = Utils.isOldVersion();
+					if (oldVersion) {
+						Utils.setToOldVersion("false");
+					} else {
+						Utils.setToOldVersion("true");
+					}
+					setChatVersionText(setversion);
+				}
+			});
 
-    public void initSwitch() {
-        SwitchButton switchButton = (SwitchButton) findViewById(R.id.voiceswitchbtn);
-        switchButton.setChecked(Utils.isVoiceOn());
-        switchButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void checkedChange(boolean isChecked) {
-                String result = isChecked ? ConstantValue.VOICE_OPEN : ConstantValue.VOICE_OFF;
-                Utils.saveProp(ConstantValue.VOICE_CONFIG, result);
-                Log.d("DDD", "VOICE_CONFIG  result=" + result);
-            }
-        });
-    }
+			final Button changeHost = (Button) findViewById(R.id.changeHost);
+			changeHost.setVisibility(View.VISIBLE);
+			setHostText(changeHost);
+			changeHost.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					boolean isTestHost = Utils.isTestHost();
+					if (isTestHost) {
+						Utils.setToTestHost("false");
+					} else {
+						Utils.setToTestHost("true");
+					}
 
-    private void initDialog() {
-        dialog = new ProgressDialog(this);
-        dialog.setCancelable(false);
-        dialog.setMessage(getResources().getString(R.string.checking_new_version));
-    }
+					DataMgr.getInstance().upgradeAll();
+					Utils.clearSDFolder();
+					new Thread(new Runnable() {
 
-    private void initHandler() {
+						@Override
+						public void run() {
+							try {
+								Thread.sleep(3000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							System.exit(0);
+						}
+					}).start();
+				}
+			});
 
-        handler = new MyHandler(this, dialog) {
+		}
+	}
 
-            @Override
-            public void handleMessage(Message msg) {
-                if (SettingActivity.this.isFinishing()) {
-                    Log.w("djc", "do nothing when activity finishing!");
-                    return;
-                }
-                super.handleMessage(msg);
-                switch (msg.what) {
-                case EventType.HAS_NEW_VERSION:
-                    startToUpdateActivity();
-                    break;
-                case EventType.HAS_NO_VERSION:
-                    Toast.makeText(SettingActivity.this, R.string.no_new_version,
-                            Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    break;
-                }
-            }
-        };
-    }
+	private void setHostText(Button hostBtn) {
+		if (Utils.isTestHost()) {
+			hostBtn.setText("切换到商用地址");
+		} else {
+			hostBtn.setText("切换到测试地址");
+		}
+	}
 
-    protected void runCheckUpdateTask() {
-        // 如果后台在自动更新，这里可能会有冲突，后续需要把后台任务统一管理起来
-        dialog.show();
-        Utils.saveCheckNewTime(System.currentTimeMillis());
-        new CheckUpdateTask(handler, Utils.getAccount(), Utils.getVersionCode()).execute();
-    }
+	private void setChatVersionText(Button setversion) {
+		if (Utils.isOldVersion()) {
+			setversion.setText("切换到新版家园互动");
+		} else {
+			setversion.setText("切换到旧版家园互动");
+		}
+	}
 
-    private void handleExitLogin() {
-        Utils.clearProp();
-        DataMgr.getInstance().upgradeAll();
-        Utils.clearSDFolder();
-        setResult(ConstantValue.EXIT_LOGIN_RESULT);
-        finish();
-    }
+	protected void startToAboutUsActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, AboutUsActivity.class);
+		startActivity(intent);
+	}
 
-    private void startToChangePWDActivity() {
-        Intent intent = new Intent();
-        intent.setClass(this, ChangePWDActivity.class);
-        startActivity(intent);
-    }
+	protected void startToFeedBackActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, FeedBackActivity.class);
+		startActivity(intent);
+	}
 
-    private void startToUpdateActivity() {
-        Intent intent = new Intent();
-        intent.setClass(this, UpdateActivity.class);
-        startActivity(intent);
-    }
+	public void initSwitch() {
+		SwitchButton switchButton = (SwitchButton) findViewById(R.id.voiceswitchbtn);
+		switchButton.setChecked(Utils.isVoiceOn());
+		switchButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void checkedChange(boolean isChecked) {
+				String result = isChecked ? ConstantValue.VOICE_OPEN
+						: ConstantValue.VOICE_OFF;
+				Utils.saveProp(ConstantValue.VOICE_CONFIG, result);
+				Log.d("DDD", "VOICE_CONFIG  result=" + result);
+			}
+		});
+	}
 
-    private void startToBindLocationMgrActivity() {
-        Intent intent = new Intent();
-        intent.setClass(this, BindLocationMgrActivity.class);
-        startActivity(intent);
-    }
+	private void initDialog() {
+		dialog = new ProgressDialog(this);
+		dialog.setCancelable(false);
+		dialog.setMessage(getResources().getString(
+				R.string.checking_new_version));
+	}
 
-    private void startToSelectChildActivity() {
-        Intent intent = new Intent();
-        intent.setClass(this, ChildListActivity.class);
-        startActivity(intent);
-    }
+	private void initHandler() {
+
+		handler = new MyHandler(this, dialog) {
+
+			@Override
+			public void handleMessage(Message msg) {
+				if (SettingActivity.this.isFinishing()) {
+					Log.w("djc", "do nothing when activity finishing!");
+					return;
+				}
+				super.handleMessage(msg);
+				switch (msg.what) {
+				case EventType.HAS_NEW_VERSION:
+					startToUpdateActivity();
+					break;
+				case EventType.HAS_NO_VERSION:
+					Toast.makeText(SettingActivity.this,
+							R.string.no_new_version, Toast.LENGTH_SHORT).show();
+					break;
+				default:
+					break;
+				}
+			}
+		};
+	}
+
+	protected void runCheckUpdateTask() {
+		// 如果后台在自动更新，这里可能会有冲突，后续需要把后台任务统一管理起来
+		dialog.show();
+		Utils.saveCheckNewTime(System.currentTimeMillis());
+		new CheckUpdateTask(handler, Utils.getAccount(), Utils.getVersionCode())
+				.execute();
+	}
+
+	private void handleExitLogin() {
+		Utils.clearProp();
+		DataMgr.getInstance().upgradeAll();
+		Utils.clearSDFolder();
+		setResult(ConstantValue.EXIT_LOGIN_RESULT);
+		finish();
+	}
+
+	private void startToChangePWDActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, ChangePWDActivity.class);
+		startActivity(intent);
+	}
+
+	private void startToUpdateActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, UpdateActivity.class);
+		startActivity(intent);
+	}
+
+	private void startToBindLocationMgrActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, BindLocationMgrActivity.class);
+		startActivity(intent);
+	}
+
+	private void startToSelectChildActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, ChildListActivity.class);
+		startActivity(intent);
+	}
 
 }

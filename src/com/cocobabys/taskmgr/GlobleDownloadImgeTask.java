@@ -62,7 +62,7 @@ public class GlobleDownloadImgeTask {
 
 		@Override
 		public void run() {
-			int result = EventType.DOWNLOAD_IMG_FAILED;
+			int result = EventType.FAIL;
 			Bitmap bmp = null;
 			try {
 				Log.d("DDD", "downloadImgImpl url=" + imgaeUrl + " limitWidth=" + limitWidth + " limitHeight="

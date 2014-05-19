@@ -10,6 +10,7 @@ import android.content.Intent;
 import com.baidu.frontia.FrontiaApplication;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.dbmgr.info.ChatInfo;
+import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.handler.CrashHandler;
 import com.cocobabys.net.HttpsModel;
 import com.cocobabys.push.info.PushEvent;
@@ -23,8 +24,17 @@ public class MyApplication extends FrontiaApplication {
 
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
 	private List<ChatInfo> tmpList = new ArrayList<ChatInfo>();
+	private List<NewChatInfo> tmpNewChatList = new ArrayList<NewChatInfo>();
 
-	private boolean forTest = false;
+	public List<NewChatInfo> getTmpNewChatList() {
+		return tmpNewChatList;
+	}
+
+	public void setTmpNewChatList(List<NewChatInfo> tmpNewChatList) {
+		this.tmpNewChatList = tmpNewChatList;
+	}
+
+	private boolean forTest = true;
 
 	public boolean isForTest() {
 		return forTest;

@@ -17,7 +17,7 @@ public class ChatInfo {
 	public static final String SERVER_ID = "server_id";
 	public static final String ICON_URL = "icon_url";
 	public static final String SEND_RESULT = "send_result";
-	//教师的手机号
+	// 教师的手机号
 	public static final String PHONE = "phone";
 
 	public static final int SEND_SUCCESS = 0;
@@ -127,15 +127,40 @@ public class ChatInfo {
 		String localUrl = "";
 		if (!"".equals(icon_url)) {
 			if ("".equals(getSender())) {
-				localUrl = getIcon_url().replace(UploadFactory.CLOUD_STORAGE_HOST,
+				localUrl = getIcon_url().replace(
+						UploadFactory.CLOUD_STORAGE_HOST,
 						Utils.getSDCardPicRootPath() + File.separator);
 			} else {
 				// 老师发的图片，不一定是来自阿里oss,可能是七牛，后续要统一
 				// 保存到本地时，以服务器端时间搓作为文件名
-				localUrl = Utils.getSDCardPicRootPath() + File.separator + Utils.getChatIconUrl(getTimestamp());
+				localUrl = Utils.getSDCardPicRootPath() + File.separator
+						+ Utils.getChatIconUrl(getTimestamp());
 			}
 		}
 		Log.d("DDD", "getLocalUrl =" + localUrl);
 		return localUrl;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + server_id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChatInfo other = (ChatInfo) obj;
+		if (server_id != other.server_id)
+			return false;
+		return true;
+	}
+
 }

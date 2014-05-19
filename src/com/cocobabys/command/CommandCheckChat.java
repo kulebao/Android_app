@@ -19,7 +19,11 @@ public class CommandCheckChat implements Command {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			has_new = MethodUtils.checkChat();
+			if (Utils.isOldVersion()) {
+				has_new = MethodUtils.checkChat();
+			} else {
+				has_new = MethodUtils.checkNewChat();
+			}
 			return null;
 		}
 

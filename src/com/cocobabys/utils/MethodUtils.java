@@ -18,11 +18,14 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChatInfo;
 import com.cocobabys.dbmgr.info.EducationInfo;
 import com.cocobabys.dbmgr.info.Homework;
+import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.News;
 import com.cocobabys.net.ChatMethod;
 import com.cocobabys.net.CookbookMethod;
 import com.cocobabys.net.EducationMethod;
 import com.cocobabys.net.HomeworkMethod;
+import com.cocobabys.net.MethodResult;
+import com.cocobabys.net.NewChatMethod;
 import com.cocobabys.net.NewsMethod;
 import com.cocobabys.net.ScheduleMethod;
 import com.cocobabys.service.MyService;
@@ -34,8 +37,7 @@ public class MethodUtils {
 	// 检查是否有新公告
 	public static boolean checkNews() {
 		boolean has_new = false;
-		boolean networkConnected = Utils.isNetworkConnected(MyApplication
-				.getInstance());
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication.getInstance());
 		if (networkConnected) {
 			NewsMethod method = NewsMethod.getMethod();
 			try {
@@ -52,8 +54,7 @@ public class MethodUtils {
 	// 检查是否有新亲子作业
 	public static boolean checkHomework() {
 		boolean has_new = false;
-		boolean networkConnected = Utils.isNetworkConnected(MyApplication
-				.getInstance());
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication.getInstance());
 		if (networkConnected) {
 			HomeworkMethod method = HomeworkMethod.getMethod();
 			try {
@@ -70,8 +71,7 @@ public class MethodUtils {
 	// 检查是否有新在园表现评价
 	public static boolean checkEdu() {
 		boolean has_new = false;
-		boolean networkConnected = Utils.isNetworkConnected(MyApplication
-				.getInstance());
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication.getInstance());
 		if (networkConnected) {
 			EducationMethod method = EducationMethod.getMethod();
 			try {
@@ -88,8 +88,7 @@ public class MethodUtils {
 	// 检查是否有新教师留言
 	public static boolean checkChat() {
 		boolean has_new = false;
-		boolean networkConnected = Utils.isNetworkConnected(MyApplication
-				.getInstance());
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication.getInstance());
 		if (networkConnected) {
 			ChatMethod method = ChatMethod.getMethod();
 			try {
@@ -103,11 +102,29 @@ public class MethodUtils {
 		return has_new;
 	}
 
+	// 检查是否有新教师留言
+	public static boolean checkNewChat() {
+		boolean has_new = false;
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication.getInstance());
+		if (networkConnected) {
+			NewChatMethod method = NewChatMethod.getMethod();
+			try {
+				long from = getMaxNewChatID();
+				MethodResult chatInfo = method.getChatInfo(1, from, 0, "");
+				List<NewChatInfo> resultObj = (List<NewChatInfo>) chatInfo.getResultObj();
+				has_new = !resultObj.isEmpty();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return has_new;
+	}
+
 	// 检查是否有新食谱
 	public static boolean checkCookBook() {
 		boolean has_new = false;
-		boolean networkConnected = Utils.isNetworkConnected(MyApplication
-				.getInstance());
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication.getInstance());
 		if (networkConnected) {
 			CookbookMethod method = CookbookMethod.getMethod();
 			try {
@@ -123,8 +140,7 @@ public class MethodUtils {
 	// 检查是否有新课程表
 	public static boolean checkSchedule() {
 		boolean has_new = false;
-		boolean networkConnected = Utils.isNetworkConnected(MyApplication
-				.getInstance());
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication.getInstance());
 		if (networkConnected) {
 			ScheduleMethod method = ScheduleMethod.getMethod();
 			try {
@@ -137,6 +153,16 @@ public class MethodUtils {
 		}
 
 		return has_new;
+	}
+
+	private static long getMaxNewChatID() {
+		long from = 0;
+		List<NewChatInfo> list = DataMgr.getInstance().getNewChatInfoWithLimite(1,
+				DataMgr.getInstance().getSelectedChild().getServer_id());
+		if (!list.isEmpty()) {
+			from = list.get(0).getChat_id();
+		}
+		return from;
 	}
 
 	private static long getMaxChatID() {
@@ -159,8 +185,7 @@ public class MethodUtils {
 
 	private static long getMaxEducationID() {
 		long from = 0;
-		List<EducationInfo> list = DataMgr.getInstance()
-				.getSelectedChildEduRecord();
+		List<EducationInfo> list = DataMgr.getInstance().getSelectedChildEduRecord();
 		if (!list.isEmpty()) {
 			from = list.get(0).getServer_id();
 		}
@@ -169,8 +194,7 @@ public class MethodUtils {
 
 	private static long getMaxNewsID() {
 		long from = 0;
-		List<News> list = DataMgr.getInstance().getNewsByType(
-				JSONConstant.NOTICE_TYPE_NORMAL, 1);
+		List<News> list = DataMgr.getInstance().getNewsByType(JSONConstant.NOTICE_TYPE_NORMAL, 1);
 		if (!list.isEmpty()) {
 			from = list.get(0).getNews_server_id();
 		}
@@ -179,28 +203,24 @@ public class MethodUtils {
 
 	public static void removeNewsNotification() {
 		Context context = MyApplication.getInstance();
-		NotificationManager nm = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
+		NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		nm.cancel(CHECK_NEWS);
 	}
 
-	public static void setNotification(int noticeid, String noticetitle,
-			Class<?> toClass) {
+	public static void setNotification(int noticeid, String noticetitle, Class<?> toClass) {
 		Context context = MyApplication.getInstance();
 		// look up the notification manager service
-		NotificationManager nm = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
+		NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		Intent intent = new Intent(context, toClass);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 		// 每次调用到这句时，第二个参数一定要不同，否则多个通知同时存在时，对于同一个id的通知
 		// 点击后，始终会使用最后一次发送时的intent，这样导致每次打开activity看到的都是最后一次
 		// 通知的内容
-		PendingIntent contentIntent = PendingIntent.getActivity(context,
-				noticeid, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent contentIntent = PendingIntent.getActivity(context, noticeid, intent,
+				PendingIntent.FLAG_UPDATE_CURRENT);
 
-		Notification notif = new Notification(R.drawable.small_logo,
-				noticetitle, System.currentTimeMillis());
+		Notification notif = new Notification(R.drawable.small_logo, noticetitle, System.currentTimeMillis());
 
 		notif.setLatestEventInfo(context, noticetitle, "", contentIntent);
 		notif.defaults |= Notification.DEFAULT_SOUND;
@@ -217,20 +237,17 @@ public class MethodUtils {
 	public static void setNewsNotification() {
 		Context context = MyApplication.getInstance();
 		// look up the notification manager service
-		NotificationManager nm = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
+		NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		Intent intent = new Intent(context, NoticePullRefreshActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 		// 每次调用到这句时，第二个参数一定要不同，否则多个通知同时存在时，对于同一个id的通知
 		// 点击后，始终会使用最后一次发送时的intent，这样导致每次打开activity看到的都是最后一次
 		// 通知的内容
-		PendingIntent contentIntent = PendingIntent.getActivity(context,
-				MethodUtils.CHECK_NEWS, intent,
+		PendingIntent contentIntent = PendingIntent.getActivity(context, MethodUtils.CHECK_NEWS, intent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 
-		Notification notif = new Notification(R.drawable.small_logo, "您有新的公告",
-				System.currentTimeMillis());
+		Notification notif = new Notification(R.drawable.small_logo, "您有新的公告", System.currentTimeMillis());
 
 		notif.setLatestEventInfo(context, "您有新的公告", "", contentIntent);
 		notif.defaults |= Notification.DEFAULT_SOUND;
@@ -245,43 +262,37 @@ public class MethodUtils {
 
 	public static void executeCheckNewsCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
-				ConstantValue.COMMAND_TYPE_CHECK_NOTICE);
+		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND, ConstantValue.COMMAND_TYPE_CHECK_NOTICE);
 		context.startService(myintent);
 	}
 
 	public static void executeCheckHomeworkCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
-				ConstantValue.COMMAND_TYPE_CHECK_HOMEWORK);
+		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND, ConstantValue.COMMAND_TYPE_CHECK_HOMEWORK);
 		context.startService(myintent);
 	}
 
 	public static void executeCheckCookbookCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
-				ConstantValue.COMMAND_TYPE_CHECK_COOKBOOK);
+		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND, ConstantValue.COMMAND_TYPE_CHECK_COOKBOOK);
 		context.startService(myintent);
 	}
 
 	public static void executeCheckScheduleCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
-				ConstantValue.COMMAND_TYPE_CHECK_SCHEDULE);
+		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND, ConstantValue.COMMAND_TYPE_CHECK_SCHEDULE);
 		context.startService(myintent);
 	}
 
 	public static void executeCheckChatCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
-				ConstantValue.COMMAND_TYPE_CHECK_CHAT);
+		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND, ConstantValue.COMMAND_TYPE_CHECK_CHAT);
 		context.startService(myintent);
 	}
 
 	public static void executeCheckEducationCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
-				ConstantValue.COMMAND_TYPE_CHECK_EDU);
+		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND, ConstantValue.COMMAND_TYPE_CHECK_EDU);
 		context.startService(myintent);
 	}
 

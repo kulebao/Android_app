@@ -79,6 +79,15 @@ public class EventType {
 	public static final int HAS_NEW_VERSION = 1700;
 	public static final int HAS_NO_VERSION = 1701;
 
+	public static final int GET_CHAT_SUCCESS = 1710;
+	public static final int GET_CHAT_FAIL = 1711;
+
+	public static final int SEND_CHAT_SUCCESS = 1720;
+	public static final int SEND_CHAT_FAIL = 1721;
+
+	public static final int GET_SENDER_SUCCESS = 1730;
+	public static final int GET_SENDER_FAIL = 1731;
+
 	public static final int SUCCESS = 2000;
 	public static final int FAIL = 2001;
 

@@ -23,8 +23,9 @@ public class CheckChildrenInfoTask extends AsyncTask<Void, Void, Integer> {
 		MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
 			@Override
 			public Object handle() throws Exception {
-				int result = ChildMethod.getMethod()
-						.getChildrenInfo();
+				// int result = ChildMethod.getMethod()
+				// .getChildrenInfo();
+				int result = ChildMethod.getMethod().getRelationship();
 				return result;
 			}
 		});

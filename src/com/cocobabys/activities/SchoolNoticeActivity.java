@@ -1,4 +1,5 @@
 package com.cocobabys.activities;
+
 import java.io.File;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -16,6 +17,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -108,20 +110,24 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	}
 
 	private void runCheckTeacherInfoTask() {
-		List<Teacher> allTeachers = DataMgr.getInstance().getAllTeachers();
-		if (!allTeachers.isEmpty()) {
-			new GetTeacherTask(Teacher.getPhones(allTeachers)).execute();
-		}
-
-		for (Teacher teacher : allTeachers) {
-			// 如果教师的头像属性不为空，本地又没有保存，那么此时重新下载一次头像
-			if (!TextUtils.isEmpty(teacher.getHead_icon())
-					&& !new File(teacher.getLocalIconPath()).exists()) {
-				new DownLoadImgAndSaveJob(teacher.getHead_icon(),
-						teacher.getLocalIconPath(),
-						ConstantValue.HEAD_ICON_WIDTH,
-						ConstantValue.HEAD_ICON_HEIGHT).execute();
+		try {
+			List<Teacher> allTeachers = DataMgr.getInstance().getAllTeachers();
+			if (!allTeachers.isEmpty()) {
+				new GetTeacherTask(Teacher.getPhones(allTeachers)).execute();
 			}
+
+			for (Teacher teacher : allTeachers) {
+				// 如果教师的头像属性不为空，本地又没有保存，那么此时重新下载一次头像
+				if (!TextUtils.isEmpty(teacher.getHead_icon())
+						&& !new File(teacher.getLocalIconPath()).exists()) {
+					new DownLoadImgAndSaveJob(teacher.getHead_icon(),
+							teacher.getLocalIconPath(),
+							ConstantValue.HEAD_ICON_WIDTH,
+							ConstantValue.HEAD_ICON_HEIGHT).execute();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -162,6 +168,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	}
 
 	private void runCheckChildrenInfoTask() {
+		progressDialog.setMessage(getResources().getString(
+				R.string.get_child_info));
+		progressDialog.show();
 		new CheckChildrenInfoTask(handler).execute();
 	}
 
@@ -173,7 +182,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					Log.w("djc", "do nothing when activity finishing!");
 					return;
 				}
-				Log.w("dasd", "school notice msg.what="+msg.what);
+				Log.w("dasd", "school notice msg.what=" + msg.what);
 				super.handleMessage(msg);
 				switch (msg.what) {
 				case EventType.UPDATE_CHILDREN_INFO:
@@ -578,7 +587,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		Long birthDay = selectedChild.getChild_birthday();
 		calendar.setTimeInMillis(birthDay);
 
-		DatePickerDialog dialog = new DatePickerDialog(this, dateListener,
+		MyDatePickerDialog dialog = new MyDatePickerDialog(this, dateListener,
 				calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
 				calendar.get(Calendar.DAY_OF_MONTH));
 		dialog.setTitle(R.string.set_birthday);
@@ -777,7 +786,11 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
-					startToInteractionActivity();
+					if (Utils.isOldVersion()) {
+						startToInteractionActivity();
+					} else {
+						startToChatActivity();
+					}
 				}
 			});
 			break;
@@ -805,6 +818,12 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	private void startToEducationActivity() {
 		Intent intent = new Intent();
 		intent.setClass(this, EducationActivity.class);
+		startActivity(intent);
+	}
+
+	private void startToChatActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, ChatActivity.class);
 		startActivity(intent);
 	}
 
@@ -878,6 +897,20 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private interface ActivityLauncher {
 		public void startActivity();
+	}
+
+	private class MyDatePickerDialog extends DatePickerDialog {
+
+		public MyDatePickerDialog(Context context, OnDateSetListener callBack,
+				int year, int monthOfYear, int dayOfMonth) {
+			super(context, callBack, year, monthOfYear, dayOfMonth);
+		}
+
+		@Override
+		protected void onStop() {
+			// 注释掉，否则点back键时会触发onDateSet方法
+			// super.onStop();
+		}
 	}
 
 	private class ActivityLauncherProxy implements InvocationHandler {

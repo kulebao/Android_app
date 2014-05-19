@@ -10,6 +10,8 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.utils.Utils;
 
 public class InfoHelper {
@@ -31,8 +33,7 @@ public class InfoHelper {
 	}
 
 	public static String getChildrenLocalIconPath(String childid) {
-		String dir = Utils.getSDCardPicRootPath() + File.separator
-				+ BABY_ICON_NAME + File.separator;
+		String dir = Utils.getSDCardPicRootPath() + File.separator + BABY_ICON_NAME + File.separator;
 
 		Utils.mkDirs(dir);
 		String url = dir + childid;
@@ -41,8 +42,7 @@ public class InfoHelper {
 	}
 
 	public static String getDefaultSchoolLocalIconPath() {
-		String url = Utils.getSDCardPicRootPath() + File.separator
-				+ SCHOOL_LOGO;
+		String url = Utils.getSDCardPicRootPath() + File.separator + SCHOOL_LOGO;
 		Log.d("DDD", "getChildrenDefaultLocalIconPath url=" + url);
 		return url;
 	}
@@ -53,10 +53,7 @@ public class InfoHelper {
 		try {
 			object.put("name", info.getChild_name());
 			object.put(NICK, info.getChild_nick_name());
-			object.put(
-					BIRTHDAY,
-					InfoHelper.getYearMonthDayFormat().format(
-							new Date(info.getChild_birthday())));
+			object.put(BIRTHDAY, InfoHelper.getYearMonthDayFormat().format(new Date(info.getChild_birthday())));
 			object.put("gender", info.getGender());
 			object.put(PHOTO, info.getServer_url());
 			object.put("class_id", Integer.valueOf(info.getClass_id()));
@@ -65,6 +62,28 @@ public class InfoHelper {
 			e.printStackTrace();
 		}
 		return object;
+	}
+
+	public static String formatChatContent(String content, String imageUrl, String childid) {
+		JSONObject jsonObject = new JSONObject();
+		JSONObject mediaJsonObj = new JSONObject();
+		JSONObject senderJsonObj = new JSONObject();
+		try {
+			jsonObject.put(JSONConstant.TOPIC, childid);
+			jsonObject.put(NewChatInfo.CONTENT, content);
+
+			mediaJsonObj.put("url", imageUrl);
+			mediaJsonObj.put("type", JSONConstant.IMAGE_TYPE);
+			jsonObject.put(JSONConstant.MEDIA, mediaJsonObj);
+
+			senderJsonObj.put("id", DataMgr.getInstance().getSelfInfoByPhone().getParent_id());
+			senderJsonObj.put("type", NewChatInfo.PARENT_TYPE);
+			jsonObject.put(JSONConstant.SENDER, senderJsonObj);
+
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return jsonObject.toString();
 	}
 
 	public static final String WEEK_DETAIL = "week";

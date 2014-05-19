@@ -12,7 +12,6 @@ import android.text.TextUtils;
 
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.taskmgr.GetTeacherTask;
 import com.cocobabys.utils.Utils;
 
 public class Teacher {
@@ -21,7 +20,6 @@ public class Teacher {
 	public static final String HEAD_ICON = "head_icon";
 	public static final String TIMESTAMP = "timestamp";
 	public static final String BIRTHDAY = "birthday";
-	// 服务器上小孩id，restful定位小孩资源
 	public static final String SERVER_ID = "server_id";
 	public static final String WORKGROUP = "workgroup";
 	public static final String WORKDUTY = "workduty";
@@ -150,7 +148,7 @@ public class Teacher {
 		return url;
 	}
 
-	private static Teacher toTeacher(JSONObject obj) throws JSONException {
+	public static Teacher toTeacher(JSONObject obj) throws JSONException {
 		Teacher info = new Teacher();
 		info.setServer_id(obj.getString("id"));
 		info.setTimestamp(obj.getLong(JSONConstant.TIME_STAMP));

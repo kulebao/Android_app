@@ -1,6 +1,7 @@
 package com.cocobabys.net;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
@@ -53,6 +54,11 @@ public class ChatMethod {
 		result = HttpClientHelper.executePost(url, content);
 		if (result.getResCode() != HttpStatus.SC_OK) {
 			throw new Exception("request faile error =" + result.getResCode());
+		}
+		
+		// 返回顺序不对，貌似协议定错了。。。,这里反转一下
+		if (list.size() > 1) {
+			Collections.reverse(list);
 		}
 		list = handleGetChatMethodResult(result);
 		return list;

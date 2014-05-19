@@ -131,7 +131,7 @@
     <string name="no_more_work">没有更多作业了</string>
     <string name="get_school_info">获取幼儿园信息...</string>
     <string name="get_child_info_fail">获取幼儿信息失败</string>
-    <string name="reget_child_info">获取幼儿信息失败,请确认网络正常后，重新启动应用！</string>
+    <string name="reget_child_info">获取幼儿信息失败,请联系幼儿园确认幼儿信息已经绑定，且网络正常后，重新启动应用！</string>
     <string name="mon">星期一</string>
     <string name="tue">星期二</string>
     <string name="wed">星期三</string>
@@ -200,6 +200,7 @@
     <string name="phone_num_is_already_login">该手机号已经在其他手机上登录，为了您账号的安全，请修改密码后再重新登录！</string>
     <string name="no_cookbook_yet">学校目前还未发布食谱</string>
     <string name="no_schedule_yet">学校目前还未发布课程表</string>
+    <string name="get_child_info">获取小孩信息</string>
     
     <string name="versionName">版本号:</string>
     <string name="size">版本大小:</string>

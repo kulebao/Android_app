@@ -17,14 +17,18 @@ import com.cocobabys.dbmgr.info.CookBookInfo;
 import com.cocobabys.dbmgr.info.EducationInfo;
 import com.cocobabys.dbmgr.info.Homework;
 import com.cocobabys.dbmgr.info.LocationInfo;
+import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.News;
+import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.ScheduleInfo;
 import com.cocobabys.dbmgr.info.SchoolInfo;
 import com.cocobabys.dbmgr.info.SwipeInfo;
 import com.cocobabys.dbmgr.info.Teacher;
+import com.cocobabys.utils.Utils;
 
 public class DataMgr {
-	private static int DB_VERSION = 1;
+	// 1 - 》 2 增加一个家长表 parent_tab
+	private static int DB_VERSION = 2;
 	private static final String DB_NAME = "coolbao" + ".db";
 	private static Object mLock = new Object();
 	private static DataMgr instance;
@@ -42,6 +46,8 @@ public class DataMgr {
 	private ChatMgr chatMgr;
 	private EducationMgr educationMgr;
 	private TeacherMgr teacherMgr;
+	private ParentMgr parentMgr;
+	private NewChatMgr newChatMgr;
 
 	public static synchronized DataMgr getInstance() {
 		synchronized (mLock) {
@@ -66,6 +72,8 @@ public class DataMgr {
 		chatMgr = new ChatMgr(dbHelper);
 		educationMgr = new EducationMgr(dbHelper);
 		teacherMgr = new TeacherMgr(dbHelper);
+		parentMgr = new ParentMgr(dbHelper);
+		newChatMgr = new NewChatMgr(dbHelper);
 	}
 
 	public long addLocationInfo(LocationInfo info) {
@@ -429,13 +437,59 @@ public class DataMgr {
 	public boolean handleIncomingTeacher(Teacher fromnet) {
 		return teacherMgr.handleIncomingTeacher(fromnet);
 	}
-	
+
 	public Teacher getTeacher(String phone) {
 		return teacherMgr.getTeacher(phone);
 	}
 
+	public Teacher getTeacherByID(String teacherid) {
+		return teacherMgr.getTeacherByID(teacherid);
+	}
+
 	public void removeAllTeacher() {
 		teacherMgr.removeAllTeacher();
+	}
+
+	public void addParentList(List<ParentInfo> list) {
+		parentMgr.addDataList(list);
+	}
+
+	public ParentInfo getParentByPhone(String phone) {
+		return parentMgr.getParentByPhone(phone);
+	}
+
+	public ParentInfo getParentByID(String parentid) {
+		return parentMgr.getParentByID(parentid);
+	}
+
+	// 获取当前家长信息
+	public ParentInfo getSelfInfoByPhone() {
+		return parentMgr.getParentByPhone(Utils.getAccount());
+	}
+
+	public List<NewChatInfo> getNewChatInfoWithLimite(int max, String childid) {
+		return newChatMgr.getChatInfoWithLimite(max, childid);
+	}
+
+	public List<NewChatInfo> getNewChatInfoWithLimite(int max, long to,
+			String childid) {
+		return newChatMgr.getChatInfoWithLimite(max, to, childid);
+	}
+
+	public void addNewChatInfoList(List<NewChatInfo> list) {
+		newChatMgr.addDataList(list);
+	}
+
+	public void removeAllNewChatInfo() {
+		newChatMgr.clear();
+	}
+
+	public long getLastNewChatServerid(String childid) {
+		NewChatInfo lastChatInfo = newChatMgr.getLastChatInfo(childid);
+		if (lastChatInfo != null) {
+			return lastChatInfo.getChat_id();
+		}
+		return -1;
 	}
 
 	public void close() {

@@ -210,8 +210,9 @@ containing a value of this type.
         public static final int btn_pre_month=0x7f090013;
         public static final int camera=0x7f090026;
         public static final int cancel=0x7f090029;
-        public static final int cancelUpdateBtn=0x7f0900ae;
+        public static final int cancelUpdateBtn=0x7f0900b0;
         public static final int changeChild=0x7f09009d;
+        public static final int changeHost=0x7f0900a1;
         public static final int changePWD=0x7f09009c;
         public static final int changePWDBtn=0x7f09001b;
         public static final int changeView=0x7f09000f;
@@ -233,11 +234,11 @@ containing a value of this type.
         public static final int dateView=0x7f090035;
         public static final int deleteView=0x7f090010;
         public static final int doLocationBtn=0x7f090066;
-        public static final int edit_notice=0x7f0900b0;
+        public static final int edit_notice=0x7f0900b2;
         public static final int end=0x7f090024;
         public static final int exitLogin=0x7f09009f;
         public static final int feedbackContent=0x7f09004f;
-        public static final int first=0x7f0900a5;
+        public static final int first=0x7f0900a7;
         public static final int firstLayout=0x7f090036;
         public static final int firstcontent=0x7f090039;
         public static final int footerview=0x7f090051;
@@ -260,7 +261,7 @@ containing a value of this type.
         public static final int headicon=0x7f09001e;
         public static final int homeworklist=0x7f09005d;
         public static final int i_logo=0x7f090004;
-        public static final int icon=0x7f0900a1;
+        public static final int icon=0x7f0900a3;
         public static final int iconView=0x7f09007d;
         public static final int imageview=0x7f09002a;
         public static final int imgdemo=0x7f090037;
@@ -274,7 +275,7 @@ containing a value of this type.
         public static final int inuputnumView=0x7f09002c;
         public static final int inuputpwdView=0x7f09006c;
         public static final int itemImg=0x7f09004d;
-        public static final int iv_start_weibo=0x7f0900af;
+        public static final int iv_start_weibo=0x7f0900b1;
         public static final int lbsNumView=0x7f090062;
         public static final int left=0x7f090048;
         public static final int line=0x7f09003a;
@@ -322,7 +323,7 @@ containing a value of this type.
         public static final int schoolName=0x7f090097;
         public static final int school_desc=0x7f09008f;
         public static final int school_logo=0x7f09008e;
-        public static final int second=0x7f0900a8;
+        public static final int second=0x7f0900aa;
         public static final int secondLayout=0x7f09003b;
         public static final int secondcontent=0x7f09003c;
         public static final int send=0x7f090028;
@@ -332,15 +333,16 @@ containing a value of this type.
         public static final int sender=0x7f09001f;
         public static final int setting=0x7f090071;
         public static final int settingBtn=0x7f090096;
+        public static final int setversion=0x7f0900a0;
         public static final int showOtherNoticeView=0x7f090080;
         public static final int showSwipCardNoticeView=0x7f09007f;
         public static final int sign=0x7f090076;
-        public static final int size=0x7f0900a9;
-        public static final int sizecontent=0x7f0900aa;
+        public static final int size=0x7f0900ab;
+        public static final int sizecontent=0x7f0900ac;
         public static final int small=0x7f090060;
-        public static final int startMainView=0x7f0900a4;
-        public static final int summary=0x7f0900ab;
-        public static final int summarycontent=0x7f0900ac;
+        public static final int startMainView=0x7f0900a6;
+        public static final int summary=0x7f0900ad;
+        public static final int summarycontent=0x7f0900ae;
         public static final int swipefrom=0x7f090078;
         public static final int thirdLayout=0x7f09003d;
         public static final int thirdcontent=0x7f09003e;
@@ -352,15 +354,15 @@ containing a value of this type.
         public static final int titleView=0x7f09007a;
         public static final int top=0x7f09001c;
         public static final int topbar=0x7f09000a;
-        public static final int topbarBackView=0x7f0900a2;
-        public static final int topbarTitleView=0x7f0900a3;
-        public static final int updateBtn=0x7f0900ad;
+        public static final int topbarBackView=0x7f0900a4;
+        public static final int topbarTitleView=0x7f0900a5;
+        public static final int updateBtn=0x7f0900af;
         public static final int userResponse=0x7f090099;
         public static final int version=0x7f090002;
-        public static final int versionName=0x7f0900a6;
-        public static final int versionNameContent=0x7f0900a7;
+        public static final int versionName=0x7f0900a8;
+        public static final int versionNameContent=0x7f0900a9;
         public static final int viewpager=0x7f090056;
-        public static final int voiceswitchbtn=0x7f0900a0;
+        public static final int voiceswitchbtn=0x7f0900a2;
         public static final int webView=0x7f090061;
         public static final int weekView=0x7f090034;
         public static final int welcomeView=0x7f090070;
@@ -476,7 +478,7 @@ containing a value of this type.
         public static final int delete_data=0x7f070099;
         public static final int delete_location_confirm=0x7f070043;
         public static final int delete_notice_confirm=0x7f070045;
-        public static final int density_title=0x7f0700c8;
+        public static final int density_title=0x7f0700c9;
         public static final int dining_explain=0x7f0700b7;
         public static final int dinner=0x7f070067;
         public static final int doLocation=0x7f07005e;
@@ -502,6 +504,7 @@ containing a value of this type.
         public static final int getAuthCodeSuccess=0x7f070008;
         public static final int get_auth_code_fail=0x7f0700b4;
         public static final int get_auth_code_too_often=0x7f0700b5;
+        public static final int get_child_info=0x7f0700c4;
         public static final int get_child_info_fail=0x7f07007e;
         public static final int get_school_info=0x7f07007d;
         public static final int getting_auth_code=0x7f070024;
@@ -596,10 +599,10 @@ containing a value of this type.
         public static final int set_baby_nickname=0x7f070072;
         public static final int set_birthday=0x7f070076;
         public static final int setting=0x7f070015;
-        public static final int size=0x7f0700c5;
+        public static final int size=0x7f0700c6;
         public static final int startmain=0x7f070027;
         public static final int study=0x7f07006d;
-        public static final int summary=0x7f0700c6;
+        public static final int summary=0x7f0700c7;
         public static final int support_phone=0x7f0700af;
         public static final int support_phone_num=0x7f0700b1;
         public static final int swap=0x7f07006f;
@@ -616,7 +619,7 @@ containing a value of this type.
         public static final int uploading_icon=0x7f070091;
         public static final int user_response=0x7f07008f;
         public static final int validate_phone_num=0x7f070023;
-        public static final int versionName=0x7f0700c4;
+        public static final int versionName=0x7f0700c5;
         public static final int warning=0x7f070002;
         public static final int wed=0x7f070082;
         public static final int weibo=0x7f0700a7;
@@ -624,7 +627,7 @@ containing a value of this type.
         public static final int weixin=0x7f0700a8;
         public static final int weixin_account=0x7f0700a9;
         public static final int write_notice=0x7f0700a4;
-        public static final int xfactor=0x7f0700c7;
+        public static final int xfactor=0x7f0700c8;
     }
     public static final class style {
         public static final int Dialog=0x7f080006;

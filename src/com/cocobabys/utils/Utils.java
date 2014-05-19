@@ -58,6 +58,8 @@ public class Utils {
 	private static String CHILD_PHOTO = "child_photo";
 	public static String CHAT_ICON = "chat_icon";
 
+	private static int versionCode = Integer.MAX_VALUE;
+
 	// 获取AppKey
 	public static String getMetaValue(Context context, String metaKey) {
 		Bundle metaData = null;
@@ -66,9 +68,8 @@ public class Utils {
 			return null;
 		}
 		try {
-			ApplicationInfo ai = context.getPackageManager()
-					.getApplicationInfo(context.getPackageName(),
-							PackageManager.GET_META_DATA);
+			ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(),
+					PackageManager.GET_META_DATA);
 			if (null != ai) {
 				metaData = ai.metaData;
 			}
@@ -82,15 +83,16 @@ public class Utils {
 	}
 
 	public static int getVersionCode() {
-		int versionCode = 1000;
-		Context context = MyApplication.getInstance();
-		try {
-			PackageInfo info = context.getPackageManager().getPackageInfo(
-					context.getPackageName(), 0);
-			versionCode = info.versionCode;
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
+		if (versionCode == Integer.MAX_VALUE) {
+			Context context = MyApplication.getInstance();
+			try {
+				PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+				versionCode = info.versionCode;
+			} catch (NameNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
+
 		return versionCode;
 	}
 
@@ -112,18 +114,14 @@ public class Utils {
 		builder.create().show();
 	}
 
-	public static void showSingleBtnResDlg(int resID, Context context,
-			OnClickListener configListener) {
-		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context,
-				configListener);
+	public static void showSingleBtnResDlg(int resID, Context context, OnClickListener configListener) {
+		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context, configListener);
 		builder.setMessage(context.getResources().getString(resID));
 		builder.create().show();
 	}
 
-	public static void showTwoBtnResDlg(int resID, Context context,
-			OnClickListener configListener) {
-		CustomDialog.Builder builder = DlgMgr.getTwoBtnDlg(context,
-				configListener);
+	public static void showTwoBtnResDlg(int resID, Context context, OnClickListener configListener) {
+		CustomDialog.Builder builder = DlgMgr.getTwoBtnDlg(context, configListener);
 		builder.setMessage(context.getResources().getString(resID));
 		builder.createTwoBtn().show();
 	}
@@ -152,22 +150,19 @@ public class Utils {
 
 	public static boolean isFirstStart() {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
 		return conf.getBoolean(ConstantValue.IS_FIRST_IN, true);
 	}
 
 	public static String getProp(String key, String defaultValue) {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(ConstantValue.CONF_INI, Context.MODE_PRIVATE);
 		return conf.getString(key, defaultValue);
 	}
 
 	public static String getProp(String key) {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(ConstantValue.CONF_INI, Context.MODE_PRIVATE);
 		return conf.getString(key, "");
 	}
 
@@ -179,8 +174,7 @@ public class Utils {
 
 	public static long getCheckNewTime() {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(ConstantValue.CONF_INI, Context.MODE_PRIVATE);
 		return conf.getLong(ConstantValue.LATEST_CHECK_NEW_TIME, 0);
 	}
 
@@ -199,8 +193,7 @@ public class Utils {
 
 	public static String getUndeleteableProp(String key) {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
 		return conf.getString(key, "");
 	}
 
@@ -210,8 +203,7 @@ public class Utils {
 
 	private static SharedPreferences.Editor getEditor(String name) {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(name,
-				Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(name, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = conf.edit();
 		return editor;
 	}
@@ -287,8 +279,7 @@ public class Utils {
 	}
 
 	public static String convertTime(long timestamp) {
-		SimpleDateFormat fomat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-				Locale.CHINESE);
+		SimpleDateFormat fomat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE);
 		return fomat.format(new Date(timestamp));
 	}
 
@@ -296,8 +287,7 @@ public class Utils {
 		if (context != null) {
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo mWiFiNetworkInfo = mConnectivityManager
-					.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+			NetworkInfo mWiFiNetworkInfo = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 			if (mWiFiNetworkInfo != null) {
 				return mWiFiNetworkInfo.isAvailable();
 			}
@@ -309,8 +299,7 @@ public class Utils {
 		if (context != null) {
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo mNetworkInfo = mConnectivityManager
-					.getActiveNetworkInfo();
+			NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
 			if (mNetworkInfo != null) {
 				return mNetworkInfo.isAvailable();
 			}
@@ -322,8 +311,7 @@ public class Utils {
 		if (context != null) {
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo mNetworkInfo = mConnectivityManager
-					.getActiveNetworkInfo();
+			NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
 			if (mNetworkInfo != null && mNetworkInfo.isAvailable()) {
 				return mNetworkInfo.getType();
 			}
@@ -335,8 +323,7 @@ public class Utils {
 		if (context != null) {
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo mMobileNetworkInfo = mConnectivityManager
-					.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+			NetworkInfo mMobileNetworkInfo = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 			if (mMobileNetworkInfo != null) {
 				return mMobileNetworkInfo.isAvailable();
 			}
@@ -344,18 +331,14 @@ public class Utils {
 		return false;
 	}
 
-	public static String getFixedUrl(String originalUrl, int limitwidth,
-			int limitheight) {
-		String fixedUrl = originalUrl
-				+ String.format("?imageView/2/w/%d/h/%d", limitwidth,
-						limitheight);
+	public static String getFixedUrl(String originalUrl, int limitwidth, int limitheight) {
+		String fixedUrl = originalUrl + String.format("?imageView/2/w/%d/h/%d", limitwidth, limitheight);
 		return fixedUrl;
 	}
 
 	// 月日 时分
 	public static String formatChineseTime(long time) {
-		SimpleDateFormat format = new SimpleDateFormat("MM月dd日 HH:mm",
-				Locale.CHINESE);
+		SimpleDateFormat format = new SimpleDateFormat("MM月dd日 HH:mm", Locale.CHINESE);
 		String timestr = format.format(new Date(time));
 		if (timestr.startsWith("0")) {
 			timestr = timestr.replaceFirst("0", "");
@@ -364,8 +347,7 @@ public class Utils {
 	}
 
 	public static boolean isVoiceOn() {
-		return ConstantValue.VOICE_OPEN.equals(getProp(
-				ConstantValue.VOICE_CONFIG, ConstantValue.VOICE_OPEN));
+		return ConstantValue.VOICE_OPEN.equals(getProp(ConstantValue.VOICE_CONFIG, ConstantValue.VOICE_OPEN));
 	}
 
 	public static Calendar getMonDayCalendar() {
@@ -393,8 +375,7 @@ public class Utils {
 
 	private static File getAppSDCardPath() {
 		// return Environment.getExternalStorageDirectory();
-		return MyApplication.getInstance().getExternalFilesDir(
-				Environment.DIRECTORY_PICTURES);
+		return MyApplication.getInstance().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 	}
 
 	public static File getSDCardFileDir(String dir) {
@@ -479,8 +460,7 @@ public class Utils {
 		}
 	}
 
-	public static void saveBitmapToSDCard(Bitmap bitmap, String name)
-			throws Exception {
+	public static void saveBitmapToSDCard(Bitmap bitmap, String name) throws Exception {
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream(name);
@@ -501,26 +481,25 @@ public class Utils {
 
 	// 上传到oss的小孩照片固定地址
 	public static String getUploadChildUrl() {
-		return CHILD_PHOTO + File.separator
-				+ DataMgr.getInstance().getSchoolID() + File.separator
-				+ DataMgr.getInstance().getSelectedChild().getServer_id()
-				+ File.separator
-				+ DataMgr.getInstance().getSelectedChild().getServer_id()
-				+ ".jpg";
+		return CHILD_PHOTO + File.separator + DataMgr.getInstance().getSchoolID() + File.separator
+				+ DataMgr.getInstance().getSelectedChild().getServer_id() + File.separator
+				+ DataMgr.getInstance().getSelectedChild().getServer_id() + ".jpg";
 	}
 
 	public static String getChatIconUrl(long timestamp) {
-		String dir = CHAT_ICON + File.separator
-				+ DataMgr.getInstance().getSchoolID() + File.separator
+		String dir = CHAT_ICON + File.separator + DataMgr.getInstance().getSchoolID() + File.separator
 				+ Utils.getAccount();
 		return dir + File.separator + timestamp + ".jpg";
+	}
+
+	public static String getChatIconDir(String childid) {
+		return getSDCardPicRootPath() + File.separator + CHAT_ICON + File.separator + childid + File.separator;
 	}
 
 	// url是针对sd卡，应用保存图片路径+name
 	public static Bitmap getLoacalBitmapByName(String name) {
 		// url 类似mnt/sdcard/cocobaby/pic name 类似school_logo
-		String url = Utils.getSDCardFileDir(Utils.APP_DIR_PIC).getPath()
-				+ File.separator + name;
+		String url = Utils.getSDCardFileDir(Utils.APP_DIR_PIC).getPath() + File.separator + name;
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(url);
@@ -604,23 +583,19 @@ public class Utils {
 		try {
 			bitmap = downloader.download();
 		} catch (DecodeBitmapException e) {
-			bitmap = downloadImgImpl(Utils.getFixedUrl(url, LIMIT_WIDTH,
-					LIMIT_HEIGHT));
+			bitmap = downloadImgImpl(Utils.getFixedUrl(url, LIMIT_WIDTH, LIMIT_HEIGHT));
 			e.printStackTrace();
 		}
 		return bitmap;
 	}
 
-	public static Bitmap downloadImgWithJudgement(String url, float limitWidth,
-			float limitHeight) {
-		ImageDownloader downloader = new ImageDownloader(url, limitWidth,
-				limitHeight);
+	public static Bitmap downloadImgWithJudgement(String url, float limitWidth, float limitHeight) {
+		ImageDownloader downloader = new ImageDownloader(url, limitWidth, limitHeight);
 		Bitmap bitmap = null;
 		try {
 			bitmap = downloader.download();
 		} catch (DecodeBitmapException e) {
-			bitmap = downloadImgImpl(Utils.getFixedUrl(url, (int) limitWidth,
-					(int) limitHeight));
+			bitmap = downloadImgImpl(Utils.getFixedUrl(url, (int) limitWidth, (int) limitHeight));
 			e.printStackTrace();
 		}
 		return bitmap;
@@ -633,12 +608,9 @@ public class Utils {
 		}
 	}
 
-	public static void saveInSDCard(String log) throws FileNotFoundException,
-			IOException {
-		if (Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED)) {
-			String filename = getSDCardFileDir(APP_LOGS).getPath()
-					+ File.separator + "logs.txt";
+	public static void saveInSDCard(String log) throws FileNotFoundException, IOException {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+			String filename = getSDCardFileDir(APP_LOGS).getPath() + File.separator + "logs.txt";
 			File file = new File(filename);
 			if (!file.exists()) {
 				file.createNewFile();
@@ -650,14 +622,36 @@ public class Utils {
 		}
 	}
 
-	public static void saveInSDCard(StringBuffer sb, String fileName)
-			throws FileNotFoundException, IOException {
+	public static void saveInSDCard(StringBuffer sb, String fileName) throws FileNotFoundException, IOException {
 		saveInSDCard(sb.toString(), fileName);
 	}
 
+	// 旧版本家园互动
+	private static final String OLDVERSION = "oldversion";
+
+	public static void setToOldVersion(String enable) {
+		saveProp(OLDVERSION, enable);
+	}
+
+	public static boolean isOldVersion() {
+		String prop = Utils.getProp(OLDVERSION, "false");
+		return "true".equals(prop);
+	}
+	
+	//测试服务器地址
+	private static final String TEST_HOST = "test_host";
+	
+	public static void setToTestHost(String enable) {
+		saveProp(TEST_HOST, enable);
+	}
+	
+	public static boolean isTestHost() {
+		String prop = Utils.getProp(TEST_HOST, "false");
+		return "true".equals(prop);
+	}
+
 	public static void saveInSDCard(String str, String fileName) {
-		if (Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED)) {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 			String path = getSDCardFileDir(APP_LOGS).getPath();
 			File dir = new File(path);
 			if (!dir.exists()) {
