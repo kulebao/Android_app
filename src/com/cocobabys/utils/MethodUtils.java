@@ -110,7 +110,8 @@ public class MethodUtils {
 			NewChatMethod method = NewChatMethod.getMethod();
 			try {
 				long from = getMaxNewChatID();
-				MethodResult chatInfo = method.getChatInfo(1, from, 0, "");
+				MethodResult chatInfo = method.getChatInfo(1, from, 0, DataMgr.getInstance().getSelectedChild()
+						.getServer_id());
 				List<NewChatInfo> resultObj = (List<NewChatInfo>) chatInfo.getResultObj();
 				has_new = !resultObj.isEmpty();
 			} catch (Exception e) {

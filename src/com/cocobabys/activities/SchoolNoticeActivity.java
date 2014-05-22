@@ -120,6 +120,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				// 如果教师的头像属性不为空，本地又没有保存，那么此时重新下载一次头像
 				if (!TextUtils.isEmpty(teacher.getHead_icon())
 						&& !new File(teacher.getLocalIconPath()).exists()) {
+					Log.d("EEE", "download teacher icon name="+teacher.getName() + 
+							" url="+teacher.getHead_icon());
 					new DownLoadImgAndSaveJob(teacher.getHead_icon(),
 							teacher.getLocalIconPath(),
 							ConstantValue.HEAD_ICON_WIDTH,

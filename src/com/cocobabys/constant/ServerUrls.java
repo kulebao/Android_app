@@ -28,29 +28,24 @@ public class ServerUrls {
 	private static String getHost() {
 		String host = HTTPS_HOST_ADDR;
 		if (MyApplication.getInstance().isForTest()) {
-			if (Utils.isTestHost()) {
-				host = TEST_HTTPS_HOST_ADDR;
-			}
+			// if (Utils.isTestHost()) {
+			host = TEST_HTTPS_HOST_ADDR;
+			// }
 		}
 		return host;
 	}
 
-	public static final String CHECK_PHONE_NUM_URL = getHost()
-			+ "checkphonenum.do";
+	public static final String CHECK_PHONE_NUM_URL = getHost() + "checkphonenum.do";
 	// 注册时的验证码
-	public static final String CHECK_REG_AUTH_CODE_URL = getHost()
-			+ "check_reg_authcode.do";
+	public static final String CHECK_REG_AUTH_CODE_URL = getHost() + "check_reg_authcode.do";
 
-	public static final String SEND_BIND_INFO_URL = getHost()
-			+ "receiveBindInfo.do";
+	public static final String SEND_BIND_INFO_URL = getHost() + "receiveBindInfo.do";
 	public static final String LOGIN_URL = getHost() + "login.do";
 	public static final String CHANGE_PWD_URL = getHost() + "changepwd.do";
 	public static final String RESET_PWD_URL = getHost() + "resetpwd.do";
 
-	public static final String GET_REG_AUTHCODE = getHost()
-			+ "get_reg_authcode.do";
-	public static final String GET_RESET_PWD_AUTHCODE = getHost()
-			+ "get_reset_pwd_authcode.do";
+	public static final String GET_REG_AUTHCODE = getHost() + "get_reg_authcode.do";
+	public static final String GET_RESET_PWD_AUTHCODE = getHost() + "get_reset_pwd_authcode.do";
 
 	public static final String LOCATION = getHost() + "location.do";
 	public static final String CHECK_UPDATE = getHost() + "upgrade?version=%s";
@@ -59,84 +54,67 @@ public class ServerUrls {
 	private static final String DAILYLOG = "dailylog?from=%d&to=%d&most=%d";
 
 	// https://www.cocobabys.com/ws/verify/phone/13227882592
-	public static final String GET_AUTH_CODE_URL = getHost()
-			+ "ws/verify/phone/%s";
+	public static final String GET_AUTH_CODE_URL = getHost() + "ws/verify/phone/%s";
 
 	// https://www.cocobabys.com/kindergarten/93740362/parent/13279491366/child/1_1390238560925/dailylog?from=1390897657033&to=1390899235261&most=25
-	public static final String GET_SWIPE_RECORD = getHost() + ROOT_RES_PATH
-			+ "/%s/" + CHILD_RES_PATH + "/%s/" + DAILYLOG;
+	public static final String GET_SWIPE_RECORD = getHost() + ROOT_RES_PATH + "/%s/" + CHILD_RES_PATH + "/%s/"
+			+ DAILYLOG;
 
 	// https://www.cocobabys.com/kindergarten/93740362/news?most=25&from=1389718964408&to=1389801005344
-	public static final String GET_NORMAL_NOTICE = getHost() + ROOT_RES_PATH
-			+ "/%s/" + NEWS_RES_PATH + "?";
+	public static final String GET_NORMAL_NOTICE = getHost() + ROOT_RES_PATH + "/%s/" + NEWS_RES_PATH + "?";
 
 	// https://www.cocobabys.com/kindergarten/93740362/child/1_93740362_456/assess?from=1&to=10&most=5
-	public static final String GET_EDUCATION = getHost() + ROOT_RES_PATH
-			+ "/%s/" + CHILD_RES_PATH + "/%s/" + EDU_RES_PATH + "?";
+	public static final String GET_EDUCATION = getHost() + ROOT_RES_PATH + "/%s/" + CHILD_RES_PATH + "/%s/"
+			+ EDU_RES_PATH + "?";
 
-	public static final String GET_HOMEWORK = getHost() + ROOT_RES_PATH
-			+ "/%s/" + ASSIGNMENT_RES_PATH + "?";
-
-	// https://www.cocobabys.com/kindergarten/93740362/conversation/123456789?from=1&to=2&most=25&sort=desc
-	public static final String GET_CHAT = getHost() + ROOT_RES_PATH + "/%s/"
-			+ CONVERSATION + "/%s" + "?";
-
-	// https://stage2.cocobabys.com/kindergarten/1003/session/1_1396844597394
-	public static final String GET_NEW_CHAT = getHost() + ROOT_RES_PATH
-			+ "/%s/" + CHAT_SESSION + "/%s?";
-
-	// https://stage2.cocobabys.com/kindergarten/1003/session/1_1396844597394
-	public static final String SEND_NEW_CHAT = getHost() + ROOT_RES_PATH
-			+ "/%s/" + CHAT_SESSION + "/%s";
+	public static final String GET_HOMEWORK = getHost() + ROOT_RES_PATH + "/%s/" + ASSIGNMENT_RES_PATH + "?";
 
 	// https://www.cocobabys.com/kindergarten/93740362/conversation/123456789?from=1&to=2&most=25&sort=desc
-	public static final String SEND_CHAT = getHost() + ROOT_RES_PATH + "/%s/"
-			+ CONVERSATION + "/%s";
+	public static final String GET_CHAT = getHost() + ROOT_RES_PATH + "/%s/" + CONVERSATION + "/%s" + "?";
+
+	// https://stage2.cocobabys.com/kindergarten/1003/session/1_1396844597394
+	public static final String GET_NEW_CHAT = getHost() + ROOT_RES_PATH + "/%s/" + CHAT_SESSION + "/%s?";
+
+	// https://stage2.cocobabys.com/kindergarten/1003/session/1_1396844597394
+	public static final String SEND_NEW_CHAT = getHost() + ROOT_RES_PATH + "/%s/" + CHAT_SESSION + "/%s";
+
+	// https://www.cocobabys.com/kindergarten/93740362/conversation/123456789?from=1&to=2&most=25&sort=desc
+	public static final String SEND_CHAT = getHost() + ROOT_RES_PATH + "/%s/" + CONVERSATION + "/%s";
 
 	// 类似kindergarten/93740362/parent/13408654680/child
-	public static final String GET_ALL_CHILDREN_INFO = getHost()
-			+ ROOT_RES_PATH + "/%s/" + PARENT_RES_PATH + "/%s/"
+	public static final String GET_ALL_CHILDREN_INFO = getHost() + ROOT_RES_PATH + "/%s/" + PARENT_RES_PATH + "/%s/"
 			+ CHILD_RES_PATH;
 
 	// https://stage2.cocobabys.com/kindergarten/1003/relationship?parent=13408654680
-	public static final String GET_RELATIONSHIP = getHost() + ROOT_RES_PATH
-			+ "/%s/" + RELATIONSHIP + "?";
+	public static final String GET_RELATIONSHIP = getHost() + ROOT_RES_PATH + "/%s/" + RELATIONSHIP + "?";
 
 	// 类似kindergarten/93740362/parent/13408654680/child
-	public static final String GET_TEACHER_INFO = getHost() + ROOT_RES_PATH
-			+ "/%s/" + EMPLOYEE_RES_PATH + "?phone=%s";
+	public static final String GET_TEACHER_INFO = getHost() + ROOT_RES_PATH + "/%s/" + EMPLOYEE_RES_PATH + "?phone=%s";
 
 	// https://stage2.cocobabys.com/kindergarten/1003/sender/3_1003_1399268817590?type=t
-	public static final String GET_SENDER_INFO = getHost() + ROOT_RES_PATH
-			+ "/%s/" + SENDER + "/%s?";
+	public static final String GET_SENDER_INFO = getHost() + ROOT_RES_PATH + "/%s/" + SENDER + "/%s?";
 
 	// https://www.cocobabys.com/kindergarten/93740362/relationship?parent=13408654680
 	// public static final String GET_ALL_CHILDREN_INFO = getHost()
 	// + ROOT_RES_PATH + "/%s/" + RELATIONSHIP + "?parent=%s";
 
-	public static final String UPLOAD_CHILD_INFO = getHost() + ROOT_RES_PATH
-			+ "/%s/" + CHILD_RES_PATH + "/%s";
+	public static final String UPLOAD_CHILD_INFO = getHost() + ROOT_RES_PATH + "/%s/" + CHILD_RES_PATH + "/%s";
 
-	public static final String GET_SCHOOL_PRIVIEW = getHost() + ROOT_RES_PATH
-			+ "/%s/" + GET_TYPE_PREVIEW;
+	public static final String GET_SCHOOL_PRIVIEW = getHost() + ROOT_RES_PATH + "/%s/" + GET_TYPE_PREVIEW;
 
 	// https://cocobabys.com/ws/fileToken?bucket=cocobabys&key=ddd/djc/2.jpg
-	public static final String GET_UPLOAD_TOKEN = "https://cocobabys.com/ws/fileToken?bucket="
-			+ "%s";
+	public static final String GET_UPLOAD_TOKEN = "https://cocobabys.com/ws/fileToken?bucket=" + "%s";
 
-	public static final String GET_SCHOOL_DETAIL = getHost() + ROOT_RES_PATH
-			+ "/%s/";
+	public static final String GET_SCHOOL_DETAIL = getHost() + ROOT_RES_PATH + "/%s/";
 
-	public static final String SCHEDULE_PRIVIEW = getHost() + ROOT_RES_PATH
-			+ "/%s/" + CLASS_RES_PATH + "/%s/" + SCHEDULE_RES_PATH + "/"
+	public static final String SCHEDULE_PRIVIEW = getHost() + ROOT_RES_PATH + "/%s/" + CLASS_RES_PATH + "/%s/"
+			+ SCHEDULE_RES_PATH + "/" + GET_TYPE_PREVIEW;
+
+	public static final String GET_SCHEDULE = getHost() + ROOT_RES_PATH + "/%s/" + CLASS_RES_PATH + "/%s/"
+			+ SCHEDULE_RES_PATH + "/%s";
+
+	public static final String COOKBOOK_PRIVIEW = getHost() + ROOT_RES_PATH + "/%s/" + COOKBOOK_RES_PATH + "/"
 			+ GET_TYPE_PREVIEW;
 
-	public static final String GET_SCHEDULE = getHost() + ROOT_RES_PATH
-			+ "/%s/" + CLASS_RES_PATH + "/%s/" + SCHEDULE_RES_PATH + "/%s";
-
-	public static final String COOKBOOK_PRIVIEW = getHost() + ROOT_RES_PATH
-			+ "/%s/" + COOKBOOK_RES_PATH + "/" + GET_TYPE_PREVIEW;
-
-	public static final String COOKBOOK_DETAIL = getHost() + ROOT_RES_PATH
-			+ "/%s/" + COOKBOOK_RES_PATH + "/%s";
+	public static final String COOKBOOK_DETAIL = getHost() + ROOT_RES_PATH + "/%s/" + COOKBOOK_RES_PATH + "/%s";
 }

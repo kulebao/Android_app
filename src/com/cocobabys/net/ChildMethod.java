@@ -74,7 +74,12 @@ public class ChildMethod {
 
 	private String createGetRelationshipUrl() {
 		String url = String.format(ServerUrls.GET_RELATIONSHIP, DataMgr.getInstance().getSchoolID());
-		url += "parent=" + Utils.getAccount();
+		ChildInfo selectedChild = DataMgr.getInstance().getSelectedChild();
+		if (selectedChild != null) {
+			url += "child=" + selectedChild.getServer_id();
+		} else {
+			url += "parent=" + Utils.getAccount();
+		}
 		return url;
 	}
 

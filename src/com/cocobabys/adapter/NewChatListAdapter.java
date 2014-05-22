@@ -27,6 +27,7 @@ import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.NewChatInfo;
+import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.taskmgr.GetTeacherInfoJob;
 import com.cocobabys.taskmgr.GlobleDownloadImgeTask;
@@ -34,6 +35,8 @@ import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 
 public class NewChatListAdapter extends BaseAdapter {
+	private static final String SELF_NAME = "我";
+	private static final String DEFAULT_PARENT_NAME = "家长";
 	// 最小显示时间间隔为2分钟
 	private static final long MIN_TIME_LIMIT = 2 * 60 * 1000L;
 	private static final int LEFT = 0;
@@ -115,10 +118,10 @@ public class NewChatListAdapter extends BaseAdapter {
 	@Override
 	public int getItemViewType(int position) {
 		NewChatInfo chatInfo = dataList.get(position);
-		if (chatInfo.isSendBySelf()) {
-			return RIGHT;
-		} else {
+		if (chatInfo.isSendByTeacher()) {
 			return LEFT;
+		} else {
+			return RIGHT;
 		}
 	}
 
@@ -192,9 +195,16 @@ public class NewChatListAdapter extends BaseAdapter {
 	}
 
 	private String getParentName(String senderid) {
-		String name = "家长";
+		String name = DEFAULT_PARENT_NAME;
 		try {
-			name = DataMgr.getInstance().getParentByID(senderid).getName();
+			ParentInfo parent = DataMgr.getInstance().getParentByID(senderid);
+			if(parent != null){
+				if(Utils.getAccount().equals(parent.getPhone())){
+					name = SELF_NAME;
+				}else{
+					name = parent.getName();
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

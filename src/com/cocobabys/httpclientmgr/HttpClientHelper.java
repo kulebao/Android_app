@@ -230,7 +230,9 @@ public class HttpClientHelper {
 			HttpResponse response = client.execute(request);
 			status = response.getStatusLine().getStatusCode();
 			Log.d("DDD code:", "" + status);
-
+			if(status != 200){
+				Log.w("WWW", "doGetImpl warning url="+url);
+			}
 			in = readContent(httpResult, response);
 			if (HttpClientHelper.isHttpRequestOK(status)) {
 				request.abort();

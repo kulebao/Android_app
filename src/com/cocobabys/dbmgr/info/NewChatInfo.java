@@ -130,7 +130,7 @@ public class NewChatInfo {
 		return layoutid;
 	}
 
-	public boolean isSendBySelf() {
+	public boolean isSendByTeacher() {
 		return TEACHER_TYPE.equals(sender_type);
 	}
 

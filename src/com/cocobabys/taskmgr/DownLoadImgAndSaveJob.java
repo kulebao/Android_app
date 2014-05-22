@@ -29,17 +29,17 @@ public class DownLoadImgAndSaveJob extends MyJob {
 	}
 
 	protected void downloadImpl() {
-		Log.d("DDD", "DownLoadImgAndSaveJob downloadImgImpl url=" + url);
+		Log.d("EEE", "DownLoadImgAndSaveJob downloadImgImpl url=" + url);
 		Bitmap bmp = Utils.downloadImgWithJudgement(url, minWidth, minHeight);
 		if (bmp != null) {
 			try {
-				Log.d("DDD", "DownLoadImgAndSaveJob saveBitmapToSDCard");
+				Log.d("EEE", "DownLoadImgAndSaveJob saveBitmapToSDCard");
 				Utils.saveBitmapToSDCard(bmp, filedir);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
-			Log.d("DDD", "DownLoadImgAndSaveJob failed url=" + url);
+			Log.d("EEE", "DownLoadImgAndSaveJob failed url=" + url);
 		}
 	}
 
