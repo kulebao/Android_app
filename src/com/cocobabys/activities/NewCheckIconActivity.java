@@ -23,7 +23,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChatInfo;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.handler.MyHandler;
-import com.cocobabys.taskmgr.UploadChatIconJob;
+import com.cocobabys.jobs.UploadChatIconJob;
 import com.cocobabys.utils.ImageDownloader;
 
 public class NewCheckIconActivity extends UmengStatisticsActivity {

@@ -22,6 +22,9 @@ public class ServerUrls {
 	public static final String HTTPS_HOST_ADDR = "https://www.cocobabys.com/";
 	public static final String CHAT_SESSION = "session";
 	public static final String SENDER = "sender";
+	public static final String RECORD_RES_PATH = "record";
+	public static final String EXP_RES_PATH = "history";
+	public static final String STATISTICS_RES_PATH = "statistics";
 
 	public static final String TEST_HTTPS_HOST_ADDR = "https://stage2.cocobabys.com/";
 
@@ -72,11 +75,13 @@ public class ServerUrls {
 	// https://www.cocobabys.com/kindergarten/93740362/conversation/123456789?from=1&to=2&most=25&sort=desc
 	public static final String GET_CHAT = getHost() + ROOT_RES_PATH + "/%s/" + CONVERSATION + "/%s" + "?";
 
-	// https://stage2.cocobabys.com/kindergarten/1003/session/1_1396844597394
-	public static final String GET_NEW_CHAT = getHost() + ROOT_RES_PATH + "/%s/" + CHAT_SESSION + "/%s?";
+	// https://stage2.cocobabys.com/kindergarten/1003/session/1_1396844597394/record
+	public static final String GET_NEW_CHAT = getHost() + ROOT_RES_PATH + "/%s/" + CHAT_SESSION + "/%s/"
+			+ RECORD_RES_PATH + "?";
 
 	// https://stage2.cocobabys.com/kindergarten/1003/session/1_1396844597394
-	public static final String SEND_NEW_CHAT = getHost() + ROOT_RES_PATH + "/%s/" + CHAT_SESSION + "/%s";
+	public static final String SEND_NEW_CHAT = getHost() + ROOT_RES_PATH + "/%s/" + CHAT_SESSION + "/%s/"
+			+ RECORD_RES_PATH;
 
 	// https://www.cocobabys.com/kindergarten/93740362/conversation/123456789?from=1&to=2&most=25&sort=desc
 	public static final String SEND_CHAT = getHost() + ROOT_RES_PATH + "/%s/" + CONVERSATION + "/%s";
@@ -117,4 +122,7 @@ public class ServerUrls {
 			+ GET_TYPE_PREVIEW;
 
 	public static final String COOKBOOK_DETAIL = getHost() + ROOT_RES_PATH + "/%s/" + COOKBOOK_RES_PATH + "/%s";
+
+	public static final String GET_EXP_COUNT = getHost() + ROOT_RES_PATH + "/%s/" + EXP_RES_PATH + "/%s/"
+			+ STATISTICS_RES_PATH + "?";
 }

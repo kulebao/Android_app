@@ -10,7 +10,10 @@ public class JSONConstant {
 	public static final String TOPIC = "topic";
 	public static final String MEDIA = "media";
 	public static final String SENDER = "sender";
-
+	public static final String ID = "id";
+	public static final String TYPE = "type";
+	public static final String URL = "url";
+	
 	public static final String ERROR_CODE = "error_code";
 	public static final String PUSH_TAGS = "push_tags";
 

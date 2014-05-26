@@ -31,8 +31,8 @@ import com.cocobabys.customview.MsgListView;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.handler.MyHandler;
-import com.cocobabys.taskmgr.GetChatJob;
-import com.cocobabys.taskmgr.GetTeacherInfoJob;
+import com.cocobabys.jobs.GetChatJob;
+import com.cocobabys.jobs.GetTeacherInfoJob;
 import com.cocobabys.taskmgr.GlobleDownloadImgeTask;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
@@ -86,6 +86,11 @@ public class ChatActivity extends UmengStatisticsActivity {
 
 			@Override
 			public void execute() {
+				if (!Utils.isSdcardExisting()) {
+					Toast.makeText(ChatActivity.this, "未找到存储卡，无法保存图片！",
+							Toast.LENGTH_LONG).show();
+					return;
+				}
 				chooseIconFromCamera();
 			}
 

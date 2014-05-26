@@ -6,6 +6,28 @@
 
     <uses-sdk android:minSdkVersion="10" />
 
+    <!-- Push service 运行需要的权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- 其它权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--
+            暂时去掉发送短信权限
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    -->
+
     <application
         android:name=".activities.MyApplication"
         android:icon="@drawable/logo"
@@ -261,6 +283,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activities.GrowthActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activities.LoadingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
@@ -340,26 +368,6 @@
             android:value="original" />
     </application>
 
-    <!-- Push service 运行需要的权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
-    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!-- 其它权限 -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <!--
-            暂时去掉发送短信权限
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    -->
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"

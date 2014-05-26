@@ -20,7 +20,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.InfoHelper;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.handler.MyHandler;
-import com.cocobabys.taskmgr.SendChatJob;
+import com.cocobabys.jobs.SendChatJob;
 
 public class SendNewChatActivity extends UmengStatisticsActivity {
 	private EditText chatContent;

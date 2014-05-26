@@ -35,6 +35,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
@@ -59,6 +60,14 @@ public class Utils {
 	public static String CHAT_ICON = "chat_icon";
 
 	private static int versionCode = Integer.MAX_VALUE;
+
+	public static void makeToast(Context context, int resID) {
+		Toast.makeText(context, resID, Toast.LENGTH_SHORT).show();
+	}
+
+	public static void makeToast(Context context, String content) {
+		Toast.makeText(context, content, Toast.LENGTH_SHORT).show();
+	}
 
 	// 获取AppKey
 	public static String getMetaValue(Context context, String metaKey) {
@@ -637,14 +646,14 @@ public class Utils {
 		String prop = Utils.getProp(OLDVERSION, "false");
 		return "true".equals(prop);
 	}
-	
-	//测试服务器地址
+
+	// 测试服务器地址
 	private static final String TEST_HOST = "test_host";
-	
+
 	public static void setToTestHost(String enable) {
 		saveProp(TEST_HOST, enable);
 	}
-	
+
 	public static boolean isTestHost() {
 		String prop = Utils.getProp(TEST_HOST, "false");
 		return "true".equals(prop);

@@ -50,7 +50,6 @@ public class SwipeCardMethod {
 		int event = EventType.NET_WORK_INVALID;
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			try {
-				// 返回单一元素数组，保存最新食谱
 				List<SwipeInfo> list = new ArrayList<SwipeInfo>();
 				JSONArray array = result.getJSONArray();
 				for (int i = 0; i < array.length(); i++) {

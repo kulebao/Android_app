@@ -29,7 +29,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
-import com.cocobabys.taskmgr.GetTeacherInfoJob;
+import com.cocobabys.jobs.GetTeacherInfoJob;
 import com.cocobabys.taskmgr.GlobleDownloadImgeTask;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
