@@ -1,10 +1,8 @@
 package com.cocobabys.net;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.util.Log;
@@ -13,14 +11,10 @@ import com.cocobabys.bean.GroupExpInfo;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ChatInfo;
+import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 
 public class ExpMethod {
-
-	private static final String MOST = "most";
-	private static final String FROM = "from";
-	private static final String TO = "to";
 
 	private ExpMethod() {
 	}
@@ -53,5 +47,33 @@ public class ExpMethod {
 
 	private List<GroupExpInfo> handleGetExpCountResult(HttpResult result) throws JSONException {
 		return GroupExpInfo.jsonArrayToGroupExpInfoList(result.getJSONArray());
+	}
+
+	public MethodResult getExpInfoByYearAndMonth(int year, String month) throws Exception {
+		MethodResult methodResult = new MethodResult(EventType.GET_EXP_INFO_SUCCESS);
+		HttpResult result = new HttpResult();
+		String url = createGetExpInfoUrl(year, month);
+		Log.d("DJC", "getExpInfoByYearAndMonth cmd:" + url);
+		result = HttpClientHelper.executeGet(url);
+		if (result.getResCode() != HttpStatus.SC_OK) {
+			methodResult.setResultType(EventType.GET_EXP_INFO_FAIL);
+			return methodResult;
+		}
+
+		handleGetExpInfoResult(result);
+		return methodResult;
+	}
+
+	private void handleGetExpInfoResult(HttpResult result) throws JSONException {
+		List<ExpInfo> list = ExpInfo.parseFromJsonArray(result.getJSONArray());
+		DataMgr.getInstance().addExpDataList(list);
+	}
+
+	private String createGetExpInfoUrl(int year, String month) {
+		String url = String.format(ServerUrls.GET_EXP_INFO, DataMgr.getInstance().getSchoolID(), DataMgr.getInstance()
+				.getSelectedChild().getServer_id());
+
+		url += "month=" + year + month;
+		return url;
 	}
 }

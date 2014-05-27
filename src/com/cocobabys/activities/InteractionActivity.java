@@ -38,9 +38,9 @@ import com.cocobabys.customview.MsgListView;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChatInfo;
 import com.cocobabys.handler.MyHandler;
+import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.taskmgr.GetChatTask;
 import com.cocobabys.taskmgr.GetTeacherTask;
-import com.cocobabys.taskmgr.GlobleDownloadImgeTask;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 
@@ -64,7 +64,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	private static final String SORT_DESC = "desc";
 	private static final String TMP_BMP = "tmp_bmp_for_chat.jpg";
 	private Uri uri;
-	private GlobleDownloadImgeTask task;
+	private DownloadImgeJob task;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -246,7 +246,7 @@ public class InteractionActivity extends UmengStatisticsActivity {
 	private void initCustomListView() {
 		chatlist = DataMgr.getInstance().getChatInfoWithLimite(
 				ConstantValue.GET_CHATINFO_MAX_COUNT);
-		task = new GlobleDownloadImgeTask();
+		task = new DownloadImgeJob();
 		adapter = new ChatListAdapter(this, chatlist, task);
 		msgListView = (MsgListView) findViewById(R.id.chatlist);// 继承ListActivity，id要写成android.R.id.list，否则报异常
 		setRefreshListener();

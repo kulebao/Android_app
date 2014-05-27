@@ -21,8 +21,8 @@ public class ChildrenInfoMgr {
 	long addChildrenInfo(ChildInfo info) {
 		ContentValues values = setProp(info);
 		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
-		return writableDatabase.insert(SqliteHelper.CHILDREN_INFO_TAB, null,
-				values);
+		return writableDatabase.insertWithOnConflict(SqliteHelper.CHILDREN_INFO_TAB, null,
+				values,SQLiteDatabase.CONFLICT_IGNORE);
 	}
 
 	private ContentValues setProp(ChildInfo info) {

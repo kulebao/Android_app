@@ -13,7 +13,7 @@ public class ActivityHelper {
         TextView titleView = (TextView) activity.findViewById(R.id.topbarTitleView);
         titleView.setText(titleID);
 
-        TextView backView = (TextView) activity.findViewById(R.id.topbarBackView);
+        TextView backView = (TextView) activity.findViewById(R.id.rightBtn);
         backView.setOnClickListener(new OnClickListener() {
 
             @Override

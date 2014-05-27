@@ -32,8 +32,8 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetChatJob;
-import com.cocobabys.jobs.GetTeacherInfoJob;
-import com.cocobabys.taskmgr.GlobleDownloadImgeTask;
+import com.cocobabys.jobs.GetSenderInfoJob;
+import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 
@@ -53,8 +53,8 @@ public class ChatActivity extends UmengStatisticsActivity {
 
 	private static final String TMP_BMP = "tmp_bmp_for_chat.jpg";
 	private Uri uri;
-	private GlobleDownloadImgeTask downloadImgeJob;
-	private GetTeacherInfoJob getTeacherInfoJob;
+	private DownloadImgeJob downloadImgeJob;
+	private GetSenderInfoJob getTeacherInfoJob;
 	private String childid;
 
 	@Override
@@ -199,8 +199,8 @@ public class ChatActivity extends UmengStatisticsActivity {
 	private void initCustomListView() {
 		chatlist = DataMgr.getInstance().getNewChatInfoWithLimite(
 				ConstantValue.GET_CHATINFO_MAX_COUNT, childid);
-		downloadImgeJob = new GlobleDownloadImgeTask();
-		getTeacherInfoJob = new GetTeacherInfoJob();
+		downloadImgeJob = new DownloadImgeJob();
+		getTeacherInfoJob = new GetSenderInfoJob();
 		adapter = new NewChatListAdapter(this, chatlist, downloadImgeJob,
 				getTeacherInfoJob);
 		msgListView = (MsgListView) findViewById(R.id.chatlist);// 继承ListActivity，id要写成android.R.id.list，否则报异常

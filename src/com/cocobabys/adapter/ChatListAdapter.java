@@ -32,7 +32,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChatInfo;
 import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.dlgmgr.DlgMgr;
-import com.cocobabys.taskmgr.GlobleDownloadImgeTask;
+import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 
@@ -48,10 +48,11 @@ public class ChatListAdapter extends BaseAdapter {
 	LruCache<String, Bitmap> lruCache;
 	private final Context context;
 	private List<ChatInfo> dataList;
-	private GlobleDownloadImgeTask task;
+	private DownloadImgeJob task;
 	private Handler handler;
 
-	public ChatListAdapter(Context activityContext, List<ChatInfo> list, GlobleDownloadImgeTask task) {
+	public ChatListAdapter(Context activityContext, List<ChatInfo> list,
+			DownloadImgeJob task) {
 		this.context = activityContext;
 		this.dataList = list;
 		this.task = task;
@@ -69,7 +70,7 @@ public class ChatListAdapter extends BaseAdapter {
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
-				if (msg.what == EventType.SUCCESS) {
+				if (msg.what == EventType.DOWNLOAD_IMG_SUCCESS) {
 					notifyDataSetChanged();
 				}
 			}
@@ -121,20 +122,28 @@ public class ChatListAdapter extends BaseAdapter {
 			ChatInfo info = (ChatInfo) getItem(position);
 
 			if (getItemViewType(position) == LEFT) {
-				convertView = LayoutInflater.from(this.context).inflate(R.layout.chat_item_left, null);
+				convertView = LayoutInflater.from(this.context).inflate(
+						R.layout.chat_item_left, null);
 			} else {
-				convertView = LayoutInflater.from(this.context).inflate(R.layout.chat_item_right, null);
+				convertView = LayoutInflater.from(this.context).inflate(
+						R.layout.chat_item_right, null);
 			}
 
 			flagholder = new FlagHolder();
 
 			flagholder.bLeft = (info.getLayoutID() == R.layout.chat_item_left);
-			flagholder.sendView = (TextView) convertView.findViewById(R.id.sender);
-			flagholder.bodyView = (TextView) convertView.findViewById(R.id.content);
-			flagholder.timestampView = (TextView) convertView.findViewById(R.id.timestamp);
-			flagholder.resendView = (ImageView) convertView.findViewById(R.id.resend);
-			flagholder.headiconView = (ImageView) convertView.findViewById(R.id.headicon);
-			flagholder.chaticonView = (ImageView) convertView.findViewById(R.id.chat_icon);
+			flagholder.sendView = (TextView) convertView
+					.findViewById(R.id.sender);
+			flagholder.bodyView = (TextView) convertView
+					.findViewById(R.id.content);
+			flagholder.timestampView = (TextView) convertView
+					.findViewById(R.id.timestamp);
+			flagholder.resendView = (ImageView) convertView
+					.findViewById(R.id.resend);
+			flagholder.headiconView = (ImageView) convertView
+					.findViewById(R.id.headicon);
+			flagholder.chaticonView = (ImageView) convertView
+					.findViewById(R.id.chat_icon);
 			convertView.setTag(flagholder);
 			convertView.setId(position);
 		} else {
@@ -155,17 +164,20 @@ public class ChatListAdapter extends BaseAdapter {
 		setTimeView(position, flagholder);
 		setResendView(position, flagholder);
 		setHeadIcon(info, flagholder);
-		Log.d("DJCDDD", "exist getLayoutID=" + (flagholder.bLeft ? "left" : "right"));
+		Log.d("DJCDDD", "exist getLayoutID="
+				+ (flagholder.bLeft ? "left" : "right"));
 		Log.d("DJCDDD", "exist sender=" + info.getSender());
 	}
 
 	private void setHeadIcon(ChatInfo info, FlagHolder flagholder) {
 		Bitmap bitmap = null;
 		if (info.isSendBySelf()) {
-			bitmap = getLocalIcon(softMap, DataMgr.getInstance().getSelectedChild().getLocal_url(), 50, 50);
+			bitmap = getLocalIcon(softMap, DataMgr.getInstance()
+					.getSelectedChild().getLocal_url(), 50, 50);
 		} else {
 			String url = Teacher.getLocalIconPath(info.getPhone());
-			bitmap = Utils.getLoacalBitmap(url, ImageDownloader.getMaxPixWithDensity(50, 50));
+			bitmap = Utils.getLoacalBitmap(url,
+					ImageDownloader.getMaxPixWithDensity(50, 50));
 		}
 
 		if (bitmap != null) {
@@ -175,8 +187,8 @@ public class ChatListAdapter extends BaseAdapter {
 		}
 	}
 
-	private Bitmap getLocalIcon(Map<String, SoftReference<Bitmap>> map, String local_url, int limitWidth,
-			int limitHeight) {
+	private Bitmap getLocalIcon(Map<String, SoftReference<Bitmap>> map,
+			String local_url, int limitWidth, int limitHeight) {
 		Bitmap loacalBitmap = null;
 		if (TextUtils.isEmpty(local_url)) {
 			return null;
@@ -185,14 +197,15 @@ public class ChatListAdapter extends BaseAdapter {
 		loacalBitmap = lruCache.get(local_url);
 
 		if (loacalBitmap == null) {
-			loacalBitmap = Utils.getLoacalBitmap(local_url,
-					ImageDownloader.getMaxPixWithDensity(limitWidth, limitHeight));
+			loacalBitmap = Utils.getLoacalBitmap(local_url, ImageDownloader
+					.getMaxPixWithDensity(limitWidth, limitHeight));
 
 			if (loacalBitmap != null) {
 				int height = loacalBitmap.getHeight();
 				int width = loacalBitmap.getWidth();
 				int roow = loacalBitmap.getRowBytes();
-				Log.d("DJC", "getLoacalBitmap height =" + height + " width=" + width + " roow" + roow);
+				Log.d("DJC", "getLoacalBitmap height =" + height + " width="
+						+ width + " roow" + roow);
 				Log.d("DJC", "getLoacalBitmap url =" + local_url);
 				// map.put(local_url, new SoftReference<Bitmap>(loacalBitmap));
 				lruCache.put(local_url, loacalBitmap);
@@ -248,7 +261,8 @@ public class ChatListAdapter extends BaseAdapter {
 		final ChatInfo preinfo = getPreChatinfo(position);
 		if (info.getSend_result() == ChatInfo.SEND_FAIL) {
 			flagholder.timestampView.setVisibility(View.GONE);
-		} else if (preinfo == null || preinfo.getSend_result() == ChatInfo.SEND_FAIL
+		} else if (preinfo == null
+				|| preinfo.getSend_result() == ChatInfo.SEND_FAIL
 				|| (info.getTimestamp() - preinfo.getTimestamp()) > MIN_TIME_LIMIT) {
 			flagholder.timestampView.setVisibility(View.VISIBLE);
 			flagholder.timestampView.setText(info.getFormattedTime());
@@ -272,11 +286,13 @@ public class ChatListAdapter extends BaseAdapter {
 
 			@Override
 			public boolean onLongClick(View v) {
-				DlgMgr.getListDialog(context, R.array.resend_items, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						Log.d("resend", "which =" + position);
-					}
-				}).create().show();
+				DlgMgr.getListDialog(context, R.array.resend_items,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								Log.d("resend", "which =" + position);
+							}
+						}).create().show();
 
 				return true;
 			}

@@ -207,5 +207,6 @@
     <string name="summary">更新说明:</string>
     <string name="experence">成长经历</string>
     <string name="refresh_data">更新数据</string>
+    <string name="refresh">刷新</string>
 
 </resources>

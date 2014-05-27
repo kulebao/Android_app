@@ -113,4 +113,7 @@ public class ConstantValue {
 
 	public static final int HEAD_ICON_WIDTH = 50;
 
+	public static final String EXP_YEAR = "exp_year";
+	public static final String EXP_MONTH = "exp_month";
+
 }

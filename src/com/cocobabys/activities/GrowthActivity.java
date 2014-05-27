@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -20,6 +23,7 @@ import android.widget.TextView;
 import com.cocobabys.R;
 import com.cocobabys.adapter.GrowthGridViewAdapter;
 import com.cocobabys.bean.GroupExpInfo;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ExpInfo;
@@ -90,7 +94,6 @@ public class GrowthActivity extends UmengStatisticsActivity {
 		initDialog();
 		titleView = (TextView) findViewById(R.id.topYear);
 		setTitle();
-		test();
 		initBtn();
 		initGridView();
 	}
@@ -149,6 +152,20 @@ public class GrowthActivity extends UmengStatisticsActivity {
 		List<GroupExpInfo> list = getData();
 		adapter = new GrowthGridViewAdapter(this, list);
 		gridview.setAdapter(adapter);
+		gridview.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				startToExpListActivity(position);
+			}
+		});
+	}
+
+	private void startToExpListActivity(int position) {
+		Intent intent = new Intent();
+		intent.putExtra(ConstantValue.EXP_YEAR, currentYear);
+		intent.putExtra(ConstantValue.EXP_MONTH, adapter.getItem(position).getMonth());
+		intent.setClass(this, ExpListActivity.class);
+		startActivity(intent);
 	}
 
 	private List<GroupExpInfo> getData() {
@@ -169,6 +186,7 @@ public class GrowthActivity extends UmengStatisticsActivity {
 				}
 				currentYear--;
 				setTitle();
+				runGetExpCountJob();
 			}
 		});
 
@@ -182,6 +200,7 @@ public class GrowthActivity extends UmengStatisticsActivity {
 				}
 				currentYear++;
 				setTitle();
+				runGetExpCountJob();
 			}
 		});
 

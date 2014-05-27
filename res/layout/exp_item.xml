@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:id="@+id/first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/headicon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/cook" />
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/TitleTextStyle"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/headicon"
+            android:text="addd" />
+
+        <TextView
+            android:id="@+id/time"
+            style="@style/NormalTextviewStyle"
+            android:layout_below="@+id/name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/headicon"
+            android:text="addd"
+            android:textColor="@color/juhong" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/content"
+        style="@style/TitleTextStyle"
+        android:layout_below="@+id/first"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="addddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:columnWidth="50dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:listSelector="@drawable/color_btn"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="1dp" />
+
+</RelativeLayout>

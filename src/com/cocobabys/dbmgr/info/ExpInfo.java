@@ -1,10 +1,19 @@
 package com.cocobabys.dbmgr.info;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.cocobabys.R;
 import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.utils.Utils;
 
 public class ExpInfo {
@@ -120,7 +129,17 @@ public class ExpInfo {
 		return TEACHER_TYPE.equals(sender_type);
 	}
 
-	public static ExpInfo parseFromJson(JSONObject object) throws JSONException {
+	public static List<ExpInfo> parseFromJsonArray(JSONArray array)
+			throws JSONException {
+		List<ExpInfo> list = new ArrayList<ExpInfo>();
+		for (int i = 0; i < array.length(); i++) {
+			list.add(parseFromJsonObj(array.getJSONObject(i)));
+		}
+		return list;
+	}
+
+	private static ExpInfo parseFromJsonObj(JSONObject object)
+			throws JSONException {
 		ExpInfo info = new ExpInfo();
 
 		info.setExp_id(object.getLong("id"));
@@ -133,6 +152,62 @@ public class ExpInfo {
 		info.setTimestamp(object.getLong(TIMESTAMP));
 		info.setMedium(object.getJSONArray(MEDIUM).toString());
 		return info;
+	}
+
+	public List<String> getLocalUrls() {
+		List<String> list = new ArrayList<String>();
+		if (!"".equals(medium)) {
+			try {
+				JSONArray array = new JSONArray(medium);
+				for (int i = 0; i < array.length(); i++) {
+					String url = array.getJSONObject(i).getString(
+							JSONConstant.URL);
+					String localUrl = serverUrlToLocalUrl(url);
+					list.add(localUrl);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
+	public List<String> getServerUrls() {
+		List<String> list = new ArrayList<String>();
+		if (!"".equals(medium)) {
+			try {
+				JSONArray array = new JSONArray(medium);
+				for (int i = 0; i < array.length(); i++) {
+					String url = array.getJSONObject(i).getString(
+							JSONConstant.URL);
+					list.add(url);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+
+	public String serverUrlToLocalUrl(String serverUrl) {
+		String localUrl = "";
+		if (!"".equals(serverUrl)) {
+			if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone()
+					.getParent_id())) {
+				// 自己发的图片，就从本地读，以免再次去服务器下载
+				localUrl = serverUrl.replace(UploadFactory.CLOUD_STORAGE_HOST,
+						Utils.getSDCardPicRootPath() + File.separator);
+
+			} else {
+				String dir = Utils.getExpIconDir(child_id) + exp_id
+						+ File.separator;
+				Utils.mkDirs(dir);
+				localUrl = dir + Utils.getName(serverUrl) + ".png";
+			}
+
+		}
+		Log.d("DDD", "serverUrlToLocalUrl =" + localUrl);
+		return localUrl;
 	}
 
 	@Override

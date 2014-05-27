@@ -35,6 +35,7 @@ public class DataMgr {
 	// ********************
 	// 2 -> 3
 	// 新增 EXP_TAB, MONTH_TAB
+	//CHILDREN_INFO_TAB 增加小孩id为unique
 
 	private static int DB_VERSION = 3;
 	private static final String DB_NAME = "coolbao" + ".db";

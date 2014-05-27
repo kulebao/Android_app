@@ -23,14 +23,15 @@ import android.widget.TextView;
 
 import com.cocobabys.R;
 import com.cocobabys.activities.ShowIconActivity;
+import com.cocobabys.bean.SenderInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
-import com.cocobabys.jobs.GetTeacherInfoJob;
-import com.cocobabys.taskmgr.GlobleDownloadImgeTask;
+import com.cocobabys.jobs.GetSenderInfoJob;
+import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 
@@ -45,15 +46,15 @@ public class NewChatListAdapter extends BaseAdapter {
 	LruCache<String, Bitmap> lruCache;
 	private final Context context;
 	private List<NewChatInfo> dataList;
-	private GlobleDownloadImgeTask downloadImgeJob;
+	private DownloadImgeJob downloadImgeJob;
 	private Handler handler;
 
 	private Map<String, String> senderMap = new HashMap<String, String>();
-	private GetTeacherInfoJob getTeacherInfoJob;
+	private GetSenderInfoJob getTeacherInfoJob;
 	private static final String ANONYMOUS_TEACHER_NAME = "匿名老师";
 
-	public NewChatListAdapter(Context activityContext, List<NewChatInfo> list, GlobleDownloadImgeTask downloadImgeTask,
-			GetTeacherInfoJob getTeacherInfoJob) {
+	public NewChatListAdapter(Context activityContext, List<NewChatInfo> list, DownloadImgeJob downloadImgeTask,
+			GetSenderInfoJob getTeacherInfoJob) {
 		this.context = activityContext;
 		this.dataList = list;
 		this.downloadImgeJob = downloadImgeTask;
@@ -73,7 +74,7 @@ public class NewChatListAdapter extends BaseAdapter {
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
 				switch (msg.what) {
-				case EventType.SUCCESS:
+				case EventType.DOWNLOAD_IMG_SUCCESS:
 					notifyDataSetChanged();
 					break;
 				case EventType.GET_SENDER_SUCCESS:
@@ -188,7 +189,10 @@ public class NewChatListAdapter extends BaseAdapter {
 
 		if (ANONYMOUS_TEACHER_NAME.equals(name)) {
 			// 获取老师信息
-			getTeacherInfoJob.addTask(info.getSender_id(), info);
+			SenderInfo senderInfo = new SenderInfo();
+			senderInfo.setSenderID(info.getSender_id());
+			senderInfo.setSenderType(info.getSender_type());
+			getTeacherInfoJob.addTask(info.getSender_id(), senderInfo);
 		}
 
 		return name;
@@ -198,10 +202,10 @@ public class NewChatListAdapter extends BaseAdapter {
 		String name = DEFAULT_PARENT_NAME;
 		try {
 			ParentInfo parent = DataMgr.getInstance().getParentByID(senderid);
-			if(parent != null){
-				if(Utils.getAccount().equals(parent.getPhone())){
+			if (parent != null) {
+				if (Utils.getAccount().equals(parent.getPhone())) {
 					name = SELF_NAME;
-				}else{
+				} else {
 					name = parent.getName();
 				}
 			}

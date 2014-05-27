@@ -1,13 +1,13 @@
 # view res/layout/guide.xml #generated:7
 -keep class android.support.v4.view.ViewPager { <init>(...); }
 
-# view AndroidManifest.xml #generated:350
+# view AndroidManifest.xml #generated:356
 -keep class com.baidu.android.pushservice.PushService { <init>(...); }
 
-# view AndroidManifest.xml #generated:326
+# view AndroidManifest.xml #generated:332
 -keep class com.baidu.android.pushservice.PushServiceReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:336
+# view AndroidManifest.xml #generated:342
 -keep class com.baidu.android.pushservice.RegistrationReceiver { <init>(...); }
 
 # view AndroidManifest.xml #generated:183
@@ -34,6 +34,9 @@
 # view AndroidManifest.xml #generated:243
 -keep class com.cocobabys.activities.EducationActivity { <init>(...); }
 
+# view AndroidManifest.xml #generated:291
+-keep class com.cocobabys.activities.ExpListActivity { <init>(...); }
+
 # view AndroidManifest.xml #generated:176
 -keep class com.cocobabys.activities.FeedBackActivity { <init>(...); }
 
@@ -49,7 +52,7 @@
 # view AndroidManifest.xml #generated:210
 -keep class com.cocobabys.activities.InteractionActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:291
+# view AndroidManifest.xml #generated:297
 -keep class com.cocobabys.activities.LoadingActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:255
@@ -138,12 +141,12 @@
 # view res/layout/setting.xml #generated:147
 -keep class com.cocobabys.customview.SwitchButton { <init>(...); }
 
-# view AndroidManifest.xml #generated:306
+# view AndroidManifest.xml #generated:312
 -keep class com.cocobabys.receiver.NetStateChangeReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:313
+# view AndroidManifest.xml #generated:319
 -keep class com.cocobabys.receiver.PushMessageReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:304
+# view AndroidManifest.xml #generated:310
 -keep class com.cocobabys.service.MyService { <init>(...); }
 

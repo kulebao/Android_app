@@ -95,8 +95,11 @@ public class EventType {
 
 	public static final int POST_EXP_SUCCESS = 1800;
 	public static final int POST_EXP_FAIL = 1801;
-	
+
 	public static final int GET_EXP_COUNT_SUCCESS = 1810;
 	public static final int GET_EXP_COUNT_FAIL = 1811;
+
+	public static final int GET_EXP_INFO_SUCCESS = 1820;
+	public static final int GET_EXP_INFO_FAIL = 1821;
 
 }
