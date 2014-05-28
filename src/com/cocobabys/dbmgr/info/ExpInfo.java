@@ -30,6 +30,7 @@ public class ExpInfo {
 	public static final String SENDER_TYPE = "sender_type";
 	public static final String SENDER_ID = "sender_id";
 	public static final String MEDIUM = "medium";
+	private static final String THUMBNAIL = "thumbnail";
 
 	private String content = "";
 	private long timestamp = 0;
@@ -129,8 +130,7 @@ public class ExpInfo {
 		return TEACHER_TYPE.equals(sender_type);
 	}
 
-	public static List<ExpInfo> parseFromJsonArray(JSONArray array)
-			throws JSONException {
+	public static List<ExpInfo> parseFromJsonArray(JSONArray array) throws JSONException {
 		List<ExpInfo> list = new ArrayList<ExpInfo>();
 		for (int i = 0; i < array.length(); i++) {
 			list.add(parseFromJsonObj(array.getJSONObject(i)));
@@ -138,31 +138,27 @@ public class ExpInfo {
 		return list;
 	}
 
-	private static ExpInfo parseFromJsonObj(JSONObject object)
-			throws JSONException {
+	private static ExpInfo parseFromJsonObj(JSONObject object) throws JSONException {
 		ExpInfo info = new ExpInfo();
 
 		info.setExp_id(object.getLong("id"));
 		info.setChild_id(object.getString(JSONConstant.TOPIC));
 		info.setContent(object.getString(CONTENT));
-		info.setSender_id(object.getJSONObject(JSONConstant.SENDER).getString(
-				JSONConstant.ID));
-		info.setSender_type(object.getJSONObject(JSONConstant.SENDER)
-				.getString(JSONConstant.TYPE));
+		info.setSender_id(object.getJSONObject(JSONConstant.SENDER).getString(JSONConstant.ID));
+		info.setSender_type(object.getJSONObject(JSONConstant.SENDER).getString(JSONConstant.TYPE));
 		info.setTimestamp(object.getLong(TIMESTAMP));
 		info.setMedium(object.getJSONArray(MEDIUM).toString());
 		return info;
 	}
 
-	public List<String> getLocalUrls() {
+	public List<String> getLocalUrls(boolean bThumbnail) {
 		List<String> list = new ArrayList<String>();
 		if (!"".equals(medium)) {
 			try {
 				JSONArray array = new JSONArray(medium);
 				for (int i = 0; i < array.length(); i++) {
-					String url = array.getJSONObject(i).getString(
-							JSONConstant.URL);
-					String localUrl = serverUrlToLocalUrl(url);
+					String url = array.getJSONObject(i).getString(JSONConstant.URL);
+					String localUrl = serverUrlToLocalUrl(url, bThumbnail);
 					list.add(localUrl);
 				}
 			} catch (JSONException e) {
@@ -178,8 +174,7 @@ public class ExpInfo {
 			try {
 				JSONArray array = new JSONArray(medium);
 				for (int i = 0; i < array.length(); i++) {
-					String url = array.getJSONObject(i).getString(
-							JSONConstant.URL);
+					String url = array.getJSONObject(i).getString(JSONConstant.URL);
 					list.add(url);
 				}
 			} catch (JSONException e) {
@@ -189,25 +184,35 @@ public class ExpInfo {
 		return list;
 	}
 
-	public String serverUrlToLocalUrl(String serverUrl) {
+	public String serverUrlToLocalUrl(String serverUrl, boolean bThumbnail) {
 		String localUrl = "";
 		if (!"".equals(serverUrl)) {
-			if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone()
-					.getParent_id())) {
+			if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone().getParent_id())) {
 				// 自己发的图片，就从本地读，以免再次去服务器下载
-				localUrl = serverUrl.replace(UploadFactory.CLOUD_STORAGE_HOST,
-						Utils.getSDCardPicRootPath() + File.separator);
+				localUrl = serverUrl.replace(UploadFactory.CLOUD_STORAGE_HOST, Utils.getSDCardPicRootPath()
+						+ File.separator);
 
 			} else {
-				String dir = Utils.getExpIconDir(child_id) + exp_id
-						+ File.separator;
+				String dir = "";
+				if (bThumbnail) {
+					dir = getThumbnailDir();
+				} else {
+					dir = getOriginalDir();
+				}
 				Utils.mkDirs(dir);
-				localUrl = dir + Utils.getName(serverUrl) + ".png";
+				localUrl = dir + Utils.getName(serverUrl);
 			}
-
 		}
 		Log.d("DDD", "serverUrlToLocalUrl =" + localUrl);
 		return localUrl;
+	}
+
+	public String getOriginalDir() {
+		return Utils.getExpIconDir(child_id) + exp_id + File.separator;
+	}
+
+	public String getThumbnailDir() {
+		return Utils.getExpIconDir(child_id) + exp_id + File.separator + THUMBNAIL + File.separator;
 	}
 
 	@Override

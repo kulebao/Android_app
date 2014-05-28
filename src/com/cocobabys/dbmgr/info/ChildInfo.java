@@ -147,7 +147,10 @@ public class ChildInfo {
 				if (i == 0) {
 					info.setSelected(STATUS_SELECTED);
 				}
-				list.add(info);
+
+				if (!list.contains(info)) {
+					list.add(info);
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -156,8 +159,7 @@ public class ChildInfo {
 		return list;
 	}
 
-	public static ChildInfo jsonObjToChildInfo(JSONObject obj)
-			throws JSONException {
+	public static ChildInfo jsonObjToChildInfo(JSONObject obj) throws JSONException {
 		ChildInfo info = new ChildInfo();
 		info.setServer_id(obj.getString("child_id"));
 		info.setChild_nick_name(obj.getString("nick"));
@@ -178,4 +180,30 @@ public class ChildInfo {
 		}
 		return info;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((server_id == null) ? 0 : server_id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChildInfo other = (ChildInfo) obj;
+		if (server_id == null) {
+			if (other.server_id != null)
+				return false;
+		} else if (!server_id.equals(other.server_id))
+			return false;
+		return true;
+	}
+
 }

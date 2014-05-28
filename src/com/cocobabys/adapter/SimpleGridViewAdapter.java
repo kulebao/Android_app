@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,8 +49,12 @@ public class SimpleGridViewAdapter extends BaseAdapter {
 				.imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)
 				.cacheInMemory(true).bitmapConfig(Bitmap.Config.RGB_565)
 				.build();
-		imageLoader.displayImage("file://" + getItem(position),
-				holder.imageView, option, new SimpleImageLoadingListener() {
+
+		String path = "file://" + getItem(position);
+		Log.d("III", "SimpleGridViewAdapter path =" + path);
+
+		imageLoader.displayImage(path, holder.imageView, option,
+				new SimpleImageLoadingListener() {
 					@Override
 					public void onLoadingStarted(String imageUri, View view) {
 						holder.imageView

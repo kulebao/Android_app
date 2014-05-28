@@ -115,5 +115,7 @@ public class ConstantValue {
 
 	public static final String EXP_YEAR = "exp_year";
 	public static final String EXP_MONTH = "exp_month";
+	
+	public static final String EXP_ID = "exp_id";
 
 }

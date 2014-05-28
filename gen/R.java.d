@@ -141,9 +141,12 @@ E:\coolbao\LoginTest\res\layout\dialog.xml \
 E:\coolbao\LoginTest\res\layout\dialog_single_btn.xml \
 E:\coolbao\LoginTest\res\layout\education.xml \
 E:\coolbao\LoginTest\res\layout\education_item.xml \
+E:\coolbao\LoginTest\res\layout\exp_item.xml \
+E:\coolbao\LoginTest\res\layout\exp_list.xml \
 E:\coolbao\LoginTest\res\layout\feed_back.xml \
 E:\coolbao\LoginTest\res\layout\footerview.xml \
 E:\coolbao\LoginTest\res\layout\grid_item.xml \
+E:\coolbao\LoginTest\res\layout\grouth.xml \
 E:\coolbao\LoginTest\res\layout\guide.xml \
 E:\coolbao\LoginTest\res\layout\head.xml \
 E:\coolbao\LoginTest\res\layout\homework_pull_refresh_list.xml \
@@ -167,6 +170,9 @@ E:\coolbao\LoginTest\res\layout\school_info.xml \
 E:\coolbao\LoginTest\res\layout\school_notice.xml \
 E:\coolbao\LoginTest\res\layout\setting.xml \
 E:\coolbao\LoginTest\res\layout\show_icon.xml \
+E:\coolbao\LoginTest\res\layout\simple_grid_item.xml \
+E:\coolbao\LoginTest\res\layout\slide_gallery.xml \
+E:\coolbao\LoginTest\res\layout\slide_item.xml \
 E:\coolbao\LoginTest\res\layout\tab_widget.xml \
 E:\coolbao\LoginTest\res\layout\topbar.xml \
 E:\coolbao\LoginTest\res\layout\transit.xml \

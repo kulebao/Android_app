@@ -76,6 +76,7 @@ public class ExpListActivity extends UmengStatisticsActivity {
 	}
 
 	private void runGetExpByYearAndMonth() {
+		dialog.show();
 		GetExpInfoJob job = new GetExpInfoJob(myhandler, mYear, mMonth);
 		job.execute();
 	}

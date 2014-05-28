@@ -35,7 +35,7 @@ public class DataMgr {
 	// ********************
 	// 2 -> 3
 	// 新增 EXP_TAB, MONTH_TAB
-	//CHILDREN_INFO_TAB 增加小孩id为unique
+	// CHILDREN_INFO_TAB 增加小孩id为unique
 
 	private static int DB_VERSION = 3;
 	private static final String DB_NAME = "coolbao" + ".db";
@@ -506,6 +506,10 @@ public class DataMgr {
 
 	public List<ExpInfo> getExpInfoByMonthAndYear(String monthAndYear) {
 		return expMgr.getExpInfoByMonthAndYear(monthAndYear);
+	}
+
+	public ExpInfo getExpInfoByID(long expid) {
+		return expMgr.getExpInfoByID(expid);
 	}
 
 	public void clearExp() {

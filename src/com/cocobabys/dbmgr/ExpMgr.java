@@ -27,8 +27,8 @@ class ExpMgr {
 		try {
 			for (ExpInfo info : list) {
 				ContentValues values = buildInfo(info);
-				writableDatabase.insertWithOnConflict(SqliteHelper.EXP_TAB,
-						null, values, SQLiteDatabase.CONFLICT_IGNORE);
+				writableDatabase.insertWithOnConflict(SqliteHelper.EXP_TAB, null, values,
+						SQLiteDatabase.CONFLICT_IGNORE);
 			}
 			// 数据插入操作循环
 			writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
@@ -46,21 +46,11 @@ class ExpMgr {
 		List<GroupExpInfo> list = new ArrayList<GroupExpInfo>();
 
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db
-				.rawQuery(
-						"SELECT month_name, COUNT(exp_id) AS total, "
-								+ "  STRFTIME('%m', timestamp / 1000, 'unixepoch') AS z"
-								+ " FROM month_tab LEFT JOIN "
-								+ SqliteHelper.EXP_TAB
-								+ " ON "
-								+ " z = month_tab.month_name "
-								+ " AND "
-								+ ExpInfo.CHILD_ID
-								+ " = '"
-								+ childID
-								+ "'"
-								+ " AND STRFTIME('%Y', timestamp / 1000, 'unixepoch') "
-								+ "='" + year + "' GROUP BY month_name", null);
+		Cursor cursor = db.rawQuery("SELECT month_name, COUNT(exp_id) AS total, "
+				+ "  STRFTIME('%m', timestamp / 1000, 'unixepoch') AS z" + " FROM month_tab LEFT JOIN "
+				+ SqliteHelper.EXP_TAB + " ON " + " z = month_tab.month_name " + " AND " + ExpInfo.CHILD_ID + " = '"
+				+ childID + "'" + " AND STRFTIME('%Y', timestamp / 1000, 'unixepoch') " + "='" + year
+				+ "' GROUP BY month_name", null);
 
 		try {
 			cursor.moveToFirst();
@@ -81,13 +71,9 @@ class ExpMgr {
 		int count = 0;
 
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT COUNT(exp_id) AS total FROM"
-				+ SqliteHelper.EXP_TAB + " WHERE " + ExpInfo.CHILD_ID + " = '"
-				+ childID + "'"
-				+ " AND STRFTIME('%Y', timestamp / 1000, 'unixepoch') " + "='"
-				+ year
-				+ "' AND STRFTIME('%m', timestamp / 1000, 'unixepoch') = '"
-				+ month + "'", null);
+		Cursor cursor = db.rawQuery("SELECT COUNT(exp_id) AS total FROM" + SqliteHelper.EXP_TAB + " WHERE "
+				+ ExpInfo.CHILD_ID + " = '" + childID + "'" + " AND STRFTIME('%Y', timestamp / 1000, 'unixepoch') "
+				+ "='" + year + "' AND STRFTIME('%m', timestamp / 1000, 'unixepoch') = '" + month + "'", null);
 
 		try {
 			cursor.moveToFirst();
@@ -115,12 +101,31 @@ class ExpMgr {
 	// monthAndYear 必须是2014-05这种模式，注意短横线和数字前面的0
 	List<ExpInfo> getExpInfoByMonthAndYear(String monthAndYear) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * " + " FROM "
-				+ SqliteHelper.EXP_TAB + " WHERE "
-				+ " STRFTIME('%Y-%m', timestamp / 1000, 'unixepoch') " + "='"
-				+ monthAndYear + "' ORDER BY timestamp DESC", null);
+		Cursor cursor = db.rawQuery("SELECT * " + " FROM " + SqliteHelper.EXP_TAB + " WHERE "
+				+ " STRFTIME('%Y-%m', timestamp / 1000, 'unixepoch') " + "='" + monthAndYear
+				+ "' ORDER BY timestamp DESC", null);
 
 		return getExpInfoList(cursor);
+	}
+
+	ExpInfo getExpInfoByID(long expid) {
+		ExpInfo info = null;
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT * " + " FROM " + SqliteHelper.EXP_TAB + " WHERE " + ExpInfo.EXP_ID + " = "
+				+ expid, null);
+
+		try {
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
+				info = getDataByCursor(cursor);
+				break;
+			}
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+		return info;
 	}
 
 	private List<ExpInfo> getExpInfoList(Cursor cursor) {

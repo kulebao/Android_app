@@ -201,12 +201,12 @@
     <string name="no_cookbook_yet">学校目前还未发布食谱</string>
     <string name="no_schedule_yet">学校目前还未发布课程表</string>
     <string name="get_child_info">获取小孩信息</string>
-    
     <string name="versionName">版本号:</string>
     <string name="size">版本大小:</string>
     <string name="summary">更新说明:</string>
     <string name="experence">成长经历</string>
     <string name="refresh_data">更新数据</string>
     <string name="refresh">刷新</string>
+    <string name="icon_count">%1$d/%2$d</string>
 
 </resources>

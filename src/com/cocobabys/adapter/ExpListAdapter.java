@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
@@ -14,15 +15,19 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cocobabys.R;
+import com.cocobabys.activities.SlideGalleryActivity;
 import com.cocobabys.bean.SenderInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
+import com.cocobabys.customview.MyGridView;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
@@ -37,7 +42,7 @@ public class ExpListAdapter extends BaseAdapter {
 	private static final String SELF_NAME = "我";
 	private static final String DEFAULT_PARENT_NAME = "家长";
 
-	LruCache<String, Bitmap> lruCache;
+	private LruCache<String, Bitmap> lruCache;
 	private final Context context;
 	private List<ExpInfo> dataList;
 	private DownloadImgeJob downloadImgeJob;
@@ -48,8 +53,7 @@ public class ExpListAdapter extends BaseAdapter {
 	private ImageLoader imageLoader;
 	private static final String ANONYMOUS_TEACHER_NAME = "匿名老师";
 
-	public ExpListAdapter(Context activityContext, List<ExpInfo> list,
-			DownloadImgeJob downloadImgeTask,
+	public ExpListAdapter(Context activityContext, List<ExpInfo> list, DownloadImgeJob downloadImgeTask,
 			GetSenderInfoJob getTeacherInfoJob, ImageLoader imageLoader) {
 		this.context = activityContext;
 		this.dataList = list;
@@ -116,19 +120,13 @@ public class ExpListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		FlagHolder flagholder = null;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(this.context).inflate(
-					R.layout.exp_item, null);
+			convertView = LayoutInflater.from(this.context).inflate(R.layout.exp_item, null);
 			flagholder = new FlagHolder();
-			flagholder.nameView = (TextView) convertView
-					.findViewById(R.id.name);
-			flagholder.contentView = (TextView) convertView
-					.findViewById(R.id.content);
-			flagholder.timestampView = (TextView) convertView
-					.findViewById(R.id.time);
-			flagholder.headiconView = (ImageView) convertView
-					.findViewById(R.id.headicon);
-			flagholder.gridview = (GridView) convertView
-					.findViewById(R.id.gridview);
+			flagholder.nameView = (TextView) convertView.findViewById(R.id.name);
+			flagholder.contentView = (TextView) convertView.findViewById(R.id.content);
+			flagholder.timestampView = (TextView) convertView.findViewById(R.id.time);
+			flagholder.headiconView = (ImageView) convertView.findViewById(R.id.headicon);
+			flagholder.gridview = (MyGridView) convertView.findViewById(R.id.gridview);
 			convertView.setTag(flagholder);
 		} else {
 			flagholder = (FlagHolder) convertView.getTag();
@@ -205,29 +203,24 @@ public class ExpListAdapter extends BaseAdapter {
 		String headUrl = "";
 		try {
 			if (ExpInfo.PARENT_TYPE.equals(info.getSender_type())) {
-				headUrl = DataMgr.getInstance()
-						.getChildByID(info.getChild_id()).getLocal_url();
+				headUrl = DataMgr.getInstance().getChildByID(info.getChild_id()).getLocal_url();
 			} else {
-				headUrl = DataMgr.getInstance()
-						.getTeacherByID(info.getSender_id()).getLocalIconPath();
+				headUrl = DataMgr.getInstance().getTeacherByID(info.getSender_id()).getLocalIconPath();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		bitmap = getLocalIcon(headUrl, ConstantValue.HEAD_ICON_WIDTH,
-				ConstantValue.HEAD_ICON_HEIGHT);
+		bitmap = getLocalIcon(headUrl, ConstantValue.HEAD_ICON_WIDTH, ConstantValue.HEAD_ICON_HEIGHT);
 
 		if (bitmap != null) {
 			Utils.setImg(flagholder.headiconView, bitmap);
 		} else {
-			flagholder.headiconView
-					.setImageResource(R.drawable.default_small_icon);
+			flagholder.headiconView.setImageResource(R.drawable.default_small_icon);
 		}
 	}
 
-	private Bitmap getLocalIcon(String local_url, int limitWidth,
-			int limitHeight) {
+	private Bitmap getLocalIcon(String local_url, int limitWidth, int limitHeight) {
 		Bitmap loacalBitmap = null;
 		if (TextUtils.isEmpty(local_url)) {
 			return null;
@@ -236,8 +229,8 @@ public class ExpListAdapter extends BaseAdapter {
 		loacalBitmap = lruCache.get(local_url);
 
 		if (loacalBitmap == null) {
-			loacalBitmap = Utils.getLoacalBitmap(local_url, ImageDownloader
-					.getMaxPixWithDensity(limitWidth, limitHeight));
+			loacalBitmap = Utils.getLoacalBitmap(local_url,
+					ImageDownloader.getMaxPixWithDensity(limitWidth, limitHeight));
 
 			if (loacalBitmap != null) {
 				lruCache.put(local_url, loacalBitmap);
@@ -247,30 +240,60 @@ public class ExpListAdapter extends BaseAdapter {
 	}
 
 	private void setContent(FlagHolder flagholder, final ExpInfo info) {
+		if (TextUtils.isEmpty(info.getContent())) {
+			// 避免空字符占用UI布局
+			flagholder.contentView.setVisibility(View.GONE);
+		} else {
+			flagholder.contentView.setVisibility(View.VISIBLE);
+		}
 		flagholder.contentView.setText(info.getContent());
 	}
 
-	private void setIcon(FlagHolder flagholder, ExpInfo info) {
-		List<String> localUrls = info.getLocalUrls();
+	private void setIcon(FlagHolder flagholder, final ExpInfo info) {
+		final List<String> localUrls = info.getLocalUrls(true);
 		if (localUrls.isEmpty()) {
 			flagholder.gridview.setVisibility(View.GONE);
 		} else {
 			addToDownloadTask(info);
 
-			SimpleGridViewAdapter adapter = new SimpleGridViewAdapter(context,
-					imageLoader, localUrls);
+			SimpleGridViewAdapter adapter = new SimpleGridViewAdapter(context, imageLoader, localUrls);
 			flagholder.gridview.setVisibility(View.VISIBLE);
+			flagholder.gridview.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					if (checkFileExist(localUrls)) {
+						startToSlideGalleryActivity(info.getExp_id());
+					}
+				}
+			});
 			flagholder.gridview.setAdapter(adapter);
 		}
+	}
 
+	private void startToSlideGalleryActivity(long id) {
+		Intent intent = new Intent(context, SlideGalleryActivity.class);
+		intent.putExtra(ConstantValue.EXP_ID, id);
+		context.startActivity(intent);
+	}
+
+	// 查看是否所有小图都下载完毕，只有确认全部完毕才允许查看大图
+	protected boolean checkFileExist(List<String> localUrls) {
+		for (String path : localUrls) {
+			if (!new File(path).exists()) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	private void addToDownloadTask(ExpInfo info) {
 		List<String> serverUrls = info.getServerUrls();
 		for (String serverUrl : serverUrls) {
-			String localUrl = info.serverUrlToLocalUrl(serverUrl);
+			String localUrl = info.serverUrlToLocalUrl(serverUrl, true);
 			if (!new File(localUrl).exists()) {
-				downloadImgeJob.addTask(serverUrl, localUrl, 50f, 50f);
+				downloadImgeJob.addTask(serverUrl, localUrl, 60f, 60f);
 			}
 		}
 	}
@@ -280,9 +303,6 @@ public class ExpListAdapter extends BaseAdapter {
 		senderMap.clear();
 		imageLoader.clearMemoryCache();
 		imageLoader.clearDiscCache();
-	}
-
-	private void downloadIcon(ImageView view, ExpInfo info) {
 	}
 
 	public void addAll(List<ExpInfo> list) {

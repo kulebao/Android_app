@@ -25,9 +25,23 @@ com.cocobabys.R$layout
 com.cocobabys.R$string
 com.cocobabys.R$style
 com.cocobabys.R$styleable:
+    public static final int ProgressWheel_barColor
+    public static final int ProgressWheel_barLength
+    public static final int ProgressWheel_barWidth
+    public static final int ProgressWheel_circleColor
+    public static final int ProgressWheel_contourColor
+    public static final int ProgressWheel_contourSize
+    public static final int ProgressWheel_delayMillis
+    public static final int ProgressWheel_radius
+    public static final int ProgressWheel_rimColor
+    public static final int ProgressWheel_rimWidth
+    public static final int ProgressWheel_spinSpeed
+    public static final int ProgressWheel_text
+    public static final int ProgressWheel_textColor
+    public static final int ProgressWheel_textSize
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    641:641:public R$styleable()
+    793:793:public R$styleable()
 com.cocobabys.activities.ActivityHelper:
     11:11:public ActivityHelper()
 com.cocobabys.activities.BindLocationMgrActivity:
@@ -46,6 +60,12 @@ com.cocobabys.activities.EducationActivity:
     270:278:private void savaLatestData()
 com.cocobabys.activities.EducationActivity$1:
     private static final long serialVersionUID
+com.cocobabys.activities.ExpListActivity:
+    private static final int CACHE_SIZE
+com.cocobabys.activities.GrowthActivity:
+    102:108:private void test()
+    111:125:private java.util.List getFakeList()
+    129:147:private long getTimeStamp(int)
 com.cocobabys.activities.InteractionActivity:
     private static final int IMAGE_REQUEST_CODE
     private static final int CAMERA_REQUEST_CODE
@@ -84,6 +104,7 @@ com.cocobabys.activities.SchoolNoticeActivity:
     public static final int HOMEWORK
     public static final int INTERACTION
     public static final int EDUCATION
+    public static final int EXPERENCE
     private static final int SET_BABY_NICKNAME
     private static final int SET_BABY_BIRTHDAY
     private static final int SET_BABY_ICON_BY_TAKE_PHOTO
@@ -114,6 +135,10 @@ com.cocobabys.adapter.ChildListAdapter:
 com.cocobabys.adapter.CookBookListAdapter:
     20:21:public void setCookInfoList(java.util.List)
     29:31:public void clear()
+com.cocobabys.adapter.ExpListAdapter:
+    private static final java.lang.String SELF_NAME
+    private static final java.lang.String DEFAULT_PARENT_NAME
+    private static final java.lang.String ANONYMOUS_TEACHER_NAME
 com.cocobabys.adapter.HomeworkListAdapter:
     31:32:public void setLocationInfoList(java.util.List)
 com.cocobabys.adapter.LocationInfoListAdapter:
@@ -130,10 +155,21 @@ com.cocobabys.adapter.NewsListAdapter:
 com.cocobabys.adapter.ScheduleListAdapter:
     20:21:public void setCookInfoList(java.util.List)
     29:31:public void clear()
+com.cocobabys.adapter.SlideGalleryAdapter:
+    private static final int MAXPIX
+    96:96:public java.util.List getList()
+    101:106:public void remove(int)
+com.cocobabys.adapter.SlideGalleryAdapterOld
+com.cocobabys.adapter.SlideGalleryAdapterOld$1
+com.cocobabys.adapter.SlideGalleryAdapterOld$2
+com.cocobabys.adapter.SlideGalleryAdapterOld$ViewHolder
 com.cocobabys.adapter.SwipeListAdapter:
     33:34:public void setLocationInfoList(java.util.List)
     47:49:public void clear()
 com.cocobabys.bean.Account
+com.cocobabys.bean.SenderInfo:
+    public static final java.lang.String TEACHER_TYPE
+    public static final java.lang.String PARENT_TYPE
 com.cocobabys.constant.ConstantValue
 com.cocobabys.constant.EventMap:
     8:8:public EventMap()
@@ -202,6 +238,12 @@ com.cocobabys.constant.EventType:
     public static final int SUCCESS
     public static final int FAIL
     public static final int CHECK_NEW_DATA
+    public static final int POST_EXP_SUCCESS
+    public static final int POST_EXP_FAIL
+    public static final int GET_EXP_COUNT_SUCCESS
+    public static final int GET_EXP_COUNT_FAIL
+    public static final int GET_EXP_INFO_SUCCESS
+    public static final int GET_EXP_INFO_FAIL
     3:3:public EventType()
 com.cocobabys.constant.JSONConstant
 com.cocobabys.constant.MyErrorCode
@@ -223,6 +265,9 @@ com.cocobabys.constant.ServerUrls:
     public static final java.lang.String HTTPS_HOST_ADDR
     public static final java.lang.String CHAT_SESSION
     public static final java.lang.String SENDER
+    public static final java.lang.String RECORD_RES_PATH
+    public static final java.lang.String EXP_RES_PATH
+    public static final java.lang.String STATISTICS_RES_PATH
     public static final java.lang.String TEST_HTTPS_HOST_ADDR
     private static final java.lang.String DAILYLOG
     public static final java.lang.String GET_UPLOAD_TOKEN
@@ -233,6 +278,8 @@ com.cocobabys.customexception.CustomException:
     private static final long serialVersionUID
 com.cocobabys.customexception.DecodeBitmapException:
     private static final long serialVersionUID
+    8:9:public DecodeBitmapException()
+    12:13:public DecodeBitmapException(java.lang.String)
 com.cocobabys.customexception.DuplicateLoginException:
     private static final long serialVersionUID
 com.cocobabys.customexception.InvalidTokenException:
@@ -250,6 +297,39 @@ com.cocobabys.customview.MsgListView:
     private static final int DISTANCE
     private static final int MIN_HEITHT
     private static final int DURATION
+com.cocobabys.customview.ProgressWheel:
+    334:337:public void resetCount()
+    343:346:public void stopSpinning()
+    360:366:public void incrementProgress()
+    372:375:public void setProgress(int)
+    393:393:public int getCircleRadius()
+    397:398:public void setCircleRadius(int)
+    401:401:public int getBarLength()
+    405:406:public void setBarLength(int)
+    409:409:public int getBarWidth()
+    413:414:public void setBarWidth(int)
+    417:417:public int getTextSize()
+    421:422:public void setTextSize(int)
+    429:430:public void setPaddingTop(int)
+    437:438:public void setPaddingBottom(int)
+    445:446:public void setPaddingLeft(int)
+    453:454:public void setPaddingRight(int)
+    457:457:public int getBarColor()
+    461:462:public void setBarColor(int)
+    465:465:public int getCircleColor()
+    469:470:public void setCircleColor(int)
+    473:473:public int getRimColor()
+    477:478:public void setRimColor(int)
+    481:481:public android.graphics.Shader getRimShader()
+    485:486:public void setRimShader(android.graphics.Shader)
+    489:489:public int getTextColor()
+    493:494:public void setTextColor(int)
+    497:497:public int getSpinSpeed()
+    501:502:public void setSpinSpeed(int)
+    505:505:public int getRimWidth()
+    509:510:public void setRimWidth(int)
+    513:513:public int getDelayMillis()
+    517:518:public void setDelayMillis(int)
 com.cocobabys.customview.SwitchButton:
     private static final java.lang.String TEXT_ON_DEFAULT
     private static final java.lang.String TEXT_OFF_DEFAULT
@@ -264,20 +344,23 @@ com.cocobabys.dbmgr.ChatMgr:
     57:61:com.cocobabys.dbmgr.info.ChatInfo getChatInfoByID(int)
 com.cocobabys.dbmgr.DataMgr:
     private static final java.lang.String DB_NAME
-    289:289:public long addScheduleInfo(com.cocobabys.dbmgr.info.ScheduleInfo)
-    309:309:public long addNews(com.cocobabys.dbmgr.info.News)
-    317:317:public com.cocobabys.dbmgr.info.News getNewsByID(int)
-    321:321:public java.util.List getAllNewsByType(int)
-    360:360:public long addHomework(com.cocobabys.dbmgr.info.Homework)
-    368:368:public com.cocobabys.dbmgr.info.Homework getHomeworkByID(int)
-    404:404:public java.util.List getEduRecordByChildID(java.lang.String)
-    418:419:public void removeEduRecord(java.lang.String)
-    430:430:public boolean isTeacherExist(java.lang.String)
-    434:435:public void addTeacherList(java.util.List)
-    442:442:public com.cocobabys.dbmgr.info.Teacher getTeacher(java.lang.String)
-    458:458:public com.cocobabys.dbmgr.info.ParentInfo getParentByPhone(java.lang.String)
+    293:293:public long addScheduleInfo(com.cocobabys.dbmgr.info.ScheduleInfo)
+    313:313:public long addNews(com.cocobabys.dbmgr.info.News)
+    321:321:public com.cocobabys.dbmgr.info.News getNewsByID(int)
+    325:325:public java.util.List getAllNewsByType(int)
+    361:361:public long addHomework(com.cocobabys.dbmgr.info.Homework)
+    369:369:public com.cocobabys.dbmgr.info.Homework getHomeworkByID(int)
+    405:405:public java.util.List getEduRecordByChildID(java.lang.String)
+    417:418:public void removeEduRecord(java.lang.String)
+    429:429:public boolean isTeacherExist(java.lang.String)
+    433:434:public void addTeacherList(java.util.List)
+    441:441:public com.cocobabys.dbmgr.info.Teacher getTeacher(java.lang.String)
+    457:457:public com.cocobabys.dbmgr.info.ParentInfo getParentByPhone(java.lang.String)
+    503:504:public int getExpCountInMonth(int,int)
 com.cocobabys.dbmgr.EducationMgr:
     20:22:long addEduRecord(com.cocobabys.dbmgr.info.EducationInfo)
+com.cocobabys.dbmgr.ExpMgr:
+    71:89:int getExpCountInMonth(int,int,java.lang.String)
 com.cocobabys.dbmgr.HomeworkMgr:
     20:22:long addHomework(com.cocobabys.dbmgr.info.Homework)
     56:61:com.cocobabys.dbmgr.info.Homework getHomeworkByID(int)
@@ -303,6 +386,8 @@ com.cocobabys.dbmgr.SqliteHelper:
     public static final java.lang.String TEACHER_TAB
     public static final java.lang.String PARENT_TAB
     public static final java.lang.String NEW_CHAT_TAB
+    public static final java.lang.String EXP_TAB
+    public static final java.lang.String MONTH_TAB
 com.cocobabys.dbmgr.TeacherMgr:
     27:43:void addList(java.util.List)
     76:76:boolean exist(java.lang.String)
@@ -358,6 +443,23 @@ com.cocobabys.dbmgr.info.EducationInfo:
     public static final java.lang.String GAME
     public static final java.lang.String CHILD_ID
     44:44:public int getId()
+com.cocobabys.dbmgr.info.ExpInfo:
+    public static final java.lang.String TEACHER_TYPE
+    public static final java.lang.String PARENT_TYPE
+    public static final java.lang.String ID
+    public static final java.lang.String CONTENT
+    public static final java.lang.String TIMESTAMP
+    public static final java.lang.String EXP_ID
+    public static final java.lang.String CHILD_ID
+    public static final java.lang.String MEDIA_URL
+    public static final java.lang.String MEDIA_TYPE
+    public static final java.lang.String SENDER_TYPE
+    public static final java.lang.String SENDER_ID
+    public static final java.lang.String MEDIUM
+    private static final java.lang.String THUMBNAIL
+    77:77:public int getId()
+    119:126:public int getLayoutID()
+    130:130:public boolean isSendBySelf()
 com.cocobabys.dbmgr.info.Homework:
     public static final java.lang.String ID
     public static final java.lang.String TITLE
@@ -499,6 +601,10 @@ com.cocobabys.handler.PushEventHandler:
 com.cocobabys.httpclientmgr.HttpClientHelper:
     private static final java.lang.String VERSION_CODE
     57:58:private HttpClientHelper()
+com.cocobabys.jobs.GetChatJob:
+    private static final int LIMIT_TIME
+com.cocobabys.jobs.ValidatePhoneNumJob
+com.cocobabys.jobs.ValidatePhoneNumJob$1
 com.cocobabys.mycalendar.DateWidgetDayCell:
     296:305:public void CreateReminder(android.graphics.Canvas,int)
 com.cocobabys.mycalendar.DateWidgetDayHeader:
@@ -509,10 +615,6 @@ com.cocobabys.net.ChatMethod:
     private static final java.lang.String MOST
     private static final java.lang.String FROM
     private static final java.lang.String TO
-com.cocobabys.net.ChildMethod:
-    87:93:public int getChildrenInfo()
-    97:99:private java.lang.String createAllGetChildrenInfoUrl()
-    103:116:private int handleGetChildInfoResult(com.cocobabys.net.HttpResult)
 com.cocobabys.net.EducationMethod:
     private static final java.lang.String MOST
     private static final java.lang.String FROM
@@ -565,8 +667,8 @@ com.cocobabys.push.info.PushEvent:
 com.cocobabys.push.info.PushMsg
 com.cocobabys.taskmgr.BindPushTask:
     private static final int MAX_WAIT_FOR_BIND
-com.cocobabys.taskmgr.GetChatJob:
-    private static final int LIMIT_TIME
+com.cocobabys.taskmgr.DownloadImgeJob:
+    28:29:public void setMaxThreads(int)
 com.cocobabys.taskmgr.GetChatTask:
     private static final int LIMIT_TIME
 com.cocobabys.taskmgr.GetHomeworkTask:
@@ -576,8 +678,6 @@ com.cocobabys.taskmgr.GetNormalNewsTask:
 com.cocobabys.taskmgr.GetNoticeTask
 com.cocobabys.taskmgr.LoadingTask:
     private static final long LIMIT_TIME
-com.cocobabys.taskmgr.ValidatePhoneNumJob
-com.cocobabys.taskmgr.ValidatePhoneNumJob$1
 com.cocobabys.threadpool.MyJob:
     33:36:public boolean isCancel()
 com.cocobabys.threadpool.MyThreadPoolMgr:
@@ -642,11 +742,21 @@ com.cocobabys.upload.qiniu.utils.InputStreamAt:
 com.cocobabys.upload.qiniu.utils.InputStreamAt$1
 com.cocobabys.upload.qiniu.utils.MultipartEntity:
     86:87:public void setProcessNotify(com.cocobabys.upload.qiniu.utils.IOnProcess)
+com.cocobabys.utils.ImageBufferedInputStream
 com.cocobabys.utils.ImageDownloader:
     private static final int LIMIT_WITH
     private static final int LIMIT_HEIGHT
     private static final int HTTP_CONN_TIMEOUT
     private static final int HTTP_READ_TIMEOUT
+    private java.lang.String imageUrl
+    private float limitWith
+    private float limitHeight
+    30:37:public ImageDownloader(java.lang.String)
+    39:43:public ImageDownloader(java.lang.String,float,float)
+    46:84:android.graphics.Bitmap download()
+    88:95:private void close(java.io.Closeable)
+    101:139:android.graphics.Bitmap getBitmapformInputStream(java.io.InputStream,java.lang.String)
+    143:161:int computeSampleSize(int,int)
 com.cocobabys.utils.MethodUtils:
     public static final int CHECK_NEWS
     33:33:public MethodUtils()
@@ -662,14 +772,14 @@ com.cocobabys.utils.Utils:
     public static final int LIMIT_HEIGHT
     private static final java.lang.String OLDVERSION
     private static final java.lang.String TEST_HOST
-    49:49:public Utils()
-    112:115:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
-    130:133:public static void deleteProp(java.lang.String)
-    323:331:public boolean isMobileConnected(android.content.Context)
-    476:479:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
-    502:512:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
-    540:540:public static android.graphics.Bitmap getBitmapFromUrl(java.lang.String)
-    612:623:public static void saveInSDCard(java.lang.String)
+    51:51:public Utils()
+    72:73:public static void makeToast(android.content.Context,int)
+    128:131:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
+    146:149:public static void deleteProp(java.lang.String)
+    339:347:public boolean isMobileConnected(android.content.Context)
+    493:496:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
+    523:533:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
+    642:653:public static void saveInSDCard(java.lang.String)
 com.umeng.analytics.Gender
 com.umeng.analytics.MobclickAgent:
     20:439:public MobclickAgent()

@@ -24,6 +24,10 @@ public class DownloadImgeJob {
 	private float defaultLimitWidth;
 	private float defaultLimitHeight;
 
+	public void setMaxThreads(int maxThreads) {
+		this.maxThreads = maxThreads;
+	}
+
 	public void setHanlder(Handler hanlder) {
 		this.hanlder = hanlder;
 	}
