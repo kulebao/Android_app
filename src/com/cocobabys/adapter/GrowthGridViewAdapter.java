@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,16 @@ public class GrowthGridViewAdapter extends BaseAdapter {
 	public void clear() {
 		data.clear();
 		notifyDataSetChanged();
+	}
+
+	public void changeCount(int expCountInMonth, String selectedMonth) {
+		for (GroupExpInfo info : data) {
+			if (info.getMonth().equals(selectedMonth)) {
+				info.setCount(expCountInMonth);
+				notifyDataSetChanged();
+				return;
+			}
+		}
 	}
 
 }

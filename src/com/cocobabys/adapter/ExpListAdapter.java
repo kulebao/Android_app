@@ -27,6 +27,7 @@ import com.cocobabys.activities.SlideGalleryActivity;
 import com.cocobabys.bean.SenderInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.NoticeAction;
 import com.cocobabys.customview.MyGridView;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ExpInfo;
@@ -272,7 +273,7 @@ public class ExpListAdapter extends BaseAdapter {
 	}
 
 	private void startToSlideGalleryActivity(long id) {
-		Intent intent = new Intent(context, SlideGalleryActivity.class);
+		Intent intent = new Intent(NoticeAction.ACTION_GALLERY_READ_ONLY);
 		intent.putExtra(ConstantValue.EXP_ID, id);
 		context.startActivity(intent);
 	}

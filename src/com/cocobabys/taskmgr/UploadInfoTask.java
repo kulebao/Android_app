@@ -40,7 +40,7 @@ public class UploadInfoTask extends AsyncTask<Void, Void, Integer> {
 					return bret;
 				}
 				// OSSMgr.UploadPhoto(bitmap,url);
-				UploadFactory.createUploadMgr().UploadPhoto(bitmap, url,
+				UploadFactory.createUploadMgr().uploadPhoto(bitmap, url,
 						uploadToken);
 
 			} catch (Exception e) {

@@ -1,5 +1,6 @@
 package com.cocobabys.net;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
@@ -74,6 +75,34 @@ public class ExpMethod {
 				.getSelectedChild().getServer_id());
 
 		url += "month=" + year + month;
+		return url;
+	}
+
+	public MethodResult sendExp(String content) throws Exception {
+		MethodResult methodResult = new MethodResult(EventType.POST_EXP_SUCCESS);
+		HttpResult result = new HttpResult();
+		String url = createSendExpUrl();
+		Log.e("DJC", "uploadChildInfo cmd:" + url + " content=" + content);
+		result = HttpClientHelper.executePost(url, content);
+		if (result.getResCode() != HttpStatus.SC_OK) {
+			methodResult.setResultType(EventType.POST_EXP_FAIL);
+			return methodResult;
+		}
+
+		saveExpInfoToDB(result);
+		return methodResult;
+	}
+
+	private void saveExpInfoToDB(HttpResult result) throws JSONException {
+		ExpInfo info = ExpInfo.parseFromJsonObj(result.getJsonObject());
+		List<ExpInfo> list = new ArrayList<ExpInfo>();
+		list.add(info);
+		DataMgr.getInstance().addExpDataList(list);
+	}
+
+	private String createSendExpUrl() {
+		String url = String.format(ServerUrls.GET_EXP_INFO, DataMgr.getInstance().getSchoolID(), DataMgr.getInstance()
+				.getSelectedChild().getServer_id());
 		return url;
 	}
 }

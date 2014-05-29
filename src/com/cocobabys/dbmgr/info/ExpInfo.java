@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.cocobabys.R;
@@ -138,7 +139,7 @@ public class ExpInfo {
 		return list;
 	}
 
-	private static ExpInfo parseFromJsonObj(JSONObject object) throws JSONException {
+	public static ExpInfo parseFromJsonObj(JSONObject object) throws JSONException {
 		ExpInfo info = new ExpInfo();
 
 		info.setExp_id(object.getLong("id"));
@@ -186,23 +187,31 @@ public class ExpInfo {
 
 	public String serverUrlToLocalUrl(String serverUrl, boolean bThumbnail) {
 		String localUrl = "";
-		if (!"".equals(serverUrl)) {
-			if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone().getParent_id())) {
-				// 自己发的图片，就从本地读，以免再次去服务器下载
-				localUrl = serverUrl.replace(UploadFactory.CLOUD_STORAGE_HOST, Utils.getSDCardPicRootPath()
-						+ File.separator);
-
-			} else {
-				String dir = "";
-				if (bThumbnail) {
-					dir = getThumbnailDir();
-				} else {
-					dir = getOriginalDir();
-				}
-				Utils.mkDirs(dir);
-				localUrl = dir + Utils.getName(serverUrl);
-			}
+		if ("".equals(serverUrl)) {
+			return "";
 		}
+
+		if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone().getParent_id())) {
+			// 自己发的图片，就从本地读，以免再次去服务器下载
+			localUrl = serverUrl.replace(UploadFactory.CLOUD_STORAGE_HOST, Utils.getSDCardPicRootPath()
+					+ File.separator);
+
+			// 如果文件不存在，则区分是否是缩略图
+			if (!new File(localUrl).exists() && bThumbnail) {
+				String name = Utils.getName(localUrl);
+				localUrl = Utils.getDir(localUrl) + File.separator + THUMBNAIL + File.separator + name;
+			}
+		} else {
+			String dir = "";
+			if (bThumbnail) {
+				dir = getThumbnailDir();
+			} else {
+				dir = getOriginalDir();
+			}
+			localUrl = dir + Utils.getName(serverUrl);
+		}
+
+		Utils.mkDirs(Utils.getDir(localUrl));
 		Log.d("DDD", "serverUrlToLocalUrl =" + localUrl);
 		return localUrl;
 	}

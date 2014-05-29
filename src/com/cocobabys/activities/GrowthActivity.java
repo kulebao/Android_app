@@ -40,6 +40,7 @@ public class GrowthActivity extends UmengStatisticsActivity {
 	private GrowthGridViewAdapter adapter;
 	private ProgressDialog dialog;
 	private Handler handler;
+	private String selectedMonth;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -163,7 +164,8 @@ public class GrowthActivity extends UmengStatisticsActivity {
 	private void startToExpListActivity(int position) {
 		Intent intent = new Intent();
 		intent.putExtra(ConstantValue.EXP_YEAR, currentYear);
-		intent.putExtra(ConstantValue.EXP_MONTH, adapter.getItem(position).getMonth());
+		selectedMonth = adapter.getItem(position).getMonth();
+		intent.putExtra(ConstantValue.EXP_MONTH, selectedMonth);
 		intent.setClass(this, ExpListActivity.class);
 		startActivity(intent);
 	}
@@ -204,6 +206,16 @@ public class GrowthActivity extends UmengStatisticsActivity {
 			}
 		});
 
+		TextView send = (TextView) findViewById(R.id.rightBtn);
+		send.setVisibility(View.VISIBLE);
+		send.setText(R.string.send);
+		send.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Utils.goNextActivity(GrowthActivity.this, SendExpActivity.class, false);
+			}
+		});
+
 	}
 
 	@Override
@@ -227,4 +239,12 @@ public class GrowthActivity extends UmengStatisticsActivity {
 		}
 		return true;
 	}
+
+	@Override
+	protected void onRestart() {
+		int expCountInMonth = DataMgr.getInstance().getExpCountInMonth(currentYear, selectedMonth);
+		adapter.changeCount(expCountInMonth, selectedMonth);
+		super.onRestart();
+	}
+
 }

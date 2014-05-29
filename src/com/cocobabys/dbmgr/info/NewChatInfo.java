@@ -5,6 +5,7 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.cocobabys.R;
@@ -141,6 +142,9 @@ public class NewChatInfo {
 				// 自己发的图片，就从本地读，以免再次去服务器下载
 				localUrl = media_url.replace(UploadFactory.CLOUD_STORAGE_HOST, Utils.getSDCardPicRootPath()
 						+ File.separator);
+				if (!TextUtils.isEmpty(localUrl)) {
+					Utils.mkDirs(Utils.getDir(localUrl));
+				}
 
 			} else {
 				String dir = Utils.getChatIconDir(child_id);

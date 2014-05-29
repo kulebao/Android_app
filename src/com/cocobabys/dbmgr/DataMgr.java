@@ -1,24 +1,19 @@
 package com.cocobabys.dbmgr;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.bean.GroupExpInfo;
-import com.cocobabys.dbmgr.info.BindedNumInfo;
 import com.cocobabys.dbmgr.info.ChatInfo;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.CookBookInfo;
 import com.cocobabys.dbmgr.info.EducationInfo;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.dbmgr.info.Homework;
-import com.cocobabys.dbmgr.info.LocationInfo;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.News;
 import com.cocobabys.dbmgr.info.ParentInfo;
@@ -29,15 +24,7 @@ import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.utils.Utils;
 
 public class DataMgr {
-	// 1 -> 2
-	// 1)增加一个家长表 parent_tab
-	// 2）TEACHER_TAB 修改了unique，之前是phone 改为 teacherid
-	// ********************
-	// 2 -> 3
-	// 新增 EXP_TAB, MONTH_TAB
-	// CHILDREN_INFO_TAB 增加小孩id为unique
-
-	private static int DB_VERSION = 3;
+	private static int DB_VERSION = 1;
 	private static final String DB_NAME = "coolbao" + ".db";
 	private static Object mLock = new Object();
 	private static DataMgr instance;
@@ -52,7 +39,6 @@ public class DataMgr {
 	private NewsMgr newsMgr;
 	private SwipeMgr swipeMgr;
 	private HomeworkMgr homeworkMgr;
-	private ChatMgr chatMgr;
 	private EducationMgr educationMgr;
 	private TeacherMgr teacherMgr;
 	private ParentMgr parentMgr;
@@ -79,134 +65,11 @@ public class DataMgr {
 		newsMgr = new NewsMgr(dbHelper);
 		swipeMgr = new SwipeMgr(dbHelper);
 		homeworkMgr = new HomeworkMgr(dbHelper);
-		chatMgr = new ChatMgr(dbHelper);
 		educationMgr = new EducationMgr(dbHelper);
 		teacherMgr = new TeacherMgr(dbHelper);
 		parentMgr = new ParentMgr(dbHelper);
 		newChatMgr = new NewChatMgr(dbHelper);
 		expMgr = new ExpMgr(dbHelper);
-	}
-
-	public long addLocationInfo(LocationInfo info) {
-		ContentValues values = new ContentValues();
-		values.put(LocationInfo.LATITUDE, info.getLatitude());
-		values.put(LocationInfo.LONGITUDE, info.getLongitude());
-		values.put(LocationInfo.TIMESTAMP, info.getTimestamp());
-		values.put(LocationInfo.ADDRESS, info.getAddress());
-		values.put(LocationInfo.LBS_NUM, info.getLbs_num());
-		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
-		return writableDatabase.insert(SqliteHelper.LOCATION_TAB, null, values);
-	}
-
-	public void deleteLocationInfo(int id) {
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		db.execSQL("DELETE FROM " + SqliteHelper.LOCATION_TAB + " WHERE " + LocationInfo.ID + " = " + id);
-	}
-
-	public List<LocationInfo> getLocationInfos() {
-		List<LocationInfo> list = new ArrayList<LocationInfo>();
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.LOCATION_TAB + " ORDER BY "
-				+ LocationInfo.TIMESTAMP + " DESC", null);
-
-		try {
-			cursor.moveToFirst();
-			while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
-				LocationInfo locationInfo = getLocationInfoByCursor(cursor);
-				list.add(locationInfo);
-				cursor.moveToNext();
-			}
-		} finally {
-			if (cursor != null) {
-				cursor.close();
-			}
-		}
-		return list;
-	}
-
-	private LocationInfo getLocationInfoByCursor(Cursor cursor) {
-		LocationInfo info = new LocationInfo();
-
-		info.setId(cursor.getInt(0));
-		info.setLatitude(cursor.getString(1));
-		info.setLongitude(cursor.getString(2));
-		info.setTimestamp(cursor.getString(3));
-		info.setAddress(cursor.getString(4));
-		info.setLbs_num(cursor.getString(5));
-		return info;
-	}
-
-	public long addBindedNumInfo(BindedNumInfo info) {
-		ContentValues values = new ContentValues();
-		values.put(BindedNumInfo.PHONE_NUM, info.getPhone_num());
-		values.put(BindedNumInfo.NICKNAME, info.getNickname());
-		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
-		return writableDatabase.insert(SqliteHelper.BINDED_NUM_TAB, null, values);
-	}
-
-	public BindedNumInfo getBindedNumInfoByNum(String num) {
-		BindedNumInfo info = null;
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.BINDED_NUM_TAB + " WHERE "
-				+ BindedNumInfo.PHONE_NUM + " = '" + num + "'", null);
-		try {
-			cursor.moveToFirst();
-			while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
-				info = getBindedNumInfoByCursor(cursor);
-				cursor.moveToNext();
-			}
-		} finally {
-			if (cursor != null) {
-				cursor.close();
-			}
-		}
-
-		return info;
-	}
-
-	public List<BindedNumInfo> getAllBindedNumInfo() {
-		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.BINDED_NUM_TAB, null);
-		return getBindedNumInfoList(cursor);
-	}
-
-	public void updateBindedNumInfo(BindedNumInfo info) {
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put(BindedNumInfo.PHONE_NUM, info.getPhone_num());
-		values.put(BindedNumInfo.NICKNAME, info.getNickname());
-		db.update(SqliteHelper.BINDED_NUM_TAB, values, " _id = " + info.getId(), null);
-	}
-
-	public void deleteBindedNumInfo(int id) {
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		db.execSQL("DELETE FROM " + SqliteHelper.BINDED_NUM_TAB + " WHERE " + BindedNumInfo.ID + " = " + id);
-	}
-
-	private List<BindedNumInfo> getBindedNumInfoList(Cursor cursor) {
-		List<BindedNumInfo> list = new ArrayList<BindedNumInfo>();
-		try {
-			cursor.moveToFirst();
-			while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
-				BindedNumInfo info = getBindedNumInfoByCursor(cursor);
-				list.add(info);
-				cursor.moveToNext();
-			}
-		} finally {
-			if (cursor != null) {
-				cursor.close();
-			}
-		}
-		return list;
-	}
-
-	private BindedNumInfo getBindedNumInfoByCursor(Cursor cursor) {
-		BindedNumInfo info = new BindedNumInfo();
-
-		info.setId(cursor.getInt(0));
-		info.setPhone_num(cursor.getString(1));
-		info.setNickname(cursor.getString(2));
-		return info;
 	}
 
 	public void upgradeAll() {
@@ -346,15 +209,18 @@ public class DataMgr {
 	}
 
 	public String getLastestSwipeIn(String date) {
-		return swipeMgr.getLastestSwipeIn(date, childrenInfoMgr.getSelectedChild().getServer_id());
+		return swipeMgr.getLastestSwipeIn(date, childrenInfoMgr
+				.getSelectedChild().getServer_id());
 	}
 
 	public String getLatestSwipeOut(String date) {
-		return swipeMgr.getLatestSwipeOut(date, childrenInfoMgr.getSelectedChild().getServer_id());
+		return swipeMgr.getLatestSwipeOut(date, childrenInfoMgr
+				.getSelectedChild().getServer_id());
 	}
 
 	public List<SwipeInfo> getAllSwipeCardNotice(String date) {
-		return swipeMgr.getAllSwipeCardNotice(date, childrenInfoMgr.getSelectedChild().getServer_id());
+		return swipeMgr.getAllSwipeCardNotice(date, childrenInfoMgr
+				.getSelectedChild().getServer_id());
 	}
 
 	public long addHomework(Homework info) {
@@ -377,26 +243,6 @@ public class DataMgr {
 		homeworkMgr.removeAllHomework();
 	}
 
-	public List<ChatInfo> getChatInfoWithLimite(int max) {
-		return chatMgr.getChatInfoWithLimite(max);
-	}
-
-	public List<ChatInfo> getChatInfoWithLimite(int max, long to) {
-		return chatMgr.getChatInfoWithLimite(max, to);
-	}
-
-	public void removeAllChatInfo() {
-		chatMgr.removeAllChatInfo();
-	}
-
-	public void addChatInfoList(List<ChatInfo> list) {
-		chatMgr.addChatInfoList(list);
-	}
-
-	public int getLastChatServerid() {
-		return chatMgr.getLastServerid();
-	}
-
 	public void addEduRecordList(List<EducationInfo> list) {
 		educationMgr.addEduRecordList(list);
 	}
@@ -406,11 +252,13 @@ public class DataMgr {
 	}
 
 	public List<EducationInfo> getSelectedChildEduRecord() {
-		return educationMgr.getEduRecordByChildID(childrenInfoMgr.getSelectedChild().getServer_id());
+		return educationMgr.getEduRecordByChildID(childrenInfoMgr
+				.getSelectedChild().getServer_id());
 	}
 
 	public void removeSelectedChildEduRecord() {
-		educationMgr.removeEduRecord(childrenInfoMgr.getSelectedChild().getServer_id());
+		educationMgr.removeEduRecord(childrenInfoMgr.getSelectedChild()
+				.getServer_id());
 	}
 
 	public void removeEduRecord(String childid) {
@@ -470,7 +318,8 @@ public class DataMgr {
 		return newChatMgr.getChatInfoWithLimite(max, childid);
 	}
 
-	public List<NewChatInfo> getNewChatInfoWithLimite(int max, long to, String childid) {
+	public List<NewChatInfo> getNewChatInfoWithLimite(int max, long to,
+			String childid) {
 		return newChatMgr.getChatInfoWithLimite(max, to, childid);
 	}
 
@@ -499,7 +348,7 @@ public class DataMgr {
 		return expMgr.getExpCountGroupByMonthPerYear(year, childid);
 	}
 
-	public int getExpCountInMonth(int year, int month) {
+	public int getExpCountInMonth(int year, String month) {
 		String childid = getSelectedChild().getServer_id();
 		return expMgr.getExpCountInMonth(year, month, childid);
 	}

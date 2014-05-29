@@ -4748,18 +4748,16 @@ com.baidu.frontia.framework.IModule
 com.baidu.frontia.framework.IModule: void init(java.lang.String)
 com.cocobabys.activities.AboutUsActivity
 com.cocobabys.activities.AboutUsActivity: AboutUsActivity()
-com.cocobabys.activities.BindLocationMgrActivity
-com.cocobabys.activities.BindLocationMgrActivity: BindLocationMgrActivity()
 com.cocobabys.activities.ChangePWDActivity
 com.cocobabys.activities.ChangePWDActivity: ChangePWDActivity()
 com.cocobabys.activities.ChatActivity
 com.cocobabys.activities.ChatActivity: ChatActivity()
-com.cocobabys.activities.CheckIconActivity
-com.cocobabys.activities.CheckIconActivity: CheckIconActivity()
 com.cocobabys.activities.ChildListActivity
 com.cocobabys.activities.ChildListActivity: ChildListActivity()
 com.cocobabys.activities.CookBookActivity
 com.cocobabys.activities.CookBookActivity: CookBookActivity()
+com.cocobabys.activities.CustomGalleryActivity
+com.cocobabys.activities.CustomGalleryActivity: CustomGalleryActivity()
 com.cocobabys.activities.EducationActivity
 com.cocobabys.activities.EducationActivity: EducationActivity()
 com.cocobabys.activities.ExpListActivity
@@ -4772,16 +4770,8 @@ com.cocobabys.activities.GuideActivity
 com.cocobabys.activities.GuideActivity: GuideActivity()
 com.cocobabys.activities.HomeworkPullRefreshActivity
 com.cocobabys.activities.HomeworkPullRefreshActivity: HomeworkPullRefreshActivity()
-com.cocobabys.activities.InteractionActivity
-com.cocobabys.activities.InteractionActivity: InteractionActivity()
 com.cocobabys.activities.LoadingActivity
 com.cocobabys.activities.LoadingActivity: LoadingActivity()
-com.cocobabys.activities.LocationActivity
-com.cocobabys.activities.LocationActivity: LocationActivity()
-com.cocobabys.activities.LocationMgrActivity
-com.cocobabys.activities.LocationMgrActivity: LocationMgrActivity()
-com.cocobabys.activities.LocationRecordActivity
-com.cocobabys.activities.LocationRecordActivity: LocationRecordActivity()
 com.cocobabys.activities.LoginActivity
 com.cocobabys.activities.LoginActivity: LoginActivity()
 com.cocobabys.activities.MainActivity
@@ -4804,8 +4794,8 @@ com.cocobabys.activities.SchoolInfoActivity
 com.cocobabys.activities.SchoolInfoActivity: SchoolInfoActivity()
 com.cocobabys.activities.SchoolNoticeActivity
 com.cocobabys.activities.SchoolNoticeActivity: SchoolNoticeActivity()
-com.cocobabys.activities.SendChatActivity
-com.cocobabys.activities.SendChatActivity: SendChatActivity()
+com.cocobabys.activities.SendExpActivity
+com.cocobabys.activities.SendExpActivity: SendExpActivity()
 com.cocobabys.activities.SendNewChatActivity
 com.cocobabys.activities.SendNewChatActivity: SendNewChatActivity()
 com.cocobabys.activities.SettingActivity

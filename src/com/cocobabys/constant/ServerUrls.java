@@ -128,4 +128,7 @@ public class ServerUrls {
 
 	public static final String GET_EXP_INFO = getHost() + ROOT_RES_PATH + "/%s/" + EXP_RES_PATH + "/%s/"
 			+ RECORD_RES_PATH + "?";
+	
+	public static final String POST_EXP_INFO = getHost() + ROOT_RES_PATH + "/%s/" + EXP_RES_PATH + "/%s/"
+			+ RECORD_RES_PATH;
 }

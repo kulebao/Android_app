@@ -31,11 +31,11 @@ import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.Utils;
 
 public class MainActivity extends TabActivity {
-    //每10分钟检查push相关参数是否正常，如不正常，重新绑定
+	// 每10分钟检查push相关参数是否正常，如不正常，重新绑定
 	private static final int DELAY_TIME = 600;
-	//启动后，2分钟时，开始检查push相关参数是否正常，如不正常，重新绑定
-    private static final int FIRST_DELAY_TIME = 120;
-    private TabHost tabHost;
+	// 启动后，2分钟时，开始检查push相关参数是否正常，如不正常，重新绑定
+	private static final int FIRST_DELAY_TIME = 120;
+	private TabHost tabHost;
 	private static final String TAB_TAG_LOCATION = "location";
 	private static final String TAB_TAG_NOTICE = "notice";
 	private static final String TAB_TAG_SETTING = "setting";
@@ -138,7 +138,7 @@ public class MainActivity extends TabActivity {
 		int[] iconIds = { R.drawable.ic_launcher, R.drawable.ic_launcher,
 				R.drawable.ic_launcher };
 		Class<?>[] classes = { SchoolNoticeActivity.class,
-				LocationMgrActivity.class, SettingActivity.class };
+				CookBookActivity.class, SettingActivity.class };
 		Resources res = this.getResources();
 		for (int i = 0; i < TAB_TAGS.length; ++i) {
 			View view = LayoutInflater.from(this).inflate(R.layout.tab_widget,

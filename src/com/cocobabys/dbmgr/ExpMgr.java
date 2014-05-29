@@ -67,11 +67,11 @@ class ExpMgr {
 		return list;
 	}
 
-	int getExpCountInMonth(int year, int month, String childID) {
+	int getExpCountInMonth(int year, String month, String childID) {
 		int count = 0;
 
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT COUNT(exp_id) AS total FROM" + SqliteHelper.EXP_TAB + " WHERE "
+		Cursor cursor = db.rawQuery("SELECT COUNT(exp_id) AS total FROM " + SqliteHelper.EXP_TAB + " WHERE "
 				+ ExpInfo.CHILD_ID + " = '" + childID + "'" + " AND STRFTIME('%Y', timestamp / 1000, 'unixepoch') "
 				+ "='" + year + "' AND STRFTIME('%m', timestamp / 1000, 'unixepoch') = '" + month + "'", null);
 

@@ -1,9 +1,11 @@
 E:\coolbao\LoginTest\gen\com\cocobabys\R.java \
  : E:\coolbao\LoginTest\res\drawable\bind_btn.xml \
+E:\coolbao\LoginTest\res\drawable\btn_sel.xml \
 E:\coolbao\LoginTest\res\drawable\color_btn.xml \
 E:\coolbao\LoginTest\res\drawable\dot.xml \
 E:\coolbao\LoginTest\res\drawable\off_bg.xml \
 E:\coolbao\LoginTest\res\drawable\on_bg.xml \
+E:\coolbao\LoginTest\res\drawable\on_focus_checkbox.xml \
 E:\coolbao\LoginTest\res\drawable\setting_btn.xml \
 E:\coolbao\LoginTest\res\drawable\small_btn.xml \
 E:\coolbao\LoginTest\res\drawable\sub_btn.xml \
@@ -22,8 +24,10 @@ E:\coolbao\LoginTest\res\drawable-hdpi\bg_null.jpg \
 E:\coolbao\LoginTest\res\drawable-hdpi\bottom.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\bottom_bar.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\breakfast.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\btn.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\btn_bind_normal.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\btn_bind_press.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\btn_hover.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\btn_normal.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\btn_pressed.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\btn_setting_normal.png \
@@ -40,6 +44,8 @@ E:\coolbao\LoginTest\res\drawable-hdpi\chat_content_right.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\chat_content_right_pressed.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\chat_head_icon.gif \
 E:\coolbao\LoginTest\res\drawable-hdpi\chat_head_icon_bg.9.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\checkbox_selected.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\checkbox_up.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\childinfo_bg.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\child_2.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\coloum_line.png \
@@ -137,6 +143,7 @@ E:\coolbao\LoginTest\res\layout\child_item.xml \
 E:\coolbao\LoginTest\res\layout\client_tab.xml \
 E:\coolbao\LoginTest\res\layout\cook_item.xml \
 E:\coolbao\LoginTest\res\layout\cook_list.xml \
+E:\coolbao\LoginTest\res\layout\custom_gallery.xml \
 E:\coolbao\LoginTest\res\layout\dialog.xml \
 E:\coolbao\LoginTest\res\layout\dialog_single_btn.xml \
 E:\coolbao\LoginTest\res\layout\education.xml \
@@ -145,6 +152,7 @@ E:\coolbao\LoginTest\res\layout\exp_item.xml \
 E:\coolbao\LoginTest\res\layout\exp_list.xml \
 E:\coolbao\LoginTest\res\layout\feed_back.xml \
 E:\coolbao\LoginTest\res\layout\footerview.xml \
+E:\coolbao\LoginTest\res\layout\gallery_item.xml \
 E:\coolbao\LoginTest\res\layout\grid_item.xml \
 E:\coolbao\LoginTest\res\layout\grouth.xml \
 E:\coolbao\LoginTest\res\layout\guide.xml \
@@ -168,6 +176,7 @@ E:\coolbao\LoginTest\res\layout\schedule_item.xml \
 E:\coolbao\LoginTest\res\layout\schedule_list.xml \
 E:\coolbao\LoginTest\res\layout\school_info.xml \
 E:\coolbao\LoginTest\res\layout\school_notice.xml \
+E:\coolbao\LoginTest\res\layout\send_exp.xml \
 E:\coolbao\LoginTest\res\layout\setting.xml \
 E:\coolbao\LoginTest\res\layout\show_icon.xml \
 E:\coolbao\LoginTest\res\layout\simple_grid_item.xml \
@@ -188,6 +197,7 @@ E:\coolbao\LoginTest\res\values\colors.xml \
 E:\coolbao\LoginTest\res\values\dimens.xml \
 E:\coolbao\LoginTest\res\values\strings.xml \
 E:\coolbao\LoginTest\res\values\style.xml \
+E:\coolbao\LoginTest\res\values-hdpi\dimens.xml \
 E:\coolbao\LoginTest\res\values-hdpi\strings.xml \
 E:\coolbao\LoginTest\res\values-large\dimens.xml \
 E:\coolbao\LoginTest\res\values-ldpi\strings.xml \

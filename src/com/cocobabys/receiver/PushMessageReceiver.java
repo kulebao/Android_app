@@ -14,11 +14,7 @@ import android.util.Log;
 
 import com.baidu.frontia.api.FrontiaPushMessageReceiver;
 import com.cocobabys.R;
-import com.cocobabys.activities.LocationActivity;
 import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.BindedNumInfo;
-import com.cocobabys.dbmgr.info.LocationInfo;
 import com.cocobabys.dbmgr.info.Notice;
 import com.cocobabys.noticepaser.NoticePaser;
 import com.cocobabys.noticepaser.NoticePaserFactory;
@@ -110,9 +106,6 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 			JSONObject object = new JSONObject(msg);
 			int type = object.getInt(JSONConstant.NOTIFICATION_TYPE);
 			if (type == JSONConstant.NOTICE_TYPE_LOCATION) {
-				LocationInfo info = getLocationInfo(object);
-				saveLocationInfo(info);
-				setLocNotification(info, object, context);
 				return;
 			}
 
@@ -128,84 +121,11 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 		}
 	}
 
-	private void setLocNotification(LocationInfo info, JSONObject object,
-			Context context) {
-		NotificationManager nm = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
-		Intent intent = new Intent(context, LocationActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-		try {
-			String title = object.getString(JSONConstant.NOTIFICATION_TITLE);
-			// 注意，这里进行了修正，使用address做body
-			String body = info.getAddress();
-
-			intent.putExtra(JSONConstant.LATITUDE, info.getLatitude());
-			intent.putExtra(JSONConstant.LONGITUDE, info.getLongitude());
-			intent.putExtra(JSONConstant.ADDRESS, info.getAddress());
-			intent.putExtra(JSONConstant.TIME_STAMP, info.getTimestamp());
-			intent.putExtra(JSONConstant.LBS_NUM, info.getLbs_num());
-
-			BindedNumInfo bindedNumInfo = DataMgr.getInstance()
-					.getBindedNumInfoByNum(info.getLbs_num());
-			if (bindedNumInfo != null) {
-				title = bindedNumInfo.toString();
-			}
-
-			PendingIntent contentIntent = PendingIntent.getActivity(context,
-					notify_id++, intent, 0);
-
-			Notification notif = new Notification(R.drawable.ic_launcher,
-					context.getResources().getString(R.string.locationInfo),
-					System.currentTimeMillis());
-
-			notif.setLatestEventInfo(context, title, body, contentIntent);
-			setSound(notif);
-			notif.defaults |= Notification.DEFAULT_VIBRATE;
-			notif.flags |= Notification.FLAG_AUTO_CANCEL; // 在通知栏上点击此通知后自动清除此通知
-			notif.flags |= Notification.FLAG_NO_CLEAR; // 表明在点击了通知栏中的"清除通知"后，此通知不清除，
-
-			nm.notify(notify_id, notif);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public static void setSound(Notification notif) {
 		// 通过设置控制提示音打开关闭
 		if (Utils.isVoiceOn()) {
 			notif.defaults |= Notification.DEFAULT_SOUND;
 		}
-	}
-
-	private void saveLocationInfo(LocationInfo info) {
-		DataMgr.getInstance().addLocationInfo(info);
-	}
-
-	private LocationInfo getLocationInfo(JSONObject object) {
-		LocationInfo info = null;
-		try {
-			// 注意timestamp是放在通用字段里面的
-			long timestamp = Long.valueOf(object
-					.getString(JSONConstant.TIME_STAMP));
-			// 经纬度和位置属性是放在自定义字段
-			JSONObject custom = new JSONObject(
-					object.getString(JSONConstant.PUSH_CUSTOM));
-			String lat = custom.getString(JSONConstant.LATITUDE);
-			String lot = custom.getString(JSONConstant.LONGITUDE);
-			String address = custom.getString(JSONConstant.ADDRESS);
-			String lbs_num = custom.getString(JSONConstant.LBS_NUM);
-
-			info = new LocationInfo();
-			info.setLatitude(lat);
-			info.setLongitude(lot);
-			info.setTimestamp(Utils.convertTime(timestamp));
-			info.setAddress(address);
-			info.setLbs_num(lbs_num);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return info;
 	}
 
 	public static void setNotification(Notice notice, Context context) {
@@ -286,7 +206,8 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 				+ " sucessTags=" + sucessTags + " failTags=" + failTags
 				+ " requestId=" + requestId;
 		Log.d(TAG, responseString);
-		Utils.saveUndeleteableProp(JSONConstant.PUSH_TAGS, listToString(sucessTags));
+		Utils.saveUndeleteableProp(JSONConstant.PUSH_TAGS,
+				listToString(sucessTags));
 	}
 
 	private String listToString(List<String> list) {

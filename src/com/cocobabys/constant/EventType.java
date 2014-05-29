@@ -102,4 +102,6 @@ public class EventType {
 	public static final int GET_EXP_INFO_SUCCESS = 1820;
 	public static final int GET_EXP_INFO_FAIL = 1821;
 
+	public static final int UPLOAD_ICON_SUCCESS = 1830;
+
 }

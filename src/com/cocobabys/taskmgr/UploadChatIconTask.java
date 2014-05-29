@@ -40,8 +40,7 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 	@Override
 	protected Integer doInBackground(Void... params) {
 		int result = EventType.NET_WORK_INVALID;
-		boolean networkConnected = Utils.isNetworkConnected(MyApplication
-				.getInstance());
+		boolean networkConnected = Utils.isNetworkConnected(MyApplication.getInstance());
 		if (networkConnected) {
 			try {
 				String url = uploadBmpToServer();
@@ -49,8 +48,7 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 
 				// 上传到云服务器后，生成的外部链接
 				String image = UploadFactory.CLOUD_STORAGE_HOST + url;
-				list = ChatMethod.getMethod().sendChat(
-						formatChatContent(image), lastid);
+				list = ChatMethod.getMethod().sendChat(formatChatContent(image), lastid);
 				result = EventType.SUCCESS;
 			} catch (InvalidTokenException e) {
 				result = EventType.TOKEN_INVALID;
@@ -97,7 +95,7 @@ public class UploadChatIconTask extends AsyncTask<Void, Void, Integer> {
 		if (TextUtils.isEmpty(uploadToken)) {
 			throw new RuntimeException("getUploadToken failed ");
 		}
-		UploadFactory.createUploadMgr().UploadPhoto(bitmap, url, uploadToken);
+		UploadFactory.createUploadMgr().uploadPhoto(bitmap, url, uploadToken);
 		return url;
 	}
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cocobabys"
-    android:versionCode="53"
-    android:versionName="V1.0.4" >
+    android:versionCode="55"
+    android:versionName="V1.0.6" >
 
     <uses-sdk android:minSdkVersion="10" />
 
@@ -299,6 +299,30 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.cocobabys.GALLERY_READ_ONLY" />
+                <action android:name="com.cocobabys.GALLERY_CAN_DELETE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.SendExpActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.CustomGalleryActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.cocobabys.ACTION_PICK" />
+                <action android:name="com.cocobabys.ACTION_MULTIPLE_PICK" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.LoadingActivity"

@@ -4303,29 +4303,6 @@ com.cocobabys.activities.ActivityHelper -> com.cocobabys.activities.a:
 com.cocobabys.activities.ActivityHelper$1 -> com.cocobabys.activities.b:
     android.app.Activity val$activity -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.BindLocationMgrActivity -> com.cocobabys.activities.BindLocationMgrActivity:
-    com.cocobabys.adapter.BindedNumInfoListAdapter adapter -> a
-    android.widget.ListView list -> b
-    java.util.List listinfo -> c
-    android.app.AlertDialog dialog -> d
-    void onCreate(android.os.Bundle) -> onCreate
-    void access$000(com.cocobabys.activities.BindLocationMgrActivity) -> a
-    android.app.AlertDialog access$100(com.cocobabys.activities.BindLocationMgrActivity) -> b
-    void access$200(com.cocobabys.activities.BindLocationMgrActivity,android.widget.EditText,android.widget.EditText) -> a
-com.cocobabys.activities.BindLocationMgrActivity$1 -> com.cocobabys.activities.c:
-    com.cocobabys.activities.BindLocationMgrActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.BindLocationMgrActivity$2 -> com.cocobabys.activities.d:
-    com.cocobabys.activities.BindLocationMgrActivity this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.BindLocationMgrActivity$3 -> com.cocobabys.activities.e:
-    android.widget.EditText val$nicknameEdit -> a
-    android.widget.EditText val$numEdit -> b
-    com.cocobabys.activities.BindLocationMgrActivity this$0 -> c
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.BindLocationMgrActivity$4 -> com.cocobabys.activities.f:
-    com.cocobabys.activities.BindLocationMgrActivity this$0 -> a
-    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 com.cocobabys.activities.ChangePWDActivity -> com.cocobabys.activities.ChangePWDActivity:
     android.os.Handler handler -> a
     android.app.ProgressDialog dialog -> b
@@ -4340,13 +4317,13 @@ com.cocobabys.activities.ChangePWDActivity -> com.cocobabys.activities.ChangePWD
     void access$000(com.cocobabys.activities.ChangePWDActivity) -> a
     boolean access$100(com.cocobabys.activities.ChangePWDActivity) -> b
     void access$200(com.cocobabys.activities.ChangePWDActivity) -> c
-com.cocobabys.activities.ChangePWDActivity$1 -> com.cocobabys.activities.g:
+com.cocobabys.activities.ChangePWDActivity$1 -> com.cocobabys.activities.c:
     com.cocobabys.activities.ChangePWDActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.ChangePWDActivity$2 -> com.cocobabys.activities.h:
+com.cocobabys.activities.ChangePWDActivity$2 -> com.cocobabys.activities.d:
     com.cocobabys.activities.ChangePWDActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.ChangePWDActivity$3 -> com.cocobabys.activities.i:
+com.cocobabys.activities.ChangePWDActivity$3 -> com.cocobabys.activities.e:
     com.cocobabys.activities.ChangePWDActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.cocobabys.activities.ChatActivity -> com.cocobabys.activities.ChatActivity:
@@ -4383,52 +4360,35 @@ com.cocobabys.activities.ChatActivity -> com.cocobabys.activities.ChatActivity:
     void access$700(com.cocobabys.activities.ChatActivity,android.widget.AbsListView) -> a
     android.view.View access$800(com.cocobabys.activities.ChatActivity) -> g
     com.cocobabys.jobs.GetChatJob access$900(com.cocobabys.activities.ChatActivity) -> h
-com.cocobabys.activities.ChatActivity$1 -> com.cocobabys.activities.j:
+com.cocobabys.activities.ChatActivity$1 -> com.cocobabys.activities.f:
     com.cocobabys.activities.ChatActivity this$0 -> a
     void execute() -> a
-com.cocobabys.activities.ChatActivity$2 -> com.cocobabys.activities.k:
+com.cocobabys.activities.ChatActivity$2 -> com.cocobabys.activities.g:
     com.cocobabys.activities.ChatActivity this$0 -> a
     void execute() -> a
-com.cocobabys.activities.ChatActivity$3 -> com.cocobabys.activities.l:
+com.cocobabys.activities.ChatActivity$3 -> com.cocobabys.activities.h:
     com.cocobabys.activities.ChatActivity this$0 -> a
     void execute() -> a
-com.cocobabys.activities.ChatActivity$4 -> com.cocobabys.activities.m:
+com.cocobabys.activities.ChatActivity$4 -> com.cocobabys.activities.i:
     com.cocobabys.activities.ChatActivity this$0 -> a
     void onRefresh() -> a
-com.cocobabys.activities.ChatActivity$5 -> com.cocobabys.activities.n:
+com.cocobabys.activities.ChatActivity$5 -> com.cocobabys.activities.j:
     com.cocobabys.activities.ChatActivity this$0 -> a
     void onScrollStateChanged(android.widget.AbsListView,int) -> onScrollStateChanged
     void onScroll(android.widget.AbsListView,int,int,int) -> onScroll
-com.cocobabys.activities.ChatActivity$6 -> com.cocobabys.activities.o:
+com.cocobabys.activities.ChatActivity$6 -> com.cocobabys.activities.k:
     com.cocobabys.activities.ChatActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.ChatActivity$MyClickListner -> com.cocobabys.activities.p:
+com.cocobabys.activities.ChatActivity$MyClickListner -> com.cocobabys.activities.l:
     com.cocobabys.activities.ChatActivity this$0 -> b
     void onClick(android.view.View) -> onClick
     void execute() -> a
-com.cocobabys.activities.CheckIconActivity -> com.cocobabys.activities.CheckIconActivity:
-    android.graphics.Bitmap bitmap -> a
-    android.os.Handler handler -> b
-    android.app.ProgressDialog dialog -> c
-    void onCreate(android.os.Bundle) -> onCreate
-    void runSendPicTask() -> a
-    void onDestroy() -> onDestroy
-    void access$000(com.cocobabys.activities.CheckIconActivity,android.os.Message) -> a
-com.cocobabys.activities.CheckIconActivity$1 -> com.cocobabys.activities.q:
-    com.cocobabys.activities.CheckIconActivity this$0 -> a
-    void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.CheckIconActivity$2 -> com.cocobabys.activities.r:
-    com.cocobabys.activities.CheckIconActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.CheckIconActivity$3 -> com.cocobabys.activities.s:
-    com.cocobabys.activities.CheckIconActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
 com.cocobabys.activities.ChildListActivity -> com.cocobabys.activities.ChildListActivity:
     android.widget.ListView list -> a
     com.cocobabys.adapter.ChildListAdapter adapter -> b
     void onCreate(android.os.Bundle) -> onCreate
     com.cocobabys.adapter.ChildListAdapter access$000(com.cocobabys.activities.ChildListActivity) -> a
-com.cocobabys.activities.ChildListActivity$1 -> com.cocobabys.activities.t:
+com.cocobabys.activities.ChildListActivity$1 -> com.cocobabys.activities.m:
     com.cocobabys.activities.ChildListActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 com.cocobabys.activities.CookBookActivity -> com.cocobabys.activities.CookBookActivity:
@@ -4441,11 +4401,43 @@ com.cocobabys.activities.CookBookActivity -> com.cocobabys.activities.CookBookAc
     void onNewIntent(android.content.Intent) -> onNewIntent
     void access$000(com.cocobabys.activities.CookBookActivity) -> a
     void access$100(com.cocobabys.activities.CookBookActivity) -> b
-com.cocobabys.activities.CookBookActivity$1 -> com.cocobabys.activities.u:
+com.cocobabys.activities.CookBookActivity$1 -> com.cocobabys.activities.n:
     com.cocobabys.activities.CookBookActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.CookBookActivity$2 -> com.cocobabys.activities.v:
+com.cocobabys.activities.CookBookActivity$2 -> com.cocobabys.activities.o:
     com.cocobabys.activities.CookBookActivity this$0 -> a
+com.cocobabys.activities.CustomGalleryActivity -> com.cocobabys.activities.CustomGalleryActivity:
+    android.widget.GridView gridGallery -> a
+    android.os.Handler handler -> b
+    com.cocobabys.adapter.GalleryAdapter adapter -> c
+    android.widget.ImageView imgNoMedia -> d
+    android.widget.Button btnGalleryOk -> e
+    java.lang.String action -> f
+    com.nostra13.universalimageloader.core.ImageLoader imageLoader -> g
+    android.view.View$OnClickListener mOkClickListener -> h
+    android.widget.AdapterView$OnItemClickListener mItemMulClickListener -> i
+    android.widget.AdapterView$OnItemClickListener mItemSingleClickListener -> j
+    void onCreate(android.os.Bundle) -> onCreate
+    java.util.ArrayList getGalleryPhotos() -> a
+    void onDestroy() -> onDestroy
+    java.util.ArrayList access$000(com.cocobabys.activities.CustomGalleryActivity) -> a
+    void access$100(com.cocobabys.activities.CustomGalleryActivity) -> b
+com.cocobabys.activities.CustomGalleryActivity$1 -> com.cocobabys.activities.p:
+    java.lang.String[] val$selected_path -> a
+    com.cocobabys.activities.CustomGalleryActivity this$0 -> b
+    void run() -> run
+com.cocobabys.activities.CustomGalleryActivity$1$1 -> com.cocobabys.activities.q:
+    com.cocobabys.activities.CustomGalleryActivity$1 this$1 -> a
+    void run() -> run
+com.cocobabys.activities.CustomGalleryActivity$2 -> com.cocobabys.activities.r:
+    com.cocobabys.activities.CustomGalleryActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.CustomGalleryActivity$3 -> com.cocobabys.activities.s:
+    com.cocobabys.activities.CustomGalleryActivity this$0 -> a
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+com.cocobabys.activities.CustomGalleryActivity$4 -> com.cocobabys.activities.t:
+    com.cocobabys.activities.CustomGalleryActivity this$0 -> a
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 com.cocobabys.activities.EducationActivity -> com.cocobabys.activities.EducationActivity:
     android.widget.GridView gridview -> a
     android.app.ProgressDialog dialog -> b
@@ -4475,21 +4467,21 @@ com.cocobabys.activities.EducationActivity -> com.cocobabys.activities.Education
     com.cocobabys.dbmgr.info.EducationInfo access$002(com.cocobabys.activities.EducationActivity,com.cocobabys.dbmgr.info.EducationInfo) -> a
     java.util.List access$100(com.cocobabys.activities.EducationActivity) -> a
     void access$200(com.cocobabys.activities.EducationActivity) -> b
-com.cocobabys.activities.EducationActivity$1 -> com.cocobabys.activities.w:
+com.cocobabys.activities.EducationActivity$1 -> com.cocobabys.activities.u:
     com.cocobabys.activities.EducationActivity this$0 -> a
-com.cocobabys.activities.EducationActivity$2 -> com.cocobabys.activities.x:
-    com.cocobabys.activities.EducationActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.EducationActivity$3 -> com.cocobabys.activities.y:
+com.cocobabys.activities.EducationActivity$2 -> com.cocobabys.activities.v:
     com.cocobabys.activities.EducationActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.EducationActivity$4 -> com.cocobabys.activities.z:
+com.cocobabys.activities.EducationActivity$3 -> com.cocobabys.activities.w:
+    com.cocobabys.activities.EducationActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.EducationActivity$4 -> com.cocobabys.activities.x:
     com.cocobabys.activities.EducationActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.EducationActivity$5 -> com.cocobabys.activities.aa:
+com.cocobabys.activities.EducationActivity$5 -> com.cocobabys.activities.y:
     com.cocobabys.activities.EducationActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.cocobabys.activities.EducationActivity$6 -> com.cocobabys.activities.ab:
+com.cocobabys.activities.EducationActivity$6 -> com.cocobabys.activities.z:
     com.cocobabys.activities.EducationActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.cocobabys.activities.ExpListActivity -> com.cocobabys.activities.ExpListActivity:
@@ -4511,10 +4503,10 @@ com.cocobabys.activities.ExpListActivity -> com.cocobabys.activities.ExpListActi
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     void access$000(com.cocobabys.activities.ExpListActivity) -> a
-com.cocobabys.activities.ExpListActivity$1 -> com.cocobabys.activities.ac:
+com.cocobabys.activities.ExpListActivity$1 -> com.cocobabys.activities.aa:
     com.cocobabys.activities.ExpListActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.ExpListActivity$2 -> com.cocobabys.activities.ad:
+com.cocobabys.activities.ExpListActivity$2 -> com.cocobabys.activities.ab:
     com.cocobabys.activities.ExpListActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.cocobabys.activities.FeedBackActivity -> com.cocobabys.activities.FeedBackActivity:
@@ -4523,10 +4515,10 @@ com.cocobabys.activities.FeedBackActivity -> com.cocobabys.activities.FeedBackAc
     android.app.ProgressDialog dialog -> c
     void onCreate(android.os.Bundle) -> onCreate
     void access$000(com.cocobabys.activities.FeedBackActivity) -> a
-com.cocobabys.activities.FeedBackActivity$1 -> com.cocobabys.activities.ae:
+com.cocobabys.activities.FeedBackActivity$1 -> com.cocobabys.activities.ac:
     com.cocobabys.activities.FeedBackActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.FeedBackActivity$2 -> com.cocobabys.activities.af:
+com.cocobabys.activities.FeedBackActivity$2 -> com.cocobabys.activities.ad:
     com.cocobabys.activities.FeedBackActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.cocobabys.activities.GrowthActivity -> com.cocobabys.activities.GrowthActivity:
@@ -4538,28 +4530,33 @@ com.cocobabys.activities.GrowthActivity -> com.cocobabys.activities.GrowthActivi
     com.cocobabys.adapter.GrowthGridViewAdapter adapter -> f
     android.app.ProgressDialog dialog -> g
     android.os.Handler handler -> h
+    java.lang.String selectedMonth -> i
     void onCreate(android.os.Bundle) -> onCreate
     void runGetExpCountJob() -> a
     void handleGetCountSuccess(java.util.List) -> a
     void setTitle() -> b
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    void onRestart() -> onRestart
     void access$000(com.cocobabys.activities.GrowthActivity,int) -> a
     int access$100(com.cocobabys.activities.GrowthActivity) -> a
     int access$110(com.cocobabys.activities.GrowthActivity) -> b
     void access$200(com.cocobabys.activities.GrowthActivity) -> c
     void access$300(com.cocobabys.activities.GrowthActivity) -> d
     int access$108(com.cocobabys.activities.GrowthActivity) -> e
-com.cocobabys.activities.GrowthActivity$1 -> com.cocobabys.activities.ag:
+com.cocobabys.activities.GrowthActivity$1 -> com.cocobabys.activities.ae:
     com.cocobabys.activities.GrowthActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.GrowthActivity$2 -> com.cocobabys.activities.ah:
+com.cocobabys.activities.GrowthActivity$2 -> com.cocobabys.activities.af:
     com.cocobabys.activities.GrowthActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.cocobabys.activities.GrowthActivity$3 -> com.cocobabys.activities.ai:
+com.cocobabys.activities.GrowthActivity$3 -> com.cocobabys.activities.ag:
     com.cocobabys.activities.GrowthActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.GrowthActivity$4 -> com.cocobabys.activities.aj:
+com.cocobabys.activities.GrowthActivity$4 -> com.cocobabys.activities.ah:
+    com.cocobabys.activities.GrowthActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.GrowthActivity$5 -> com.cocobabys.activities.ai:
     com.cocobabys.activities.GrowthActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.cocobabys.activities.GuideActivity -> com.cocobabys.activities.GuideActivity:
@@ -4574,7 +4571,7 @@ com.cocobabys.activities.GuideActivity -> com.cocobabys.activities.GuideActivity
     void onPageScrolled(int,float,int) -> onPageScrolled
     void onPageSelected(int) -> onPageSelected
     void access$000(com.cocobabys.activities.GuideActivity) -> a
-com.cocobabys.activities.GuideActivity$1 -> com.cocobabys.activities.ak:
+com.cocobabys.activities.GuideActivity$1 -> com.cocobabys.activities.aj:
     com.cocobabys.activities.GuideActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.cocobabys.activities.HomeworkPullRefreshActivity -> com.cocobabys.activities.HomeworkPullRefreshActivity:
@@ -4600,174 +4597,30 @@ com.cocobabys.activities.HomeworkPullRefreshActivity -> com.cocobabys.activities
     com.cocobabys.adapter.HomeworkListAdapter access$300(com.cocobabys.activities.HomeworkPullRefreshActivity) -> d
     void access$400(com.cocobabys.activities.HomeworkPullRefreshActivity,com.cocobabys.dbmgr.info.Homework) -> a
     void access$500(com.cocobabys.activities.HomeworkPullRefreshActivity,android.widget.AbsListView) -> a
-com.cocobabys.activities.HomeworkPullRefreshActivity$1 -> com.cocobabys.activities.al:
+com.cocobabys.activities.HomeworkPullRefreshActivity$1 -> com.cocobabys.activities.ak:
     com.cocobabys.activities.HomeworkPullRefreshActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.HomeworkPullRefreshActivity$2 -> com.cocobabys.activities.am:
+com.cocobabys.activities.HomeworkPullRefreshActivity$2 -> com.cocobabys.activities.al:
     com.cocobabys.activities.HomeworkPullRefreshActivity this$0 -> a
     void onRefresh() -> a
-com.cocobabys.activities.HomeworkPullRefreshActivity$3 -> com.cocobabys.activities.an:
+com.cocobabys.activities.HomeworkPullRefreshActivity$3 -> com.cocobabys.activities.am:
     com.cocobabys.activities.HomeworkPullRefreshActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.cocobabys.activities.HomeworkPullRefreshActivity$4 -> com.cocobabys.activities.ao:
+com.cocobabys.activities.HomeworkPullRefreshActivity$4 -> com.cocobabys.activities.an:
     com.cocobabys.activities.HomeworkPullRefreshActivity this$0 -> a
     void onScrollStateChanged(android.widget.AbsListView,int) -> onScrollStateChanged
     void onScroll(android.widget.AbsListView,int,int,int) -> onScroll
-com.cocobabys.activities.HomeworkPullRefreshActivity$5 -> com.cocobabys.activities.ap:
+com.cocobabys.activities.HomeworkPullRefreshActivity$5 -> com.cocobabys.activities.ao:
     com.cocobabys.activities.HomeworkPullRefreshActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.InteractionActivity -> com.cocobabys.activities.InteractionActivity:
-    android.app.ProgressDialog dialog -> a
-    com.cocobabys.adapter.ChatListAdapter adapter -> b
-    com.cocobabys.customview.MsgListView msgListView -> c
-    android.view.View footer -> d
-    android.os.Handler myhandler -> e
-    java.util.List chatlist -> f
-    com.cocobabys.taskmgr.GetChatTask getChatTask -> g
-    com.cocobabys.taskmgr.GetTeacherTask getTeacherTask -> h
-    android.net.Uri uri -> i
-    com.cocobabys.taskmgr.DownloadImgeJob task -> j
-    void onCreate(android.os.Bundle) -> onCreate
-    void startToCheckIconActivity() -> a
-    void onActivityResult(int,int,android.content.Intent) -> onActivityResult
-    void onDestroy() -> onDestroy
-    void moveToEndOfList() -> b
-    boolean runGetChatTask(long,long,int,java.lang.String) -> a
-    boolean refreshTailImpl() -> c
-    boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
-    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
-    void handleSendChat() -> d
-    void handleSuccess(android.os.Message) -> a
-    void runGetTeacherInfoTask(java.util.List) -> a
-    void removeDuplicatieInfo(java.util.List) -> b
-    void access$000(com.cocobabys.activities.InteractionActivity) -> a
-    void access$100(com.cocobabys.activities.InteractionActivity) -> b
-    void access$200(com.cocobabys.activities.InteractionActivity) -> c
-    java.util.List access$300(com.cocobabys.activities.InteractionActivity) -> d
-    boolean access$400(com.cocobabys.activities.InteractionActivity) -> e
-    void access$500(com.cocobabys.activities.InteractionActivity) -> f
-    com.cocobabys.customview.MsgListView access$600(com.cocobabys.activities.InteractionActivity) -> g
-    void access$700(com.cocobabys.activities.InteractionActivity,android.widget.AbsListView) -> a
-    com.cocobabys.adapter.ChatListAdapter access$800(com.cocobabys.activities.InteractionActivity) -> h
-    android.view.View access$900(com.cocobabys.activities.InteractionActivity) -> i
-com.cocobabys.activities.InteractionActivity$1 -> com.cocobabys.activities.aq:
-    com.cocobabys.activities.InteractionActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.InteractionActivity$2 -> com.cocobabys.activities.ar:
-    com.cocobabys.activities.InteractionActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.InteractionActivity$3 -> com.cocobabys.activities.as:
-    com.cocobabys.activities.InteractionActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.InteractionActivity$4 -> com.cocobabys.activities.at:
-    com.cocobabys.activities.InteractionActivity this$0 -> a
-    void onRefresh() -> a
-com.cocobabys.activities.InteractionActivity$5 -> com.cocobabys.activities.au:
-    com.cocobabys.activities.InteractionActivity this$0 -> a
-    void onScrollStateChanged(android.widget.AbsListView,int) -> onScrollStateChanged
-    void onScroll(android.widget.AbsListView,int,int,int) -> onScroll
-com.cocobabys.activities.InteractionActivity$6 -> com.cocobabys.activities.av:
-    com.cocobabys.activities.InteractionActivity this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.InteractionActivity$7 -> com.cocobabys.activities.aw:
-    com.cocobabys.activities.InteractionActivity this$0 -> a
-    void handleMessage(android.os.Message) -> handleMessage
 com.cocobabys.activities.LoadingActivity -> com.cocobabys.activities.LoadingActivity:
     android.os.Handler handler -> a
     void onCreate(android.os.Bundle) -> onCreate
     void onBackPressed() -> onBackPressed
     void access$000(com.cocobabys.activities.LoadingActivity,java.lang.Class) -> a
-com.cocobabys.activities.LoadingActivity$1 -> com.cocobabys.activities.ax:
+com.cocobabys.activities.LoadingActivity$1 -> com.cocobabys.activities.ap:
     com.cocobabys.activities.LoadingActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.LocationActivity -> com.cocobabys.activities.LocationActivity:
-    android.webkit.WebView myWebView -> a
-    android.app.ProgressDialog progressDialog -> b
-    int zoom -> c
-    java.lang.String constantUrl -> d
-    java.lang.String url -> e
-    java.lang.String address -> f
-    java.lang.String lbs_num -> g
-    void onCreate(android.os.Bundle) -> onCreate
-    void genUrl() -> c
-    void initTitle() -> d
-    void handleSmallBtn() -> a
-    void handleBigBtn() -> b
-    void onDestroy() -> onDestroy
-    void onNewIntent(android.content.Intent) -> onNewIntent
-    void onResume() -> onResume
-    android.app.ProgressDialog access$000(com.cocobabys.activities.LocationActivity) -> a
-com.cocobabys.activities.LocationActivity$1 -> com.cocobabys.activities.ay:
-    com.cocobabys.activities.LocationActivity this$0 -> a
-    boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String) -> shouldOverrideUrlLoading
-    void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap) -> onPageStarted
-    void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
-    void onReceivedError(android.webkit.WebView,int,java.lang.String,java.lang.String) -> onReceivedError
-com.cocobabys.activities.LocationActivity$2 -> com.cocobabys.activities.az:
-    com.cocobabys.activities.LocationActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.LocationActivity$3 -> com.cocobabys.activities.ba:
-    com.cocobabys.activities.LocationActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.LocationMgrActivity -> com.cocobabys.activities.LocationMgrActivity:
-    android.app.ProgressDialog progressDialog -> a
-    com.cocobabys.handler.MyHandler handler -> b
-    android.telephony.SmsManager smsMgr -> c
-    com.cocobabys.activities.LocationMgrActivity$SmsBroadcastReceiver sendReceiver -> d
-    java.util.List allBindedNumInfo -> e
-    com.cocobabys.dbmgr.info.BindedNumInfo selectedBindedNumInfo -> f
-    void onCreate(android.os.Bundle) -> onCreate
-    void startToRecordActivity() -> a
-    void onDestroy() -> onDestroy
-    void testLocation() -> b
-    java.util.List access$002(com.cocobabys.activities.LocationMgrActivity,java.util.List) -> a
-    java.util.List access$000(com.cocobabys.activities.LocationMgrActivity) -> a
-    void access$100$2fc66aba(com.cocobabys.activities.LocationMgrActivity) -> b
-    void access$200(com.cocobabys.activities.LocationMgrActivity,java.util.List) -> b
-    com.cocobabys.dbmgr.info.BindedNumInfo access$300(com.cocobabys.activities.LocationMgrActivity) -> c
-    com.cocobabys.dbmgr.info.BindedNumInfo access$302(com.cocobabys.activities.LocationMgrActivity,com.cocobabys.dbmgr.info.BindedNumInfo) -> a
-    android.app.ProgressDialog access$500(com.cocobabys.activities.LocationMgrActivity) -> d
-com.cocobabys.activities.LocationMgrActivity$1 -> com.cocobabys.activities.bb:
-    com.cocobabys.activities.LocationMgrActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.LocationMgrActivity$2 -> com.cocobabys.activities.bc:
-    com.cocobabys.activities.LocationMgrActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.LocationMgrActivity$3 -> com.cocobabys.activities.bd:
-    com.cocobabys.activities.LocationMgrActivity this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.LocationMgrActivity$4 -> com.cocobabys.activities.be:
-    com.cocobabys.activities.LocationMgrActivity this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.LocationMgrActivity$5 -> com.cocobabys.activities.bf:
-    com.cocobabys.activities.LocationMgrActivity this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.LocationMgrActivity$6 -> com.cocobabys.activities.bg:
-    com.cocobabys.activities.LocationMgrActivity this$0 -> a
-    void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.LocationMgrActivity$7 -> com.cocobabys.activities.bh:
-    com.cocobabys.activities.LocationMgrActivity this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.LocationMgrActivity$7$1 -> com.cocobabys.activities.bi:
-    com.cocobabys.activities.LocationMgrActivity$7 this$1 -> a
-    void run() -> run
-com.cocobabys.activities.LocationMgrActivity$SmsBroadcastReceiver -> com.cocobabys.activities.bj:
-    com.cocobabys.activities.LocationMgrActivity this$0 -> a
-    void onReceive(android.content.Context,android.content.Intent) -> onReceive
-com.cocobabys.activities.LocationRecordActivity -> com.cocobabys.activities.LocationRecordActivity:
-    android.widget.ListView list -> a
-    com.cocobabys.adapter.LocationInfoListAdapter adapter -> b
-    void onCreate(android.os.Bundle) -> onCreate
-    boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
-    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
-    com.cocobabys.adapter.LocationInfoListAdapter access$000(com.cocobabys.activities.LocationRecordActivity) -> a
-    void access$100(com.cocobabys.activities.LocationRecordActivity,com.cocobabys.dbmgr.info.LocationInfo) -> a
-com.cocobabys.activities.LocationRecordActivity$1 -> com.cocobabys.activities.bk:
-    com.cocobabys.activities.LocationRecordActivity this$0 -> a
-    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.cocobabys.activities.LocationRecordActivity$2 -> com.cocobabys.activities.bl:
-    com.cocobabys.activities.LocationRecordActivity this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
 com.cocobabys.activities.LoginActivity -> com.cocobabys.activities.LoginActivity:
     android.widget.EditText inuputpwdView -> a
     android.widget.Button loginBtn -> b
@@ -4783,16 +4636,16 @@ com.cocobabys.activities.LoginActivity -> com.cocobabys.activities.LoginActivity
     void access$000(com.cocobabys.activities.LoginActivity) -> a
     java.lang.String access$100(com.cocobabys.activities.LoginActivity) -> b
     void access$200(com.cocobabys.activities.LoginActivity) -> c
-com.cocobabys.activities.LoginActivity$1 -> com.cocobabys.activities.bm:
+com.cocobabys.activities.LoginActivity$1 -> com.cocobabys.activities.aq:
     com.cocobabys.activities.LoginActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.LoginActivity$2 -> com.cocobabys.activities.bn:
+com.cocobabys.activities.LoginActivity$2 -> com.cocobabys.activities.ar:
     com.cocobabys.activities.LoginActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.LoginActivity$3 -> com.cocobabys.activities.bo:
+com.cocobabys.activities.LoginActivity$3 -> com.cocobabys.activities.as:
     com.cocobabys.activities.LoginActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.LoginActivity$4 -> com.cocobabys.activities.bp:
+com.cocobabys.activities.LoginActivity$4 -> com.cocobabys.activities.at:
     com.cocobabys.activities.LoginActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.cocobabys.activities.MainActivity -> com.cocobabys.activities.MainActivity:
@@ -4807,21 +4660,21 @@ com.cocobabys.activities.MainActivity -> com.cocobabys.activities.MainActivity:
     void access$000(com.cocobabys.activities.MainActivity) -> a
     android.widget.TabHost access$100(com.cocobabys.activities.MainActivity) -> b
     java.lang.String[] access$200() -> a
-com.cocobabys.activities.MainActivity$1 -> com.cocobabys.activities.bq:
+com.cocobabys.activities.MainActivity$1 -> com.cocobabys.activities.au:
     com.cocobabys.activities.MainActivity this$0 -> a
     void run() -> run
-com.cocobabys.activities.MainActivity$2 -> com.cocobabys.activities.br:
+com.cocobabys.activities.MainActivity$2 -> com.cocobabys.activities.av:
     com.cocobabys.activities.MainActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.MainActivity$2$1 -> com.cocobabys.activities.bs:
+com.cocobabys.activities.MainActivity$2$1 -> com.cocobabys.activities.aw:
     com.cocobabys.activities.MainActivity$2 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.MainActivity$3 -> com.cocobabys.activities.bt:
+com.cocobabys.activities.MainActivity$3 -> com.cocobabys.activities.ax:
     com.cocobabys.activities.MainActivity this$0 -> a
     void onTabChanged(java.lang.String) -> onTabChanged
 com.cocobabys.activities.MyActivity -> com.cocobabys.activities.MyActivity:
     void onBackPressed() -> onBackPressed
-com.cocobabys.activities.MyActivity$1 -> com.cocobabys.activities.bu:
+com.cocobabys.activities.MyActivity$1 -> com.cocobabys.activities.ay:
     com.cocobabys.activities.MyActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.cocobabys.activities.MyApplication -> com.cocobabys.activities.MyApplication:
@@ -4838,8 +4691,6 @@ com.cocobabys.activities.MyApplication -> com.cocobabys.activities.MyApplication
     void addObserver(com.cocobabys.receiver.NotificationObserver) -> a
     void updateNotify$255f295() -> d
     void onCreate() -> onCreate
-    java.util.List getTmpList() -> e
-    void setTmpList(java.util.List) -> b
 com.cocobabys.activities.NewCheckIconActivity -> com.cocobabys.activities.NewCheckIconActivity:
     android.graphics.Bitmap bitmap -> a
     android.os.Handler handler -> b
@@ -4849,13 +4700,13 @@ com.cocobabys.activities.NewCheckIconActivity -> com.cocobabys.activities.NewChe
     void runSendPicTask() -> a
     void onDestroy() -> onDestroy
     void access$000(com.cocobabys.activities.NewCheckIconActivity,android.os.Message) -> a
-com.cocobabys.activities.NewCheckIconActivity$1 -> com.cocobabys.activities.bv:
+com.cocobabys.activities.NewCheckIconActivity$1 -> com.cocobabys.activities.az:
     com.cocobabys.activities.NewCheckIconActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.NewCheckIconActivity$2 -> com.cocobabys.activities.bw:
+com.cocobabys.activities.NewCheckIconActivity$2 -> com.cocobabys.activities.ba:
     com.cocobabys.activities.NewCheckIconActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.NewCheckIconActivity$3 -> com.cocobabys.activities.bx:
+com.cocobabys.activities.NewCheckIconActivity$3 -> com.cocobabys.activities.bb:
     com.cocobabys.activities.NewCheckIconActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.cocobabys.activities.NoticeActivity -> com.cocobabys.activities.NoticeActivity:
@@ -4873,7 +4724,7 @@ com.cocobabys.activities.NoticeActivity -> com.cocobabys.activities.NoticeActivi
     void setIcon() -> a
     void onNewIntent(android.content.Intent) -> onNewIntent
     void access$000(com.cocobabys.activities.NoticeActivity) -> a
-com.cocobabys.activities.NoticeActivity$1 -> com.cocobabys.activities.by:
+com.cocobabys.activities.NoticeActivity$1 -> com.cocobabys.activities.bc:
     com.cocobabys.activities.NoticeActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.cocobabys.activities.NoticePullRefreshActivity -> com.cocobabys.activities.NoticePullRefreshActivity:
@@ -4901,20 +4752,20 @@ com.cocobabys.activities.NoticePullRefreshActivity -> com.cocobabys.activities.N
     com.cocobabys.adapter.NewsListAdapter access$300(com.cocobabys.activities.NoticePullRefreshActivity) -> d
     void access$400(com.cocobabys.activities.NoticePullRefreshActivity,com.cocobabys.dbmgr.info.News) -> a
     void access$500(com.cocobabys.activities.NoticePullRefreshActivity,android.widget.AbsListView) -> a
-com.cocobabys.activities.NoticePullRefreshActivity$1 -> com.cocobabys.activities.bz:
+com.cocobabys.activities.NoticePullRefreshActivity$1 -> com.cocobabys.activities.bd:
     com.cocobabys.activities.NoticePullRefreshActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.NoticePullRefreshActivity$2 -> com.cocobabys.activities.ca:
+com.cocobabys.activities.NoticePullRefreshActivity$2 -> com.cocobabys.activities.be:
     com.cocobabys.activities.NoticePullRefreshActivity this$0 -> a
     void onRefresh() -> a
-com.cocobabys.activities.NoticePullRefreshActivity$3 -> com.cocobabys.activities.cb:
+com.cocobabys.activities.NoticePullRefreshActivity$3 -> com.cocobabys.activities.bf:
     com.cocobabys.activities.NoticePullRefreshActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.cocobabys.activities.NoticePullRefreshActivity$4 -> com.cocobabys.activities.cc:
+com.cocobabys.activities.NoticePullRefreshActivity$4 -> com.cocobabys.activities.bg:
     com.cocobabys.activities.NoticePullRefreshActivity this$0 -> a
     void onScrollStateChanged(android.widget.AbsListView,int) -> onScrollStateChanged
     void onScroll(android.widget.AbsListView,int,int,int) -> onScroll
-com.cocobabys.activities.NoticePullRefreshActivity$5 -> com.cocobabys.activities.cd:
+com.cocobabys.activities.NoticePullRefreshActivity$5 -> com.cocobabys.activities.bh:
     com.cocobabys.activities.NoticePullRefreshActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.cocobabys.activities.ResetPWDActivity -> com.cocobabys.activities.ResetPWDActivity:
@@ -4942,16 +4793,16 @@ com.cocobabys.activities.ResetPWDActivity -> com.cocobabys.activities.ResetPWDAc
     void access$600(com.cocobabys.activities.ResetPWDActivity) -> e
     boolean access$700(com.cocobabys.activities.ResetPWDActivity) -> f
     void access$800(com.cocobabys.activities.ResetPWDActivity) -> g
-com.cocobabys.activities.ResetPWDActivity$1 -> com.cocobabys.activities.ce:
+com.cocobabys.activities.ResetPWDActivity$1 -> com.cocobabys.activities.bi:
     com.cocobabys.activities.ResetPWDActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.ResetPWDActivity$2 -> com.cocobabys.activities.cf:
+com.cocobabys.activities.ResetPWDActivity$2 -> com.cocobabys.activities.bj:
     com.cocobabys.activities.ResetPWDActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.ResetPWDActivity$3 -> com.cocobabys.activities.cg:
+com.cocobabys.activities.ResetPWDActivity$3 -> com.cocobabys.activities.bk:
     com.cocobabys.activities.ResetPWDActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.ResetPWDActivity$4 -> com.cocobabys.activities.ch:
+com.cocobabys.activities.ResetPWDActivity$4 -> com.cocobabys.activities.bl:
     com.cocobabys.activities.ResetPWDActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.cocobabys.activities.ScheduleActivity -> com.cocobabys.activities.ScheduleActivity:
@@ -4964,10 +4815,10 @@ com.cocobabys.activities.ScheduleActivity -> com.cocobabys.activities.ScheduleAc
     void onNewIntent(android.content.Intent) -> onNewIntent
     void access$000(com.cocobabys.activities.ScheduleActivity) -> a
     void access$100(com.cocobabys.activities.ScheduleActivity) -> b
-com.cocobabys.activities.ScheduleActivity$1 -> com.cocobabys.activities.ci:
+com.cocobabys.activities.ScheduleActivity$1 -> com.cocobabys.activities.bm:
     com.cocobabys.activities.ScheduleActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.ScheduleActivity$2 -> com.cocobabys.activities.cj:
+com.cocobabys.activities.ScheduleActivity$2 -> com.cocobabys.activities.bn:
     com.cocobabys.activities.ScheduleActivity this$0 -> a
 com.cocobabys.activities.SchoolInfoActivity -> com.cocobabys.activities.SchoolInfoActivity:
     android.widget.ImageView logo -> a
@@ -4983,10 +4834,10 @@ com.cocobabys.activities.SchoolInfoActivity -> com.cocobabys.activities.SchoolIn
     boolean access$000(com.cocobabys.activities.SchoolInfoActivity) -> a
     com.cocobabys.dbmgr.info.SchoolInfo access$100(com.cocobabys.activities.SchoolInfoActivity) -> b
     void access$200(com.cocobabys.activities.SchoolInfoActivity,java.lang.String) -> a
-com.cocobabys.activities.SchoolInfoActivity$1 -> com.cocobabys.activities.ck:
+com.cocobabys.activities.SchoolInfoActivity$1 -> com.cocobabys.activities.bo:
     com.cocobabys.activities.SchoolInfoActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.SchoolInfoActivity$2 -> com.cocobabys.activities.cl:
+com.cocobabys.activities.SchoolInfoActivity$2 -> com.cocobabys.activities.bp:
     com.cocobabys.activities.SchoolInfoActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.cocobabys.activities.SchoolNoticeActivity -> com.cocobabys.activities.SchoolNoticeActivity:
@@ -5035,98 +4886,124 @@ com.cocobabys.activities.SchoolNoticeActivity -> com.cocobabys.activities.School
     void access$1400(com.cocobabys.activities.SchoolNoticeActivity) -> m
     void access$1500(com.cocobabys.activities.SchoolNoticeActivity) -> n
     void access$1600(com.cocobabys.activities.SchoolNoticeActivity) -> o
-    void access$1700(com.cocobabys.activities.SchoolNoticeActivity) -> p
-com.cocobabys.activities.SchoolNoticeActivity$1 -> com.cocobabys.activities.cm:
+com.cocobabys.activities.SchoolNoticeActivity$1 -> com.cocobabys.activities.bq:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void update$255f295() -> a
-com.cocobabys.activities.SchoolNoticeActivity$10 -> com.cocobabys.activities.cn:
+com.cocobabys.activities.SchoolNoticeActivity$10 -> com.cocobabys.activities.br:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SchoolNoticeActivity$11 -> com.cocobabys.activities.co:
+com.cocobabys.activities.SchoolNoticeActivity$11 -> com.cocobabys.activities.bs:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.cocobabys.activities.SchoolNoticeActivity$12 -> com.cocobabys.activities.cp:
+com.cocobabys.activities.SchoolNoticeActivity$12 -> com.cocobabys.activities.bt:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.cocobabys.activities.SchoolNoticeActivity$13 -> com.cocobabys.activities.cq:
+com.cocobabys.activities.SchoolNoticeActivity$13 -> com.cocobabys.activities.bu:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.cocobabys.activities.SchoolNoticeActivity$14 -> com.cocobabys.activities.cr:
+com.cocobabys.activities.SchoolNoticeActivity$14 -> com.cocobabys.activities.bv:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.cocobabys.activities.SchoolNoticeActivity$15 -> com.cocobabys.activities.cs:
+com.cocobabys.activities.SchoolNoticeActivity$15 -> com.cocobabys.activities.bw:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.cocobabys.activities.SchoolNoticeActivity$16 -> com.cocobabys.activities.ct:
+com.cocobabys.activities.SchoolNoticeActivity$16 -> com.cocobabys.activities.bx:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.cocobabys.activities.SchoolNoticeActivity$17 -> com.cocobabys.activities.cu:
+com.cocobabys.activities.SchoolNoticeActivity$17 -> com.cocobabys.activities.by:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.cocobabys.activities.SchoolNoticeActivity$18 -> com.cocobabys.activities.cv:
+com.cocobabys.activities.SchoolNoticeActivity$18 -> com.cocobabys.activities.bz:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void startActivity() -> a
-com.cocobabys.activities.SchoolNoticeActivity$2 -> com.cocobabys.activities.cw:
+com.cocobabys.activities.SchoolNoticeActivity$2 -> com.cocobabys.activities.ca:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.SchoolNoticeActivity$3 -> com.cocobabys.activities.cx:
+com.cocobabys.activities.SchoolNoticeActivity$3 -> com.cocobabys.activities.cb:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SchoolNoticeActivity$4 -> com.cocobabys.activities.cy:
+com.cocobabys.activities.SchoolNoticeActivity$4 -> com.cocobabys.activities.cc:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void handleResult(int,java.lang.Object) -> a
-com.cocobabys.activities.SchoolNoticeActivity$5 -> com.cocobabys.activities.cz:
+com.cocobabys.activities.SchoolNoticeActivity$5 -> com.cocobabys.activities.cd:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SchoolNoticeActivity$5$1 -> com.cocobabys.activities.da:
+com.cocobabys.activities.SchoolNoticeActivity$5$1 -> com.cocobabys.activities.ce:
     com.cocobabys.activities.SchoolNoticeActivity$5 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.SchoolNoticeActivity$6 -> com.cocobabys.activities.db:
+com.cocobabys.activities.SchoolNoticeActivity$6 -> com.cocobabys.activities.cf:
     long val$born -> a
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> b
     void handleResult(int,java.lang.Object) -> a
-com.cocobabys.activities.SchoolNoticeActivity$7 -> com.cocobabys.activities.dc:
+com.cocobabys.activities.SchoolNoticeActivity$7 -> com.cocobabys.activities.cg:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void onDateSet(android.widget.DatePicker,int,int,int) -> onDateSet
-com.cocobabys.activities.SchoolNoticeActivity$8 -> com.cocobabys.activities.dd:
+com.cocobabys.activities.SchoolNoticeActivity$8 -> com.cocobabys.activities.ch:
     android.widget.EditText val$nicknameEdit -> a
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> b
     void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.SchoolNoticeActivity$9 -> com.cocobabys.activities.de:
+com.cocobabys.activities.SchoolNoticeActivity$9 -> com.cocobabys.activities.ci:
     java.lang.String val$nick -> a
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> b
     void handleResult(int,java.lang.Object) -> a
-com.cocobabys.activities.SchoolNoticeActivity$ActivityLauncher -> com.cocobabys.activities.df:
+com.cocobabys.activities.SchoolNoticeActivity$ActivityLauncher -> com.cocobabys.activities.cj:
     void startActivity() -> a
-com.cocobabys.activities.SchoolNoticeActivity$ActivityLauncherProxy -> com.cocobabys.activities.dg:
+com.cocobabys.activities.SchoolNoticeActivity$ActivityLauncherProxy -> com.cocobabys.activities.ck:
     java.lang.Object target -> b
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     java.lang.Object bind(java.lang.Object) -> a
     java.lang.Object invoke(java.lang.Object,java.lang.reflect.Method,java.lang.Object[]) -> invoke
-com.cocobabys.activities.SchoolNoticeActivity$ItemClickListener -> com.cocobabys.activities.dh:
+com.cocobabys.activities.SchoolNoticeActivity$ItemClickListener -> com.cocobabys.activities.cl:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.cocobabys.activities.SchoolNoticeActivity$MyDatePickerDialog -> com.cocobabys.activities.di:
+com.cocobabys.activities.SchoolNoticeActivity$MyDatePickerDialog -> com.cocobabys.activities.cm:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void onStop() -> onStop
-com.cocobabys.activities.SendChatActivity -> com.cocobabys.activities.SendChatActivity:
-    android.widget.EditText chatContent -> a
-    com.cocobabys.handler.MyHandler handler -> b
-    android.app.ProgressDialog dialog -> c
+com.cocobabys.activities.SendExpActivity -> com.cocobabys.activities.SendExpActivity:
+    android.widget.GridView gridGallery -> a
+    android.os.Handler myhandler -> b
+    com.cocobabys.adapter.GalleryAdapter adapter -> c
+    android.widget.ViewSwitcher viewSwitcher -> d
+    com.nostra13.universalimageloader.core.ImageLoader imageLoader -> e
+    android.net.Uri uri -> f
+    android.widget.EditText exp_content -> g
+    android.media.MediaScannerConnection msc -> h
+    android.app.ProgressDialog dialog -> i
     void onCreate(android.os.Bundle) -> onCreate
-    java.lang.String formatChatContent() -> a
-    boolean access$000(com.cocobabys.activities.SendChatActivity) -> a
-    void access$100(com.cocobabys.activities.SendChatActivity) -> b
-    void access$200(com.cocobabys.activities.SendChatActivity,android.os.Message) -> a
-com.cocobabys.activities.SendChatActivity$1 -> com.cocobabys.activities.dj:
-    com.cocobabys.activities.SendChatActivity this$0 -> a
+    boolean checkContentValid() -> a
+    void startToSlideGalleryActivity() -> b
+    void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    void changeView(java.lang.String[]) -> a
+    void onDestroy() -> onDestroy
+    void access$100(com.cocobabys.activities.SendExpActivity) -> a
+    void access$200(com.cocobabys.activities.SendExpActivity) -> b
+    android.app.ProgressDialog access$300(com.cocobabys.activities.SendExpActivity) -> c
+    com.cocobabys.adapter.GalleryAdapter access$400(com.cocobabys.activities.SendExpActivity) -> d
+    void access$500(com.cocobabys.activities.SendExpActivity) -> e
+    android.net.Uri access$600(com.cocobabys.activities.SendExpActivity) -> f
+    android.media.MediaScannerConnection access$700(com.cocobabys.activities.SendExpActivity) -> g
+com.cocobabys.activities.SendExpActivity$1 -> com.cocobabys.activities.cn:
+    com.cocobabys.activities.SendExpActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SendChatActivity$2 -> com.cocobabys.activities.dk:
-    com.cocobabys.activities.SendChatActivity this$0 -> a
+com.cocobabys.activities.SendExpActivity$2 -> com.cocobabys.activities.co:
+    com.cocobabys.activities.SendExpActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SendChatActivity$3 -> com.cocobabys.activities.dl:
-    com.cocobabys.activities.SendChatActivity this$0 -> a
+com.cocobabys.activities.SendExpActivity$3 -> com.cocobabys.activities.cp:
+    com.cocobabys.activities.SendExpActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
+com.cocobabys.activities.SendExpActivity$4 -> com.cocobabys.activities.cq:
+    com.cocobabys.activities.SendExpActivity this$0 -> a
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+com.cocobabys.activities.SendExpActivity$5 -> com.cocobabys.activities.cr:
+    com.cocobabys.activities.SendExpActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.SendExpActivity$6 -> com.cocobabys.activities.cs:
+    com.cocobabys.activities.SendExpActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.SendExpActivity$MyMediaScannerConnectionClient -> com.cocobabys.activities.ct:
+    com.cocobabys.activities.SendExpActivity this$0 -> a
+    void onMediaScannerConnected() -> onMediaScannerConnected
+    void onScanCompleted(java.lang.String,android.net.Uri) -> onScanCompleted
 com.cocobabys.activities.SendNewChatActivity -> com.cocobabys.activities.SendNewChatActivity:
     android.widget.EditText chatContent -> a
     com.cocobabys.handler.MyHandler handler -> b
@@ -5136,20 +5013,19 @@ com.cocobabys.activities.SendNewChatActivity -> com.cocobabys.activities.SendNew
     boolean access$000(com.cocobabys.activities.SendNewChatActivity) -> a
     void access$100(com.cocobabys.activities.SendNewChatActivity) -> b
     void access$200(com.cocobabys.activities.SendNewChatActivity,android.os.Message) -> a
-com.cocobabys.activities.SendNewChatActivity$1 -> com.cocobabys.activities.dm:
+com.cocobabys.activities.SendNewChatActivity$1 -> com.cocobabys.activities.cu:
     com.cocobabys.activities.SendNewChatActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SendNewChatActivity$2 -> com.cocobabys.activities.dn:
+com.cocobabys.activities.SendNewChatActivity$2 -> com.cocobabys.activities.cv:
     com.cocobabys.activities.SendNewChatActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SendNewChatActivity$3 -> com.cocobabys.activities.do:
+com.cocobabys.activities.SendNewChatActivity$3 -> com.cocobabys.activities.cw:
     com.cocobabys.activities.SendNewChatActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.cocobabys.activities.SettingActivity -> com.cocobabys.activities.SettingActivity:
     android.os.Handler handler -> a
     android.app.ProgressDialog dialog -> b
     void onCreate(android.os.Bundle) -> onCreate
-    void setChatVersionText(android.widget.Button) -> b
     void startToAboutUsActivity() -> a
     void startToFeedBackActivity() -> b
     void runCheckUpdateTask() -> c
@@ -5157,65 +5033,69 @@ com.cocobabys.activities.SettingActivity -> com.cocobabys.activities.SettingActi
     void access$100(com.cocobabys.activities.SettingActivity) -> b
     void access$200(com.cocobabys.activities.SettingActivity) -> c
     void access$300(com.cocobabys.activities.SettingActivity) -> d
-    void access$400$50c3140b(android.widget.Button) -> a
-    void access$500(com.cocobabys.activities.SettingActivity) -> e
-com.cocobabys.activities.SettingActivity$1 -> com.cocobabys.activities.dp:
+com.cocobabys.activities.SettingActivity$1 -> com.cocobabys.activities.cx:
     com.cocobabys.activities.SettingActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SettingActivity$1$1 -> com.cocobabys.activities.dq:
+com.cocobabys.activities.SettingActivity$1$1 -> com.cocobabys.activities.cy:
     com.cocobabys.activities.SettingActivity$1 this$1 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.activities.SettingActivity$10 -> com.cocobabys.activities.dr:
+com.cocobabys.activities.SettingActivity$2 -> com.cocobabys.activities.cz:
+    com.cocobabys.activities.SettingActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.SettingActivity$3 -> com.cocobabys.activities.da:
+    com.cocobabys.activities.SettingActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.SettingActivity$4 -> com.cocobabys.activities.db:
+    com.cocobabys.activities.SettingActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.SettingActivity$5 -> com.cocobabys.activities.dc:
+    com.cocobabys.activities.SettingActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.SettingActivity$6 -> com.cocobabys.activities.dd:
+    com.cocobabys.activities.SettingActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.SettingActivity$7 -> com.cocobabys.activities.de:
+    com.cocobabys.activities.SettingActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.SettingActivity$7$1 -> com.cocobabys.activities.df:
+    com.cocobabys.activities.SettingActivity$7 this$1 -> a
+    void run() -> run
+com.cocobabys.activities.SettingActivity$8 -> com.cocobabys.activities.dg:
     com.cocobabys.activities.SettingActivity this$0 -> a
     void checkedChange(boolean) -> a
-com.cocobabys.activities.SettingActivity$11 -> com.cocobabys.activities.ds:
+com.cocobabys.activities.SettingActivity$9 -> com.cocobabys.activities.dh:
     com.cocobabys.activities.SettingActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.SettingActivity$2 -> com.cocobabys.activities.dt:
-    com.cocobabys.activities.SettingActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SettingActivity$3 -> com.cocobabys.activities.du:
-    com.cocobabys.activities.SettingActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SettingActivity$4 -> com.cocobabys.activities.dv:
-    com.cocobabys.activities.SettingActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SettingActivity$5 -> com.cocobabys.activities.dw:
-    com.cocobabys.activities.SettingActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SettingActivity$6 -> com.cocobabys.activities.dx:
-    com.cocobabys.activities.SettingActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SettingActivity$7 -> com.cocobabys.activities.dy:
-    com.cocobabys.activities.SettingActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SettingActivity$8 -> com.cocobabys.activities.dz:
-    android.widget.Button val$setversion -> a
-    com.cocobabys.activities.SettingActivity this$0 -> b
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SettingActivity$9 -> com.cocobabys.activities.ea:
-    com.cocobabys.activities.SettingActivity this$0 -> a
-    void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SettingActivity$9$1 -> com.cocobabys.activities.eb:
-    com.cocobabys.activities.SettingActivity$9 this$1 -> a
-    void run() -> run
 com.cocobabys.activities.ShowIconActivity -> com.cocobabys.activities.ShowIconActivity:
     android.graphics.Bitmap bitmap -> a
     void onCreate(android.os.Bundle) -> onCreate
     void onDestroy() -> onDestroy
 com.cocobabys.activities.SlideGalleryActivity -> com.cocobabys.activities.SlideGalleryActivity:
     com.cocobabys.customview.SlideGallery gallery -> b
-    com.nostra13.universalimageloader.core.ImageLoader imageLoader -> c
-    com.cocobabys.adapter.SlideGalleryAdapter adapter -> d
-    android.widget.TextView contentView -> e
+    com.cocobabys.adapter.SlideGalleryAdapter adapter -> c
+    android.widget.TextView contentView -> d
     int current -> a
-    android.widget.TextView countView -> f
-    com.cocobabys.dbmgr.info.ExpInfo info -> g
-    com.cocobabys.taskmgr.DownloadImgeJob downloadImgeJob -> h
+    android.widget.TextView countView -> e
+    com.cocobabys.dbmgr.info.ExpInfo info -> f
+    com.cocobabys.taskmgr.DownloadImgeJob downloadImgeJob -> g
+    java.lang.String action -> h
+    java.lang.String content -> i
     void onCreate(android.os.Bundle) -> onCreate
+    void initGallery() -> a
     void onDestroy() -> onDestroy
-    void access$000(com.cocobabys.activities.SlideGalleryActivity,int) -> a
-com.cocobabys.activities.SlideGalleryActivity$1 -> com.cocobabys.activities.ec:
+    com.cocobabys.adapter.SlideGalleryAdapter access$000(com.cocobabys.activities.SlideGalleryActivity) -> a
+    void access$100(com.cocobabys.activities.SlideGalleryActivity,int) -> a
+com.cocobabys.activities.SlideGalleryActivity$1 -> com.cocobabys.activities.di:
+    com.cocobabys.activities.SlideGalleryActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.SlideGalleryActivity$2 -> com.cocobabys.activities.dj:
+    com.cocobabys.activities.SlideGalleryActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.activities.SlideGalleryActivity$3 -> com.cocobabys.activities.dk:
+    com.cocobabys.activities.SlideGalleryActivity this$0 -> a
+    void onItemSelected(android.widget.AdapterView,android.view.View,int,long) -> onItemSelected
+    void onNothingSelected(android.widget.AdapterView) -> onNothingSelected
+com.cocobabys.activities.SlideGalleryActivity$4 -> com.cocobabys.activities.dl:
     com.cocobabys.activities.SlideGalleryActivity this$0 -> a
     void onItemSelected(android.widget.AdapterView,android.view.View,int,long) -> onItemSelected
     void onNothingSelected(android.widget.AdapterView) -> onNothingSelected
@@ -5277,16 +5157,16 @@ com.cocobabys.activities.SwipeCalendarActivity -> com.cocobabys.activities.Swipe
     int access$208(com.cocobabys.activities.SwipeCalendarActivity) -> i
     int access$308(com.cocobabys.activities.SwipeCalendarActivity) -> j
     void access$600(com.cocobabys.activities.SwipeCalendarActivity,java.lang.String) -> a
-com.cocobabys.activities.SwipeCalendarActivity$1 -> com.cocobabys.activities.ed:
+com.cocobabys.activities.SwipeCalendarActivity$1 -> com.cocobabys.activities.dm:
     com.cocobabys.activities.SwipeCalendarActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.SwipeCalendarActivity$2 -> com.cocobabys.activities.ee:
+com.cocobabys.activities.SwipeCalendarActivity$2 -> com.cocobabys.activities.dn:
     com.cocobabys.activities.SwipeCalendarActivity this$0 -> a
     void OnClick(com.cocobabys.mycalendar.DateWidgetDayCell) -> a
-com.cocobabys.activities.SwipeCalendarActivity$Next_MonthOnClickListener -> com.cocobabys.activities.ef:
+com.cocobabys.activities.SwipeCalendarActivity$Next_MonthOnClickListener -> com.cocobabys.activities.do:
     com.cocobabys.activities.SwipeCalendarActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.SwipeCalendarActivity$Pre_MonthOnClickListener -> com.cocobabys.activities.eg:
+com.cocobabys.activities.SwipeCalendarActivity$Pre_MonthOnClickListener -> com.cocobabys.activities.dp:
     com.cocobabys.activities.SwipeCalendarActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.cocobabys.activities.SwipeDetailActivity -> com.cocobabys.activities.SwipeDetailActivity:
@@ -5301,7 +5181,7 @@ com.cocobabys.activities.SwipeDetailActivity -> com.cocobabys.activities.SwipeDe
     void setData(android.content.Intent) -> a
     void setIcon() -> a
     void onNewIntent(android.content.Intent) -> onNewIntent
-com.cocobabys.activities.SwipeDetailActivity$1 -> com.cocobabys.activities.eh:
+com.cocobabys.activities.SwipeDetailActivity$1 -> com.cocobabys.activities.dq:
     com.cocobabys.activities.SwipeDetailActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.cocobabys.activities.SwipeListActivity -> com.cocobabys.activities.SwipeListActivity:
@@ -5312,18 +5192,18 @@ com.cocobabys.activities.SwipeListActivity -> com.cocobabys.activities.SwipeList
     void onResume() -> onResume
     com.cocobabys.adapter.SwipeListAdapter access$000(com.cocobabys.activities.SwipeListActivity) -> a
     void access$100(com.cocobabys.activities.SwipeListActivity,com.cocobabys.dbmgr.info.SwipeInfo) -> a
-com.cocobabys.activities.SwipeListActivity$1 -> com.cocobabys.activities.ei:
+com.cocobabys.activities.SwipeListActivity$1 -> com.cocobabys.activities.dr:
     com.cocobabys.activities.SwipeListActivity this$0 -> a
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 com.cocobabys.activities.TabChildActivity -> com.cocobabys.activities.TabChildActivity:
     void onBackPressed() -> onBackPressed
-com.cocobabys.activities.TabChildActivity$1 -> com.cocobabys.activities.ej:
+com.cocobabys.activities.TabChildActivity$1 -> com.cocobabys.activities.ds:
     com.cocobabys.activities.TabChildActivity this$0 -> a
     void onClick(android.content.DialogInterface,int) -> onClick
 com.cocobabys.activities.TransitActivity -> com.cocobabys.activities.TransitActivity:
     void onCreate(android.os.Bundle) -> onCreate
     void access$000$1f8ff7cc() -> a
-com.cocobabys.activities.TransitActivity$1 -> com.cocobabys.activities.ek:
+com.cocobabys.activities.TransitActivity$1 -> com.cocobabys.activities.dt:
     com.cocobabys.activities.TransitActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.cocobabys.activities.UmengStatisticsActivity -> com.cocobabys.activities.UmengStatisticsActivity:
@@ -5333,10 +5213,10 @@ com.cocobabys.activities.UpdateActivity -> com.cocobabys.activities.UpdateActivi
     java.lang.String url -> a
     void onCreate(android.os.Bundle) -> onCreate
     java.lang.String access$000(com.cocobabys.activities.UpdateActivity) -> a
-com.cocobabys.activities.UpdateActivity$1 -> com.cocobabys.activities.el:
+com.cocobabys.activities.UpdateActivity$1 -> com.cocobabys.activities.du:
     com.cocobabys.activities.UpdateActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.UpdateActivity$2 -> com.cocobabys.activities.em:
+com.cocobabys.activities.UpdateActivity$2 -> com.cocobabys.activities.dv:
     com.cocobabys.activities.UpdateActivity this$0 -> a
     void onClick(android.view.View) -> onClick
 com.cocobabys.activities.ValidateAuthCodeActivity -> com.cocobabys.activities.ValidateAuthCodeActivity:
@@ -5361,13 +5241,13 @@ com.cocobabys.activities.ValidateAuthCodeActivity -> com.cocobabys.activities.Va
     void access$500(com.cocobabys.activities.ValidateAuthCodeActivity,int) -> a
     void access$600(com.cocobabys.activities.ValidateAuthCodeActivity,int) -> b
     void access$700(com.cocobabys.activities.ValidateAuthCodeActivity) -> f
-com.cocobabys.activities.ValidateAuthCodeActivity$1 -> com.cocobabys.activities.en:
+com.cocobabys.activities.ValidateAuthCodeActivity$1 -> com.cocobabys.activities.dw:
     com.cocobabys.activities.ValidateAuthCodeActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.ValidateAuthCodeActivity$2 -> com.cocobabys.activities.eo:
+com.cocobabys.activities.ValidateAuthCodeActivity$2 -> com.cocobabys.activities.dx:
     com.cocobabys.activities.ValidateAuthCodeActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.activities.ValidateAuthCodeActivity$3 -> com.cocobabys.activities.ep:
+com.cocobabys.activities.ValidateAuthCodeActivity$3 -> com.cocobabys.activities.dy:
     com.cocobabys.activities.ValidateAuthCodeActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.cocobabys.activities.ValidatePhoneNumActivity -> com.cocobabys.activities.ValidatePhoneNumActivity:
@@ -5383,100 +5263,13 @@ com.cocobabys.activities.ValidatePhoneNumActivity -> com.cocobabys.activities.Va
     void access$100(com.cocobabys.activities.ValidatePhoneNumActivity) -> b
     void access$200(com.cocobabys.activities.ValidatePhoneNumActivity) -> c
     android.app.ProgressDialog access$300(com.cocobabys.activities.ValidatePhoneNumActivity) -> d
-com.cocobabys.activities.ValidatePhoneNumActivity$1 -> com.cocobabys.activities.eq:
+com.cocobabys.activities.ValidatePhoneNumActivity$1 -> com.cocobabys.activities.dz:
     com.cocobabys.activities.ValidatePhoneNumActivity this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.activities.ValidatePhoneNumActivity$2 -> com.cocobabys.activities.er:
+com.cocobabys.activities.ValidatePhoneNumActivity$2 -> com.cocobabys.activities.ea:
     com.cocobabys.activities.ValidatePhoneNumActivity this$0 -> a
     void onClick(android.view.View) -> onClick
-com.cocobabys.adapter.BindedNumInfoListAdapter -> com.cocobabys.adapter.a:
-    android.content.Context context -> a
-    java.util.List infoList -> b
-    android.app.AlertDialog dialog -> c
-    int getCount() -> getCount
-    com.cocobabys.dbmgr.info.BindedNumInfo getItem(int) -> a
-    long getItemId(int) -> getItemId
-    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-    void setDataToViews(int,com.cocobabys.adapter.BindedNumInfoListAdapter$FlagHolder) -> a
-    java.lang.Object getItem(int) -> getItem
-    void access$100(com.cocobabys.adapter.BindedNumInfoListAdapter,int) -> a
-    android.content.Context access$200(com.cocobabys.adapter.BindedNumInfoListAdapter) -> a
-    java.util.List access$300(com.cocobabys.adapter.BindedNumInfoListAdapter) -> b
-    android.app.AlertDialog access$400(com.cocobabys.adapter.BindedNumInfoListAdapter) -> c
-    void access$500(com.cocobabys.adapter.BindedNumInfoListAdapter,android.widget.EditText,android.widget.EditText,int,int) -> a
-com.cocobabys.adapter.BindedNumInfoListAdapter$1 -> com.cocobabys.adapter.b:
-    int val$position -> a
-    com.cocobabys.adapter.BindedNumInfoListAdapter this$0 -> b
-    void onClick(android.view.View) -> onClick
-com.cocobabys.adapter.BindedNumInfoListAdapter$2 -> com.cocobabys.adapter.c:
-    int val$position -> a
-    com.cocobabys.dbmgr.info.BindedNumInfo val$info -> b
-    com.cocobabys.adapter.BindedNumInfoListAdapter this$0 -> c
-    void onClick(android.view.View) -> onClick
-com.cocobabys.adapter.BindedNumInfoListAdapter$2$1 -> com.cocobabys.adapter.d:
-    com.cocobabys.adapter.BindedNumInfoListAdapter$2 this$1 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.adapter.BindedNumInfoListAdapter$3 -> com.cocobabys.adapter.e:
-    com.cocobabys.adapter.BindedNumInfoListAdapter this$0 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.adapter.BindedNumInfoListAdapter$4 -> com.cocobabys.adapter.f:
-    android.widget.EditText val$nicknameEdit -> a
-    android.widget.EditText val$numEdit -> b
-    com.cocobabys.dbmgr.info.BindedNumInfo val$info -> c
-    int val$pos -> d
-    com.cocobabys.adapter.BindedNumInfoListAdapter this$0 -> e
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.adapter.BindedNumInfoListAdapter$FlagHolder -> com.cocobabys.adapter.g:
-    android.widget.TextView numView -> a
-    android.widget.TextView nicknameView -> b
-    android.widget.TextView changeView -> c
-    android.widget.TextView deleteView -> d
-    com.cocobabys.adapter.BindedNumInfoListAdapter this$0 -> e
-com.cocobabys.adapter.ChatListAdapter -> com.cocobabys.adapter.h:
-    java.util.Map softMap -> b
-    android.support.v4.util.LruCache lruCache -> a
-    android.content.Context context -> c
-    java.util.List dataList -> d
-    com.cocobabys.taskmgr.DownloadImgeJob task -> e
-    android.os.Handler handler -> f
-    void clear() -> a
-    int getCount() -> getCount
-    java.lang.Object getItem(int) -> getItem
-    long getItemId(int) -> getItemId
-    int getItemViewType(int) -> getItemViewType
-    int getViewTypeCount() -> getViewTypeCount
-    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-    android.graphics.Bitmap getLocalIcon$2d447008(java.lang.String,int,int) -> a
-    void releaseCache() -> b
-    void startToShowIconActivity(java.lang.String) -> a
-    android.content.Context access$100(com.cocobabys.adapter.ChatListAdapter) -> a
-com.cocobabys.adapter.ChatListAdapter$1 -> com.cocobabys.adapter.i:
-    com.cocobabys.adapter.ChatListAdapter this$0 -> a
-    int sizeOf(java.lang.Object,java.lang.Object) -> sizeOf
-com.cocobabys.adapter.ChatListAdapter$2 -> com.cocobabys.adapter.j:
-    com.cocobabys.adapter.ChatListAdapter this$0 -> a
-    void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.adapter.ChatListAdapter$3 -> com.cocobabys.adapter.k:
-    int val$position -> a
-    com.cocobabys.adapter.ChatListAdapter this$0 -> b
-    boolean onLongClick(android.view.View) -> onLongClick
-com.cocobabys.adapter.ChatListAdapter$3$1 -> com.cocobabys.adapter.l:
-    com.cocobabys.adapter.ChatListAdapter$3 this$1 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.adapter.ChatListAdapter$4 -> com.cocobabys.adapter.m:
-    int val$position -> a
-    com.cocobabys.adapter.ChatListAdapter this$0 -> b
-    void onClick(android.view.View) -> onClick
-com.cocobabys.adapter.ChatListAdapter$FlagHolder -> com.cocobabys.adapter.n:
-    android.widget.TextView sendView -> a
-    android.widget.TextView bodyView -> b
-    android.widget.TextView timestampView -> c
-    android.widget.ImageView resendView -> d
-    android.widget.ImageView headiconView -> e
-    android.widget.ImageView chaticonView -> f
-    boolean bLeft -> g
-    com.cocobabys.adapter.ChatListAdapter this$0 -> h
-com.cocobabys.adapter.ChildListAdapter -> com.cocobabys.adapter.o:
+com.cocobabys.adapter.ChildListAdapter -> com.cocobabys.adapter.a:
     android.content.Context context -> a
     java.util.List mList -> b
     int getCount() -> getCount
@@ -5484,11 +5277,11 @@ com.cocobabys.adapter.ChildListAdapter -> com.cocobabys.adapter.o:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.cocobabys.adapter.ChildListAdapter$FlagHolder) -> a
-com.cocobabys.adapter.ChildListAdapter$FlagHolder -> com.cocobabys.adapter.p:
+com.cocobabys.adapter.ChildListAdapter$FlagHolder -> com.cocobabys.adapter.b:
     android.widget.TextView nameView -> a
     android.widget.ImageView headView -> b
     com.cocobabys.adapter.ChildListAdapter this$0 -> c
-com.cocobabys.adapter.CookBookListAdapter -> com.cocobabys.adapter.q:
+com.cocobabys.adapter.CookBookListAdapter -> com.cocobabys.adapter.c:
     android.content.Context context -> a
     java.util.List cookInfos -> b
     int getCount() -> getCount
@@ -5496,7 +5289,7 @@ com.cocobabys.adapter.CookBookListAdapter -> com.cocobabys.adapter.q:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.cocobabys.adapter.CookBookListAdapter$FlagHolder) -> a
-com.cocobabys.adapter.CookBookListAdapter$FlagHolder -> com.cocobabys.adapter.r:
+com.cocobabys.adapter.CookBookListAdapter$FlagHolder -> com.cocobabys.adapter.d:
     android.widget.TextView fouthcontentView -> a
     android.widget.TextView thirdcontentView -> b
     android.widget.TextView secondcontentView -> c
@@ -5504,7 +5297,7 @@ com.cocobabys.adapter.CookBookListAdapter$FlagHolder -> com.cocobabys.adapter.r:
     android.widget.TextView weekView -> e
     android.widget.TextView firstcontentView -> f
     com.cocobabys.adapter.CookBookListAdapter this$0 -> g
-com.cocobabys.adapter.EducationGridViewAdapter -> com.cocobabys.adapter.s:
+com.cocobabys.adapter.EducationGridViewAdapter -> com.cocobabys.adapter.e:
     android.content.Context context -> a
     java.util.List data -> b
     int getCount() -> getCount
@@ -5512,11 +5305,11 @@ com.cocobabys.adapter.EducationGridViewAdapter -> com.cocobabys.adapter.s:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.cocobabys.adapter.EducationGridViewAdapter$FlagHolder) -> a
-com.cocobabys.adapter.EducationGridViewAdapter$FlagHolder -> com.cocobabys.adapter.t:
+com.cocobabys.adapter.EducationGridViewAdapter$FlagHolder -> com.cocobabys.adapter.f:
     android.widget.ImageView rankImgView -> a
     android.widget.ImageView itemImgView -> b
     com.cocobabys.adapter.EducationGridViewAdapter this$0 -> c
-com.cocobabys.adapter.ExpListAdapter -> com.cocobabys.adapter.u:
+com.cocobabys.adapter.ExpListAdapter -> com.cocobabys.adapter.g:
     android.support.v4.util.LruCache lruCache -> a
     android.content.Context context -> b
     java.util.List dataList -> c
@@ -5539,25 +5332,57 @@ com.cocobabys.adapter.ExpListAdapter -> com.cocobabys.adapter.u:
     java.lang.String access$000$5aab8aa2(java.lang.String) -> a
     java.util.Map access$100(com.cocobabys.adapter.ExpListAdapter) -> a
     void access$300(com.cocobabys.adapter.ExpListAdapter,long) -> a
-com.cocobabys.adapter.ExpListAdapter$1 -> com.cocobabys.adapter.v:
+com.cocobabys.adapter.ExpListAdapter$1 -> com.cocobabys.adapter.h:
     com.cocobabys.adapter.ExpListAdapter this$0 -> a
     int sizeOf(java.lang.Object,java.lang.Object) -> sizeOf
-com.cocobabys.adapter.ExpListAdapter$2 -> com.cocobabys.adapter.w:
+com.cocobabys.adapter.ExpListAdapter$2 -> com.cocobabys.adapter.i:
     com.cocobabys.adapter.ExpListAdapter this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.adapter.ExpListAdapter$3 -> com.cocobabys.adapter.x:
+com.cocobabys.adapter.ExpListAdapter$3 -> com.cocobabys.adapter.j:
     java.util.List val$localUrls -> a
     com.cocobabys.dbmgr.info.ExpInfo val$info -> b
     com.cocobabys.adapter.ExpListAdapter this$0 -> c
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.cocobabys.adapter.ExpListAdapter$FlagHolder -> com.cocobabys.adapter.y:
+com.cocobabys.adapter.ExpListAdapter$FlagHolder -> com.cocobabys.adapter.k:
     android.widget.TextView nameView -> a
     android.widget.TextView contentView -> b
     android.widget.TextView timestampView -> c
     android.widget.ImageView headiconView -> d
     android.widget.GridView gridview -> e
     com.cocobabys.adapter.ExpListAdapter this$0 -> f
-com.cocobabys.adapter.GrowthGridViewAdapter -> com.cocobabys.adapter.z:
+com.cocobabys.adapter.GalleryAdapter -> com.cocobabys.adapter.l:
+    android.content.Context mContext -> c
+    android.view.LayoutInflater infalter -> d
+    java.util.List data -> e
+    com.nostra13.universalimageloader.core.ImageLoader imageLoader -> a
+    boolean isActionMultiplePick -> f
+    boolean showDefaultPic -> b
+    void setShowDefaultPic$1385ff() -> a
+    java.util.List getAllSelectedPath() -> b
+    java.util.List getData() -> c
+    int getCount() -> getCount
+    com.cocobabys.customview.CustomGallery getItem(int) -> a
+    long getItemId(int) -> getItemId
+    void setMultiplePick(boolean) -> a
+    java.util.ArrayList getSelected() -> d
+    void addAll(java.util.ArrayList) -> a
+    void insert(com.cocobabys.customview.CustomGallery) -> a
+    boolean checkMaxIconSelected() -> e
+    void changeSelection(android.view.View,int) -> a
+    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+    void clearCache() -> f
+    void clear() -> g
+    void setSelected(java.lang.String[]) -> a
+    java.lang.Object getItem(int) -> getItem
+com.cocobabys.adapter.GalleryAdapter$1 -> com.cocobabys.adapter.m:
+    com.cocobabys.adapter.GalleryAdapter$ViewHolder val$holder -> a
+    com.cocobabys.adapter.GalleryAdapter this$0 -> b
+    void onLoadingStarted(java.lang.String,android.view.View) -> onLoadingStarted
+com.cocobabys.adapter.GalleryAdapter$ViewHolder -> com.cocobabys.adapter.n:
+    android.widget.ImageView imgQueue -> a
+    android.widget.ImageView imgQueueMultiSelected -> b
+    com.cocobabys.adapter.GalleryAdapter this$0 -> c
+com.cocobabys.adapter.GrowthGridViewAdapter -> com.cocobabys.adapter.o:
     android.content.Context context -> a
     java.util.List data -> b
     int getCount() -> getCount
@@ -5567,13 +5392,14 @@ com.cocobabys.adapter.GrowthGridViewAdapter -> com.cocobabys.adapter.z:
     void setDataToViews(int,com.cocobabys.adapter.GrowthGridViewAdapter$FlagHolder) -> a
     void addAll(java.util.List) -> a
     void clear() -> a
+    void changeCount(int,java.lang.String) -> a
     java.lang.Object getItem(int) -> getItem
-com.cocobabys.adapter.GrowthGridViewAdapter$FlagHolder -> com.cocobabys.adapter.aa:
+com.cocobabys.adapter.GrowthGridViewAdapter$FlagHolder -> com.cocobabys.adapter.p:
     android.widget.ImageView newDataSymble -> a
     android.widget.TextView nameView -> b
     android.widget.ImageView headView -> c
     com.cocobabys.adapter.GrowthGridViewAdapter this$0 -> d
-com.cocobabys.adapter.HomeworkListAdapter -> com.cocobabys.adapter.ab:
+com.cocobabys.adapter.HomeworkListAdapter -> com.cocobabys.adapter.q:
     android.content.Context context -> a
     java.util.List dataList -> b
     java.util.Map softMap -> c
@@ -5583,39 +5409,14 @@ com.cocobabys.adapter.HomeworkListAdapter -> com.cocobabys.adapter.ab:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.cocobabys.adapter.HomeworkListAdapter$FlagHolder) -> a
-com.cocobabys.adapter.HomeworkListAdapter$FlagHolder -> com.cocobabys.adapter.ac:
+com.cocobabys.adapter.HomeworkListAdapter$FlagHolder -> com.cocobabys.adapter.r:
     android.widget.TextView titleView -> a
     android.widget.TextView bodyView -> b
     android.widget.TextView timestampView -> c
     android.widget.TextView fromView -> d
     android.widget.ImageView iconView -> e
     com.cocobabys.adapter.HomeworkListAdapter this$0 -> f
-com.cocobabys.adapter.LocationInfoListAdapter -> com.cocobabys.adapter.ad:
-    android.content.Context context -> a
-    java.util.List locationInfoList -> b
-    void clear() -> a
-    int getCount() -> getCount
-    java.lang.Object getItem(int) -> getItem
-    long getItemId(int) -> getItemId
-    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-    void setDataToViews(int,com.cocobabys.adapter.LocationInfoListAdapter$FlagHolder) -> a
-    android.content.Context access$100(com.cocobabys.adapter.LocationInfoListAdapter) -> a
-    java.util.List access$200(com.cocobabys.adapter.LocationInfoListAdapter) -> b
-com.cocobabys.adapter.LocationInfoListAdapter$1 -> com.cocobabys.adapter.ae:
-    int val$position -> a
-    com.cocobabys.dbmgr.info.LocationInfo val$locationInfo -> b
-    com.cocobabys.adapter.LocationInfoListAdapter this$0 -> c
-    void onClick(android.view.View) -> onClick
-com.cocobabys.adapter.LocationInfoListAdapter$1$1 -> com.cocobabys.adapter.af:
-    com.cocobabys.adapter.LocationInfoListAdapter$1 this$1 -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-com.cocobabys.adapter.LocationInfoListAdapter$FlagHolder -> com.cocobabys.adapter.ag:
-    android.widget.TextView lbsNumView -> a
-    android.widget.TextView addressView -> b
-    android.widget.TextView timestampView -> c
-    android.widget.ImageView deleteView -> d
-    com.cocobabys.adapter.LocationInfoListAdapter this$0 -> e
-com.cocobabys.adapter.NewChatListAdapter -> com.cocobabys.adapter.ah:
+com.cocobabys.adapter.NewChatListAdapter -> com.cocobabys.adapter.s:
     android.support.v4.util.LruCache lruCache -> a
     android.content.Context context -> b
     java.util.List dataList -> c
@@ -5637,17 +5438,17 @@ com.cocobabys.adapter.NewChatListAdapter -> com.cocobabys.adapter.ah:
     void startToShowIconActivity(java.lang.String) -> a
     java.lang.String access$000$55156e3d(java.lang.String) -> b
     java.util.Map access$100(com.cocobabys.adapter.NewChatListAdapter) -> a
-com.cocobabys.adapter.NewChatListAdapter$1 -> com.cocobabys.adapter.ai:
+com.cocobabys.adapter.NewChatListAdapter$1 -> com.cocobabys.adapter.t:
     com.cocobabys.adapter.NewChatListAdapter this$0 -> a
     int sizeOf(java.lang.Object,java.lang.Object) -> sizeOf
-com.cocobabys.adapter.NewChatListAdapter$2 -> com.cocobabys.adapter.aj:
+com.cocobabys.adapter.NewChatListAdapter$2 -> com.cocobabys.adapter.u:
     com.cocobabys.adapter.NewChatListAdapter this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.adapter.NewChatListAdapter$3 -> com.cocobabys.adapter.ak:
+com.cocobabys.adapter.NewChatListAdapter$3 -> com.cocobabys.adapter.v:
     int val$position -> a
     com.cocobabys.adapter.NewChatListAdapter this$0 -> b
     void onClick(android.view.View) -> onClick
-com.cocobabys.adapter.NewChatListAdapter$FlagHolder -> com.cocobabys.adapter.al:
+com.cocobabys.adapter.NewChatListAdapter$FlagHolder -> com.cocobabys.adapter.w:
     android.widget.TextView sendView -> a
     android.widget.TextView bodyView -> b
     android.widget.TextView timestampView -> c
@@ -5655,7 +5456,7 @@ com.cocobabys.adapter.NewChatListAdapter$FlagHolder -> com.cocobabys.adapter.al:
     android.widget.ImageView chaticonView -> e
     boolean bLeft -> f
     com.cocobabys.adapter.NewChatListAdapter this$0 -> g
-com.cocobabys.adapter.NewsListAdapter -> com.cocobabys.adapter.am:
+com.cocobabys.adapter.NewsListAdapter -> com.cocobabys.adapter.x:
     android.content.Context context -> a
     java.util.List newsList -> b
     java.util.Map softMap -> c
@@ -5665,14 +5466,14 @@ com.cocobabys.adapter.NewsListAdapter -> com.cocobabys.adapter.am:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.cocobabys.adapter.NewsListAdapter$FlagHolder) -> a
-com.cocobabys.adapter.NewsListAdapter$FlagHolder -> com.cocobabys.adapter.an:
+com.cocobabys.adapter.NewsListAdapter$FlagHolder -> com.cocobabys.adapter.y:
     android.widget.TextView titleView -> a
     android.widget.TextView bodyView -> b
     android.widget.TextView timestampView -> c
     android.widget.TextView fromview -> d
     android.widget.ImageView iconView -> e
     com.cocobabys.adapter.NewsListAdapter this$0 -> f
-com.cocobabys.adapter.ScheduleListAdapter -> com.cocobabys.adapter.ao:
+com.cocobabys.adapter.ScheduleListAdapter -> com.cocobabys.adapter.z:
     android.content.Context context -> a
     java.util.List items -> b
     int getCount() -> getCount
@@ -5680,13 +5481,13 @@ com.cocobabys.adapter.ScheduleListAdapter -> com.cocobabys.adapter.ao:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.cocobabys.adapter.ScheduleListAdapter$FlagHolder) -> a
-com.cocobabys.adapter.ScheduleListAdapter$FlagHolder -> com.cocobabys.adapter.ap:
+com.cocobabys.adapter.ScheduleListAdapter$FlagHolder -> com.cocobabys.adapter.aa:
     android.widget.TextView dateView -> a
     android.widget.TextView weekView -> b
     android.widget.TextView amContentView -> c
     android.widget.TextView pmContentView -> d
     com.cocobabys.adapter.ScheduleListAdapter this$0 -> e
-com.cocobabys.adapter.SchoolNoticeGridViewAdapter -> com.cocobabys.adapter.aq:
+com.cocobabys.adapter.SchoolNoticeGridViewAdapter -> com.cocobabys.adapter.ab:
     android.content.Context context -> a
     java.util.List data -> b
     int getCount() -> getCount
@@ -5694,12 +5495,12 @@ com.cocobabys.adapter.SchoolNoticeGridViewAdapter -> com.cocobabys.adapter.aq:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.cocobabys.adapter.SchoolNoticeGridViewAdapter$FlagHolder) -> a
-com.cocobabys.adapter.SchoolNoticeGridViewAdapter$FlagHolder -> com.cocobabys.adapter.ar:
+com.cocobabys.adapter.SchoolNoticeGridViewAdapter$FlagHolder -> com.cocobabys.adapter.ac:
     android.widget.ImageView newDataSymble -> a
     android.widget.TextView nameView -> b
     android.widget.ImageView headView -> c
     com.cocobabys.adapter.SchoolNoticeGridViewAdapter this$0 -> d
-com.cocobabys.adapter.SimpleGridViewAdapter -> com.cocobabys.adapter.as:
+com.cocobabys.adapter.SimpleGridViewAdapter -> com.cocobabys.adapter.ad:
     android.content.Context context -> a
     java.util.List localUrlList -> b
     com.nostra13.universalimageloader.core.ImageLoader imageLoader -> c
@@ -5708,39 +5509,40 @@ com.cocobabys.adapter.SimpleGridViewAdapter -> com.cocobabys.adapter.as:
     java.lang.String getItem(int) -> a
     long getItemId(int) -> getItemId
     java.lang.Object getItem(int) -> getItem
-com.cocobabys.adapter.SimpleGridViewAdapter$1 -> com.cocobabys.adapter.at:
+com.cocobabys.adapter.SimpleGridViewAdapter$1 -> com.cocobabys.adapter.ae:
     com.cocobabys.adapter.SimpleGridViewAdapter$ViewHolder val$holder -> a
     com.cocobabys.adapter.SimpleGridViewAdapter this$0 -> b
     void onLoadingStarted(java.lang.String,android.view.View) -> onLoadingStarted
-com.cocobabys.adapter.SimpleGridViewAdapter$ViewHolder -> com.cocobabys.adapter.au:
+com.cocobabys.adapter.SimpleGridViewAdapter$ViewHolder -> com.cocobabys.adapter.af:
     android.widget.ImageView imageView -> a
     com.cocobabys.adapter.SimpleGridViewAdapter this$0 -> b
-com.cocobabys.adapter.SlideGalleryAdapter -> com.cocobabys.adapter.av:
+com.cocobabys.adapter.SlideGalleryAdapter -> com.cocobabys.adapter.ag:
     android.view.LayoutInflater infalter -> a
-    com.nostra13.universalimageloader.core.ImageLoader imageLoader -> b
-    java.util.List localUrlList -> c
-    com.cocobabys.dbmgr.info.ExpInfo expInfo -> d
-    com.cocobabys.taskmgr.DownloadImgeJob downloadImgeJob -> e
-    android.os.Handler handler -> f
-    android.support.v4.util.LruCache lruCache -> g
+    java.util.List localUrlList -> b
+    com.cocobabys.dbmgr.info.ExpInfo expInfo -> c
+    com.cocobabys.taskmgr.DownloadImgeJob downloadImgeJob -> d
+    android.os.Handler handler -> e
+    android.support.v4.util.LruCache lruCache -> f
+    void initCache() -> b
     int getCount() -> getCount
-    java.lang.String getItem(int) -> a
+    java.lang.String getItem(int) -> b
     long getItemId(int) -> getItemId
+    java.util.List getList() -> a
+    void remove(int) -> a
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void addToDownloadTask(com.cocobabys.dbmgr.info.ExpInfo) -> a
-    void clearCache() -> a
     java.lang.Object getItem(int) -> getItem
-com.cocobabys.adapter.SlideGalleryAdapter$1 -> com.cocobabys.adapter.aw:
+com.cocobabys.adapter.SlideGalleryAdapter$1 -> com.cocobabys.adapter.ah:
     com.cocobabys.adapter.SlideGalleryAdapter this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.adapter.SlideGalleryAdapter$2 -> com.cocobabys.adapter.ax:
+com.cocobabys.adapter.SlideGalleryAdapter$2 -> com.cocobabys.adapter.ai:
     com.cocobabys.adapter.SlideGalleryAdapter this$0 -> a
     int sizeOf(java.lang.Object,java.lang.Object) -> sizeOf
-com.cocobabys.adapter.SlideGalleryAdapter$ViewHolder -> com.cocobabys.adapter.ay:
+com.cocobabys.adapter.SlideGalleryAdapter$ViewHolder -> com.cocobabys.adapter.aj:
     android.widget.ImageView imageView -> a
     com.cocobabys.customview.ProgressWheel progressWheel -> b
     com.cocobabys.adapter.SlideGalleryAdapter this$0 -> c
-com.cocobabys.adapter.SwipeListAdapter -> com.cocobabys.adapter.az:
+com.cocobabys.adapter.SwipeListAdapter -> com.cocobabys.adapter.ak:
     android.content.Context context -> a
     java.util.List list -> b
     java.lang.String nick -> c
@@ -5750,7 +5552,7 @@ com.cocobabys.adapter.SwipeListAdapter -> com.cocobabys.adapter.az:
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     void setDataToViews(int,com.cocobabys.adapter.SwipeListAdapter$FlagHolder) -> a
-com.cocobabys.adapter.SwipeListAdapter$FlagHolder -> com.cocobabys.adapter.ba:
+com.cocobabys.adapter.SwipeListAdapter$FlagHolder -> com.cocobabys.adapter.al:
     android.widget.TextView titleView -> a
     android.widget.TextView bodyView -> b
     android.widget.TextView timestampView -> c
@@ -5913,12 +5715,12 @@ com.cocobabys.constant.ServerUrls -> com.cocobabys.c.d:
     java.lang.String COOKBOOK_DETAIL -> E
     java.lang.String GET_EXP_COUNT -> F
     java.lang.String GET_EXP_INFO -> G
+    java.lang.String POST_EXP_INFO -> H
     java.lang.String getHost() -> a
 com.cocobabys.customexception.BindFailException -> com.cocobabys.d.a:
 com.cocobabys.customexception.CustomException -> com.cocobabys.d.b:
-com.cocobabys.customexception.DecodeBitmapException -> com.cocobabys.d.c:
-com.cocobabys.customexception.DuplicateLoginException -> com.cocobabys.d.d:
-com.cocobabys.customexception.InvalidTokenException -> com.cocobabys.d.e:
+com.cocobabys.customexception.DuplicateLoginException -> com.cocobabys.d.c:
+com.cocobabys.customexception.InvalidTokenException -> com.cocobabys.d.d:
 com.cocobabys.customview.CustomDialog -> com.cocobabys.customview.a:
 com.cocobabys.customview.CustomDialog$Builder -> com.cocobabys.customview.b:
     android.content.Context context -> a
@@ -5957,6 +5759,15 @@ com.cocobabys.customview.CustomDialog$Builder$4 -> com.cocobabys.customview.f:
     com.cocobabys.customview.CustomDialog val$dialog -> a
     com.cocobabys.customview.CustomDialog$Builder this$0 -> b
     void onClick(android.view.View) -> onClick
+com.cocobabys.customview.CustomGallery -> com.cocobabys.customview.g:
+    java.lang.String sdcardPath -> a
+    boolean isSeleted -> b
+    java.lang.String getSdcardPath() -> a
+    void setSdcardPath(java.lang.String) -> a
+    boolean isSeleted() -> b
+    void setSeleted(boolean) -> a
+    int hashCode() -> hashCode
+    boolean equals(java.lang.Object) -> equals
 com.cocobabys.customview.MsgListView -> com.cocobabys.customview.MsgListView:
     android.view.LayoutInflater inflater -> b
     android.widget.LinearLayout headView -> c
@@ -5981,7 +5792,7 @@ com.cocobabys.customview.MsgListView -> com.cocobabys.customview.MsgListView:
     void changeHeaderViewByState() -> c
     void setonRefreshListener(com.cocobabys.customview.MsgListView$OnRefreshListener) -> a
     void onRefreshComplete() -> b
-com.cocobabys.customview.MsgListView$OnRefreshListener -> com.cocobabys.customview.g:
+com.cocobabys.customview.MsgListView$OnRefreshListener -> com.cocobabys.customview.h:
     void onRefresh() -> a
 com.cocobabys.customview.MyGridView -> com.cocobabys.customview.MyGridView:
     void onMeasure(int,int) -> onMeasure
@@ -6032,7 +5843,7 @@ com.cocobabys.customview.ProgressWheel -> com.cocobabys.customview.ProgressWheel
     int access$000(com.cocobabys.customview.ProgressWheel) -> a
     int access$100(com.cocobabys.customview.ProgressWheel) -> b
     android.os.Handler access$200(com.cocobabys.customview.ProgressWheel) -> c
-com.cocobabys.customview.ProgressWheel$1 -> com.cocobabys.customview.h:
+com.cocobabys.customview.ProgressWheel$1 -> com.cocobabys.customview.i:
     com.cocobabys.customview.ProgressWheel this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
 com.cocobabys.customview.SlideGallery -> com.cocobabys.customview.SlideGallery:
@@ -6069,17 +5880,9 @@ com.cocobabys.customview.SwitchButton -> com.cocobabys.customview.SwitchButton:
     boolean onSingleTapUp(android.view.MotionEvent) -> onSingleTapUp
     void on() -> c
     void off() -> d
-com.cocobabys.customview.SwitchButton$OnCheckedChangeListener -> com.cocobabys.customview.i:
+com.cocobabys.customview.SwitchButton$OnCheckedChangeListener -> com.cocobabys.customview.j:
     void checkedChange(boolean) -> a
-com.cocobabys.dbmgr.ChatMgr -> com.cocobabys.e.a:
-    com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
-    void addChatInfoList(java.util.List) -> a
-    java.util.List getChatInfoWithLimite(int) -> a
-    java.util.List getChatInfoWithLimite$643a5acf(long) -> a
-    int getLastServerid() -> a
-    void removeAllChatInfo() -> b
-    java.util.List getChatInfoList(android.database.Cursor) -> a
-com.cocobabys.dbmgr.ChildrenInfoMgr -> com.cocobabys.e.b:
+com.cocobabys.dbmgr.ChildrenInfoMgr -> com.cocobabys.e.a:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     android.content.ContentValues setProp(com.cocobabys.dbmgr.info.ChildInfo) -> a
     void addChildrenInfoList(java.util.List) -> a
@@ -6096,11 +5899,11 @@ com.cocobabys.dbmgr.ChildrenInfoMgr -> com.cocobabys.e.b:
     java.lang.String getClassNameByClassID(int) -> a
     void clearChildInfo() -> e
     com.cocobabys.dbmgr.info.ChildInfo getChildrenInfoByCursor(android.database.Cursor) -> a
-com.cocobabys.dbmgr.CookBookInfoMgr -> com.cocobabys.e.c:
+com.cocobabys.dbmgr.CookBookInfoMgr -> com.cocobabys.e.b:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     void updateCookBookInfo(com.cocobabys.dbmgr.info.CookBookInfo) -> a
     com.cocobabys.dbmgr.info.CookBookInfo getCookBookInfo() -> a
-com.cocobabys.dbmgr.DataMgr -> com.cocobabys.e.d:
+com.cocobabys.dbmgr.DataMgr -> com.cocobabys.e.c:
     int DB_VERSION -> a
     java.lang.Object mLock -> b
     com.cocobabys.dbmgr.DataMgr instance -> c
@@ -6113,107 +5916,92 @@ com.cocobabys.dbmgr.DataMgr -> com.cocobabys.e.d:
     com.cocobabys.dbmgr.NewsMgr newsMgr -> j
     com.cocobabys.dbmgr.SwipeMgr swipeMgr -> k
     com.cocobabys.dbmgr.HomeworkMgr homeworkMgr -> l
-    com.cocobabys.dbmgr.ChatMgr chatMgr -> m
-    com.cocobabys.dbmgr.EducationMgr educationMgr -> n
-    com.cocobabys.dbmgr.TeacherMgr teacherMgr -> o
-    com.cocobabys.dbmgr.ParentMgr parentMgr -> p
-    com.cocobabys.dbmgr.NewChatMgr newChatMgr -> q
-    com.cocobabys.dbmgr.ExpMgr expMgr -> r
+    com.cocobabys.dbmgr.EducationMgr educationMgr -> m
+    com.cocobabys.dbmgr.TeacherMgr teacherMgr -> n
+    com.cocobabys.dbmgr.ParentMgr parentMgr -> o
+    com.cocobabys.dbmgr.NewChatMgr newChatMgr -> p
+    com.cocobabys.dbmgr.ExpMgr expMgr -> q
     com.cocobabys.dbmgr.DataMgr getInstance() -> a
-    long addLocationInfo(com.cocobabys.dbmgr.info.LocationInfo) -> a
-    void deleteLocationInfo(int) -> a
-    java.util.List getLocationInfos() -> b
-    long addBindedNumInfo(com.cocobabys.dbmgr.info.BindedNumInfo) -> a
-    com.cocobabys.dbmgr.info.BindedNumInfo getBindedNumInfoByNum(java.lang.String) -> a
-    java.util.List getAllBindedNumInfo() -> c
-    void updateBindedNumInfo(com.cocobabys.dbmgr.info.BindedNumInfo) -> b
-    void deleteBindedNumInfo(int) -> b
-    java.util.List getBindedNumInfoList(android.database.Cursor) -> a
-    com.cocobabys.dbmgr.info.BindedNumInfo getBindedNumInfoByCursor(android.database.Cursor) -> b
-    void upgradeAll() -> d
+    void upgradeAll() -> b
     void addChildrenInfoList(java.util.List) -> a
-    void clearChildInfo() -> e
-    com.cocobabys.dbmgr.info.ChildInfo getSelectedChild() -> f
-    com.cocobabys.dbmgr.info.ChildInfo getChildByID(java.lang.String) -> b
-    java.util.List getAllChildrenInfo() -> g
-    java.util.List getAllClassID() -> h
-    int setSelectedChild(java.lang.String) -> c
-    java.lang.String getLatestChildTimestamp() -> i
+    void clearChildInfo() -> c
+    com.cocobabys.dbmgr.info.ChildInfo getSelectedChild() -> d
+    com.cocobabys.dbmgr.info.ChildInfo getChildByID(java.lang.String) -> a
+    java.util.List getAllChildrenInfo() -> e
+    java.util.List getAllClassID() -> f
+    int setSelectedChild(java.lang.String) -> b
+    java.lang.String getLatestChildTimestamp() -> g
     void updateChildInfo(java.lang.String,com.cocobabys.dbmgr.info.ChildInfo) -> a
     void updateChildLocalIconUrl(java.lang.String,java.lang.String) -> a
     void updateNick(java.lang.String,java.lang.String) -> b
     void updateBirthday(java.lang.String,long) -> a
-    java.lang.String getClassNameByClassID(int) -> c
+    java.lang.String getClassNameByClassID(int) -> a
     void updateSchoolInfo(java.lang.String,com.cocobabys.dbmgr.info.SchoolInfo) -> a
     long addSchoolInfo(com.cocobabys.dbmgr.info.SchoolInfo) -> a
-    com.cocobabys.dbmgr.info.SchoolInfo getSchoolInfo() -> j
-    java.lang.String getSchoolID() -> k
+    com.cocobabys.dbmgr.info.SchoolInfo getSchoolInfo() -> h
+    java.lang.String getSchoolID() -> i
     void updateSchoolLogoLocalUrl(java.lang.String,java.lang.String) -> c
     void updateScheduleInfo(com.cocobabys.dbmgr.info.ScheduleInfo) -> a
-    com.cocobabys.dbmgr.info.ScheduleInfo getScheduleInfo() -> l
+    com.cocobabys.dbmgr.info.ScheduleInfo getScheduleInfo() -> j
     void updateCookBookInfo(com.cocobabys.dbmgr.info.CookBookInfo) -> a
-    com.cocobabys.dbmgr.info.CookBookInfo getCookBookInfo() -> m
+    com.cocobabys.dbmgr.info.CookBookInfo getCookBookInfo() -> k
     void addNewsList(java.util.List) -> b
-    java.util.List getNewsByType$28cc3cee(int) -> d
-    void removeAllNewsByType$13462e() -> n
+    java.util.List getNewsByType$28cc3cee(int) -> b
+    void removeAllNewsByType$13462e() -> l
     long addSwipeData(com.cocobabys.dbmgr.info.SwipeInfo) -> a
     void addSwipeDataList(java.util.List) -> c
     com.cocobabys.dbmgr.info.SwipeInfo getSwipeDataByTimeStamp(long) -> a
-    java.lang.String getLastestSwipeIn(java.lang.String) -> d
-    java.lang.String getLatestSwipeOut(java.lang.String) -> e
-    java.util.List getAllSwipeCardNotice(java.lang.String) -> f
+    java.lang.String getLastestSwipeIn(java.lang.String) -> c
+    java.lang.String getLatestSwipeOut(java.lang.String) -> d
+    java.util.List getAllSwipeCardNotice(java.lang.String) -> e
     void addHomeworkList(java.util.List) -> d
-    java.util.List getHomeworkWithLimite(int) -> e
-    void removeAllHomework() -> o
-    java.util.List getChatInfoWithLimite(int) -> f
-    java.util.List getChatInfoWithLimite$643a5acf(long) -> b
-    void removeAllChatInfo() -> p
-    void addChatInfoList(java.util.List) -> e
-    int getLastChatServerid() -> q
-    void addEduRecordList(java.util.List) -> f
-    java.util.List getSelectedChildEduRecord() -> r
-    void removeSelectedChildEduRecord() -> s
+    java.util.List getHomeworkWithLimite(int) -> c
+    void removeAllHomework() -> m
+    void addEduRecordList(java.util.List) -> e
+    java.util.List getSelectedChildEduRecord() -> n
+    void removeSelectedChildEduRecord() -> o
     long addTeacher(com.cocobabys.dbmgr.info.Teacher) -> a
-    java.util.List getAllTeachers() -> t
+    java.util.List getAllTeachers() -> p
     boolean handleIncomingTeacher(com.cocobabys.dbmgr.info.Teacher) -> b
-    com.cocobabys.dbmgr.info.Teacher getTeacherByID(java.lang.String) -> g
-    void removeAllTeacher() -> u
-    void addParentList(java.util.List) -> g
-    com.cocobabys.dbmgr.info.ParentInfo getParentByID(java.lang.String) -> h
-    com.cocobabys.dbmgr.info.ParentInfo getSelfInfoByPhone() -> v
+    com.cocobabys.dbmgr.info.Teacher getTeacherByID(java.lang.String) -> f
+    void addParentList(java.util.List) -> f
+    com.cocobabys.dbmgr.info.ParentInfo getParentByID(java.lang.String) -> g
+    com.cocobabys.dbmgr.info.ParentInfo getSelfInfoByPhone() -> q
     java.util.List getNewChatInfoWithLimite(int,java.lang.String) -> a
     java.util.List getNewChatInfoWithLimite$2f47a7(long,java.lang.String) -> a
-    void addNewChatInfoList(java.util.List) -> h
-    void removeAllNewChatInfo() -> w
-    long getLastNewChatServerid(java.lang.String) -> i
-    void addExpDataList(java.util.List) -> i
-    java.util.List getExpCountGroupByMonthPerYear(int) -> g
-    java.util.List getExpInfoByMonthAndYear(java.lang.String) -> j
-    com.cocobabys.dbmgr.info.ExpInfo getExpInfoByID(long) -> c
-    void clearExp() -> x
-    void close() -> y
-com.cocobabys.dbmgr.EducationMgr -> com.cocobabys.e.e:
+    void addNewChatInfoList(java.util.List) -> g
+    void removeAllNewChatInfo() -> r
+    long getLastNewChatServerid(java.lang.String) -> h
+    void addExpDataList(java.util.List) -> h
+    java.util.List getExpCountGroupByMonthPerYear(int) -> d
+    int getExpCountInMonth(int,java.lang.String) -> b
+    java.util.List getExpInfoByMonthAndYear(java.lang.String) -> i
+    com.cocobabys.dbmgr.info.ExpInfo getExpInfoByID(long) -> b
+    void clearExp() -> s
+    void close() -> t
+com.cocobabys.dbmgr.EducationMgr -> com.cocobabys.e.d:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     void addEduRecordList(java.util.List) -> a
     java.util.List getEduRecordByChildID(java.lang.String) -> a
     void removeEduRecord(java.lang.String) -> b
     java.util.List getEduList(android.database.Cursor) -> a
-com.cocobabys.dbmgr.ExpMgr -> com.cocobabys.e.f:
+com.cocobabys.dbmgr.ExpMgr -> com.cocobabys.e.e:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     void addDataList(java.util.List) -> a
     void clear() -> a
     java.util.List getExpCountGroupByMonthPerYear(int,java.lang.String) -> a
+    int getExpCountInMonth(int,java.lang.String,java.lang.String) -> a
     java.util.List getExpInfoByMonthAndYear(java.lang.String) -> a
     com.cocobabys.dbmgr.info.ExpInfo getExpInfoByID(long) -> a
     java.util.List getExpInfoList(android.database.Cursor) -> a
     com.cocobabys.dbmgr.info.ExpInfo getDataByCursor(android.database.Cursor) -> b
-com.cocobabys.dbmgr.HomeworkMgr -> com.cocobabys.e.g:
+com.cocobabys.dbmgr.HomeworkMgr -> com.cocobabys.e.f:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     void addHomeworkList(java.util.List) -> a
     java.util.List getHomeworkWithLimite(int) -> a
     void removeAllHomework() -> a
     java.util.List getHomeworkList(android.database.Cursor) -> a
-com.cocobabys.dbmgr.NewChatMgr -> com.cocobabys.e.h:
+com.cocobabys.dbmgr.NewChatMgr -> com.cocobabys.e.g:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     void addDataList(java.util.List) -> a
     void clear() -> a
@@ -6222,36 +6010,35 @@ com.cocobabys.dbmgr.NewChatMgr -> com.cocobabys.e.h:
     com.cocobabys.dbmgr.info.NewChatInfo getLastChatInfo(java.lang.String) -> a
     java.util.List getChatInfoList(android.database.Cursor) -> a
     com.cocobabys.dbmgr.info.NewChatInfo getDataByCursor(android.database.Cursor) -> b
-com.cocobabys.dbmgr.NewsMgr -> com.cocobabys.e.i:
+com.cocobabys.dbmgr.NewsMgr -> com.cocobabys.e.h:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     void addNewsList(java.util.List) -> a
     java.util.List getNewsByType$28cc3cee(int) -> a
     void removeAllNewsByType$13462e() -> a
     java.util.List getNewsList(android.database.Cursor) -> a
-com.cocobabys.dbmgr.ParentMgr -> com.cocobabys.e.j:
+com.cocobabys.dbmgr.ParentMgr -> com.cocobabys.e.i:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     void addDataList(java.util.List) -> a
     com.cocobabys.dbmgr.info.ParentInfo getParentByPhone(java.lang.String) -> a
     com.cocobabys.dbmgr.info.ParentInfo getParentByID(java.lang.String) -> b
     com.cocobabys.dbmgr.info.ParentInfo getDataByCursor(android.database.Cursor) -> a
-com.cocobabys.dbmgr.ScheduleInfoMgr -> com.cocobabys.e.k:
+com.cocobabys.dbmgr.ScheduleInfoMgr -> com.cocobabys.e.j:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     void updateScheduleInfo(com.cocobabys.dbmgr.info.ScheduleInfo) -> a
     com.cocobabys.dbmgr.info.ScheduleInfo getScheduleInfo() -> a
-com.cocobabys.dbmgr.SchoolInfoMgr -> com.cocobabys.e.l:
+com.cocobabys.dbmgr.SchoolInfoMgr -> com.cocobabys.e.k:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     long addSchoolInfo(com.cocobabys.dbmgr.info.SchoolInfo) -> a
     android.content.ContentValues setProp(com.cocobabys.dbmgr.info.SchoolInfo) -> b
     void updateSchoolLogoLocalUrl(java.lang.String,java.lang.String) -> a
     void updateSchoolInfo(java.lang.String,com.cocobabys.dbmgr.info.SchoolInfo) -> a
     com.cocobabys.dbmgr.info.SchoolInfo getSchoolInfo() -> a
-com.cocobabys.dbmgr.SqliteHelper -> com.cocobabys.e.m:
+com.cocobabys.dbmgr.SqliteHelper -> com.cocobabys.e.l:
     void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
-    void addTabs(android.database.sqlite.SQLiteDatabase) -> b
-    void addParentTab(android.database.sqlite.SQLiteDatabase) -> c
+    void initMonthTab(android.database.sqlite.SQLiteDatabase) -> b
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
     void clearAll(android.database.sqlite.SQLiteDatabase) -> a
-com.cocobabys.dbmgr.SwipeMgr -> com.cocobabys.e.n:
+com.cocobabys.dbmgr.SwipeMgr -> com.cocobabys.e.m:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     long addData(com.cocobabys.dbmgr.info.SwipeInfo) -> a
     android.content.ContentValues buildInfo(com.cocobabys.dbmgr.info.SwipeInfo) -> b
@@ -6261,55 +6048,14 @@ com.cocobabys.dbmgr.SwipeMgr -> com.cocobabys.e.n:
     java.lang.String getLatestSwipeOut(java.lang.String,java.lang.String) -> b
     java.util.List getAllSwipeCardNotice(java.lang.String,java.lang.String) -> c
     java.util.List getDataList(android.database.Cursor) -> a
-com.cocobabys.dbmgr.TeacherMgr -> com.cocobabys.e.o:
+com.cocobabys.dbmgr.TeacherMgr -> com.cocobabys.e.n:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
     long add(com.cocobabys.dbmgr.info.Teacher) -> a
     com.cocobabys.dbmgr.info.Teacher getTeacherByID(java.lang.String) -> a
     com.cocobabys.dbmgr.info.Teacher getTeacher(java.lang.String) -> b
     java.util.List getAllTeachers() -> a
-    void removeAllTeacher() -> b
     com.cocobabys.dbmgr.info.Teacher getInfoByCursor(android.database.Cursor) -> a
-com.cocobabys.dbmgr.info.BindedNumInfo -> com.cocobabys.e.a.a:
-    java.lang.String phone_num -> a
-    java.lang.String nickname -> b
-    int id -> c
-    int getId() -> a
-    void setId(int) -> a
-    java.lang.String getPhone_num() -> b
-    void setPhone_num(java.lang.String) -> a
-    java.lang.String getNickname() -> c
-    void setNickname(java.lang.String) -> b
-    java.lang.String toString() -> toString
-com.cocobabys.dbmgr.info.ChatInfo -> com.cocobabys.e.a.b:
-    java.lang.String sender -> a
-    java.lang.String content -> b
-    long timestamp -> c
-    java.lang.String icon_url -> d
-    java.lang.String phone -> e
-    int id -> f
-    int server_id -> g
-    int send_result -> h
-    int getSend_result() -> a
-    void setSend_result(int) -> a
-    java.lang.String getIcon_url() -> b
-    void setIcon_url(java.lang.String) -> a
-    int getServer_id() -> c
-    void setServer_id(int) -> b
-    void setId(int) -> c
-    java.lang.String getSender() -> d
-    void setSender(java.lang.String) -> b
-    java.lang.String getContent() -> e
-    void setContent(java.lang.String) -> c
-    long getTimestamp() -> f
-    void setTimestamp(long) -> a
-    java.lang.String getPhone() -> g
-    void setPhone(java.lang.String) -> d
-    java.lang.String getFormattedTime() -> h
-    boolean isSendBySelf() -> i
-    java.lang.String getLocalUrl() -> j
-    int hashCode() -> hashCode
-    boolean equals(java.lang.Object) -> equals
-com.cocobabys.dbmgr.info.ChildInfo -> com.cocobabys.e.a.c:
+com.cocobabys.dbmgr.info.ChildInfo -> com.cocobabys.e.a.a:
     java.lang.String child_nick_name -> a
     java.lang.String local_url -> b
     java.lang.String server_url -> c
@@ -6350,7 +6096,7 @@ com.cocobabys.dbmgr.info.ChildInfo -> com.cocobabys.e.a.c:
     com.cocobabys.dbmgr.info.ChildInfo jsonObjToChildInfo(org.json.JSONObject) -> a
     int hashCode() -> hashCode
     boolean equals(java.lang.Object) -> equals
-com.cocobabys.dbmgr.info.CookBookInfo -> com.cocobabys.e.a.d:
+com.cocobabys.dbmgr.info.CookBookInfo -> com.cocobabys.e.a.b:
     java.lang.String cookbook_id -> a
     java.lang.String cookbook_content -> b
     java.lang.String timestamp -> c
@@ -6365,7 +6111,7 @@ com.cocobabys.dbmgr.info.CookBookInfo -> com.cocobabys.e.a.d:
     java.util.List getCookbookItemList() -> d
     com.cocobabys.bean.CookbookItem getItem(java.lang.String) -> d
     java.lang.String getDetail(org.json.JSONObject,java.lang.String) -> a
-com.cocobabys.dbmgr.info.EducationInfo -> com.cocobabys.e.a.e:
+com.cocobabys.dbmgr.info.EducationInfo -> com.cocobabys.e.a.c:
     int id -> a
     int server_id -> b
     java.lang.String publisher -> c
@@ -6408,7 +6154,7 @@ com.cocobabys.dbmgr.info.EducationInfo -> com.cocobabys.e.a.e:
     long getTimestamp() -> m
     void setTimestamp(long) -> a
     java.util.List jsonArrayToList(org.json.JSONArray) -> a
-com.cocobabys.dbmgr.info.ExpInfo -> com.cocobabys.e.a.f:
+com.cocobabys.dbmgr.info.ExpInfo -> com.cocobabys.e.a.d:
     java.lang.String content -> a
     long timestamp -> b
     java.lang.String sender_id -> c
@@ -6434,13 +6180,14 @@ com.cocobabys.dbmgr.info.ExpInfo -> com.cocobabys.e.a.f:
     void setMedium(java.lang.String) -> e
     java.lang.String getFormattedTime() -> h
     java.util.List parseFromJsonArray(org.json.JSONArray) -> a
+    com.cocobabys.dbmgr.info.ExpInfo parseFromJsonObj(org.json.JSONObject) -> a
     java.util.List getLocalUrls(boolean) -> a
     java.util.List getServerUrls() -> i
     java.lang.String serverUrlToLocalUrl(java.lang.String,boolean) -> a
     java.lang.String getThumbnailDir() -> j
     int hashCode() -> hashCode
     boolean equals(java.lang.Object) -> equals
-com.cocobabys.dbmgr.info.Homework -> com.cocobabys.e.a.g:
+com.cocobabys.dbmgr.info.Homework -> com.cocobabys.e.a.e:
     java.lang.String title -> a
     java.lang.String content -> b
     long timestamp -> c
@@ -6465,7 +6212,7 @@ com.cocobabys.dbmgr.info.Homework -> com.cocobabys.e.a.g:
     java.lang.String getPublisher() -> g
     void setPublisher(java.lang.String) -> d
     java.lang.String getHomeWorkLocalIconPath() -> h
-com.cocobabys.dbmgr.info.InfoHelper -> com.cocobabys.e.a.h:
+com.cocobabys.dbmgr.info.InfoHelper -> com.cocobabys.e.a.f:
     java.lang.String BIRTHDAY -> a
     java.lang.String PHOTO -> b
     java.lang.String NICK -> c
@@ -6475,26 +6222,7 @@ com.cocobabys.dbmgr.info.InfoHelper -> com.cocobabys.e.a.h:
     java.lang.String getDefaultSchoolLocalIconPath() -> c
     org.json.JSONObject childInfoToJSONObject(com.cocobabys.dbmgr.info.ChildInfo) -> a
     java.lang.String formatChatContent(java.lang.String,java.lang.String,java.lang.String) -> a
-com.cocobabys.dbmgr.info.LocationInfo -> com.cocobabys.e.a.i:
-    java.lang.String longitude -> a
-    java.lang.String latitude -> b
-    java.lang.String address -> c
-    java.lang.String lbs_num -> d
-    int id -> e
-    java.lang.String timestamp -> f
-    int getId() -> a
-    void setId(int) -> a
-    java.lang.String getLongitude() -> b
-    void setLongitude(java.lang.String) -> a
-    java.lang.String getLatitude() -> c
-    void setLatitude(java.lang.String) -> b
-    java.lang.String getAddress() -> d
-    void setAddress(java.lang.String) -> c
-    java.lang.String getTimestamp() -> e
-    void setTimestamp(java.lang.String) -> d
-    java.lang.String getLbs_num() -> f
-    void setLbs_num(java.lang.String) -> e
-com.cocobabys.dbmgr.info.NewChatInfo -> com.cocobabys.e.a.j:
+com.cocobabys.dbmgr.info.NewChatInfo -> com.cocobabys.e.a.g:
     java.lang.String content -> a
     long timestamp -> b
     java.lang.String media_url -> c
@@ -6528,7 +6256,7 @@ com.cocobabys.dbmgr.info.NewChatInfo -> com.cocobabys.e.a.j:
     com.cocobabys.dbmgr.info.NewChatInfo parseFromJson(org.json.JSONObject) -> a
     int hashCode() -> hashCode
     boolean equals(java.lang.Object) -> equals
-com.cocobabys.dbmgr.info.News -> com.cocobabys.e.a.k:
+com.cocobabys.dbmgr.info.News -> com.cocobabys.e.a.h:
     java.lang.String title -> a
     java.lang.String content -> b
     long timestamp -> c
@@ -6557,7 +6285,7 @@ com.cocobabys.dbmgr.info.News -> com.cocobabys.e.a.k:
     void setClass_id(int) -> d
     java.lang.String getFrom() -> i
     java.lang.String getNewsLocalIconPath() -> j
-com.cocobabys.dbmgr.info.Notice -> com.cocobabys.e.a.l:
+com.cocobabys.dbmgr.info.Notice -> com.cocobabys.e.a.i:
     java.lang.String title -> a
     java.lang.String content -> b
     java.lang.String timestamp -> c
@@ -6588,7 +6316,7 @@ com.cocobabys.dbmgr.info.Notice -> com.cocobabys.e.a.l:
     void setTicker(java.lang.String) -> e
     java.lang.String getPublisher() -> i
     java.lang.String toString() -> toString
-com.cocobabys.dbmgr.info.ParentInfo -> com.cocobabys.e.a.m:
+com.cocobabys.dbmgr.info.ParentInfo -> com.cocobabys.e.a.j:
     java.lang.String PARENT_ID -> a
     java.lang.String PARENT_NAME -> b
     java.lang.String PHONE -> c
@@ -6624,7 +6352,7 @@ com.cocobabys.dbmgr.info.ParentInfo -> com.cocobabys.e.a.m:
     long getTimestamp() -> h
     void setTimestamp(long) -> a
     com.cocobabys.dbmgr.info.ParentInfo parse(org.json.JSONObject) -> a
-com.cocobabys.dbmgr.info.ScheduleInfo -> com.cocobabys.e.a.n:
+com.cocobabys.dbmgr.info.ScheduleInfo -> com.cocobabys.e.a.k:
     java.lang.String schedule_id -> a
     java.lang.String schedule_content -> b
     java.lang.String timestamp -> c
@@ -6639,7 +6367,7 @@ com.cocobabys.dbmgr.info.ScheduleInfo -> com.cocobabys.e.a.n:
     java.util.List getScheduleListItemList() -> d
     java.lang.String getDetail(org.json.JSONObject,java.lang.String) -> a
     com.cocobabys.bean.ScheduleListItem getItem(java.lang.String) -> d
-com.cocobabys.dbmgr.info.SchoolInfo -> com.cocobabys.e.a.o:
+com.cocobabys.dbmgr.info.SchoolInfo -> com.cocobabys.e.a.l:
     java.lang.String school_logo_local_url -> a
     java.lang.String school_logo_server_url -> b
     java.lang.String school_desc -> c
@@ -6665,7 +6393,7 @@ com.cocobabys.dbmgr.info.SchoolInfo -> com.cocobabys.e.a.o:
     java.lang.String getSchool_logo_server_url() -> g
     void setSchool_logo_server_url(java.lang.String) -> g
     com.cocobabys.dbmgr.info.SchoolInfo jsonObjToChildInfo(org.json.JSONObject) -> a
-com.cocobabys.dbmgr.info.SwipeInfo -> com.cocobabys.e.a.p:
+com.cocobabys.dbmgr.info.SwipeInfo -> com.cocobabys.e.a.m:
     long timestamp -> a
     int type -> b
     int id -> c
@@ -6687,7 +6415,7 @@ com.cocobabys.dbmgr.info.SwipeInfo -> com.cocobabys.e.a.p:
     java.lang.String getNoticeBody(java.lang.String) -> d
     java.lang.String getNoticeTitle() -> g
     com.cocobabys.dbmgr.info.SwipeInfo toSwipeInfo(org.json.JSONObject) -> a
-com.cocobabys.dbmgr.info.Teacher -> com.cocobabys.e.a.q:
+com.cocobabys.dbmgr.info.Teacher -> com.cocobabys.e.a.n:
     int id -> a
     java.lang.String name -> b
     java.lang.String head_icon -> c
@@ -6729,9 +6457,6 @@ com.cocobabys.dlgmgr.DlgMgr -> com.cocobabys.f.a:
     com.cocobabys.customview.CustomDialog$Builder getSingleBtnDlg(android.content.Context,android.content.DialogInterface$OnClickListener) -> a
     com.cocobabys.customview.CustomDialog$Builder getSingleBtnDlg(android.content.Context) -> a
     com.cocobabys.customview.CustomDialog$Builder getTwoBtnDlg(android.content.Context,android.content.DialogInterface$OnClickListener) -> b
-    android.app.AlertDialog$Builder getListDialog(android.content.Context,int,android.content.DialogInterface$OnClickListener) -> a
-    void disableDlgDismiss(android.app.AlertDialog) -> a
-    void cancelDialog(android.app.AlertDialog) -> b
 com.cocobabys.dlgmgr.DlgMgr$1 -> com.cocobabys.f.b:
     void onClick(android.content.DialogInterface,int) -> onClick
 com.cocobabys.dlgmgr.DlgMgr$2 -> com.cocobabys.f.c:
@@ -6857,7 +6582,18 @@ com.cocobabys.jobs.SendChatJob -> com.cocobabys.i.j:
 com.cocobabys.jobs.SendChatJob$1 -> com.cocobabys.i.k:
     com.cocobabys.jobs.SendChatJob this$0 -> a
     java.lang.Object handle() -> a
-com.cocobabys.jobs.UploadChatIconJob -> com.cocobabys.i.l:
+com.cocobabys.jobs.SendExpJob -> com.cocobabys.i.l:
+    android.os.Handler handler -> a
+    java.lang.String text -> b
+    java.util.List mediums -> c
+    void run() -> run
+    java.lang.String getContent() -> d
+    void saveBmpToSDCard() -> e
+com.cocobabys.jobs.SendExpJob$1 -> com.cocobabys.i.m:
+    java.lang.String val$content -> a
+    com.cocobabys.jobs.SendExpJob this$0 -> b
+    java.lang.Object handle() -> a
+com.cocobabys.jobs.UploadChatIconJob -> com.cocobabys.i.n:
     android.os.Handler handler -> a
     android.graphics.Bitmap bitmap -> b
     long lastid -> c
@@ -6865,7 +6601,7 @@ com.cocobabys.jobs.UploadChatIconJob -> com.cocobabys.i.l:
     void run() -> run
     long access$000(com.cocobabys.jobs.UploadChatIconJob) -> a
     java.lang.String access$100(com.cocobabys.jobs.UploadChatIconJob) -> b
-com.cocobabys.jobs.UploadChatIconJob$1 -> com.cocobabys.i.m:
+com.cocobabys.jobs.UploadChatIconJob$1 -> com.cocobabys.i.o:
     java.lang.String val$content -> a
     com.cocobabys.jobs.UploadChatIconJob this$0 -> b
     java.lang.Object handle() -> a
@@ -6922,23 +6658,18 @@ com.cocobabys.net.AuthCodeMethod -> com.cocobabys.k.a:
     java.lang.String createAuthCodeCommand(java.lang.String) -> b
     int handleGetAuthCodeResult(com.cocobabys.net.HttpResult) -> a
     int handleValidateAuthCodeResult(com.cocobabys.net.HttpResult) -> b
-com.cocobabys.net.ChatMethod -> com.cocobabys.k.b:
-    com.cocobabys.net.ChatMethod getMethod() -> a
-    java.util.List getChatInfo$7a3edcf(int,long,long) -> a
-    java.util.List sendChat(java.lang.String,int) -> a
-    java.util.List handleGetChatMethodResult(com.cocobabys.net.HttpResult) -> a
-com.cocobabys.net.ChechUpdateMethod -> com.cocobabys.k.c:
+com.cocobabys.net.ChechUpdateMethod -> com.cocobabys.k.b:
     com.cocobabys.net.ChechUpdateMethod getChechUpdateMethod() -> a
     int chechUpdate(int) -> a
     int handle(com.cocobabys.net.HttpResult) -> a
-com.cocobabys.net.ChildMethod -> com.cocobabys.k.d:
+com.cocobabys.net.ChildMethod -> com.cocobabys.k.c:
     com.cocobabys.net.ChildMethod getMethod() -> a
     int getRelationship() -> b
     int handleRelationshipResult(com.cocobabys.net.HttpResult) -> a
     int parseParentFromArray(org.json.JSONArray) -> a
     void updateAll(java.util.List,com.cocobabys.dbmgr.info.ChildInfo) -> a
     long getLatestTime(java.util.List) -> a
-com.cocobabys.net.CookbookMethod -> com.cocobabys.k.e:
+com.cocobabys.net.CookbookMethod -> com.cocobabys.k.d:
     com.cocobabys.net.CookbookMethod getMethod() -> a
     int getCookBook() -> b
     boolean checkCookBook() -> c
@@ -6948,26 +6679,26 @@ com.cocobabys.net.CookbookMethod -> com.cocobabys.k.e:
     int handleCookbookResult(com.cocobabys.net.HttpResult) -> b
     int getCookbookImpl(java.lang.String) -> a
     int handleGetCookbookResult(com.cocobabys.net.HttpResult) -> c
-com.cocobabys.net.CookbookMethod$CookBookPreview -> com.cocobabys.k.f:
+com.cocobabys.net.CookbookMethod$CookBookPreview -> com.cocobabys.k.e:
     long timestamp -> a
     int errorcode -> b
     java.lang.String cookbookid -> c
     com.cocobabys.net.CookbookMethod this$0 -> d
-com.cocobabys.net.EducationMethod -> com.cocobabys.k.g:
+com.cocobabys.net.EducationMethod -> com.cocobabys.k.f:
     com.cocobabys.net.EducationMethod getMethod() -> a
     java.util.List getEdus(int,long,long) -> a
-com.cocobabys.net.ExpMethod -> com.cocobabys.k.h:
+com.cocobabys.net.ExpMethod -> com.cocobabys.k.g:
     com.cocobabys.net.ExpMethod getMethod() -> a
-com.cocobabys.net.FeedBackMethod -> com.cocobabys.k.i:
+com.cocobabys.net.FeedBackMethod -> com.cocobabys.k.h:
     com.cocobabys.net.FeedBackMethod getMethod() -> a
     int feedBack(java.lang.String) -> a
     java.lang.String formatContent(java.lang.String) -> b
     int handleFeedbackResult(com.cocobabys.net.HttpResult) -> a
-com.cocobabys.net.HomeworkMethod -> com.cocobabys.k.j:
+com.cocobabys.net.HomeworkMethod -> com.cocobabys.k.i:
     com.cocobabys.net.HomeworkMethod getMethod() -> a
     java.util.List getGetHomework(int,long,long) -> a
     java.util.List handleGetHomeworkResult(com.cocobabys.net.HttpResult) -> a
-com.cocobabys.net.HttpResult -> com.cocobabys.k.k:
+com.cocobabys.net.HttpResult -> com.cocobabys.k.j:
     int resCode -> a
     java.lang.String content -> b
     java.lang.String JSONARRAY_EMPTY_STR -> c
@@ -6980,40 +6711,40 @@ com.cocobabys.net.HttpResult -> com.cocobabys.k.k:
     void setContent(java.lang.String) -> a
     org.json.JSONObject getJsonObject() -> e
     org.json.JSONArray getJSONArray() -> f
-com.cocobabys.net.LoginMethod -> com.cocobabys.k.l:
+com.cocobabys.net.LoginMethod -> com.cocobabys.k.k:
     com.cocobabys.net.LoginMethod getLoginMethod() -> a
     int login(java.lang.String,java.lang.String) -> a
     int handle(com.cocobabys.net.HttpResult) -> a
     java.lang.String createCommand(java.lang.String,java.lang.String) -> b
-com.cocobabys.net.MethodResult -> com.cocobabys.k.m:
+com.cocobabys.net.MethodResult -> com.cocobabys.k.l:
     int resultType -> a
     java.lang.Object resultObj -> b
     int getResultType() -> a
     void setResultType(int) -> a
     java.lang.Object getResultObj() -> b
     void setResultObj(java.lang.Object) -> a
-com.cocobabys.net.MyHostnameVerifier -> com.cocobabys.k.n:
+com.cocobabys.net.MyHostnameVerifier -> com.cocobabys.k.m:
     boolean verify(java.lang.String,javax.net.ssl.SSLSession) -> verify
-com.cocobabys.net.MyTrustManager -> com.cocobabys.k.o:
+com.cocobabys.net.MyTrustManager -> com.cocobabys.k.n:
     java.security.cert.X509Certificate[] getAcceptedIssuers() -> getAcceptedIssuers
     void checkClientTrusted(java.security.cert.X509Certificate[],java.lang.String) -> checkClientTrusted
     void checkServerTrusted(java.security.cert.X509Certificate[],java.lang.String) -> checkServerTrusted
-com.cocobabys.net.NewChatMethod -> com.cocobabys.k.p:
+com.cocobabys.net.NewChatMethod -> com.cocobabys.k.o:
     com.cocobabys.net.NewChatMethod getMethod() -> a
     com.cocobabys.net.MethodResult getChatInfo(int,long,long,java.lang.String) -> a
     com.cocobabys.net.MethodResult sendChat(java.lang.String,long,java.lang.String) -> a
     java.util.List handleGetChatMethodResult(com.cocobabys.net.HttpResult) -> a
-com.cocobabys.net.NewsMethod -> com.cocobabys.k.q:
+com.cocobabys.net.NewsMethod -> com.cocobabys.k.p:
     com.cocobabys.net.NewsMethod getMethod() -> a
     java.util.List getNormalNews(int,long,long) -> a
     java.util.List handleGetNormalNewsResult(com.cocobabys.net.HttpResult) -> a
-com.cocobabys.net.PushMethod -> com.cocobabys.k.r:
+com.cocobabys.net.PushMethod -> com.cocobabys.k.q:
     com.cocobabys.net.PushMethod getMethod() -> a
     int sendBinfInfo() -> b
     int sendBinfInfo(java.lang.String,java.lang.String,java.lang.String) -> a
     int handleSendBinfInfoResult(com.cocobabys.net.HttpResult) -> a
     java.lang.String getBindCommand(java.lang.String,java.lang.String,java.lang.String) -> b
-com.cocobabys.net.ResetPWDMethod -> com.cocobabys.k.s:
+com.cocobabys.net.ResetPWDMethod -> com.cocobabys.k.r:
     com.cocobabys.net.ResetPWDMethod getResetPwdMethod() -> a
     int changePwd(java.lang.String,java.lang.String,java.lang.String) -> a
     int resetPwd(java.lang.String,java.lang.String,java.lang.String) -> b
@@ -7021,36 +6752,36 @@ com.cocobabys.net.ResetPWDMethod -> com.cocobabys.k.s:
     int handleChangePwdResult(com.cocobabys.net.HttpResult) -> b
     java.lang.String createChangePWDCommand(java.lang.String,java.lang.String,java.lang.String) -> c
     java.lang.String createResetPWDCommand(java.lang.String,java.lang.String,java.lang.String) -> d
-com.cocobabys.net.ScheduleMethod -> com.cocobabys.k.t:
+com.cocobabys.net.ScheduleMethod -> com.cocobabys.k.s:
     com.cocobabys.net.ScheduleMethod getMethod() -> a
     int checkSchedule() -> b
     int handleCheckScheduleResult(com.cocobabys.net.HttpResult) -> a
     int getSchedule(java.lang.String) -> a
     int handleGetScheduleResult(com.cocobabys.net.HttpResult) -> b
-com.cocobabys.net.SchoolMethod -> com.cocobabys.k.u:
+com.cocobabys.net.SchoolMethod -> com.cocobabys.k.t:
     com.cocobabys.net.SchoolMethod getGetAuthCodeMethod() -> a
     int checkSchoolInfo() -> b
     int handleCheckSchoolInfoResult(com.cocobabys.net.HttpResult) -> a
     int getSchoolInfo() -> c
     int handleGetSchoolInfoResult(com.cocobabys.net.HttpResult) -> b
-com.cocobabys.net.SwipeCardMethod -> com.cocobabys.k.v:
+com.cocobabys.net.SwipeCardMethod -> com.cocobabys.k.u:
     com.cocobabys.net.SwipeCardMethod getMethod() -> a
     int getSwipecardRecord(long,long) -> a
     int handlegetSwipecardRecordResult(com.cocobabys.net.HttpResult) -> a
-com.cocobabys.net.TeacherMethod -> com.cocobabys.k.w:
+com.cocobabys.net.TeacherMethod -> com.cocobabys.k.v:
     com.cocobabys.net.TeacherMethod getMethod() -> a
     int getTeacherInfo(java.lang.String) -> a
     int handleGetTeacherResult(com.cocobabys.net.HttpResult) -> a
     void handleIncomingTeacher(com.cocobabys.dbmgr.DataMgr,java.util.List) -> a
-com.cocobabys.net.UploadChildInfoMethod -> com.cocobabys.k.x:
+com.cocobabys.net.UploadChildInfoMethod -> com.cocobabys.k.w:
     com.cocobabys.net.UploadChildInfoMethod getMethod() -> a
     int uploadChildInfo(java.lang.String) -> a
     int handleGetChildInfoResult(com.cocobabys.net.HttpResult) -> a
-com.cocobabys.net.UploadTokenMethod -> com.cocobabys.k.y:
+com.cocobabys.net.UploadTokenMethod -> com.cocobabys.k.x:
     com.cocobabys.net.UploadTokenMethod getMethod() -> a
     java.lang.String getUploadToken(java.lang.String) -> a
     java.lang.String handleGetUploadTokenResult(com.cocobabys.net.HttpResult) -> a
-com.cocobabys.net.ValidatePhoneMethod -> com.cocobabys.k.z:
+com.cocobabys.net.ValidatePhoneMethod -> com.cocobabys.k.y:
     com.cocobabys.net.ValidatePhoneMethod getMethod() -> a
     int validatePhone(java.lang.String) -> a
     int handleValidateAuthCodeResult(com.cocobabys.net.HttpResult) -> a
@@ -7098,8 +6829,6 @@ com.cocobabys.receiver.PushMessageReceiver -> com.cocobabys.receiver.PushMessage
     int notify_id -> b
     void onBind(android.content.Context,int,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> onBind
     void onMessage(android.content.Context,java.lang.String,java.lang.String) -> onMessage
-    void setSound(android.app.Notification) -> a
-    com.cocobabys.dbmgr.info.LocationInfo getLocationInfo(org.json.JSONObject) -> a
     void setNotification(com.cocobabys.dbmgr.info.Notice,android.content.Context) -> a
     void onNotificationClicked(android.content.Context,java.lang.String,java.lang.String,java.lang.String) -> onNotificationClicked
     void onSetTags(android.content.Context,int,java.util.List,java.util.List,java.lang.String) -> onSetTags
@@ -7206,26 +6935,15 @@ com.cocobabys.taskmgr.GetAuthCodeTask -> com.cocobabys.o.n:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.GetChatTask -> com.cocobabys.o.o:
-    android.os.Handler handler -> a
-    int most -> b
-    long from -> c
-    long to -> d
-    java.util.List list -> e
-    java.lang.String sort -> f
-    int addType -> g
-    java.lang.Integer doInBackground$9ecd34e() -> a
-    void onPostExecute(java.lang.Object) -> onPostExecute
-    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.GetCookbookTask -> com.cocobabys.o.p:
+com.cocobabys.taskmgr.GetCookbookTask -> com.cocobabys.o.o:
     android.os.Handler handler -> a
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.GetCookbookTask$1 -> com.cocobabys.o.q:
+com.cocobabys.taskmgr.GetCookbookTask$1 -> com.cocobabys.o.p:
     com.cocobabys.taskmgr.GetCookbookTask this$0 -> a
     java.lang.Object handle() -> a
-com.cocobabys.taskmgr.GetEducationTask -> com.cocobabys.o.r:
+com.cocobabys.taskmgr.GetEducationTask -> com.cocobabys.o.q:
     android.os.Handler handler -> a
     int most -> b
     long from -> c
@@ -7235,7 +6953,7 @@ com.cocobabys.taskmgr.GetEducationTask -> com.cocobabys.o.r:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.GetHomeworkTask -> com.cocobabys.o.s:
+com.cocobabys.taskmgr.GetHomeworkTask -> com.cocobabys.o.r:
     android.os.Handler handler -> a
     int most -> b
     long from -> c
@@ -7245,7 +6963,7 @@ com.cocobabys.taskmgr.GetHomeworkTask -> com.cocobabys.o.s:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.GetNormalNewsTask -> com.cocobabys.o.t:
+com.cocobabys.taskmgr.GetNormalNewsTask -> com.cocobabys.o.s:
     android.os.Handler handler -> a
     int most -> b
     long from -> c
@@ -7255,38 +6973,38 @@ com.cocobabys.taskmgr.GetNormalNewsTask -> com.cocobabys.o.t:
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.GetScheduleTask -> com.cocobabys.o.u:
+com.cocobabys.taskmgr.GetScheduleTask -> com.cocobabys.o.t:
     android.os.Handler handler -> a
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.GetScheduleTask$1 -> com.cocobabys.o.v:
+com.cocobabys.taskmgr.GetScheduleTask$1 -> com.cocobabys.o.u:
     com.cocobabys.taskmgr.GetScheduleTask this$0 -> a
     java.lang.Object handle() -> a
-com.cocobabys.taskmgr.GetSchoolInfoTask -> com.cocobabys.o.w:
+com.cocobabys.taskmgr.GetSchoolInfoTask -> com.cocobabys.o.v:
     android.os.Handler handler -> a
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.GetSchoolInfoTask$1 -> com.cocobabys.o.x:
+com.cocobabys.taskmgr.GetSchoolInfoTask$1 -> com.cocobabys.o.w:
     com.cocobabys.taskmgr.GetSchoolInfoTask this$0 -> a
     java.lang.Object handle() -> a
-com.cocobabys.taskmgr.GetTeacherTask -> com.cocobabys.o.y:
+com.cocobabys.taskmgr.GetTeacherTask -> com.cocobabys.o.x:
     java.lang.String phones -> a
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     java.lang.String access$000(com.cocobabys.taskmgr.GetTeacherTask) -> a
-com.cocobabys.taskmgr.GetTeacherTask$1 -> com.cocobabys.o.z:
+com.cocobabys.taskmgr.GetTeacherTask$1 -> com.cocobabys.o.y:
     com.cocobabys.taskmgr.GetTeacherTask this$0 -> a
     java.lang.Object handle() -> a
-com.cocobabys.taskmgr.LoadingTask -> com.cocobabys.o.aa:
+com.cocobabys.taskmgr.LoadingTask -> com.cocobabys.o.z:
     android.os.Handler hander -> a
     int resultEvent -> b
     java.lang.Void doInBackground$10299ca() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.LoginTask -> com.cocobabys.o.ab:
+com.cocobabys.taskmgr.LoginTask -> com.cocobabys.o.aa:
     android.os.Handler hander -> a
     java.lang.String pwd -> b
     java.lang.String account -> c
@@ -7295,10 +7013,10 @@ com.cocobabys.taskmgr.LoginTask -> com.cocobabys.o.ab:
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     java.lang.String access$000(com.cocobabys.taskmgr.LoginTask) -> a
     java.lang.String access$100(com.cocobabys.taskmgr.LoginTask) -> b
-com.cocobabys.taskmgr.LoginTask$1 -> com.cocobabys.o.ac:
+com.cocobabys.taskmgr.LoginTask$1 -> com.cocobabys.o.ab:
     com.cocobabys.taskmgr.LoginTask this$0 -> a
     java.lang.Object handle() -> a
-com.cocobabys.taskmgr.ResetPWDTask -> com.cocobabys.o.ad:
+com.cocobabys.taskmgr.ResetPWDTask -> com.cocobabys.o.ac:
     android.os.Handler hander -> a
     java.lang.String phonenum -> b
     java.lang.String newPwd -> c
@@ -7309,18 +7027,10 @@ com.cocobabys.taskmgr.ResetPWDTask -> com.cocobabys.o.ad:
     java.lang.String access$000(com.cocobabys.taskmgr.ResetPWDTask) -> a
     java.lang.String access$100(com.cocobabys.taskmgr.ResetPWDTask) -> b
     java.lang.String access$200(com.cocobabys.taskmgr.ResetPWDTask) -> c
-com.cocobabys.taskmgr.ResetPWDTask$1 -> com.cocobabys.o.ae:
+com.cocobabys.taskmgr.ResetPWDTask$1 -> com.cocobabys.o.ad:
     com.cocobabys.taskmgr.ResetPWDTask this$0 -> a
     java.lang.Object handle() -> a
-com.cocobabys.taskmgr.SendChatTask -> com.cocobabys.o.af:
-    android.os.Handler handler -> a
-    java.lang.String content -> b
-    int lastid -> c
-    java.util.List list -> d
-    java.lang.Integer doInBackground$9ecd34e() -> a
-    void onPostExecute(java.lang.Object) -> onPostExecute
-    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.UpdateCalendarTask -> com.cocobabys.o.ag:
+com.cocobabys.taskmgr.UpdateCalendarTask -> com.cocobabys.o.ae:
     android.os.Handler handler -> a
     long from -> b
     long to -> c
@@ -7329,19 +7039,10 @@ com.cocobabys.taskmgr.UpdateCalendarTask -> com.cocobabys.o.ag:
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     long access$000(com.cocobabys.taskmgr.UpdateCalendarTask) -> a
     long access$100(com.cocobabys.taskmgr.UpdateCalendarTask) -> b
-com.cocobabys.taskmgr.UpdateCalendarTask$1 -> com.cocobabys.o.ah:
+com.cocobabys.taskmgr.UpdateCalendarTask$1 -> com.cocobabys.o.af:
     com.cocobabys.taskmgr.UpdateCalendarTask this$0 -> a
     java.lang.Object handle() -> a
-com.cocobabys.taskmgr.UploadChatIconTask -> com.cocobabys.o.ai:
-    android.os.Handler handler -> b
-    android.graphics.Bitmap bitmap -> c
-    int lastid -> d
-    java.util.List list -> a
-    java.lang.Integer doInBackground$9ecd34e() -> a
-    java.lang.String formatChatContent(java.lang.String) -> a
-    void onPostExecute(java.lang.Object) -> onPostExecute
-    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.UploadInfoTask -> com.cocobabys.o.aj:
+com.cocobabys.taskmgr.UploadInfoTask -> com.cocobabys.o.ag:
     com.cocobabys.handler.TaskResultHandler hander -> a
     android.graphics.Bitmap bitmap -> b
     java.lang.String content -> c
@@ -7350,24 +7051,24 @@ com.cocobabys.taskmgr.UploadInfoTask -> com.cocobabys.o.aj:
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     java.lang.String access$000(com.cocobabys.taskmgr.UploadInfoTask) -> a
-com.cocobabys.taskmgr.UploadInfoTask$1 -> com.cocobabys.o.ak:
+com.cocobabys.taskmgr.UploadInfoTask$1 -> com.cocobabys.o.ah:
     com.cocobabys.taskmgr.UploadInfoTask this$0 -> a
     java.lang.Object handle() -> a
-com.cocobabys.taskmgr.ValidateAuthCodeTask -> com.cocobabys.o.al:
+com.cocobabys.taskmgr.ValidateAuthCodeTask -> com.cocobabys.o.ai:
     android.os.Handler hander -> a
     java.lang.String phonenum -> b
     java.lang.String authcode -> c
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.cocobabys.taskmgr.ValidatePhoneNumTask -> com.cocobabys.o.am:
+com.cocobabys.taskmgr.ValidatePhoneNumTask -> com.cocobabys.o.aj:
     android.os.Handler hander -> a
     java.lang.String phonenum -> b
     java.lang.Integer doInBackground$9ecd34e() -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     java.lang.String access$000(com.cocobabys.taskmgr.ValidatePhoneNumTask) -> a
-com.cocobabys.taskmgr.ValidatePhoneNumTask$1 -> com.cocobabys.o.an:
+com.cocobabys.taskmgr.ValidatePhoneNumTask$1 -> com.cocobabys.o.ak:
     com.cocobabys.taskmgr.ValidatePhoneNumTask this$0 -> a
     java.lang.Object handle() -> a
 com.cocobabys.threadpool.MyJob -> com.cocobabys.p.a:
@@ -7381,13 +7082,13 @@ com.cocobabys.threadpool.MyThreadPoolMgr -> com.cocobabys.p.b:
     java.util.concurrent.ScheduledExecutorService getGenericService() -> a
     void shutdown() -> b
 com.cocobabys.upload.QiniuMgr -> com.cocobabys.q.a:
-    void UploadPhoto(android.graphics.Bitmap,java.lang.String,java.lang.String) -> a
+    void uploadPhoto(android.graphics.Bitmap,java.lang.String,java.lang.String) -> a
 com.cocobabys.upload.UploadFactory -> com.cocobabys.q.b:
     java.lang.String CLOUD_STORAGE_HOST -> a
     java.lang.String BUCKET_NAME -> b
     com.cocobabys.upload.UploadMgr createUploadMgr() -> a
 com.cocobabys.upload.UploadMgr -> com.cocobabys.q.c:
-    void UploadPhoto(android.graphics.Bitmap,java.lang.String,java.lang.String) -> a
+    void uploadPhoto(android.graphics.Bitmap,java.lang.String,java.lang.String) -> a
 com.cocobabys.upload.qiniu.auth.CallRet -> com.cocobabys.q.a.a.a:
 com.cocobabys.upload.qiniu.auth.Client -> com.cocobabys.q.a.a.b:
     org.apache.http.client.HttpClient mClient -> a
@@ -7460,18 +7161,18 @@ com.cocobabys.utils.MethodUtils -> com.cocobabys.r.b:
     boolean checkNews() -> a
     boolean checkHomework() -> b
     boolean checkEdu() -> c
-    boolean checkChat() -> d
-    boolean checkNewChat() -> e
-    boolean checkCookBook() -> f
-    boolean checkSchedule() -> g
+    boolean checkNewChat() -> d
+    boolean checkCookBook() -> e
+    boolean checkSchedule() -> f
     void executeCheckNewsCommand(android.content.Context) -> a
-    java.lang.String getAllFormatedClassid() -> h
+    java.lang.String getAllFormatedClassid() -> g
 com.cocobabys.utils.Utils -> com.cocobabys.r.c:
     java.lang.String CHILD_PHOTO -> c
     java.lang.String CHAT_ICON -> a
     java.lang.String EXP_ICON -> b
     int versionCode -> d
     java.lang.String getResString(int) -> a
+    void makeToast(android.content.Context,int) -> a
     void makeToast(android.content.Context,java.lang.String) -> a
     java.lang.String getMetaValue(android.content.Context,java.lang.String) -> b
     int getVersionCode() -> a
@@ -7506,7 +7207,6 @@ com.cocobabys.utils.Utils -> com.cocobabys.r.c:
     boolean isVoiceOn() -> i
     java.util.Calendar getMonDayCalendar() -> j
     void setImg(android.widget.ImageView,android.graphics.Bitmap) -> a
-    java.io.File getAppSDCardPath() -> r
     java.io.File getSDCardFileDir(java.lang.String) -> f
     boolean isSdcardExisting() -> k
     void makeDefaultDirInSDCard() -> l
@@ -7526,14 +7226,15 @@ com.cocobabys.utils.Utils -> com.cocobabys.r.c:
     android.graphics.Bitmap getBitmapFromUrl$676c1c3e(java.lang.String) -> l
     android.graphics.Bitmap downloadImgImpl(java.lang.String) -> s
     android.graphics.Bitmap downloadImgWithJudgement(java.lang.String) -> t
+    java.lang.String getExpRelativePath(java.lang.String) -> m
     android.graphics.Bitmap downloadImgWithJudgement(java.lang.String,float,float) -> a
-    void mkDirs(java.lang.String) -> m
+    void mkDirs(java.lang.String) -> n
     void saveInSDCard(java.lang.StringBuffer,java.lang.String) -> a
-    void setToOldVersion(java.lang.String) -> n
-    boolean isOldVersion() -> p
     void setToTestHost(java.lang.String) -> o
-    boolean isTestHost() -> q
+    boolean isTestHost() -> p
     java.lang.String getName(java.lang.String) -> p
+    java.lang.String getDefaultCameraDir() -> q
+    void goNextActivity$35ff8c7e(android.app.Activity,java.lang.Class) -> a
 com.nostra13.universalimageloader.cache.disc.BaseDiscCache -> com.nostra13.universalimageloader.cache.disc.BaseDiscCache:
     java.lang.String ERROR_ARG_NULL -> ERROR_ARG_NULL
     java.io.File cacheDir -> cacheDir

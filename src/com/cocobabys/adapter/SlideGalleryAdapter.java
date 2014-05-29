@@ -21,32 +21,33 @@ import com.cocobabys.customview.ProgressWheel;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.Utils;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SlideGalleryAdapter extends BaseAdapter {
 	private static final int MAXPIX = 1080 * 1080;
 	private LayoutInflater infalter;
-	private ImageLoader imageLoader;
 	private List<String> localUrlList = new ArrayList<String>();
 	private ExpInfo expInfo = new ExpInfo();
 	private DownloadImgeJob downloadImgeJob;
 	private Handler handler;
 	private LruCache<String, Bitmap> lruCache;
 
-	public SlideGalleryAdapter(Context c, ImageLoader imageLoader,
-			ExpInfo expInfo, DownloadImgeJob downloadImgeJob) {
-		infalter = (LayoutInflater) c
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		this.imageLoader = imageLoader;
+	public SlideGalleryAdapter(Context c, ExpInfo expInfo, DownloadImgeJob downloadImgeJob) {
+		infalter = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.expInfo = expInfo;
 		this.localUrlList = expInfo.getLocalUrls(false);
 		this.downloadImgeJob = downloadImgeJob;
 
 		initCache();
-
 		initHandler();
+		
 		this.downloadImgeJob.setHanlder(handler);
 		addToDownloadTask(expInfo);
+	}
+
+	public SlideGalleryAdapter(Context c, List<String> localUrlList) {
+		infalter = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.localUrlList = localUrlList;
+		initCache();
 	}
 
 	private void initHandler() {
@@ -62,7 +63,6 @@ public class SlideGalleryAdapter extends BaseAdapter {
 					break;
 				}
 			}
-
 		};
 	}
 
@@ -112,8 +112,7 @@ public class SlideGalleryAdapter extends BaseAdapter {
 			convertView = infalter.inflate(R.layout.slide_item, null);
 			holder = new ViewHolder();
 			holder.imageView = (ImageView) convertView.findViewById(R.id.image);
-			holder.progressWheel = (ProgressWheel) convertView
-					.findViewById(R.id.circleProgressBar);
+			holder.progressWheel = (ProgressWheel) convertView.findViewById(R.id.circleProgressBar);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -125,40 +124,44 @@ public class SlideGalleryAdapter extends BaseAdapter {
 	private void setDataToView(final int position, final ViewHolder holder) {
 		try {
 			String path = getItem(position);
-
-			Bitmap bitmap = lruCache.get(path);
-			if (bitmap == null) {
-				Bitmap loacalBitmap = Utils.getLoacalBitmap(path, MAXPIX);
-				if (loacalBitmap != null) {
-					lruCache.put(path, loacalBitmap);
-					Utils.setImg(holder.imageView, loacalBitmap);
-				} else {
-					String name = Utils.getName(path);
-					// 原图显示失败则暂时显示缩略图
-					String nailPath = expInfo.getThumbnailDir() + name;
-					Bitmap nailBitmap = Utils.getLoacalBitmap(nailPath, MAXPIX);
-					if (nailBitmap != null) {
-						Utils.setImg(holder.imageView, nailBitmap);
-					} else {
-						holder.imageView
-								.setImageResource(R.drawable.default_small_icon);
-					}
-				}
-			} else {
-				Utils.setImg(holder.imageView, bitmap);
-			}
-
-			if (new File(path).exists()) {
-				holder.progressWheel.setVisibility(View.GONE);
-			} else {
-				if (!holder.progressWheel.isSpinning()) {
-					holder.progressWheel.spin();
-				}
-				holder.progressWheel.setVisibility(View.VISIBLE);
-			}
-
+			showIcon(holder, path);
+			showAnimate(holder, path);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	private void showIcon(final ViewHolder holder, String path) {
+		Bitmap bitmap = lruCache.get(path);
+		if (bitmap == null) {
+			Bitmap loacalBitmap = Utils.getLoacalBitmap(path, MAXPIX);
+			if (loacalBitmap != null) {
+				lruCache.put(path, loacalBitmap);
+				Utils.setImg(holder.imageView, loacalBitmap);
+			} else {
+				String name = Utils.getName(path);
+				// 原图显示失败则暂时显示缩略图
+				String nailPath = expInfo.getThumbnailDir() + name;
+				Bitmap nailBitmap = Utils.getLoacalBitmap(nailPath, MAXPIX);
+				if (nailBitmap != null) {
+					Utils.setImg(holder.imageView, nailBitmap);
+				} else {
+					holder.imageView.setImageResource(R.drawable.default_small_icon);
+				}
+			}
+		} else {
+			Utils.setImg(holder.imageView, bitmap);
+		}
+	}
+
+	private void showAnimate(final ViewHolder holder, String path) {
+		if (new File(path).exists()) {
+			holder.progressWheel.setVisibility(View.GONE);
+		} else {
+			if (!holder.progressWheel.isSpinning()) {
+				holder.progressWheel.spin();
+			}
+			holder.progressWheel.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -177,8 +180,4 @@ public class SlideGalleryAdapter extends BaseAdapter {
 		ProgressWheel progressWheel;
 	}
 
-	public void clearCache() {
-		imageLoader.clearDiscCache();
-		imageLoader.clearMemoryCache();
-	}
 }

@@ -50,8 +50,8 @@ public class UploadChatIconJob extends MyJob {
 				}
 			});
 
-			saveBmpToSDCard(url);
 			bret = (MethodResult) bind.handle();
+			saveBmpToSDCard(url);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -79,7 +79,7 @@ public class UploadChatIconJob extends MyJob {
 		if (TextUtils.isEmpty(uploadToken)) {
 			throw new RuntimeException("getUploadToken failed ");
 		}
-		UploadFactory.createUploadMgr().UploadPhoto(bitmap, url, uploadToken);
+		UploadFactory.createUploadMgr().uploadPhoto(bitmap, url, uploadToken);
 		return url;
 	}
 

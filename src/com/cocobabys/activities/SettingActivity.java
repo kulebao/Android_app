@@ -72,14 +72,6 @@ public class SettingActivity extends UmengStatisticsActivity {
 			}
 		});
 
-		Button bindLocationBtn = (Button) findViewById(R.id.bindLocation);
-		bindLocationBtn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startToBindLocationMgrActivity();
-			}
-		});
-
 		Button changeChildBtn = (Button) findViewById(R.id.changeChild);
 		changeChildBtn.setOnClickListener(new OnClickListener() {
 			@Override
@@ -108,23 +100,6 @@ public class SettingActivity extends UmengStatisticsActivity {
 
 	private void setTestBtn() {
 		if (MyApplication.getInstance().isForTest()) {
-			final Button setversion = (Button) findViewById(R.id.setversion);
-			setversion.setVisibility(View.VISIBLE);
-			setChatVersionText(setversion);
-
-			setversion.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					boolean oldVersion = Utils.isOldVersion();
-					if (oldVersion) {
-						Utils.setToOldVersion("false");
-					} else {
-						Utils.setToOldVersion("true");
-					}
-					setChatVersionText(setversion);
-				}
-			});
-
 			final Button changeHost = (Button) findViewById(R.id.changeHost);
 			changeHost.setVisibility(View.VISIBLE);
 			setHostText(changeHost);
@@ -163,14 +138,6 @@ public class SettingActivity extends UmengStatisticsActivity {
 			hostBtn.setText("切换到商用地址");
 		} else {
 			hostBtn.setText("切换到测试地址");
-		}
-	}
-
-	private void setChatVersionText(Button setversion) {
-		if (Utils.isOldVersion()) {
-			setversion.setText("切换到新版家园互动");
-		} else {
-			setversion.setText("切换到旧版家园互动");
 		}
 	}
 
@@ -258,12 +225,6 @@ public class SettingActivity extends UmengStatisticsActivity {
 	private void startToUpdateActivity() {
 		Intent intent = new Intent();
 		intent.setClass(this, UpdateActivity.class);
-		startActivity(intent);
-	}
-
-	private void startToBindLocationMgrActivity() {
-		Intent intent = new Intent();
-		intent.setClass(this, BindLocationMgrActivity.class);
 		startActivity(intent);
 	}
 

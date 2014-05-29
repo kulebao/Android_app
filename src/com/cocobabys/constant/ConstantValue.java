@@ -118,4 +118,5 @@ public class ConstantValue {
 	
 	public static final String EXP_ID = "exp_id";
 
+	public static final int MAX_SELECT_LIMIT = 9;
 }

@@ -11,8 +11,18 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:padding="6dp"
-        android:visibility="invisible" />
+        android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/leftBtn"
+        style="@style/item_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:padding="6dp"
+        android:visibility="gone" />
+    
     <TextView
         android:id="@+id/rightBtn"
         style="@style/item_style"

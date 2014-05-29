@@ -3,5 +3,6 @@
 
     <dimen name="chat_icon_size">140dp</dimen>
     <dimen name="chat_max_width">480dp</dimen>
-
+    <dimen name="photo_width">120dp</dimen>
+    <dimen name="photo_height">120dp</dimen>
 </resources>

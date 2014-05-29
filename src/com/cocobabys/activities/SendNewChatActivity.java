@@ -49,7 +49,8 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 			@Override
 			public void onClick(View v) {
 				if (isEmptyInput()) {
-					Toast.makeText(SendNewChatActivity.this, R.string.pls_input_chat, Toast.LENGTH_SHORT).show();
+					Toast.makeText(SendNewChatActivity.this,
+							R.string.pls_input_chat, Toast.LENGTH_SHORT).show();
 					return;
 				}
 				runSendChatTask();
@@ -91,7 +92,8 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 					handleSuccess(msg);
 					break;
 				case EventType.SEND_CHAT_FAIL:
-					Toast.makeText(SendNewChatActivity.this, R.string.send_fail, Toast.LENGTH_SHORT).show();
+					Toast.makeText(SendNewChatActivity.this,
+							R.string.send_fail, Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;
@@ -101,17 +103,21 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 		};
 	}
 
+	@SuppressWarnings("unchecked")
 	private void handleSuccess(Message msg) {
-		Toast.makeText(SendNewChatActivity.this, R.string.send_success, Toast.LENGTH_SHORT).show();
-		MyApplication.getInstance().setTmpNewChatList((List<NewChatInfo>) msg.obj);
+		Toast.makeText(SendNewChatActivity.this, R.string.send_success,
+				Toast.LENGTH_SHORT).show();
+		MyApplication.getInstance().setTmpNewChatList(
+				(List<NewChatInfo>) msg.obj);
 		setResult(ConstantValue.SEND_CHAT_SUCCESS);
 		SendNewChatActivity.this.finish();
 	}
 
 	private void runSendChatTask() {
 		long lastid = DataMgr.getInstance().getLastNewChatServerid(childid);
-		SendChatJob sendChatJob = new SendChatJob(handler, InfoHelper.formatChatContent(chatContent.getText()
-				.toString(), "", childid), childid, lastid);
+		SendChatJob sendChatJob = new SendChatJob(handler,
+				InfoHelper.formatChatContent(chatContent.getText().toString(),
+						"", childid), childid, lastid);
 		sendChatJob.execute();
 		dialog.show();
 	}
