@@ -1,5 +1,8 @@
 package com.cocobabys.receiver;
 
+import java.util.concurrent.TimeUnit;
+
+import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
 
@@ -27,8 +30,18 @@ public class NetStateChangeReceiver extends BroadcastReceiver {
 				&& currentNetWorkType == Utils.NETWORK_NOT_CONNECTED) {
 			Log.d("DDD", "onReceive NetStateChangeReceiver");
 			MethodUtils.executeCheckNewsCommand(context);
+//			runCheckBindTask();
 		}
 
 		currentNetWorkType = connectedType;
 	}
+
+	// private void runCheckBindTask() {
+	// MyThreadPoolMgr.getGenericService().execute(new Runnable() {
+	// @Override
+	// public void run() {
+	// Utils.bindPush();
+	// }
+	// });
+	// }
 }

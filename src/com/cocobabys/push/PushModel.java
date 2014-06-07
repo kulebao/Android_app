@@ -74,6 +74,11 @@ public class PushModel {
 		return PushManager.isPushEnabled(MyApplication.getInstance());
 	}
 
+	public boolean isBindInfoSentToServer() {
+		return !ConstantValue.FAKE_USER_ID.equals(Utils
+				.getUndeleteableProp(JSONConstant.USER_ID));
+	}
+
 	public List<String> getTags() {
 		List<String> tags = new ArrayList<String>();
 		String tagsStr = Utils.getUndeleteableProp(JSONConstant.PUSH_TAGS);

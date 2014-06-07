@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.cocobabys.constant.EventType;
-import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
@@ -43,7 +42,8 @@ public class ChildMethod {
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			try {
 				JSONArray array = result.getJSONArray();
-				Log.d("DDD handleGetChildInfoResult", "str : " + array.toString());
+				Log.d("DDD handleRelationshipResult",
+						"str : " + array.toString());
 				event = parseParentFromArray(array);
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -61,15 +61,15 @@ public class ChildMethod {
 		JSONArray childArray = new JSONArray();
 		for (int i = 0; i < jsonArray.length(); i++) {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
-			ParentInfo info = ParentInfo.parse(jsonObject);
+			ParentInfo info = ParentInfo.parseFromRelationship(jsonObject);
 			list.add(info);
 			JSONObject childObj = jsonObject.getJSONObject("child");
 			childArray.put(childObj);
 		}
 		DataMgr.getInstance().addParentList(list);
-		
+
 		List<ChildInfo> childList = ChildInfo.jsonArrayToList(childArray);
-		
+
 		event = checkUpdate(childList);
 		return event;
 	}
@@ -79,11 +79,13 @@ public class ChildMethod {
 		int event = EventType.CHILDREN_INFO_IS_LATEST;
 
 		ChildInfo selectedChild = instance.getSelectedChild();
-		if (selectedChild == null || (instance.getAllChildrenInfo().size() != childList.size())) {
+		if (selectedChild == null
+				|| (instance.getAllChildrenInfo().size() != childList.size())) {
 			updateAll(childList, selectedChild);
 			event = EventType.UPDATE_CHILDREN_INFO;
 		} else {
-			long latestChildTimestamp = Long.parseLong(instance.getLatestChildTimestamp());
+			long latestChildTimestamp = Long.parseLong(instance
+					.getLatestChildTimestamp());
 			long curLatest = getLatestTime(childList);
 
 			if (curLatest > latestChildTimestamp) {
@@ -93,7 +95,7 @@ public class ChildMethod {
 		}
 		return event;
 	}
-	
+
 	private void updateAll(List<ChildInfo> childList, ChildInfo selectedChild) {
 		DataMgr.getInstance().clearChildInfo();
 
@@ -102,11 +104,13 @@ public class ChildMethod {
 			DataMgr.getInstance().addChildrenInfoList(childList);
 		} else {
 			DataMgr.getInstance().addChildrenInfoList(childList);
-			int setSelectedChild = DataMgr.getInstance().setSelectedChild(selectedChild.getServer_id());
+			int setSelectedChild = DataMgr.getInstance().setSelectedChild(
+					selectedChild.getServer_id());
 			Log.d("DDD", "updateAll setSelectedChild=" + setSelectedChild);
 			// 如果刷新数据后，之前的选中小孩不存在了，随便设置一个小孩为选中小孩
 			if (setSelectedChild < 1) {
-				DataMgr.getInstance().setSelectedChild(childList.get(0).getServer_id());
+				DataMgr.getInstance().setSelectedChild(
+						childList.get(0).getServer_id());
 			}
 		}
 	}
@@ -122,16 +126,11 @@ public class ChildMethod {
 	}
 
 	private String createGetRelationshipUrl() {
-		String url = String.format(ServerUrls.GET_RELATIONSHIP, DataMgr.getInstance().getSchoolID());
-		ChildInfo selectedChild = DataMgr.getInstance().getSelectedChild();
-		if (selectedChild != null) {
-			url += "child=" + selectedChild.getServer_id();
-		} else {
-			url += "parent=" + Utils.getAccount();
-		}
+		String url = String.format(ServerUrls.GET_RELATIONSHIP, DataMgr
+				.getInstance().getSchoolID());
+		url += "parent=" + Utils.getAccount();
 		return url;
 	}
-
 
 	// private int checkUpdate(JSONArray array) throws JSONException {
 	// DataMgr instance = DataMgr.getInstance();

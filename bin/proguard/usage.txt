@@ -73,7 +73,7 @@ com.cocobabys.activities.MainActivity:
     private static final java.lang.String TAB_TAG_NOTICE
     private static final java.lang.String TAB_TAG_SETTING
     private static final int TAB_WIDGET_HEIGHT
-    196:196:public android.os.AsyncTask getUpdateTask()
+    204:204:public android.os.AsyncTask getUpdateTask()
 com.cocobabys.activities.MyApplication:
     44:44:public java.util.concurrent.BlockingQueue getBlockingQueue()
     56:57:public void removeObserver(com.cocobabys.receiver.NotificationObserver)
@@ -110,13 +110,6 @@ com.cocobabys.activities.SwipeCalendarActivity:
     269:273:private void setTimeToMidnight(java.util.Calendar)
 com.cocobabys.activities.SwipeDetailActivity:
     109:110:public void setTimestamp()
-com.cocobabys.adapter.ChatListAdapter
-com.cocobabys.adapter.ChatListAdapter$1
-com.cocobabys.adapter.ChatListAdapter$2
-com.cocobabys.adapter.ChatListAdapter$3
-com.cocobabys.adapter.ChatListAdapter$3$1
-com.cocobabys.adapter.ChatListAdapter$4
-com.cocobabys.adapter.ChatListAdapter$FlagHolder
 com.cocobabys.adapter.ChildListAdapter:
     23:24:public void setLocationInfoList(java.util.List)
     32:34:public void clear()
@@ -136,10 +129,10 @@ com.cocobabys.adapter.HomeworkListAdapter:
 com.cocobabys.adapter.NewChatListAdapter:
     private static final java.lang.String SELF_NAME
     private static final java.lang.String DEFAULT_PARENT_NAME
+    private static final java.lang.String DEFAULT_TEACHER_NAME
     private static final long MIN_TIME_LIMIT
     private static final int LEFT
     private static final int RIGHT
-    private static final java.lang.String ANONYMOUS_TEACHER_NAME
 com.cocobabys.adapter.NewsListAdapter:
     30:31:public void setLocationInfoList(java.util.List)
 com.cocobabys.adapter.ScheduleListAdapter:
@@ -336,7 +329,7 @@ com.cocobabys.dbmgr.DataMgr:
     281:282:public void addTeacherList(java.util.List)
     289:289:public com.cocobabys.dbmgr.info.Teacher getTeacher(java.lang.String)
     297:298:public void removeAllTeacher()
-    305:305:public com.cocobabys.dbmgr.info.ParentInfo getParentByPhone(java.lang.String)
+    309:309:public com.cocobabys.dbmgr.info.ParentInfo getParentByPhone(java.lang.String)
 com.cocobabys.dbmgr.EducationMgr:
     20:22:long addEduRecord(com.cocobabys.dbmgr.info.EducationInfo)
 com.cocobabys.dbmgr.HomeworkMgr:
@@ -347,8 +340,6 @@ com.cocobabys.dbmgr.NewsMgr:
     61:65:com.cocobabys.dbmgr.info.News getNewsByID(int)
     69:73:java.util.List getAllNews()
     77:82:java.util.List getAllNewsByType(int)
-com.cocobabys.dbmgr.ParentMgr:
-    19:22:void addData(com.cocobabys.dbmgr.info.ParentInfo)
 com.cocobabys.dbmgr.SqliteHelper:
     public static final java.lang.String CHILDREN_INFO_TAB
     public static final java.lang.String SCHOOL_INFO_TAB
@@ -450,6 +441,8 @@ com.cocobabys.dbmgr.info.InfoHelper:
     17:17:public InfoHelper()
 com.cocobabys.dbmgr.info.LocationInfo
 com.cocobabys.dbmgr.info.NewChatInfo:
+    public static final java.lang.String NEW_CHAT_ICON_BIG_WITDH
+    public static final java.lang.String NEW_CHAT_ICON_BIG_HEIGHT
     public static final java.lang.String TEACHER_TYPE
     public static final java.lang.String PARENT_TYPE
     public static final java.lang.String ID
@@ -461,7 +454,7 @@ com.cocobabys.dbmgr.info.NewChatInfo:
     public static final java.lang.String MEDIA_TYPE
     public static final java.lang.String SENDER_TYPE
     public static final java.lang.String SENDER_ID
-    90:90:public int getId()
+    93:93:public int getId()
 com.cocobabys.dbmgr.info.News:
     public static final java.lang.String ID
     public static final java.lang.String TITLE
@@ -550,14 +543,9 @@ com.cocobabys.handler.CrashHandler:
 com.cocobabys.handler.CrashHandler$1
 com.cocobabys.handler.MyHandler:
     20:21:public MyHandler(android.app.Activity)
-com.cocobabys.handler.PushEventHandler:
-    private static final java.lang.String TAGS_SEPERATOR
-    private static final int MAX_THREAD_IN_POOL
-    42:44:public void offerEvent(com.cocobabys.push.info.PushEvent)
-    47:48:public void addObserver(com.cocobabys.handler.PushEventObserver)
-    51:52:public void removeObserver(com.cocobabys.handler.PushEventObserver)
-    55:56:public void clearObservers()
-    136:138:public void clear()
+com.cocobabys.handler.PushEventHandler
+com.cocobabys.handler.PushEventHandler$1
+com.cocobabys.handler.PushEventObserver
 com.cocobabys.httpclientmgr.HttpClientHelper:
     private static final java.lang.String VERSION_CODE
     57:58:private HttpClientHelper()
@@ -573,7 +561,6 @@ com.cocobabys.mycalendar.DateWidgetDayHeader:
     private static final int fTextSize
 com.cocobabys.mycalendar.DayStyle:
     19:19:public DayStyle()
-com.cocobabys.net.ChatMethod
 com.cocobabys.net.EducationMethod:
     private static final java.lang.String MOST
     private static final java.lang.String FROM
@@ -611,24 +598,16 @@ com.cocobabys.push.PushModel:
     42:43:public void unBind()
     46:47:public void setTag(java.util.List)
     52:71:public void setAllDefaultTag()
-    78:86:public java.util.List getTags()
-com.cocobabys.push.info.JsonHelper:
-    11:11:public JsonHelper()
-com.cocobabys.push.info.PushEvent:
-    public static final int TYPE_MESSAGE
-    public static final int TYPE_NOTIFICATION
-    public static final int TYPE_NOTIFICATION_CLICK
-    16:16:public int getType()
-    20:21:public void setType(int)
-    28:29:public void setMethod(java.lang.String)
-    36:37:public void setMessage(java.lang.String)
-    44:45:public void setErrorCode(int)
+    83:91:public java.util.List getTags()
+com.cocobabys.push.info.JsonHelper
+com.cocobabys.push.info.PushEvent
 com.cocobabys.push.info.PushMsg
+com.cocobabys.receiver.PushMessageReceiver:
+    public static final java.lang.String TAG
 com.cocobabys.taskmgr.BindPushTask:
     private static final int MAX_WAIT_FOR_BIND
 com.cocobabys.taskmgr.DownloadImgeJob:
     28:29:public void setMaxThreads(int)
-com.cocobabys.taskmgr.GetChatTask
 com.cocobabys.taskmgr.GetHomeworkTask:
     private static final int LIMIT_TIME
 com.cocobabys.taskmgr.GetNormalNewsTask:
@@ -636,8 +615,6 @@ com.cocobabys.taskmgr.GetNormalNewsTask:
 com.cocobabys.taskmgr.GetNoticeTask
 com.cocobabys.taskmgr.LoadingTask:
     private static final long LIMIT_TIME
-com.cocobabys.taskmgr.SendChatTask
-com.cocobabys.taskmgr.UploadChatIconTask
 com.cocobabys.threadpool.MyJob:
     33:36:public boolean isCancel()
 com.cocobabys.threadpool.MyThreadPoolMgr:
@@ -734,13 +711,13 @@ com.cocobabys.utils.Utils:
     public static final int LIMIT_WIDTH
     public static final int LIMIT_HEIGHT
     private static final java.lang.String TEST_HOST
-    52:52:public Utils()
-    131:134:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
-    153:156:public static void deleteProp(java.lang.String)
-    347:356:public boolean isMobileConnected(android.content.Context)
-    509:512:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
-    545:556:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
-    661:674:public static void saveInSDCard(java.lang.String)
+    55:55:public Utils()
+    134:137:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
+    156:159:public static void deleteProp(java.lang.String)
+    351:360:public boolean isMobileConnected(android.content.Context)
+    513:516:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
+    549:560:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
+    665:678:public static void saveInSDCard(java.lang.String)
 com.umeng.analytics.Gender
 com.umeng.analytics.MobclickAgent:
     20:439:public MobclickAgent()

@@ -9,7 +9,6 @@ import com.baidu.android.pushservice.PushSettings;
 import com.cocobabys.command.Command;
 import com.cocobabys.command.CommandFactory;
 import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.handler.PushEventHandler;
 
 public class MyService extends Service {
 
@@ -23,7 +22,7 @@ public class MyService extends Service {
 		super.onCreate();
 		Log.d("DJC 10-16", "MyService onCreate");
 		PushSettings.enableDebugMode(this, true);
-		PushEventHandler.getPushEventHandler().start();
+		// PushEventHandler.getPushEventHandler().start();
 	}
 
 	@Override
@@ -43,7 +42,7 @@ public class MyService extends Service {
 	private int getCommand(Intent intent) {
 		int command = -1;
 		if (intent != null) {
-			command = intent.getIntExtra(ConstantValue.CHECK_NEW_COMMAND, -1);
+			command = intent.getIntExtra(ConstantValue.SERVICE_COMMAND, -1);
 		}
 		return command;
 	}

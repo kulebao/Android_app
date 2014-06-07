@@ -18,7 +18,8 @@ class ParentMgr {
 	void addData(ParentInfo info) {
 		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
 		ContentValues values = buildInfo(info);
-		writableDatabase.insertWithOnConflict(SqliteHelper.PARENT_TAB, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+		writableDatabase.insertWithOnConflict(SqliteHelper.PARENT_TAB, null,
+				values, SQLiteDatabase.CONFLICT_REPLACE);
 	}
 
 	void addDataList(List<ParentInfo> list) {
@@ -29,8 +30,8 @@ class ParentMgr {
 		try {
 			for (ParentInfo info : list) {
 				ContentValues values = buildInfo(info);
-				writableDatabase.insertWithOnConflict(SqliteHelper.PARENT_TAB, null, values,
-						SQLiteDatabase.CONFLICT_REPLACE);
+				writableDatabase.insertWithOnConflict(SqliteHelper.PARENT_TAB,
+						null, values, SQLiteDatabase.CONFLICT_REPLACE);
 			}
 			// 数据插入操作循环
 			writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
@@ -43,8 +44,8 @@ class ParentMgr {
 	ParentInfo getParentByPhone(String phone) {
 		ParentInfo info = null;
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.PARENT_TAB + " WHERE " + ParentInfo.PHONE + " = '"
-				+ phone + "'", null);
+		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.PARENT_TAB
+				+ " WHERE " + ParentInfo.PHONE + " = '" + phone + "'", null);
 
 		try {
 			cursor.moveToFirst();
@@ -64,8 +65,9 @@ class ParentMgr {
 	ParentInfo getParentByID(String parentid) {
 		ParentInfo info = null;
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.PARENT_TAB + " WHERE " + ParentInfo.PARENT_ID
-				+ " = '" + parentid + "'", null);
+		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.PARENT_TAB
+				+ " WHERE " + ParentInfo.PARENT_ID + " = '" + parentid + "'",
+				null);
 
 		try {
 			cursor.moveToFirst();

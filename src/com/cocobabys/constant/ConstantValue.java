@@ -6,7 +6,7 @@ public class ConstantValue {
 
 	public static final String COMMON_SEPEARAOR = ",";
 
-	public static final String CHECK_NEW_COMMAND = "check_new_command";
+	public static final String SERVICE_COMMAND = "service_command";
 	// 检查新公告
 	public static final int COMMAND_TYPE_CHECK_NOTICE = 1;
 	// 检查食谱
@@ -19,6 +19,8 @@ public class ConstantValue {
 	public static final int COMMAND_TYPE_CHECK_CHAT = 5;
 	// 检查在园表现
 	public static final int COMMAND_TYPE_CHECK_EDU = 6;
+	// 获取绑定错误消息
+	public static final int COMMAND_TYPE_SEND_BIND_ERROR = 7;
 
 	public static final String FIRST_LOGIN = "first_login";
 
@@ -98,6 +100,8 @@ public class ConstantValue {
 	public static final int SEND_CHAT_FAIL = 21;
 
 	public static final String HEADER_TOKEN = "token";
+	public static final String HEADER_SOURCE = "source";
+	public static final String SOURCE_ANDROID = "android";
 
 	public static final int GET_NORMAL_NOTICE_MAX_COUNT = 25;
 	public static final int GET_EDU_MAX_COUNT = 25;
@@ -110,13 +114,21 @@ public class ConstantValue {
 	public static final String TEST_PHONE_PWD = "zzzzzz";
 
 	public static final int HEAD_ICON_HEIGHT = 50;
-
 	public static final int HEAD_ICON_WIDTH = 50;
+
+	public static final int NAIL_ICON_WIDTH = 70;
+	public static final int NAIL_ICON_HEIGHT = 70;
 
 	public static final String EXP_YEAR = "exp_year";
 	public static final String EXP_MONTH = "exp_month";
-	
+
 	public static final String EXP_ID = "exp_id";
 
 	public static final int MAX_SELECT_LIMIT = 9;
+
+	public static final String FAKE_CHANNEL_ID = "fake_channel_id";
+
+	public static final String FAKE_USER_ID = "fake_user_id";
+
+	public static final String BIND_ERROR = "bind_error";
 }

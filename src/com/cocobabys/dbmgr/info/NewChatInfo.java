@@ -15,6 +15,9 @@ import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.utils.Utils;
 
 public class NewChatInfo {
+	public static final String NEW_CHAT_ICON_BIG_WITDH = "720";
+	public static final String NEW_CHAT_ICON_BIG_HEIGHT = "1080";
+
 	public static final String TEACHER_TYPE = "t";
 	public static final String PARENT_TYPE = "p";
 
@@ -138,10 +141,11 @@ public class NewChatInfo {
 	public String getLocalUrl() {
 		String localUrl = "";
 		if (!"".equals(media_url)) {
-			if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone().getParent_id())) {
+			if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone()
+					.getParent_id())) {
 				// 自己发的图片，就从本地读，以免再次去服务器下载
-				localUrl = media_url.replace(UploadFactory.CLOUD_STORAGE_HOST, Utils.getSDCardPicRootPath()
-						+ File.separator);
+				localUrl = media_url.replace(UploadFactory.CLOUD_STORAGE_HOST,
+						Utils.getSDCardPicRootPath() + File.separator);
 				if (!TextUtils.isEmpty(localUrl)) {
 					Utils.mkDirs(Utils.getDir(localUrl));
 				}
@@ -157,16 +161,21 @@ public class NewChatInfo {
 		return localUrl;
 	}
 
-	public static NewChatInfo parseFromJson(JSONObject object) throws JSONException {
+	public static NewChatInfo parseFromJson(JSONObject object)
+			throws JSONException {
 		NewChatInfo info = new NewChatInfo();
 
 		info.setChat_id(object.getLong("id"));
 		info.setChild_id(object.getString(JSONConstant.TOPIC));
 		info.setContent(object.getString(CONTENT));
-		info.setMedia_type(object.getJSONObject(JSONConstant.MEDIA).getString("type"));
-		info.setMedia_url(object.getJSONObject(JSONConstant.MEDIA).getString("url"));
-		info.setSender_id(object.getJSONObject(JSONConstant.SENDER).getString("id"));
-		info.setSender_type(object.getJSONObject(JSONConstant.SENDER).getString("type"));
+		info.setMedia_type(object.getJSONObject(JSONConstant.MEDIA).getString(
+				"type"));
+		info.setMedia_url(object.getJSONObject(JSONConstant.MEDIA).getString(
+				"url"));
+		info.setSender_id(object.getJSONObject(JSONConstant.SENDER).getString(
+				"id"));
+		info.setSender_type(object.getJSONObject(JSONConstant.SENDER)
+				.getString("type"));
 		info.setTimestamp(object.getLong(TIMESTAMP));
 		return info;
 	}

@@ -4873,19 +4873,19 @@ com.cocobabys.activities.SchoolNoticeActivity -> com.cocobabys.activities.School
     com.cocobabys.adapter.SchoolNoticeGridViewAdapter access$000(com.cocobabys.activities.SchoolNoticeActivity) -> a
     void access$100(com.cocobabys.activities.SchoolNoticeActivity) -> b
     void access$200(com.cocobabys.activities.SchoolNoticeActivity) -> c
-    android.app.ProgressDialog access$300(com.cocobabys.activities.SchoolNoticeActivity) -> d
-    com.cocobabys.dbmgr.info.ChildInfo access$400(com.cocobabys.activities.SchoolNoticeActivity) -> e
-    void access$500(com.cocobabys.activities.SchoolNoticeActivity,int) -> a
-    void access$600(com.cocobabys.activities.SchoolNoticeActivity) -> f
-    void access$700(com.cocobabys.activities.SchoolNoticeActivity) -> g
-    void access$800(com.cocobabys.activities.SchoolNoticeActivity) -> h
-    void access$1000(com.cocobabys.activities.SchoolNoticeActivity) -> i
-    void access$1100(com.cocobabys.activities.SchoolNoticeActivity) -> j
-    void access$1200$7f914fe4(com.cocobabys.activities.SchoolNoticeActivity) -> k
-    void access$1300(com.cocobabys.activities.SchoolNoticeActivity) -> l
-    void access$1400(com.cocobabys.activities.SchoolNoticeActivity) -> m
-    void access$1500(com.cocobabys.activities.SchoolNoticeActivity) -> n
-    void access$1600(com.cocobabys.activities.SchoolNoticeActivity) -> o
+    boolean access$300(com.cocobabys.activities.SchoolNoticeActivity,int) -> a
+    com.cocobabys.dbmgr.info.ChildInfo access$400(com.cocobabys.activities.SchoolNoticeActivity) -> d
+    void access$500(com.cocobabys.activities.SchoolNoticeActivity,int) -> b
+    void access$600(com.cocobabys.activities.SchoolNoticeActivity) -> e
+    void access$700(com.cocobabys.activities.SchoolNoticeActivity) -> f
+    void access$800(com.cocobabys.activities.SchoolNoticeActivity) -> g
+    void access$1000(com.cocobabys.activities.SchoolNoticeActivity) -> h
+    void access$1100(com.cocobabys.activities.SchoolNoticeActivity) -> i
+    void access$1200$7f914fe4(com.cocobabys.activities.SchoolNoticeActivity) -> j
+    void access$1300(com.cocobabys.activities.SchoolNoticeActivity) -> k
+    void access$1400(com.cocobabys.activities.SchoolNoticeActivity) -> l
+    void access$1500(com.cocobabys.activities.SchoolNoticeActivity) -> m
+    void access$1600(com.cocobabys.activities.SchoolNoticeActivity) -> n
 com.cocobabys.activities.SchoolNoticeActivity$1 -> com.cocobabys.activities.bq:
     com.cocobabys.activities.SchoolNoticeActivity this$0 -> a
     void update$255f295() -> a
@@ -5316,22 +5316,22 @@ com.cocobabys.adapter.ExpListAdapter -> com.cocobabys.adapter.g:
     com.cocobabys.taskmgr.DownloadImgeJob downloadImgeJob -> d
     android.os.Handler handler -> e
     java.util.Map senderMap -> f
-    com.cocobabys.jobs.GetSenderInfoJob getTeacherInfoJob -> g
+    com.cocobabys.jobs.GetSenderInfoJob getSenderInfoJob -> g
     com.nostra13.universalimageloader.core.ImageLoader imageLoader -> h
     void clear() -> a
     int getCount() -> getCount
     com.cocobabys.dbmgr.info.ExpInfo getItem(int) -> a
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-    java.lang.String getParentName(java.lang.String) -> b
-    java.lang.String getTeacherName(java.lang.String) -> c
+    java.lang.String getParentName(java.lang.String) -> a
+    java.lang.String getTeacherName(java.lang.String) -> b
+    com.cocobabys.bean.IconInfo getIconInfo(com.cocobabys.dbmgr.info.ExpInfo) -> a
     boolean checkFileExist(java.util.List) -> a
     void releaseCache() -> b
     void addAll(java.util.List) -> b
     java.lang.Object getItem(int) -> getItem
-    java.lang.String access$000$5aab8aa2(java.lang.String) -> a
-    java.util.Map access$100(com.cocobabys.adapter.ExpListAdapter) -> a
-    void access$300(com.cocobabys.adapter.ExpListAdapter,long) -> a
+    void access$000(com.cocobabys.adapter.ExpListAdapter,android.os.Message) -> a
+    void access$200(com.cocobabys.adapter.ExpListAdapter,long) -> a
 com.cocobabys.adapter.ExpListAdapter$1 -> com.cocobabys.adapter.h:
     com.cocobabys.adapter.ExpListAdapter this$0 -> a
     int sizeOf(java.lang.Object,java.lang.Object) -> sizeOf
@@ -5431,13 +5431,13 @@ com.cocobabys.adapter.NewChatListAdapter -> com.cocobabys.adapter.s:
     int getItemViewType(int) -> getItemViewType
     int getViewTypeCount() -> getViewTypeCount
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
-    java.lang.String getParentName(java.lang.String) -> c
-    java.lang.String getTeacherName(java.lang.String) -> d
-    android.graphics.Bitmap getLocalIcon(java.lang.String,int,int) -> a
+    java.lang.String getParentName(java.lang.String) -> b
+    java.lang.String getTeacherName(java.lang.String) -> c
+    com.cocobabys.bean.IconInfo getIconInfo(com.cocobabys.dbmgr.info.NewChatInfo) -> a
+    android.graphics.Bitmap getLocalIcon(com.cocobabys.bean.IconInfo,int,int) -> a
     void releaseCache() -> b
     void startToShowIconActivity(java.lang.String) -> a
-    java.lang.String access$000$55156e3d(java.lang.String) -> b
-    java.util.Map access$100(com.cocobabys.adapter.NewChatListAdapter) -> a
+    void access$000(com.cocobabys.adapter.NewChatListAdapter,android.os.Message) -> a
 com.cocobabys.adapter.NewChatListAdapter$1 -> com.cocobabys.adapter.t:
     com.cocobabys.adapter.NewChatListAdapter this$0 -> a
     int sizeOf(java.lang.Object,java.lang.Object) -> sizeOf
@@ -5597,7 +5597,14 @@ com.cocobabys.bean.GroupExpInfo -> com.cocobabys.a.b:
     int getCount() -> b
     void setCount(int) -> a
     java.util.List jsonArrayToGroupExpInfoList(org.json.JSONArray) -> a
-com.cocobabys.bean.ScheduleListItem -> com.cocobabys.a.c:
+com.cocobabys.bean.IconInfo -> com.cocobabys.a.c:
+    java.lang.String localPath -> a
+    java.lang.String netPath -> b
+    java.lang.String getLocalPath() -> a
+    void setLocalPath(java.lang.String) -> a
+    java.lang.String getNetPath() -> b
+    void setNetPath(java.lang.String) -> b
+com.cocobabys.bean.ScheduleListItem -> com.cocobabys.a.d:
     java.lang.String dayofweek -> a
     java.lang.String date -> b
     java.lang.String morningContent -> c
@@ -5610,14 +5617,14 @@ com.cocobabys.bean.ScheduleListItem -> com.cocobabys.a.c:
     void setMorningContent(java.lang.String) -> c
     java.lang.String getAfternoonContent() -> d
     void setAfternoonContent(java.lang.String) -> d
-com.cocobabys.bean.SenderInfo -> com.cocobabys.a.d:
+com.cocobabys.bean.SenderInfo -> com.cocobabys.a.e:
     java.lang.String senderID -> a
     java.lang.String senderType -> b
     java.lang.String getSenderID() -> a
     void setSenderID(java.lang.String) -> a
     java.lang.String getSenderType() -> b
     void setSenderType(java.lang.String) -> b
-com.cocobabys.bean.SwipeInfoOnCalendar -> com.cocobabys.a.e:
+com.cocobabys.bean.SwipeInfoOnCalendar -> com.cocobabys.a.f:
     java.lang.String checkin -> a
     java.lang.String checkout -> b
     java.lang.String getCheckin() -> a
@@ -5673,6 +5680,12 @@ com.cocobabys.command.CommandEmpty -> com.cocobabys.b.n:
     void execute() -> a
 com.cocobabys.command.CommandFactory -> com.cocobabys.b.o:
     com.cocobabys.command.CommandFactory getCommandFactory() -> a
+com.cocobabys.command.CommandSendBindError -> com.cocobabys.b.p:
+    void execute() -> a
+com.cocobabys.command.CommandSendBindError$sendBindErrorTask -> com.cocobabys.b.q:
+    com.cocobabys.command.CommandSendBindError this$0 -> a
+    void onPostExecute(java.lang.Object) -> onPostExecute
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
 com.cocobabys.constant.EventMap -> com.cocobabys.c.a:
     java.util.Map map -> a
     int getErrorResID(int) -> a
@@ -5964,6 +5977,7 @@ com.cocobabys.dbmgr.DataMgr -> com.cocobabys.e.c:
     java.util.List getAllTeachers() -> p
     boolean handleIncomingTeacher(com.cocobabys.dbmgr.info.Teacher) -> b
     com.cocobabys.dbmgr.info.Teacher getTeacherByID(java.lang.String) -> f
+    void addParent(com.cocobabys.dbmgr.info.ParentInfo) -> a
     void addParentList(java.util.List) -> f
     com.cocobabys.dbmgr.info.ParentInfo getParentByID(java.lang.String) -> g
     com.cocobabys.dbmgr.info.ParentInfo getSelfInfoByPhone() -> q
@@ -6018,9 +6032,11 @@ com.cocobabys.dbmgr.NewsMgr -> com.cocobabys.e.h:
     java.util.List getNewsList(android.database.Cursor) -> a
 com.cocobabys.dbmgr.ParentMgr -> com.cocobabys.e.i:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
+    void addData(com.cocobabys.dbmgr.info.ParentInfo) -> a
     void addDataList(java.util.List) -> a
     com.cocobabys.dbmgr.info.ParentInfo getParentByPhone(java.lang.String) -> a
     com.cocobabys.dbmgr.info.ParentInfo getParentByID(java.lang.String) -> b
+    android.content.ContentValues buildInfo(com.cocobabys.dbmgr.info.ParentInfo) -> b
     com.cocobabys.dbmgr.info.ParentInfo getDataByCursor(android.database.Cursor) -> a
 com.cocobabys.dbmgr.ScheduleInfoMgr -> com.cocobabys.e.j:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a
@@ -6351,7 +6367,8 @@ com.cocobabys.dbmgr.info.ParentInfo -> com.cocobabys.e.a.j:
     void setRelationship(java.lang.String) -> f
     long getTimestamp() -> h
     void setTimestamp(long) -> a
-    com.cocobabys.dbmgr.info.ParentInfo parse(org.json.JSONObject) -> a
+    com.cocobabys.dbmgr.info.ParentInfo parseFromRelationship(org.json.JSONObject) -> a
+    com.cocobabys.dbmgr.info.ParentInfo parseFromSender(org.json.JSONObject) -> b
 com.cocobabys.dbmgr.info.ScheduleInfo -> com.cocobabys.e.a.k:
     java.lang.String schedule_id -> a
     java.lang.String schedule_content -> b
@@ -6475,23 +6492,7 @@ com.cocobabys.handler.MyHandler -> com.cocobabys.g.b:
     android.app.Dialog dialog -> a
     android.app.Activity activity -> b
     void handleMessage(android.os.Message) -> handleMessage
-com.cocobabys.handler.PushEventHandler -> com.cocobabys.g.c:
-    com.cocobabys.handler.PushEventHandler handler -> a
-    java.util.concurrent.ScheduledExecutorService genericService -> b
-    boolean start -> c
-    java.util.List observers -> d
-    java.util.concurrent.BlockingQueue eventQueue -> e
-    com.cocobabys.handler.PushEventHandler getPushEventHandler() -> a
-    void start() -> b
-    boolean handle(com.cocobabys.push.info.PushEvent) -> a
-    java.lang.String getTags(com.cocobabys.push.info.PushEvent) -> b
-    void notifyObservers$1bc480f0() -> c
-    java.util.concurrent.ScheduledExecutorService access$000(com.cocobabys.handler.PushEventHandler) -> a
-    java.util.concurrent.BlockingQueue access$100(com.cocobabys.handler.PushEventHandler) -> b
-com.cocobabys.handler.PushEventHandler$1 -> com.cocobabys.g.d:
-    com.cocobabys.handler.PushEventHandler this$0 -> a
-    void run() -> run
-com.cocobabys.handler.TaskResultHandler -> com.cocobabys.g.e:
+com.cocobabys.handler.TaskResultHandler -> com.cocobabys.g.c:
     void handleResult(int,java.lang.Object) -> a
 com.cocobabys.httpclientmgr.HttpClientHelper -> com.cocobabys.h.a:
     org.apache.http.client.HttpClient httpClient -> a
@@ -6525,6 +6526,7 @@ com.cocobabys.jobs.GetChatJob -> com.cocobabys.i.b:
     int addType -> e
     java.lang.String childid -> f
     void run() -> run
+    com.cocobabys.net.MethodResult getBindResult(com.cocobabys.proxy.MyProxyImpl) -> a
     int access$000(com.cocobabys.jobs.GetChatJob) -> a
     long access$100(com.cocobabys.jobs.GetChatJob) -> b
     long access$200(com.cocobabys.jobs.GetChatJob) -> c
@@ -6559,17 +6561,16 @@ com.cocobabys.jobs.GetSenderInfoJob -> com.cocobabys.i.h:
     void setHanlder(android.os.Handler) -> a
     void addTask(java.lang.String,com.cocobabys.bean.SenderInfo) -> a
     void stopTask() -> a
-    int handleGetTeacherResult(com.cocobabys.net.HttpResult) -> b
-    int access$100$257cfdba(com.cocobabys.net.HttpResult) -> a
-    java.util.Map access$200(com.cocobabys.jobs.GetSenderInfoJob) -> a
-    boolean access$300(com.cocobabys.jobs.GetSenderInfoJob) -> b
-    android.os.Handler access$400(com.cocobabys.jobs.GetSenderInfoJob) -> c
+    java.util.Map access$100(com.cocobabys.jobs.GetSenderInfoJob) -> a
+    boolean access$200(com.cocobabys.jobs.GetSenderInfoJob) -> b
+    android.os.Handler access$300(com.cocobabys.jobs.GetSenderInfoJob) -> c
 com.cocobabys.jobs.GetSenderInfoJob$GetTeacherRunnable -> com.cocobabys.i.i:
     java.lang.String imgaeUrl -> b
     com.cocobabys.bean.SenderInfo info -> c
     com.cocobabys.jobs.GetSenderInfoJob this$0 -> a
     void run() -> run
-    void sendMsg(int,java.lang.String) -> a
+    int handleGetSenderResult(com.cocobabys.net.HttpResult) -> a
+    void sendMsg(int,com.cocobabys.bean.SenderInfo) -> a
 com.cocobabys.jobs.SendChatJob -> com.cocobabys.i.j:
     android.os.Handler handler -> a
     java.lang.String childid -> b
@@ -6810,23 +6811,13 @@ com.cocobabys.proxy.MyProxyImpl -> com.cocobabys.m.b:
 com.cocobabys.push.PushModel -> com.cocobabys.n.a:
     com.cocobabys.push.PushModel getPushModel() -> a
     void bind() -> b
-com.cocobabys.push.info.PushEvent -> com.cocobabys.n.a.a:
-    int type -> a
-    java.lang.String method -> b
-    java.lang.String message -> c
-    int errorCode -> d
-    java.lang.String getMethod() -> a
-    java.lang.String getMessage() -> b
-    int getErrorCode() -> c
-    java.lang.String toString() -> toString
 com.cocobabys.receiver.NetStateChangeReceiver -> com.cocobabys.receiver.NetStateChangeReceiver:
     int currentNetWorkType -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
 com.cocobabys.receiver.NotificationObserver -> com.cocobabys.receiver.a:
     void update$255f295() -> a
 com.cocobabys.receiver.PushMessageReceiver -> com.cocobabys.receiver.PushMessageReceiver:
-    java.lang.String TAG -> a
-    int notify_id -> b
+    int notify_id -> a
     void onBind(android.content.Context,int,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> onBind
     void onMessage(android.content.Context,java.lang.String,java.lang.String) -> onMessage
     void setNotification(com.cocobabys.dbmgr.info.Notice,android.content.Context) -> a

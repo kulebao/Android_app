@@ -39,6 +39,10 @@ public class CommandFactory {
 			Log.d("ddd", "onStartCommand COMMAND_TYPE_CHECK_EDU");
 			command = new CommandCheckEducation();
 			break;
+		case ConstantValue.COMMAND_TYPE_SEND_BIND_ERROR:
+			Log.d("ddd", "onStartCommand COMMAND_TYPE_GET_BIND_ERROR");
+			command = new CommandSendBindError();
+			break;
 
 		default:
 			command = new CommandEmpty();

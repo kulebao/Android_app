@@ -297,6 +297,10 @@ public class DataMgr {
 		teacherMgr.removeAllTeacher();
 	}
 
+	public void addParent(ParentInfo info) {
+		parentMgr.addData(info);
+	}
+	
 	public void addParentList(List<ParentInfo> list) {
 		parentMgr.addDataList(list);
 	}

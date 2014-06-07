@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +34,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -48,6 +50,7 @@ import com.cocobabys.customview.CustomDialog;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dlgmgr.DlgMgr;
 import com.cocobabys.push.PushModel;
+import com.cocobabys.taskmgr.BindPushTask;
 
 public class Utils {
 	public static final int NETWORK_NOT_CONNECTED = -1;
@@ -280,13 +283,14 @@ public class Utils {
 		return pwd.matches(regexExp);
 	}
 
-	public static void bindPush() {
+	public static synchronized void bindPush() {
 		try {
 			if (!Utils.isNetworkConnected(MyApplication.getInstance())) {
 				return;
 			}
 
 			PushModel pushModel = PushModel.getPushModel();
+			
 			if (!pushModel.isBinded()) {
 				Log.w("DJC", "not bind,do it now!");
 				pushModel.bind();

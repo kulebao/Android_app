@@ -98,7 +98,8 @@ public class ParentInfo {
 		this.timestamp = timestamp;
 	}
 
-	public static ParentInfo parse(JSONObject jsonObject) throws JSONException {
+	public static ParentInfo parseFromRelationship(JSONObject jsonObject)
+			throws JSONException {
 		ParentInfo info = new ParentInfo();
 
 		JSONObject parentJson = jsonObject.getJSONObject("parent");
@@ -111,6 +112,19 @@ public class ParentInfo {
 		info.setPortrait(parentJson.getString(PORTRAIT));
 		info.setTimestamp(parentJson.getLong(TIMESTAMP));
 		info.setRelationship(jsonObject.getString(RELATIONSHIP));
+		return info;
+	}
+
+	public static ParentInfo parseFromSender(JSONObject parentJson)
+			throws JSONException {
+		ParentInfo info = new ParentInfo();
+
+		info.setMember_status(parentJson.getInt(MEMBER_STATUS));
+		info.setParent_id(parentJson.getString(PARENT_ID));
+		info.setName(parentJson.getString(PARENT_NAME));
+		info.setPhone(parentJson.getString(PHONE));
+		info.setPortrait(parentJson.getString(PORTRAIT));
+		info.setTimestamp(parentJson.getLong(TIMESTAMP));
 		return info;
 	}
 

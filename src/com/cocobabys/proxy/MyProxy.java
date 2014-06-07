@@ -48,7 +48,7 @@ public class MyProxy implements InvocationHandler {
 		return result;
 	}
 
-	private Object handleException(Object result, Throwable e) throws Exception {
+	private Object handleException(Object result, Throwable e){
 		if (e.getCause() instanceof BindFailException) {
 			result = EventType.NET_WORK_INVALID;
 		} else if (e.getCause() instanceof InvalidTokenException) {

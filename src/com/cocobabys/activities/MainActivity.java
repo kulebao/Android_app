@@ -26,13 +26,15 @@ import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.handler.MyHandler;
+import com.cocobabys.push.PushModel;
+import com.cocobabys.taskmgr.BindPushTask;
 import com.cocobabys.taskmgr.CheckUpdateTask;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.Utils;
 
 public class MainActivity extends TabActivity {
-	// 每10分钟检查push相关参数是否正常，如不正常，重新绑定
-	private static final int DELAY_TIME = 600;
+	// 每30分钟检查push相关参数是否正常，如不正常，重新绑定
+	private static final int DELAY_TIME = 60 * 30;
 	// 启动后，2分钟时，开始检查push相关参数是否正常，如不正常，重新绑定
 	private static final int FIRST_DELAY_TIME = 120;
 	private TabHost tabHost;
@@ -62,6 +64,11 @@ public class MainActivity extends TabActivity {
 	}
 
 	private void runCheckBindTask() {
+		if (!PushModel.getPushModel().isBindInfoSentToServer()) {
+			Log.d("DJC", "BindPushTask run !");
+			new BindPushTask(handler, Utils.getAccount()).execute();
+		}
+
 		MyThreadPoolMgr.getGenericService().scheduleWithFixedDelay(
 				new Runnable() {
 					@Override
@@ -109,7 +116,8 @@ public class MainActivity extends TabActivity {
 					break;
 				case EventType.SERVER_INNER_ERROR:
 					Toast.makeText(MainActivity.this,
-							R.string.get_child_info_fail, Toast.LENGTH_SHORT);
+							R.string.get_child_info_fail, Toast.LENGTH_SHORT)
+							.show();
 					break;
 
 				default:

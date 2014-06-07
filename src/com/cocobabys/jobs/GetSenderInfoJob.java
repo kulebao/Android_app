@@ -17,6 +17,7 @@ import com.cocobabys.bean.SenderInfo;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.net.HttpResult;
@@ -66,11 +67,11 @@ public class GetSenderInfoJob {
 				String url = createGetTeacherInfoUrl(info);
 				Log.e("DDDDD ", "GetTeacherRunnable cmd:" + url);
 				result = HttpClientHelper.executeGet(url);
-				ret = handleGetTeacherResult(result);
+				ret = handleGetSenderResult(result);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				sendMsg(ret, info.getSenderID());
+				sendMsg(ret, info);
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -80,13 +81,37 @@ public class GetSenderInfoJob {
 			}
 		}
 
-		private void sendMsg(int result, String senderid) {
+		private int handleGetSenderResult(HttpResult result) {
+			int event = EventType.GET_SENDER_FAIL;
+			if (result.getResCode() == HttpStatus.SC_OK) {
+				try {
+					JSONObject jsonObject = result.getJsonObject();
+
+					if (SenderInfo.TEACHER_TYPE.equals(info.getSenderType())) {
+						Teacher teacher = Teacher.toTeacher(jsonObject);
+						DataMgr.getInstance().addTeacher(teacher);
+					} else {
+						ParentInfo parentInfo = ParentInfo
+								.parseFromSender(jsonObject);
+						DataMgr.getInstance().addParent(parentInfo);
+					}
+
+					event = EventType.GET_SENDER_SUCCESS;
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+
+			return event;
+		}
+
+		private void sendMsg(int result, SenderInfo info) {
 			if (stop) {
 				return;
 			}
 			Message msg = Message.obtain();
 			msg.what = result;
-			msg.obj = senderid;
+			msg.obj = info;
 			hanlder.sendMessage(msg);
 		}
 	}
@@ -98,24 +123,10 @@ public class GetSenderInfoJob {
 	}
 
 	private String createGetTeacherInfoUrl(SenderInfo info) {
-		String url = String.format(ServerUrls.GET_SENDER_INFO, DataMgr.getInstance().getSchoolID(), info.getSenderID());
+		String url = String.format(ServerUrls.GET_SENDER_INFO, DataMgr
+				.getInstance().getSchoolID(), info.getSenderID());
 		url += "type=" + info.getSenderType();
 		return url;
 	}
 
-	private int handleGetTeacherResult(HttpResult result) {
-		int event = EventType.GET_SENDER_FAIL;
-		if (result.getResCode() == HttpStatus.SC_OK) {
-			try {
-				JSONObject jsonObject = result.getJsonObject();
-				Teacher teacher = Teacher.toTeacher(jsonObject);
-				DataMgr.getInstance().addTeacher(teacher);
-				event = EventType.GET_SENDER_SUCCESS;
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return event;
-	}
 }

@@ -8,6 +8,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.cocobabys.activities.MyApplication;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.net.PushMethod;
@@ -47,20 +48,24 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 	}
 
 	public int doBindToSelfServer() throws Exception {
-		int result = EventType.BIND_FAILED;
 		// 发起绑定
 		PushModel.getPushModel().bind();
+
 		// 如果绑定成功，PushEventHandler会记录下绑定信息
 		for (int i = 0; i < MAX_WAIT_FOR_BIND; i++) {
 			if (checkBindInfo()) {
-				// 发送数据给服务器
-				result = sendInfoToSelfServer();
-				break;
+				// 绑定成功， 发送数据给服务器
+				return sendInfoToSelfServer();
 			}
 
 			TimeUnit.SECONDS.sleep(1);
 		}
-		return result;
+		// 此时如果还没有收到百度服务器的返回，可以认为绑定失败，先发一个假的id给服务器，让用户可以登录
+		Utils.saveUndeleteableProp(JSONConstant.CHANNEL_ID,
+				ConstantValue.FAKE_CHANNEL_ID);
+		Utils.saveUndeleteableProp(JSONConstant.USER_ID,
+				ConstantValue.FAKE_USER_ID);
+		return sendInfoToSelfServer();
 	}
 
 	public int sendInfoToSelfServer() throws Exception {
@@ -79,6 +84,7 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 	}
 
 	private boolean checkBindInfo() {
-		return !"".equals(Utils.getUndeleteableProp(JSONConstant.USER_ID));
+		String userid = Utils.getUndeleteableProp(JSONConstant.USER_ID);
+		return !"".equals(userid) && !ConstantValue.FAKE_USER_ID.equals(userid);
 	}
 }

@@ -138,6 +138,9 @@ public class HttpClientHelper {
 			// 所有访问数据的请求，都必须加上token
 			request.setHeader(ConstantValue.HEADER_TOKEN,
 					Utils.getProp(JSONConstant.ACCESS_TOKEN));
+			// 所有访问数据的请求，都必须加上source,区别网页和客户端
+			request.setHeader(ConstantValue.HEADER_SOURCE,
+					ConstantValue.SOURCE_ANDROID);
 			request.setHeader("Content-type", "application/json;charset=UTF-8");
 			// 自定义header，带版本号
 			request.setHeader(VERSION_CODE,
@@ -224,14 +227,17 @@ public class HttpClientHelper {
 			// 所有访问数据的请求，都必须加上token
 			request.setHeader(ConstantValue.HEADER_TOKEN,
 					Utils.getProp(JSONConstant.ACCESS_TOKEN));
+			// 所有访问数据的请求，都必须加上source,区别网页和客户端
+			request.setHeader(ConstantValue.HEADER_SOURCE,
+					ConstantValue.SOURCE_ANDROID);
 			request.setHeader(VERSION_CODE,
 					String.valueOf(Utils.getVersionCode()));
 
 			HttpResponse response = client.execute(request);
 			status = response.getStatusLine().getStatusCode();
 			Log.d("DDD code:", "" + status);
-			if(status != 200){
-				Log.w("WWW", "doGetImpl warning url="+url);
+			if (status != 200) {
+				Log.w("WWW", "doGetImpl warning url=" + url);
 			}
 			in = readContent(httpResult, response);
 			if (HttpClientHelper.isHttpRequestOK(status)) {

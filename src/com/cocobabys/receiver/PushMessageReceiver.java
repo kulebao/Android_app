@@ -14,17 +14,19 @@ import android.util.Log;
 
 import com.baidu.frontia.api.FrontiaPushMessageReceiver;
 import com.cocobabys.R;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.info.Notice;
 import com.cocobabys.noticepaser.NoticePaser;
 import com.cocobabys.noticepaser.NoticePaserFactory;
+import com.cocobabys.service.MyService;
 import com.cocobabys.utils.Utils;
 
 /**
  * Push消息处理receiver
  */
 public class PushMessageReceiver extends FrontiaPushMessageReceiver {
-	public static final String TAG = PushMessageReceiver.class.getSimpleName();
+	public static final String TAG = "DJC";
 	public static int notify_id = 0;
 
 	/**
@@ -51,13 +53,27 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 			String userId, String channelId, String requestId) {
 		String responseString = "onBind errorCode=" + errorCode + " appid="
 				+ appid + " userId=" + userId + " channelId=" + channelId
-				+ " requestId=" + requestId;
+				+ " requestId=" + requestId + " phone=" + Utils.getAccount();
 		Log.d(TAG, responseString);
 
 		// 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
 		if (errorCode == 0) {
 			Utils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, channelId);
 			Utils.saveUndeleteableProp(JSONConstant.USER_ID, userId);
+		} else {
+			sendErrorToSercice(context, responseString);
+		}
+	}
+
+	private void sendErrorToSercice(Context context, String responseString) {
+		try {
+			Utils.saveProp(ConstantValue.BIND_ERROR, responseString);
+			Intent myintent = new Intent(context, MyService.class);
+			myintent.putExtra(ConstantValue.SERVICE_COMMAND,
+					ConstantValue.COMMAND_TYPE_SEND_BIND_ERROR);
+			context.startService(myintent);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

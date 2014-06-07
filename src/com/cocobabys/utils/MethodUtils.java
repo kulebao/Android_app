@@ -253,42 +253,42 @@ public class MethodUtils {
 
 	public static void executeCheckNewsCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
+		myintent.putExtra(ConstantValue.SERVICE_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_NOTICE);
 		context.startService(myintent);
 	}
 
 	public static void executeCheckHomeworkCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
+		myintent.putExtra(ConstantValue.SERVICE_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_HOMEWORK);
 		context.startService(myintent);
 	}
 
 	public static void executeCheckCookbookCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
+		myintent.putExtra(ConstantValue.SERVICE_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_COOKBOOK);
 		context.startService(myintent);
 	}
 
 	public static void executeCheckScheduleCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
+		myintent.putExtra(ConstantValue.SERVICE_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_SCHEDULE);
 		context.startService(myintent);
 	}
 
 	public static void executeCheckChatCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
+		myintent.putExtra(ConstantValue.SERVICE_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_CHAT);
 		context.startService(myintent);
 	}
 
 	public static void executeCheckEducationCommand(Context context) {
 		Intent myintent = new Intent(context, MyService.class);
-		myintent.putExtra(ConstantValue.CHECK_NEW_COMMAND,
+		myintent.putExtra(ConstantValue.SERVICE_COMMAND,
 				ConstantValue.COMMAND_TYPE_CHECK_EDU);
 		context.startService(myintent);
 	}

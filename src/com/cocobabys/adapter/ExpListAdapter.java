@@ -23,13 +23,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cocobabys.R;
-import com.cocobabys.activities.SlideGalleryActivity;
+import com.cocobabys.bean.IconInfo;
 import com.cocobabys.bean.SenderInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.NoticeAction;
 import com.cocobabys.customview.MyGridView;
 import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
@@ -50,16 +51,17 @@ public class ExpListAdapter extends BaseAdapter {
 	private Handler handler;
 
 	private Map<String, String> senderMap = new HashMap<String, String>();
-	private GetSenderInfoJob getTeacherInfoJob;
+	private GetSenderInfoJob getSenderInfoJob;
 	private ImageLoader imageLoader;
 	private static final String ANONYMOUS_TEACHER_NAME = "匿名老师";
 
-	public ExpListAdapter(Context activityContext, List<ExpInfo> list, DownloadImgeJob downloadImgeTask,
+	public ExpListAdapter(Context activityContext, List<ExpInfo> list,
+			DownloadImgeJob downloadImgeTask,
 			GetSenderInfoJob getTeacherInfoJob, ImageLoader imageLoader) {
 		this.context = activityContext;
 		this.dataList = list;
 		this.downloadImgeJob = downloadImgeTask;
-		this.getTeacherInfoJob = getTeacherInfoJob;
+		this.getSenderInfoJob = getTeacherInfoJob;
 		this.imageLoader = imageLoader;
 
 		final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
@@ -80,9 +82,7 @@ public class ExpListAdapter extends BaseAdapter {
 					notifyDataSetChanged();
 					break;
 				case EventType.GET_SENDER_SUCCESS:
-					String senderid = (String) msg.obj;
-					senderMap.put(senderid, getTeacherName(senderid));
-					notifyDataSetChanged();
+					handleGetSenderSuccess(msg);
 					break;
 
 				default:
@@ -92,9 +92,21 @@ public class ExpListAdapter extends BaseAdapter {
 
 		};
 		this.downloadImgeJob.setHanlder(handler);
-		this.getTeacherInfoJob.setHanlder(handler);
+		this.getSenderInfoJob.setHanlder(handler);
 	}
 
+	private void handleGetSenderSuccess(Message msg) {
+		SenderInfo info = (SenderInfo) msg.obj;
+		String name = "";
+		if (SenderInfo.TEACHER_TYPE.equals(info.getSenderType())) {
+			name = getTeacherName(info.getSenderID());
+		} else {
+			name = getParentName(info.getSenderID());
+		}
+		senderMap.put(info.getSenderID(), name);
+		notifyDataSetChanged();
+	}
+	
 	public void clear() {
 		dataList.clear();
 		lruCache.evictAll();
@@ -121,13 +133,19 @@ public class ExpListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		FlagHolder flagholder = null;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(this.context).inflate(R.layout.exp_item, null);
+			convertView = LayoutInflater.from(this.context).inflate(
+					R.layout.exp_item, null);
 			flagholder = new FlagHolder();
-			flagholder.nameView = (TextView) convertView.findViewById(R.id.name);
-			flagholder.contentView = (TextView) convertView.findViewById(R.id.content);
-			flagholder.timestampView = (TextView) convertView.findViewById(R.id.time);
-			flagholder.headiconView = (ImageView) convertView.findViewById(R.id.headicon);
-			flagholder.gridview = (MyGridView) convertView.findViewById(R.id.gridview);
+			flagholder.nameView = (TextView) convertView
+					.findViewById(R.id.name);
+			flagholder.contentView = (TextView) convertView
+					.findViewById(R.id.content);
+			flagholder.timestampView = (TextView) convertView
+					.findViewById(R.id.time);
+			flagholder.headiconView = (ImageView) convertView
+					.findViewById(R.id.headicon);
+			flagholder.gridview = (MyGridView) convertView
+					.findViewById(R.id.gridview);
 			convertView.setTag(flagholder);
 		} else {
 			flagholder = (FlagHolder) convertView.getTag();
@@ -166,7 +184,7 @@ public class ExpListAdapter extends BaseAdapter {
 			SenderInfo senderInfo = new SenderInfo();
 			senderInfo.setSenderID(info.getSender_id());
 			senderInfo.setSenderType(info.getSender_type());
-			getTeacherInfoJob.addTask(info.getSender_id(), senderInfo);
+			getSenderInfoJob.addTask(info.getSender_id(), senderInfo);
 		}
 
 		return name;
@@ -199,46 +217,110 @@ public class ExpListAdapter extends BaseAdapter {
 		return name;
 	}
 
+	// private void setHeadIcon(FlagHolder flagholder, ExpInfo info) {
+	// Bitmap bitmap = null;
+	// String headUrl = "";
+	// try {
+	// if (ExpInfo.PARENT_TYPE.equals(info.getSender_type())) {
+	// headUrl = DataMgr.getInstance()
+	// .getChildByID(info.getChild_id()).getLocal_url();
+	// } else {
+	// headUrl = DataMgr.getInstance()
+	// .getTeacherByID(info.getSender_id()).getLocalIconPath();
+	// }
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	//
+	// bitmap = getLocalIcon(headUrl, ConstantValue.HEAD_ICON_WIDTH,
+	// ConstantValue.HEAD_ICON_HEIGHT);
+	//
+	// if (bitmap != null) {
+	// Utils.setImg(flagholder.headiconView, bitmap);
+	// } else {
+	// flagholder.headiconView
+	// .setImageResource(R.drawable.default_small_icon);
+	// }
+	// }
+
 	private void setHeadIcon(FlagHolder flagholder, ExpInfo info) {
 		Bitmap bitmap = null;
-		String headUrl = "";
-		try {
-			if (ExpInfo.PARENT_TYPE.equals(info.getSender_type())) {
-				headUrl = DataMgr.getInstance().getChildByID(info.getChild_id()).getLocal_url();
-			} else {
-				headUrl = DataMgr.getInstance().getTeacherByID(info.getSender_id()).getLocalIconPath();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		IconInfo iconInfo = getIconInfo(info);
 
-		bitmap = getLocalIcon(headUrl, ConstantValue.HEAD_ICON_WIDTH, ConstantValue.HEAD_ICON_HEIGHT);
+		bitmap = getLocalIcon(iconInfo, ConstantValue.HEAD_ICON_WIDTH,
+				ConstantValue.HEAD_ICON_HEIGHT);
 
 		if (bitmap != null) {
 			Utils.setImg(flagholder.headiconView, bitmap);
 		} else {
-			flagholder.headiconView.setImageResource(R.drawable.default_small_icon);
+			downloadImgeJob.addTask(iconInfo.getNetPath(),
+					iconInfo.getLocalPath(), ConstantValue.HEAD_ICON_WIDTH,
+					ConstantValue.HEAD_ICON_HEIGHT);
+			flagholder.headiconView
+					.setImageResource(R.drawable.default_small_icon);
 		}
 	}
 
-	private Bitmap getLocalIcon(String local_url, int limitWidth, int limitHeight) {
+	private IconInfo getIconInfo(ExpInfo info) {
+		IconInfo iconInfo = new IconInfo();
+		try {
+			if (ExpInfo.PARENT_TYPE.equals(info.getSender_type())) {
+				ChildInfo childByID = DataMgr.getInstance().getChildByID(
+						info.getChild_id());
+				iconInfo.setLocalPath(childByID.getLocal_url());
+				iconInfo.setNetPath(childByID.getServer_url());
+			} else {
+				Teacher teacherByID = DataMgr.getInstance().getTeacherByID(
+						info.getSender_id());
+				iconInfo.setLocalPath(teacherByID.getLocalIconPath());
+				iconInfo.setNetPath(teacherByID.getHead_icon());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return iconInfo;
+	}
+
+	private Bitmap getLocalIcon(IconInfo iconInfo, int limitWidth,
+			int limitHeight) {
 		Bitmap loacalBitmap = null;
-		if (TextUtils.isEmpty(local_url)) {
+		if (TextUtils.isEmpty(iconInfo.getNetPath())) {
 			return null;
 		}
 
-		loacalBitmap = lruCache.get(local_url);
+		loacalBitmap = lruCache.get(iconInfo.getLocalPath());
 
 		if (loacalBitmap == null) {
-			loacalBitmap = Utils.getLoacalBitmap(local_url,
-					ImageDownloader.getMaxPixWithDensity(limitWidth, limitHeight));
+			loacalBitmap = Utils.getLoacalBitmap(iconInfo.getLocalPath(),
+					ImageDownloader.getMaxPixWithDensity(limitWidth,
+							limitHeight));
 
 			if (loacalBitmap != null) {
-				lruCache.put(local_url, loacalBitmap);
+				lruCache.put(iconInfo.getLocalPath(), loacalBitmap);
 			}
 		}
 		return loacalBitmap;
 	}
+
+	// private Bitmap getLocalIcon(String local_url, int limitWidth, int
+	// limitHeight) {
+	// Bitmap loacalBitmap = null;
+	// if (TextUtils.isEmpty(local_url)) {
+	// return null;
+	// }
+	//
+	// loacalBitmap = lruCache.get(local_url);
+	//
+	// if (loacalBitmap == null) {
+	// loacalBitmap = Utils.getLoacalBitmap(local_url,
+	// ImageDownloader.getMaxPixWithDensity(limitWidth, limitHeight));
+	//
+	// if (loacalBitmap != null) {
+	// lruCache.put(local_url, loacalBitmap);
+	// }
+	// }
+	// return loacalBitmap;
+	// }
 
 	private void setContent(FlagHolder flagholder, final ExpInfo info) {
 		if (TextUtils.isEmpty(info.getContent())) {
@@ -257,17 +339,20 @@ public class ExpListAdapter extends BaseAdapter {
 		} else {
 			addToDownloadTask(info);
 
-			SimpleGridViewAdapter adapter = new SimpleGridViewAdapter(context, imageLoader, localUrls);
+			SimpleGridViewAdapter adapter = new SimpleGridViewAdapter(context,
+					imageLoader, localUrls);
 			flagholder.gridview.setVisibility(View.VISIBLE);
-			flagholder.gridview.setOnItemClickListener(new OnItemClickListener() {
+			flagholder.gridview
+					.setOnItemClickListener(new OnItemClickListener() {
 
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					if (checkFileExist(localUrls)) {
-						startToSlideGalleryActivity(info.getExp_id());
-					}
-				}
-			});
+						@Override
+						public void onItemClick(AdapterView<?> parent,
+								View view, int position, long id) {
+							if (checkFileExist(localUrls)) {
+								startToSlideGalleryActivity(info.getExp_id());
+							}
+						}
+					});
 			flagholder.gridview.setAdapter(adapter);
 		}
 	}

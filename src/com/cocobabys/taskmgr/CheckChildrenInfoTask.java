@@ -27,14 +27,7 @@ public class CheckChildrenInfoTask extends AsyncTask<Void, Void, Integer> {
 			public Object handle() throws Exception {
 				// int result = ChildMethod.getMethod()
 				// .getChildrenInfo();
-				ChildInfo selectedChild = DataMgr.getInstance().getSelectedChild();
-
 				int result = ChildMethod.getMethod().getRelationship();
-				//再次调用getRelationship,因为在selectedChild为空的情况下，只能获取到当前登录家长的小孩情况
-				//selectedChild不为空，则可以通过小孩id，获取到他的全部家长信息，供家园互动使用，这里需要查询2次
-				if (selectedChild == null) {
-					ChildMethod.getMethod().getRelationship();
-				}
 				return result;
 			}
 		});

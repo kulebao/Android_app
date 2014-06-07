@@ -21,7 +21,8 @@ public class GetChatJob extends MyJob {
 	private int addType;
 	private String childid;
 
-	public GetChatJob(Handler handler, int most, long from, long to, int addType, String childid) {
+	public GetChatJob(Handler handler, int most, long from, long to,
+			int addType, String childid) {
 		this.handler = handler;
 		this.most = most;
 		this.from = from;
@@ -40,14 +41,15 @@ public class GetChatJob extends MyJob {
 		MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
 			@Override
 			public MethodResult handle() throws Exception {
-				MethodResult result = NewChatMethod.getMethod().getChatInfo(most, from, to, childid);
+				MethodResult result = NewChatMethod.getMethod().getChatInfo(
+						most, from, to, childid);
 				return result;
 			}
 		});
 
 		try {
 			long now = System.currentTimeMillis();
-			bret = (MethodResult) bind.handle();
+			bret = getBindResult(bind);
 			long ellapse = now - current;
 			if (ellapse < LIMIT_TIME) {
 				try {
@@ -68,4 +70,17 @@ public class GetChatJob extends MyJob {
 
 	}
 
+	// 临时处理一下，本来应该都返回MethodResult，但是有大量老接口，还是使用int做返回，这里做一下适配
+	private MethodResult getBindResult(MyProxyImpl bind) throws Exception {
+		MethodResult bret = null;
+		Object obj = null;
+		try {
+			obj = bind.handle();
+			bret = (MethodResult) obj;
+		} catch (ClassCastException e) {
+			bret = new MethodResult();
+			bret.setResultType((Integer) obj);
+		}
+		return bret;
+	}
 }

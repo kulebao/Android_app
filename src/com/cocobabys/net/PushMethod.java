@@ -32,6 +32,7 @@ public class PushMethod {
 					Utils.getUndeleteableProp(JSONConstant.USER_ID),
 					Utils.getUndeleteableProp(JSONConstant.CHANNEL_ID));
 			HttpResult result = new HttpResult();
+			Log.d("DJC", "bindCommand =" + bindCommand);
 			result = HttpClientHelper.executePost(
 					ServerUrls.SEND_BIND_INFO_URL, bindCommand);
 			ret = handleSendBinfInfoResult(result);

@@ -98,6 +98,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.school_notice);
+
 		initProgressDlg();
 		initHandler();
 		initUI();
@@ -392,7 +393,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 						new TaskResultHandler() {
 							@Override
 							public void handleResult(int result, Object param) {
-								progressDialog.cancel();
+								if (handleBefore(result)) {
+									return;
+								}
 								if (result == EventType.UPLOAD_SUCCESS) {
 									updateChildPhoto((Bitmap) param);
 								} else {
@@ -547,7 +550,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					new TaskResultHandler() {
 						@Override
 						public void handleResult(int result, Object param) {
-							progressDialog.cancel();
+							if (handleBefore(result)) {
+								return;
+							}
 							if (result == EventType.UPLOAD_SUCCESS) {
 								DataMgr.getInstance().updateBirthday(
 										selectedChild.getServer_id(), born);
@@ -650,7 +655,10 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					new TaskResultHandler() {
 						@Override
 						public void handleResult(int result, Object param) {
-							progressDialog.cancel();
+							if (handleBefore(result)) {
+								return;
+							}
+
 							if (result == EventType.UPLOAD_SUCCESS) {
 								DataMgr.getInstance().updateNick(
 										selectedChild.getServer_id(), nick);
@@ -662,10 +670,22 @@ public class SchoolNoticeActivity extends TabChildActivity {
 										Toast.LENGTH_SHORT).show();
 							}
 						}
+
 					});
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private boolean handleBefore(int result) {
+		progressDialog.cancel();
+
+		if (result == EventType.PHONE_NUM_IS_ALREADY_LOGIN) {
+			Toast.makeText(this, R.string.phone_num_is_already_login,
+					Toast.LENGTH_SHORT).show();
+			return true;
+		}
+		return false;
 	}
 
 	private void initBtn() {
@@ -726,10 +746,12 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		lstImageItem.add(map);
 
 		// 暂时屏蔽成长经历模块
-		// map = new HashMap<String, Object>();
-		// map.put("ItemImage", R.drawable.education);
-		// map.put("ItemText", getResources().getText(R.string.experence));
-		// lstImageItem.add(map);
+		if (MyApplication.getInstance().isForTest()) {
+			map = new HashMap<String, Object>();
+			map.put("ItemImage", R.drawable.education);
+			map.put("ItemText", getResources().getText(R.string.experence));
+			lstImageItem.add(map);
+		}
 
 		return lstImageItem;
 	}
