@@ -147,7 +147,7 @@
 # view res/layout/notice_pull_refresh_list.xml #generated:12
 -keep class com.cocobabys.customview.MsgListView { <init>(...); }
 
-# view res/layout/exp_item.xml #generated:47
+# view res/layout/exp_item.xml #generated:51
 -keep class com.cocobabys.customview.MyGridView { <init>(...); }
 
 # view res/layout/slide_item.xml #generated:13

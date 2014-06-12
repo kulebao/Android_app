@@ -41,9 +41,9 @@ com.cocobabys.R$styleable:
     public static final int ProgressWheel_textSize
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    824:824:public R$styleable()
+    829:829:public R$styleable()
 com.cocobabys.activities.ActivityHelper:
-    11:11:public ActivityHelper()
+    12:12:public ActivityHelper()
 com.cocobabys.activities.ChatActivity:
     private static final int IMAGE_REQUEST_CODE
     private static final int CAMERA_REQUEST_CODE
@@ -101,7 +101,7 @@ com.cocobabys.activities.SchoolNoticeActivity:
     private static final java.lang.String IMAGE_FILE_NAME
 com.cocobabys.activities.SendExpActivity:
     private static final int CACHE_SIZE
-    204:207:private void galleryAddPic()
+    211:215:private void galleryAddPic()
 com.cocobabys.activities.SwipeCalendarActivity:
     private static final int EXTRA_HEIGHT
     242:246:protected java.lang.String GetDateShortString(java.util.Calendar)

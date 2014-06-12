@@ -103,7 +103,7 @@ class ExpMgr {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT * " + " FROM " + SqliteHelper.EXP_TAB + " WHERE "
 				+ " STRFTIME('%Y-%m', timestamp / 1000, 'unixepoch') " + "='" + monthAndYear
-				+ "' ORDER BY timestamp DESC", null);
+				+ "' ORDER BY timestamp", null);
 
 		return getExpInfoList(cursor);
 	}

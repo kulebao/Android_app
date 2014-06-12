@@ -43,10 +43,14 @@ public class GrowthGridViewAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			FlagHolder flagholder = this.new FlagHolder();
-			convertView = LayoutInflater.from(this.context).inflate(R.layout.grid_item, null);
-			flagholder.newDataSymble = (ImageView) convertView.findViewById(R.id.noticeImg);
-			flagholder.nameView = (TextView) convertView.findViewById(R.id.ItemText);
-			flagholder.headView = (ImageView) convertView.findViewById(R.id.ItemImage);
+			convertView = LayoutInflater.from(this.context).inflate(
+					R.layout.grid_item, null);
+			flagholder.newDataSymble = (ImageView) convertView
+					.findViewById(R.id.noticeImg);
+			flagholder.nameView = (TextView) convertView
+					.findViewById(R.id.ItemText);
+			flagholder.headView = (ImageView) convertView
+					.findViewById(R.id.ItemImage);
 			setDataToViews(position, flagholder);
 			convertView.setTag(flagholder);
 		} else {
@@ -61,8 +65,9 @@ public class GrowthGridViewAdapter extends BaseAdapter {
 
 	private void setDataToViews(final int position, FlagHolder flagholder) {
 		GroupExpInfo info = getItem(position);
-		flagholder.nameView.setText(info.getMonth() + "/" + String.valueOf(info.getCount()));
-		flagholder.headView.setImageResource(R.drawable.emotion);
+		flagholder.nameView.setText(info.getMonth() + "/"
+				+ String.valueOf(info.getCount()));
+		flagholder.headView.setImageResource(R.drawable.growth);
 	}
 
 	private class FlagHolder {

@@ -746,12 +746,12 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		lstImageItem.add(map);
 
 		// 暂时屏蔽成长经历模块
-		if (MyApplication.getInstance().isForTest()) {
-			map = new HashMap<String, Object>();
-			map.put("ItemImage", R.drawable.education);
-			map.put("ItemText", getResources().getText(R.string.experence));
-			lstImageItem.add(map);
-		}
+		// if (MyApplication.getInstance().isForTest()) {
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.education);
+		map.put("ItemText", getResources().getText(R.string.experence));
+		lstImageItem.add(map);
+		// }
 
 		return lstImageItem;
 	}

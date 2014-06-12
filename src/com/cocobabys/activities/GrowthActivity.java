@@ -206,7 +206,7 @@ public class GrowthActivity extends UmengStatisticsActivity {
 			}
 		});
 
-		TextView send = (TextView) findViewById(R.id.rightBtn);
+		Button send = (Button) findViewById(R.id.rightBtn);
 		send.setVisibility(View.VISIBLE);
 		send.setText(R.string.send);
 		send.setOnClickListener(new OnClickListener() {

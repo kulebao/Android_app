@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="5dp"
     android:background="@color/white" >
 
     <RelativeLayout
@@ -16,6 +17,7 @@
             android:id="@+id/headicon"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:scaleType="fitXY"
             android:src="@drawable/cook" />
 
         <TextView
@@ -33,7 +35,7 @@
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/headicon"
             android:text="addd"
-            android:textColor="@color/juhong" />
+            android:textColor="@color/new_time_color" />
     </RelativeLayout>
 
     <TextView
@@ -41,7 +43,9 @@
         style="@style/TitleTextStyle"
         android:layout_below="@+id/first"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/juhong"
         android:text="addddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" />
 
     <com.cocobabys.customview.MyGridView

@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -82,7 +83,7 @@ public class ExpListActivity extends UmengStatisticsActivity {
 	}
 
 	private void initBtn() {
-		TextView refreshBtn = (TextView) findViewById(R.id.rightBtn);
+		Button refreshBtn = (Button) findViewById(R.id.rightBtn);
 		refreshBtn.setVisibility(View.VISIBLE);
 		refreshBtn.setText(Utils.getResString(R.string.refresh));
 		refreshBtn.setOnClickListener(new OnClickListener() {

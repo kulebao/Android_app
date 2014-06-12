@@ -59,7 +59,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.send_exp);
-		msc = new MediaScannerConnection(this, new MyMediaScannerConnectionClient());
+		msc = new MediaScannerConnection(this,
+				new MyMediaScannerConnectionClient());
 		initImageLoader();
 		initUI();
 		initHander();
@@ -72,11 +73,13 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	}
 
 	private void initImageLoader() {
-		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheOnDisc()
-				.imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.RGB_565)
-				.cacheInMemory(true).build();
-		ImageLoaderConfiguration.Builder builder = new ImageLoaderConfiguration.Builder(this)
-				.defaultDisplayImageOptions(defaultOptions).memoryCache(new LruMemoryCache(CACHE_SIZE))
+		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+				.cacheOnDisc().imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+				.bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true)
+				.build();
+		ImageLoaderConfiguration.Builder builder = new ImageLoaderConfiguration.Builder(
+				this).defaultDisplayImageOptions(defaultOptions)
+				.memoryCache(new LruMemoryCache(CACHE_SIZE))
 				.memoryCacheSize(CACHE_SIZE);
 
 		ImageLoaderConfiguration config = builder.build();
@@ -86,21 +89,22 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	}
 
 	private void initHeader() {
-		TextView send = (TextView) findViewById(R.id.rightBtn);
+		Button send = (Button) findViewById(R.id.rightBtn);
 		send.setText(R.string.send);
 		send.setVisibility(View.VISIBLE);
 		send.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (!checkContentValid()) {
-					Utils.makeToast(SendExpActivity.this, R.string.invalid_exp_content);
+					Utils.makeToast(SendExpActivity.this,
+							R.string.invalid_exp_content);
 					return;
 				}
 				runSendExpJob();
 			}
 		});
 
-		TextView cancel = (TextView) findViewById(R.id.leftBtn);
+		Button cancel = (Button) findViewById(R.id.leftBtn);
 		cancel.setText(R.string.cancel);
 		cancel.setVisibility(View.VISIBLE);
 		cancel.setOnClickListener(new OnClickListener() {
@@ -113,7 +117,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	}
 
 	protected boolean checkContentValid() {
-		if (TextUtils.isEmpty(exp_content.getText().toString().trim()) && adapter.getCount() == 0) {
+		if (TextUtils.isEmpty(exp_content.getText().toString().trim())
+				&& adapter.getCount() == 0) {
 			return false;
 		}
 		return true;
@@ -169,7 +174,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 
 		gridGallery.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				startToSlideGalleryActivity();
 			}
 		});
@@ -195,13 +201,15 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		}
 		dialog.show();
 
-		SendExpJob expJob = new SendExpJob(myhandler, exp_content.getText().toString(), mediaPaths);
+		SendExpJob expJob = new SendExpJob(myhandler, exp_content.getText()
+				.toString(), mediaPaths);
 		expJob.execute();
 	}
 
 	// 将拍照后保存的照片加入到图库,速度慢
 	private void galleryAddPic() {
-		Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+		Intent mediaScanIntent = new Intent(
+				Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 		mediaScanIntent.setData(uri);
 		this.sendBroadcast(mediaScanIntent);
 	}
@@ -215,7 +223,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		Intent intent = new Intent(NoticeAction.ACTION_GALLERY_CAN_DELETE);
 		List<String> allSelectedPath = adapter.getAllSelectedPath();
 		if (!allSelectedPath.isEmpty()) {
-			intent.putExtra(NoticeAction.SELECTED_PATH, allSelectedPath.toArray(new String[allSelectedPath.size()]));
+			intent.putExtra(NoticeAction.SELECTED_PATH,
+					allSelectedPath.toArray(new String[allSelectedPath.size()]));
 		}
 
 		intent.putExtra(NoticeAction.EXP_TEXT, exp_content.getText().toString());
@@ -228,7 +237,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			@Override
 			public void onClick(View v) {
 				if (!Utils.isSdcardExisting()) {
-					Toast.makeText(SendExpActivity.this, "未找到存储卡，无法保存图片！", Toast.LENGTH_LONG).show();
+					Toast.makeText(SendExpActivity.this, "未找到存储卡，无法保存图片！",
+							Toast.LENGTH_LONG).show();
 					return;
 				}
 
@@ -248,7 +258,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 				Intent i = new Intent(NoticeAction.ACTION_MULTIPLE_PICK);
 				List<String> allSelectedPath = adapter.getAllSelectedPath();
 				if (!allSelectedPath.isEmpty()) {
-					i.putExtra(NoticeAction.SELECTED_PATH, allSelectedPath.toArray(new String[allSelectedPath.size()]));
+					i.putExtra(NoticeAction.SELECTED_PATH, allSelectedPath
+							.toArray(new String[allSelectedPath.size()]));
 				}
 				startActivityForResult(i, NoticeAction.SELECT_GALLERY);
 			}
@@ -273,7 +284,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			changeView(all_path);
 			break;
 		case NoticeAction.SELECT_SLIDE_GALLERY:
-			String[] changed_array = data.getStringArrayExtra(NoticeAction.PATH_AFTER_CHANGE);
+			String[] changed_array = data
+					.getStringArrayExtra(NoticeAction.PATH_AFTER_CHANGE);
 			changeView(changed_array);
 			break;
 		default:
@@ -335,7 +347,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		super.onDestroy();
 	}
 
-	private class MyMediaScannerConnectionClient implements MediaScannerConnectionClient {
+	private class MyMediaScannerConnectionClient implements
+			MediaScannerConnectionClient {
 
 		@Override
 		public void onMediaScannerConnected() {

@@ -27,5 +27,6 @@
     <color name="on_text">#FFFFFF</color> <!-- 开启时文字颜色 -->
     <color name="off_text">#5B5B5B</color> <!-- 关闭时文字颜色 -->
     <color name="bg_light_blue">#EBF5FF</color>
+    <color name="new_time_color">#BAB9B9</color>
 
 </resources>

@@ -11,6 +11,7 @@ E:\coolbao\LoginTest\res\drawable\small_btn.xml \
 E:\coolbao\LoginTest\res\drawable\sub_btn.xml \
 E:\coolbao\LoginTest\res\drawable\switch_bg.png \
 E:\coolbao\LoginTest\res\drawable\tab_selector.xml \
+E:\coolbao\LoginTest\res\drawable\top_btn.xml \
 E:\coolbao\LoginTest\res\drawable\whats_new_start_btn.xml \
 E:\coolbao\LoginTest\res\drawable-hdpi\about.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\activity.png \
@@ -70,6 +71,7 @@ E:\coolbao\LoginTest\res\drawable-hdpi\feedback.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\gallery.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\game.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\goodrank.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\growth.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\guide1.jpg \
 E:\coolbao\LoginTest\res\drawable-hdpi\guide2.jpg \
 E:\coolbao\LoginTest\res\drawable-hdpi\guide3.jpg \
@@ -118,6 +120,8 @@ E:\coolbao\LoginTest\res\drawable-hdpi\tiny_logo.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\title_bar.9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\toggle.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\topbar.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\top_btn_normal.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\top_btn_press.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\update.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\white_dot.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\write_chat.png \
