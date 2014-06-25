@@ -33,6 +33,7 @@
         android:layout_below="@+id/ItemImage"
         android:layout_centerHorizontal="true"
         android:textColor="@color/juhong"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

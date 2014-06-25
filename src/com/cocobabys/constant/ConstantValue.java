@@ -71,8 +71,8 @@ public class ConstantValue {
 	public static final String SWIPE_DATE = "swipe_date";
 	public static final String NOTICE_TYPE = "notice_type";
 	public static final String LATEST_CHECK_NEW_TIME = "check_new_time";
-	// 检查更新间隔时间为720小时
-	public static final long CHECK_NEW_TIME_SPAN = 720 * 60 * 60 * 1000L;
+	// 检查更新间隔时间为48小时
+	public static final long CHECK_NEW_TIME_SPAN = 48 * 60 * 60 * 1000L;
 
 	public static final String TMP_CHAT_PATH = "tmp_chat_path";
 

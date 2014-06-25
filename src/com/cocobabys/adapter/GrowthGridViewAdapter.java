@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,9 +64,10 @@ public class GrowthGridViewAdapter extends BaseAdapter {
 
 	private void setDataToViews(final int position, FlagHolder flagholder) {
 		GroupExpInfo info = getItem(position);
-		flagholder.nameView.setText(info.getMonth() + "/"
-				+ String.valueOf(info.getCount()));
-		flagholder.headView.setImageResource(R.drawable.growth);
+		flagholder.nameView.setText(String.valueOf(info.getCount()));
+
+		Integer iconid = GroupExpInfo.getIconMap().get(info.getMonth());
+		flagholder.headView.setImageResource(iconid);
 	}
 
 	private class FlagHolder {
