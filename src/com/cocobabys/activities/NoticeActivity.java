@@ -72,7 +72,7 @@ public class NoticeActivity extends UmengStatisticsActivity {
 				}
 				super.handleMessage(msg);
 				switch (msg.what) {
-				case EventType.DOWNLOAD_IMG_SUCCESS:
+				case EventType.DOWNLOAD_FILE_SUCCESS:
 					setIcon();
 					break;
 				default:

@@ -8,6 +8,7 @@ import java.util.Map;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.LruCache;
@@ -27,12 +28,14 @@ import com.cocobabys.bean.IconInfo;
 import com.cocobabys.bean.SenderInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.jobs.GetSenderInfoJob;
+import com.cocobabys.media.MediaMgr;
 import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
@@ -77,7 +80,7 @@ public class NewChatListAdapter extends BaseAdapter {
 				super.handleMessage(msg);
 
 				switch (msg.what) {
-				case EventType.DOWNLOAD_IMG_SUCCESS:
+				case EventType.DOWNLOAD_FILE_SUCCESS:
 					notifyDataSetChanged();
 					break;
 				case EventType.GET_SENDER_SUCCESS:
@@ -171,6 +174,8 @@ public class NewChatListAdapter extends BaseAdapter {
 					.findViewById(R.id.headicon);
 			flagholder.chaticonView = (ImageView) convertView
 					.findViewById(R.id.chat_icon);
+			flagholder.durationView = (TextView) convertView
+					.findViewById(R.id.duration);
 			convertView.setTag(flagholder);
 			convertView.setId(position);
 		} else {
@@ -295,9 +300,11 @@ public class NewChatListAdapter extends BaseAdapter {
 		loacalBitmap = lruCache.get(iconInfo.getLocalPath());
 
 		if (loacalBitmap == null) {
+			// loacalBitmap = Utils.getLoacalBitmap(iconInfo.getLocalPath(),
+			// ImageDownloader.getMaxPixWithDensity(limitWidth,
+			// limitHeight));
 			loacalBitmap = Utils.getLoacalBitmap(iconInfo.getLocalPath(),
-					ImageDownloader.getMaxPixWithDensity(limitWidth,
-							limitHeight));
+					limitHeight, limitWidth);
 
 			if (loacalBitmap != null) {
 				lruCache.put(iconInfo.getLocalPath(), loacalBitmap);
@@ -311,24 +318,43 @@ public class NewChatListAdapter extends BaseAdapter {
 			flagholder.bodyView.setVisibility(View.VISIBLE);
 			flagholder.bodyView.setText(info.getContent());
 			flagholder.chaticonView.setVisibility(View.GONE);
+			flagholder.durationView.setVisibility(View.GONE);
 		} else {
 			flagholder.bodyView.setVisibility(View.GONE);
 			flagholder.chaticonView.setVisibility(View.VISIBLE);
-			setChatIcon(flagholder.chaticonView, info);
+			setChatIcon(flagholder.chaticonView, info, flagholder.durationView);
 		}
 	}
 
-	private void setChatIcon(ImageView view, NewChatInfo info) {
-		IconInfo iconinfo = new IconInfo();
-		iconinfo.setLocalPath(info.getLocalUrl());
-		iconinfo.setNetPath(info.getMedia_url());
-		Bitmap loacalBitmap = getLocalIcon(iconinfo,
-				ConstantValue.NAIL_ICON_WIDTH, ConstantValue.NAIL_ICON_HEIGHT);
+	private void setChatIcon(ImageView view, NewChatInfo info, TextView textView) {
+		if (JSONConstant.IMAGE_TYPE.equals(info.getMedia_type())) {
+			textView.setVisibility(View.GONE);
+			IconInfo iconinfo = new IconInfo();
+			iconinfo.setLocalPath(info.getLocalUrl());
+			iconinfo.setNetPath(info.getMedia_url());
+			Bitmap loacalBitmap = getLocalIcon(iconinfo, 160, 160);
 
-		if (loacalBitmap != null) {
-			Utils.setImg(view, loacalBitmap);
+			if (loacalBitmap != null) {
+				Utils.setImg(view, loacalBitmap);
+			} else {
+				view.setImageResource(R.drawable.default_small_icon);
+				downloadIcon(view, info);
+			}
 		} else {
-			downloadIcon(view, info);
+			try {
+				File file = new File(info.getLocalUrl());
+				if (file.exists()) {
+					textView.setText(MediaMgr.getDuration(context,
+							Uri.fromFile(file))
+							+ "``");
+					textView.setVisibility(View.VISIBLE);
+				} else {
+					textView.setVisibility(View.GONE);
+					downloadIcon(view, info);
+				}
+			} catch (Exception e) {
+			}
+			view.setImageResource(R.drawable.star);
 		}
 	}
 
@@ -337,13 +363,24 @@ public class NewChatListAdapter extends BaseAdapter {
 		senderMap.clear();
 	}
 
+	// private void downloadIcon(ImageView view, NewChatInfo info) {
+	// String savePath = info.getLocalUrl();
+	// String dir = Utils.getDir(savePath);
+	// Utils.makeDirs(dir);
+	// Log.d("DDD downloadIcon", "savePath =" + savePath);
+	// downloadImgeJob.addTask(info.getMedia_url(), savePath);
+	// }
+
 	private void downloadIcon(ImageView view, NewChatInfo info) {
-		view.setImageResource(R.drawable.default_icon);
 		String savePath = info.getLocalUrl();
 		String dir = Utils.getDir(savePath);
 		Utils.makeDirs(dir);
 		Log.d("DDD downloadIcon", "savePath =" + savePath);
-		downloadImgeJob.addTask(info.getMedia_url(), savePath);
+		if (JSONConstant.IMAGE_TYPE.equals(info.getMedia_type())) {
+			downloadImgeJob.addTask(info.getMedia_url(), savePath);
+		} else {
+			downloadImgeJob.addTaskExt(info.getMedia_url(), savePath);
+		}
 	}
 
 	private void setTimeView(final int position, FlagHolder flagholder) {
@@ -370,11 +407,19 @@ public class NewChatListAdapter extends BaseAdapter {
 		flagholder.chaticonView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String iconurl = ((NewChatInfo) getItem(position))
-						.getLocalUrl();
-				// 文件存在才显示大图
-				if (new File(iconurl).exists()) {
-					startToShowIconActivity(iconurl);
+				NewChatInfo newChatInfo = (NewChatInfo) getItem(position);
+				String iconurl = newChatInfo.getLocalUrl();
+				File file = new File(iconurl);
+				if (file.exists()) {
+					String media_type = newChatInfo.getMedia_type();
+					Log.d("DDD", "media_type =" + media_type);
+					if (JSONConstant.IMAGE_TYPE.equals(media_type)) {
+						// 文件存在才显示大图
+						startToShowIconActivity(iconurl);
+					} else if (JSONConstant.VOICE_TYPE.equals(media_type)) {
+						Log.d("DDD", "playMediaNow");
+						MediaMgr.playMediaNow(context, Uri.fromFile(file));
+					}
 				}
 			}
 		});
@@ -387,6 +432,7 @@ public class NewChatListAdapter extends BaseAdapter {
 	}
 
 	private class FlagHolder {
+		public TextView durationView;
 		public TextView sendView;
 		public TextView bodyView;
 		public TextView timestampView;

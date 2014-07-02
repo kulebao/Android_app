@@ -1,145 +1,145 @@
 # view res/layout/guide.xml #generated:7
 -keep class android.support.v4.view.ViewPager { <init>(...); }
 
-# view AndroidManifest.xml #generated:386
+# view AndroidManifest.xml #generated:387
 -keep class com.baidu.android.pushservice.PushService { <init>(...); }
 
-# view AndroidManifest.xml #generated:362
+# view AndroidManifest.xml #generated:363
 -keep class com.baidu.android.pushservice.PushServiceReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:372
+# view AndroidManifest.xml #generated:373
 -keep class com.baidu.android.pushservice.RegistrationReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:183
+# view AndroidManifest.xml #generated:184
 -keep class com.cocobabys.activities.AboutUsActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:141
+# view AndroidManifest.xml #generated:142
 -keep class com.cocobabys.activities.BindLocationMgrActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:92
+# view AndroidManifest.xml #generated:93
 -keep class com.cocobabys.activities.ChangePWDActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:267
+# view AndroidManifest.xml #generated:268
 -keep class com.cocobabys.activities.ChatActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:249
+# view AndroidManifest.xml #generated:250
 -keep class com.cocobabys.activities.CheckIconActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:78
+# view AndroidManifest.xml #generated:79
 -keep class com.cocobabys.activities.ChildListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:216
+# view AndroidManifest.xml #generated:217
 -keep class com.cocobabys.activities.CookBookActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:315
+# view AndroidManifest.xml #generated:316
 -keep class com.cocobabys.activities.CustomGalleryActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:243
+# view AndroidManifest.xml #generated:244
 -keep class com.cocobabys.activities.EducationActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:291
+# view AndroidManifest.xml #generated:292
 -keep class com.cocobabys.activities.ExpListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:176
+# view AndroidManifest.xml #generated:177
 -keep class com.cocobabys.activities.FeedBackActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:285
+# view AndroidManifest.xml #generated:286
 -keep class com.cocobabys.activities.GrowthActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:162
+# view AndroidManifest.xml #generated:163
 -keep class com.cocobabys.activities.GuideActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:204
+# view AndroidManifest.xml #generated:205
 -keep class com.cocobabys.activities.HomeworkPullRefreshActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:210
+# view AndroidManifest.xml #generated:211
 -keep class com.cocobabys.activities.InteractionActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:327
+# view AndroidManifest.xml #generated:328
 -keep class com.cocobabys.activities.LoadingActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:255
+# view AndroidManifest.xml #generated:256
 -keep class com.cocobabys.activities.LocationActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:106
+# view AndroidManifest.xml #generated:107
 -keep class com.cocobabys.activities.LocationMgrActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:120
+# view AndroidManifest.xml #generated:121
 -keep class com.cocobabys.activities.LocationRecordActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:71
+# view AndroidManifest.xml #generated:72
 -keep class com.cocobabys.activities.LoginActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:99
+# view AndroidManifest.xml #generated:100
 -keep class com.cocobabys.activities.MainActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:31
+# view AndroidManifest.xml #generated:32
 -keep class com.cocobabys.activities.MyApplication { <init>(...); }
 
-# view AndroidManifest.xml #generated:279
+# view AndroidManifest.xml #generated:280
 -keep class com.cocobabys.activities.NewCheckIconActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:197
+# view AndroidManifest.xml #generated:198
 -keep class com.cocobabys.activities.NoticeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:127
+# view AndroidManifest.xml #generated:128
 -keep class com.cocobabys.activities.NoticePullRefreshActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:169
+# view AndroidManifest.xml #generated:170
 -keep class com.cocobabys.activities.NoticePullRefreshOldActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:134
+# view AndroidManifest.xml #generated:135
 -keep class com.cocobabys.activities.NoticeRecordActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:85
+# view AndroidManifest.xml #generated:86
 -keep class com.cocobabys.activities.ResetPWDActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:223
+# view AndroidManifest.xml #generated:224
 -keep class com.cocobabys.activities.ScheduleActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:261
+# view AndroidManifest.xml #generated:262
 -keep class com.cocobabys.activities.SchoolInfoActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:113
+# view AndroidManifest.xml #generated:114
 -keep class com.cocobabys.activities.SchoolNoticeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:230
+# view AndroidManifest.xml #generated:231
 -keep class com.cocobabys.activities.SendChatActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:309
+# view AndroidManifest.xml #generated:310
 -keep class com.cocobabys.activities.SendExpActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:273
+# view AndroidManifest.xml #generated:274
 -keep class com.cocobabys.activities.SendNewChatActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:57
+# view AndroidManifest.xml #generated:58
 -keep class com.cocobabys.activities.SettingActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:237
+# view AndroidManifest.xml #generated:238
 -keep class com.cocobabys.activities.ShowIconActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:297
+# view AndroidManifest.xml #generated:298
 -keep class com.cocobabys.activities.SlideGalleryActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:148
+# view AndroidManifest.xml #generated:149
 -keep class com.cocobabys.activities.SwipeCalendarActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:190
+# view AndroidManifest.xml #generated:191
 -keep class com.cocobabys.activities.SwipeDetailActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:155
+# view AndroidManifest.xml #generated:156
 -keep class com.cocobabys.activities.SwipeListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:50
+# view AndroidManifest.xml #generated:51
 -keep class com.cocobabys.activities.TransitActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:64
+# view AndroidManifest.xml #generated:65
 -keep class com.cocobabys.activities.UpdateActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:43
+# view AndroidManifest.xml #generated:44
 -keep class com.cocobabys.activities.ValidateAuthCodeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:36
+# view AndroidManifest.xml #generated:37
 -keep class com.cocobabys.activities.ValidatePhoneNumActivity { <init>(...); }
 
 # view res/layout/chat_pull_refresh_list.xml #generated:12
@@ -147,11 +147,14 @@
 # view res/layout/notice_pull_refresh_list.xml #generated:12
 -keep class com.cocobabys.customview.MsgListView { <init>(...); }
 
-# view res/layout/exp_item.xml #generated:51
+# view res/layout/exp_item.xml #generated:53
 -keep class com.cocobabys.customview.MyGridView { <init>(...); }
 
 # view res/layout/slide_item.xml #generated:13
 -keep class com.cocobabys.customview.ProgressWheel { <init>(...); }
+
+# view res/layout/write_notice.xml #generated:60
+-keep class com.cocobabys.customview.RecordButton { <init>(...); }
 
 # view res/layout/slide_gallery.xml #generated:21
 -keep class com.cocobabys.customview.SlideGallery { <init>(...); }
@@ -159,12 +162,12 @@
 # view res/layout/setting.xml #generated:136
 -keep class com.cocobabys.customview.SwitchButton { <init>(...); }
 
-# view AndroidManifest.xml #generated:342
+# view AndroidManifest.xml #generated:343
 -keep class com.cocobabys.receiver.NetStateChangeReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:349
+# view AndroidManifest.xml #generated:350
 -keep class com.cocobabys.receiver.PushMessageReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:340
+# view AndroidManifest.xml #generated:341
 -keep class com.cocobabys.service.MyService { <init>(...); }
 

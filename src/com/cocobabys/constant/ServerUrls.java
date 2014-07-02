@@ -1,7 +1,6 @@
 package com.cocobabys.constant;
 
 import com.cocobabys.activities.MyApplication;
-import com.cocobabys.utils.Utils;
 
 public class ServerUrls {
 	public static final String ROOT_RES_PATH = "kindergarten";

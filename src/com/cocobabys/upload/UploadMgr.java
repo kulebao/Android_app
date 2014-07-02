@@ -11,5 +11,7 @@ public interface UploadMgr {
 
 	public void uploadPhoto(InputStream is, String url, String uptoken);
 
-	public void uploadPhoto(String filePath, String url, String uptoken) throws Exception;
+	public void uploadFile(String filePath, String url, String uptoken)
+			throws Exception;
+
 }

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cocobabys"
-    android:versionCode="58"
-    android:versionName="V1.0.9" >
+    android:versionCode="59"
+    android:versionName="V1.1.0" >
 
     <uses-sdk android:minSdkVersion="10" />
 
     <!-- Push service 运行需要的权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />

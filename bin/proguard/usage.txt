@@ -41,7 +41,7 @@ com.cocobabys.R$styleable:
     public static final int ProgressWheel_textSize
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    829:829:public R$styleable()
+    852:852:public R$styleable()
 com.cocobabys.activities.ActivityHelper:
     12:12:public ActivityHelper()
 com.cocobabys.activities.ChatActivity:
@@ -101,7 +101,9 @@ com.cocobabys.activities.SchoolNoticeActivity:
     private static final java.lang.String IMAGE_FILE_NAME
 com.cocobabys.activities.SendExpActivity:
     private static final int CACHE_SIZE
-    211:215:private void galleryAddPic()
+    210:214:private void galleryAddPic()
+com.cocobabys.activities.SendNewChatActivity$3:
+    96:96:public void onCanceledRecord(java.lang.String)
 com.cocobabys.activities.SwipeCalendarActivity:
     private static final int EXTRA_HEIGHT
     242:246:protected java.lang.String GetDateShortString(java.util.Calendar)
@@ -202,8 +204,8 @@ com.cocobabys.constant.EventType:
     public static final int GET_SCHEDULE_SUCCESS
     public static final int GET_SCHEDULE_LATEST
     public static final int NO_SCHEDULE
-    public static final int DOWNLOAD_IMG_SUCCESS
-    public static final int DOWNLOAD_IMG_FAILED
+    public static final int DOWNLOAD_FILE_SUCCESS
+    public static final int DOWNLOAD_FILE_FAILED
     public static final int HAS_NEW_VERSION
     public static final int HAS_NO_VERSION
     public static final int GET_CHAT_SUCCESS
@@ -250,7 +252,7 @@ com.cocobabys.constant.ServerUrls:
     public static final java.lang.String TEST_HTTPS_HOST_ADDR
     private static final java.lang.String DAILYLOG
     public static final java.lang.String GET_UPLOAD_TOKEN
-    6:6:public ServerUrls()
+    5:5:public ServerUrls()
 com.cocobabys.customexception.BindFailException:
     private static final long serialVersionUID
 com.cocobabys.customexception.CustomException:
@@ -306,6 +308,12 @@ com.cocobabys.customview.ProgressWheel:
     509:510:public void setRimWidth(int)
     513:513:public int getDelayMillis()
     517:518:public void setDelayMillis(int)
+com.cocobabys.customview.RecordButton:
+    private static final int MIN_INTERVAL_TIME
+com.cocobabys.customview.RecordButton$1:
+    66:66:public void onCanceledRecord(java.lang.String)
+com.cocobabys.customview.RecordButton$OnFinishedRecordListener:
+    public abstract void onCanceledRecord(java.lang.String)
 com.cocobabys.customview.SwitchButton:
     private static final java.lang.String TEXT_ON_DEFAULT
     private static final java.lang.String TEXT_OFF_DEFAULT
@@ -548,13 +556,18 @@ com.cocobabys.handler.PushEventHandler$1
 com.cocobabys.handler.PushEventObserver
 com.cocobabys.httpclientmgr.HttpClientHelper:
     private static final java.lang.String VERSION_CODE
-    57:58:private HttpClientHelper()
+    61:62:private HttpClientHelper()
 com.cocobabys.jobs.GetChatJob:
     private static final int LIMIT_TIME
 com.cocobabys.jobs.SendExpJob:
     private static final int STANDARD_PIC
 com.cocobabys.jobs.ValidatePhoneNumJob
 com.cocobabys.jobs.ValidatePhoneNumJob$1
+com.cocobabys.media.MediaMgr:
+    private static final java.lang.String MEDIA_LOG
+    8:8:public MediaMgr()
+    13:22:public static void playMedia(android.content.Context,int)
+    25:35:public static void playMediaNow(android.content.Context,int)
 com.cocobabys.mycalendar.DateWidgetDayCell:
     296:305:public void CreateReminder(android.graphics.Canvas,int)
 com.cocobabys.mycalendar.DateWidgetDayHeader:
@@ -607,7 +620,7 @@ com.cocobabys.receiver.PushMessageReceiver:
 com.cocobabys.taskmgr.BindPushTask:
     private static final int MAX_WAIT_FOR_BIND
 com.cocobabys.taskmgr.DownloadImgeJob:
-    28:29:public void setMaxThreads(int)
+    29:30:public void setMaxThreads(int)
 com.cocobabys.taskmgr.GetHomeworkTask:
     private static final int LIMIT_TIME
 com.cocobabys.taskmgr.GetNormalNewsTask:
@@ -622,14 +635,12 @@ com.cocobabys.threadpool.MyThreadPoolMgr:
     6:6:public MyThreadPoolMgr()
 com.cocobabys.upload.OSSMgr
 com.cocobabys.upload.QiniuMgr:
-    36:38:public void uploadPhoto(java.lang.String,java.lang.String,java.lang.String)
     49:49:public void uploadPhoto(android.graphics.Bitmap,java.lang.String)
 com.cocobabys.upload.UploadFactory:
     9:10:private UploadFactory()
 com.cocobabys.upload.UploadMgr:
     public abstract void uploadPhoto(android.graphics.Bitmap,java.lang.String)
     public abstract void uploadPhoto(java.io.InputStream,java.lang.String,java.lang.String)
-    public abstract void uploadPhoto(java.lang.String,java.lang.String,java.lang.String)
 com.cocobabys.upload.qiniu.auth.CallRet:
     6:6:public CallRet()
     7:7:public void onInit(int)
@@ -707,17 +718,18 @@ com.cocobabys.utils.Utils:
     public static final java.lang.String APP_DIR_ROOT
     public static final java.lang.String APP_DIR_TMP
     public static final java.lang.String APP_DIR_PIC
+    public static final java.lang.String APP_DIR_VOI
     public static final java.lang.String APP_LOGS
     public static final int LIMIT_WIDTH
     public static final int LIMIT_HEIGHT
     private static final java.lang.String TEST_HOST
-    55:55:public Utils()
-    134:137:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
-    156:159:public static void deleteProp(java.lang.String)
-    351:360:public boolean isMobileConnected(android.content.Context)
-    513:516:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
-    549:560:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
-    665:678:public static void saveInSDCard(java.lang.String)
+    52:52:public Utils()
+    133:136:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
+    155:158:public static void deleteProp(java.lang.String)
+    350:359:public boolean isMobileConnected(android.content.Context)
+    522:525:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
+    576:587:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
+    702:715:public static void saveInSDCard(java.lang.String)
 com.umeng.analytics.Gender
 com.umeng.analytics.MobclickAgent:
     20:439:public MobclickAgent()

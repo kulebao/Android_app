@@ -54,6 +54,7 @@ import com.cocobabys.dlgmgr.DlgMgr;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.handler.TaskResultHandler;
 import com.cocobabys.jobs.DownLoadImgAndSaveJob;
+import com.cocobabys.media.MediaMgr;
 import com.cocobabys.receiver.NotificationObserver;
 import com.cocobabys.taskmgr.CheckChildrenInfoTask;
 import com.cocobabys.taskmgr.DownLoadImgAndSaveTask;
@@ -194,7 +195,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					setTabTitle();
 					setClassName();
 					break;
-				case EventType.DOWNLOAD_IMG_SUCCESS:
+				case EventType.DOWNLOAD_FILE_SUCCESS:
 					handleDownloadImgSuccess((String) msg.obj);
 					break;
 				case EventType.CHECK_NEW_DATA:
@@ -748,7 +749,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		// 暂时屏蔽成长经历模块
 		if (MyApplication.getInstance().isForTest()) {
 			map = new HashMap<String, Object>();
-			map.put("ItemImage", R.drawable.education);
+			map.put("ItemImage", R.drawable.exp);
 			map.put("ItemText", getResources().getText(R.string.experence));
 			lstImageItem.add(map);
 		}
@@ -929,6 +930,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		unRegistObserver();
 		MyThreadPoolMgr.shutdown();
 		DataMgr.getInstance().close();
+		MediaMgr.close();
 	}
 
 	private interface ActivityLauncher {

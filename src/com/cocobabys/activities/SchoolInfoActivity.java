@@ -78,7 +78,7 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 				case EventType.SCHOOL_INFO_IS_LATEST:
 					// do nothing
 					break;
-				case EventType.DOWNLOAD_IMG_SUCCESS:
+				case EventType.DOWNLOAD_FILE_SUCCESS:
 					Log.d("DDD", "DOWNLOAD_IMG_SUCCESS");
 					handleDownloadSchoolLogoSuccess((String) msg.obj);
 					break;

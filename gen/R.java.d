@@ -6,6 +6,7 @@ E:\coolbao\LoginTest\res\drawable\dot.xml \
 E:\coolbao\LoginTest\res\drawable\off_bg.xml \
 E:\coolbao\LoginTest\res\drawable\on_bg.xml \
 E:\coolbao\LoginTest\res\drawable\on_focus_checkbox.xml \
+E:\coolbao\LoginTest\res\drawable\round_background.xml \
 E:\coolbao\LoginTest\res\drawable\setting_btn.xml \
 E:\coolbao\LoginTest\res\drawable\small_btn.xml \
 E:\coolbao\LoginTest\res\drawable\sub_btn.xml \
@@ -66,6 +67,7 @@ E:\coolbao\LoginTest\res\drawable-hdpi\education.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\emotion.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\exercise.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\exit.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\exp.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\extra_lunch.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\feedback.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\gallery.png \
@@ -94,6 +96,18 @@ E:\coolbao\LoginTest\res\drawable-hdpi\list_divider_timeline.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\loading.jpg \
 E:\coolbao\LoginTest\res\drawable-hdpi\logo.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\lunch.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m1.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m10.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m11.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m12.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m2.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m3.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m4.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m5.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m6.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m7.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m8.png \
+E:\coolbao\LoginTest\res\drawable-hdpi\m9.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\manner.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\news_item.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\normalrank.png \
@@ -127,6 +141,10 @@ E:\coolbao\LoginTest\res\drawable-hdpi\white_dot.png \
 E:\coolbao\LoginTest\res\drawable-hdpi\write_chat.png \
 E:\coolbao\LoginTest\res\drawable-ldpi\ic_launcher.png \
 E:\coolbao\LoginTest\res\drawable-ldpi\ic_pulltorefresh_arrow.png \
+E:\coolbao\LoginTest\res\drawable-ldpi\mic_2.png \
+E:\coolbao\LoginTest\res\drawable-ldpi\mic_3.png \
+E:\coolbao\LoginTest\res\drawable-ldpi\mic_4.png \
+E:\coolbao\LoginTest\res\drawable-ldpi\mic_5.png \
 E:\coolbao\LoginTest\res\drawable-mdpi\ic_launcher.png \
 E:\coolbao\LoginTest\res\drawable-mdpi\ic_pulltorefresh_arrow.png \
 E:\coolbao\LoginTest\res\drawable-xhdpi\hasnew.png.9.png \

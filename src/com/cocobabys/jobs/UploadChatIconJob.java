@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.info.InfoHelper;
 import com.cocobabys.net.MethodResult;
 import com.cocobabys.net.NewChatMethod;
@@ -39,7 +40,7 @@ public class UploadChatIconJob extends MyJob {
 			String url = uploadBmpToServer();
 			// 上传到云服务器后，生成的外部链接
 			String image = UploadFactory.CLOUD_STORAGE_HOST + url;
-			final String content = InfoHelper.formatChatContent("", image, childid);
+			final String content = InfoHelper.formatChatContent("", image, childid, JSONConstant.IMAGE_TYPE);
 
 			MyProxy proxy = new MyProxy();
 			MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {

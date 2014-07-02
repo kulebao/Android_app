@@ -57,4 +57,16 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
+    <com.cocobabys.customview.RecordButton
+        android:id="@+id/record_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:focusable="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="按住录音" />
+
 </RelativeLayout>

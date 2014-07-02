@@ -131,4 +131,6 @@ public class ConstantValue {
 	public static final String FAKE_USER_ID = "fake_user_id";
 
 	public static final String BIND_ERROR = "bind_error";
+	
+	public static final String DEFAULT_VOICE_TYPE = ".amr";
 }

@@ -56,7 +56,7 @@ public class SlideGalleryAdapter extends BaseAdapter {
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
 				switch (msg.what) {
-				case EventType.DOWNLOAD_IMG_SUCCESS:
+				case EventType.DOWNLOAD_FILE_SUCCESS:
 					notifyDataSetChanged();
 					break;
 				default:

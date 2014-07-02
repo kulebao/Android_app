@@ -1,5 +1,6 @@
 package com.cocobabys.activities;
 
+import java.io.File;
 import java.util.List;
 
 import android.app.ProgressDialog;
@@ -16,17 +17,24 @@ import android.widget.Toast;
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.customview.RecordButton;
+import com.cocobabys.customview.RecordButton.OnFinishedRecordListener;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.InfoHelper;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.SendChatJob;
+import com.cocobabys.jobs.UploadMediaFileIconJob;
+import com.cocobabys.utils.Utils;
 
 public class SendNewChatActivity extends UmengStatisticsActivity {
 	private EditText chatContent;
 	private MyHandler handler;
 	private ProgressDialog dialog;
 	private String childid;
+	private RecordButton record_button;
+	private String currentMediaPath = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,43 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 				SendNewChatActivity.this.finish();
 			}
 		});
+
+		record_button = (RecordButton) findViewById(R.id.record_button);
+		record_button
+				.setOnFinishedRecordListener(new OnFinishedRecordListener() {
+
+					@Override
+					public void onFinishedRecord(String audioPath) {
+						dialog.show();
+						Log.d("DD onFinishedRecord",
+								"onFinishedRecord audioPath ="
+										+ currentMediaPath);
+						long lastid = DataMgr.getInstance()
+								.getLastNewChatServerid(childid);
+						new UploadMediaFileIconJob(handler, audioPath,
+								JSONConstant.VOICE_TYPE, lastid, childid)
+								.execute();
+					}
+
+					@Override
+					public void onCanceledRecord(String audioPath) {
+
+					}
+
+					@Override
+					public void onActionDown() {
+						currentMediaPath = Utils
+								.getSDCardMediaRootPath(JSONConstant.VOICE_TYPE)
+								+ File.separator
+								+ Utils.getChatMediaUrl(
+										System.currentTimeMillis(),
+										JSONConstant.VOICE_TYPE);
+						Log.d("DD VOICE", "path =" + currentMediaPath);
+						String dir = Utils.getDir(currentMediaPath);
+						Utils.makeDirs(dir);
+						record_button.setSavePath(currentMediaPath);
+					}
+				});
 	}
 
 	private boolean isEmptyInput() {
@@ -117,7 +162,7 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 		long lastid = DataMgr.getInstance().getLastNewChatServerid(childid);
 		SendChatJob sendChatJob = new SendChatJob(handler,
 				InfoHelper.formatChatContent(chatContent.getText().toString(),
-						"", childid), childid, lastid);
+						"", childid, ""), childid, lastid);
 		sendChatJob.execute();
 		dialog.show();
 	}

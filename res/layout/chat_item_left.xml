@@ -41,10 +41,12 @@
             android:textSize="14sp" />
 
         <RelativeLayout
+            android:id="@+id/contentlayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sender"
             android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/headicon"
             android:background="@drawable/chat_content_left" >
 
@@ -63,22 +65,21 @@
 
             <ImageView
                 android:id="@+id/chat_icon"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:padding="15dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/default_icon"
+                android:padding="2dp"
+                android:src="@drawable/default_small_icon"
                 android:visibility="gone" />
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/resend"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignTop="@+id/content"
-            android:layout_toRightOf="@+id/content"
-            android:src="@drawable/resend_normal"
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/contentlayout"
+            android:text="ddd"
             android:visibility="gone" />
     </RelativeLayout>
 

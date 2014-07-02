@@ -1,8 +1,12 @@
 package com.cocobabys.httpclientmgr;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URI;
 import java.net.UnknownHostException;
@@ -259,6 +263,39 @@ public class HttpClientHelper {
 	private static boolean isHttpRequestOK(int status) {
 		// 特殊情况，返回400也认为请求成功
 		return (status == HttpStatus.SC_OK || status == HttpStatus.SC_BAD_REQUEST);
+	}
+
+	public static void downloadFile(String url, String savepath)
+			throws Exception {
+		File file = new File(savepath);
+		file.createNewFile();
+		OutputStream outputStream = new FileOutputStream(file);
+
+		int status = HttpStatus.SC_UNAUTHORIZED;
+		InputStream in = null;
+		try {
+			// 定义HttpClient
+			HttpClient client = getHttpClient();
+			// 实例化HTTP方法
+			HttpGet request = new HttpGet();
+			request.setURI(new URI(url));
+			HttpResponse response = client.execute(request);
+			status = response.getStatusLine().getStatusCode();
+			Log.d("DDD code:", "" + status + " url=" + url);
+
+			in = response.getEntity().getContent();
+			byte buffer[] = new byte[1024];
+			int length = -1;
+			while ((length = in.read(buffer, 0, 1024)) != -1) {
+				outputStream.write(buffer, 0, length);
+			}
+			if (HttpClientHelper.isHttpRequestOK(status)) {
+				request.abort();
+			}
+		} finally {
+			Utils.close(in);
+			Utils.close(outputStream);
+		}
 	}
 }
 

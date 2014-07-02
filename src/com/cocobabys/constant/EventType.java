@@ -73,8 +73,8 @@ public class EventType {
 	public static final int GET_SCHEDULE_LATEST = 1627;
 	public static final int NO_SCHEDULE = 1628;
 
-	public static final int DOWNLOAD_IMG_SUCCESS = 1630;
-	public static final int DOWNLOAD_IMG_FAILED = 1631;
+	public static final int DOWNLOAD_FILE_SUCCESS = 1630;
+	public static final int DOWNLOAD_FILE_FAILED = 1631;
 
 	public static final int HAS_NEW_VERSION = 1700;
 	public static final int HAS_NO_VERSION = 1701;

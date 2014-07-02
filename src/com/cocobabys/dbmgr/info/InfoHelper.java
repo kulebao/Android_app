@@ -64,7 +64,7 @@ public class InfoHelper {
 		return object;
 	}
 
-	public static String formatChatContent(String content, String imageUrl, String childid) {
+	public static String formatChatContent(String content, String imageUrl, String childid, String mediaType) {
 		JSONObject jsonObject = new JSONObject();
 		JSONObject mediaJsonObj = new JSONObject();
 		JSONObject senderJsonObj = new JSONObject();
@@ -73,7 +73,7 @@ public class InfoHelper {
 			jsonObject.put(NewChatInfo.CONTENT, content);
 
 			mediaJsonObj.put("url", imageUrl);
-			mediaJsonObj.put("type", JSONConstant.IMAGE_TYPE);
+			mediaJsonObj.put("type", mediaType);
 			jsonObject.put(JSONConstant.MEDIA, mediaJsonObj);
 
 			senderJsonObj.put("id", DataMgr.getInstance().getSelfInfoByPhone().getParent_id());

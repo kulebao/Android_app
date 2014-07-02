@@ -4831,6 +4831,10 @@ com.cocobabys.customview.MyGridView: MyGridView(android.content.Context)
 com.cocobabys.customview.MyGridView: MyGridView(android.content.Context,android.util.AttributeSet,int)
 com.cocobabys.customview.ProgressWheel
 com.cocobabys.customview.ProgressWheel: ProgressWheel(android.content.Context,android.util.AttributeSet)
+com.cocobabys.customview.RecordButton
+com.cocobabys.customview.RecordButton: RecordButton(android.content.Context)
+com.cocobabys.customview.RecordButton: RecordButton(android.content.Context,android.util.AttributeSet,int)
+com.cocobabys.customview.RecordButton: RecordButton(android.content.Context,android.util.AttributeSet)
 com.cocobabys.customview.SlideGallery
 com.cocobabys.customview.SlideGallery: SlideGallery(android.content.Context,android.util.AttributeSet)
 com.cocobabys.customview.SwitchButton

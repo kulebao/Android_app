@@ -32,7 +32,7 @@ public class QiniuMgr implements UploadMgr {
 	}
 
 	@Override
-	public void uploadPhoto(String filePath, String url, String uptoken) throws Exception {
+	public void uploadFile(String filePath, String url, String uptoken) throws Exception {
 		InputStream inputStream = new FileInputStream(new File(filePath));
 		uploadPhoto(inputStream, url, uptoken);
 	}

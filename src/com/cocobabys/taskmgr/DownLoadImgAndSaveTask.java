@@ -37,7 +37,7 @@ public class DownLoadImgAndSaveTask extends AsyncTask<Void, Void, Integer> {
 
 	@Override
 	protected Integer doInBackground(Void... params) {
-		int result = EventType.DOWNLOAD_IMG_FAILED;
+		int result = EventType.DOWNLOAD_FILE_FAILED;
 		Log.d("DDD", "DownLoadImgAndSaveTask downloadImgImpl url=" + url);
 		// Bitmap bmp = Utils.downloadImgImpl(url);
 		Bitmap bmp = Utils.downloadImgWithJudgement(url,limitWidth,limitHeight);
@@ -45,7 +45,7 @@ public class DownLoadImgAndSaveTask extends AsyncTask<Void, Void, Integer> {
 			try {
 				Log.d("DDD", "downloadImgImpl saveBitmapToSDCard");
 				Utils.saveBitmapToSDCard(bmp, filedir);
-				result = EventType.DOWNLOAD_IMG_SUCCESS;
+				result = EventType.DOWNLOAD_FILE_SUCCESS;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

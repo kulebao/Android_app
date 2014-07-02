@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,7 +33,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -50,7 +48,6 @@ import com.cocobabys.customview.CustomDialog;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dlgmgr.DlgMgr;
 import com.cocobabys.push.PushModel;
-import com.cocobabys.taskmgr.BindPushTask;
 
 public class Utils {
 	public static final int NETWORK_NOT_CONNECTED = -1;
@@ -58,12 +55,14 @@ public class Utils {
 	public static final String APP_DIR_ROOT = "cocobaby";
 	public static final String APP_DIR_TMP = "cocobaby/tmp";
 	public static final String APP_DIR_PIC = "cocobaby/pic";
+	public static final String APP_DIR_VOI = "cocobaby_tclient/voi";
 	public static final String APP_LOGS = "cocobaby/logs";
 	public static final int LIMIT_WIDTH = 320;
 	public static final int LIMIT_HEIGHT = 480;
 	private static String CHILD_PHOTO = "child_photo";
 	public static String CHAT_ICON = "chat_icon";
 	public static String EXP_ICON = "exp_icon";
+	public static String CHAT_VOICE = "chat_voice";
 
 	private static int versionCode = Integer.MAX_VALUE;
 
@@ -290,7 +289,7 @@ public class Utils {
 			}
 
 			PushModel pushModel = PushModel.getPushModel();
-			
+
 			if (!pushModel.isBinded()) {
 				Log.w("DJC", "not bind,do it now!");
 				pushModel.bind();
@@ -440,6 +439,16 @@ public class Utils {
 		return new File(getAppSDCardPath(), APP_DIR_PIC).getAbsolutePath();
 	}
 
+	public static String getSDCardMediaRootPath(String type) {
+		String dir = "";
+		if (JSONConstant.IMAGE_TYPE.equals(type)) {
+			dir = new File(getAppSDCardPath(), APP_DIR_PIC).getAbsolutePath();
+		} else if (JSONConstant.VOICE_TYPE.equals(type)) {
+			dir = new File(getAppSDCardPath(), APP_DIR_VOI).getAbsolutePath();
+		}
+		return dir;
+	}
+
 	public static boolean makeDirs(String dir) {
 		File file = new File(dir);
 		if (!file.exists()) {
@@ -533,6 +542,24 @@ public class Utils {
 		return dir + File.separator + timestamp + ".jpg";
 	}
 
+	// 获取自己发送的图片的地址，避免自己发送的还从服务器去下
+	public static String getChatMediaUrl(long timestamp, String type) {
+		String url = "";
+		if (JSONConstant.IMAGE_TYPE.equals(type)) {
+			url = getChatIconUrl(timestamp);
+		} else if (JSONConstant.VOICE_TYPE.equals(type)) {
+			url = getChatVoiceUrl(timestamp);
+		}
+		return url;
+	}
+
+	public static String getChatVoiceUrl(long timestamp) {
+		String dir = CHAT_VOICE + File.separator
+				+ DataMgr.getInstance().getSelfInfoByPhone().getParent_id();
+		return dir + File.separator + timestamp
+				+ ConstantValue.DEFAULT_VOICE_TYPE;
+	}
+
 	public static String getChatIconDir(String childid) {
 		return getSDCardPicRootPath() + File.separator + CHAT_ICON
 				+ File.separator + childid + File.separator;
@@ -578,6 +605,16 @@ public class Utils {
 		Bitmap bmp = null;
 		try {
 			bmp = ImageDownloader.getResizedBmp(maxpix, url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bmp;
+	}
+
+	public static Bitmap getLoacalBitmap(String url, int maxHeight, int maxWidth) {
+		Bitmap bmp = null;
+		try {
+			bmp = ImageDownloader.getResizedBmp(url, maxHeight, maxWidth);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

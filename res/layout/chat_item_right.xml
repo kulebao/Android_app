@@ -25,9 +25,9 @@
             android:id="@+id/headicon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:scaleType="fitXY"
+            android:layout_alignParentRight="true"
             android:padding="5dp"
-            android:layout_alignParentRight="true" />
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/sender"
@@ -40,9 +40,11 @@
             android:textSize="14sp" />
 
         <RelativeLayout
+            android:id="@+id/contentlayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sender"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_toLeftOf="@+id/headicon"
             android:background="@drawable/chat_content_right" >
@@ -62,22 +64,22 @@
 
             <ImageView
                 android:id="@+id/chat_icon"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:padding="15dp"
+                android:padding="2dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/default_icon"
+                android:src="@drawable/default_small_icon"
                 android:visibility="gone" />
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/resend"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignTop="@+id/content"
-            android:layout_toLeftOf="@+id/content"
-            android:src="@drawable/resend_normal"
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/contentlayout"
+            android:text="ddd"
             android:visibility="gone" />
     </RelativeLayout>
 
