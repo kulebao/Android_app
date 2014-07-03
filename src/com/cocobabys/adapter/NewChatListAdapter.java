@@ -1,11 +1,13 @@
 package com.cocobabys.adapter;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -17,9 +19,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cocobabys.R;
@@ -34,10 +38,10 @@ import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
+import com.cocobabys.dlgmgr.DlgMgr;
 import com.cocobabys.jobs.GetSenderInfoJob;
 import com.cocobabys.media.MediaMgr;
 import com.cocobabys.taskmgr.DownloadImgeJob;
-import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 
 public class NewChatListAdapter extends BaseAdapter {
@@ -57,6 +61,7 @@ public class NewChatListAdapter extends BaseAdapter {
 
 	private Map<String, String> senderMap = new HashMap<String, String>();
 	private GetSenderInfoJob getTeacherInfoJob;
+	private int current_longclick_positon = -1;
 
 	public NewChatListAdapter(Context activityContext, List<NewChatInfo> list,
 			DownloadImgeJob downloadImgeTask, GetSenderInfoJob getTeacherInfoJob) {
@@ -176,6 +181,8 @@ public class NewChatListAdapter extends BaseAdapter {
 					.findViewById(R.id.chat_icon);
 			flagholder.durationView = (TextView) convertView
 					.findViewById(R.id.duration);
+			flagholder.contentlayout = (RelativeLayout) convertView
+					.findViewById(R.id.contentlayout);
 			convertView.setTag(flagholder);
 			convertView.setId(position);
 		} else {
@@ -274,10 +281,27 @@ public class NewChatListAdapter extends BaseAdapter {
 		IconInfo iconInfo = new IconInfo();
 		try {
 			if (NewChatInfo.PARENT_TYPE.equals(info.getSender_type())) {
+				// 家长有头像就用家长头像，否则就用小孩头像
+				// ParentInfo parent = DataMgr.getInstance().getParentByID(
+				// info.getSender_id());
+				// if (parent != null &&
+				// !TextUtils.isEmpty(parent.getPortrait())) {
+				// iconInfo.setLocalPath(ParentInfo
+				// .getParentLocalIconPath(info.getSender_id()));
+				// iconInfo.setNetPath(parent.getPortrait());
+				// } else {
+				// ChildInfo childByID = DataMgr.getInstance().getChildByID(
+				// info.getChild_id());
+				// iconInfo.setLocalPath(childByID.getLocal_url());
+				// iconInfo.setNetPath(childByID.getServer_url());
+				// }
+				
+				//只用小孩头像
 				ChildInfo childByID = DataMgr.getInstance().getChildByID(
 						info.getChild_id());
 				iconInfo.setLocalPath(childByID.getLocal_url());
 				iconInfo.setNetPath(childByID.getServer_url());
+
 			} else {
 				Teacher teacherByID = DataMgr.getInstance().getTeacherByID(
 						info.getSender_id());
@@ -300,9 +324,6 @@ public class NewChatListAdapter extends BaseAdapter {
 		loacalBitmap = lruCache.get(iconInfo.getLocalPath());
 
 		if (loacalBitmap == null) {
-			// loacalBitmap = Utils.getLoacalBitmap(iconInfo.getLocalPath(),
-			// ImageDownloader.getMaxPixWithDensity(limitWidth,
-			// limitHeight));
 			loacalBitmap = Utils.getLoacalBitmap(iconInfo.getLocalPath(),
 					limitHeight, limitWidth);
 
@@ -363,14 +384,6 @@ public class NewChatListAdapter extends BaseAdapter {
 		senderMap.clear();
 	}
 
-	// private void downloadIcon(ImageView view, NewChatInfo info) {
-	// String savePath = info.getLocalUrl();
-	// String dir = Utils.getDir(savePath);
-	// Utils.makeDirs(dir);
-	// Log.d("DDD downloadIcon", "savePath =" + savePath);
-	// downloadImgeJob.addTask(info.getMedia_url(), savePath);
-	// }
-
 	private void downloadIcon(ImageView view, NewChatInfo info) {
 		String savePath = info.getLocalUrl();
 		String dir = Utils.getDir(savePath);
@@ -423,6 +436,45 @@ public class NewChatListAdapter extends BaseAdapter {
 				}
 			}
 		});
+
+		flagholder.contentlayout
+				.setOnLongClickListener(new OnLongClickListener() {
+
+					@Override
+					public boolean onLongClick(View v) {
+						current_longclick_positon = position;
+						showDlg(position);
+						return false;
+					}
+				});
+	}
+
+	private void showDlg(int pos) {
+		NewChatInfo newChatInfo = (NewChatInfo) getItem(pos);
+		List<String> list = new ArrayList<String>();
+		if (!TextUtils.isEmpty(newChatInfo.getContent())) {
+			list.add(Utils.getResString(R.string.copy));
+		}
+
+		if (!TextUtils.isEmpty(newChatInfo.getLocalUrl())
+				&& new File(newChatInfo.getLocalUrl()).exists()) {
+			list.add(Utils.getResString(R.string.save_to_gallery));
+		}
+
+		if (DataMgr.getInstance().getSelfInfoByPhone().getParent_id()
+				.equals(newChatInfo.getSender_id())) {
+			list.add(Utils.getResString(R.string.delete));
+		}
+
+		String[] items = list.toArray(new String[list.size()]);
+
+		DlgMgr.getListDialog(context, items,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						Log.d("initTitle ddd", "which =" + which);
+						// handleClick(which);
+					}
+				}).create().show();
 	}
 
 	protected void startToShowIconActivity(String iconUrl) {
@@ -438,6 +490,7 @@ public class NewChatListAdapter extends BaseAdapter {
 		public TextView timestampView;
 		public ImageView headiconView;
 		public ImageView chaticonView;
+		public RelativeLayout contentlayout;
 		public boolean bLeft;
 	}
 }

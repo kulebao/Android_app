@@ -5,8 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.net.ChildMethod;
 import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;

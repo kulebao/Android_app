@@ -33,6 +33,7 @@ import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetChatJob;
 import com.cocobabys.jobs.GetSenderInfoJob;
+import com.cocobabys.media.MediaMgr;
 import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
@@ -225,6 +226,8 @@ public class ChatActivity extends UmengStatisticsActivity {
 		if (adapter != null) {
 			adapter.releaseCache();
 		}
+		
+		MediaMgr.close();
 		super.onDestroy();
 	}
 

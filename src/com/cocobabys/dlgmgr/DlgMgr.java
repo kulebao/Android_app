@@ -3,7 +3,6 @@ package com.cocobabys.dlgmgr;
 import java.lang.reflect.Field;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -14,29 +13,6 @@ import com.cocobabys.R;
 import com.cocobabys.customview.CustomDialog;
 
 public class DlgMgr {
-	//
-	// public static AlertDialog.Builder getSingleBtnDlg(Context context) {
-	// AlertDialog.Builder builder = new Builder(context);
-	// builder.setTitle(context.getResources().getString(R.string.notice));
-	// builder.setPositiveButton(context.getResources().getString(R.string.confirm),
-	// new android.content.DialogInterface.OnClickListener() {
-	// @Override
-	// public void onClick(DialogInterface dialog, int which) {
-	//
-	// }
-	// });
-	// return builder;
-	// }
-
-	// public static AlertDialog.Builder getSingleBtnDlg(Context context,
-	// OnClickListener confirmListener) {
-	// AlertDialog.Builder builder = new Builder(context);
-	// builder.setTitle(context.getResources().getString(R.string.notice));
-	// builder.setPositiveButton(
-	// context.getResources().getString(R.string.confirm),
-	// confirmListener);
-	// return builder;
-	// }
 	public static CustomDialog.Builder getSingleBtnDlg(Context context,
 			OnClickListener confirmListener) {
 		CustomDialog.Builder builder = new com.cocobabys.customview.CustomDialog.Builder(
@@ -92,6 +68,13 @@ public class DlgMgr {
 
 		return new AlertDialog.Builder(context).setItems(itemsID,
 				confirmListener);
+	}
+
+	public static AlertDialog.Builder getListDialog(Context context,
+			CharSequence[] items, OnClickListener confirmListener) {
+
+		return new AlertDialog.Builder(context)
+				.setItems(items, confirmListener);
 	}
 
 	public static void disableDlgDismiss(AlertDialog dlg) {

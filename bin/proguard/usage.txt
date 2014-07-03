@@ -41,7 +41,7 @@ com.cocobabys.R$styleable:
     public static final int ProgressWheel_textSize
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    852:852:public R$styleable()
+    854:854:public R$styleable()
 com.cocobabys.activities.ActivityHelper:
     12:12:public ActivityHelper()
 com.cocobabys.activities.ChatActivity:
@@ -103,7 +103,7 @@ com.cocobabys.activities.SendExpActivity:
     private static final int CACHE_SIZE
     210:214:private void galleryAddPic()
 com.cocobabys.activities.SendNewChatActivity$3:
-    96:96:public void onCanceledRecord(java.lang.String)
+    106:106:public void onCanceledRecord(java.lang.String)
 com.cocobabys.activities.SwipeCalendarActivity:
     private static final int EXTRA_HEIGHT
     242:246:protected java.lang.String GetDateShortString(java.util.Calendar)
@@ -493,8 +493,10 @@ com.cocobabys.dbmgr.info.Notice:
     102:103:public void setCustom_content(java.lang.String)
     126:127:public void setPublisher(java.lang.String)
 com.cocobabys.dbmgr.info.ParentInfo:
+    private static final java.lang.String PARENT_HEAD_ICON
     public static final java.lang.String ID
-    30:30:public int getId()
+    38:38:public int getId()
+    110:116:public static java.lang.String getParentLocalIconPath(java.lang.String)
 com.cocobabys.dbmgr.info.ScheduleInfo:
     public static final java.lang.String ID
     public static final java.lang.String SCHEDULE_ID
@@ -538,11 +540,11 @@ com.cocobabys.dbmgr.info.Teacher:
     51:51:public int getId()
     144:148:public static java.lang.String getLocalIconPath(java.lang.String)
 com.cocobabys.dlgmgr.DlgMgr:
-    16:16:public DlgMgr()
-    83:85:public static android.app.AlertDialog$Builder getTextEntryDialog(android.content.Context,int,int,int,android.content.DialogInterface$OnClickListener)
-    99:106:public static void disableDlgDismiss(android.app.AlertDialog)
-    109:111:public static void cancelDialog(android.app.AlertDialog)
-    115:122:private static void enableDlgDismiss(android.app.AlertDialog)
+    15:15:public DlgMgr()
+    59:61:public static android.app.AlertDialog$Builder getTextEntryDialog(android.content.Context,int,int,int,android.content.DialogInterface$OnClickListener)
+    82:89:public static void disableDlgDismiss(android.app.AlertDialog)
+    92:94:public static void cancelDialog(android.app.AlertDialog)
+    98:105:private static void enableDlgDismiss(android.app.AlertDialog)
 com.cocobabys.handler.CrashHandler:
     public static final java.lang.String TAG
     75:88:private void selfHandleWithToast(java.lang.Thread,java.lang.Throwable)
@@ -565,9 +567,9 @@ com.cocobabys.jobs.ValidatePhoneNumJob
 com.cocobabys.jobs.ValidatePhoneNumJob$1
 com.cocobabys.media.MediaMgr:
     private static final java.lang.String MEDIA_LOG
-    8:8:public MediaMgr()
-    13:22:public static void playMedia(android.content.Context,int)
-    25:35:public static void playMediaNow(android.content.Context,int)
+    9:9:public MediaMgr()
+    15:24:public static void playMedia(android.content.Context,int)
+    27:37:public static void playMediaNow(android.content.Context,int)
 com.cocobabys.mycalendar.DateWidgetDayCell:
     296:305:public void CreateReminder(android.graphics.Canvas,int)
 com.cocobabys.mycalendar.DateWidgetDayHeader:

@@ -1,9 +1,17 @@
 package com.cocobabys.dbmgr.info;
 
+import java.io.File;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
+import com.cocobabys.utils.Utils;
+
 public class ParentInfo {
+	private static final String PARENT_HEAD_ICON = "parent_head_icon";
+
 	public static final String ID = "_id";
 	// 服务器端的id
 	public static String PARENT_ID = "parent_id";
@@ -96,6 +104,16 @@ public class ParentInfo {
 
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public static String getParentLocalIconPath(String parentid) {
+		String dir = Utils.getSDCardPicRootPath() + File.separator
+				+ PARENT_HEAD_ICON + File.separator;
+
+		Utils.mkDirs(dir);
+		String url = dir + parentid;
+		Log.d("DDD", "getParentLocalIconPath url=" + url);
+		return url;
 	}
 
 	public static ParentInfo parseFromRelationship(JSONObject jsonObject)

@@ -669,6 +669,7 @@ containing a value of this type.
         public static final int contact_school=0x7f070078;
         public static final int cook=0x7f07006c;
         public static final int cookbook_notice=0x7f070059;
+        public static final int copy=0x7f0700d3;
         public static final int dairy=0x7f07006e;
         public static final int delete=0x7f07004a;
         public static final int delete_all_location_confirm=0x7f070044;
@@ -677,7 +678,7 @@ containing a value of this type.
         public static final int delete_data=0x7f070099;
         public static final int delete_location_confirm=0x7f070043;
         public static final int delete_notice_confirm=0x7f070045;
-        public static final int density_title=0x7f0700d4;
+        public static final int density_title=0x7f0700d6;
         public static final int dining_explain=0x7f0700b7;
         public static final int dinner=0x7f070067;
         public static final int doLocation=0x7f07005e;
@@ -786,6 +787,7 @@ containing a value of this type.
         public static final int reset_pwd=0x7f07001b;
         public static final int reset_pwd_success=0x7f07002a;
         public static final int rest_explain=0x7f0700b8;
+        public static final int save_to_gallery=0x7f0700d4;
         public static final int schedule=0x7f070070;
         public static final int school_info=0x7f070077;
         public static final int select_child=0x7f070088;
@@ -836,7 +838,7 @@ containing a value of this type.
         public static final int weixin=0x7f0700a8;
         public static final int weixin_account=0x7f0700a9;
         public static final int write_notice=0x7f0700a4;
-        public static final int xfactor=0x7f0700d3;
+        public static final int xfactor=0x7f0700d5;
     }
     public static final class style {
         public static final int Dialog=0x7f080006;

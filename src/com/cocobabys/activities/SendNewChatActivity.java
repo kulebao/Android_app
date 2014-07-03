@@ -4,12 +4,14 @@ import java.io.File;
 import java.util.List;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +50,14 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 	private void initView() {
 		initDialog();
 		initBtn();
+	}
+
+	public void closeKeyBoard() {
+		View view = getWindow().peekDecorView();
+		if (view != null) {
+			InputMethodManager inputmanger = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+			inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		}
 	}
 
 	public void initBtn() {
@@ -150,6 +160,7 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 
 	@SuppressWarnings("unchecked")
 	private void handleSuccess(Message msg) {
+		closeKeyBoard();
 		Toast.makeText(SendNewChatActivity.this, R.string.send_success,
 				Toast.LENGTH_SHORT).show();
 		MyApplication.getInstance().setTmpNewChatList(

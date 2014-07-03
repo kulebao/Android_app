@@ -215,5 +215,7 @@
     <string name="send_exp_sucess">成长经历发送成功</string>
     <string name="no_receiver_choosed">必须选择至少一位小孩</string>
     <string name="choose_pic">请选择图片</string>
+    <string name="copy">复制</string>
+    <string name="save_to_gallery">保存到相册</string>
 
 </resources>
