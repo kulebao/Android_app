@@ -26,7 +26,10 @@ import com.cocobabys.R;
 
 public class RecordButton extends Button {
 
+	private static final int MIN_INTERVAL_TIME = 1000;// 1s
+	private static final int MAX_INTERVAL_TIME = 1000 * 60;// 60s
 	private Context context;
+	private State state = State.STATE_INIT;
 
 	public RecordButton(Context context) {
 		super(context);
@@ -70,7 +73,6 @@ public class RecordButton extends Button {
 		}
 	};
 
-	private static final int MIN_INTERVAL_TIME = 1000;// 1s
 	private long startTime;
 
 	private Dialog recordIndicator;
@@ -78,7 +80,7 @@ public class RecordButton extends Button {
 	private static int[] res = { R.drawable.mic_2, R.drawable.mic_3,
 			R.drawable.mic_4, R.drawable.mic_5 };
 
-	private static ImageView view;
+	private ImageView view;
 
 	private MediaRecorder recorder;
 
@@ -89,7 +91,22 @@ public class RecordButton extends Button {
 	protected Rect rect;
 
 	private void init() {
-		volumeHandler = new ShowVolumeHandler();
+		volumeHandler = new ShowVolumeHandler() {
+
+			@Override
+			public void handleMessage(Message msg) {
+				// 超时自动停止录音，并认为录音成功
+				if (msg.what == -1) {
+					handleFinishRecord();
+					return;
+				}
+				if (view != null) {
+					view.setImageResource(res[msg.what]);
+				}
+			}
+
+		};
+
 		setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -98,23 +115,32 @@ public class RecordButton extends Button {
 				switch (action) {
 				case MotionEvent.ACTION_DOWN:
 					finishedListener.onActionDown();
-					
+					state = State.STATE_INIT;
 					rect = new Rect(v.getLeft(), v.getTop(), v.getRight(),
 							v.getBottom());
 					Log.d("DDD", "ACTION_DOWN fanwei :" + rect.toString());
 
-					initDialogAndStartRecord();
+					try {
+						initDialogAndStartRecord();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 					RecordButton.this.setText("松开 结束");
 					break;
 				case MotionEvent.ACTION_UP:
 					Log.d("DDD", "ACTION_UP fanwei :" + rect.toString());
-					finishRecord();
-					RecordButton.this.setText("按住 录音");
+					if (state == State.STATE_INIT) {
+						handleFinishRecord();
+						state = State.STATE_FINISHED;
+					}
 					break;
 				case MotionEvent.ACTION_MOVE:// 当手指移动到view外面，会cancel
-					if (!rect.contains(v.getLeft() + (int) event.getX(),
-							v.getTop() + (int) event.getY())) {
+					if (state == State.STATE_INIT
+							&& (!rect.contains(
+									v.getLeft() + (int) event.getX(),
+									v.getTop() + (int) event.getY()))) {
 						cancelRecord();
+						state = State.STATE_CANCELED;
 					}
 					break;
 				default:
@@ -123,7 +149,13 @@ public class RecordButton extends Button {
 
 				return true;
 			}
+
 		});
+	}
+
+	private void handleFinishRecord() {
+		finishRecord();
+		RecordButton.this.setText("按住 录音");
 	}
 
 	private void initDialogAndStartRecord() {
@@ -168,7 +200,7 @@ public class RecordButton extends Button {
 			File file = new File(mFileName);
 			file.delete();
 
-			finishedListener.onFinishedRecord(mFileName);
+			finishedListener.onCanceledRecord(mFileName);
 		}
 	}
 
@@ -222,6 +254,12 @@ public class RecordButton extends Button {
 				if (recorder == null || !running) {
 					break;
 				}
+
+				long intervalTime = System.currentTimeMillis() - startTime;
+				if (intervalTime > MAX_INTERVAL_TIME) {
+					volumeHandler.sendEmptyMessage(-1);
+				}
+
 				int x = recorder.getMaxAmplitude();
 				if (x != 0) {
 					int f = (int) (10 * Math.log(x) / Math.log(10));
@@ -238,7 +276,10 @@ public class RecordButton extends Button {
 
 			}
 		}
+	}
 
+	private static enum State {
+		STATE_INIT, STATE_FINISHED, STATE_CANCELED
 	}
 
 	private OnDismissListener onDismiss = new OnDismissListener() {
@@ -249,10 +290,10 @@ public class RecordButton extends Button {
 		}
 	};
 
-	static class ShowVolumeHandler extends Handler {
+	private static class ShowVolumeHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {
-			view.setImageResource(res[msg.what]);
+			// view.setImageResource(res[msg.what]);
 		}
 	};
 

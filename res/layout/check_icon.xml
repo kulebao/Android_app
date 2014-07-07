@@ -12,7 +12,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/send"
+            android:id="@+id/cancel"
             style="@style/item_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,14 +20,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
             android:padding="4dp"
-            android:text="@string/send"
+            android:text="@string/cancel"
             android:textColor="@android:color/white"
             android:textSize="22sp"
             android:textStyle="bold" >
         </TextView>
 
         <TextView
-            android:id="@+id/cancel"
+            android:id="@+id/send"
             style="@style/item_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginRight="10dp"
             android:padding="4dp"
-            android:text="@string/cancel"
+            android:text="@string/send"
             android:textColor="@android:color/white"
             android:textSize="22sp"
             android:textStyle="bold" >
@@ -48,9 +48,9 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/top"
         android:layout_centerHorizontal="true"
-        android:scaleType="center"
-        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="center"
         android:src="@drawable/default_icon" />
 
 </RelativeLayout>

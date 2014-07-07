@@ -4343,6 +4343,7 @@ com.cocobabys.activities.ChatActivity -> com.cocobabys.activities.ChatActivity:
     void onActivityResult(int,int,android.content.Intent) -> onActivityResult
     void startToSendChatActivity() -> a
     void onDestroy() -> onDestroy
+    void onStop() -> onStop
     void moveToEndOfList() -> c
     boolean runGetChatTask(long,long,int) -> a
     boolean refreshTailImpl() -> d
@@ -4971,7 +4972,7 @@ com.cocobabys.activities.SendExpActivity -> com.cocobabys.activities.SendExpActi
     android.app.ProgressDialog dialog -> i
     void onCreate(android.os.Bundle) -> onCreate
     boolean checkContentValid() -> a
-    void startToSlideGalleryActivity() -> b
+    void startToSlideGalleryActivity(int) -> a
     void onActivityResult(int,int,android.content.Intent) -> onActivityResult
     void changeView(java.lang.String[]) -> a
     void onDestroy() -> onDestroy
@@ -5890,50 +5891,64 @@ com.cocobabys.customview.ProgressWheel$1 -> com.cocobabys.customview.i:
     void handleMessage(android.os.Message) -> handleMessage
 com.cocobabys.customview.RecordButton -> com.cocobabys.customview.RecordButton:
     android.content.Context context -> b
-    java.lang.String mFileName -> c
-    com.cocobabys.customview.RecordButton$OnFinishedRecordListener finishedListener -> d
-    long startTime -> e
-    android.app.Dialog recordIndicator -> f
-    int[] res -> g
-    android.widget.ImageView view -> h
-    android.media.MediaRecorder recorder -> i
-    com.cocobabys.customview.RecordButton$ObtainDecibelThread thread -> j
-    android.os.Handler volumeHandler -> k
+    com.cocobabys.customview.RecordButton$State state -> c
+    java.lang.String mFileName -> d
+    com.cocobabys.customview.RecordButton$OnFinishedRecordListener finishedListener -> e
+    long startTime -> f
+    android.app.Dialog recordIndicator -> g
+    int[] res -> h
+    android.widget.ImageView view -> i
+    android.media.MediaRecorder recorder -> j
+    com.cocobabys.customview.RecordButton$ObtainDecibelThread thread -> k
+    android.os.Handler volumeHandler -> l
     android.graphics.Rect rect -> a
-    android.content.DialogInterface$OnDismissListener onDismiss -> l
+    android.content.DialogInterface$OnDismissListener onDismiss -> m
     void setSavePath(java.lang.String) -> a
     void setOnFinishedRecordListener(com.cocobabys.customview.RecordButton$OnFinishedRecordListener) -> a
-    void init() -> c
-    void stopRecording() -> d
-    com.cocobabys.customview.RecordButton$OnFinishedRecordListener access$000(com.cocobabys.customview.RecordButton) -> a
-    void access$100(com.cocobabys.customview.RecordButton) -> b
-    void access$200(com.cocobabys.customview.RecordButton) -> c
-    void access$300(com.cocobabys.customview.RecordButton) -> d
-    android.media.MediaRecorder access$500(com.cocobabys.customview.RecordButton) -> e
-    android.os.Handler access$600(com.cocobabys.customview.RecordButton) -> f
-    void access$700(com.cocobabys.customview.RecordButton) -> g
-    int[] access$800() -> a
-    android.widget.ImageView access$900() -> b
+    void init() -> b
+    void stopRecording() -> c
+    void access$100(com.cocobabys.customview.RecordButton) -> a
+    android.widget.ImageView access$200(com.cocobabys.customview.RecordButton) -> b
+    int[] access$300() -> a
+    com.cocobabys.customview.RecordButton$OnFinishedRecordListener access$400(com.cocobabys.customview.RecordButton) -> c
+    com.cocobabys.customview.RecordButton$State access$502(com.cocobabys.customview.RecordButton,com.cocobabys.customview.RecordButton$State) -> a
+    void access$600(com.cocobabys.customview.RecordButton) -> d
+    com.cocobabys.customview.RecordButton$State access$500(com.cocobabys.customview.RecordButton) -> e
+    void access$700(com.cocobabys.customview.RecordButton) -> f
+    android.media.MediaRecorder access$900(com.cocobabys.customview.RecordButton) -> g
+    long access$1000(com.cocobabys.customview.RecordButton) -> h
+    android.os.Handler access$1100(com.cocobabys.customview.RecordButton) -> i
+    void access$1200(com.cocobabys.customview.RecordButton) -> j
 com.cocobabys.customview.RecordButton$1 -> com.cocobabys.customview.j:
     com.cocobabys.customview.RecordButton this$0 -> a
     void onFinishedRecord(java.lang.String) -> a
     void onActionDown() -> a
 com.cocobabys.customview.RecordButton$2 -> com.cocobabys.customview.k:
     com.cocobabys.customview.RecordButton this$0 -> a
-    boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
+    void handleMessage(android.os.Message) -> handleMessage
 com.cocobabys.customview.RecordButton$3 -> com.cocobabys.customview.l:
     com.cocobabys.customview.RecordButton this$0 -> a
+    boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
+com.cocobabys.customview.RecordButton$4 -> com.cocobabys.customview.m:
+    com.cocobabys.customview.RecordButton this$0 -> a
     void onDismiss(android.content.DialogInterface) -> onDismiss
-com.cocobabys.customview.RecordButton$ObtainDecibelThread -> com.cocobabys.customview.m:
+com.cocobabys.customview.RecordButton$ObtainDecibelThread -> com.cocobabys.customview.n:
     boolean running -> b
     com.cocobabys.customview.RecordButton this$0 -> a
     void exit() -> a
     void run() -> run
-com.cocobabys.customview.RecordButton$OnFinishedRecordListener -> com.cocobabys.customview.n:
+com.cocobabys.customview.RecordButton$OnFinishedRecordListener -> com.cocobabys.customview.o:
     void onActionDown() -> a
     void onFinishedRecord(java.lang.String) -> a
-com.cocobabys.customview.RecordButton$ShowVolumeHandler -> com.cocobabys.customview.o:
+com.cocobabys.customview.RecordButton$ShowVolumeHandler -> com.cocobabys.customview.p:
     void handleMessage(android.os.Message) -> handleMessage
+com.cocobabys.customview.RecordButton$State -> com.cocobabys.customview.q:
+    com.cocobabys.customview.RecordButton$State STATE_INIT -> a
+    com.cocobabys.customview.RecordButton$State STATE_FINISHED -> b
+    com.cocobabys.customview.RecordButton$State STATE_CANCELED -> c
+    com.cocobabys.customview.RecordButton$State[] $VALUES -> d
+    com.cocobabys.customview.RecordButton$State[] values() -> values
+    com.cocobabys.customview.RecordButton$State valueOf(java.lang.String) -> valueOf
 com.cocobabys.customview.SlideGallery -> com.cocobabys.customview.SlideGallery:
     boolean onFling(android.view.MotionEvent,android.view.MotionEvent,float,float) -> onFling
 com.cocobabys.customview.SwitchButton -> com.cocobabys.customview.SwitchButton:
@@ -5968,7 +5983,7 @@ com.cocobabys.customview.SwitchButton -> com.cocobabys.customview.SwitchButton:
     boolean onSingleTapUp(android.view.MotionEvent) -> onSingleTapUp
     void on() -> c
     void off() -> d
-com.cocobabys.customview.SwitchButton$OnCheckedChangeListener -> com.cocobabys.customview.p:
+com.cocobabys.customview.SwitchButton$OnCheckedChangeListener -> com.cocobabys.customview.r:
     void checkedChange(boolean) -> a
 com.cocobabys.dbmgr.ChildrenInfoMgr -> com.cocobabys.e.a:
     com.cocobabys.dbmgr.SqliteHelper dbHelper -> a

@@ -4835,6 +4835,8 @@ com.cocobabys.customview.RecordButton
 com.cocobabys.customview.RecordButton: RecordButton(android.content.Context)
 com.cocobabys.customview.RecordButton: RecordButton(android.content.Context,android.util.AttributeSet,int)
 com.cocobabys.customview.RecordButton: RecordButton(android.content.Context,android.util.AttributeSet)
+com.cocobabys.customview.RecordButton$State: com.cocobabys.customview.RecordButton$State[] values()
+com.cocobabys.customview.RecordButton$State: com.cocobabys.customview.RecordButton$State valueOf(java.lang.String)
 com.cocobabys.customview.SlideGallery
 com.cocobabys.customview.SlideGallery: SlideGallery(android.content.Context,android.util.AttributeSet)
 com.cocobabys.customview.SwitchButton

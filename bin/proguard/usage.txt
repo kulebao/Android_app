@@ -102,8 +102,6 @@ com.cocobabys.activities.SchoolNoticeActivity:
 com.cocobabys.activities.SendExpActivity:
     private static final int CACHE_SIZE
     210:214:private void galleryAddPic()
-com.cocobabys.activities.SendNewChatActivity$3:
-    106:106:public void onCanceledRecord(java.lang.String)
 com.cocobabys.activities.SwipeCalendarActivity:
     private static final int EXTRA_HEIGHT
     242:246:protected java.lang.String GetDateShortString(java.util.Calendar)
@@ -310,10 +308,7 @@ com.cocobabys.customview.ProgressWheel:
     517:518:public void setDelayMillis(int)
 com.cocobabys.customview.RecordButton:
     private static final int MIN_INTERVAL_TIME
-com.cocobabys.customview.RecordButton$1:
-    66:66:public void onCanceledRecord(java.lang.String)
-com.cocobabys.customview.RecordButton$OnFinishedRecordListener:
-    public abstract void onCanceledRecord(java.lang.String)
+    private static final int MAX_INTERVAL_TIME
 com.cocobabys.customview.SwitchButton:
     private static final java.lang.String TEXT_ON_DEFAULT
     private static final java.lang.String TEXT_OFF_DEFAULT

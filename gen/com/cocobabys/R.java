@@ -375,7 +375,7 @@ containing a value of this type.
         public static final int btn_next_month=0x7f090014;
         public static final int btn_pre_month=0x7f090013;
         public static final int camera=0x7f090028;
-        public static final int cancel=0x7f09002b;
+        public static final int cancel=0x7f09002a;
         public static final int cancelUpdateBtn=0x7f0900c7;
         public static final int changeChild=0x7f0900af;
         public static final int changeHost=0x7f0900b2;
@@ -515,7 +515,7 @@ containing a value of this type.
         public static final int second=0x7f0900c1;
         public static final int secondLayout=0x7f09003d;
         public static final int secondcontent=0x7f09003e;
-        public static final int send=0x7f09002a;
+        public static final int send=0x7f09002b;
         public static final int sendAuthCodeBtn=0x7f090008;
         public static final int sendPhoneNumBtn=0x7f09002f;
         public static final int sendbtn=0x7f09005a;

@@ -71,7 +71,8 @@ public class SlideGalleryActivity extends Activity {
 	}
 
 	private List<String> getList() {
-		String[] pathArray = getIntent().getStringArrayExtra(NoticeAction.SELECTED_PATH);
+		String[] pathArray = getIntent().getStringArrayExtra(
+				NoticeAction.SELECTED_PATH);
 
 		List<String> pathList = new ArrayList<String>();
 		if (pathArray != null) {
@@ -96,7 +97,8 @@ public class SlideGalleryActivity extends Activity {
 					}
 
 					if (adapter.getCount() == 0) {
-						Intent data = new Intent().putExtra(NoticeAction.PATH_AFTER_CHANGE, new String[0]);
+						Intent data = new Intent().putExtra(
+								NoticeAction.PATH_AFTER_CHANGE, new String[0]);
 						setResult(RESULT_OK, data);
 						SlideGalleryActivity.this.finish();
 						return;
@@ -113,7 +115,8 @@ public class SlideGalleryActivity extends Activity {
 			public void onClick(View v) {
 				List<String> list = adapter.getList();
 				String[] array = list.toArray(new String[list.size()]);
-				Intent data = new Intent().putExtra(NoticeAction.PATH_AFTER_CHANGE, array);
+				Intent data = new Intent().putExtra(
+						NoticeAction.PATH_AFTER_CHANGE, array);
 				setResult(RESULT_OK, data);
 				SlideGalleryActivity.this.finish();
 			}
@@ -132,8 +135,10 @@ public class SlideGalleryActivity extends Activity {
 
 		gallery.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				Log.d("DDD", "onItemSelected position=" + position + " id=" + id);
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				Log.d("DDD", "onItemSelected position=" + position + " id="
+						+ id);
 				current = position;
 				setIconCount(position);
 			}
@@ -149,6 +154,8 @@ public class SlideGalleryActivity extends Activity {
 		gallery = (SlideGallery) findViewById(R.id.mygallery);
 		gallery.setVerticalFadingEdgeEnabled(false);
 		gallery.setHorizontalFadingEdgeEnabled(false);
+		gallery.setSelection(getIntent().getIntExtra(
+				NoticeAction.GALLERY_POSITION, 0));
 		gallery.setAdapter(adapter);
 	}
 
@@ -159,8 +166,10 @@ public class SlideGalleryActivity extends Activity {
 		initGallery();
 		gallery.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				Log.d("DDD", "onItemSelected position=" + position + " id=" + id);
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				Log.d("DDD", "onItemSelected position=" + position + " id="
+						+ id);
 				current = position;
 				setIconCount(position);
 			}
@@ -178,7 +187,8 @@ public class SlideGalleryActivity extends Activity {
 		} else if (postion < 0) {
 			postion = 0;
 		}
-		String counts = String.format(Utils.getResString(R.string.icon_count), postion + 1, adapter.getCount());
+		String counts = String.format(Utils.getResString(R.string.icon_count),
+				postion + 1, adapter.getCount());
 		countView.setText(counts);
 	}
 

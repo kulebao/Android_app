@@ -1,8 +1,10 @@
 package com.cocobabys.proxy;
 
+import java.io.InterruptedIOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.net.UnknownHostException;
 
 import android.util.Log;
 
@@ -48,17 +50,27 @@ public class MyProxy implements InvocationHandler {
 		return result;
 	}
 
-	private Object handleException(Object result, Throwable e){
+	private Object handleException(Object result, Throwable e) {
 		if (e.getCause() instanceof BindFailException) {
 			result = EventType.NET_WORK_INVALID;
 		} else if (e.getCause() instanceof InvalidTokenException) {
 			result = EventType.TOKEN_INVALID;
 		} else if (e.getCause() instanceof DuplicateLoginException) {
 			result = EventType.PHONE_NUM_IS_ALREADY_LOGIN;
+		} else if (isNetworkException(e)) {
+			result = EventType.NET_WORK_INVALID;
 		} else {
 			result = EventType.SERVER_BUSY;
 		}
 		return result;
+	}
+
+	private boolean isNetworkException(Throwable e) {
+		if (e.getCause() instanceof UnknownHostException
+				|| e.getCause() instanceof InterruptedIOException) {
+			return true;
+		}
+		return false;
 	}
 
 }

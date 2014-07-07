@@ -175,7 +175,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				startToSlideGalleryActivity();
+				startToSlideGalleryActivity(position);
 			}
 		});
 
@@ -218,7 +218,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		msc.connect();
 	}
 
-	protected void startToSlideGalleryActivity() {
+	protected void startToSlideGalleryActivity(int position) {
 		Intent intent = new Intent(NoticeAction.ACTION_GALLERY_CAN_DELETE);
 		List<String> allSelectedPath = adapter.getAllSelectedPath();
 		if (!allSelectedPath.isEmpty()) {
@@ -227,6 +227,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		}
 
 		intent.putExtra(NoticeAction.EXP_TEXT, exp_content.getText().toString());
+		intent.putExtra(NoticeAction.GALLERY_POSITION, position);
 		startActivityForResult(intent, NoticeAction.SELECT_SLIDE_GALLERY);
 	}
 

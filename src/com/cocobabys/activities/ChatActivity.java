@@ -226,9 +226,14 @@ public class ChatActivity extends UmengStatisticsActivity {
 		if (adapter != null) {
 			adapter.releaseCache();
 		}
-		
-		MediaMgr.close();
+
 		super.onDestroy();
+	}
+
+	@Override
+	protected void onStop() {
+		MediaMgr.close();
+		super.onStop();
 	}
 
 	private void moveToEndOfList() {
