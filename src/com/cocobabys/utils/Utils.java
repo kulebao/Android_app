@@ -33,8 +33,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
@@ -785,4 +787,28 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * 实现文本复制功能 add by wangqianzhou
+	 * 
+	 * @param content
+	 */
+	public static void copy(String content) {
+		if (TextUtils.isEmpty(content)) {
+			return;
+		}
+		// 得到剪贴板管理器
+		Context context = MyApplication.getInstance().getApplicationContext();
+		ClipboardManager cmb = (ClipboardManager) context
+				.getSystemService(Context.CLIPBOARD_SERVICE);
+		cmb.setText(content.trim());
+	}
+
+	//向图库里添加文件路径，可以让图片显示在图库里
+	public static void galleryAddPic(Uri uri) {
+		Context context = MyApplication.getInstance().getApplicationContext();
+		Intent mediaScanIntent = new Intent(
+				Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+		mediaScanIntent.setData(uri);
+		context.sendBroadcast(mediaScanIntent);
+	}
 }

@@ -31,7 +31,8 @@ public class NewChatMethod {
 		return new NewChatMethod();
 	}
 
-	public MethodResult getChatInfo(int most, long from, long to, String childid) throws Exception {
+	public MethodResult getChatInfo(int most, long from, long to, String childid)
+			throws Exception {
 		MethodResult methodResult = new MethodResult(EventType.GET_CHAT_SUCCESS);
 
 		List<NewChatInfo> list = new ArrayList<NewChatInfo>();
@@ -48,8 +49,10 @@ public class NewChatMethod {
 		return methodResult;
 	}
 
-	public MethodResult sendChat(String content, long lastid, String childid) throws Exception {
-		MethodResult methodResult = new MethodResult(EventType.SEND_CHAT_SUCCESS);
+	public MethodResult sendChat(String content, long lastid, String childid)
+			throws Exception {
+		MethodResult methodResult = new MethodResult(
+				EventType.SEND_CHAT_SUCCESS);
 		List<NewChatInfo> list = new ArrayList<NewChatInfo>();
 		HttpResult result = new HttpResult();
 		String url = createSendChatUrl(lastid, childid);
@@ -68,8 +71,29 @@ public class NewChatMethod {
 		return methodResult;
 	}
 
+	public MethodResult deleteChat(long chatid) throws Exception {
+		MethodResult methodResult = new MethodResult(
+				EventType.DELETE_CHAT_SUCCESS);
+		HttpResult result = new HttpResult();
+		String url = createDeleteChatUrl(chatid);
+		Log.e("DDDDD ", "deleteChat cmd:" + url + " content=" + chatid);
+		result = HttpClientHelper.executeDelete(url);
+		Log.e("DDDDD ", " result =" + result.getContent());
+		if (result.getResCode() != HttpStatus.SC_OK) {
+			methodResult.setResultType(EventType.DELETE_CHAT_FAIL);
+		}
+		return methodResult;
+	}
+
+	private String createDeleteChatUrl(long chatid) {
+		String url = String.format(ServerUrls.DELETE_CHAT, DataMgr
+				.getInstance().getSchoolID(), chatid);
+		return url;
+	}
+
 	private String createSendChatUrl(long lastid, String childid) {
-		String url = String.format(ServerUrls.SEND_NEW_CHAT, DataMgr.getInstance().getSchoolID(), childid);
+		String url = String.format(ServerUrls.SEND_NEW_CHAT, DataMgr
+				.getInstance().getSchoolID(), childid);
 
 		if (lastid != 0) {
 			url += "?retrieve_recent_from=" + lastid;
@@ -77,7 +101,8 @@ public class NewChatMethod {
 		return url;
 	}
 
-	private List<NewChatInfo> handleGetChatMethodResult(HttpResult result) throws JSONException {
+	private List<NewChatInfo> handleGetChatMethodResult(HttpResult result)
+			throws JSONException {
 		List<NewChatInfo> list = new ArrayList<NewChatInfo>();
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			JSONArray array = result.getJSONArray();
@@ -92,8 +117,10 @@ public class NewChatMethod {
 		return list;
 	}
 
-	private String createGetChatInfoCommand(int most, long from, long to, String childid) {
-		String cmd = String.format(ServerUrls.GET_NEW_CHAT, DataMgr.getInstance().getSchoolID(), childid);
+	private String createGetChatInfoCommand(int most, long from, long to,
+			String childid) {
+		String cmd = String.format(ServerUrls.GET_NEW_CHAT, DataMgr
+				.getInstance().getSchoolID(), childid);
 		if (most == 0) {
 			most = ConstantValue.GET_CHATINFO_MAX_COUNT;
 		}

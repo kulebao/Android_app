@@ -84,6 +84,10 @@ public class EventType {
 
 	public static final int SEND_CHAT_SUCCESS = 1720;
 	public static final int SEND_CHAT_FAIL = 1721;
+	
+	
+	public static final int DELETE_CHAT_SUCCESS = 1725;
+	public static final int DELETE_CHAT_FAIL = 1726;
 
 	public static final int GET_SENDER_SUCCESS = 1730;
 	public static final int GET_SENDER_FAIL = 1731;

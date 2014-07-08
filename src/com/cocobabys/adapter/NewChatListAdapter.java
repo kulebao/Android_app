@@ -39,6 +39,7 @@ import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.dlgmgr.DlgMgr;
+import com.cocobabys.jobs.DeleteChatJob;
 import com.cocobabys.jobs.GetSenderInfoJob;
 import com.cocobabys.media.MediaMgr;
 import com.cocobabys.taskmgr.DownloadImgeJob;
@@ -58,10 +59,10 @@ public class NewChatListAdapter extends BaseAdapter {
 	private List<NewChatInfo> dataList;
 	private DownloadImgeJob downloadImgeJob;
 	private Handler handler;
-
+	private DeleteChatListener deleteChatListener = null;
+	private int deletePos = -1;
 	private Map<String, String> senderMap = new HashMap<String, String>();
 	private GetSenderInfoJob getTeacherInfoJob;
-	private int current_longclick_positon = -1;
 
 	public NewChatListAdapter(Context activityContext, List<NewChatInfo> list,
 			DownloadImgeJob downloadImgeTask, GetSenderInfoJob getTeacherInfoJob) {
@@ -79,7 +80,7 @@ public class NewChatListAdapter extends BaseAdapter {
 			}
 		};
 
-		handler = new Handler() {
+		handler = new InnerHandler() {
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
@@ -91,7 +92,12 @@ public class NewChatListAdapter extends BaseAdapter {
 				case EventType.GET_SENDER_SUCCESS:
 					handleGetSenderSuccess(msg);
 					break;
-
+				case EventType.DELETE_CHAT_SUCCESS:
+					handleDeleteSuccess();
+					break;
+				case EventType.DELETE_CHAT_FAIL:
+					deleteChatListener.onDeleteFail();
+					break;
 				default:
 					break;
 				}
@@ -100,6 +106,16 @@ public class NewChatListAdapter extends BaseAdapter {
 		};
 		this.downloadImgeJob.setHanlder(handler);
 		this.getTeacherInfoJob.setHanlder(handler);
+	}
+
+	private void handleDeleteSuccess() {
+		if (deletePos != -1) {
+			NewChatInfo item = getItem(deletePos);
+			DataMgr.getInstance().deleteChat(item.getChat_id());
+			dataList.remove(deletePos);
+			notifyDataSetChanged();
+		}
+		deleteChatListener.onDeleteSuccess();
 	}
 
 	private void handleGetSenderSuccess(Message msg) {
@@ -127,7 +143,7 @@ public class NewChatListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public NewChatInfo getItem(int position) {
 		return dataList.get(position);
 	}
 
@@ -156,7 +172,7 @@ public class NewChatListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		FlagHolder flagholder = null;
 		if (convertView == null) {
-			NewChatInfo info = (NewChatInfo) getItem(position);
+			NewChatInfo info = getItem(position);
 
 			if (getItemViewType(position) == LEFT) {
 				convertView = LayoutInflater.from(this.context).inflate(
@@ -295,8 +311,8 @@ public class NewChatListAdapter extends BaseAdapter {
 				// iconInfo.setLocalPath(childByID.getLocal_url());
 				// iconInfo.setNetPath(childByID.getServer_url());
 				// }
-				
-				//只用小孩头像
+
+				// 只用小孩头像
 				ChildInfo childByID = DataMgr.getInstance().getChildByID(
 						info.getChild_id());
 				iconInfo.setLocalPath(childByID.getLocal_url());
@@ -420,7 +436,7 @@ public class NewChatListAdapter extends BaseAdapter {
 		flagholder.chaticonView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				NewChatInfo newChatInfo = (NewChatInfo) getItem(position);
+				NewChatInfo newChatInfo = getItem(position);
 				String iconurl = newChatInfo.getLocalUrl();
 				File file = new File(iconurl);
 				if (file.exists()) {
@@ -439,25 +455,33 @@ public class NewChatListAdapter extends BaseAdapter {
 
 		flagholder.contentlayout
 				.setOnLongClickListener(new OnLongClickListener() {
-
 					@Override
 					public boolean onLongClick(View v) {
-						current_longclick_positon = position;
+						showDlg(position);
+						return false;
+					}
+				});
+
+		flagholder.chaticonView
+				.setOnLongClickListener(new OnLongClickListener() {
+					@Override
+					public boolean onLongClick(View v) {
 						showDlg(position);
 						return false;
 					}
 				});
 	}
 
-	private void showDlg(int pos) {
-		NewChatInfo newChatInfo = (NewChatInfo) getItem(pos);
+	private void showDlg(final int pos) {
+		NewChatInfo newChatInfo = getItem(pos);
 		List<String> list = new ArrayList<String>();
 		if (!TextUtils.isEmpty(newChatInfo.getContent())) {
 			list.add(Utils.getResString(R.string.copy));
 		}
 
 		if (!TextUtils.isEmpty(newChatInfo.getLocalUrl())
-				&& new File(newChatInfo.getLocalUrl()).exists()) {
+				&& new File(newChatInfo.getLocalUrl()).exists()
+				&& JSONConstant.IMAGE_TYPE.equals(newChatInfo.getMedia_type())) {
 			list.add(Utils.getResString(R.string.save_to_gallery));
 		}
 
@@ -466,15 +490,54 @@ public class NewChatListAdapter extends BaseAdapter {
 			list.add(Utils.getResString(R.string.delete));
 		}
 
-		String[] items = list.toArray(new String[list.size()]);
+		if (list.isEmpty()) {
+			return;
+		}
+
+		final String[] items = list.toArray(new String[list.size()]);
 
 		DlgMgr.getListDialog(context, items,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						Log.d("initTitle ddd", "which =" + which);
-						// handleClick(which);
+						handleClick(items, which, pos);
 					}
 				}).create().show();
+	}
+
+	protected void handleClick(String[] items, int which, int pos) {
+		NewChatInfo item = getItem(pos);
+		String btnName = items[which];
+		if (Utils.getResString(R.string.copy).equals(btnName)) {
+			handleCopy(item);
+		} else if (Utils.getResString(R.string.save_to_gallery).equals(btnName)) {
+			handleAddToGallery(item);
+		} else if (Utils.getResString(R.string.delete).equals(btnName)) {
+			DeleteChatJob deleteChatJob = new DeleteChatJob(handler,
+					item.getChat_id());
+			deletePos = pos;
+			deleteChatListener.onDeleteBegain();
+			deleteChatJob.execute();
+		}
+	}
+
+	public void setDeleteHandler(DeleteChatListener deleteHandler) {
+		this.deleteChatListener = deleteHandler;
+	}
+
+	private void handleCopy(NewChatInfo item) {
+		Utils.copy(item.getContent());
+		Utils.makeToast(context, R.string.copy_to_clipboard);
+	}
+
+	private void handleAddToGallery(NewChatInfo item) {
+		try {
+			File file = new File(item.getLocalUrl());
+			Utils.galleryAddPic(Uri.fromFile(file));
+			Utils.makeToast(context, R.string.copy_to_gallery);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void startToShowIconActivity(String iconUrl) {
@@ -492,5 +555,17 @@ public class NewChatListAdapter extends BaseAdapter {
 		public ImageView chaticonView;
 		public RelativeLayout contentlayout;
 		public boolean bLeft;
+	}
+
+	public interface DeleteChatListener {
+		public void onDeleteBegain();
+
+		public void onDeleteSuccess();
+
+		public void onDeleteFail();
+	}
+
+	public static class InnerHandler extends Handler {
+
 	}
 }

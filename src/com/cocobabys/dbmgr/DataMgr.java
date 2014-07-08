@@ -300,7 +300,7 @@ public class DataMgr {
 	public void addParent(ParentInfo info) {
 		parentMgr.addData(info);
 	}
-	
+
 	public void addParentList(List<ParentInfo> list) {
 		parentMgr.addDataList(list);
 	}
@@ -329,6 +329,10 @@ public class DataMgr {
 
 	public void addNewChatInfoList(List<NewChatInfo> list) {
 		newChatMgr.addDataList(list);
+	}
+
+	public void deleteChat(long chatid) {
+		newChatMgr.deleteChat(chatid);
 	}
 
 	public void removeAllNewChatInfo() {

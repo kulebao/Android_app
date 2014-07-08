@@ -27,7 +27,8 @@ class NewChatMgr {
 		try {
 			for (NewChatInfo info : list) {
 				ContentValues values = buildInfo(info);
-				writableDatabase.insertWithOnConflict(SqliteHelper.NEW_CHAT_TAB, null, values,
+				writableDatabase.insertWithOnConflict(
+						SqliteHelper.NEW_CHAT_TAB, null, values,
 						SQLiteDatabase.CONFLICT_REPLACE);
 			}
 			// 数据插入操作循环
@@ -35,6 +36,12 @@ class NewChatMgr {
 		} finally {
 			writableDatabase.endTransaction(); // 处理完成
 		}
+	}
+
+	void deleteChat(long chatid) {
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		db.execSQL("DELETE FROM " + SqliteHelper.NEW_CHAT_TAB + " WHERE "
+				+ NewChatInfo.CHAT_ID + " = " + chatid);
 	}
 
 	void clear() {
@@ -45,8 +52,10 @@ class NewChatMgr {
 	// 返回最多max条chat记录，按照timestamp倒序，再将此list倒序排列
 	List<NewChatInfo> getChatInfoWithLimite(int max, String childid) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NEW_CHAT_TAB + " WHERE " + NewChatInfo.CHILD_ID
-				+ "='" + childid + "' ORDER BY " + NewChatInfo.TIMESTAMP + " DESC LIMIT " + max, null);
+		Cursor cursor = db.rawQuery("SELECT * FROM "
+				+ SqliteHelper.NEW_CHAT_TAB + " WHERE " + NewChatInfo.CHILD_ID
+				+ "='" + childid + "' ORDER BY " + NewChatInfo.TIMESTAMP
+				+ " DESC LIMIT " + max, null);
 		List<NewChatInfo> list = getChatInfoList(cursor);
 		if (!list.isEmpty()) {
 			Collections.reverse(list);
@@ -57,9 +66,11 @@ class NewChatMgr {
 	// 返回小于to的所有chat，最多max条，按照timestamp倒序，再将此list倒序排列
 	List<NewChatInfo> getChatInfoWithLimite(int max, long to, String childid) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NEW_CHAT_TAB + " WHERE " + NewChatInfo.CHILD_ID
-				+ "='" + childid + "' AND " + NewChatInfo.TIMESTAMP + " < " + to + " ORDER BY " + NewChatInfo.TIMESTAMP
-				+ " DESC LIMIT " + max, null);
+		Cursor cursor = db.rawQuery("SELECT * FROM "
+				+ SqliteHelper.NEW_CHAT_TAB + " WHERE " + NewChatInfo.CHILD_ID
+				+ "='" + childid + "' AND " + NewChatInfo.TIMESTAMP + " < "
+				+ to + " ORDER BY " + NewChatInfo.TIMESTAMP + " DESC LIMIT "
+				+ max, null);
 		List<NewChatInfo> list = getChatInfoList(cursor);
 		if (!list.isEmpty()) {
 			Collections.reverse(list);
@@ -71,8 +82,10 @@ class NewChatMgr {
 	NewChatInfo getLastChatInfo(String childid) {
 		NewChatInfo info = null;
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NEW_CHAT_TAB + " WHERE " + NewChatInfo.CHILD_ID
-				+ "='" + childid + "' ORDER BY " + NewChatInfo.CHAT_ID + " DESC LIMIT " + 1, null);
+		Cursor cursor = db.rawQuery("SELECT * FROM "
+				+ SqliteHelper.NEW_CHAT_TAB + " WHERE " + NewChatInfo.CHILD_ID
+				+ "='" + childid + "' ORDER BY " + NewChatInfo.CHAT_ID
+				+ " DESC LIMIT " + 1, null);
 
 		try {
 			cursor.moveToFirst();

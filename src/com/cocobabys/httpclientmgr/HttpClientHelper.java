@@ -24,6 +24,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ClientConnectionManager;
@@ -154,12 +155,6 @@ public class HttpClientHelper {
 			HttpResponse response = client.execute(request);
 			status = response.getStatusLine().getStatusCode();
 			Log.d("DDD code:", "" + status);
-			// String c = EntityUtils.toString(response.getEntity());
-			// if (HttpClientHelper.isHttpRequestOK(status)) {
-			// in = readContent(httpResult, response);
-			// } else if (status == HttpStatus.SC_UNAUTHORIZED) {
-			// refreshCookie();
-			// }
 			in = readContent(httpResult, response);
 			if (HttpClientHelper.isHttpRequestOK(status)) {
 				request.abort();
@@ -194,6 +189,70 @@ public class HttpClientHelper {
 
 		httpResult.setContent(sb.toString());
 		return in;
+	}
+
+	public static HttpResult executeDelete(String url) throws Exception {
+		HttpResult result = doDeleteImpl(url);
+		Log.d("execute:", "url =" + url);
+		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
+			PushMethod method = PushMethod.getMethod();
+			int ret = method.sendBinfInfo();
+			if (ret == EventType.BIND_SUCCESS) {
+				// bind 成功，刷新cookie，重新请求
+				Log.d("DDD code:", "" + "doGetImpl again!");
+				result = doDeleteImpl(url);
+			} else if (ret == EventType.BIND_FAILED) {
+				throw new InvalidTokenException("InvalidTokenException error");
+			} else if (ret == EventType.PHONE_NUM_IS_ALREADY_LOGIN) {
+				throw new DuplicateLoginException(
+						"DuplicateLoginException error");
+			} else {
+				throw new BindFailException("BindFailException error");
+			}
+		}
+		return result;
+	}
+
+	private static HttpResult doDeleteImpl(String url) throws Exception {
+		int status = HttpStatus.SC_UNAUTHORIZED;
+		HttpResult httpResult = new HttpResult();
+		BufferedReader in = null;
+		try {
+			// 定义HttpClient
+			HttpClient client = getHttpClient();
+			// 实例化HTTP方法
+			HttpDelete request = new HttpDelete();
+			request.setURI(new URI(url));
+			// 所有访问数据的请求，都必须加上token
+			request.setHeader(ConstantValue.HEADER_TOKEN,
+					Utils.getProp(JSONConstant.ACCESS_TOKEN));
+			// 所有访问数据的请求，都必须加上source,区别网页和客户端
+			request.setHeader(ConstantValue.HEADER_SOURCE,
+					ConstantValue.SOURCE_ANDROID);
+			request.setHeader(VERSION_CODE,
+					String.valueOf(Utils.getVersionCode()));
+
+			HttpResponse response = client.execute(request);
+			status = response.getStatusLine().getStatusCode();
+			Log.d("DDD code:", "" + status);
+			if (status != 200) {
+				Log.w("WWW", "doDeleteImpl warning url=" + url);
+			}
+			in = readContent(httpResult, response);
+			if (HttpClientHelper.isHttpRequestOK(status)) {
+				request.abort();
+			}
+		} finally {
+			if (in != null) {
+				try {
+					in.close();// 最后要关闭BufferedReader
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		httpResult.setResCode(status);
+		return httpResult;
 	}
 
 	public static HttpResult executeGet(String url) throws Exception {

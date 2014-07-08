@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.cocobabys.R;
 import com.cocobabys.adapter.NewChatListAdapter;
+import com.cocobabys.adapter.NewChatListAdapter.DeleteChatListener;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.customview.MsgListView;
@@ -193,6 +194,7 @@ public class ChatActivity extends UmengStatisticsActivity {
 	}
 
 	private void loadNewData() {
+		dialog.setMessage(getResources().getString(R.string.loading_data));
 		dialog.show();
 		refreshTailImpl();
 	}
@@ -204,10 +206,33 @@ public class ChatActivity extends UmengStatisticsActivity {
 		getTeacherInfoJob = new GetSenderInfoJob();
 		adapter = new NewChatListAdapter(this, chatlist, downloadImgeJob,
 				getTeacherInfoJob);
+		adapter.setDeleteHandler(new DeleteChatListener() {
+
+			@Override
+			public void onDeleteBegain() {
+				dialog.setMessage(getResources().getString(
+						R.string.deleting_data));
+				dialog.show();
+			}
+
+			@Override
+			public void onDeleteSuccess() {
+				dialog.cancel();
+			}
+
+			@Override
+			public void onDeleteFail() {
+				dialog.cancel();
+				Utils.makeToast(ChatActivity.this, "删除数据失败");
+			}
+
+		});
+
 		msgListView = (MsgListView) findViewById(R.id.chatlist);// 继承ListActivity，id要写成android.R.id.list，否则报异常
 		setRefreshListener();
 		msgListView.setAdapter(adapter);
 		msgListView.enableTimestamp(false);
+
 		setScrollListener();
 		addFooter();
 		moveToEndOfList();
@@ -440,7 +465,6 @@ public class ChatActivity extends UmengStatisticsActivity {
 	private void initDialog() {
 		dialog = new ProgressDialog(this);
 		dialog.setCancelable(false);
-		dialog.setMessage(getResources().getString(R.string.loading_data));
 	}
 
 	@Override

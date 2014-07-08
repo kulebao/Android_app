@@ -153,12 +153,23 @@ public class NewChatInfo {
 			} else {
 				String dir = Utils.getChatIconDir(child_id);
 				Utils.mkDirs(dir);
-				localUrl = dir + chat_id + ".png";
+				localUrl = dir + chat_id + getMediaExtName(media_type);
 			}
 
 		}
 		Log.d("DDD", "getLocalUrl =" + localUrl);
 		return localUrl;
+	}
+
+	private String getMediaExtName(String type) {
+		String extName = ".un";
+		if (JSONConstant.IMAGE_TYPE.equals(type)) {
+			extName = ".png";
+		} else if (JSONConstant.VOICE_TYPE.equals(type)) {
+			extName = ".amr";
+		}
+
+		return extName;
 	}
 
 	public static NewChatInfo parseFromJson(JSONObject object)
