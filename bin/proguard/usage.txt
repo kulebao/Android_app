@@ -41,7 +41,7 @@ com.cocobabys.R$styleable:
     public static final int ProgressWheel_textSize
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    854:854:public R$styleable()
+    857:857:public R$styleable()
 com.cocobabys.activities.ActivityHelper:
     12:12:public ActivityHelper()
 com.cocobabys.activities.ChatActivity:
@@ -210,6 +210,8 @@ com.cocobabys.constant.EventType:
     public static final int GET_CHAT_FAIL
     public static final int SEND_CHAT_SUCCESS
     public static final int SEND_CHAT_FAIL
+    public static final int DELETE_CHAT_SUCCESS
+    public static final int DELETE_CHAT_FAIL
     public static final int GET_SENDER_SUCCESS
     public static final int GET_SENDER_FAIL
     public static final int SUCCESS
@@ -553,7 +555,7 @@ com.cocobabys.handler.PushEventHandler$1
 com.cocobabys.handler.PushEventObserver
 com.cocobabys.httpclientmgr.HttpClientHelper:
     private static final java.lang.String VERSION_CODE
-    61:62:private HttpClientHelper()
+    62:63:private HttpClientHelper()
 com.cocobabys.jobs.GetChatJob:
     private static final int LIMIT_TIME
 com.cocobabys.jobs.SendExpJob:
@@ -720,13 +722,13 @@ com.cocobabys.utils.Utils:
     public static final int LIMIT_WIDTH
     public static final int LIMIT_HEIGHT
     private static final java.lang.String TEST_HOST
-    52:52:public Utils()
-    133:136:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
-    155:158:public static void deleteProp(java.lang.String)
-    350:359:public boolean isMobileConnected(android.content.Context)
-    522:525:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
-    576:587:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
-    702:715:public static void saveInSDCard(java.lang.String)
+    54:54:public Utils()
+    135:138:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
+    157:160:public static void deleteProp(java.lang.String)
+    352:361:public boolean isMobileConnected(android.content.Context)
+    524:527:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
+    578:589:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
+    704:717:public static void saveInSDCard(java.lang.String)
 com.umeng.analytics.Gender
 com.umeng.analytics.MobclickAgent:
     20:439:public MobclickAgent()

@@ -71,11 +71,12 @@ public class NewChatMethod {
 		return methodResult;
 	}
 
-	public MethodResult deleteChat(long chatid) throws Exception {
+	public MethodResult deleteChat(long chatid, String childid)
+			throws Exception {
 		MethodResult methodResult = new MethodResult(
 				EventType.DELETE_CHAT_SUCCESS);
 		HttpResult result = new HttpResult();
-		String url = createDeleteChatUrl(chatid);
+		String url = createDeleteChatUrl(chatid, childid);
 		Log.e("DDDDD ", "deleteChat cmd:" + url + " content=" + chatid);
 		result = HttpClientHelper.executeDelete(url);
 		Log.e("DDDDD ", " result =" + result.getContent());
@@ -85,9 +86,9 @@ public class NewChatMethod {
 		return methodResult;
 	}
 
-	private String createDeleteChatUrl(long chatid) {
+	private String createDeleteChatUrl(long chatid, String childid) {
 		String url = String.format(ServerUrls.DELETE_CHAT, DataMgr
-				.getInstance().getSchoolID(), chatid);
+				.getInstance().getSchoolID(), childid, chatid);
 		return url;
 	}
 

@@ -493,7 +493,7 @@ public class NewChatListAdapter extends BaseAdapter {
 		if (list.isEmpty()) {
 			return;
 		}
-
+		
 		final String[] items = list.toArray(new String[list.size()]);
 
 		DlgMgr.getListDialog(context, items,
@@ -513,12 +513,17 @@ public class NewChatListAdapter extends BaseAdapter {
 		} else if (Utils.getResString(R.string.save_to_gallery).equals(btnName)) {
 			handleAddToGallery(item);
 		} else if (Utils.getResString(R.string.delete).equals(btnName)) {
-			DeleteChatJob deleteChatJob = new DeleteChatJob(handler,
-					item.getChat_id());
-			deletePos = pos;
-			deleteChatListener.onDeleteBegain();
-			deleteChatJob.execute();
+			handleDeleteChat(pos, item);
 		}
+	}
+
+	private void handleDeleteChat(int pos, NewChatInfo item) {
+		DeleteChatJob deleteChatJob = new DeleteChatJob(handler,
+				item.getChat_id(), DataMgr.getInstance().getSelectedChild()
+						.getServer_id());
+		deletePos = pos;
+		deleteChatListener.onDeleteBegain();
+		deleteChatJob.execute();
 	}
 
 	public void setDeleteHandler(DeleteChatListener deleteHandler) {

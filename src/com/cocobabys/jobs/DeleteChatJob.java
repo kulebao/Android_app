@@ -13,10 +13,12 @@ import com.cocobabys.threadpool.MyJob;
 public class DeleteChatJob extends MyJob {
 	private Handler handler;
 	private long chatid;
+	private String childid;
 
-	public DeleteChatJob(Handler handler, long chatid) {
+	public DeleteChatJob(Handler handler, long chatid, String childid) {
 		this.handler = handler;
 		this.chatid = chatid;
+		this.childid = childid;
 	}
 
 	@Override
@@ -28,7 +30,7 @@ public class DeleteChatJob extends MyJob {
 			@Override
 			public MethodResult handle() throws Exception {
 				MethodResult result = NewChatMethod.getMethod().deleteChat(
-						chatid);
+						chatid, childid);
 				return result;
 			}
 		});
