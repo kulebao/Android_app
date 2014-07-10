@@ -30,6 +30,8 @@ public class JSONConstant {
 	public static final String PHONE_NUM = "phonenum";
 	public static final String AUTH_CODE = "authcode";
 	public static final String SCHOOL_ID = "school_id";
+	//当前账号的状态，是免费用户还是付费用户
+	public static final String MEMBER_STATUS = "member_status";
 	// public static final String CLASS_ID = "class_id";
 
 	public static final String UPDATE_URL = "url";

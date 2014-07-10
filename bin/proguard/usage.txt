@@ -41,7 +41,7 @@ com.cocobabys.R$styleable:
     public static final int ProgressWheel_textSize
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    857:857:public R$styleable()
+    858:858:public R$styleable()
 com.cocobabys.activities.ActivityHelper:
     12:12:public ActivityHelper()
 com.cocobabys.activities.ChatActivity:
@@ -229,6 +229,7 @@ com.cocobabys.constant.JSONConstant
 com.cocobabys.constant.MyErrorCode
 com.cocobabys.constant.NoticeAction
 com.cocobabys.constant.ServerUrls:
+    private static final java.lang.String BIND_PATH
     public static final java.lang.String ROOT_RES_PATH
     public static final java.lang.String PARENT_RES_PATH
     public static final java.lang.String EMPLOYEE_RES_PATH

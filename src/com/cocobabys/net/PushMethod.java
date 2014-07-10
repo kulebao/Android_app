@@ -73,9 +73,14 @@ public class PushMethod {
 							.getString(JSONConstant.SCHOOL_ID);
 					String schoolname = jsonObject
 							.getString(JSONConstant.SCHOOL_NAME);
+					String member_status = jsonObject
+							.getString(JSONConstant.MEMBER_STATUS);
+					
 					Utils.saveProp(JSONConstant.ACCESS_TOKEN, token);
 					Utils.saveProp(JSONConstant.ACCOUNT_NAME, accountname);
+					Utils.saveProp(JSONConstant.MEMBER_STATUS, member_status);
 					Utils.saveUndeleteableProp(accountname, "true");
+					
 					SchoolInfo info = new SchoolInfo();
 					info.setSchool_id(schoolid);
 					info.setSchool_name(schoolname);

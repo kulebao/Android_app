@@ -45,7 +45,7 @@
     <EditText
         android:id="@+id/edit_notice"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="360dp"
         android:layout_above="@+id/first"
         android:layout_below="@+id/top"
         android:layout_marginTop="10dp"

@@ -3,6 +3,8 @@ package com.cocobabys.constant;
 import com.cocobabys.activities.MyApplication;
 
 public class ServerUrls {
+	// old path "receiveBindInfo.do";
+	private static final String BIND_PATH = "api/v1/binding";
 	public static final String ROOT_RES_PATH = "kindergarten";
 	public static final String PARENT_RES_PATH = "parent";
 	public static final String EMPLOYEE_RES_PATH = "employee";
@@ -43,8 +45,8 @@ public class ServerUrls {
 	public static final String CHECK_REG_AUTH_CODE_URL = getHost()
 			+ "check_reg_authcode.do";
 
-	public static final String SEND_BIND_INFO_URL = getHost()
-			+ "receiveBindInfo.do";
+	public static final String SEND_BIND_INFO_URL = getHost() + BIND_PATH;
+
 	public static final String LOGIN_URL = getHost() + "login.do";
 	public static final String CHANGE_PWD_URL = getHost() + "changepwd.do";
 	public static final String RESET_PWD_URL = getHost() + "resetpwd.do";

@@ -5746,7 +5746,13 @@ com.cocobabys.constant.EventType -> com.cocobabys.c.c:
     int PWD_FORMAT_ERROR -> a
     int OLD_PWD_FORMAT_ERROR -> b
     int NEW_PWD_FORMAT_ERROR -> c
-com.cocobabys.constant.ServerUrls -> com.cocobabys.c.d:
+com.cocobabys.constant.MemberStatus -> com.cocobabys.c.d:
+    com.cocobabys.constant.MemberStatus FREE -> a
+    com.cocobabys.constant.MemberStatus PAID -> b
+    com.cocobabys.constant.MemberStatus[] $VALUES -> c
+    com.cocobabys.constant.MemberStatus[] values() -> values
+    com.cocobabys.constant.MemberStatus valueOf(java.lang.String) -> valueOf
+com.cocobabys.constant.ServerUrls -> com.cocobabys.c.e:
     java.lang.String CHECK_PHONE_NUM_URL -> a
     java.lang.String CHECK_REG_AUTH_CODE_URL -> b
     java.lang.String SEND_BIND_INFO_URL -> c
@@ -7337,12 +7343,12 @@ com.cocobabys.utils.Utils -> com.cocobabys.s.c:
     java.lang.String getAccount() -> b
     void setGuided() -> c
     boolean isFirstStart() -> d
-    java.lang.String getProp(java.lang.String,java.lang.String) -> c
+    java.lang.String getProp(java.lang.String,java.lang.String) -> a
     java.lang.String getProp(java.lang.String) -> a
     void saveCheckNewTime(long) -> a
     long getCheckNewTime() -> e
-    void saveProp(java.lang.String,java.lang.String) -> a
-    void saveUndeleteableProp(java.lang.String,java.lang.String) -> b
+    void saveProp(java.lang.String,java.lang.String) -> b
+    void saveUndeleteableProp(java.lang.String,java.lang.String) -> c
     java.lang.String getUndeleteableProp(java.lang.String) -> b
     android.content.SharedPreferences$Editor getEditor(java.lang.String) -> s
     void clearProp() -> f

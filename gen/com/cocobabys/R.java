@@ -627,6 +627,7 @@ containing a value of this type.
         public static final int about_cocobabys=0x7f070079;
         public static final int about_us=0x7f0700b3;
         public static final int about_us_content=0x7f0700b4;
+        public static final int access_forbid=0x7f0700d8;
         public static final int account_name=0x7f070016;
         public static final int activity_explain=0x7f0700ba;
         public static final int add=0x7f070050;
@@ -681,7 +682,7 @@ containing a value of this type.
         public static final int delete_location_confirm=0x7f070043;
         public static final int delete_notice_confirm=0x7f070045;
         public static final int deleting_data=0x7f07009c;
-        public static final int density_title=0x7f0700d9;
+        public static final int density_title=0x7f0700da;
         public static final int dining_explain=0x7f0700b8;
         public static final int dinner=0x7f070067;
         public static final int doLocation=0x7f07005e;
@@ -841,7 +842,7 @@ containing a value of this type.
         public static final int weixin=0x7f0700a9;
         public static final int weixin_account=0x7f0700aa;
         public static final int write_notice=0x7f0700a5;
-        public static final int xfactor=0x7f0700d8;
+        public static final int xfactor=0x7f0700d9;
     }
     public static final class style {
         public static final int Dialog=0x7f080006;

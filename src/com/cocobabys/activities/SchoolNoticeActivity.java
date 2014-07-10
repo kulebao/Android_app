@@ -46,6 +46,7 @@ import com.cocobabys.adapter.SchoolNoticeGridViewAdapter;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.constant.MemberStatus;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.InfoHelper;
@@ -768,9 +769,17 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	public void handleGridViewClick(int position) {
 		// 未获取到小孩信息时，不能响应按键
 		if (selectedChild == null) {
-			Toast.makeText(SchoolNoticeActivity.this,
-					R.string.reget_child_info, Toast.LENGTH_SHORT).show();
+			Utils.makeToast(this, R.string.reget_child_info);
 			return;
+		}
+
+		String member_status = MemberStatus.FREE.toString();
+		if (member_status.equalsIgnoreCase(Utils.getProp(
+				JSONConstant.MEMBER_STATUS, member_status))) {
+			if (position != SWAPCARD_NOTICE && position != NORMAL_NOTICE) {
+				Utils.makeToast(this, R.string.access_forbid);
+				return;
+			}
 		}
 
 		switch (position) {

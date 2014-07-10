@@ -4823,6 +4823,8 @@ com.cocobabys.activities.ValidateAuthCodeActivity: ValidateAuthCodeActivity()
 com.cocobabys.activities.ValidatePhoneNumActivity
 com.cocobabys.activities.ValidatePhoneNumActivity: ValidatePhoneNumActivity()
 com.cocobabys.adapter.ViewPagerAdapter
+com.cocobabys.constant.MemberStatus: com.cocobabys.constant.MemberStatus[] values()
+com.cocobabys.constant.MemberStatus: com.cocobabys.constant.MemberStatus valueOf(java.lang.String)
 com.cocobabys.customview.MsgListView
 com.cocobabys.customview.MsgListView: MsgListView(android.content.Context,android.util.AttributeSet)
 com.cocobabys.customview.MyGridView

@@ -46,7 +46,8 @@ public class ValidatePhoneMethod {
 				JSONObject object = result.getJsonObject();
 				event = object.getInt(CHECK_PHONE_RESULT);
 
-				if (event != MyErrorCode.PHONE_VALID) {
+				if (event != MyErrorCode.PHONE_VALID
+						&& event != MyErrorCode.PHONE_EXPIRED) {
 					event = EventType.PHONE_NUM_IS_INVALID;
 				}
 				Log.d("DDD ",
