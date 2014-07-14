@@ -1,6 +1,7 @@
 package com.cocobabys.dbmgr.info;
 
 import java.io.File;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -146,18 +147,30 @@ public class NewChatInfo {
 				// 自己发的图片，就从本地读，以免再次去服务器下载
 				localUrl = media_url.replace(UploadFactory.CLOUD_STORAGE_HOST,
 						Utils.getSDCardPicRootPath() + File.separator);
+
+				// 这里必须增加容错处理，如果服务器上传图片的保存路径与客户端不一致，那么
+				// replace会失败，这里就必须手动设置一下
+				if (localUrl.toLowerCase(Locale.US).startsWith("http")) {
+					localUrl = getDefaultPath();
+				}
+
 				if (!TextUtils.isEmpty(localUrl)) {
 					Utils.mkDirs(Utils.getDir(localUrl));
 				}
 
 			} else {
-				String dir = Utils.getChatIconDir(child_id);
-				Utils.mkDirs(dir);
-				localUrl = dir + chat_id + getMediaExtName(media_type);
+				localUrl = getDefaultPath();
 			}
 
 		}
 		Log.d("DDD", "getLocalUrl =" + localUrl);
+		return localUrl;
+	}
+
+	private String getDefaultPath() {
+		String dir = Utils.getChatIconDir(child_id);
+		Utils.mkDirs(dir);
+		String localUrl = dir + chat_id + getMediaExtName(media_type);
 		return localUrl;
 	}
 

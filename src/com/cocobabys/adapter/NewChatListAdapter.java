@@ -1,13 +1,11 @@
 package com.cocobabys.adapter;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -33,12 +31,13 @@ import com.cocobabys.bean.SenderInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.customview.LongClickDlg;
+import com.cocobabys.customview.LongClickDlg.OnDeleteBtnClickListener;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
-import com.cocobabys.dlgmgr.DlgMgr;
 import com.cocobabys.jobs.DeleteChatJob;
 import com.cocobabys.jobs.GetSenderInfoJob;
 import com.cocobabys.media.MediaMgr;
@@ -59,10 +58,10 @@ public class NewChatListAdapter extends BaseAdapter {
 	private List<NewChatInfo> dataList;
 	private DownloadImgeJob downloadImgeJob;
 	private Handler handler;
-	private DeleteChatListener deleteChatListener = null;
 	private int deletePos = -1;
 	private Map<String, String> senderMap = new HashMap<String, String>();
 	private GetSenderInfoJob getTeacherInfoJob;
+	private LongClickDlg longClickDlg;
 
 	public NewChatListAdapter(Context activityContext, List<NewChatInfo> list,
 			DownloadImgeJob downloadImgeTask, GetSenderInfoJob getTeacherInfoJob) {
@@ -96,7 +95,7 @@ public class NewChatListAdapter extends BaseAdapter {
 					handleDeleteSuccess();
 					break;
 				case EventType.DELETE_CHAT_FAIL:
-					deleteChatListener.onDeleteFail();
+					longClickDlg.getDeleteChatListener().onDeleteFail();
 					break;
 				default:
 					break;
@@ -115,7 +114,7 @@ public class NewChatListAdapter extends BaseAdapter {
 			dataList.remove(deletePos);
 			notifyDataSetChanged();
 		}
-		deleteChatListener.onDeleteSuccess();
+		longClickDlg.getDeleteChatListener().onDeleteSuccess();
 	}
 
 	private void handleGetSenderSuccess(Message msg) {
@@ -457,7 +456,8 @@ public class NewChatListAdapter extends BaseAdapter {
 				.setOnLongClickListener(new OnLongClickListener() {
 					@Override
 					public boolean onLongClick(View v) {
-						showDlg(position);
+						// showDlg(position);
+						showDlgEx(position);
 						return false;
 					}
 				});
@@ -466,83 +466,46 @@ public class NewChatListAdapter extends BaseAdapter {
 				.setOnLongClickListener(new OnLongClickListener() {
 					@Override
 					public boolean onLongClick(View v) {
-						showDlg(position);
+						// showDlg(position);
+						showDlgEx(position);
 						return false;
 					}
 				});
 	}
 
-	private void showDlg(final int pos) {
+	private void showDlgEx(final int pos) {
 		NewChatInfo newChatInfo = getItem(pos);
-		List<String> list = new ArrayList<String>();
-		if (!TextUtils.isEmpty(newChatInfo.getContent())) {
-			list.add(Utils.getResString(R.string.copy));
-		}
+		longClickDlg = new LongClickDlg(context);
+
+		longClickDlg.setTextContent(newChatInfo.getContent());
 
 		if (!TextUtils.isEmpty(newChatInfo.getLocalUrl())
 				&& new File(newChatInfo.getLocalUrl()).exists()
 				&& JSONConstant.IMAGE_TYPE.equals(newChatInfo.getMedia_type())) {
-			list.add(Utils.getResString(R.string.save_to_gallery));
+			longClickDlg.setImageUrl(newChatInfo.getLocalUrl());
 		}
 
 		if (DataMgr.getInstance().getSelfInfoByPhone().getParent_id()
 				.equals(newChatInfo.getSender_id())) {
-			list.add(Utils.getResString(R.string.delete));
+			longClickDlg
+					.setOnDeleteBtnClickListener(new OnDeleteBtnClickListener() {
+
+						@Override
+						public void onDeleteClicked() {
+							NewChatInfo item = getItem(pos);
+							DeleteChatJob deleteChatJob = new DeleteChatJob(
+									handler, item.getChat_id(), DataMgr
+											.getInstance().getSelectedChild()
+											.getServer_id());
+							deletePos = pos;
+							longClickDlg.getDeleteChatListener()
+									.onDeleteBegain();
+							deleteChatJob.execute();
+						}
+					});
 		}
 
-		if (list.isEmpty()) {
-			return;
-		}
-		
-		final String[] items = list.toArray(new String[list.size()]);
-
-		DlgMgr.getListDialog(context, items,
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						Log.d("initTitle ddd", "which =" + which);
-						handleClick(items, which, pos);
-					}
-				}).create().show();
-	}
-
-	protected void handleClick(String[] items, int which, int pos) {
-		NewChatInfo item = getItem(pos);
-		String btnName = items[which];
-		if (Utils.getResString(R.string.copy).equals(btnName)) {
-			handleCopy(item);
-		} else if (Utils.getResString(R.string.save_to_gallery).equals(btnName)) {
-			handleAddToGallery(item);
-		} else if (Utils.getResString(R.string.delete).equals(btnName)) {
-			handleDeleteChat(pos, item);
-		}
-	}
-
-	private void handleDeleteChat(int pos, NewChatInfo item) {
-		DeleteChatJob deleteChatJob = new DeleteChatJob(handler,
-				item.getChat_id(), DataMgr.getInstance().getSelectedChild()
-						.getServer_id());
-		deletePos = pos;
-		deleteChatListener.onDeleteBegain();
-		deleteChatJob.execute();
-	}
-
-	public void setDeleteHandler(DeleteChatListener deleteHandler) {
-		this.deleteChatListener = deleteHandler;
-	}
-
-	private void handleCopy(NewChatInfo item) {
-		Utils.copy(item.getContent());
-		Utils.makeToast(context, R.string.copy_to_clipboard);
-	}
-
-	private void handleAddToGallery(NewChatInfo item) {
-		try {
-			File file = new File(item.getLocalUrl());
-			Utils.galleryAddPic(Uri.fromFile(file));
-			Utils.makeToast(context, R.string.copy_to_gallery);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		longClickDlg.showDlg();
 	}
 
 	protected void startToShowIconActivity(String iconUrl) {

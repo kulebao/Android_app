@@ -129,6 +129,7 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 	}
 
 	protected void handleSuccess(Message msg) {
+		@SuppressWarnings("unchecked")
 		List<Homework> list = (List<Homework>) msg.obj;
 		if (!list.isEmpty()) {
 			bDataChanged = true;

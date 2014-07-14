@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.bean.GroupExpInfo;
-import com.cocobabys.dbmgr.info.ChatInfo;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.CookBookInfo;
 import com.cocobabys.dbmgr.info.EducationInfo;

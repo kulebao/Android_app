@@ -8,15 +8,12 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.cocobabys.dbmgr.info.BindedNumInfo;
-import com.cocobabys.dbmgr.info.ChatInfo;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.CookBookInfo;
 import com.cocobabys.dbmgr.info.EducationInfo;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.dbmgr.info.Homework;
 import com.cocobabys.dbmgr.info.InfoHelper;
-import com.cocobabys.dbmgr.info.LocationInfo;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.News;
 import com.cocobabys.dbmgr.info.ParentInfo;

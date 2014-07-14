@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -79,6 +78,7 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 		cancel.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				closeKeyBoard();
 				SendNewChatActivity.this.finish();
 			}
 		});

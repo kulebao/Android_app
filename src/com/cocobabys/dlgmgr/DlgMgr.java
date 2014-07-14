@@ -72,7 +72,6 @@ public class DlgMgr {
 
 	public static AlertDialog.Builder getListDialog(Context context,
 			CharSequence[] items, OnClickListener confirmListener) {
-
 		return new AlertDialog.Builder(context)
 				.setItems(items, confirmListener);
 	}
