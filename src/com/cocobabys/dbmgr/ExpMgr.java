@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.cocobabys.bean.GroupExpInfo;
 import com.cocobabys.dbmgr.info.ExpInfo;
+import com.cocobabys.dbmgr.info.NewChatInfo;
 
 class ExpMgr {
 	private SqliteHelper dbHelper;
@@ -126,6 +127,12 @@ class ExpMgr {
 			}
 		}
 		return info;
+	}
+	
+	void deleteExp(long expid) {
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		db.execSQL("DELETE FROM " + SqliteHelper.EXP_TAB + " WHERE "
+				+ ExpInfo.EXP_ID + " = " + expid);
 	}
 
 	private List<ExpInfo> getExpInfoList(Cursor cursor) {

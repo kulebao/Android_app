@@ -25,7 +25,8 @@ public class ExpMethod {
 	}
 
 	public MethodResult getExpCount(int year) throws Exception {
-		MethodResult methodResult = new MethodResult(EventType.GET_EXP_COUNT_SUCCESS);
+		MethodResult methodResult = new MethodResult(
+				EventType.GET_EXP_COUNT_SUCCESS);
 		HttpResult result = new HttpResult();
 		String url = createGetExpCountUrl(year);
 		Log.d("DJC", "getExpCount cmd:" + url);
@@ -40,18 +41,22 @@ public class ExpMethod {
 	}
 
 	private String createGetExpCountUrl(int year) {
-		String url = String.format(ServerUrls.GET_EXP_COUNT, DataMgr.getInstance().getSchoolID(), DataMgr.getInstance()
+		String url = String.format(ServerUrls.GET_EXP_COUNT, DataMgr
+				.getInstance().getSchoolID(), DataMgr.getInstance()
 				.getSelectedChild().getServer_id());
 		url += "year=" + year;
 		return url;
 	}
 
-	private List<GroupExpInfo> handleGetExpCountResult(HttpResult result) throws JSONException {
+	private List<GroupExpInfo> handleGetExpCountResult(HttpResult result)
+			throws JSONException {
 		return GroupExpInfo.jsonArrayToGroupExpInfoList(result.getJSONArray());
 	}
 
-	public MethodResult getExpInfoByYearAndMonth(int year, String month) throws Exception {
-		MethodResult methodResult = new MethodResult(EventType.GET_EXP_INFO_SUCCESS);
+	public MethodResult getExpInfoByYearAndMonth(int year, String month)
+			throws Exception {
+		MethodResult methodResult = new MethodResult(
+				EventType.GET_EXP_INFO_SUCCESS);
 		HttpResult result = new HttpResult();
 		String url = createGetExpInfoUrl(year, month);
 		Log.d("DJC", "getExpInfoByYearAndMonth cmd:" + url);
@@ -71,7 +76,8 @@ public class ExpMethod {
 	}
 
 	private String createGetExpInfoUrl(int year, String month) {
-		String url = String.format(ServerUrls.GET_EXP_INFO, DataMgr.getInstance().getSchoolID(), DataMgr.getInstance()
+		String url = String.format(ServerUrls.GET_EXP_INFO, DataMgr
+				.getInstance().getSchoolID(), DataMgr.getInstance()
 				.getSelectedChild().getServer_id());
 
 		url += "month=" + year + month;
@@ -101,8 +107,29 @@ public class ExpMethod {
 	}
 
 	private String createSendExpUrl() {
-		String url = String.format(ServerUrls.GET_EXP_INFO, DataMgr.getInstance().getSchoolID(), DataMgr.getInstance()
+		String url = String.format(ServerUrls.GET_EXP_INFO, DataMgr
+				.getInstance().getSchoolID(), DataMgr.getInstance()
 				.getSelectedChild().getServer_id());
+		return url;
+	}
+
+	public MethodResult deleteExp(long expid, String childid) throws Exception {
+		MethodResult methodResult = new MethodResult(
+				EventType.DELETE_EXP_SUCCESS);
+		HttpResult result = new HttpResult();
+		String url = createDeleteExpUrl(expid, childid);
+		Log.e("DDDDD ", "deleteChat cmd:" + url + " content=" + expid);
+		result = HttpClientHelper.executeDelete(url);
+		Log.e("DDDDD ", " result =" + result.getContent());
+		if (result.getResCode() != HttpStatus.SC_OK) {
+			methodResult.setResultType(EventType.DELETE_EXP_FAIL);
+		}
+		return methodResult;
+	}
+
+	private String createDeleteExpUrl(long expid, String childid) {
+		String url = String.format(ServerUrls.DELETE_EXP, DataMgr.getInstance()
+				.getSchoolID(), childid, expid);
 		return url;
 	}
 }

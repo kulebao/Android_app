@@ -155,4 +155,8 @@ public class ServerUrls {
 
 	public static final String DELETE_CHAT = getHost() + ROOT_RES_PATH + "/%s/"
 			+ CHAT_SESSION + "/%s/" + RECORD_RES_PATH + "/%d";
+
+	// https://stage2.cocobabys.com/kindergarten/2088/history/2_2088_896/record/583
+	public static final String DELETE_EXP = getHost() + ROOT_RES_PATH + "/%s/"
+			+ EXP_RES_PATH + "/%s/" + RECORD_RES_PATH + "/%d";
 }

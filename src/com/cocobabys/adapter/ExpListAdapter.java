@@ -14,12 +14,14 @@ import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cocobabys.R;
@@ -28,12 +30,15 @@ import com.cocobabys.bean.SenderInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.NoticeAction;
+import com.cocobabys.customview.LongClickDlg;
+import com.cocobabys.customview.LongClickDlg.OnDeleteBtnClickListener;
 import com.cocobabys.customview.MyGridView;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
+import com.cocobabys.jobs.DeleteExpJob;
 import com.cocobabys.jobs.GetSenderInfoJob;
 import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.ImageDownloader;
@@ -53,7 +58,9 @@ public class ExpListAdapter extends BaseAdapter {
 	private Map<String, String> senderMap = new HashMap<String, String>();
 	private GetSenderInfoJob getSenderInfoJob;
 	private ImageLoader imageLoader;
+	private LongClickDlg longClickDlg;
 	private static final String ANONYMOUS_TEACHER_NAME = "匿名老师";
+	private int deletePos = -1;
 
 	public ExpListAdapter(Context activityContext, List<ExpInfo> list,
 			DownloadImgeJob downloadImgeTask,
@@ -84,7 +91,12 @@ public class ExpListAdapter extends BaseAdapter {
 				case EventType.GET_SENDER_SUCCESS:
 					handleGetSenderSuccess(msg);
 					break;
-
+				case EventType.DELETE_EXP_SUCCESS:
+					handleDeleteSuccess();
+					break;
+				case EventType.DELETE_EXP_FAIL:
+					longClickDlg.getDeleteChatListener().onDeleteFail();
+					break;
 				default:
 					break;
 				}
@@ -93,6 +105,16 @@ public class ExpListAdapter extends BaseAdapter {
 		};
 		this.downloadImgeJob.setHanlder(handler);
 		this.getSenderInfoJob.setHanlder(handler);
+	}
+
+	private void handleDeleteSuccess() {
+		if (deletePos != -1) {
+			ExpInfo item = getItem(deletePos);
+			DataMgr.getInstance().deleteExpInfoByID(item.getExp_id());
+			dataList.remove(deletePos);
+			notifyDataSetChanged();
+		}
+		longClickDlg.getDeleteChatListener().onDeleteSuccess();
 	}
 
 	private void handleGetSenderSuccess(Message msg) {
@@ -106,7 +128,7 @@ public class ExpListAdapter extends BaseAdapter {
 		senderMap.put(info.getSenderID(), name);
 		notifyDataSetChanged();
 	}
-	
+
 	public void clear() {
 		dataList.clear();
 		lruCache.evictAll();
@@ -146,6 +168,8 @@ public class ExpListAdapter extends BaseAdapter {
 					.findViewById(R.id.headicon);
 			flagholder.gridview = (MyGridView) convertView
 					.findViewById(R.id.gridview);
+			flagholder.layout = (LinearLayout) convertView
+					.findViewById(R.id.linearLayout);
 			convertView.setTag(flagholder);
 		} else {
 			flagholder = (FlagHolder) convertView.getTag();
@@ -166,6 +190,64 @@ public class ExpListAdapter extends BaseAdapter {
 		setHeadIcon(flagholder, info);
 		setContent(flagholder, info);
 		setIcon(flagholder, info);
+		setOnLongClickListener(flagholder, position);
+	}
+
+	private void setOnLongClickListener(FlagHolder flagholder,
+			final int position) {
+		flagholder.layout.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				showDlgEx(position);
+				return false;
+			}
+		});
+
+		flagholder.contentView
+				.setOnLongClickListener(new OnLongClickListener() {
+					@Override
+					public boolean onLongClick(View v) {
+						showDlgEx(position);
+						return false;
+					}
+				});
+
+		flagholder.gridview.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				showDlgEx(position);
+				return false;
+			}
+		});
+	}
+
+	private void showDlgEx(final int pos) {
+		ExpInfo info = getItem(pos);
+		longClickDlg = new LongClickDlg(context);
+
+		longClickDlg.setTextContent(info.getContent());
+
+		if (DataMgr.getInstance().getSelfInfoByPhone().getParent_id()
+				.equals(info.getSender_id())) {
+			longClickDlg
+					.setOnDeleteBtnClickListener(new OnDeleteBtnClickListener() {
+
+						@Override
+						public void onDeleteClicked() {
+							ExpInfo item = getItem(pos);
+							DeleteExpJob deleteExpJob = new DeleteExpJob(
+									handler, item.getExp_id(), DataMgr
+											.getInstance().getSelectedChild()
+											.getServer_id());
+							deletePos = pos;
+							longClickDlg.getDeleteChatListener()
+									.onDeleteBegain();
+							deleteExpJob.execute();
+						}
+					});
+		}
+
+		longClickDlg.showDlg();
 	}
 
 	private String getSenderName(ExpInfo info) {
@@ -216,32 +298,6 @@ public class ExpListAdapter extends BaseAdapter {
 		}
 		return name;
 	}
-
-	// private void setHeadIcon(FlagHolder flagholder, ExpInfo info) {
-	// Bitmap bitmap = null;
-	// String headUrl = "";
-	// try {
-	// if (ExpInfo.PARENT_TYPE.equals(info.getSender_type())) {
-	// headUrl = DataMgr.getInstance()
-	// .getChildByID(info.getChild_id()).getLocal_url();
-	// } else {
-	// headUrl = DataMgr.getInstance()
-	// .getTeacherByID(info.getSender_id()).getLocalIconPath();
-	// }
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	//
-	// bitmap = getLocalIcon(headUrl, ConstantValue.HEAD_ICON_WIDTH,
-	// ConstantValue.HEAD_ICON_HEIGHT);
-	//
-	// if (bitmap != null) {
-	// Utils.setImg(flagholder.headiconView, bitmap);
-	// } else {
-	// flagholder.headiconView
-	// .setImageResource(R.drawable.default_small_icon);
-	// }
-	// }
 
 	private void setHeadIcon(FlagHolder flagholder, ExpInfo info) {
 		Bitmap bitmap = null;
@@ -301,26 +357,6 @@ public class ExpListAdapter extends BaseAdapter {
 		}
 		return loacalBitmap;
 	}
-
-	// private Bitmap getLocalIcon(String local_url, int limitWidth, int
-	// limitHeight) {
-	// Bitmap loacalBitmap = null;
-	// if (TextUtils.isEmpty(local_url)) {
-	// return null;
-	// }
-	//
-	// loacalBitmap = lruCache.get(local_url);
-	//
-	// if (loacalBitmap == null) {
-	// loacalBitmap = Utils.getLoacalBitmap(local_url,
-	// ImageDownloader.getMaxPixWithDensity(limitWidth, limitHeight));
-	//
-	// if (loacalBitmap != null) {
-	// lruCache.put(local_url, loacalBitmap);
-	// }
-	// }
-	// return loacalBitmap;
-	// }
 
 	private void setContent(FlagHolder flagholder, final ExpInfo info) {
 		if (TextUtils.isEmpty(info.getContent())) {
@@ -403,5 +439,6 @@ public class ExpListAdapter extends BaseAdapter {
 		public TextView timestampView;
 		public ImageView headiconView;
 		public GridView gridview;
+		public LinearLayout layout;
 	}
 }

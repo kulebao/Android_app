@@ -40,29 +40,37 @@
             android:textSize="14sp" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/content"
-        style="@style/TitleTextStyle"
-        android:layout_below="@+id/first"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="5dp"
-        android:text="addddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
-
-    <com.cocobabys.customview.MyGridView
-        android:id="@+id/gridview"
-        android:layout_width="190dp"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/content"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="5dp"
-        android:columnWidth="60dp"
-        android:gravity="fill"
-        android:horizontalSpacing="5dp"
-        android:listSelector="@drawable/color_btn"
-        android:numColumns="3"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="5dp" />
+        android:layout_below="@+id/first"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/content"
+            style="@style/TitleTextStyle"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:text="addddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <com.cocobabys.customview.MyGridView
+            android:id="@+id/gridview"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="5dp"
+            android:columnWidth="60dp"
+            android:gravity="fill"
+            android:horizontalSpacing="5dp"
+            android:listSelector="@drawable/color_btn"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="5dp" />
+    </LinearLayout>
 
 </RelativeLayout>

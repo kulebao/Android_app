@@ -1,11 +1,13 @@
 package com.cocobabys.activities;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -58,12 +60,16 @@ public class SlideGalleryActivity extends Activity {
 			info = DataMgr.getInstance().getExpInfoByID(exp_id);
 			content = info.getContent();
 			// 去掉删除和确定按钮
-			findViewById(R.id.bottom).setVisibility(View.INVISIBLE);
+			findViewById(R.id.delete).setVisibility(View.INVISIBLE);
+			findViewById(R.id.confirm).setVisibility(View.INVISIBLE);
+			initBtn();
 			initReadOnlyGallery();
 
 		} else if (NoticeAction.ACTION_GALLERY_CAN_DELETE.equals(action)) {
 			content = getIntent().getStringExtra(NoticeAction.EXP_TEXT);
 			List<String> pathList = getList();
+			// 去掉保存按钮
+			findViewById(R.id.save).setVisibility(View.INVISIBLE);
 			initCanDeleteGallery(pathList);
 			initBtn();
 		}
@@ -121,6 +127,24 @@ public class SlideGalleryActivity extends Activity {
 				SlideGalleryActivity.this.finish();
 			}
 		});
+
+		Button save = (Button) findViewById(R.id.save);
+		save.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				handleAddToGallery();
+			}
+		});
+	}
+
+	private void handleAddToGallery() {
+		try {
+			File file = new File(adapter.getList().get(current));
+			Utils.galleryAddPic(Uri.fromFile(file));
+			Utils.makeToast(SlideGalleryActivity.this, R.string.copy_to_gallery);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void initTextView() {

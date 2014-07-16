@@ -41,7 +41,7 @@ com.cocobabys.R$styleable:
     public static final int ProgressWheel_textSize
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    858:858:public R$styleable()
+    860:860:public R$styleable()
 com.cocobabys.activities.ActivityHelper:
     12:12:public ActivityHelper()
 com.cocobabys.activities.ChatActivity:
@@ -133,6 +133,7 @@ com.cocobabys.adapter.NewChatListAdapter:
     private static final long MIN_TIME_LIMIT
     private static final int LEFT
     private static final int RIGHT
+com.cocobabys.adapter.NewChatListAdapter$DeleteChatListener
 com.cocobabys.adapter.NewsListAdapter:
     30:31:public void setLocationInfoList(java.util.List)
 com.cocobabys.adapter.ScheduleListAdapter:
@@ -223,6 +224,8 @@ com.cocobabys.constant.EventType:
     public static final int GET_EXP_COUNT_FAIL
     public static final int GET_EXP_INFO_SUCCESS
     public static final int GET_EXP_INFO_FAIL
+    public static final int DELETE_EXP_SUCCESS
+    public static final int DELETE_EXP_FAIL
     public static final int UPLOAD_ICON_SUCCESS
     3:3:public EventType()
 com.cocobabys.constant.JSONConstant
@@ -267,6 +270,9 @@ com.cocobabys.customview.CustomDialog:
     32:33:public CustomDialog(android.content.Context)
 com.cocobabys.customview.CustomDialog$Builder:
     106:107:public com.cocobabys.customview.CustomDialog$Builder setContentView(android.view.View)
+com.cocobabys.customview.LongClickDlg:
+    72:72:public java.lang.String getTextContent()
+    80:80:public java.lang.String getImageUrl()
 com.cocobabys.customview.MsgListView:
     private static final int RELEASE_To_REFRESH
     private static final int PULL_To_REFRESH
@@ -323,19 +329,19 @@ com.cocobabys.customview.SwitchButton:
     252:253:public void setTextOffColor(int)
 com.cocobabys.dbmgr.DataMgr:
     private static final java.lang.String DB_NAME
-    156:156:public long addScheduleInfo(com.cocobabys.dbmgr.info.ScheduleInfo)
-    176:176:public long addNews(com.cocobabys.dbmgr.info.News)
-    184:184:public com.cocobabys.dbmgr.info.News getNewsByID(int)
-    188:188:public java.util.List getAllNewsByType(int)
-    227:227:public long addHomework(com.cocobabys.dbmgr.info.Homework)
-    235:235:public com.cocobabys.dbmgr.info.Homework getHomeworkByID(int)
-    251:251:public java.util.List getEduRecordByChildID(java.lang.String)
-    265:266:public void removeEduRecord(java.lang.String)
-    277:277:public boolean isTeacherExist(java.lang.String)
-    281:282:public void addTeacherList(java.util.List)
-    289:289:public com.cocobabys.dbmgr.info.Teacher getTeacher(java.lang.String)
-    297:298:public void removeAllTeacher()
-    309:309:public com.cocobabys.dbmgr.info.ParentInfo getParentByPhone(java.lang.String)
+    155:155:public long addScheduleInfo(com.cocobabys.dbmgr.info.ScheduleInfo)
+    175:175:public long addNews(com.cocobabys.dbmgr.info.News)
+    183:183:public com.cocobabys.dbmgr.info.News getNewsByID(int)
+    187:187:public java.util.List getAllNewsByType(int)
+    226:226:public long addHomework(com.cocobabys.dbmgr.info.Homework)
+    234:234:public com.cocobabys.dbmgr.info.Homework getHomeworkByID(int)
+    250:250:public java.util.List getEduRecordByChildID(java.lang.String)
+    264:265:public void removeEduRecord(java.lang.String)
+    276:276:public boolean isTeacherExist(java.lang.String)
+    280:281:public void addTeacherList(java.util.List)
+    288:288:public com.cocobabys.dbmgr.info.Teacher getTeacher(java.lang.String)
+    296:297:public void removeAllTeacher()
+    308:308:public com.cocobabys.dbmgr.info.ParentInfo getParentByPhone(java.lang.String)
 com.cocobabys.dbmgr.EducationMgr:
     20:22:long addEduRecord(com.cocobabys.dbmgr.info.EducationInfo)
 com.cocobabys.dbmgr.HomeworkMgr:
@@ -460,7 +466,7 @@ com.cocobabys.dbmgr.info.NewChatInfo:
     public static final java.lang.String MEDIA_TYPE
     public static final java.lang.String SENDER_TYPE
     public static final java.lang.String SENDER_ID
-    93:93:public int getId()
+    94:94:public int getId()
 com.cocobabys.dbmgr.info.News:
     public static final java.lang.String ID
     public static final java.lang.String TITLE
@@ -540,9 +546,9 @@ com.cocobabys.dbmgr.info.Teacher:
 com.cocobabys.dlgmgr.DlgMgr:
     15:15:public DlgMgr()
     59:61:public static android.app.AlertDialog$Builder getTextEntryDialog(android.content.Context,int,int,int,android.content.DialogInterface$OnClickListener)
-    82:89:public static void disableDlgDismiss(android.app.AlertDialog)
-    92:94:public static void cancelDialog(android.app.AlertDialog)
-    98:105:private static void enableDlgDismiss(android.app.AlertDialog)
+    81:88:public static void disableDlgDismiss(android.app.AlertDialog)
+    91:93:public static void cancelDialog(android.app.AlertDialog)
+    97:104:private static void enableDlgDismiss(android.app.AlertDialog)
 com.cocobabys.handler.CrashHandler:
     public static final java.lang.String TAG
     75:88:private void selfHandleWithToast(java.lang.Thread,java.lang.Throwable)

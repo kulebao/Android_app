@@ -368,6 +368,10 @@ public class DataMgr {
 		return expMgr.getExpInfoByID(expid);
 	}
 
+	public void deleteExpInfoByID(long expid) {
+		expMgr.deleteExp(expid);
+	}
+
 	public void clearExp() {
 		expMgr.clear();
 	}
