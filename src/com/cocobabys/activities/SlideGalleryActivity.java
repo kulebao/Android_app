@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
@@ -178,9 +179,19 @@ public class SlideGalleryActivity extends Activity {
 		gallery = (SlideGallery) findViewById(R.id.mygallery);
 		gallery.setVerticalFadingEdgeEnabled(false);
 		gallery.setHorizontalFadingEdgeEnabled(false);
-		gallery.setSelection(getIntent().getIntExtra(
-				NoticeAction.GALLERY_POSITION, 0));
 		gallery.setAdapter(adapter);
+		
+		int pos = getIntent().getIntExtra(NoticeAction.GALLERY_POSITION, 0);
+		
+		Log.d("DDDDDD", "initGallery pos=" + pos);
+		gallery.setOnFocusChangeListener(new OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+			}
+		});
+		
+		gallery.setSelection(pos);
+		adapter.notifyDataSetChanged();
 	}
 
 	private void initReadOnlyGallery() {

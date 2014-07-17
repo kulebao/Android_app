@@ -15,6 +15,7 @@ public class Homework {
 	public static final String SERVER_ID = "server_id";
 	public static final String ICON_URL = "icon_url";
 	private static final String HOMEWORK_ICON = "homework_icon";
+	private static final String HOMEWORK_ICON_MINI = "homework_icon_mini";
 	public static final String CLASS_ID = "class_id";
 
 	private String title = "";
@@ -101,14 +102,26 @@ public class Homework {
 		return ret;
 	}
 
-	// 返回亲子作业本地图片保存路径，如果不存在则返回null
+	// 返回亲子作业本地图片保存路径，如果不存在则返回""
 	public String getHomeWorkLocalIconPath() {
+		return getIconImpl(false);
+	}
+
+	// 返回亲子作业本地 缩略图片保存路径
+	public String getHomeWorkLocalMiniIconPath() {
+		return getIconImpl(true);
+	}
+
+	private String getIconImpl(boolean isMini) {
 		// 服务器上不存在图片，本地一定不存在
 		if (TextUtils.isEmpty(icon_url)) {
 			return "";
 		}
-		String dir = Utils.getSDCardPicRootPath() + File.separator
-				+ HOMEWORK_ICON + File.separator;
+
+		String path = isMini ? HOMEWORK_ICON_MINI : HOMEWORK_ICON;
+
+		String dir = Utils.getSDCardPicRootPath() + File.separator + path
+				+ File.separator;
 		Utils.mkDirs(dir);
 		String url = dir + server_id;
 		return url;

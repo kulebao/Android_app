@@ -100,6 +100,7 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 			DataMgr.getInstance().removeAllHomework();
 			DataMgr.getInstance().addHomeworkList(homeworkList);
 		}
+		adapter.close();
 	}
 
 	private void initHander() {
@@ -131,9 +132,9 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 	protected void handleSuccess(Message msg) {
 		@SuppressWarnings("unchecked")
 		List<Homework> list = (List<Homework>) msg.obj;
+		Utils.saveProp(ConstantValue.HAVE_HOMEWORK_NOTICE, "false");
 		if (!list.isEmpty()) {
 			bDataChanged = true;
-			Utils.saveProp(ConstantValue.HAVE_HOMEWORK_NOTICE, "false");
 			if (msg.arg1 == ConstantValue.Type_INSERT_HEAD) {
 				addToHead(list);
 			} else if (msg.arg1 == ConstantValue.Type_INSERT_TAIl) {

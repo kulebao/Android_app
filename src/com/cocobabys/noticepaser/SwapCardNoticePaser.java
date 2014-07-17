@@ -23,6 +23,7 @@ import com.cocobabys.utils.Utils;
 
 public class SwapCardNoticePaser implements NoticePaser {
 	private static String SWIPE_ICON = "swipe_icon";
+	private static String SWIPE_ICON_MINI = "swipe_icon_mini";
 
 	@Override
 	public Notice saveData(JSONObject object) {
@@ -45,8 +46,8 @@ public class SwapCardNoticePaser implements NoticePaser {
 								// 就用通知时间搓作为文件名
 								Log.d("LIYI", "downloadIcon begain record_url="
 										+ record_url);
-								downloadIcon(record_url, String
-										.valueOf(swipeInfo.getTimestamp()));
+								downloadIcon(record_url,
+										swipeInfo.getSwipeLocalIconPath());
 							} catch (Exception e) {
 								Log.d("LIYI",
 										"downloadIcon exp:" + e.toString());
@@ -96,22 +97,21 @@ public class SwapCardNoticePaser implements NoticePaser {
 	}
 
 	// record_url 下载地址,iconname 下载成功后保存的文件名
-	public void downloadIcon(String record_url, String iconname)
-			throws Exception {
+	public void downloadIcon(String record_url, String path) throws Exception {
 		Bitmap bmp = Utils.getBitmapFromUrl(record_url, 2);
 		if (bmp != null) {
-			String path = createSwipeIconPath(iconname);
 			Log.d("LIYI", "saveBitmapToSDCard path=" + path);
 			Utils.saveBitmapToSDCard(bmp, path);
 		}
 	}
 
-	public static String createSwipeIconPath(String iconname) {
-		String dir = Utils.getSDCardPicRootPath() + File.separator + SWIPE_ICON
-				+ File.separator;
-		Utils.mkDirs(dir);
-		String url = dir + iconname;
-		Log.d("DDD", "getChildrenDefaultLocalIconPath url=" + url);
-		return url;
-	}
+	// public static String createSwipeIconPath(String iconname) {
+	// String dir = Utils.getSDCardPicRootPath() + File.separator + SWIPE_ICON
+	// + File.separator;
+	// Utils.mkDirs(dir);
+	// String url = dir + iconname;
+	// Log.d("DDD", "getChildrenDefaultLocalIconPath url=" + url);
+	// return url;
+	// }
+
 }

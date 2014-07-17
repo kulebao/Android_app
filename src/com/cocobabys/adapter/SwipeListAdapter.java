@@ -17,9 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cocobabys.R;
+import com.cocobabys.adapter.DonwloadModule.DownloadListener;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.SwipeInfo;
-import com.cocobabys.noticepaser.SwapCardNoticePaser;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 
@@ -27,6 +27,7 @@ public class SwipeListAdapter extends BaseAdapter {
 	private final Context context;
 	private List<SwipeInfo> list;
 	private String nick;
+	private DonwloadModule donwloadModule;
 	private static Map<String, SoftReference<Bitmap>> softMap = new HashMap<String, SoftReference<Bitmap>>();
 
 	public void setLocationInfoList(List<SwipeInfo> list) {
@@ -37,6 +38,13 @@ public class SwipeListAdapter extends BaseAdapter {
 		this.context = activityContext;
 		this.list = list;
 		getNick();
+		donwloadModule = new DonwloadModule();
+		donwloadModule.setDownloadListener(new DownloadListener() {
+			@Override
+			public void downloadSuccess() {
+				notifyDataSetChanged();
+			}
+		});
 	}
 
 	public void getNick() {
@@ -94,16 +102,17 @@ public class SwipeListAdapter extends BaseAdapter {
 	}
 
 	private void setIcon(ImageView view, SwipeInfo info) {
-		String localUrl = SwapCardNoticePaser.createSwipeIconPath(String
-				.valueOf(info.getTimestamp()));
-		if (TextUtils.isEmpty(localUrl)) {
+		if (TextUtils.isEmpty(info.getUrl())) {
 			view.setVisibility(View.GONE);
 		} else {
+			String localUrl = info.getSwipeLocalMiniIconPath();
 			Bitmap loacalBitmap = getLocalBmp(localUrl);
 			if (loacalBitmap != null) {
 				Log.d("DJC", "setIcon url =" + localUrl);
 				Utils.setImg(view, loacalBitmap);
 			} else {
+				donwloadModule.addTask(info.getUrl(),
+						info.getSwipeLocalMiniIconPath(), 40, 40);
 				view.setImageResource(R.drawable.default_icon);
 			}
 			view.setVisibility(View.VISIBLE);
@@ -136,6 +145,11 @@ public class SwipeListAdapter extends BaseAdapter {
 		flagholder.fromView.setText(DataMgr.getInstance().getSchoolInfo()
 				.getSchool_name());
 		setIcon(flagholder.iconView, info);
+	}
+
+	public void close() {
+		clear();
+		donwloadModule.close();
 	}
 
 	private class FlagHolder {

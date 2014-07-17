@@ -93,6 +93,7 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 					JSONConstant.NOTICE_TYPE_NORMAL);
 			DataMgr.getInstance().addNewsList(newsList);
 		}
+		adapter.close();
 	}
 
 	@Override
@@ -136,9 +137,9 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 	protected void handleSuccess(Message msg) {
 		MethodUtils.removeNewsNotification();
 		List<News> list = (List<News>) msg.obj;
+		Utils.saveProp(ConstantValue.HAVE_NEWS_NOTICE, "false");
 		if (!list.isEmpty()) {
 			// 刷出新公告了，去掉有新公告的标志
-			Utils.saveProp(ConstantValue.HAVE_NEWS_NOTICE, "false");
 			bDataChanged = true;
 			if (msg.arg1 == ConstantValue.Type_INSERT_HEAD) {
 				addToHead(list);

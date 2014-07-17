@@ -18,6 +18,7 @@ public class News {
 	public static final String ICON_URL = "icon_url";
 	public static final String CLASS_ID = "class_id";
 	private static final String NEWS_ICON = "news_icon";
+	private static final String NEWS_ICON_MINI = "news_icon_mini";
 
 	private String title = "";
 	private String content = "";
@@ -114,12 +115,23 @@ public class News {
 
 	// 返回公告本地图片保存路径，如果不存在则返回""
 	public String getNewsLocalIconPath() {
+		return getIconImpl(false);
+	}
+
+	// 返回公告本地 缩略图片保存路径
+	public String getNewsLocalMiniIconPath() {
+		return getIconImpl(true);
+	}
+
+	private String getIconImpl(boolean isMini) {
 		// 服务器上不存在图片，本地一定不存在
 		if (TextUtils.isEmpty(icon_url)) {
 			return "";
 		}
 
-		String dir = Utils.getSDCardPicRootPath() + File.separator + NEWS_ICON
+		String path = isMini ? NEWS_ICON_MINI : NEWS_ICON;
+
+		String dir = Utils.getSDCardPicRootPath() + File.separator + path
 				+ File.separator;
 		Utils.mkDirs(dir);
 		String url = dir + news_server_id;

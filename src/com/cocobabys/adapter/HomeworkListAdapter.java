@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cocobabys.R;
+import com.cocobabys.adapter.DonwloadModule.DownloadListener;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.Homework;
 import com.cocobabys.utils.ImageDownloader;
@@ -25,6 +26,7 @@ import com.cocobabys.utils.Utils;
 public class HomeworkListAdapter extends BaseAdapter {
 	private final Context context;
 	private List<Homework> dataList;
+	private DonwloadModule donwloadModule;
 	private static Map<String, SoftReference<Bitmap>> softMap = new HashMap<String, SoftReference<Bitmap>>();
 
 	public void setLocationInfoList(List<Homework> list) {
@@ -34,6 +36,14 @@ public class HomeworkListAdapter extends BaseAdapter {
 	public HomeworkListAdapter(Context activityContext, List<Homework> list) {
 		this.context = activityContext;
 		dataList = list;
+
+		donwloadModule = new DonwloadModule();
+		donwloadModule.setDownloadListener(new DownloadListener() {
+			@Override
+			public void downloadSuccess() {
+				notifyDataSetChanged();
+			}
+		});
 	}
 
 	public void clear() {
@@ -99,15 +109,16 @@ public class HomeworkListAdapter extends BaseAdapter {
 	}
 
 	private void setIcon(ImageView view, Homework info) {
-		String localUrl = info.getHomeWorkLocalIconPath();
-		if (TextUtils.isEmpty(localUrl)) {
+		if (TextUtils.isEmpty(info.getIcon_url())) {
 			view.setVisibility(View.GONE);
 		} else {
+			String localUrl = info.getHomeWorkLocalMiniIconPath();
 			Bitmap loacalBitmap = getLocalBmp(localUrl);
 			if (loacalBitmap != null) {
 				Log.d("DJC", "setIcon url =" + localUrl);
 				Utils.setImg(view, loacalBitmap);
 			} else {
+				donwloadModule.addTask(info.getIcon_url(), localUrl, 40, 40);
 				view.setImageResource(R.drawable.default_icon);
 			}
 			view.setVisibility(View.VISIBLE);
@@ -129,6 +140,11 @@ public class HomeworkListAdapter extends BaseAdapter {
 			}
 		}
 		return loacalBitmap;
+	}
+
+	public void close() {
+		clear();
+		donwloadModule.close();
 	}
 
 	private class FlagHolder {

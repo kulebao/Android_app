@@ -1,12 +1,18 @@
 package com.cocobabys.dbmgr.info;
 
+import java.io.File;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.text.TextUtils;
 
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.utils.Utils;
 
 public class SwipeInfo {
+	private static String SWIPE_ICON = "swipe_icon";
+	private static String SWIPE_ICON_MINI = "swipe_icon_mini";
 	private static final String SWIPE_CARD_TITLE = "尊敬的用户 %s 您好:";
 
 	private static final String SWIPE_CARD_IN_BODY = "您的小孩 %s 已于%s 由 %s 刷卡入园!";
@@ -86,14 +92,17 @@ public class SwipeInfo {
 	}
 
 	public String getNoticeBody(String nickname) {
-		String sample = (type == JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN ? SWIPE_CARD_IN_BODY : SWIPE_CARD_OUT_BODY);
+		String sample = (type == JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN ? SWIPE_CARD_IN_BODY
+				: SWIPE_CARD_OUT_BODY);
 
-		String body = String.format(sample, nickname, getFormattedTime(), parent_name);
+		String body = String.format(sample, nickname, getFormattedTime(),
+				parent_name);
 		return body;
 	}
 
 	public String getNoticeTitle() {
-		String title = String.format(SWIPE_CARD_TITLE, Utils.getProp(JSONConstant.USERNAME));
+		String title = String.format(SWIPE_CARD_TITLE,
+				Utils.getProp(JSONConstant.USERNAME));
 		return title;
 	}
 
@@ -110,6 +119,31 @@ public class SwipeInfo {
 		info.setTimestamp(timestamp);
 		info.setParent_name(parent_name);
 		return info;
+	}
+
+	// 返回亲子作业本地图片保存路径，如果不存在则返回""
+	public String getSwipeLocalIconPath() {
+		return getIconImpl(false);
+	}
+
+	// 返回亲子作业本地 缩略图片保存路径
+	public String getSwipeLocalMiniIconPath() {
+		return getIconImpl(true);
+	}
+
+	private String getIconImpl(boolean isMini) {
+		// 服务器上不存在图片，本地一定不存在
+		if (TextUtils.isEmpty(url)) {
+			return "";
+		}
+
+		String path = isMini ? SWIPE_ICON_MINI : SWIPE_ICON;
+
+		String dir = Utils.getSDCardPicRootPath() + File.separator + path
+				+ File.separator;
+		Utils.mkDirs(dir);
+		String url = dir + timestamp;
+		return url;
 	}
 
 }

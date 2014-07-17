@@ -175,6 +175,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				Log.d("DDDDDD", "startToSlideGalleryActivity position="+position);
 				startToSlideGalleryActivity(position);
 			}
 		});

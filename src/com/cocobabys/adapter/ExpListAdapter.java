@@ -385,7 +385,8 @@ public class ExpListAdapter extends BaseAdapter {
 						public void onItemClick(AdapterView<?> parent,
 								View view, int position, long id) {
 							if (checkFileExist(localUrls)) {
-								startToSlideGalleryActivity(info.getExp_id());
+								startToSlideGalleryActivity(info.getExp_id(),
+										position);
 							}
 						}
 					});
@@ -393,9 +394,10 @@ public class ExpListAdapter extends BaseAdapter {
 		}
 	}
 
-	private void startToSlideGalleryActivity(long id) {
+	private void startToSlideGalleryActivity(long id, int position) {
 		Intent intent = new Intent(NoticeAction.ACTION_GALLERY_READ_ONLY);
 		intent.putExtra(ConstantValue.EXP_ID, id);
+		intent.putExtra(NoticeAction.GALLERY_POSITION, position);
 		context.startActivity(intent);
 	}
 

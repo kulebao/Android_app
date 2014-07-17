@@ -101,7 +101,7 @@ com.cocobabys.activities.SchoolNoticeActivity:
     private static final java.lang.String IMAGE_FILE_NAME
 com.cocobabys.activities.SendExpActivity:
     private static final int CACHE_SIZE
-    210:214:private void galleryAddPic()
+    211:215:private void galleryAddPic()
 com.cocobabys.activities.SwipeCalendarActivity:
     private static final int EXTRA_HEIGHT
     242:246:protected java.lang.String GetDateShortString(java.util.Calendar)
@@ -109,13 +109,15 @@ com.cocobabys.activities.SwipeCalendarActivity:
     265:265:private int millisecondsToDays(long)
     269:273:private void setTimeToMidnight(java.util.Calendar)
 com.cocobabys.activities.SwipeDetailActivity:
-    109:110:public void setTimestamp()
+    112:113:public void setTimestamp()
 com.cocobabys.adapter.ChildListAdapter:
     23:24:public void setLocationInfoList(java.util.List)
     32:34:public void clear()
 com.cocobabys.adapter.CookBookListAdapter:
     20:21:public void setCookInfoList(java.util.List)
     29:31:public void clear()
+com.cocobabys.adapter.DonwloadModule:
+    40:41:public void addTask(java.lang.String,java.lang.String)
 com.cocobabys.adapter.ExpListAdapter:
     private static final java.lang.String SELF_NAME
     private static final java.lang.String DEFAULT_PARENT_NAME
@@ -125,7 +127,7 @@ com.cocobabys.adapter.GalleryAdapter:
     81:90:public boolean isAllSelected()
     94:103:public boolean isAnySelected()
 com.cocobabys.adapter.HomeworkListAdapter:
-    31:32:public void setLocationInfoList(java.util.List)
+    33:34:public void setLocationInfoList(java.util.List)
 com.cocobabys.adapter.NewChatListAdapter:
     private static final java.lang.String SELF_NAME
     private static final java.lang.String DEFAULT_PARENT_NAME
@@ -135,15 +137,14 @@ com.cocobabys.adapter.NewChatListAdapter:
     private static final int RIGHT
 com.cocobabys.adapter.NewChatListAdapter$DeleteChatListener
 com.cocobabys.adapter.NewsListAdapter:
-    30:31:public void setLocationInfoList(java.util.List)
+    32:33:public void setLocationInfoList(java.util.List)
 com.cocobabys.adapter.ScheduleListAdapter:
     20:21:public void setCookInfoList(java.util.List)
     29:31:public void clear()
 com.cocobabys.adapter.SlideGalleryAdapter:
     private static final int MAXPIX
 com.cocobabys.adapter.SwipeListAdapter:
-    33:34:public void setLocationInfoList(java.util.List)
-    47:49:public void clear()
+    34:35:public void setLocationInfoList(java.util.List)
 com.cocobabys.bean.Account
 com.cocobabys.bean.SenderInfo:
     public static final java.lang.String TEACHER_TYPE
@@ -434,9 +435,10 @@ com.cocobabys.dbmgr.info.Homework:
     public static final java.lang.String SERVER_ID
     public static final java.lang.String ICON_URL
     private static final java.lang.String HOMEWORK_ICON
+    private static final java.lang.String HOMEWORK_ICON_MINI
     public static final java.lang.String CLASS_ID
-    55:55:public int getId()
-    95:101:public java.lang.String getFormattedTime()
+    56:56:public int getId()
+    96:102:public java.lang.String getFormattedTime()
 com.cocobabys.dbmgr.info.InfoHelper:
     private static final java.lang.String BABY_ICON_NAME
     private static final java.lang.String SCHOOL_LOGO
@@ -478,8 +480,9 @@ com.cocobabys.dbmgr.info.News:
     public static final java.lang.String ICON_URL
     public static final java.lang.String CLASS_ID
     private static final java.lang.String NEWS_ICON
-    42:42:public int getId()
-    130:136:public java.lang.String getFormattedTime()
+    private static final java.lang.String NEWS_ICON_MINI
+    43:43:public int getId()
+    142:148:public java.lang.String getFormattedTime()
 com.cocobabys.dbmgr.info.Notice:
     public static final java.lang.String ID
     public static final java.lang.String TITLE
@@ -527,7 +530,7 @@ com.cocobabys.dbmgr.info.SwipeInfo:
     public static final java.lang.String CHILD_ID
     public static final java.lang.String ICON_URL
     public static final java.lang.String PARENT_NAME
-    55:55:public int getId()
+    61:61:public int getId()
 com.cocobabys.dbmgr.info.Teacher:
     public static final java.lang.String ID
     public static final java.lang.String NAME

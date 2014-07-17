@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cocobabys.R;
+import com.cocobabys.adapter.DonwloadModule.DownloadListener;
 import com.cocobabys.dbmgr.info.News;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
@@ -25,6 +26,7 @@ public class NewsListAdapter extends BaseAdapter {
 	private final Context context;
 	private List<News> newsList;
 	private static Map<String, SoftReference<Bitmap>> softMap = new HashMap<String, SoftReference<Bitmap>>();
+	private DonwloadModule donwloadModule;
 
 	public void setLocationInfoList(List<News> list) {
 		this.newsList = list;
@@ -33,6 +35,13 @@ public class NewsListAdapter extends BaseAdapter {
 	public NewsListAdapter(Context activityContext, List<News> list) {
 		this.context = activityContext;
 		newsList = list;
+		donwloadModule = new DonwloadModule();
+		donwloadModule.setDownloadListener(new DownloadListener() {
+			@Override
+			public void downloadSuccess() {
+				notifyDataSetChanged();
+			}
+		});
 	}
 
 	public void clear() {
@@ -110,16 +119,19 @@ public class NewsListAdapter extends BaseAdapter {
 	}
 
 	private void setIcon(ImageView view, News info) {
-		String localUrl = info.getNewsLocalIconPath();
-		if (TextUtils.isEmpty(localUrl)) {
+		if (TextUtils.isEmpty(info.getIcon_url())) {
 			view.setVisibility(View.GONE);
 		} else {
+			String localUrl = info.getNewsLocalMiniIconPath();
 			Bitmap loacalBitmap = getLocalBmp(localUrl);
 			if (loacalBitmap != null) {
 				Log.d("DJC", "setIcon url =" + localUrl);
 				Utils.setImg(view, loacalBitmap);
 			} else {
+				donwloadModule.addTask(info.getIcon_url(),
+						info.getNewsLocalMiniIconPath(), 40, 40);
 				view.setImageResource(R.drawable.default_icon);
+
 			}
 			view.setVisibility(View.VISIBLE);
 		}
@@ -140,6 +152,11 @@ public class NewsListAdapter extends BaseAdapter {
 			}
 		}
 		return loacalBitmap;
+	}
+
+	public void close() {
+		clear();
+		donwloadModule.close();
 	}
 
 	private class FlagHolder {
