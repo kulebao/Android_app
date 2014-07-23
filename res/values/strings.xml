@@ -221,5 +221,6 @@
     <string name="copy_to_clipboard">复制成功</string>
     <string name="copy_to_gallery">照片保存到图库</string>
     <string name="access_forbid">权限不足，请联系幼儿园开通权限,谢谢！</string>
-
+    <string name="watch_baby">看宝贝</string>
+    <string name="record_time">00:00:00</string>
 </resources>

@@ -63,6 +63,7 @@ public class Utils {
 	public static final int LIMIT_HEIGHT = 480;
 	private static String CHILD_PHOTO = "child_photo";
 	public static String CHAT_ICON = "chat_icon";
+	public static String VIDEO_PIC = "video_pic";
 	public static String EXP_ICON = "exp_icon";
 	public static String CHAT_VOICE = "chat_voice";
 
@@ -562,6 +563,11 @@ public class Utils {
 				+ ConstantValue.DEFAULT_VOICE_TYPE;
 	}
 
+	public static String getVideoPicPath(String filename) {
+		return getSDCardPicRootPath() + File.separator + VIDEO_PIC
+				+ File.separator + filename;
+	}
+
 	public static String getChatIconDir(String childid) {
 		return getSDCardPicRootPath() + File.separator + CHAT_ICON
 				+ File.separator + childid + File.separator;
@@ -803,7 +809,7 @@ public class Utils {
 		cmb.setText(content.trim());
 	}
 
-	//向图库里添加文件路径，可以让图片显示在图库里
+	// 向图库里添加文件路径，可以让图片显示在图库里
 	public static void galleryAddPic(Uri uri) {
 		Context context = MyApplication.getInstance().getApplicationContext();
 		Intent mediaScanIntent = new Intent(

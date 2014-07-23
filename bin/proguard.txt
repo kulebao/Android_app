@@ -1,13 +1,13 @@
 # view res/layout/guide.xml #generated:7
 -keep class android.support.v4.view.ViewPager { <init>(...); }
 
-# view AndroidManifest.xml #generated:387
+# view AndroidManifest.xml #generated:402
 -keep class com.baidu.android.pushservice.PushService { <init>(...); }
 
-# view AndroidManifest.xml #generated:363
+# view AndroidManifest.xml #generated:378
 -keep class com.baidu.android.pushservice.PushServiceReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:373
+# view AndroidManifest.xml #generated:388
 -keep class com.baidu.android.pushservice.RegistrationReceiver { <init>(...); }
 
 # view AndroidManifest.xml #generated:184
@@ -31,7 +31,7 @@
 # view AndroidManifest.xml #generated:217
 -keep class com.cocobabys.activities.CookBookActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:316
+# view AndroidManifest.xml #generated:331
 -keep class com.cocobabys.activities.CustomGalleryActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:244
@@ -55,7 +55,7 @@
 # view AndroidManifest.xml #generated:211
 -keep class com.cocobabys.activities.InteractionActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:328
+# view AndroidManifest.xml #generated:343
 -keep class com.cocobabys.activities.LoadingActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:256
@@ -162,12 +162,24 @@
 # view res/layout/setting.xml #generated:136
 -keep class com.cocobabys.customview.SwitchButton { <init>(...); }
 
-# view AndroidManifest.xml #generated:343
+# view AndroidManifest.xml #generated:358
 -keep class com.cocobabys.receiver.NetStateChangeReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:350
+# view AndroidManifest.xml #generated:365
 -keep class com.cocobabys.receiver.PushMessageReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:341
+# view AndroidManifest.xml #generated:356
 -keep class com.cocobabys.service.MyService { <init>(...); }
+
+# view AndroidManifest.xml #generated:321
+-keep class com.cocobabys.video.DeviceActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:326
+-keep class com.cocobabys.video.PlayActivity { <init>(...); }
+
+# view res/layout/play_activity.xml #generated:7
+-keep class com.cocobabys.video.PlayView { <init>(...); }
+
+# view AndroidManifest.xml #generated:316
+-keep class com.cocobabys.video.VideoLoginActivity { <init>(...); }
 

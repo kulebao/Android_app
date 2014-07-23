@@ -25,7 +25,7 @@ public class MyApplication extends FrontiaApplication {
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
 	private List<ChatInfo> tmpList = new ArrayList<ChatInfo>();
 	private List<NewChatInfo> tmpNewChatList = new ArrayList<NewChatInfo>();
-
+	
 	public List<NewChatInfo> getTmpNewChatList() {
 		return tmpNewChatList;
 	}

@@ -15,6 +15,7 @@ com.baidu.android.silentupdate.c
 com.cocobabys.BuildConfig
 com.cocobabys.R:
     10:10:public R()
+com.cocobabys.R$anim
 com.cocobabys.R$array
 com.cocobabys.R$attr
 com.cocobabys.R$color
@@ -41,7 +42,7 @@ com.cocobabys.R$styleable:
     public static final int ProgressWheel_textSize
     public static final int switchbutton_textOff
     public static final int switchbutton_textOn
-    860:860:public R$styleable()
+    891:891:public R$styleable()
 com.cocobabys.activities.ActivityHelper:
     12:12:public ActivityHelper()
 com.cocobabys.activities.ChatActivity:
@@ -90,6 +91,7 @@ com.cocobabys.activities.SchoolNoticeActivity:
     public static final int INTERACTION
     public static final int EDUCATION
     public static final int EXPERENCE
+    public static final int WATCH
     private static final int SET_BABY_NICKNAME
     private static final int SET_BABY_BIRTHDAY
     private static final int SET_BABY_ICON_BY_TAKE_PHOTO
@@ -109,7 +111,7 @@ com.cocobabys.activities.SwipeCalendarActivity:
     265:265:private int millisecondsToDays(long)
     269:273:private void setTimeToMidnight(java.util.Calendar)
 com.cocobabys.activities.SwipeDetailActivity:
-    112:113:public void setTimestamp()
+    115:116:public void setTimestamp()
 com.cocobabys.adapter.ChildListAdapter:
     23:24:public void setLocationInfoList(java.util.List)
     32:34:public void clear()
@@ -228,6 +230,8 @@ com.cocobabys.constant.EventType:
     public static final int DELETE_EXP_SUCCESS
     public static final int DELETE_EXP_FAIL
     public static final int UPLOAD_ICON_SUCCESS
+    public static final int VIDEO_LOGIN_SUCCESS
+    public static final int VIDEO_LOGIN_FAIL
     3:3:public EventType()
 com.cocobabys.constant.JSONConstant
 com.cocobabys.constant.MyErrorCode
@@ -568,6 +572,9 @@ com.cocobabys.httpclientmgr.HttpClientHelper:
     62:63:private HttpClientHelper()
 com.cocobabys.jobs.GetChatJob:
     private static final int LIMIT_TIME
+com.cocobabys.jobs.LoginVideoJob:
+    private static final java.lang.String SERVER_ADDR
+    private static final short SERVER_PORT
 com.cocobabys.jobs.SendExpJob:
     private static final int STANDARD_PIC
 com.cocobabys.jobs.ValidatePhoneNumJob
@@ -615,7 +622,6 @@ com.cocobabys.net.ValidatePhoneMethod:
     private static final java.lang.String CHECK_PHONE_RESULT
 com.cocobabys.noticepaser.NoticePaserFactory:
     6:7:private NoticePaserFactory()
-com.cocobabys.noticepaser.NoticePaserHelper
 com.cocobabys.push.PushModel:
     42:43:public void unBind()
     46:47:public void setTag(java.util.List)
@@ -733,12 +739,177 @@ com.cocobabys.utils.Utils:
     public static final int LIMIT_HEIGHT
     private static final java.lang.String TEST_HOST
     54:54:public Utils()
-    135:138:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
-    157:160:public static void deleteProp(java.lang.String)
-    352:361:public boolean isMobileConnected(android.content.Context)
-    524:527:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
-    578:589:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
-    704:717:public static void saveInSDCard(java.lang.String)
+    136:139:public static void showSingleBtnResDlg(java.lang.String,android.content.Context)
+    158:161:public static void deleteProp(java.lang.String)
+    353:362:public boolean isMobileConnected(android.content.Context)
+    525:528:public static java.io.InputStream Bitmap2InputStream(android.graphics.Bitmap,int)
+    584:595:public static android.graphics.Bitmap getLoacalBitmapByName(java.lang.String)
+    710:723:public static void saveInSDCard(java.lang.String)
+com.cocobabys.video.DeviceActivity:
+    private static final java.lang.String TAG
+com.cocobabys.video.PlayActivity:
+    private static final java.lang.String TAG
+    public static final java.lang.String FOLDER_NAME_RECORD
+    public static final java.lang.String FOLDER_NAME_CAPTURE
+    public static final java.lang.String FOLDER_NAME_LOG
+    public static final int FILE_TYPE_RECORD
+    public static final int FILE_TYPE_CAPTURE
+    public static final int FILE_TYPE_LOG
+    public static final int MSG_SHOW_RECORD_TIME
+    public static final int MSG_STOP_RECORD
+com.cocobabys.video.PlayView$1:
+    626:627:public void onRequest()
+com.cocobabys.video.VideoApp:
+    public static final java.lang.String TAG
+    public static int curNodeChannel
+    public java.lang.String mRecordPath
+    10:31:public VideoApp()
+com.cocobabys.video.VideoLoginActivity:
+    private static final java.lang.String TAG
+com.huamaitel.api.HMCallback:
+    6:6:public HMCallback()
+com.huamaitel.api.HMCallback$AlarmCallback
+com.huamaitel.api.HMCallback$LanSearchCallback
+com.huamaitel.api.HMCallback$NetworkCallback
+com.huamaitel.api.HMCallback$PushCallback
+com.huamaitel.api.HMCallback$RenderCallback:
+    public abstract void onRequest()
+com.huamaitel.api.HMDefines:
+    public static final int HMEC_OK
+    7:7:public HMDefines()
+com.huamaitel.api.HMDefines$APKUpgradeInfo
+com.huamaitel.api.HMDefines$AlarmInfo
+com.huamaitel.api.HMDefines$AudioEncode
+com.huamaitel.api.HMDefines$AuthMode
+com.huamaitel.api.HMDefines$ChannelCapacity:
+    public java.lang.String channelName
+    public java.lang.String videoName
+    public int videoSupport
+    public int audioSupport
+    public int talkSupport
+    public int ptzSupport
+    164:164:public HMDefines$ChannelCapacity()
+com.huamaitel.api.HMDefines$ChannelInfo
+com.huamaitel.api.HMDefines$CodeStream
+com.huamaitel.api.HMDefines$ConnectPolicy
+com.huamaitel.api.HMDefines$DeviceInfo:
+    public java.lang.String devName
+    public java.lang.String devType
+    public java.lang.String sn
+    public int totalChannel
+    public int alramInCount
+    public int alarmOutCount
+    public int sensorCount
+    153:153:public HMDefines$DeviceInfo()
+com.huamaitel.api.HMDefines$DeviceToken
+com.huamaitel.api.HMDefines$EncryType
+com.huamaitel.api.HMDefines$LanSearchInfo
+com.huamaitel.api.HMDefines$LanSearchMode
+com.huamaitel.api.HMDefines$LanSearchParam
+com.huamaitel.api.HMDefines$LocalPlaybackRes
+com.huamaitel.api.HMDefines$NetworkType
+com.huamaitel.api.HMDefines$NodeCount
+com.huamaitel.api.HMDefines$NodeTypeInfo
+com.huamaitel.api.HMDefines$OpenAudioRes:
+    public int channel
+    public int audioEncode
+    public int sample
+    public int audioChannel
+com.huamaitel.api.HMDefines$OpenVideoRes:
+    public int channel
+    public int videoEncode
+    public int imageWidth
+    public int imageHeight
+    public int fps
+    public long basetime
+com.huamaitel.api.HMDefines$PrivacySet
+com.huamaitel.api.HMDefines$PtzCommand
+com.huamaitel.api.HMDefines$PushInfo
+com.huamaitel.api.HMDefines$RemoteFileInfo
+com.huamaitel.api.HMDefines$RemoteFindFileMODE
+com.huamaitel.api.HMDefines$RemoteFindFileParam
+com.huamaitel.api.HMDefines$RemotePlaybackMode
+com.huamaitel.api.HMDefines$RemotePlaybackParm
+com.huamaitel.api.HMDefines$RemotePlaybackRes
+com.huamaitel.api.HMDefines$RemoteVideoRecordType
+com.huamaitel.api.HMDefines$UserInfo:
+    public int id
+    public java.lang.String name
+    public java.lang.String nickName
+    public java.lang.String tel
+    public java.lang.String mobile
+    public java.lang.String address
+    public java.lang.String regDate
+    public java.lang.String email
+    public boolean emailValid
+    public int actor
+    public java.lang.String roles1
+    public java.lang.String roles2
+    public java.lang.String lastLoginDate
+    public boolean useAlarmService
+    26:26:public HMDefines$UserInfo()
+com.huamaitel.api.HMDefines$UserRole
+com.huamaitel.api.HMDefines$VideoEncode
+com.huamaitel.api.HMDefines$VideoStream
+com.huamaitel.api.HMDefines$WifiConfig
+com.huamaitel.api.HMJniInterface:
+    public native java.lang.String getLastErrorDes(int)
+    public native int getLeftTime(int)
+    public native boolean isOnline(int)
+    public native com.huamaitel.api.HMDefines$ChannelInfo getChannelInfo(int)
+    public native int sortTree(int)
+    public native int filterTree(int,int,java.lang.String)
+    public native int findDeviceBySn(int,java.lang.String)
+    public native int getOnlineCount(int,com.huamaitel.api.HMDefines$NodeCount)
+    public native int getParentId(int)
+    public native int bindDevice(int,java.lang.String,java.lang.String,int)
+    public native int unbindDevice(int,int)
+    public native int modifyDeviceName(int,int,java.lang.String)
+    public native int getAllDeviceCount(int)
+    public native int getAllDeviceAt(int,int)
+    public native int getDevicePower(int)
+    public native int isUserExist(java.lang.String,short,java.lang.String)
+    public native int registerByMobile(java.lang.String,short,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+    public native int registerByEmail(java.lang.String,short,java.lang.String,java.lang.String,java.lang.String)
+    public native int requestCaptcha(java.lang.String,short,java.lang.String,java.lang.String)
+    public native int resetPasswordByEmail(java.lang.String,short,java.lang.String,java.lang.String)
+    public native int resetPasswordByMobile(java.lang.String,short,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+    public native int getConnectPolicy(int)
+    public native int setNetworkCallback(int,com.huamaitel.api.HMCallback$NetworkCallback)
+    public native int switchHDSD(int,int,com.huamaitel.api.HMDefines$OpenVideoParam,com.huamaitel.api.HMDefines$OpenVideoRes)
+    public native int startAlarm(int,com.huamaitel.api.HMCallback$AlarmCallback)
+    public native int stopAlarm(int)
+    public native boolean getArmingState(int)
+    public native int ptzControl(int,int,int,int)
+    public native int openLanSearch(com.huamaitel.api.HMDefines$LanSearchParam,com.huamaitel.api.HMCallback$LanSearchCallback)
+    public native int runLanSearch(int)
+    public native int closeLanSearch(int)
+    public native com.huamaitel.api.HMDefines$WifiConfig getWifiConfig(int)
+    public native int setWifiConfig(int,com.huamaitel.api.HMDefines$WifiConfig)
+    public native int startLocalPlayback(java.lang.String,com.huamaitel.api.HMDefines$LocalPlaybackRes)
+    public native int stopLocalPlayback(int)
+    public native int pauseLocalPlayback(int)
+    public native int resumeLocalPlayback(int)
+    public native int getLocalPlaybackRate(int)
+    public native int setLocalPlaybackRate(int,int)
+    public native int getLocalPlaybackpostion(int)
+    public native int setLocalPlaybackpostion(int,int)
+    public native int OpenFindRemoteFile(int,com.huamaitel.api.HMDefines$RemoteFindFileParam)
+    public native com.huamaitel.api.HMDefines$RemoteFileInfo findRemoteNextFile(int)
+    public native int CloseFindRemoteFile(int)
+    public native int startRemotePlayback(int,com.huamaitel.api.HMDefines$RemotePlaybackParm,com.huamaitel.api.HMDefines$RemotePlaybackRes)
+    public native int stopRemotePlayback(int)
+    public native int pauseRemotePlayback(int)
+    public native int resumeRemotePlayback(int)
+    public native int stepRemotePlayback(int)
+    public native int saveToken(int,com.huamaitel.api.HMDefines$DeviceToken)
+    public native int startPush(java.lang.String,short,java.lang.String)
+    public native int stopPush(int)
+    public native int setPushDataCallback(int,com.huamaitel.api.HMCallback$PushCallback)
+    public native int setDevicePrivacy(int,int)
+    public native int setServerPrivacy(int,java.lang.String,int)
+    public native int getServerPrivacy(int)
+    public native com.huamaitel.api.HMDefines$APKUpgradeInfo getAPKUpgradeInfo(java.lang.String,short,java.lang.String)
 com.umeng.analytics.Gender
 com.umeng.analytics.MobclickAgent:
     20:439:public MobclickAgent()

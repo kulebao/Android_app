@@ -1,5 +1,6 @@
 E:\coolbao\LoginTest\gen\com\cocobabys\R.java \
- : E:\coolbao\LoginTest\res\drawable\bind_btn.xml \
+ : E:\coolbao\LoginTest\res\anim\record_anim.xml \
+E:\coolbao\LoginTest\res\drawable\bind_btn.xml \
 E:\coolbao\LoginTest\res\drawable\btn_sel.xml \
 E:\coolbao\LoginTest\res\drawable\color_btn.xml \
 E:\coolbao\LoginTest\res\drawable\dot.xml \
@@ -145,8 +146,14 @@ E:\coolbao\LoginTest\res\drawable-ldpi\mic_2.png \
 E:\coolbao\LoginTest\res\drawable-ldpi\mic_3.png \
 E:\coolbao\LoginTest\res\drawable-ldpi\mic_4.png \
 E:\coolbao\LoginTest\res\drawable-ldpi\mic_5.png \
+E:\coolbao\LoginTest\res\drawable-mdpi\device.png \
+E:\coolbao\LoginTest\res\drawable-mdpi\dvs.png \
+E:\coolbao\LoginTest\res\drawable-mdpi\folder.png \
 E:\coolbao\LoginTest\res\drawable-mdpi\ic_launcher.png \
 E:\coolbao\LoginTest\res\drawable-mdpi\ic_pulltorefresh_arrow.png \
+E:\coolbao\LoginTest\res\drawable-mdpi\left_bar.9.png \
+E:\coolbao\LoginTest\res\drawable-mdpi\record_dot_1.png \
+E:\coolbao\LoginTest\res\drawable-mdpi\record_dot_2.png \
 E:\coolbao\LoginTest\res\drawable-xhdpi\hasnew.png.9.png \
 E:\coolbao\LoginTest\res\layout\about_us.xml \
 E:\coolbao\LoginTest\res\layout\authcode.xml \
@@ -166,6 +173,7 @@ E:\coolbao\LoginTest\res\layout\client_tab.xml \
 E:\coolbao\LoginTest\res\layout\cook_item.xml \
 E:\coolbao\LoginTest\res\layout\cook_list.xml \
 E:\coolbao\LoginTest\res\layout\custom_gallery.xml \
+E:\coolbao\LoginTest\res\layout\device_activity.xml \
 E:\coolbao\LoginTest\res\layout\dialog.xml \
 E:\coolbao\LoginTest\res\layout\dialog_single_btn.xml \
 E:\coolbao\LoginTest\res\layout\education.xml \
@@ -180,6 +188,7 @@ E:\coolbao\LoginTest\res\layout\grouth.xml \
 E:\coolbao\LoginTest\res\layout\guide.xml \
 E:\coolbao\LoginTest\res\layout\head.xml \
 E:\coolbao\LoginTest\res\layout\homework_pull_refresh_list.xml \
+E:\coolbao\LoginTest\res\layout\item_device.xml \
 E:\coolbao\LoginTest\res\layout\loading.xml \
 E:\coolbao\LoginTest\res\layout\location.xml \
 E:\coolbao\LoginTest\res\layout\location_item.xml \
@@ -193,6 +202,7 @@ E:\coolbao\LoginTest\res\layout\notice_item.xml \
 E:\coolbao\LoginTest\res\layout\notice_list.xml \
 E:\coolbao\LoginTest\res\layout\notice_mgr.xml \
 E:\coolbao\LoginTest\res\layout\notice_pull_refresh_list.xml \
+E:\coolbao\LoginTest\res\layout\play_activity.xml \
 E:\coolbao\LoginTest\res\layout\resetpwd.xml \
 E:\coolbao\LoginTest\res\layout\schedule_item.xml \
 E:\coolbao\LoginTest\res\layout\schedule_list.xml \
@@ -208,6 +218,7 @@ E:\coolbao\LoginTest\res\layout\tab_widget.xml \
 E:\coolbao\LoginTest\res\layout\topbar.xml \
 E:\coolbao\LoginTest\res\layout\transit.xml \
 E:\coolbao\LoginTest\res\layout\update.xml \
+E:\coolbao\LoginTest\res\layout\video_login.xml \
 E:\coolbao\LoginTest\res\layout\what_new_four.xml \
 E:\coolbao\LoginTest\res\layout\what_new_one.xml \
 E:\coolbao\LoginTest\res\layout\what_new_three.xml \

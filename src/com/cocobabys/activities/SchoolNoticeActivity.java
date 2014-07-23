@@ -65,6 +65,8 @@ import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
+import com.cocobabys.video.VideoApp;
+import com.cocobabys.video.VideoLoginActivity;
 import com.umeng.analytics.MobclickAgent;
 
 public class SchoolNoticeActivity extends TabChildActivity {
@@ -77,6 +79,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	public static final int INTERACTION = 5;
 	public static final int EDUCATION = 6;
 	public static final int EXPERENCE = 7;
+	public static final int WATCH = 8;
 
 	// 下列序号与资源文件arrays.xml中的baby_setting_items配置保持一致
 	private static final int SET_BABY_NICKNAME = 0;
@@ -747,11 +750,16 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		map.put("ItemText", getResources().getText(R.string.education));
 		lstImageItem.add(map);
 
-		// 暂时屏蔽成长经历模块
+		// 暂时屏蔽成长经历模块和视频监控模块
 		if (MyApplication.getInstance().isForTest()) {
 			map = new HashMap<String, Object>();
 			map.put("ItemImage", R.drawable.exp);
 			map.put("ItemText", getResources().getText(R.string.experence));
+			lstImageItem.add(map);
+
+			map = new HashMap<String, Object>();
+			map.put("ItemImage", R.drawable.exp);
+			map.put("ItemText", getResources().getText(R.string.watch_baby));
 			lstImageItem.add(map);
 		}
 
@@ -848,6 +856,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				}
 			});
 			break;
+		case WATCH:
+			Utils.goNextActivity(this, VideoLoginActivity.class, false);
+			break;
 
 		default:
 			Toast.makeText(this, "暂未实现！", Toast.LENGTH_SHORT).show();
@@ -940,6 +951,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		MyThreadPoolMgr.shutdown();
 		DataMgr.getInstance().close();
 		MediaMgr.close();
+		VideoApp.getJni().uninit();
 	}
 
 	private interface ActivityLauncher {

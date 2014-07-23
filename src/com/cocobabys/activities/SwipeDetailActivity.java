@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -82,9 +83,11 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 			noticeiconView.setVisibility(View.VISIBLE);
 			Utils.setImg(noticeiconView, bmp);
 		} else {
-			noticeiconView.setVisibility(View.VISIBLE);
-			noticeiconView.setImageResource(R.drawable.default_icon);
-			runDownloadIconTask();
+			if (!TextUtils.isEmpty(swipeinfo.getUrl())) {
+				noticeiconView.setVisibility(View.VISIBLE);
+				noticeiconView.setImageResource(R.drawable.default_icon);
+				runDownloadIconTask();
+			}
 		}
 	}
 

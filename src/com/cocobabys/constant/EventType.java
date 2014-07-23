@@ -110,4 +110,7 @@ public class EventType {
 
 	public static final int UPLOAD_ICON_SUCCESS = 1830;
 
+	/**************** Video event ******************/
+	public static final int VIDEO_LOGIN_SUCCESS = 10010;
+	public static final int VIDEO_LOGIN_FAIL = 10011;
 }

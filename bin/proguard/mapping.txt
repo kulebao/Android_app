@@ -6811,7 +6811,12 @@ com.cocobabys.jobs.GetSenderInfoJob$GetTeacherRunnable -> com.cocobabys.i.m:
     void run() -> run
     int handleGetSenderResult(com.cocobabys.net.HttpResult) -> a
     void sendMsg(int,com.cocobabys.bean.SenderInfo) -> a
-com.cocobabys.jobs.SendChatJob -> com.cocobabys.i.n:
+com.cocobabys.jobs.LoginVideoJob -> com.cocobabys.i.n:
+    android.os.Handler handler -> a
+    java.lang.String name -> b
+    java.lang.String password -> c
+    void run() -> run
+com.cocobabys.jobs.SendChatJob -> com.cocobabys.i.o:
     android.os.Handler handler -> a
     java.lang.String childid -> b
     java.lang.String content -> c
@@ -6820,21 +6825,21 @@ com.cocobabys.jobs.SendChatJob -> com.cocobabys.i.n:
     java.lang.String access$000(com.cocobabys.jobs.SendChatJob) -> a
     long access$100(com.cocobabys.jobs.SendChatJob) -> b
     java.lang.String access$200(com.cocobabys.jobs.SendChatJob) -> c
-com.cocobabys.jobs.SendChatJob$1 -> com.cocobabys.i.o:
+com.cocobabys.jobs.SendChatJob$1 -> com.cocobabys.i.p:
     com.cocobabys.jobs.SendChatJob this$0 -> a
     java.lang.Object handle() -> a
-com.cocobabys.jobs.SendExpJob -> com.cocobabys.i.p:
+com.cocobabys.jobs.SendExpJob -> com.cocobabys.i.q:
     android.os.Handler handler -> a
     java.lang.String text -> b
     java.util.List mediums -> c
     void run() -> run
     java.lang.String getContent() -> d
     void saveBmpToSDCard() -> e
-com.cocobabys.jobs.SendExpJob$1 -> com.cocobabys.i.q:
+com.cocobabys.jobs.SendExpJob$1 -> com.cocobabys.i.r:
     java.lang.String val$content -> a
     com.cocobabys.jobs.SendExpJob this$0 -> b
     java.lang.Object handle() -> a
-com.cocobabys.jobs.UploadChatIconJob -> com.cocobabys.i.r:
+com.cocobabys.jobs.UploadChatIconJob -> com.cocobabys.i.s:
     android.os.Handler handler -> a
     android.graphics.Bitmap bitmap -> b
     long lastid -> c
@@ -6842,11 +6847,11 @@ com.cocobabys.jobs.UploadChatIconJob -> com.cocobabys.i.r:
     void run() -> run
     long access$000(com.cocobabys.jobs.UploadChatIconJob) -> a
     java.lang.String access$100(com.cocobabys.jobs.UploadChatIconJob) -> b
-com.cocobabys.jobs.UploadChatIconJob$1 -> com.cocobabys.i.s:
+com.cocobabys.jobs.UploadChatIconJob$1 -> com.cocobabys.i.t:
     java.lang.String val$content -> a
     com.cocobabys.jobs.UploadChatIconJob this$0 -> b
     java.lang.Object handle() -> a
-com.cocobabys.jobs.UploadMediaFileIconJob -> com.cocobabys.i.t:
+com.cocobabys.jobs.UploadMediaFileIconJob -> com.cocobabys.i.u:
     android.os.Handler handler -> b
     long lastid -> c
     java.util.List list -> a
@@ -6856,7 +6861,7 @@ com.cocobabys.jobs.UploadMediaFileIconJob -> com.cocobabys.i.t:
     void run() -> run
     long access$000(com.cocobabys.jobs.UploadMediaFileIconJob) -> a
     java.lang.String access$100(com.cocobabys.jobs.UploadMediaFileIconJob) -> b
-com.cocobabys.jobs.UploadMediaFileIconJob$1 -> com.cocobabys.i.u:
+com.cocobabys.jobs.UploadMediaFileIconJob$1 -> com.cocobabys.i.v:
     java.lang.String val$content -> a
     com.cocobabys.jobs.UploadMediaFileIconJob this$0 -> b
     java.lang.Object handle() -> a
@@ -7432,11 +7437,12 @@ com.cocobabys.utils.MethodUtils -> com.cocobabys.s.b:
     void executeCheckNewsCommand(android.content.Context) -> a
     java.lang.String getAllFormatedClassid() -> g
 com.cocobabys.utils.Utils -> com.cocobabys.s.c:
-    java.lang.String CHILD_PHOTO -> d
+    java.lang.String CHILD_PHOTO -> e
     java.lang.String CHAT_ICON -> a
-    java.lang.String EXP_ICON -> b
-    java.lang.String CHAT_VOICE -> c
-    int versionCode -> e
+    java.lang.String VIDEO_PIC -> b
+    java.lang.String EXP_ICON -> c
+    java.lang.String CHAT_VOICE -> d
+    int versionCode -> f
     java.lang.String getResString(int) -> a
     void makeToast(android.content.Context,int) -> a
     void makeToast(android.content.Context,java.lang.String) -> a
@@ -7456,7 +7462,7 @@ com.cocobabys.utils.Utils -> com.cocobabys.s.c:
     void saveProp(java.lang.String,java.lang.String) -> b
     void saveUndeleteableProp(java.lang.String,java.lang.String) -> c
     java.lang.String getUndeleteableProp(java.lang.String) -> b
-    android.content.SharedPreferences$Editor getEditor(java.lang.String) -> s
+    android.content.SharedPreferences$Editor getEditor(java.lang.String) -> t
     void clearProp() -> f
     boolean isLoginout() -> g
     void close(java.io.Closeable) -> a
@@ -7480,32 +7486,246 @@ com.cocobabys.utils.Utils -> com.cocobabys.s.c:
     java.lang.String getSDCardMediaRootPath(java.lang.String) -> g
     boolean makeDirs(java.lang.String) -> h
     java.lang.String getDir(java.lang.String) -> i
-    boolean makeAppDirInSDCard(java.lang.String) -> t
+    boolean makeAppDirInSDCard(java.lang.String) -> u
     void clearSDFolder() -> n
     void RecursionDeleteFile(java.io.File) -> a
     void saveBitmapToSDCard(android.graphics.Bitmap,java.lang.String) -> a
     java.lang.String getUploadChildUrl() -> o
     java.lang.String getChatIconUrl(long) -> d
     java.lang.String getChatMediaUrl(long,java.lang.String) -> a
-    java.lang.String getChatIconDir(java.lang.String) -> j
-    java.lang.String getExpIconDir(java.lang.String) -> k
-    android.graphics.Bitmap getLoacalBitmap(java.lang.String) -> l
+    java.lang.String getVideoPicPath(java.lang.String) -> j
+    java.lang.String getChatIconDir(java.lang.String) -> k
+    java.lang.String getExpIconDir(java.lang.String) -> l
+    android.graphics.Bitmap getLoacalBitmap(java.lang.String) -> m
     android.graphics.Bitmap getLoacalBitmap(java.lang.String,int) -> a
     android.graphics.Bitmap getLoacalBitmap(java.lang.String,int,int) -> a
-    android.graphics.Bitmap getBitmapFromUrl$676c1c3e(java.lang.String) -> m
-    android.graphics.Bitmap downloadImgImpl(java.lang.String) -> u
-    android.graphics.Bitmap downloadImgWithJudgement(java.lang.String) -> v
-    java.lang.String getExpRelativePath(java.lang.String) -> n
+    android.graphics.Bitmap getBitmapFromUrl$676c1c3e(java.lang.String) -> n
+    android.graphics.Bitmap downloadImgImpl(java.lang.String) -> v
+    android.graphics.Bitmap downloadImgWithJudgement(java.lang.String) -> w
+    java.lang.String getExpRelativePath(java.lang.String) -> o
     android.graphics.Bitmap downloadImgWithJudgement(java.lang.String,float,float) -> a
-    void mkDirs(java.lang.String) -> o
+    void mkDirs(java.lang.String) -> p
     void saveInSDCard(java.lang.StringBuffer,java.lang.String) -> a
-    void setToTestHost(java.lang.String) -> p
+    void setToTestHost(java.lang.String) -> q
     boolean isTestHost() -> p
-    java.lang.String getName(java.lang.String) -> q
+    java.lang.String getName(java.lang.String) -> r
     java.lang.String getDefaultCameraDir() -> q
     void goNextActivity$35ff8c7e(android.app.Activity,java.lang.Class) -> a
-    void copy(java.lang.String) -> r
+    void copy(java.lang.String) -> s
     void galleryAddPic(android.net.Uri) -> a
+com.cocobabys.video.DeviceActivity -> com.cocobabys.video.DeviceActivity:
+    android.widget.ListView mListView -> a
+    java.util.List mListData -> b
+    void onCreate(android.os.Bundle) -> onCreate
+    void onDestroy() -> onDestroy
+    boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
+    void getChildrenByNodeId(int) -> a
+    void access$000(com.cocobabys.video.DeviceActivity,int) -> a
+    android.widget.ListView access$100(com.cocobabys.video.DeviceActivity) -> a
+com.cocobabys.video.DeviceActivity$1 -> com.cocobabys.video.a:
+    com.cocobabys.video.DeviceActivity this$0 -> a
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+com.cocobabys.video.PlayActivity -> com.cocobabys.video.PlayActivity:
+    android.widget.Button mbtn_record -> b
+    android.widget.Button mbtn_capture -> c
+    android.widget.Button mbtn_arming -> d
+    android.widget.Button mbtn_disarming -> e
+    android.widget.Button mbtn_opentalk -> f
+    android.widget.Button mbtn_closetalk -> g
+    android.widget.Button mbtn_openlisten -> h
+    android.widget.Button mbtn_closelisten -> i
+    android.widget.ImageView mivrecordDot -> j
+    android.widget.TextView mtvrecordTime -> k
+    boolean mIfLogin -> l
+    boolean mIsPlaying -> m
+    boolean mIsListening -> n
+    boolean mIsTalking -> o
+    boolean mIsRecording -> p
+    android.os.Handler mUIHandler -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onDestroy() -> onDestroy
+    boolean saveCapturedPic(byte[],java.lang.String) -> a
+    java.lang.String Duration2Time(int) -> a
+    java.lang.String getFilePath(int,java.lang.String) -> a
+    boolean access$000(com.cocobabys.video.PlayActivity) -> a
+    boolean access$002(com.cocobabys.video.PlayActivity,boolean) -> a
+    void access$100(com.cocobabys.video.PlayActivity,boolean) -> b
+    void access$200(com.cocobabys.video.PlayActivity) -> b
+    android.widget.Button access$300(com.cocobabys.video.PlayActivity) -> c
+    android.widget.Button access$400(com.cocobabys.video.PlayActivity) -> d
+    void access$500(com.cocobabys.video.PlayActivity) -> e
+    void access$600(com.cocobabys.video.PlayActivity) -> f
+    android.widget.Button access$700(com.cocobabys.video.PlayActivity) -> g
+    android.widget.Button access$800(com.cocobabys.video.PlayActivity) -> h
+    void access$900(com.cocobabys.video.PlayActivity) -> i
+    android.widget.Button access$1000(com.cocobabys.video.PlayActivity) -> j
+    android.widget.Button access$1100(com.cocobabys.video.PlayActivity) -> k
+    boolean access$1202$7bed531d(com.cocobabys.video.PlayActivity) -> l
+    boolean access$1302$7bed531d(com.cocobabys.video.PlayActivity) -> m
+    boolean access$1402$7bed531d(com.cocobabys.video.PlayActivity) -> n
+    boolean access$1502$7bed531d(com.cocobabys.video.PlayActivity) -> o
+    boolean access$1500(com.cocobabys.video.PlayActivity) -> p
+    boolean access$1300(com.cocobabys.video.PlayActivity) -> q
+    boolean access$1200(com.cocobabys.video.PlayActivity) -> r
+    boolean access$1400(com.cocobabys.video.PlayActivity) -> s
+    android.widget.TextView access$1600(com.cocobabys.video.PlayActivity) -> t
+com.cocobabys.video.PlayActivity$1 -> com.cocobabys.video.b:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.video.PlayActivity$1$1 -> com.cocobabys.video.c:
+    com.cocobabys.video.PlayActivity$1 this$1 -> a
+    void run() -> run
+com.cocobabys.video.PlayActivity$10 -> com.cocobabys.video.d:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void run() -> run
+com.cocobabys.video.PlayActivity$11 -> com.cocobabys.video.e:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void run() -> run
+com.cocobabys.video.PlayActivity$12 -> com.cocobabys.video.f:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void run() -> run
+com.cocobabys.video.PlayActivity$13 -> com.cocobabys.video.g:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void handleMessage(android.os.Message) -> handleMessage
+com.cocobabys.video.PlayActivity$2 -> com.cocobabys.video.h:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.video.PlayActivity$3 -> com.cocobabys.video.i:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.video.PlayActivity$4 -> com.cocobabys.video.j:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.video.PlayActivity$5 -> com.cocobabys.video.k:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.video.PlayActivity$6 -> com.cocobabys.video.l:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.video.PlayActivity$7 -> com.cocobabys.video.m:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.video.PlayActivity$8 -> com.cocobabys.video.n:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.cocobabys.video.PlayActivity$9 -> com.cocobabys.video.o:
+    com.cocobabys.video.PlayActivity this$0 -> a
+    void run() -> run
+com.cocobabys.video.PlayView -> com.cocobabys.video.PlayView:
+    com.cocobabys.video.PlayView$PlayRenderer playRenderer -> a
+    boolean isFirstIn -> b
+    void surfaceDestroyed(android.view.SurfaceHolder) -> surfaceDestroyed
+    boolean access$000(com.cocobabys.video.PlayView) -> a
+    boolean access$002$7e710487(com.cocobabys.video.PlayView) -> b
+com.cocobabys.video.PlayView$1 -> com.cocobabys.video.p:
+    com.cocobabys.video.PlayView this$0 -> a
+com.cocobabys.video.PlayView$PlayRenderer -> com.cocobabys.video.q:
+    com.cocobabys.video.PlayView this$0 -> a
+    void onSurfaceChanged(javax.microedition.khronos.opengles.GL10,int,int) -> onSurfaceChanged
+    void onDrawFrame(javax.microedition.khronos.opengles.GL10) -> onDrawFrame
+    void onSurfaceCreated(javax.microedition.khronos.opengles.GL10,javax.microedition.khronos.egl.EGLConfig) -> onSurfaceCreated
+com.cocobabys.video.VideoApp -> com.cocobabys.video.r:
+    int mUserId -> a
+    int mVideoHandle -> b
+    int mAudioHandle -> c
+    int mTalkHandle -> d
+    int mAlarmHandle -> e
+    int mRecordHandle -> f
+    byte[] mCapputureHandle -> g
+    int mLanSearchHandle -> h
+    com.huamaitel.api.HMDefines$DeviceInfo mDeviceInfo -> i
+    com.huamaitel.api.HMDefines$ChannelCapacity[] mChannelCapacity -> j
+    int serverId -> k
+    int treeId -> l
+    int userId -> m
+    int curNodeHandle -> n
+    com.huamaitel.api.HMDefines$DeviceInfo deviceInfo -> o
+    com.huamaitel.api.HMJniInterface jni -> t
+    java.lang.String mCapturePath -> p
+    java.lang.String mLoginServerError -> q
+    boolean mIsUserLogin -> r
+    java.util.List rootList -> s
+    com.huamaitel.api.HMJniInterface getJni() -> a
+com.cocobabys.video.VideoLoginActivity -> com.cocobabys.video.VideoLoginActivity:
+    android.app.ProgressDialog loginProcessDialog -> a
+    android.os.Handler handler -> b
+    java.lang.String username -> c
+    java.lang.String password -> d
+    void onCreate(android.os.Bundle) -> onCreate
+    void access$000(com.cocobabys.video.VideoLoginActivity) -> a
+    void access$100(com.cocobabys.video.VideoLoginActivity) -> b
+com.cocobabys.video.VideoLoginActivity$1 -> com.cocobabys.video.s:
+    com.cocobabys.video.VideoLoginActivity this$0 -> a
+    void handleMessage(android.os.Message) -> handleMessage
+com.huamaitel.api.HMCallback -> com.huamaitel.api.a:
+com.huamaitel.api.HMCallback$RenderCallback -> com.huamaitel.api.b:
+com.huamaitel.api.HMDefines -> com.huamaitel.api.c:
+com.huamaitel.api.HMDefines$ChannelCapacity -> com.huamaitel.api.d:
+    int audioCodeType -> a
+    int audioSample -> b
+    int audioChannel -> c
+com.huamaitel.api.HMDefines$DeviceInfo -> com.huamaitel.api.e:
+com.huamaitel.api.HMDefines$LoginServerInfo -> com.huamaitel.api.f:
+    java.lang.String ip -> a
+    short port -> b
+    java.lang.String user -> c
+    java.lang.String password -> d
+    java.lang.String model -> e
+    java.lang.String version -> f
+com.huamaitel.api.HMDefines$OpenAudioParam -> com.huamaitel.api.g:
+    int channel -> a
+com.huamaitel.api.HMDefines$OpenAudioRes -> com.huamaitel.api.h:
+com.huamaitel.api.HMDefines$OpenTalkParam -> com.huamaitel.api.i:
+    int channel -> a
+    int audioEncode -> b
+    int sample -> c
+    int audioChannel -> d
+com.huamaitel.api.HMDefines$OpenVideoParam -> com.huamaitel.api.j:
+    int channel -> a
+    int codeStream -> b
+    int videoType -> c
+com.huamaitel.api.HMDefines$OpenVideoRes -> com.huamaitel.api.k:
+com.huamaitel.api.HMDefines$UserInfo -> com.huamaitel.api.l:
+    int useTransferService -> a
+com.huamaitel.api.HMJniInterface -> com.huamaitel.api.HMJniInterface:
+    int init() -> init
+    int uninit() -> uninit
+    int connectServer(com.huamaitel.api.HMDefines$LoginServerInfo,java.lang.String) -> connectServer
+    int disconnectServer(int) -> disconnectServer
+    int getDeviceList(int) -> getDeviceList
+    com.huamaitel.api.HMDefines$UserInfo getUserInfo(int) -> getUserInfo
+    int getTransferInfo(int) -> getTransferInfo
+    int getNodeType(int) -> getNodeType
+    java.lang.String getNodeUrl(int) -> getNodeUrl
+    java.lang.String getNodeName(int) -> getNodeName
+    int getTree(int) -> getTree
+    int getRoot(int) -> getRoot
+    java.lang.String getDeviceSn(int) -> getDeviceSn
+    int getChildrenCount(int) -> getChildrenCount
+    int getChildAt(int,int) -> getChildAt
+    int releaseTree(int) -> releaseTree
+    int login(java.lang.String,short,java.lang.String,java.lang.String,java.lang.String) -> login
+    int loginEx(int) -> loginEx
+    int logout(int) -> logout
+    com.huamaitel.api.HMDefines$DeviceInfo getDeviceInfo(int) -> getDeviceInfo
+    com.huamaitel.api.HMDefines$ChannelCapacity[] getChannelCapacity(int) -> getChannelCapacity
+    int startVideo(int,com.huamaitel.api.HMDefines$OpenVideoParam,com.huamaitel.api.HMDefines$OpenVideoRes) -> startVideo
+    int stopVideo(int) -> stopVideo
+    int startAudio(int,com.huamaitel.api.HMDefines$OpenAudioParam,com.huamaitel.api.HMDefines$OpenAudioRes) -> startAudio
+    int stopAudio(int) -> stopAudio
+    int startTalk(int,com.huamaitel.api.HMDefines$OpenTalkParam) -> startTalk
+    int stopTalk(int) -> stopTalk
+    int arming(int,int,java.lang.String) -> arming
+    int disarming(int,int,java.lang.String) -> disarming
+    int startLocalRecord(int,java.lang.String) -> startLocalRecord
+    int stopLocalRecord(int) -> stopLocalRecord
+    int getLocalRecordTime(int) -> getLocalRecordTime
+    byte[] localCapture(int) -> localCapture
+    void gLInit() -> gLInit
+    void gLUninit() -> gLUninit
+    void gLResize(int,int) -> gLResize
+    void gLRender() -> gLRender
+    void setRenderCallback(com.huamaitel.api.HMCallback$RenderCallback) -> setRenderCallback
 com.nostra13.universalimageloader.cache.disc.BaseDiscCache -> com.nostra13.universalimageloader.cache.disc.BaseDiscCache:
     java.lang.String ERROR_ARG_NULL -> ERROR_ARG_NULL
     java.io.File cacheDir -> cacheDir
