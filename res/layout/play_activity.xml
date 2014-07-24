@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/id_btn_record"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="66dp"
         android:text="拍照" />
 
     <Button

@@ -75,6 +75,12 @@ public class PlayActivity extends Activity {
 	private boolean mIsListening = false; // Is listening...
 	private boolean mIsTalking = false; // Is talking...
 	private boolean mIsRecording = false; // Is Recording...
+	private Handler handler;
+
+	private static final int PLAY_SUCCESS = 0;
+	private static final int PLAY_FAILED = 1;
+	private static final int PLAY_LOGIN_FAILED = 2;
+	private static final int PLAY_GET_DEVICE_FAILED = 3;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -85,6 +91,7 @@ public class PlayActivity extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+		initHandler();
 		mbtn_record = (Button) findViewById(R.id.id_btn_record);
 		mbtn_capture = (Button) findViewById(R.id.id_btn_capture);
 		mbtn_arming = (Button) findViewById(R.id.id_btn_arming);
@@ -278,6 +285,36 @@ public class PlayActivity extends Activity {
 		openVideo();
 	}
 
+	private void initHandler() {
+		handler = new Handler() {
+
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				if (PlayActivity.this.isFinishing()) {
+					return;
+				}
+				switch (msg.what) {
+				case PLAY_SUCCESS:
+					break;
+				case PLAY_FAILED:
+					Utils.makeToast(PlayActivity.this, "播放视频失败！");
+					finish();
+					break;
+				case PLAY_LOGIN_FAILED:
+					Utils.makeToast(PlayActivity.this, "注册视频服务失败！");
+					break;
+				case PLAY_GET_DEVICE_FAILED:
+					Utils.makeToast(PlayActivity.this, "获取视频设备失败！");
+					break;
+				default:
+					break;
+				}
+			}
+
+		};
+	}
+
 	private void startListen() {
 		new Thread() {
 			public void run() {
@@ -339,13 +376,18 @@ public class PlayActivity extends Activity {
 				if (VideoApp.mIsUserLogin) {
 					// 从互联网登录
 					int nodeId = getIntent().getIntExtra("nodeId", 0);
+					Log.d("VIDEO", "first nodeId=" + nodeId);
 					if (nodeId == 0) {
 						return;
 					}
 
 					// Step 1: Login the device.
+					Log.d("VIDEO", "try to login");
 					VideoApp.mUserId = VideoApp.getJni().loginEx(nodeId);
-					if (VideoApp.mUserId == 0) {
+					Log.d("VIDEO", "after login mUserId=" + VideoApp.mUserId);
+					// 原始代码这里只有0才返回，实测中会返回-1，如果返回-1继续向下执行，程序假死，且按键无反应
+					if (VideoApp.mUserId == 0 || VideoApp.mUserId == -1) {
+						handler.sendEmptyMessage(PLAY_LOGIN_FAILED);
 						return;
 					}
 				} else {
@@ -369,28 +411,55 @@ public class PlayActivity extends Activity {
 				mIfLogin = true;
 
 				// Step 2: Get device information.
+				Log.d("VIDEO", "get device info");
 				VideoApp.mDeviceInfo = VideoApp.getJni().getDeviceInfo(
 						VideoApp.mUserId);
+				Log.d("VIDEO", "getChannelCapacity mDeviceInfo="
+						+ VideoApp.mDeviceInfo);
 				VideoApp.mChannelCapacity = VideoApp.getJni()
 						.getChannelCapacity(VideoApp.mUserId);
 				if (VideoApp.mDeviceInfo == null) {
+					handler.sendEmptyMessage(PLAY_GET_DEVICE_FAILED);
 					return;
 				}
 
 				// Step 3: Open video
+				Log.d("VIDEO", "OpenVideoParam");
 				HMDefines.OpenVideoParam param = new HMDefines.OpenVideoParam();
 				param.channel = 0;
 				param.codeStream = HMDefines.CodeStream.MAIN_STREAM;
 				param.videoType = HMDefines.VideoStream.REAL_STREAM;
+				Log.d("VIDEO", "OpenVideoRes");
 				HMDefines.OpenVideoRes res = new HMDefines.OpenVideoRes();
 
 				// Step 4: Start video
-				int ret = VideoApp.getJni().startVideo(VideoApp.mUserId, param,
-						res);
-				if (ret != HMDefines.HMEC_OK) {
-					return;
-				}
-				if (VideoApp.mVideoHandle == 0) {
+				// Log.d("VIDEO", "startVideo");
+				// int ret = VideoApp.getJni().startVideo(VideoApp.mUserId,
+				// param,
+				// res);
+				// Log.d("VIDEO", "after startVideo ret=" + ret +
+				// " mVideoHandle="
+				// + VideoApp.mVideoHandle);
+				// if (ret != HMDefines.HMEC_OK) {
+				// return;
+				// }
+				//
+				// Log.d("VIDEO", "at the end mVideoHandle ="
+				// + VideoApp.mVideoHandle);
+				// if (VideoApp.mVideoHandle == 0) {
+				// return;
+				// }
+				//
+				// mIsPlaying = true;
+
+				Log.d("VIDEO", "startVideo");
+				VideoApp.mVideoHandle = VideoApp.getJni().startVideo(
+						VideoApp.mUserId, param, res);
+
+				Log.d("VIDEO", "at the end mVideoHandle ="
+						+ VideoApp.mVideoHandle);
+				if (VideoApp.mVideoHandle <= 0) {
+					handler.sendEmptyMessage(PLAY_FAILED);
 					return;
 				}
 
@@ -411,7 +480,8 @@ public class PlayActivity extends Activity {
 			@Override
 			public void run() {
 				super.run();
-
+				Log.d("VIDEO", "at the end exitPlayActivity mIsPlaying="
+						+ mIsPlaying);
 				if (mIsPlaying) {
 					VideoApp.getJni().stopVideo(VideoApp.mVideoHandle);
 				}
@@ -623,6 +693,7 @@ class PlayView extends GLSurfaceView {
 		VideoApp.getJni().setRenderCallback(new HMCallback.RenderCallback() {
 			@Override
 			public void onRequest() {
+				Log.d("Renderer", "onRequest");
 				requestRender(); // Force to render if video data comes.
 			}
 		});
@@ -633,6 +704,7 @@ class PlayView extends GLSurfaceView {
 
 		// 设置OpenGL的环境变量，或是初始化OpenGL的图形物体。
 		public void onSurfaceChanged(GL10 gl, int w, int h) {
+			Log.d("Renderer", "onSurfaceChanged");
 			VideoApp.getJni().gLResize(w, h);
 		}
 
@@ -642,13 +714,14 @@ class PlayView extends GLSurfaceView {
 				isFirstIn = false;
 				return;
 			}
-
+			Log.d("Renderer", "onDrawFrame");
 			VideoApp.getJni().gLRender();
 		}
 
 		// 主要用来对GLSurfaceView容器的变化进行响应。
 		@Override
 		public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+			Log.d("Renderer", "onSurfaceCreated");
 			VideoApp.getJni().gLInit();
 		}
 	}
@@ -656,6 +729,7 @@ class PlayView extends GLSurfaceView {
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		super.surfaceDestroyed(holder);
+		Log.d("Renderer", "surfaceDestroyed");
 		VideoApp.getJni().gLUninit();
 	}
 }

@@ -24,8 +24,8 @@ public class VideoLoginActivity extends UmengStatisticsActivity {
 
 	private ProgressDialog loginProcessDialog;
 	private Handler handler;
-	private String username = "cocbaby";
-	private String password = "13880498549";
+	private String username = "xmm";// "cocbaby";
+	private String password = "123456";// "13880498549";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
