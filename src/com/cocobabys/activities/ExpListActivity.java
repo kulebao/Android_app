@@ -156,6 +156,9 @@ public class ExpListActivity extends UmengStatisticsActivity {
 	protected void handleGetExpInfoSuccess() {
 		List<ExpInfo> list = DataMgr.getInstance().getExpInfoByMonthAndYear(
 				getYearAndMonth());
+		if (list.isEmpty()) {
+			Utils.makeToast(ExpListActivity.this, "没有更多的记录了");
+		}
 		adapter.addAll(list);
 	}
 
@@ -186,5 +189,5 @@ public class ExpListActivity extends UmengStatisticsActivity {
 		}
 		return true;
 	}
-	
+
 }

@@ -7,12 +7,15 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
+import java.util.concurrent.Future;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -35,8 +38,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocobabys.R;
+import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.Utils;
+import com.cocobabys.video.PlayView.InnerHandler;
 import com.huamaitel.api.HMCallback;
+import com.huamaitel.api.HMCallback.NetworkCallback;
 import com.huamaitel.api.HMDefines;
 
 /**
@@ -82,6 +88,20 @@ public class PlayActivity extends Activity {
 	private static final int PLAY_LOGIN_FAILED = 2;
 	private static final int PLAY_GET_DEVICE_FAILED = 3;
 
+	private static final int NETWORK_ERROR = 4;
+
+	private static final int GET_DEVICE_INFO = 10;
+	private static final int PLAY_VIDEO = 20;
+	private static final int OPEN_VIDEO_DONE = 30;
+
+	private static final String LOGIN_DEVICE = "登录设备...";
+	protected static final String GET_DEVICE = "获取设备信息...";
+	protected static final String GET_VIDEO_INFO = "获取图像信息...";
+	protected static final String BUFFERING = "缓冲中...";
+	private static final int MAX_PROGRESS = 100;
+
+	private ProgressDialog mProgressDialog;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,19 +112,190 @@ public class PlayActivity extends Activity {
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 		initHandler();
-		mbtn_record = (Button) findViewById(R.id.id_btn_record);
-		mbtn_capture = (Button) findViewById(R.id.id_btn_capture);
-		mbtn_arming = (Button) findViewById(R.id.id_btn_arming);
-		mbtn_disarming = (Button) findViewById(R.id.id_btn_disarming);
-		mbtn_opentalk = (Button) findViewById(R.id.id_btn_opentalk);
-		mbtn_closetalk = (Button) findViewById(R.id.id_btn_closetalk);
-		mbtn_openlisten = (Button) findViewById(R.id.id_btn_openlisten);
-		mbtn_closelisten = (Button) findViewById(R.id.id_btn_closelisten);
-		mtvrecordTime = (TextView) findViewById(R.id.record_time);
-		mivrecordDot = (ImageView) findViewById(R.id.record_dot);
-		mivrecordDot.setBackgroundResource(R.anim.record_anim);
-		mivrecordDot.setImageDrawable(null);
 
+		initView();
+
+		setRecordBtn();
+
+		setTakePhotoBtn();
+
+		setOpenListenBtn();
+
+		setCloseListenBtn();
+
+		setOpenSpeakBtn();
+
+		setCloseSpeakBtn();
+
+		setOpenGuardBtn();
+
+		setCloseGuardBtn();
+
+		showProgressDlg();
+
+		// 登录 & 打开视频
+		openVideo();
+	}
+
+	private void showProgressDlg() {
+		mProgressDialog = new ProgressDialog(this);
+		mProgressDialog.setTitle(LOGIN_DEVICE);
+		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		mProgressDialog.setMax(MAX_PROGRESS);
+		mProgressDialog.setCancelable(false);
+		mProgressDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+				Utils.getResString(R.string.cancel),
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						if (openVideoFuture != null) {
+							openVideoFuture.cancel(true);
+						}
+						finish();
+					}
+				});
+
+		mProgressDialog.show();
+	}
+
+	private void setCloseGuardBtn() {
+		/**
+		 * 撤防
+		 */
+		mbtn_disarming.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				VideoApp.getJni().disarming(VideoApp.mUserId, 1, "");
+				Toast.makeText(getApplicationContext(), "撤防成功",
+						Toast.LENGTH_SHORT).show();
+				mbtn_disarming.setEnabled(false);
+				mbtn_arming.setEnabled(true);
+
+			}
+		});
+	}
+
+	private void setOpenGuardBtn() {
+		/**
+		 * 布防
+		 */
+		mbtn_arming.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				VideoApp.getJni().arming(VideoApp.mUserId, 1, "");
+				Toast.makeText(getApplicationContext(), "布防成功",
+						Toast.LENGTH_SHORT).show();
+				mbtn_arming.setEnabled(false);
+				mbtn_disarming.setEnabled(true);
+
+			}
+		});
+	}
+
+	private void setCloseSpeakBtn() {
+		/**
+		 * 关闭说
+		 */
+		mbtn_closetalk.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				stopTalk();
+				mbtn_opentalk.setEnabled(true);
+				mbtn_closetalk.setEnabled(false);
+			}
+		});
+	}
+
+	private void setOpenSpeakBtn() {
+		/**
+		 * 打开说
+		 */
+		mbtn_opentalk.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				startTalk();
+
+				mbtn_opentalk.setEnabled(false);
+				mbtn_closetalk.setEnabled(true);
+			}
+		});
+	}
+
+	private void setCloseListenBtn() {
+		/**
+		 * 关闭听
+		 */
+		mbtn_closelisten.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				stopListen();
+
+				mbtn_closelisten.setEnabled(false);
+				mbtn_openlisten.setEnabled(true);
+			}
+		});
+	}
+
+	private void setOpenListenBtn() {
+		/**
+		 * 打开听
+		 */
+		mbtn_openlisten.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startListen();
+				mbtn_openlisten.setEnabled(false);
+				mbtn_closelisten.setEnabled(true);
+
+			}
+		});
+	}
+
+	private void setTakePhotoBtn() {
+		/**
+		 * 拍照
+		 */
+		mbtn_capture.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					takePic();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			private void takePic() {
+				String fileName = VideoApp.getJni().getNodeName(
+						VideoApp.curNodeHandle);
+				String path = getFilePath(FILE_TYPE_CAPTURE, fileName);
+				VideoApp.mCapturePath = path;
+
+				byte data[] = VideoApp.getJni().localCapture(VideoApp.mUserId);
+				if (null == data) {
+					Toast.makeText(getApplicationContext(), "拍照失败",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					boolean res = saveCapturedPic(data, VideoApp.mCapturePath);
+					if (res) {
+						Utils.galleryAddPic(Uri.fromFile(new File(path)));
+						Log.i(TAG, "Local capture success." + "拍照成功！图片存放在："
+								+ path);
+						Utils.makeToast(PlayActivity.this, "拍照成功，照片已保存到图库");
+
+					} else {
+						Log.e(TAG, "Local capture fail.");
+					}
+				}
+			}
+		});
+	}
+
+	private void setRecordBtn() {
 		/**
 		 * 打开录像
 		 */
@@ -158,136 +349,25 @@ public class PlayActivity extends Activity {
 				}.start();
 			}
 		});
+	}
 
-		/**
-		 * 拍照
-		 */
-		mbtn_capture.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				try {
-					takePic();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-			private void takePic() {
-				String fileName = VideoApp.getJni().getNodeName(
-						VideoApp.curNodeHandle);
-				String path = getFilePath(FILE_TYPE_CAPTURE, fileName);
-				VideoApp.mCapturePath = path;
-
-				byte data[] = VideoApp.getJni().localCapture(VideoApp.mUserId);
-				if (null == data) {
-					Toast.makeText(getApplicationContext(), "拍照失败",
-							Toast.LENGTH_SHORT).show();
-				} else {
-					boolean res = saveCapturedPic(data, VideoApp.mCapturePath);
-					if (res) {
-						Utils.galleryAddPic(Uri.fromFile(new File(path)));
-						Log.i(TAG, "Local capture success." + "拍照成功！图片存放在："
-								+ path);
-						Utils.makeToast(PlayActivity.this, "拍照成功，照片已保存到图库");
-
-					} else {
-						Log.e(TAG, "Local capture fail.");
-					}
-				}
-			}
-		});
-
-		/**
-		 * 打开听
-		 */
-		mbtn_openlisten.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startListen();
-				mbtn_openlisten.setEnabled(false);
-				mbtn_closelisten.setEnabled(true);
-
-			}
-		});
-
-		/**
-		 * 关闭听
-		 */
-		mbtn_closelisten.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				stopListen();
-
-				mbtn_closelisten.setEnabled(false);
-				mbtn_openlisten.setEnabled(true);
-			}
-		});
-
-		/**
-		 * 打开说
-		 */
-		mbtn_opentalk.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				startTalk();
-
-				mbtn_opentalk.setEnabled(false);
-				mbtn_closetalk.setEnabled(true);
-			}
-		});
-
-		/**
-		 * 关闭说
-		 */
-		mbtn_closetalk.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				stopTalk();
-				mbtn_opentalk.setEnabled(true);
-				mbtn_closetalk.setEnabled(false);
-			}
-		});
-
-		/**
-		 * 布防
-		 */
-		mbtn_arming.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				VideoApp.getJni().arming(VideoApp.mUserId, 1, "");
-				Toast.makeText(getApplicationContext(), "布防成功", 0).show();
-				mbtn_arming.setEnabled(false);
-				mbtn_disarming.setEnabled(true);
-
-			}
-		});
-
-		/**
-		 * 撤防
-		 */
-		mbtn_disarming.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				VideoApp.getJni().disarming(VideoApp.mUserId, 1, "");
-				Toast.makeText(getApplicationContext(), "撤防成功", 0).show();
-				mbtn_disarming.setEnabled(false);
-				mbtn_arming.setEnabled(true);
-
-			}
-		});
-
-		// 登录 & 打开视频
-		openVideo();
+	private void initView() {
+		mbtn_record = (Button) findViewById(R.id.id_btn_record);
+		mbtn_capture = (Button) findViewById(R.id.id_btn_capture);
+		mbtn_arming = (Button) findViewById(R.id.id_btn_arming);
+		mbtn_disarming = (Button) findViewById(R.id.id_btn_disarming);
+		mbtn_opentalk = (Button) findViewById(R.id.id_btn_opentalk);
+		mbtn_closetalk = (Button) findViewById(R.id.id_btn_closetalk);
+		mbtn_openlisten = (Button) findViewById(R.id.id_btn_openlisten);
+		mbtn_closelisten = (Button) findViewById(R.id.id_btn_closelisten);
+		mtvrecordTime = (TextView) findViewById(R.id.record_time);
+		mivrecordDot = (ImageView) findViewById(R.id.record_dot);
+		mivrecordDot.setBackgroundResource(R.anim.record_anim);
+		mivrecordDot.setImageDrawable(null);
 	}
 
 	private void initHandler() {
-		handler = new Handler() {
-
+		handler = new InnerHandler() {
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
@@ -303,10 +383,29 @@ public class PlayActivity extends Activity {
 					break;
 				case PLAY_LOGIN_FAILED:
 					Utils.makeToast(PlayActivity.this, "注册视频服务失败！");
+					finish();
 					break;
 				case PLAY_GET_DEVICE_FAILED:
 					Utils.makeToast(PlayActivity.this, "获取视频设备失败！");
+					finish();
 					break;
+				case GET_DEVICE_INFO:
+					mProgressDialog.setTitle(GET_DEVICE);
+					mProgressDialog.setProgress(30);
+					break;
+				case PLAY_VIDEO:
+					mProgressDialog.setTitle(GET_VIDEO_INFO);
+					mProgressDialog.setProgress(60);
+					break;
+				case OPEN_VIDEO_DONE:
+					mProgressDialog.setTitle(BUFFERING);
+					mProgressDialog.setProgress(100);
+					mProgressDialog.dismiss();
+					break;
+				case NETWORK_ERROR:
+					showErrorDialog(msg.arg1);
+					break;
+
 				default:
 					break;
 				}
@@ -316,7 +415,9 @@ public class PlayActivity extends Activity {
 	}
 
 	private void startListen() {
-		new Thread() {
+		MyThreadPoolMgr.getGenericService().submit(new Runnable() {
+
+			@Override
 			public void run() {
 				HMDefines.OpenAudioParam param = new HMDefines.OpenAudioParam();
 				param.channel = 0;
@@ -324,14 +425,15 @@ public class PlayActivity extends Activity {
 
 				VideoApp.mTalkHandle = VideoApp.getJni().startAudio(
 						VideoApp.mUserId, param, res);
-				if (VideoApp.mTalkHandle == 0) {
+				Log.d("VIDEO", "mTalkHandle =" + VideoApp.mTalkHandle);
+				if (VideoApp.mTalkHandle > 0) {
 					mIsListening = true;
+				} else {
+					Utils.makeToast(PlayActivity.this, "抱歉，该设备不支持音频功能");
 				}
-				if (VideoApp.mTalkHandle == -1) {
-					Log.e(TAG, "抱歉，该设备不支持音频功能");
-				}
+
 			}
-		}.start();
+		});
 	}
 
 	private void stopListen() {
@@ -367,119 +469,180 @@ public class PlayActivity extends Activity {
 		mIsTalking = false;
 	}
 
+	private boolean loginToDevice() {
+		if (VideoApp.mIsUserLogin) {
+			// 从互联网登录
+			int nodeId = getIntent().getIntExtra("nodeId", 0);
+			Log.d("VIDEO", "first nodeId=" + nodeId);
+			if (nodeId == 0) {
+				return false;
+			}
+
+			// Step 1: Login the device.
+			Log.d("VIDEO", "try to login");
+			VideoApp.mUserId = VideoApp.getJni().loginEx(nodeId);
+			Log.d("VIDEO", "after login mUserId=" + VideoApp.mUserId);
+			// 原始代码这里只有0才返回，实测中会返回-1，如果返回-1继续向下执行，程序假死，且按键无反应
+			if (VideoApp.mUserId == 0 || VideoApp.mUserId == -1) {
+				handler.sendEmptyMessage(PLAY_LOGIN_FAILED);
+				return false;
+			}
+		} else {
+			// 从局域网登录（本地设备）
+			String sip = getIntent().getStringExtra("ip");
+			String sport = getIntent().getStringExtra("port");
+			String suser = getIntent().getStringExtra("user");
+			String spass = getIntent().getStringExtra("pass");
+			String sSN = getIntent().getStringExtra("sn");
+			if (sip != null && sport != null && sSN != null && suser != null) {
+				// Step 1: Login the device.
+				VideoApp.mUserId = VideoApp.getJni().login(sip,
+						Short.parseShort(sport), sSN, suser, spass);
+				if (VideoApp.mUserId == 0) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	private boolean getDeviceInfo() {
+		Log.d("VIDEO", "get device info");
+		VideoApp.mDeviceInfo = VideoApp.getJni()
+				.getDeviceInfo(VideoApp.mUserId);
+		Log.d("VIDEO", "getChannelCapacity mDeviceInfo=" + VideoApp.mDeviceInfo);
+		if (VideoApp.mDeviceInfo == null) {
+			handler.sendEmptyMessage(PLAY_GET_DEVICE_FAILED);
+			return false;
+		}
+
+		VideoApp.mChannelCapacity = VideoApp.getJni().getChannelCapacity(
+				VideoApp.mUserId);
+
+		return true;
+	}
+
+	private boolean playVideo() {
+		Log.d("VIDEO", "OpenVideoParam");
+		HMDefines.OpenVideoParam param = new HMDefines.OpenVideoParam();
+		param.channel = 0;
+		param.codeStream = HMDefines.CodeStream.MAIN_STREAM;
+		param.videoType = HMDefines.VideoStream.REAL_STREAM;
+		Log.d("VIDEO", "OpenVideoRes");
+		HMDefines.OpenVideoRes res = new HMDefines.OpenVideoRes();
+
+		Log.d("VIDEO", "startVideo");
+		VideoApp.mVideoHandle = VideoApp.getJni().startVideo(VideoApp.mUserId,
+				param, res);
+
+		Log.d("VIDEO", "at the end mVideoHandle =" + VideoApp.mVideoHandle);
+		if (VideoApp.mVideoHandle <= 0) {
+			handler.sendEmptyMessage(PLAY_FAILED);
+			return false;
+		}
+
+		VideoApp.getJni().setNetworkCallback(VideoApp.mUserId,
+				new NetworkCallback() {
+
+					@Override
+					public void onNetwork(int errorCode) {
+						handleNetworkCallBack(errorCode);
+					}
+
+				});
+		return true;
+	}
+
+	private void handleNetworkCallBack(int errorCode) {
+		if (errorCode != HMDefines.HMEC_OK) {
+			Message message = Message.obtain();
+			message.what = NETWORK_ERROR;
+			message.arg1 = errorCode;
+			handler.sendMessage(message);
+		}
+	}
+
+	private void showErrorDialog(int errorCode) {
+		// final AlertDialog dialog = new AlertDialog.Builder(PlayActivity.this)
+		// .setPositiveButton(R.string.confirm,
+		// new android.content.DialogInterface.OnClickListener() {
+		// @Override
+		// public void onClick(DialogInterface dialog,
+		// int which) {
+		// dialog.dismiss();
+		// finish();
+		// }
+		// }).setCancelable(false)
+		// .setTitle("网络错误，请重新尝试！ error=" + errorCode).create();
+		// dialog.show();
+
+		Utils.makeToast(this, "网络异常:errorCode=" + errorCode);
+	}
+
 	private void openVideo() {
-		new Thread() {
-			@Override
-			public void run() {
-				super.run();
+		openVideoFuture = MyThreadPoolMgr.getGenericService().submit(
+				new Runnable() {
+					@Override
+					public void run() {
+						boolean result = loginToDevice();
 
-				if (VideoApp.mIsUserLogin) {
-					// 从互联网登录
-					int nodeId = getIntent().getIntExtra("nodeId", 0);
-					Log.d("VIDEO", "first nodeId=" + nodeId);
-					if (nodeId == 0) {
-						return;
-					}
-
-					// Step 1: Login the device.
-					Log.d("VIDEO", "try to login");
-					VideoApp.mUserId = VideoApp.getJni().loginEx(nodeId);
-					Log.d("VIDEO", "after login mUserId=" + VideoApp.mUserId);
-					// 原始代码这里只有0才返回，实测中会返回-1，如果返回-1继续向下执行，程序假死，且按键无反应
-					if (VideoApp.mUserId == 0 || VideoApp.mUserId == -1) {
-						handler.sendEmptyMessage(PLAY_LOGIN_FAILED);
-						return;
-					}
-				} else {
-					// 从局域网登录（本地设备）
-					String sip = getIntent().getStringExtra("ip");
-					String sport = getIntent().getStringExtra("port");
-					String suser = getIntent().getStringExtra("user");
-					String spass = getIntent().getStringExtra("pass");
-					String sSN = getIntent().getStringExtra("sn");
-					if (sip != null && sport != null && sSN != null
-							&& suser != null) {
-						// Step 1: Login the device.
-						VideoApp.mUserId = VideoApp.getJni().login(sip,
-								Short.parseShort(sport), sSN, suser, spass);
-						if (VideoApp.mUserId == 0) {
+						if (!result) {
 							return;
 						}
+
+						mIfLogin = true;
+
+						// Step 2: Get device information.
+						handler.sendEmptyMessage(GET_DEVICE_INFO);
+						result = getDeviceInfo();
+						if (!result) {
+							return;
+						}
+
+						// Step 3: Open video
+						handler.sendEmptyMessage(PLAY_VIDEO);
+						result = playVideo();
+						if (!result) {
+							return;
+						}
+
+						handler.sendEmptyMessageDelayed(OPEN_VIDEO_DONE, 1000);
+						mIsPlaying = true;
 					}
-				}
+				});
+	}
 
-				mIfLogin = true;
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		if (mIsListening) {
+			startListen();
+		}
+	}
 
-				// Step 2: Get device information.
-				Log.d("VIDEO", "get device info");
-				VideoApp.mDeviceInfo = VideoApp.getJni().getDeviceInfo(
-						VideoApp.mUserId);
-				Log.d("VIDEO", "getChannelCapacity mDeviceInfo="
-						+ VideoApp.mDeviceInfo);
-				VideoApp.mChannelCapacity = VideoApp.getJni()
-						.getChannelCapacity(VideoApp.mUserId);
-				if (VideoApp.mDeviceInfo == null) {
-					handler.sendEmptyMessage(PLAY_GET_DEVICE_FAILED);
-					return;
-				}
-
-				// Step 3: Open video
-				Log.d("VIDEO", "OpenVideoParam");
-				HMDefines.OpenVideoParam param = new HMDefines.OpenVideoParam();
-				param.channel = 0;
-				param.codeStream = HMDefines.CodeStream.MAIN_STREAM;
-				param.videoType = HMDefines.VideoStream.REAL_STREAM;
-				Log.d("VIDEO", "OpenVideoRes");
-				HMDefines.OpenVideoRes res = new HMDefines.OpenVideoRes();
-
-				// Step 4: Start video
-				// Log.d("VIDEO", "startVideo");
-				// int ret = VideoApp.getJni().startVideo(VideoApp.mUserId,
-				// param,
-				// res);
-				// Log.d("VIDEO", "after startVideo ret=" + ret +
-				// " mVideoHandle="
-				// + VideoApp.mVideoHandle);
-				// if (ret != HMDefines.HMEC_OK) {
-				// return;
-				// }
-				//
-				// Log.d("VIDEO", "at the end mVideoHandle ="
-				// + VideoApp.mVideoHandle);
-				// if (VideoApp.mVideoHandle == 0) {
-				// return;
-				// }
-				//
-				// mIsPlaying = true;
-
-				Log.d("VIDEO", "startVideo");
-				VideoApp.mVideoHandle = VideoApp.getJni().startVideo(
-						VideoApp.mUserId, param, res);
-
-				Log.d("VIDEO", "at the end mVideoHandle ="
-						+ VideoApp.mVideoHandle);
-				if (VideoApp.mVideoHandle <= 0) {
-					handler.sendEmptyMessage(PLAY_FAILED);
-					return;
-				}
-
-				mIsPlaying = true;
-			}
-		}.start();
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if (mIsListening) {
+			VideoApp.getJni().stopAudio(VideoApp.mTalkHandle);
+		}
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-
+		if (mProgressDialog != null) {
+			mProgressDialog.cancel();
+		}
 		exitPlayActivity();
 	}
 
 	private void exitPlayActivity() {
-		new Thread() {
+		MyThreadPoolMgr.getGenericService().submit(new Runnable() {
+
 			@Override
 			public void run() {
-				super.run();
 				Log.d("VIDEO", "at the end exitPlayActivity mIsPlaying="
 						+ mIsPlaying);
 				if (mIsPlaying) {
@@ -502,13 +665,13 @@ public class PlayActivity extends Activity {
 					VideoApp.getJni().logout(VideoApp.mUserId);
 				}
 			}
-		}.start();
+		});
 	}
 
 	/**
 	 * 显示录像时间
 	 */
-	public Handler mUIHandler = new Handler() {
+	public Handler mUIHandler = new InnerHandler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case MSG_SHOW_RECORD_TIME:
@@ -534,6 +697,8 @@ public class PlayActivity extends Activity {
 		}
 
 	};
+
+	private Future<?> openVideoFuture;
 
 	/************************************************* 工具方法 *******************************************************/
 	/*
@@ -731,5 +896,9 @@ class PlayView extends GLSurfaceView {
 		super.surfaceDestroyed(holder);
 		Log.d("Renderer", "surfaceDestroyed");
 		VideoApp.getJni().gLUninit();
+	}
+
+	public static class InnerHandler extends Handler {
+
 	}
 }

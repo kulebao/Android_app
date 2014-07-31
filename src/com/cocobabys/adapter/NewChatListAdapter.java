@@ -8,6 +8,9 @@ import java.util.Map;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
@@ -62,9 +65,11 @@ public class NewChatListAdapter extends BaseAdapter {
 	private Map<String, String> senderMap = new HashMap<String, String>();
 	private GetSenderInfoJob getTeacherInfoJob;
 	private LongClickDlg longClickDlg;
+	private AnimationDrawable anim;
+	private ImageView currentPlayAnimView;
 
-	public NewChatListAdapter(Context activityContext, List<NewChatInfo> list,
-			DownloadImgeJob downloadImgeTask, GetSenderInfoJob getTeacherInfoJob) {
+	public NewChatListAdapter(Context activityContext, List<NewChatInfo> list, DownloadImgeJob downloadImgeTask,
+			GetSenderInfoJob getTeacherInfoJob) {
 		this.context = activityContext;
 		this.dataList = list;
 		this.downloadImgeJob = downloadImgeTask;
@@ -174,30 +179,21 @@ public class NewChatListAdapter extends BaseAdapter {
 			NewChatInfo info = getItem(position);
 
 			if (getItemViewType(position) == LEFT) {
-				convertView = LayoutInflater.from(this.context).inflate(
-						R.layout.chat_item_left, null);
+				convertView = LayoutInflater.from(this.context).inflate(R.layout.chat_item_left, null);
 			} else {
-				convertView = LayoutInflater.from(this.context).inflate(
-						R.layout.chat_item_right, null);
+				convertView = LayoutInflater.from(this.context).inflate(R.layout.chat_item_right, null);
 			}
 
 			flagholder = new FlagHolder();
 
 			flagholder.bLeft = (info.getLayoutID() == R.layout.chat_item_left);
-			flagholder.sendView = (TextView) convertView
-					.findViewById(R.id.sender);
-			flagholder.bodyView = (TextView) convertView
-					.findViewById(R.id.content);
-			flagholder.timestampView = (TextView) convertView
-					.findViewById(R.id.timestamp);
-			flagholder.headiconView = (ImageView) convertView
-					.findViewById(R.id.headicon);
-			flagholder.chaticonView = (ImageView) convertView
-					.findViewById(R.id.chat_icon);
-			flagholder.durationView = (TextView) convertView
-					.findViewById(R.id.duration);
-			flagholder.contentlayout = (RelativeLayout) convertView
-					.findViewById(R.id.contentlayout);
+			flagholder.sendView = (TextView) convertView.findViewById(R.id.sender);
+			flagholder.bodyView = (TextView) convertView.findViewById(R.id.content);
+			flagholder.timestampView = (TextView) convertView.findViewById(R.id.timestamp);
+			flagholder.headiconView = (ImageView) convertView.findViewById(R.id.headicon);
+			flagholder.mediaView = (ImageView) convertView.findViewById(R.id.chat_icon);
+			flagholder.durationView = (TextView) convertView.findViewById(R.id.duration);
+			flagholder.contentlayout = (RelativeLayout) convertView.findViewById(R.id.contentlayout);
 			convertView.setTag(flagholder);
 			convertView.setId(position);
 		} else {
@@ -220,8 +216,7 @@ public class NewChatListAdapter extends BaseAdapter {
 		setTimeView(position, flagholder);
 		setIconClickListener(position, flagholder);
 		setHeadIcon(info, flagholder);
-		Log.d("DJCDDD", "exist getLayoutID="
-				+ (flagholder.bLeft ? "left" : "right"));
+		Log.d("DJCDDD", "exist getLayoutID=" + (flagholder.bLeft ? "left" : "right"));
 	}
 
 	private String getSenderName(NewChatInfo info) {
@@ -236,8 +231,7 @@ public class NewChatListAdapter extends BaseAdapter {
 		}
 
 		// 没有获取到名字，表示发送者还没有获取过资料
-		if (DEFAULT_TEACHER_NAME.equals(name)
-				|| DEFAULT_PARENT_NAME.equals(name)) {
+		if (DEFAULT_TEACHER_NAME.equals(name) || DEFAULT_PARENT_NAME.equals(name)) {
 			SenderInfo senderInfo = new SenderInfo();
 			senderInfo.setSenderID(info.getSender_id());
 			senderInfo.setSenderType(info.getSender_type());
@@ -278,17 +272,14 @@ public class NewChatListAdapter extends BaseAdapter {
 		Bitmap bitmap = null;
 		IconInfo iconInfo = getIconInfo(info);
 
-		bitmap = getLocalIcon(iconInfo, ConstantValue.HEAD_ICON_WIDTH,
-				ConstantValue.HEAD_ICON_HEIGHT);
+		bitmap = getLocalIcon(iconInfo, ConstantValue.HEAD_ICON_WIDTH, ConstantValue.HEAD_ICON_HEIGHT);
 
 		if (bitmap != null) {
 			Utils.setImg(flagholder.headiconView, bitmap);
 		} else {
-			downloadImgeJob.addTask(iconInfo.getNetPath(),
-					iconInfo.getLocalPath(), ConstantValue.HEAD_ICON_WIDTH,
+			downloadImgeJob.addTask(iconInfo.getNetPath(), iconInfo.getLocalPath(), ConstantValue.HEAD_ICON_WIDTH,
 					ConstantValue.HEAD_ICON_HEIGHT);
-			flagholder.headiconView
-					.setImageResource(R.drawable.default_small_icon);
+			flagholder.headiconView.setImageResource(R.drawable.default_small_icon);
 		}
 	}
 
@@ -312,14 +303,12 @@ public class NewChatListAdapter extends BaseAdapter {
 				// }
 
 				// 只用小孩头像
-				ChildInfo childByID = DataMgr.getInstance().getChildByID(
-						info.getChild_id());
+				ChildInfo childByID = DataMgr.getInstance().getChildByID(info.getChild_id());
 				iconInfo.setLocalPath(childByID.getLocal_url());
 				iconInfo.setNetPath(childByID.getServer_url());
 
 			} else {
-				Teacher teacherByID = DataMgr.getInstance().getTeacherByID(
-						info.getSender_id());
+				Teacher teacherByID = DataMgr.getInstance().getTeacherByID(info.getSender_id());
 				iconInfo.setLocalPath(teacherByID.getLocalIconPath());
 				iconInfo.setNetPath(teacherByID.getHead_icon());
 			}
@@ -329,8 +318,7 @@ public class NewChatListAdapter extends BaseAdapter {
 		return iconInfo;
 	}
 
-	private Bitmap getLocalIcon(IconInfo iconInfo, int limitWidth,
-			int limitHeight) {
+	private Bitmap getLocalIcon(IconInfo iconInfo, int limitWidth, int limitHeight) {
 		Bitmap loacalBitmap = null;
 		if (TextUtils.isEmpty(iconInfo.getNetPath())) {
 			return null;
@@ -339,8 +327,7 @@ public class NewChatListAdapter extends BaseAdapter {
 		loacalBitmap = lruCache.get(iconInfo.getLocalPath());
 
 		if (loacalBitmap == null) {
-			loacalBitmap = Utils.getLoacalBitmap(iconInfo.getLocalPath(),
-					limitHeight, limitWidth);
+			loacalBitmap = Utils.getLoacalBitmap(iconInfo.getLocalPath(), limitHeight, limitWidth);
 
 			if (loacalBitmap != null) {
 				lruCache.put(iconInfo.getLocalPath(), loacalBitmap);
@@ -353,12 +340,12 @@ public class NewChatListAdapter extends BaseAdapter {
 		if (TextUtils.isEmpty(info.getLocalUrl())) {
 			flagholder.bodyView.setVisibility(View.VISIBLE);
 			flagholder.bodyView.setText(info.getContent());
-			flagholder.chaticonView.setVisibility(View.GONE);
+			flagholder.mediaView.setVisibility(View.GONE);
 			flagholder.durationView.setVisibility(View.GONE);
 		} else {
 			flagholder.bodyView.setVisibility(View.GONE);
-			flagholder.chaticonView.setVisibility(View.VISIBLE);
-			setChatIcon(flagholder.chaticonView, info, flagholder.durationView);
+			flagholder.mediaView.setVisibility(View.VISIBLE);
+			setChatIcon(flagholder.mediaView, info, flagholder.durationView);
 		}
 	}
 
@@ -371,32 +358,49 @@ public class NewChatListAdapter extends BaseAdapter {
 			Bitmap loacalBitmap = getLocalIcon(iconinfo, 160, 160);
 
 			if (loacalBitmap != null) {
-				Utils.setImg(view, loacalBitmap);
+				Drawable drawable = new BitmapDrawable(loacalBitmap);
+				view.setBackgroundDrawable(drawable);
 			} else {
-				view.setImageResource(R.drawable.default_small_icon);
+				view.setBackgroundResource(R.drawable.default_small_icon);
 				downloadIcon(view, info);
 			}
 		} else {
 			try {
 				File file = new File(info.getLocalUrl());
 				if (file.exists()) {
-					textView.setText(MediaMgr.getDuration(context,
-							Uri.fromFile(file))
-							+ "``");
+					textView.setText(MediaMgr.getDuration(context, Uri.fromFile(file)) + "``");
 					textView.setVisibility(View.VISIBLE);
 				} else {
 					textView.setVisibility(View.GONE);
+					// 实际下载的是音频文件
 					downloadIcon(view, info);
 				}
 			} catch (Exception e) {
 			}
-			view.setImageResource(R.drawable.star);
+			view.setBackgroundResource(R.drawable.playing_3);
+		}
+	}
+
+	private void startAnimation() {
+		currentPlayAnimView.setBackgroundResource(R.anim.anim);
+		anim = (AnimationDrawable) currentPlayAnimView.getBackground();
+		anim.stop();
+		anim.start();
+	}
+
+	private void stopAnimation() {
+		if (anim != null) {
+			anim.stop();
+		}
+		if (currentPlayAnimView != null) {
+			currentPlayAnimView.setBackgroundResource(R.drawable.playing_3);
 		}
 	}
 
 	public void releaseCache() {
 		lruCache.evictAll();
 		senderMap.clear();
+		stopAnimation();
 	}
 
 	private void downloadIcon(ImageView view, NewChatInfo info) {
@@ -414,8 +418,7 @@ public class NewChatListAdapter extends BaseAdapter {
 	private void setTimeView(final int position, FlagHolder flagholder) {
 		final NewChatInfo info = dataList.get(position);
 		final NewChatInfo preinfo = getPreChatinfo(position);
-		if (preinfo == null
-				|| (info.getTimestamp() - preinfo.getTimestamp()) > MIN_TIME_LIMIT) {
+		if (preinfo == null || (info.getTimestamp() - preinfo.getTimestamp()) > MIN_TIME_LIMIT) {
 			flagholder.timestampView.setVisibility(View.VISIBLE);
 			flagholder.timestampView.setText(info.getFormattedTime());
 		} else {
@@ -431,8 +434,8 @@ public class NewChatListAdapter extends BaseAdapter {
 		return null;
 	}
 
-	private void setIconClickListener(final int position, FlagHolder flagholder) {
-		flagholder.chaticonView.setOnClickListener(new OnClickListener() {
+	private void setIconClickListener(final int position, final FlagHolder flagholder) {
+		flagholder.mediaView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				NewChatInfo newChatInfo = getItem(position);
@@ -446,31 +449,58 @@ public class NewChatListAdapter extends BaseAdapter {
 						startToShowIconActivity(iconurl);
 					} else if (JSONConstant.VOICE_TYPE.equals(media_type)) {
 						Log.d("DDD", "playMediaNow");
-						MediaMgr.playMediaNow(context, Uri.fromFile(file));
+						handleVoiceBtnClick(flagholder, file);
 					}
 				}
 			}
 		});
 
-		flagholder.contentlayout
-				.setOnLongClickListener(new OnLongClickListener() {
-					@Override
-					public boolean onLongClick(View v) {
-						// showDlg(position);
-						showDlgEx(position);
-						return false;
-					}
-				});
+		flagholder.contentlayout.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				// showDlg(position);
+				showDlgEx(position);
+				return false;
+			}
+		});
 
-		flagholder.chaticonView
-				.setOnLongClickListener(new OnLongClickListener() {
-					@Override
-					public boolean onLongClick(View v) {
-						// showDlg(position);
-						showDlgEx(position);
-						return false;
-					}
-				});
+		flagholder.mediaView.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				// showDlg(position);
+				showDlgEx(position);
+				return false;
+			}
+		});
+	}
+
+	private void handleVoiceBtnClick(final FlagHolder flagholder, File file) {
+		// 如果是另外一个音频图标被点击，先停止当前正在播放的动画和音频
+		if (currentPlayAnimView != flagholder.mediaView) {
+			if (anim != null && anim.isRunning()) {
+				anim.stop();
+				currentPlayAnimView.setBackgroundResource(R.drawable.playing_3);
+			}
+			MediaMgr.close();
+			currentPlayAnimView = flagholder.mediaView;
+		}
+
+		boolean isPlaying = MediaMgr.isPlaying();
+		Log.d("DDD", "playMediaNow isplaying=" + isPlaying);
+		if (isPlaying) {
+			Log.d("DDD", "stopAnimation");
+			stopAnimation();
+			MediaMgr.close();
+		} else {
+			Log.d("DDD", "startAnimation");
+			startAnimation();
+			MediaMgr.playMediaNow(context, Uri.fromFile(file), new MediaPlayCompleteListener() {
+				@Override
+				public void onComplete() {
+					stopAnimation();
+				}
+			});
+		}
 	}
 
 	private void showDlgEx(final int pos) {
@@ -479,30 +509,24 @@ public class NewChatListAdapter extends BaseAdapter {
 
 		longClickDlg.setTextContent(newChatInfo.getContent());
 
-		if (!TextUtils.isEmpty(newChatInfo.getLocalUrl())
-				&& new File(newChatInfo.getLocalUrl()).exists()
+		if (!TextUtils.isEmpty(newChatInfo.getLocalUrl()) && new File(newChatInfo.getLocalUrl()).exists()
 				&& JSONConstant.IMAGE_TYPE.equals(newChatInfo.getMedia_type())) {
 			longClickDlg.setImageUrl(newChatInfo.getLocalUrl());
 		}
 
-		if (DataMgr.getInstance().getSelfInfoByPhone().getParent_id()
-				.equals(newChatInfo.getSender_id())) {
-			longClickDlg
-					.setOnDeleteBtnClickListener(new OnDeleteBtnClickListener() {
+		if (DataMgr.getInstance().getSelfInfoByPhone().getParent_id().equals(newChatInfo.getSender_id())) {
+			longClickDlg.setOnDeleteBtnClickListener(new OnDeleteBtnClickListener() {
 
-						@Override
-						public void onDeleteClicked() {
-							NewChatInfo item = getItem(pos);
-							DeleteChatJob deleteChatJob = new DeleteChatJob(
-									handler, item.getChat_id(), DataMgr
-											.getInstance().getSelectedChild()
-											.getServer_id());
-							deletePos = pos;
-							longClickDlg.getDeleteChatListener()
-									.onDeleteBegain();
-							deleteChatJob.execute();
-						}
-					});
+				@Override
+				public void onDeleteClicked() {
+					NewChatInfo item = getItem(pos);
+					DeleteChatJob deleteChatJob = new DeleteChatJob(handler, item.getChat_id(), DataMgr.getInstance()
+							.getSelectedChild().getServer_id());
+					deletePos = pos;
+					longClickDlg.getDeleteChatListener().onDeleteBegain();
+					deleteChatJob.execute();
+				}
+			});
 		}
 
 		longClickDlg.showDlg();
@@ -520,7 +544,7 @@ public class NewChatListAdapter extends BaseAdapter {
 		public TextView bodyView;
 		public TextView timestampView;
 		public ImageView headiconView;
-		public ImageView chaticonView;
+		public ImageView mediaView;
 		public RelativeLayout contentlayout;
 		public boolean bLeft;
 	}
@@ -535,5 +559,9 @@ public class NewChatListAdapter extends BaseAdapter {
 
 	public static class InnerHandler extends Handler {
 
+	}
+
+	public interface MediaPlayCompleteListener {
+		public void onComplete();
 	}
 }

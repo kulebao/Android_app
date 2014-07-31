@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <resources>
-    
+
     <string-array name="baby_setting_items">
         <item>设置宝贝昵称</item>
         <item>设置宝贝生日</item>
         <item>从相机拍摄头像</item>
         <item>从相册选择头像</item>
     </string-array>
-    
     <string-array name="resend_items">
         <item>重发</item>
     </string-array>
-    
+
+    <declare-styleable name="RoundedImageView">
+        <attr name="corner_radius" format="dimension" />
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="mutate_background" format="boolean" />
+        <attr name="oval" format="boolean" />
+        <attr name="android:scaleType" />
+    </declare-styleable>
+
 </resources>

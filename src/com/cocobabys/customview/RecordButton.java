@@ -12,6 +12,7 @@ import android.media.MediaRecorder;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -23,11 +24,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.cocobabys.R;
+import com.cocobabys.activities.MyApplication;
 
 public class RecordButton extends Button {
 
 	private static final int MIN_INTERVAL_TIME = 1000;// 1s
 	private static final int MAX_INTERVAL_TIME = 1000 * 60;// 60s
+
+	private static final int DIALOG_WIDTH = 200;
+	private static final int DIALOG_HEIGHT = 200;
+
 	private Context context;
 	private State state = State.STATE_INIT;
 
@@ -77,8 +83,8 @@ public class RecordButton extends Button {
 
 	private Dialog recordIndicator;
 
-	private static int[] res = { R.drawable.mic_2, R.drawable.mic_3,
-			R.drawable.mic_4, R.drawable.mic_5 };
+	private static int[] res = { R.drawable.mic_1, R.drawable.mic_2, R.drawable.mic_3, R.drawable.mic_4,
+			R.drawable.mic_5 };
 
 	private ImageView view;
 
@@ -116,8 +122,7 @@ public class RecordButton extends Button {
 				case MotionEvent.ACTION_DOWN:
 					finishedListener.onActionDown();
 					state = State.STATE_INIT;
-					rect = new Rect(v.getLeft(), v.getTop(), v.getRight(),
-							v.getBottom());
+					rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
 					Log.d("DDD", "ACTION_DOWN fanwei :" + rect.toString());
 
 					try {
@@ -136,10 +141,9 @@ public class RecordButton extends Button {
 					break;
 				case MotionEvent.ACTION_MOVE:// 当手指移动到view外面，会cancel
 					if (state == State.STATE_INIT
-							&& (!rect.contains(
-									v.getLeft() + (int) event.getX(),
-									v.getTop() + (int) event.getY()))) {
+							&& (!rect.contains(v.getLeft() + (int) event.getX(), v.getTop() + (int) event.getY()))) {
 						cancelRecord();
+						RecordButton.this.setText("按住 录音");
 						state = State.STATE_CANCELED;
 					}
 					break;
@@ -160,19 +164,29 @@ public class RecordButton extends Button {
 
 	private void initDialogAndStartRecord() {
 		startTime = System.currentTimeMillis();
-		recordIndicator = new Dialog(getContext(),
-				R.style.like_toast_dialog_style);
+		recordIndicator = new Dialog(getContext(), R.style.like_toast_dialog_style);
 		view = new ImageView(getContext());
 		view.setImageResource(R.drawable.mic_2);
-		recordIndicator.setContentView(view, new LayoutParams(
-				ViewGroup.LayoutParams.MATCH_PARENT,
+		recordIndicator.setContentView(view, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
 				ViewGroup.LayoutParams.MATCH_PARENT));
 		recordIndicator.setOnDismissListener(onDismiss);
 		LayoutParams lp = recordIndicator.getWindow().getAttributes();
 		lp.gravity = Gravity.CENTER;
 
+		setDialogSize(lp);
 		startRecording();
 		recordIndicator.show();
+	}
+
+	private void setDialogSize(LayoutParams lp) {
+		DisplayMetrics dm = new DisplayMetrics();
+		dm = MyApplication.getInstance().getResources().getDisplayMetrics();
+
+		int width = (int) (DIALOG_WIDTH * dm.density);
+		int height = (int) (DIALOG_HEIGHT * dm.density);
+
+		lp.width = width;
+		lp.height = height;
 	}
 
 	private void finishRecord() {
@@ -269,8 +283,10 @@ public class RecordButton extends Button {
 						volumeHandler.sendEmptyMessage(1);
 					else if (f < 38)
 						volumeHandler.sendEmptyMessage(2);
-					else
+					else if (f < 44)
 						volumeHandler.sendEmptyMessage(3);
+					else
+						volumeHandler.sendEmptyMessage(4);
 
 				}
 

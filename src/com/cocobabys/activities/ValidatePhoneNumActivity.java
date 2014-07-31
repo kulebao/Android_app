@@ -116,6 +116,7 @@ public class ValidatePhoneNumActivity extends MyActivity {
 			public void onClick(View v) {
 				if (Utils.checkPhoneNum(getPhoneNum())) {
 					try {
+						Utils.closeKeyBoard(ValidatePhoneNumActivity.this);
 						runValidatePhoneNumTask();
 						dialog.show();
 					} catch (Exception e) {
@@ -143,7 +144,7 @@ public class ValidatePhoneNumActivity extends MyActivity {
 	}
 
 	private void runValidatePhoneNumTask() {
-		 new ValidatePhoneNumTask(handler, getPhoneNum()).execute();
+		new ValidatePhoneNumTask(handler, getPhoneNum()).execute();
 		// ValidatePhoneNumJob validatePhoneNumJob = new ValidatePhoneNumJob(
 		// handler, getPhoneNum());
 		// MyThreadPoolMgr.getGenericService().submit(validatePhoneNumJob);

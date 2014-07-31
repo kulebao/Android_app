@@ -15,6 +15,8 @@ public class GroupExpInfo {
 	// like 01 ,02 ,11,12...
 	private String month = "";
 	private int count = 0;
+	// 当月最近一张图片本地路径
+	private String iconpath = "";
 
 	private static Map<String, Integer> iconMap = new HashMap<String, Integer>() {
 		{
@@ -32,6 +34,27 @@ public class GroupExpInfo {
 			put("12", R.drawable.m12);
 		}
 	};
+
+	private static Map<String, String> nameMap = new HashMap<String, String>() {
+		{
+			put("01", "1月");
+			put("02", "2月");
+			put("03", "3月");
+			put("04", "4月");
+			put("05", "5月");
+			put("06", "6月");
+			put("07", "7月");
+			put("08", "8月");
+			put("09", "9月");
+			put("10", "10月");
+			put("11", "11月");
+			put("12", "12月");
+		}
+	};
+
+	public String getMonthName() {
+		return nameMap.get(month);
+	}
 
 	public static Map<String, Integer> getIconMap() {
 		return iconMap;
@@ -53,9 +76,16 @@ public class GroupExpInfo {
 		this.count = count;
 	}
 
+	public String getIconpath() {
+		return iconpath;
+	}
+
+	public void setIconpath(String iconpath) {
+		this.iconpath = iconpath;
+	}
+
 	// 必须满足1~12月份的数据，供UI显示，没有需要补0，服务器只返回有数据的月份，所以这里要处理一下
-	public static List<GroupExpInfo> jsonArrayToGroupExpInfoList(JSONArray array)
-			throws JSONException {
+	public static List<GroupExpInfo> jsonArrayToGroupExpInfoList(JSONArray array) throws JSONException {
 		List<GroupExpInfo> list = initData();
 
 		for (int i = 0; i < array.length(); i++) {

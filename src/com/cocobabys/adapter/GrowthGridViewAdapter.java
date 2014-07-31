@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.cocobabys.R;
 import com.cocobabys.bean.GroupExpInfo;
+import com.cocobabys.utils.Utils;
 
 public class GrowthGridViewAdapter extends BaseAdapter {
 	private Context context = null;
@@ -38,16 +41,22 @@ public class GrowthGridViewAdapter extends BaseAdapter {
 		return position;
 	}
 
+	public void addAll(List<GroupExpInfo> list) {
+		data.clear();
+		data.addAll(list);
+		notifyDataSetChanged();
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			FlagHolder flagholder = this.new FlagHolder();
 			convertView = LayoutInflater.from(this.context).inflate(
-					R.layout.grid_item, null);
-			flagholder.newDataSymble = (ImageView) convertView
-					.findViewById(R.id.noticeImg);
+					R.layout.exp_grid_item, null);
 			flagholder.nameView = (TextView) convertView
 					.findViewById(R.id.ItemText);
+			flagholder.monthnameView = (TextView) convertView
+					.findViewById(R.id.monthname);
 			flagholder.headView = (ImageView) convertView
 					.findViewById(R.id.ItemImage);
 			setDataToViews(position, flagholder);
@@ -64,21 +73,42 @@ public class GrowthGridViewAdapter extends BaseAdapter {
 
 	private void setDataToViews(final int position, FlagHolder flagholder) {
 		GroupExpInfo info = getItem(position);
-		flagholder.nameView.setText(String.valueOf(info.getCount()));
 
-		Integer iconid = GroupExpInfo.getIconMap().get(info.getMonth());
-		flagholder.headView.setImageResource(iconid);
+		showText(flagholder, info);
+		showIcon(flagholder, info);
+	}
+
+	private void showIcon(FlagHolder flagholder, GroupExpInfo info) {
+		// Integer iconid = GroupExpInfo.getIconMap().get(info.getMonth());
+		if (!TextUtils.isEmpty(info.getIconpath())) {
+			Log.d("EXP_ICON", "path =" + info.getIconpath());
+			flagholder.headView.setImageBitmap(Utils.getLoacalBitmap(
+					info.getIconpath(), 200, 200));
+		} else {
+			flagholder.headView.setImageResource(R.drawable.small_logo);
+		}
+	}
+
+	private void showText(FlagHolder flagholder, GroupExpInfo info) {
+		String content = info.getMonthName();// + "(" + info.getCount() + ")";
+		// flagholder.nameView.setText(String.valueOf(info.getCount()));
+		flagholder.monthnameView.setText(content);
 	}
 
 	private class FlagHolder {
-		public ImageView newDataSymble;
 		public TextView nameView;
+		public TextView monthnameView;
 		public ImageView headView;
 	}
 
-	public void addAll(List<GroupExpInfo> list) {
-		data.clear();
-		data.addAll(list);
+	public void updateList(List<GroupExpInfo> list) {
+		for (GroupExpInfo info : list) {
+			for (GroupExpInfo oldInfo : data) {
+				if (oldInfo.getMonth().equals(info.getMonth())) {
+					oldInfo.setCount(info.getCount());
+				}
+			}
+		}
 		notifyDataSetChanged();
 	}
 

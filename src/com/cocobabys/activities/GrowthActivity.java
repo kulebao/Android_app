@@ -1,6 +1,5 @@
 package com.cocobabys.activities;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -19,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cocobabys.R;
 import com.cocobabys.adapter.GrowthGridViewAdapter;
@@ -26,12 +26,12 @@ import com.cocobabys.bean.GroupExpInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetExpCountJob;
 import com.cocobabys.utils.Utils;
 
 public class GrowthActivity extends UmengStatisticsActivity {
+	private static final int START_TO_EXP_LIST = 1;
 	private TextView titleView;
 	private int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	private Button leftBtn;
@@ -82,7 +82,7 @@ public class GrowthActivity extends UmengStatisticsActivity {
 	}
 
 	protected void handleGetCountSuccess(List<GroupExpInfo> list) {
-		adapter.addAll(list);
+		adapter.updateList(list);
 	}
 
 	private void initDialog() {
@@ -99,55 +99,6 @@ public class GrowthActivity extends UmengStatisticsActivity {
 		initGridView();
 	}
 
-	private void test() {
-		List<GroupExpInfo> expCountGroupByMonthPerYear = DataMgr.getInstance().getExpCountGroupByMonthPerYear(
-				currentYear);
-		if (expCountGroupByMonthPerYear.size() <= 100) {
-			List<ExpInfo> list = getFakeList();
-			DataMgr.getInstance().addExpDataList(list);
-		}
-	}
-
-	private List<ExpInfo> getFakeList() {
-		List<ExpInfo> list = new ArrayList<ExpInfo>();
-		for (int i = 0; i < 100; i++) {
-			ExpInfo info = new ExpInfo();
-			info.setChild_id(DataMgr.getInstance().getSelectedChild().getServer_id());
-			info.setContent("消息" + i);
-			info.setExp_id(i);
-			info.setMedium("");
-			info.setSender_id(DataMgr.getInstance().getSelfInfoByPhone().getParent_id());
-			info.setSender_type(ExpInfo.PARENT_TYPE);
-
-			long timestamp = getTimeStamp(i);
-			info.setTimestamp(timestamp);
-			list.add(info);
-		}
-		return list;
-	}
-
-	private long getTimeStamp(int i) {
-		int month = i % 11;
-		int year = 2012;
-
-		if (i > 12) {
-			year++;
-		}
-
-		if (i > 50) {
-			year++;
-		}
-
-		if (i > 80) {
-			year++;
-		}
-
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(year, month, i);
-
-		return calendar.getTimeInMillis();
-	}
-
 	public void initGridView() {
 		gridview = (GridView) findViewById(R.id.gridview);
 		List<GroupExpInfo> list = getData();
@@ -155,10 +106,22 @@ public class GrowthActivity extends UmengStatisticsActivity {
 		gridview.setAdapter(adapter);
 		gridview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				startToExpListActivity(position);
 			}
 		});
+	}
+
+	@Override
+	// 处理从图库和拍照返回的照片
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == START_TO_EXP_LIST) {
+			List<GroupExpInfo> list = getData();
+			adapter.addAll(list);
+		}
+
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	private void startToExpListActivity(int position) {
@@ -167,11 +130,12 @@ public class GrowthActivity extends UmengStatisticsActivity {
 		selectedMonth = adapter.getItem(position).getMonth();
 		intent.putExtra(ConstantValue.EXP_MONTH, selectedMonth);
 		intent.setClass(this, ExpListActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent, START_TO_EXP_LIST);
 	}
 
 	private List<GroupExpInfo> getData() {
-		return DataMgr.getInstance().getExpCountGroupByMonthPerYear(currentYear);
+		return DataMgr.getInstance()
+				.getExpCountGroupByMonthPerYear(currentYear);
 	}
 
 	private void setTitle() {
@@ -212,7 +176,8 @@ public class GrowthActivity extends UmengStatisticsActivity {
 		send.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Utils.goNextActivity(GrowthActivity.this, SendExpActivity.class, false);
+				Utils.goNextActivity(GrowthActivity.this,
+						SendExpActivity.class, false);
 			}
 		});
 
@@ -238,13 +203,6 @@ public class GrowthActivity extends UmengStatisticsActivity {
 			adapter.clear();
 		}
 		return true;
-	}
-
-	@Override
-	protected void onRestart() {
-		int expCountInMonth = DataMgr.getInstance().getExpCountInMonth(currentYear, selectedMonth);
-		adapter.changeCount(expCountInMonth, selectedMonth);
-		super.onRestart();
 	}
 
 }

@@ -18,15 +18,19 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp" >
 
-            <ImageView
+            <com.cocobabys.customview.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/child_photo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentLeft="true"
                 android:layout_margin="10dp"
-                android:background="@drawable/child_2"
-                android:padding="2dp"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                app:border_color="@color/white"
+                app:border_width="1dip"
+                app:corner_radius="50dip"
+                app:mutate_background="true"
+                app:oval="false" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"

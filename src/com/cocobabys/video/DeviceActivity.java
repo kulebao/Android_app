@@ -1,9 +1,7 @@
 package com.cocobabys.video;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,20 +15,22 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.cocobabys.R;
+import com.cocobabys.adapter.VideoDeviceListAdapter;
+import com.cocobabys.utils.Utils;
 import com.huamaitel.api.HMDefines.NodeTypeInfo;
 import com.huamaitel.api.HMJniInterface;
 
 public class DeviceActivity extends Activity {
 	private static final String TAG = "DeviceActivity";
 	private ListView mListView;
-	private List<Map<String, Object>> mListData;
+	private List<VideoDeviceInfo> mListData = new ArrayList<VideoDeviceInfo>();
+	private VideoDeviceListAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.device_activity);
 		mListView = (ListView) findViewById(R.id.id_device_list);
-		mListData = new ArrayList<Map<String, Object>>();
 
 		// Get the root of the tree.
 		int treeId = VideoApp.treeId;
@@ -41,28 +41,33 @@ public class DeviceActivity extends Activity {
 
 		getChildrenByNodeId(rootId);
 
-		SimpleAdapter adapter = new SimpleAdapter(this, mListData, 
-				R.layout.item_device,
-				new String[] { "img", "name" }, 
-				new int[] { R.id.id_img_deviceIcon, R.id.id_device_name });
+		adapter = new VideoDeviceListAdapter(this, mListData);
+
 		mListView.setAdapter(adapter);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-				@SuppressWarnings("unchecked")
-				Map<String, Object> map = (Map<String, Object>) arg0.getItemAtPosition(position);
-				int nodeType = (Integer) map.get("type");
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				VideoDeviceInfo info = adapter.getItem(position);
+				int nodeType = info.getNodeType();
 				Log.i("DeviceActivity:", "nodeType:" + nodeType);
-				int nodeId = (Integer) map.get("id");
+				int nodeId = info.getNodeid();
 				Log.i("DeviceActivity:", "nodeId:" + nodeId);
 
 				VideoApp.curNodeHandle = nodeId;
-				if (nodeType == NodeTypeInfo.NODE_TYPE_DVS || nodeType == NodeTypeInfo.NODE_TYPE_GROUP) {
-					VideoApp.rootList.add(nodeId);
-					getChildrenByNodeId(nodeId);
-
-					((SimpleAdapter) mListView.getAdapter()).notifyDataSetChanged();
+				if (nodeType == NodeTypeInfo.NODE_TYPE_DVS
+						|| nodeType == NodeTypeInfo.NODE_TYPE_GROUP) {
+					// VideoApp.rootList.add(nodeId);
+					// getChildrenByNodeId(nodeId);
+					//
+					// ((SimpleAdapter) mListView.getAdapter())
+					// .notifyDataSetChanged();
 				} else if (nodeType == NodeTypeInfo.NODE_TYPE_DEVICE) {
+					if (!info.isOnline()) {
+						Utils.makeToast(DeviceActivity.this,
+								"设备不在线，无法观看，请联系幼儿园处理,谢谢！");
+						return;
+					}
 					Intent intent = new Intent();
 					intent.setClass(DeviceActivity.this, PlayActivity.class);
 					intent.putExtra("nodeId", nodeId);
@@ -91,7 +96,8 @@ public class DeviceActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (VideoApp.rootList.size() != 1) {
-				int nodeId = VideoApp.rootList.get(VideoApp.rootList.size() - 2);
+				int nodeId = VideoApp.rootList
+						.get(VideoApp.rootList.size() - 2);
 				VideoApp.rootList.remove(VideoApp.rootList.size() - 1);
 
 				getChildrenByNodeId(nodeId);
@@ -114,30 +120,30 @@ public class DeviceActivity extends Activity {
 			int count = sdk.getChildrenCount(nodeId);
 			Log.d(TAG, "getChildrenCount: " + count);
 			for (int i = 0; i < count; ++i) {
-				Map<String, Object> obj = new HashMap<String, Object>();
 				int childrenNode = sdk.getChildAt(nodeId, i);
 				int nodeType = sdk.getNodeType(childrenNode);
 
-				obj.put("type", nodeType);
-
-				if (nodeType == NodeTypeInfo.NODE_TYPE_GROUP) {
-					obj.put("img", R.drawable.folder);
-				} else if (nodeType == NodeTypeInfo.NODE_TYPE_DEVICE) {
-					obj.put("img", R.drawable.device);
-				} else if (nodeType == NodeTypeInfo.NODE_TYPE_DVS) {
-					obj.put("img", R.drawable.dvs);
-				} else if (nodeType == NodeTypeInfo.NODE_TYPE_CHANNEL) {
-					obj.put("img", R.drawable.device);
-				}
+				// if (nodeType == NodeTypeInfo.NODE_TYPE_GROUP) {
+				// obj.put("img", R.drawable.folder);
+				// } else if (nodeType == NodeTypeInfo.NODE_TYPE_DEVICE) {
+				// obj.put("img", R.drawable.device);
+				// } else if (nodeType == NodeTypeInfo.NODE_TYPE_DVS) {
+				// obj.put("img", R.drawable.dvs);
+				// } else if (nodeType == NodeTypeInfo.NODE_TYPE_CHANNEL) {
+				// obj.put("img", R.drawable.device);
+				// }
 
 				Log.d(TAG, " childNode: " + childrenNode);
 				Log.d(TAG, "childNode Url: " + sdk.getNodeUrl(childrenNode));
 				Log.d(TAG, "childNode sn: " + sdk.getDeviceSn(childrenNode));
 
-				obj.put("id", childrenNode);
-				obj.put("name", sdk.getNodeName(childrenNode));
+				VideoDeviceInfo deviceInfo = new VideoDeviceInfo();
+				deviceInfo.setDeviceName(sdk.getNodeName(childrenNode));
+				deviceInfo.setNodeid(childrenNode);
+				deviceInfo.setNodeType(nodeType);
+				deviceInfo.setOnline(sdk.isOnline(childrenNode));
 
-				mListData.add(obj);
+				mListData.add(deviceInfo);
 			}
 		}
 	}

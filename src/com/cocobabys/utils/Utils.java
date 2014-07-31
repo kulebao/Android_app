@@ -39,6 +39,8 @@ import android.os.Environment;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -816,5 +818,14 @@ public class Utils {
 				Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 		mediaScanIntent.setData(uri);
 		context.sendBroadcast(mediaScanIntent);
+	}
+
+	public static void closeKeyBoard(Activity activity) {
+		View view = activity.getWindow().peekDecorView();
+		if (view != null) {
+			InputMethodManager inputmanger = (InputMethodManager) activity
+					.getSystemService(Activity.INPUT_METHOD_SERVICE);
+			inputmanger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+		}
 	}
 }

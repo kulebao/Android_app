@@ -12,7 +12,7 @@ import com.cocobabys.threadpool.MyJob;
 
 public class GetChatJob extends MyJob {
 	// 最少等2s
-	private static final int LIMIT_TIME = 2000;
+	private static final int LIMIT_TIME = 1000;
 
 	private Handler handler;
 	private int most;

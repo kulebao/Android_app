@@ -174,6 +174,7 @@ public class LoginActivity extends MyActivity {
 
 				if (Utils.checkPWD(getPwd())) {
 					// 发起登录
+					Utils.closeKeyBoard(LoginActivity.this);
 					runLoginTask();
 				} else {
 					Utils.showSingleBtnEventDlg(EventType.PWD_FORMAT_ERROR,

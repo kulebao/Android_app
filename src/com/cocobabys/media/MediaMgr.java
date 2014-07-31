@@ -6,54 +6,39 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.util.Log;
 
+import com.cocobabys.adapter.NewChatListAdapter.MediaPlayCompleteListener;
+
+
 public class MediaMgr {
 	private static MediaPlayer mMediaPlayer;
-	private static final String MEDIA_LOG = "Media_logs";
-	private static Uri current_uri = null;
+	private static final String MEDIA_LOG = "MEDIA_LOG";
 
-	public static void playMedia(Context context, int resID) {
+	public synchronized static boolean isPlaying() {
 		if (mMediaPlayer != null) {
-			if (mMediaPlayer.isPlaying()) {
-				Log.w(MEDIA_LOG, "MediaMgr playing! do nothing!");
-				return;
-			}
-			mMediaPlayer.release();
+			return mMediaPlayer.isPlaying();
 		}
-		mMediaPlayer = MediaPlayer.create(context, resID);
-		mMediaPlayer.start();
+
+		return false;
 	}
 
-	public static void playMediaNow(Context context, int resID) {
-		if (mMediaPlayer != null) {
-			if (mMediaPlayer.isPlaying()) {
-				Log.w(MEDIA_LOG, "MediaMgr playing! stop it!");
-				mMediaPlayer.stop();
-			}
-			mMediaPlayer.release();
-		}
-		mMediaPlayer = MediaPlayer.create(context, resID);
-		Log.w(MEDIA_LOG, "MediaMgr playing! resID=" + resID);
-		mMediaPlayer.start();
-	}
-
-	public static synchronized void playMediaNow(Context context, Uri uri) {
+	public static synchronized void playMediaNow(Context context, Uri uri, final MediaPlayCompleteListener listener) {
 		try {
+			// if (uri.equals(current_uri)) {
+			// Log.d(MEDIA_LOG, "same file already playing ! return!");
+			// current_uri = null;
+			// return;
+			// }
+			// 播放之前，先关闭正在播放的音频
 			close();
-			if (uri.equals(current_uri)) {
-				Log.d(MEDIA_LOG, "same file already playing ! return!");
-				current_uri = null;
-				return;
-			}
-			
+
 			mMediaPlayer = MediaPlayer.create(context, uri);
 			mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 				@Override
 				public void onCompletion(MediaPlayer mp) {
-					current_uri = null;
+					listener.onComplete();
 				}
 			});
 			Log.d(MEDIA_LOG, "MediaMgr playing! resID=" + uri);
-			current_uri = uri;
 			mMediaPlayer.start();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,17 +46,16 @@ public class MediaMgr {
 	}
 
 	public static int getDuration(Context context, Uri uri) {
-		return Math
-				.round(MediaPlayer.create(context, uri).getDuration() / 1000f);
+		return Math.round(MediaPlayer.create(context, uri).getDuration() / 1000f);
 	}
 
-	public static void close() {
+	public synchronized static void close() {
 		try {
 			if (mMediaPlayer != null) {
 				if (mMediaPlayer.isPlaying()) {
-					Log.d(MEDIA_LOG, "MediaMgr playing! stop it!");
 					mMediaPlayer.stop();
 				}
+				Log.d(MEDIA_LOG, "MediaMgr release!");
 				mMediaPlayer.release();
 				mMediaPlayer = null;
 			}
