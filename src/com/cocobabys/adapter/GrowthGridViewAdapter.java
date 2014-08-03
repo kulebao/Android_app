@@ -85,7 +85,7 @@ public class GrowthGridViewAdapter extends BaseAdapter {
 			flagholder.headView.setImageBitmap(Utils.getLoacalBitmap(
 					info.getIconpath(), 200, 200));
 		} else {
-			flagholder.headView.setImageResource(R.drawable.small_logo);
+			flagholder.headView.setImageResource(R.drawable.exp_default);
 		}
 	}
 

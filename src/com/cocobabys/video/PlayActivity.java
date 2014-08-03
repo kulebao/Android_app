@@ -40,7 +40,6 @@ import android.widget.Toast;
 import com.cocobabys.R;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.Utils;
-import com.cocobabys.video.PlayView.InnerHandler;
 import com.huamaitel.api.HMCallback;
 import com.huamaitel.api.HMCallback.NetworkCallback;
 import com.huamaitel.api.HMDefines;
@@ -81,7 +80,8 @@ public class PlayActivity extends Activity {
 	private boolean mIsListening = false; // Is listening...
 	private boolean mIsTalking = false; // Is talking...
 	private boolean mIsRecording = false; // Is Recording...
-	private Handler handler;
+	static Handler handler;
+	static boolean bStartVideo = false;
 
 	private static final int PLAY_SUCCESS = 0;
 	private static final int PLAY_FAILED = 1;
@@ -93,6 +93,7 @@ public class PlayActivity extends Activity {
 	private static final int GET_DEVICE_INFO = 10;
 	private static final int PLAY_VIDEO = 20;
 	private static final int OPEN_VIDEO_DONE = 30;
+	static final int DRAW_FRAME = 40;
 
 	private static final String LOGIN_DEVICE = "登录设备...";
 	protected static final String GET_DEVICE = "获取设备信息...";
@@ -133,8 +134,10 @@ public class PlayActivity extends Activity {
 
 		showProgressDlg();
 
+		bStartVideo = false;
 		// 登录 & 打开视频
 		openVideo();
+
 	}
 
 	private void showProgressDlg() {
@@ -399,6 +402,9 @@ public class PlayActivity extends Activity {
 					break;
 				case OPEN_VIDEO_DONE:
 					mProgressDialog.setTitle(BUFFERING);
+					mProgressDialog.setProgress(99);
+					break;
+				case DRAW_FRAME:
 					mProgressDialog.setProgress(100);
 					mProgressDialog.dismiss();
 					break;
@@ -423,10 +429,10 @@ public class PlayActivity extends Activity {
 				param.channel = 0;
 				HMDefines.OpenAudioRes res = new HMDefines.OpenAudioRes();
 
-				VideoApp.mTalkHandle = VideoApp.getJni().startAudio(
+				VideoApp.mAudioHandle = VideoApp.getJni().startAudio(
 						VideoApp.mUserId, param, res);
-				Log.d("VIDEO", "mTalkHandle =" + VideoApp.mTalkHandle);
-				if (VideoApp.mTalkHandle > 0) {
+				Log.d("VIDEO", "mAudioHandle =" + VideoApp.mAudioHandle);
+				if (VideoApp.mAudioHandle > 0) {
 					mIsListening = true;
 				} else {
 					Utils.makeToast(PlayActivity.this, "抱歉，该设备不支持音频功能");
@@ -437,7 +443,7 @@ public class PlayActivity extends Activity {
 	}
 
 	private void stopListen() {
-		int ret = VideoApp.getJni().stopAudio(VideoApp.mTalkHandle);
+		int ret = VideoApp.getJni().stopAudio(VideoApp.mAudioHandle);
 		if (ret != 0) {
 			Log.e(TAG, "close the audio fail");
 		} else {
@@ -544,7 +550,6 @@ public class PlayActivity extends Activity {
 
 		VideoApp.getJni().setNetworkCallback(VideoApp.mUserId,
 				new NetworkCallback() {
-
 					@Override
 					public void onNetwork(int errorCode) {
 						handleNetworkCallBack(errorCode);
@@ -607,7 +612,8 @@ public class PlayActivity extends Activity {
 							return;
 						}
 
-						handler.sendEmptyMessageDelayed(OPEN_VIDEO_DONE, 1000);
+						bStartVideo = true;
+						handler.sendEmptyMessage(OPEN_VIDEO_DONE);
 						mIsPlaying = true;
 					}
 				});
@@ -624,8 +630,9 @@ public class PlayActivity extends Activity {
 	@Override
 	protected void onStop() {
 		super.onStop();
+		Log.d("VIDEO", "stopAudio");
 		if (mIsListening) {
-			VideoApp.getJni().stopAudio(VideoApp.mTalkHandle);
+			VideoApp.getJni().stopAudio(VideoApp.mAudioHandle);
 		}
 	}
 
@@ -643,24 +650,25 @@ public class PlayActivity extends Activity {
 
 			@Override
 			public void run() {
-				Log.d("VIDEO", "at the end exitPlayActivity mIsPlaying="
-						+ mIsPlaying);
+				Log.d("VIDEO", "stopVideo");
 				if (mIsPlaying) {
 					VideoApp.getJni().stopVideo(VideoApp.mVideoHandle);
 				}
 
+				Log.d("VIDEO", "stopLocalRecord");
 				if (mIsRecording) {
 					VideoApp.getJni().stopLocalRecord(VideoApp.mRecordHandle);
 				}
-
+				Log.d("VIDEO", "stopTalk");
 				if (mIsTalking) {
 					VideoApp.getJni().stopTalk(VideoApp.mTalkHandle);
 				}
 
-				if (mIsListening) {
-					VideoApp.getJni().stopAudio(VideoApp.mAudioHandle);
-				}
-
+				// onstop里执行过了，这里不再执行,否则导致app崩溃
+				// if (mIsListening) {
+				// VideoApp.getJni().stopAudio(VideoApp.mAudioHandle);
+				// }
+				Log.d("VIDEO", "logout");
 				if (mIfLogin) {
 					VideoApp.getJni().logout(VideoApp.mUserId);
 				}
@@ -835,6 +843,9 @@ public class PlayActivity extends Activity {
 		return path;
 	}
 
+	public static class InnerHandler extends Handler {
+
+	}
 }
 
 class PlayView extends GLSurfaceView {
@@ -859,13 +870,14 @@ class PlayView extends GLSurfaceView {
 			@Override
 			public void onRequest() {
 				Log.d("Renderer", "onRequest");
-				requestRender(); // Force to render if video data comes.
+				requestRender(); // Force to render if video data
+									// comes.
 			}
 		});
 	}
 
 	// 这个接口定义了在一个OpenGL的GLSurfaceView中绘制图形所需要的方法。
-	class PlayRenderer implements GLSurfaceView.Renderer {
+	private class PlayRenderer implements GLSurfaceView.Renderer {
 
 		// 设置OpenGL的环境变量，或是初始化OpenGL的图形物体。
 		public void onSurfaceChanged(GL10 gl, int w, int h) {
@@ -876,9 +888,17 @@ class PlayView extends GLSurfaceView {
 		// 这个方法主要完成绘制图形的操作。
 		public void onDrawFrame(GL10 gl) {
 			if (isFirstIn) {
+				// 在执行了getdeviceinfo后，这里会出现一帧回调，不知道为啥，忽略掉该帧
 				isFirstIn = false;
+				Log.d("VIDEO", "onDrawFrame");
 				return;
 			}
+
+			if (PlayActivity.bStartVideo) {
+				PlayActivity.bStartVideo = false;
+				PlayActivity.handler.sendEmptyMessage(PlayActivity.DRAW_FRAME);
+			}
+
 			Log.d("Renderer", "onDrawFrame");
 			VideoApp.getJni().gLRender();
 		}
@@ -898,7 +918,4 @@ class PlayView extends GLSurfaceView {
 		VideoApp.getJni().gLUninit();
 	}
 
-	public static class InnerHandler extends Handler {
-
-	}
 }

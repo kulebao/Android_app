@@ -20,6 +20,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
@@ -355,6 +356,61 @@ public class HttpClientHelper {
 			Utils.close(in);
 			Utils.close(outputStream);
 		}
+	}
+
+	public static void downloadFile(String url, String savepath,
+			DownloadFileListener listener) {
+		File file = new File(savepath);
+		OutputStream outputStream = null;
+		InputStream in = null;
+		int downloadSize = 4096;
+		try {
+			file.createNewFile();
+			outputStream = new FileOutputStream(file);
+
+			int status = HttpStatus.SC_UNAUTHORIZED;
+			// 定义HttpClient
+			HttpClient client = getHttpClient();
+			// 实例化HTTP方法
+			HttpGet request = new HttpGet();
+			request.setURI(new URI(url));
+			HttpResponse response = client.execute(request);
+			status = response.getStatusLine().getStatusCode();
+			Log.d("DDD code:", "" + status + " url=" + url);
+
+			HttpEntity entity = response.getEntity();
+			listener.onBegain(entity.getContentLength());
+
+			in = entity.getContent();
+			byte buffer[] = new byte[downloadSize];
+			int length = -1;
+
+			while ((length = in.read(buffer, 0, downloadSize)) != -1) {
+				outputStream.write(buffer, 0, length);
+				listener.onDownloading(length);
+			}
+			if (HttpClientHelper.isHttpRequestOK(status)) {
+				request.abort();
+			}
+
+			listener.onComplete();
+		} catch (Exception e) {
+			listener.onException(e);
+			e.printStackTrace();
+		} finally {
+			Utils.close(in);
+			Utils.close(outputStream);
+		}
+	}
+
+	public static interface DownloadFileListener {
+		public void onBegain(long contentLength);
+
+		public void onComplete();
+
+		public void onDownloading(int size);
+
+		public void onException(Exception e);
 	}
 }
 

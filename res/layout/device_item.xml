@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/news_item" >
+    android:background="@drawable/watch_back" >
 
     <TextView
         android:id="@+id/titleView"
@@ -30,6 +30,8 @@
             android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:lines="2"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/record"
             android:maxLines="2"
             android:text="bodybodybodybodybodybodyybodybodybodybodybodybodyybodybodybodybodybodybodyy"
             android:textColor="@android:color/black"

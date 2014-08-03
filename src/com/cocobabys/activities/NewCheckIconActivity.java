@@ -20,7 +20,6 @@ import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ChatInfo;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.UploadChatIconJob;
