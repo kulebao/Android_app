@@ -55,7 +55,7 @@
             android:layout_marginTop="5dp"
             android:text="addddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <com.cocobabys.customview.MyGridView
             android:id="@+id/gridview"

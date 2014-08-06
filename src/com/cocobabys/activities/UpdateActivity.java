@@ -50,8 +50,6 @@ public class UpdateActivity extends UmengStatisticsActivity {
 	private void initHandler() {
 		handler = new MyHandler(this, null) {
 
-			private Exception e;
-
 			@Override
 			public void handleMessage(Message msg) {
 				if (UpdateActivity.this.isFinishing()) {
@@ -127,9 +125,13 @@ public class UpdateActivity extends UmengStatisticsActivity {
 					if (file.exists()
 							&& file.length() == Long.valueOf(Utils
 									.getProp(JSONConstant.FILE_SIZE))) {
+						Log.d("DDD", "installApk");
 						installApk();
+					} else {
+						downloadApkBySelf();
 					}
 				} else {
+					Log.d("DDD", "downloadApkBySelf");
 					downloadApkBySelf();
 				}
 			}

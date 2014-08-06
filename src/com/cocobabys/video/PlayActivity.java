@@ -143,6 +143,7 @@ public class PlayActivity extends Activity {
 	private void showProgressDlg() {
 		mProgressDialog = new ProgressDialog(this);
 		mProgressDialog.setTitle(LOGIN_DEVICE);
+		mProgressDialog.setProgress(10);
 		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		mProgressDialog.setMax(MAX_PROGRESS);
 		mProgressDialog.setCancelable(false);
