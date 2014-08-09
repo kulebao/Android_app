@@ -69,25 +69,20 @@ public class LoginActivity extends MyActivity {
 				case EventType.BIND_FAILED:
 					// 绑定失败，删除登录成功时保存的用户信息
 					Utils.clearProp();
-					Utils.showSingleBtnEventDlg(EventType.BIND_FAILED,
-							LoginActivity.this);
+					Utils.showSingleBtnEventDlg(EventType.BIND_FAILED, LoginActivity.this);
 					break;
 				case EventType.PHONE_NUM_IS_INVALID:
 					Utils.clearProp();
-					Utils.showSingleBtnEventDlg(EventType.PHONE_NUM_IS_INVALID,
-							LoginActivity.this);
+					Utils.showSingleBtnEventDlg(EventType.PHONE_NUM_IS_INVALID, LoginActivity.this);
 					break;
 				case EventType.PHONE_NUM_IS_ALREADY_LOGIN:
 					Utils.clearProp();
-					Utils.showSingleBtnEventDlg(
-							EventType.PHONE_NUM_IS_ALREADY_LOGIN,
-							LoginActivity.this);
+					Utils.showSingleBtnEventDlg(EventType.PHONE_NUM_IS_ALREADY_LOGIN, LoginActivity.this);
 					break;
 				case EventType.SERVER_BUSY:
 					// 绑定失败，删除登录成功时保存的用户信息
 					Utils.clearProp();
-					Toast.makeText(LoginActivity.this, "服务器忙，请稍后再试，谢谢！",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(LoginActivity.this, "服务器忙，请稍后再试，谢谢！", Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;
@@ -121,8 +116,7 @@ public class LoginActivity extends MyActivity {
 		TextView accountView = (TextView) findViewById(R.id.accountView);
 
 		phoneunm = getIntent().getStringExtra(JSONConstant.PHONE_NUM);
-		String text = String.format(
-				getResources().getString(R.string.login_notice), phoneunm);
+		String text = String.format(getResources().getString(R.string.login_notice), phoneunm);
 		accountView.setText(text);
 
 		initLoginBtn();
@@ -177,8 +171,7 @@ public class LoginActivity extends MyActivity {
 					Utils.closeKeyBoard(LoginActivity.this);
 					runLoginTask();
 				} else {
-					Utils.showSingleBtnEventDlg(EventType.PWD_FORMAT_ERROR,
-							LoginActivity.this);
+					Utils.showSingleBtnEventDlg(EventType.PWD_FORMAT_ERROR, LoginActivity.this);
 				}
 			}
 		});

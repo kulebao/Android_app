@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.cocobabys.activities.MyApplication;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.CookBookInfo;
 import com.cocobabys.dbmgr.info.EducationInfo;
@@ -40,8 +41,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	public static final String EXP_TAB = "exp_tab";
 	public static final String MONTH_TAB = "month_tab";
 
-	public SqliteHelper(Context context, String name, CursorFactory factory,
-			int version) {
+	public SqliteHelper(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
 	}
 
@@ -51,16 +51,17 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		addTabs(db);
 
 		// 对于用到联合查询的字段，需要增加索引，否则效率很低
+		// db.execSQL("create index if not exists indexname on tablename(colum1,colum2)");
 		// db.execSQL("create index propindex on propertytab(property_value)");
 		// db.execSQL("create index rindex on contacttab(rosterid)");
 		// db.execSQL("create index ismashupedindex on contacttab(ismashuped)");
 		Log.d("Database", "onCreate");
 	}
 
-	private void initMonthTab(SQLiteDatabase db) {
+	void initMonthTab(SQLiteDatabase db) {
 		try {
-			db.execSQL("CREATE TABLE IF NOT EXISTS " + MONTH_TAB
-					+ "(month_name varchar,  " + " UNIQUE(month_name) " + ") ");
+			db.execSQL("CREATE TABLE IF NOT EXISTS " + MONTH_TAB + "(month_name varchar,  " + " UNIQUE(month_name) "
+					+ ") ");
 			db.beginTransaction(); // 手动设置开始事务
 			for (int i = 1; i < 13; i++) {
 				String month = "";
@@ -71,8 +72,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 				}
 				ContentValues values = new ContentValues();
 				values.put("month_name", month);
-				db.insertWithOnConflict(SqliteHelper.MONTH_TAB, null, values,
-						SQLiteDatabase.CONFLICT_REPLACE);
+				db.insertWithOnConflict(SqliteHelper.MONTH_TAB, null, values, SQLiteDatabase.CONFLICT_REPLACE);
 			}// 数据插入操作循环
 			db.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
 		} catch (Exception e) {
@@ -82,17 +82,13 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		}
 	}
 
-	private void addExpTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + EXP_TAB + "(" + ExpInfo.ID
-				+ " integer primary key autoincrement," + ExpInfo.EXP_ID
-				+ " biginteger," + ExpInfo.CHILD_ID + " varchar, "
-				+ ExpInfo.CONTENT + " varchar, " + ExpInfo.MEDIUM
-				+ " varchar, " + ExpInfo.SENDER_ID + " varchar, "
-				+ ExpInfo.SENDER_TYPE + " varchar, " + ExpInfo.TIMESTAMP
-				+ " biginteger, " + " UNIQUE(" + ExpInfo.EXP_ID + ") " + ")");
+	void addExpTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + EXP_TAB + "(" + ExpInfo.ID + " integer primary key autoincrement,"
+				+ ExpInfo.EXP_ID + " biginteger," + ExpInfo.CHILD_ID + " varchar, " + ExpInfo.CONTENT + " varchar, "
+				+ ExpInfo.MEDIUM + " varchar, " + ExpInfo.SENDER_ID + " varchar, " + ExpInfo.SENDER_TYPE + " varchar, "
+				+ ExpInfo.TIMESTAMP + " biginteger, " + " UNIQUE(" + ExpInfo.EXP_ID + ") " + ")");
 		try {
-			db.execSQL("CREATE INDEX timeindex on " + EXP_TAB + "("
-					+ ExpInfo.TIMESTAMP + ")");
+			db.execSQL("CREATE INDEX IF NOT EXISTS timeindex on " + EXP_TAB + "(" + ExpInfo.TIMESTAMP + ")");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -146,82 +142,64 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	// + BindedNumInfo.NICKNAME + " varchar" + ")");
 	// }
 
-	private void addChildTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + CHILDREN_INFO_TAB + "("
-				+ ChildInfo.ID + " integer primary key autoincrement,"
-				+ ChildInfo.CHILD_NICK_NAME + " varchar,"
-				+ ChildInfo.CHILD_LOCAL_HEAD_ICON + " varchar,"
-				+ ChildInfo.CHILD_SERVER_HEAD_ICON + " varchar,"
-				+ ChildInfo.CHILD_BIRTHDAY + " biginteger,"
-				+ ChildInfo.SELECTED + " integer," + InfoHelper.TIMESTAMP
-				+ " biginteger," + ChildInfo.SERVER_ID + " varchar,"
-				+ ChildInfo.CLASS_ID + " varchar," + ChildInfo.CLASS_NAME
-				+ " varchar," + ChildInfo.CHILD_NAME + " varchar,"
-				+ ChildInfo.GENDER + " integer," + " UNIQUE("
-				+ ChildInfo.SERVER_ID + ")" + ")");
+	void addChildTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + CHILDREN_INFO_TAB + "(" + ChildInfo.ID
+				+ " integer primary key autoincrement," + ChildInfo.CHILD_NICK_NAME + " varchar,"
+				+ ChildInfo.CHILD_LOCAL_HEAD_ICON + " varchar," + ChildInfo.CHILD_SERVER_HEAD_ICON + " varchar,"
+				+ ChildInfo.CHILD_BIRTHDAY + " biginteger," + ChildInfo.SELECTED + " integer," + InfoHelper.TIMESTAMP
+				+ " biginteger," + ChildInfo.SERVER_ID + " varchar," + ChildInfo.CLASS_ID + " varchar,"
+				+ ChildInfo.CLASS_NAME + " varchar," + ChildInfo.CHILD_NAME + " varchar," + ChildInfo.GENDER
+				+ " integer," + " UNIQUE(" + ChildInfo.SERVER_ID + ")" + ")");
 
 		try {
-			db.execSQL("CREATE UNIQUE INDEX idindex on " + CHILDREN_INFO_TAB
-					+ "(" + ChildInfo.SERVER_ID + ")");
+			db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS idindex on " + CHILDREN_INFO_TAB + "(" + ChildInfo.SERVER_ID
+					+ ")");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void addSchoolInfoTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + SCHOOL_INFO_TAB + "("
-				+ SchoolInfo.ID + " integer primary key autoincrement,"
-				+ SchoolInfo.SCHOOL_ID + " varchar," + SchoolInfo.SCHOOL_NAME
-				+ " varchar," + SchoolInfo.SCHOOL_PHONE + " varchar,"
-				+ SchoolInfo.SCHOOL_DESC + " varchar,"
-				+ SchoolInfo.SCHOOL_LOCAL_URL + " integer,"
-				+ SchoolInfo.SCHOOL_SERVER_URL + " varchar,"
+	void addSchoolInfoTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + SCHOOL_INFO_TAB + "(" + SchoolInfo.ID
+				+ " integer primary key autoincrement," + SchoolInfo.SCHOOL_ID + " varchar," + SchoolInfo.SCHOOL_NAME
+				+ " varchar," + SchoolInfo.SCHOOL_PHONE + " varchar," + SchoolInfo.SCHOOL_DESC + " varchar,"
+				+ SchoolInfo.SCHOOL_LOCAL_URL + " integer," + SchoolInfo.SCHOOL_SERVER_URL + " varchar,"
 				+ InfoHelper.TIMESTAMP + " varchar" + ")");
 	}
 
-	private void addScheduleTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + SCHEDULE_INFO_TAB + "("
-				+ ScheduleInfo.ID + " integer primary key autoincrement,"
-				+ ScheduleInfo.SCHEDULE_ID + " varchar,"
-				+ ScheduleInfo.SCHEDULE_CONTENT + " varchar,"
-				+ InfoHelper.TIMESTAMP + " varchar" + ")");
+	void addScheduleTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + SCHEDULE_INFO_TAB + "(" + ScheduleInfo.ID
+				+ " integer primary key autoincrement," + ScheduleInfo.SCHEDULE_ID + " varchar,"
+				+ ScheduleInfo.SCHEDULE_CONTENT + " varchar," + InfoHelper.TIMESTAMP + " varchar" + ")");
 	}
 
-	private void addCookbookTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + COOKBOOK_INFO_TAB + "("
-				+ CookBookInfo.ID + " integer primary key autoincrement,"
-				+ CookBookInfo.COOKBOOK_ID + " varchar,"
-				+ CookBookInfo.COOKBOOK_CONTENT + " varchar,"
-				+ InfoHelper.TIMESTAMP + " varchar" + ")");
+	void addCookbookTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + COOKBOOK_INFO_TAB + "(" + CookBookInfo.ID
+				+ " integer primary key autoincrement," + CookBookInfo.COOKBOOK_ID + " varchar,"
+				+ CookBookInfo.COOKBOOK_CONTENT + " varchar," + InfoHelper.TIMESTAMP + " varchar" + ")");
 	}
 
-	private void addNewsTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + NEWS_TAB + "(" + News.ID
-				+ " integer primary key autoincrement," + News.TITLE
-				+ " varchar," + News.CONTENT + " varchar," + News.TIMESTAMP
-				+ " biginteger ," + News.NEWS_TYPE + " integer,"
-				+ News.NEWS_SERVER_ID + " integer," + News.PUBLISHER
-				+ " varchar," + News.ICON_URL + " varchar," + News.CLASS_ID
-				+ " integer," + "UNIQUE(" + News.NEWS_SERVER_ID + ") " + ")");
+	void addNewsTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + NEWS_TAB + "(" + News.ID + " integer primary key autoincrement,"
+				+ News.TITLE + " varchar," + News.CONTENT + " varchar," + News.TIMESTAMP + " biginteger ,"
+				+ News.NEWS_TYPE + " integer," + News.NEWS_SERVER_ID + " integer," + News.PUBLISHER + " varchar,"
+				+ News.ICON_URL + " varchar," + News.CLASS_ID + " integer," + "UNIQUE(" + News.NEWS_SERVER_ID + ") "
+				+ ")");
 	}
 
-	private void addSwipeTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + SWIPE_TAB + "("
-				+ SwipeInfo.ID + " integer primary key autoincrement,"
-				+ SwipeInfo.TIMESTAMP + " biginteger ," + SwipeInfo.TYPE
-				+ " integer," + SwipeInfo.CHILD_ID + " varchar,"
-				+ SwipeInfo.ICON_URL + " varchar," + SwipeInfo.PARENT_NAME
-				+ " varchar," + "UNIQUE(" + SwipeInfo.TIMESTAMP + ") " + ")");
+	void addSwipeTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + SWIPE_TAB + "(" + SwipeInfo.ID
+				+ " integer primary key autoincrement," + SwipeInfo.TIMESTAMP + " biginteger ," + SwipeInfo.TYPE
+				+ " integer," + SwipeInfo.CHILD_ID + " varchar," + SwipeInfo.ICON_URL + " varchar,"
+				+ SwipeInfo.PARENT_NAME + " varchar," + "UNIQUE(" + SwipeInfo.TIMESTAMP + ") " + ")");
 	}
 
-	private void addHomeworkTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + HOMEWORK_TAB + "("
-				+ Homework.ID + " integer primary key autoincrement,"
-				+ Homework.TITLE + " varchar," + Homework.CONTENT + " varchar,"
-				+ Homework.TIMESTAMP + " biginteger ," + Homework.ICON_URL
-				+ " varchar," + Homework.SERVER_ID + " integer,"
-				+ Homework.CLASS_ID + " integer," + Homework.PUBLISHER
-				+ " varchar," + "UNIQUE(" + Homework.SERVER_ID + ") " + ")");
+	void addHomeworkTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + HOMEWORK_TAB + "(" + Homework.ID
+				+ " integer primary key autoincrement," + Homework.TITLE + " varchar," + Homework.CONTENT + " varchar,"
+				+ Homework.TIMESTAMP + " biginteger ," + Homework.ICON_URL + " varchar," + Homework.SERVER_ID
+				+ " integer," + Homework.CLASS_ID + " integer," + Homework.PUBLISHER + " varchar," + "UNIQUE("
+				+ Homework.SERVER_ID + ") " + ")");
 	}
 
 	// private void addChatTab(SQLiteDatabase db) {
@@ -234,71 +212,58 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	// + " varchar," + "UNIQUE(" + ChatInfo.SERVER_ID + ") " + ")");
 	// }
 
-	private void addEduTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + EDUCATION_TAB + "("
-				+ EducationInfo.ID + " integer primary key autoincrement,"
-				+ EducationInfo.SERVER_ID + " integer,"
-				+ EducationInfo.TIMESTAMP + " biginteger,"
-				+ EducationInfo.PUBLISHER + " varchar ,"
-				+ EducationInfo.COMMENTS + " varchar," + EducationInfo.EMOTION
-				+ " integer," + EducationInfo.DINING + " integer,"
-				+ EducationInfo.REST + " integer," + EducationInfo.ACTIVITY
-				+ " integer," + EducationInfo.EXERCISE + " integer,"
-				+ EducationInfo.SELF_CARE + " integer," + EducationInfo.MANNER
-				+ " integer," + EducationInfo.GAME + " integer,"
-				+ EducationInfo.CHILD_ID + " varchar," + "UNIQUE("
+	void addEduTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + EDUCATION_TAB + "(" + EducationInfo.ID
+				+ " integer primary key autoincrement," + EducationInfo.SERVER_ID + " integer,"
+				+ EducationInfo.TIMESTAMP + " biginteger," + EducationInfo.PUBLISHER + " varchar ,"
+				+ EducationInfo.COMMENTS + " varchar," + EducationInfo.EMOTION + " integer," + EducationInfo.DINING
+				+ " integer," + EducationInfo.REST + " integer," + EducationInfo.ACTIVITY + " integer,"
+				+ EducationInfo.EXERCISE + " integer," + EducationInfo.SELF_CARE + " integer," + EducationInfo.MANNER
+				+ " integer," + EducationInfo.GAME + " integer," + EducationInfo.CHILD_ID + " varchar," + "UNIQUE("
 				+ EducationInfo.SERVER_ID + ") " + ")");
 	}
 
-	private void addTeacherTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + TEACHER_TAB + "("
-				+ Teacher.ID + " integer primary key autoincrement,"
-				+ Teacher.NAME + " varchar," + Teacher.HEAD_ICON + " varchar,"
-				+ Teacher.TIMESTAMP + " biginteger ," + Teacher.BIRTHDAY
-				+ " varchar," + Teacher.SERVER_ID + " varchar,"
-				+ Teacher.WORKGROUP + " varchar," + Teacher.WORKDUTY
-				+ " varchar," + Teacher.GENDER + " integer," + Teacher.SHOOL_ID
-				+ " integer," + Teacher.PHONE + " varchar," + "UNIQUE("
+	void addTeacherTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + TEACHER_TAB + "(" + Teacher.ID
+				+ " integer primary key autoincrement," + Teacher.NAME + " varchar," + Teacher.HEAD_ICON + " varchar,"
+				+ Teacher.TIMESTAMP + " biginteger ," + Teacher.BIRTHDAY + " varchar," + Teacher.SERVER_ID
+				+ " varchar," + Teacher.WORKGROUP + " varchar," + Teacher.WORKDUTY + " varchar," + Teacher.GENDER
+				+ " integer," + Teacher.SHOOL_ID + " integer," + Teacher.PHONE + " varchar," + "UNIQUE("
 				+ Teacher.SERVER_ID + ") " + ")");
 	}
 
-	private void addNewChatTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + NEW_CHAT_TAB + "("
-				+ NewChatInfo.ID + " integer primary key autoincrement,"
-				+ NewChatInfo.CHAT_ID + " biginteger," + NewChatInfo.CHILD_ID
-				+ " varchar, " + NewChatInfo.CONTENT + " varchar, "
-				+ NewChatInfo.MEDIA_TYPE + " varchar, " + NewChatInfo.MEDIA_URL
-				+ " varchar, " + NewChatInfo.SENDER_ID + " varchar, "
-				+ NewChatInfo.SENDER_TYPE + " varchar, "
-				+ NewChatInfo.TIMESTAMP + " biginteger, " + " UNIQUE("
-				+ NewChatInfo.CHAT_ID + ") " + ")");
+	void addNewChatTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + NEW_CHAT_TAB + "(" + NewChatInfo.ID
+				+ " integer primary key autoincrement," + NewChatInfo.CHAT_ID + " biginteger," + NewChatInfo.CHILD_ID
+				+ " varchar, " + NewChatInfo.CONTENT + " varchar, " + NewChatInfo.MEDIA_TYPE + " varchar, "
+				+ NewChatInfo.MEDIA_URL + " varchar, " + NewChatInfo.SENDER_ID + " varchar, " + NewChatInfo.SENDER_TYPE
+				+ " varchar, " + NewChatInfo.TIMESTAMP + " biginteger, " + " UNIQUE(" + NewChatInfo.CHAT_ID + ") "
+				+ ")");
 	}
 
-	private void addParentTab(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + PARENT_TAB + "("
-				+ ParentInfo.ID + " integer primary key autoincrement,"
-				+ ParentInfo.CARD_NUMBER + " varchar,"
-				+ ParentInfo.MEMBER_STATUS + " integer, "
-				+ ParentInfo.PARENT_ID + " varchar, " + ParentInfo.PARENT_NAME
-				+ " varchar, " + ParentInfo.PHONE + " varchar, "
-				+ ParentInfo.PORTRAIT + " varchar, " + ParentInfo.TIMESTAMP
-				+ " biginteger, " + ParentInfo.RELATIONSHIP + " varchar, "
+	void addParentTab(SQLiteDatabase db) {
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + PARENT_TAB + "(" + ParentInfo.ID
+				+ " integer primary key autoincrement," + ParentInfo.CARD_NUMBER + " varchar,"
+				+ ParentInfo.MEMBER_STATUS + " integer, " + ParentInfo.PARENT_ID + " varchar, "
+				+ ParentInfo.PARENT_NAME + " varchar, " + ParentInfo.PHONE + " varchar, " + ParentInfo.PORTRAIT
+				+ " varchar, " + ParentInfo.TIMESTAMP + " biginteger, " + ParentInfo.RELATIONSHIP + " varchar, "
 				+ " UNIQUE(" + ParentInfo.PARENT_ID + ") " + ")");
 	}
 
 	@Override
 	// 当数据库升级时，可以根据oldVersion，newVersion来做一些数据迁移，更新的操作
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		Log.d("Database", "onUpgrade");
-		// if (oldVersion == 1 && newVersion == 2) {
-		// addParentTab(db);
-		// addNewChatTab(db);
-		// // 修改了unique，之前是phone 改为 teacherid，懒得alter tab了，直接重新建表
-		// db.execSQL("DROP TABLE IF EXISTS " + TEACHER_TAB);
-		// addTeacherTab(db);
-		// }
-		//
-		// addTabs(db);
+		Log.d("Database", "onUpgrade begain");
+		long current = System.currentTimeMillis();
+		try {
+			MyApplication.getInstance().setDbUpdating(true);
+			new UpgradeDbHelper(db, this).upgradeDb();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			MyApplication.getInstance().setDbUpdating(false);
+		}
+		Log.d("Database", "onUpgrade over time =" + (System.currentTimeMillis() - current));
 	}
 
 	public void clearAll(SQLiteDatabase db) {
@@ -311,11 +276,11 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + NEWS_TAB);
 		db.execSQL("DROP TABLE IF EXISTS " + SWIPE_TAB);
 		db.execSQL("DROP TABLE IF EXISTS " + HOMEWORK_TAB);
-		// db.execSQL("DROP TABLE IF EXISTS " + CHAT_TAB);
 		db.execSQL("DROP TABLE IF EXISTS " + EDUCATION_TAB);
 		db.execSQL("DROP TABLE IF EXISTS " + TEACHER_TAB);
 		db.execSQL("DROP TABLE IF EXISTS " + PARENT_TAB);
 		db.execSQL("DROP TABLE IF EXISTS " + NEW_CHAT_TAB);
+		db.execSQL("DROP TABLE IF EXISTS " + EXP_TAB);
 		onCreate(db);
 	}
 }

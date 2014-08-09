@@ -13,6 +13,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -236,8 +237,12 @@ public class PlayActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				stopListen();
+				// 如果没有正在播放音频，就不能向下再走了，否则死机。原因，handle无效，或者handle已经关闭过了，再次关闭
+				if (!mIsListening) {
+					return;
+				}
 
+				stopListen();
 				mbtn_closelisten.setEnabled(false);
 				mbtn_openlisten.setEnabled(true);
 			}
@@ -635,6 +640,23 @@ public class PlayActivity extends Activity {
 		if (mIsListening) {
 			VideoApp.getJni().stopAudio(VideoApp.mAudioHandle);
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		new AlertDialog.Builder(this).setTitle("确定要退出视频播放吗？")
+				.setIcon(android.R.drawable.ic_dialog_info)
+				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						PlayActivity.this.finish();
+					}
+				})
+				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				}).show();
 	}
 
 	@Override

@@ -6,9 +6,11 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import android.content.Intent;
+import android.util.Log;
 
 import com.baidu.frontia.FrontiaApplication;
 import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChatInfo;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.handler.CrashHandler;
@@ -25,7 +27,18 @@ public class MyApplication extends FrontiaApplication {
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
 	private List<ChatInfo> tmpList = new ArrayList<ChatInfo>();
 	private List<NewChatInfo> tmpNewChatList = new ArrayList<NewChatInfo>();
-	
+
+	// 当前是否有数据库正在升级
+	private boolean isDbUpdating = false;
+
+	public boolean isDbUpdating() {
+		return isDbUpdating;
+	}
+
+	public void setDbUpdating(boolean isDbUpdating) {
+		this.isDbUpdating = isDbUpdating;
+	}
+
 	public List<NewChatInfo> getTmpNewChatList() {
 		return tmpNewChatList;
 	}
@@ -71,6 +84,9 @@ public class MyApplication extends FrontiaApplication {
 		instance = this;
 		Intent service = new Intent(instance, MyService.class);
 		instance.startService(service);
+		// 如果有数据库需要升级，则触发onUpgrade方法
+		DataMgr.getInstance();
+		Log.d("Database", "MyApplication onCreate");
 	}
 
 	public List<ChatInfo> getTmpList() {

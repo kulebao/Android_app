@@ -23,7 +23,7 @@ import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.utils.Utils;
 
 public class DataMgr {
-	private static int DB_VERSION = 1;
+	private static int DB_VERSION = 2;
 	private static final String DB_NAME = "coolbao" + ".db";
 	private static Object mLock = new Object();
 	private static DataMgr instance;

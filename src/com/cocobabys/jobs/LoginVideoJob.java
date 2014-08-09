@@ -15,6 +15,7 @@ public class LoginVideoJob extends MyJob {
 	private String password;
 
 	private static final String SERVER_ADDR = "www.seebaobei.com";
+	// private static final String SERVER_ADDR = "www.huamaiyun.com";
 
 	private static final short SERVER_PORT = 80;
 
@@ -74,7 +75,7 @@ public class LoginVideoJob extends MyJob {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally{
+		} finally {
 			handler.sendEmptyMessage(event);
 		}
 

@@ -93,7 +93,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	private static final int RESIZE_REQUEST_CODE = 2;
 	private static final String IMAGE_FILE_NAME = "header.jpg";
 	private RoundedImageView babyHeadIcon;
-	private ChildInfo selectedChild;  
+	private ChildInfo selectedChild;
 	private AsyncTask<Void, Void, Integer> downloadIconTask;
 	private Handler handler;
 	private ProgressDialog progressDialog;
@@ -126,10 +126,15 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 			for (Teacher teacher : allTeachers) {
 				// 如果教师的头像属性不为空，本地又没有保存，那么此时重新下载一次头像
-				if (!TextUtils.isEmpty(teacher.getHead_icon()) && !new File(teacher.getLocalIconPath()).exists()) {
-					Log.d("EEE", "download teacher icon name=" + teacher.getName() + " url=" + teacher.getHead_icon());
-					new DownLoadImgAndSaveJob(teacher.getHead_icon(), teacher.getLocalIconPath(),
-							ConstantValue.HEAD_ICON_WIDTH, ConstantValue.HEAD_ICON_HEIGHT).execute();
+				if (!TextUtils.isEmpty(teacher.getHead_icon())
+						&& !new File(teacher.getLocalIconPath()).exists()) {
+					Log.d("EEE",
+							"download teacher icon name=" + teacher.getName()
+									+ " url=" + teacher.getHead_icon());
+					new DownLoadImgAndSaveJob(teacher.getHead_icon(),
+							teacher.getLocalIconPath(),
+							ConstantValue.HEAD_ICON_WIDTH,
+							ConstantValue.HEAD_ICON_HEIGHT).execute();
 				}
 			}
 		} catch (Exception e) {
@@ -174,7 +179,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	}
 
 	private void runCheckChildrenInfoTask() {
-		progressDialog.setMessage(getResources().getString(R.string.get_child_info));
+		progressDialog.setMessage(getResources().getString(
+				R.string.get_child_info));
 		progressDialog.show();
 		new CheckChildrenInfoTask(handler).execute();
 	}
@@ -201,7 +207,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					checkNewDatas();
 					break;
 				case EventType.SERVER_INNER_ERROR:
-					Toast.makeText(SchoolNoticeActivity.this, R.string.get_child_info_fail, Toast.LENGTH_SHORT).show();
+					Toast.makeText(SchoolNoticeActivity.this,
+							R.string.get_child_info_fail, Toast.LENGTH_SHORT)
+							.show();
 					break;
 				default:
 					break;
@@ -213,7 +221,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	public void handleDownloadImgSuccess(String filepath) {
 		DataMgr instance = DataMgr.getInstance();
-		instance.updateChildLocalIconUrl(instance.getSelectedChild().getServer_id(), filepath);
+		instance.updateChildLocalIconUrl(instance.getSelectedChild()
+				.getServer_id(), filepath);
 		// 本地文件保存更新,在之前如果为空的情况下，需要重新设置
 		selectedChild.setLocal_url(filepath);
 		Bitmap loacalBitmap = Utils.getLoacalBitmap(filepath);
@@ -247,7 +256,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				startToSchoolInfoActivity();
 			}
 		});
-		schoolNameView.setText(DataMgr.getInstance().getSchoolInfo().getSchool_name());
+		schoolNameView.setText(DataMgr.getInstance().getSchoolInfo()
+				.getSchool_name());
 	}
 
 	private void setHeadIcon() {
@@ -259,13 +269,16 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				Utils.setImg(babyHeadIcon, loacalBitmap);
 			}
 		} else if (!"".equals(selectedChild.getServer_url())) {
-			if (downloadIconTask != null && downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
+			if (downloadIconTask != null
+					&& downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
 				// 后执行的取消先执行的
 				downloadIconTask.cancel(true);
 			}
 
-			downloadIconTask = new DownLoadImgAndSaveTask(handler, selectedChild.getServer_url(),
-					InfoHelper.getChildrenLocalIconPath(selectedChild.getServer_id()), 100, 100).execute();
+			downloadIconTask = new DownLoadImgAndSaveTask(handler,
+					selectedChild.getServer_url(),
+					InfoHelper.getChildrenLocalIconPath(selectedChild
+							.getServer_id()), 100, 100).execute();
 		}
 	}
 
@@ -289,18 +302,24 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			Calendar current = Calendar.getInstance();
 
 			int year = current.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
-			int month = current.get(Calendar.MONTH) - birthDay.get(Calendar.MONTH);
+			int month = current.get(Calendar.MONTH)
+					- birthDay.get(Calendar.MONTH);
 
 			if (month > 0) {
-				age.append(String.format(getResources().getString(R.string.age_year), year));
-				age.append(String.format(getResources().getString(R.string.age_month), month));
+				age.append(String.format(
+						getResources().getString(R.string.age_year), year));
+				age.append(String.format(
+						getResources().getString(R.string.age_month), month));
 			} else if (month == 0) {
-				age.append(String.format(getResources().getString(R.string.age_year), year));
+				age.append(String.format(
+						getResources().getString(R.string.age_year), year));
 			} else {
 				year = year - 1;
 				month = 12 + month;
-				age.append(String.format(getResources().getString(R.string.age_year), year));
-				age.append(String.format(getResources().getString(R.string.age_month), month));
+				age.append(String.format(
+						getResources().getString(R.string.age_year), year));
+				age.append(String.format(
+						getResources().getString(R.string.age_month), month));
 			}
 
 		}
@@ -317,7 +336,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private void setBabyHeadIconByTakePhoto() {
 		if (Utils.isSdcardExisting()) {
-			Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+			Intent cameraIntent = new Intent(
+					"android.media.action.IMAGE_CAPTURE");
 			cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, getImageUri());
 			cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
 			startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
@@ -329,7 +349,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	@Override
 	// 处理从图库和拍照返回的照片
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == ConstantValue.START_SETTING && resultCode == ConstantValue.EXIT_LOGIN_RESULT) {
+		if (requestCode == ConstantValue.START_SETTING
+				&& resultCode == ConstantValue.EXIT_LOGIN_RESULT) {
 			Intent intent = new Intent();
 			intent.setClass(this, ValidatePhoneNumActivity.class);
 			startActivity(intent);
@@ -350,7 +371,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				if (Utils.isSdcardExisting()) {
 					resizeImage(getImageUri());
 				} else {
-					Toast.makeText(SchoolNoticeActivity.this, "未找到存储卡，无法存储照片！", Toast.LENGTH_LONG).show();
+					Toast.makeText(SchoolNoticeActivity.this, "未找到存储卡，无法存储照片！",
+							Toast.LENGTH_LONG).show();
 				}
 				break;
 
@@ -367,10 +389,13 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		if (data != null) {
 			try {
 				Bitmap bitmap = getBitmap(data);
-				JSONObject obj = InfoHelper.childInfoToJSONObject(selectedChild);
-				obj.put(InfoHelper.PHOTO, UploadFactory.CLOUD_STORAGE_HOST + Utils.getUploadChildUrl());
+				JSONObject obj = InfoHelper
+						.childInfoToJSONObject(selectedChild);
+				obj.put(InfoHelper.PHOTO, UploadFactory.CLOUD_STORAGE_HOST
+						+ Utils.getUploadChildUrl());
 
-				runUploadTask(obj.toString(), bitmap, getResources().getString(R.string.uploading_icon),
+				runUploadTask(obj.toString(), bitmap,
+						getResources().getString(R.string.uploading_icon),
 						new TaskResultHandler() {
 							@Override
 							public void handleResult(int result, Object param) {
@@ -380,7 +405,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 								if (result == EventType.UPLOAD_SUCCESS) {
 									updateChildPhoto((Bitmap) param);
 								} else {
-									Toast.makeText(SchoolNoticeActivity.this, R.string.upload_icon_failed,
+									Toast.makeText(SchoolNoticeActivity.this,
+											R.string.upload_icon_failed,
 											Toast.LENGTH_SHORT).show();
 								}
 							}
@@ -413,7 +439,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		return photo;
 	}
 
-	private void runUploadTask(String content, Bitmap bitmap, String notice, TaskResultHandler task) {
+	private void runUploadTask(String content, Bitmap bitmap, String notice,
+			TaskResultHandler task) {
 		UploadInfoTask uploadIconTask = new UploadInfoTask(task, content);
 
 		if (bitmap != null) {
@@ -428,9 +455,11 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	public void updateChildPhoto(Bitmap photo) {
 		try {
 			Utils.setImg(babyHeadIcon, photo);
-			String path = InfoHelper.getChildrenLocalIconPath(selectedChild.getServer_id());
+			String path = InfoHelper.getChildrenLocalIconPath(selectedChild
+					.getServer_id());
 			Utils.saveBitmapToSDCard(photo, path);
-			DataMgr.getInstance().updateChildLocalIconUrl(selectedChild.getServer_id(), path);
+			DataMgr.getInstance().updateChildLocalIconUrl(
+					selectedChild.getServer_id(), path);
 			selectedChild.setLocal_url(path);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -438,7 +467,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	}
 
 	private Uri getImageUri() {
-		return Uri.fromFile(new File(Utils.getSDCardFileDir(Utils.APP_DIR_TMP), IMAGE_FILE_NAME));
+		return Uri.fromFile(new File(Utils.getSDCardFileDir(Utils.APP_DIR_TMP),
+				IMAGE_FILE_NAME));
 	}
 
 	private void setNickName() {
@@ -450,7 +480,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	public void onResume() {
 		super.onResume();
 		adapter.notifyDataSetChanged();
-		if (selectedChild != null && selectedChild.getId() != DataMgr.getInstance().getSelectedChild().getId()) {
+		if (selectedChild != null
+				&& selectedChild.getId() != DataMgr.getInstance()
+						.getSelectedChild().getId()) {
 			Log.d("DDD", "selectedChild changed redraw!");
 			setTabTitle();
 		}
@@ -460,26 +492,35 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private void initTitle() {
 		babyHeadIcon = (RoundedImageView) findViewById(R.id.child_photo);
-		babyHeadIcon.setOnClickListener(new android.view.View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (!Utils.isNetworkConnected(SchoolNoticeActivity.this)) {
-					Toast.makeText(SchoolNoticeActivity.this, R.string.net_error, Toast.LENGTH_SHORT).show();
-					Log.d("DDD", "DDD R.string.net_error");
-					return;
-				} else if (selectedChild == null) {
-					Toast.makeText(SchoolNoticeActivity.this, R.string.reget_child_info, Toast.LENGTH_SHORT).show();
-					return;
-				}
-				DlgMgr.getListDialog(SchoolNoticeActivity.this, R.array.baby_setting_items,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								Log.d("initTitle ddd", "which =" + which);
-								handleClick(which);
-							}
-						}).create().show();
-			}
-		});
+		babyHeadIcon
+				.setOnClickListener(new android.view.View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						if (!Utils
+								.isNetworkConnected(SchoolNoticeActivity.this)) {
+							Toast.makeText(SchoolNoticeActivity.this,
+									R.string.net_error, Toast.LENGTH_SHORT)
+									.show();
+							Log.d("DDD", "DDD R.string.net_error");
+							return;
+						} else if (selectedChild == null) {
+							Toast.makeText(SchoolNoticeActivity.this,
+									R.string.reget_child_info,
+									Toast.LENGTH_SHORT).show();
+							return;
+						}
+						DlgMgr.getListDialog(SchoolNoticeActivity.this,
+								R.array.baby_setting_items,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int which) {
+										Log.d("initTitle ddd", "which ="
+												+ which);
+										handleClick(which);
+									}
+								}).create().show();
+					}
+				});
 	}
 
 	private void handleClick(int which) {
@@ -507,9 +548,11 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 		try {
 			JSONObject obj = InfoHelper.childInfoToJSONObject(selectedChild);
-			obj.put(InfoHelper.BIRTHDAY, InfoHelper.getYearMonthDayFormat().format(new Date(born)));
+			obj.put(InfoHelper.BIRTHDAY, InfoHelper.getYearMonthDayFormat()
+					.format(new Date(born)));
 
-			runUploadTask(obj.toString(), null, getResources().getString(R.string.uploading_child_info),
+			runUploadTask(obj.toString(), null,
+					getResources().getString(R.string.uploading_child_info),
 					new TaskResultHandler() {
 						@Override
 						public void handleResult(int result, Object param) {
@@ -517,11 +560,13 @@ public class SchoolNoticeActivity extends TabChildActivity {
 								return;
 							}
 							if (result == EventType.UPLOAD_SUCCESS) {
-								DataMgr.getInstance().updateBirthday(selectedChild.getServer_id(), born);
+								DataMgr.getInstance().updateBirthday(
+										selectedChild.getServer_id(), born);
 								selectedChild.setChild_birthday(born);
 								setBirthDay();
 							} else {
-								Toast.makeText(SchoolNoticeActivity.this, R.string.uploading_child_info_failed,
+								Toast.makeText(SchoolNoticeActivity.this,
+										R.string.uploading_child_info_failed,
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -536,13 +581,15 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		OnDateSetListener dateListener = new OnDateSetListener() {
 
 			@Override
-			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			public void onDateSet(DatePicker view, int year, int monthOfYear,
+					int dayOfMonth) {
 				Calendar birthday = Calendar.getInstance();
 				birthday.set(year, monthOfYear, dayOfMonth);
 				Log.d("", "date :" + birthday.toString());
 
 				if (!checkValid(birthday)) {
-					Toast.makeText(SchoolNoticeActivity.this, R.string.baby_age_limit, Toast.LENGTH_SHORT).show();
+					Toast.makeText(SchoolNoticeActivity.this,
+							R.string.baby_age_limit, Toast.LENGTH_SHORT).show();
 					return;
 				}
 
@@ -555,8 +602,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		Long birthDay = selectedChild.getChild_birthday();
 		calendar.setTimeInMillis(birthDay);
 
-		MyDatePickerDialog dialog = new MyDatePickerDialog(this, dateListener, calendar.get(Calendar.YEAR),
-				calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+		MyDatePickerDialog dialog = new MyDatePickerDialog(this, dateListener,
+				calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+				calendar.get(Calendar.DAY_OF_MONTH));
 		dialog.setTitle(R.string.set_birthday);
 		dialog.show();
 	}
@@ -573,23 +621,34 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	// 修改昵称的对话框
 	private void showTextDlg() {
-		final View textEntryView = LayoutInflater.from(this).inflate(R.layout.baby_nickname_text_entry, null);
-		final EditText nicknameEdit = (EditText) textEntryView.findViewById(R.id.baby_nickname_edit);
-		new AlertDialog.Builder(this).setTitle(R.string.set_baby_nickname).setView(textEntryView)
-				.setPositiveButton(R.string.confirm, new android.content.DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						final String nick = nicknameEdit.getText().toString().replace(" ", "");
+		final View textEntryView = LayoutInflater.from(this).inflate(
+				R.layout.baby_nickname_text_entry, null);
+		final EditText nicknameEdit = (EditText) textEntryView
+				.findViewById(R.id.baby_nickname_edit);
+		new AlertDialog.Builder(this)
+				.setTitle(R.string.set_baby_nickname)
+				.setView(textEntryView)
+				.setPositiveButton(R.string.confirm,
+						new android.content.DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								final String nick = nicknameEdit.getText()
+										.toString().replace(" ", "");
 
-						if (TextUtils.isEmpty(nick)) {
-							Toast.makeText(SchoolNoticeActivity.this, getResources().getString(R.string.invalid_nick),
-									Toast.LENGTH_SHORT).show();
-							return;
-						}
-						uploadNick(nick);
-					}
+								if (TextUtils.isEmpty(nick)) {
+									Toast.makeText(
+											SchoolNoticeActivity.this,
+											getResources().getString(
+													R.string.invalid_nick),
+											Toast.LENGTH_SHORT).show();
+									return;
+								}
+								uploadNick(nick);
+							}
 
-				}).setNegativeButton(R.string.back, null).create().show();
+						}).setNegativeButton(R.string.back, null).create()
+				.show();
 	}
 
 	public void uploadNick(final String nick) {
@@ -597,7 +656,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			JSONObject obj = InfoHelper.childInfoToJSONObject(selectedChild);
 			obj.put(InfoHelper.NICK, nick);
 
-			runUploadTask(obj.toString(), null, getResources().getString(R.string.uploading_child_info),
+			runUploadTask(obj.toString(), null,
+					getResources().getString(R.string.uploading_child_info),
 					new TaskResultHandler() {
 						@Override
 						public void handleResult(int result, Object param) {
@@ -606,11 +666,13 @@ public class SchoolNoticeActivity extends TabChildActivity {
 							}
 
 							if (result == EventType.UPLOAD_SUCCESS) {
-								DataMgr.getInstance().updateNick(selectedChild.getServer_id(), nick);
+								DataMgr.getInstance().updateNick(
+										selectedChild.getServer_id(), nick);
 								selectedChild.setChild_nick_name(nick);
 								setNickName();
 							} else {
-								Toast.makeText(SchoolNoticeActivity.this, R.string.uploading_child_info_failed,
+								Toast.makeText(SchoolNoticeActivity.this,
+										R.string.uploading_child_info_failed,
 										Toast.LENGTH_SHORT).show();
 							}
 						}
@@ -625,7 +687,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		progressDialog.cancel();
 
 		if (result == EventType.PHONE_NUM_IS_ALREADY_LOGIN) {
-			Toast.makeText(this, R.string.phone_num_is_already_login, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.phone_num_is_already_login,
+					Toast.LENGTH_SHORT).show();
 			return true;
 		}
 		return false;
@@ -706,7 +769,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	// 当AdapterView被单击(触摸屏或者键盘)，则返回的Item单击事件
 	private class ItemClickListener implements OnItemClickListener {
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
 			handleGridViewClick(position);
 		}
 	}
@@ -719,7 +783,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		}
 
 		String member_status = MemberStatus.FREE.toString();
-		if (member_status.equalsIgnoreCase(Utils.getProp(JSONConstant.MEMBER_STATUS, member_status))) {
+		if (member_status.equalsIgnoreCase(Utils.getProp(
+				JSONConstant.MEMBER_STATUS, member_status))) {
 			if (position != SWAPCARD_NOTICE && position != NORMAL_NOTICE) {
 				Utils.makeToast(this, R.string.access_forbid);
 				return;
@@ -869,7 +934,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private void startToSwipeCalendarActivity() {
 		if (DataMgr.getInstance().getSelectedChild() == null) {
-			Toast.makeText(this, R.string.child_info_is_null, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.child_info_is_null,
+					Toast.LENGTH_SHORT).show();
 			return;
 		}
 		Intent intent = new Intent();
@@ -903,7 +969,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private class MyDatePickerDialog extends DatePickerDialog {
 
-		public MyDatePickerDialog(Context context, OnDateSetListener callBack, int year, int monthOfYear, int dayOfMonth) {
+		public MyDatePickerDialog(Context context, OnDateSetListener callBack,
+				int year, int monthOfYear, int dayOfMonth) {
 			super(context, callBack, year, monthOfYear, dayOfMonth);
 		}
 
@@ -926,18 +993,21 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		public Object bind(Object target) {
 			this.target = target;
 			// 取得代理对象
-			return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this); // 要绑定接口(这是一个缺陷，cglib弥补了这一缺陷)
+			return Proxy.newProxyInstance(target.getClass().getClassLoader(),
+					target.getClass().getInterfaces(), this); // 要绑定接口(这是一个缺陷，cglib弥补了这一缺陷)
 		}
 
 		@Override
 		/** 
 		 * 调用方法 
 		 */
-		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+		public Object invoke(Object proxy, Method method, Object[] args)
+				throws Throwable {
 			Object result = null;
 			Log.d("DDD", "check child info!!!!");
 			if (DataMgr.getInstance().getSelectedChild() == null) {
-				Toast.makeText(SchoolNoticeActivity.this, R.string.child_info_is_null, Toast.LENGTH_SHORT).show();
+				Toast.makeText(SchoolNoticeActivity.this,
+						R.string.child_info_is_null, Toast.LENGTH_SHORT).show();
 				return null;
 			}
 			// 执行方法

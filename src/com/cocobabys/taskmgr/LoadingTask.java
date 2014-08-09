@@ -25,11 +25,14 @@ public class LoadingTask extends AsyncTask<Void, Void, Void> {
 	protected Void doInBackground(Void... params) {
 		try {
 			long current = System.currentTimeMillis();
+
 			if (Utils.isFirstStart()) {
 				resultEvent = EventType.LOADING_TO_GUARD;
 			} else if (Utils.isLoginout()) {
 				resultEvent = EventType.LOADING_TO_VALIDATEPHONE;
 			} else {
+				checkDbUpdate();
+
 				resultEvent = EventType.LOADING_TO_MAIN;
 				// 如果是已经登录过的，每次启动都bind一次，刷新cookie
 				if (Utils.isNetworkConnected(MyApplication.getInstance())) {
@@ -45,6 +48,20 @@ public class LoadingTask extends AsyncTask<Void, Void, Void> {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	// 检查是否有数据库正在升级，如果有，需要等到升级完毕再执行下一步操作
+	private void checkDbUpdate() {
+		try {
+			//先等300ms，以免sqliteHelper 的 upgrade还没有触发
+			Thread.sleep(300);
+			while (MyApplication.getInstance().isDbUpdating()) {
+				//每次等300ms
+				Thread.sleep(300);
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

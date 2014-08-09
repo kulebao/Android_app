@@ -124,17 +124,6 @@ public class NewChatInfo {
 		return ret;
 	}
 
-	public int getLayoutID() {
-		int layoutid = 0;
-		if (!TEACHER_TYPE.equals(sender_type)) {
-			layoutid = R.layout.chat_item_right;
-		} else {
-			layoutid = R.layout.chat_item_left;
-		}
-
-		return layoutid;
-	}
-
 	public boolean isSendByTeacher() {
 		return TEACHER_TYPE.equals(sender_type);
 	}

@@ -22,6 +22,7 @@ public class LoadingActivity extends UmengStatisticsActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.loading);
+		Log.d("Database", "LoadingActivity onCreate");
 		initHandler();
 		// initData();
 		new LoadingTask(handler).execute();
