@@ -4,16 +4,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_null"
     android:orientation="vertical" >
-
+    <include layout="@layout/topbar" />
     <ListView
         android:id="@+id/id_device_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:cacheColorHint="#00000000"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="3.0dip"
+        android:divider="@android:color/white"
+        android:dividerHeight="2.0dip"
         android:drawSelectorOnTop="false"
         android:fadingEdgeLength="0dip"
         android:scrollbars="vertical" />

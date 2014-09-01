@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.cocobabys.R;
+import com.cocobabys.activities.ActivityHelper;
 import com.cocobabys.adapter.VideoDeviceListAdapter;
 import com.cocobabys.utils.Utils;
 import com.huamaitel.api.HMDefines.NodeTypeInfo;
@@ -30,6 +31,9 @@ public class DeviceActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.device_activity);
+
+		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.watch_baby);
+
 		mListView = (ListView) findViewById(R.id.id_device_list);
 
 		// Get the root of the tree.

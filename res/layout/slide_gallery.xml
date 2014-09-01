@@ -41,27 +41,30 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp" >
 
-        <ImageView
+        <Button
             android:id="@+id/delete"
-            android:layout_width="40dp"
+            android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/delete" />
+            android:background="@drawable/btn_sel"
+            android:text="@string/delete" />
 
         <Button
             android:id="@+id/save"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:background="@drawable/btn_sel"
             android:text="保存" />
 
         <Button
             android:id="@+id/confirm"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:background="@drawable/btn_sel"
             android:text="确定" />
     </RelativeLayout>
 

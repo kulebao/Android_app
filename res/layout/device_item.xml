@@ -2,41 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/watch_back" >
+    android:background="@android:color/transparent" >
 
     <TextView
-        android:id="@+id/titleView"
-        style="@style/item_style"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="8dp"
-        android:text="title"
-        android:visibility="gone"
-        android:textColor="@color/juhong" />
-
-    <RelativeLayout
-        android:id="@+id/left"
-        android:layout_width="match_parent"
+        android:id="@+id/bodyView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="35dp" >
-
-        <TextView
-            android:id="@+id/bodyView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/titleView"
-            android:layout_marginRight="55dp"
-            android:layout_marginTop="10dp"
-            android:ellipsize="end"
-            android:lines="2"
-            android:drawablePadding="10dp"
-            android:drawableLeft="@drawable/record"
-            android:maxLines="2"
-            android:text="bodybodybodybodybodybodyybodybodybodybodybodybodyybodybodybodybodybodybodyy"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="normal" />
-    </RelativeLayout>
+        android:gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@drawable/record"
+        android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:lines="2"
+        android:maxLines="2"
+        android:text="bod"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:textStyle="normal" />
 
 </RelativeLayout>

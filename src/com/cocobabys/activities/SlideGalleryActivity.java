@@ -89,7 +89,7 @@ public class SlideGalleryActivity extends Activity {
 	}
 
 	private void initBtn() {
-		ImageView delete = (ImageView) findViewById(R.id.delete);
+		Button delete = (Button) findViewById(R.id.delete);
 		delete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

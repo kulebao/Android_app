@@ -35,7 +35,9 @@ public class LoginVideoJob extends MyJob {
 			HMDefines.LoginServerInfo info = getInfo();
 
 			// step 1: Connect the server.
-			int serverId = jni.connectServer(info, VideoApp.mLoginServerError);
+			// int serverId = jni.connectServer(info,
+			// VideoApp.mLoginServerError);
+			int serverId = jni.connectServer(info);
 			if (serverId != 0) {
 				VideoApp.serverId = serverId;
 				result = jni.getDeviceList(serverId);
