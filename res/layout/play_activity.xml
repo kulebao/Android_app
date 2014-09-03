@@ -61,16 +61,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="打开听" />
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_video_open_voice" />
 
     <Button
         android:id="@+id/id_btn_closelisten"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:background="@drawable/btn_video_close_voice" 
         android:layout_below="@id/id_btn_openlisten"
-        android:layout_marginTop="16dp"
-        android:text="关闭听" />
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+         />
 
     <Button
         android:id="@+id/id_btn_capture"
@@ -78,8 +82,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/id_btn_record"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="66dp"
-        android:text="拍照" />
+        android:background="@drawable/btn_video_take_pic" />
 
     <Button
         android:id="@+id/id_btn_opentalk"

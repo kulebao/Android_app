@@ -23,7 +23,7 @@
                 android:id="@+id/child_photo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="10dp"
                 android:scaleType="fitXY"
                 app:border_color="@color/white"

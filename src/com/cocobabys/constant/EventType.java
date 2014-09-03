@@ -113,4 +113,9 @@ public class EventType {
 	/**************** Video event ******************/
 	public static final int VIDEO_LOGIN_SUCCESS = 10010;
 	public static final int VIDEO_LOGIN_FAIL = 10011;
+	
+	public static final int VIDEO_GET_INFO_SUCCESS = 10030;
+	//未开通
+	public static final int VIDEO_GET_INFO_NOT_REG = 10032;
+	public static final int VIDEO_GET_INFO_FAIL = 10031;
 }

@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_null"
     android:orientation="vertical" >
+
     <include layout="@layout/topbar" />
+
     <ListView
         android:id="@+id/id_device_list"
         android:layout_width="match_parent"

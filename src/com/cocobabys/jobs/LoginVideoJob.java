@@ -2,7 +2,13 @@ package com.cocobabys.jobs;
 
 import android.os.Handler;
 
+import com.cocobabys.bean.VideoAccount;
 import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.net.MethodResult;
+import com.cocobabys.net.VideoMethod;
+import com.cocobabys.proxy.MyProxy;
+import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.video.VideoApp;
 import com.huamaitel.api.HMDefines;
@@ -28,6 +34,35 @@ public class LoginVideoJob extends MyJob {
 	@Override
 	public void run() {
 		int event = EventType.VIDEO_LOGIN_FAIL;
+
+		MyProxy proxy = new MyProxy();
+		MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
+			@Override
+			public MethodResult handle() throws Exception {
+				String parentid = DataMgr.getInstance().getSelfInfoByPhone()
+						.getParent_id();
+				MethodResult result = VideoMethod.getMethod().getInfo(parentid);
+				return result;
+			}
+		});
+
+		try {
+			MethodResult result = (MethodResult) bind.handle();
+			event = result.getResultType();
+
+			if (event == EventType.VIDEO_GET_INFO_SUCCESS) {
+				VideoAccount account = (VideoAccount) result.getResultObj();
+				event = loginToHuamai();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			handler.sendEmptyMessage(event);
+		}
+	}
+
+	private int loginToHuamai() {
+		int event = EventType.VIDEO_LOGIN_FAIL;
 		try {
 			HMJniInterface jni = VideoApp.getJni();
 			int result = 0;
@@ -43,16 +78,14 @@ public class LoginVideoJob extends MyJob {
 				result = jni.getDeviceList(serverId);
 				if (result != HMDefines.HMEC_OK) {
 					jni.disconnectServer(serverId);
-					handler.sendEmptyMessage(EventType.VIDEO_LOGIN_FAIL);
-					return;
+					return event;
 				}
 
 				// step 2: Get user information.
 				UserInfo userInfo = jni.getUserInfo(serverId);
 				if (userInfo == null) {
 					jni.disconnectServer(serverId);
-					handler.sendEmptyMessage(EventType.VIDEO_LOGIN_FAIL);
-					return;
+					return event;
 				}
 				/**
 				 * TODO: huamaiyun和see1000中需要添加userInfo.useTransferService !=8
@@ -66,8 +99,7 @@ public class LoginVideoJob extends MyJob {
 					result = jni.getTransferInfo(serverId);
 					if (result != HMDefines.HMEC_OK) {
 						jni.disconnectServer(serverId);
-						handler.sendEmptyMessage(EventType.VIDEO_LOGIN_FAIL);
-						return;
+						return event;
 					}
 				}
 
@@ -77,10 +109,8 @@ public class LoginVideoJob extends MyJob {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			handler.sendEmptyMessage(event);
 		}
-
+		return event;
 	}
 
 	private HMDefines.LoginServerInfo getInfo() {

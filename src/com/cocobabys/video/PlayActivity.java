@@ -96,6 +96,14 @@ public class PlayActivity extends Activity {
 	private static final int OPEN_VIDEO_DONE = 30;
 	static final int DRAW_FRAME = 40;
 
+	private static final int EVT_START_LISTEN_SUCCESS = 50;
+	private static final int EVT_START_LISTEN_FAILED = 60;
+	private static final int EVT_CLOSE_LISTEN_SUCCESS = 70;
+	private static final int EVT_CLOSE_LISTEN_FAILED = 80;
+
+	private static final int EVT_TAKE_PIC_SUCCESS = 90;
+	private static final int EVT_TAKE_PIC_FAILED = 100;
+
 	private static final String LOGIN_DEVICE = "登录设备...";
 	protected static final String GET_DEVICE = "获取设备信息...";
 	protected static final String GET_VIDEO_INFO = "获取图像信息...";
@@ -119,7 +127,7 @@ public class PlayActivity extends Activity {
 
 		setRecordBtn();
 
-		setTakePhotoBtn();
+		setTakePhotoBtnEx();
 
 		setOpenListenBtn();
 
@@ -222,7 +230,6 @@ public class PlayActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				startTalk();
-
 				mbtn_opentalk.setEnabled(false);
 				mbtn_closetalk.setEnabled(true);
 			}
@@ -237,14 +244,14 @@ public class PlayActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// 如果没有正在播放音频，就不能向下再走了，否则死机。原因，handle无效，或者handle已经关闭过了，再次关闭
-				if (!mIsListening) {
-					return;
+				// 如果没有正在播放音频，就不能关闭，否则死机。原因，handle无效，或者handle已经关闭过了，再次关闭
+				if (mIsListening) {
+					mbtn_closelisten.setEnabled(false);
+					mbtn_openlisten.setEnabled(true);
+					stopListen();
 				}
 
-				stopListen();
-				mbtn_closelisten.setEnabled(false);
-				mbtn_openlisten.setEnabled(true);
+				handler.sendEmptyMessage(EVT_CLOSE_LISTEN_SUCCESS);
 			}
 		});
 	}
@@ -256,12 +263,56 @@ public class PlayActivity extends Activity {
 		mbtn_openlisten.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startListen();
 				mbtn_openlisten.setEnabled(false);
 				mbtn_closelisten.setEnabled(true);
-
+				startListen();
 			}
 		});
+	}
+
+	private void setTakePhotoBtnEx() {
+		/**
+		 * 拍照
+		 */
+		mbtn_capture.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mbtn_capture.setVisibility(View.GONE);
+				MyThreadPoolMgr.getGenericService().submit(new Runnable() {
+
+					@Override
+					public void run() {
+						takePicEx();
+					}
+				});
+			}
+
+		});
+	}
+
+	private void takePicEx() {
+		Log.d("EEE", "mbtn_capture takePic");
+		int event = EVT_TAKE_PIC_FAILED;
+		try {
+			String fileName = VideoApp.getJni().getNodeName(
+					VideoApp.curNodeHandle);
+			String path = getFilePath(FILE_TYPE_CAPTURE, fileName);
+			VideoApp.mCapturePath = path;
+
+			byte data[] = VideoApp.getJni().localCapture(VideoApp.mUserId);
+			if (null != data) {
+				boolean res = saveCapturedPic(data, VideoApp.mCapturePath);
+				if (res) {
+					Utils.galleryAddPic(Uri.fromFile(new File(path)));
+					event = EVT_TAKE_PIC_SUCCESS;
+					Log.i(TAG, "Local capture success." + "拍照成功！图片存放在：" + path);
+				} else {
+					Log.e(TAG, "Local capture fail.");
+				}
+			}
+		} finally {
+			handler.sendEmptyMessage(event);
+		}
 	}
 
 	private void setTakePhotoBtn() {
@@ -272,36 +323,44 @@ public class PlayActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				try {
+					if (!mbtn_capture.isEnabled()) {
+						Log.d("EEE",
+								"mbtn_capture isEnabled false! do nothing!");
+						return;
+					}
+					mbtn_capture.setEnabled(false);
 					takePic();
 				} catch (Exception e) {
 					e.printStackTrace();
+				} finally {
+					mbtn_capture.setEnabled(true);
 				}
 			}
 
-			private void takePic() {
-				String fileName = VideoApp.getJni().getNodeName(
-						VideoApp.curNodeHandle);
-				String path = getFilePath(FILE_TYPE_CAPTURE, fileName);
-				VideoApp.mCapturePath = path;
-
-				byte data[] = VideoApp.getJni().localCapture(VideoApp.mUserId);
-				if (null == data) {
-					Toast.makeText(getApplicationContext(), "拍照失败",
-							Toast.LENGTH_SHORT).show();
-				} else {
-					boolean res = saveCapturedPic(data, VideoApp.mCapturePath);
-					if (res) {
-						Utils.galleryAddPic(Uri.fromFile(new File(path)));
-						Log.i(TAG, "Local capture success." + "拍照成功！图片存放在："
-								+ path);
-						Utils.makeToast(PlayActivity.this, "拍照成功，照片已保存到图库");
-
-					} else {
-						Log.e(TAG, "Local capture fail.");
-					}
-				}
-			}
 		});
+	}
+
+	private void takePic() {
+		Log.d("EEE", "mbtn_capture takePic");
+
+		String fileName = VideoApp.getJni().getNodeName(VideoApp.curNodeHandle);
+		String path = getFilePath(FILE_TYPE_CAPTURE, fileName);
+		VideoApp.mCapturePath = path;
+
+		byte data[] = VideoApp.getJni().localCapture(VideoApp.mUserId);
+		if (null == data) {
+			Utils.makeToast(PlayActivity.this, "拍照失败");
+		} else {
+			boolean res = saveCapturedPic(data, VideoApp.mCapturePath);
+			if (res) {
+				Utils.galleryAddPic(Uri.fromFile(new File(path)));
+				Log.i(TAG, "Local capture success." + "拍照成功！图片存放在：" + path);
+				Utils.makeToast(PlayActivity.this, "拍照成功，照片已保存到图库");
+
+			} else {
+				Log.e(TAG, "Local capture fail.");
+			}
+		}
 	}
 
 	private void setRecordBtn() {
@@ -418,6 +477,30 @@ public class PlayActivity extends Activity {
 					showErrorDialog(msg.arg1);
 					break;
 
+				case EVT_START_LISTEN_SUCCESS:
+					Utils.makeToast(PlayActivity.this, "播放声音");
+					break;
+				case EVT_START_LISTEN_FAILED:
+					mbtn_openlisten.setEnabled(true);
+					Utils.makeToast(PlayActivity.this,
+							"抱歉，打开声音失败，可能是设备不支持，请联系幼儿园处理，谢谢");
+					break;
+				case EVT_CLOSE_LISTEN_SUCCESS:
+					Utils.makeToast(PlayActivity.this, "声音已关闭");
+					break;
+				case EVT_CLOSE_LISTEN_FAILED:
+					showErrorDialog(msg.arg1);
+					break;
+
+				case EVT_TAKE_PIC_SUCCESS:
+					mbtn_capture.setVisibility(View.VISIBLE);
+					Utils.makeToast(PlayActivity.this, "拍照成功，照片已保存到图库");
+					break;
+				case EVT_TAKE_PIC_FAILED:
+					mbtn_capture.setVisibility(View.VISIBLE);
+					Utils.makeToast(PlayActivity.this, "拍照失败");
+					break;
+
 				default:
 					break;
 				}
@@ -439,9 +522,10 @@ public class PlayActivity extends Activity {
 						VideoApp.mUserId, param, res);
 				Log.d("VIDEO", "mAudioHandle =" + VideoApp.mAudioHandle);
 				if (VideoApp.mAudioHandle > 0) {
+					handler.sendEmptyMessage(EVT_START_LISTEN_SUCCESS);
 					mIsListening = true;
 				} else {
-					Utils.makeToast(PlayActivity.this, "抱歉，该设备不支持音频功能");
+					handler.sendEmptyMessage(EVT_START_LISTEN_FAILED);
 				}
 
 			}

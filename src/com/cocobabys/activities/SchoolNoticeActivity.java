@@ -752,7 +752,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		lstImageItem.add(map);
 
 		// 暂时屏蔽成长经历模块和视频监控模块
-		if (MyApplication.getInstance().isForTest()) {
+//		if (MyApplication.getInstance().isForTest()) {
 			map = new HashMap<String, Object>();
 			map.put("ItemImage", R.drawable.exp);
 			map.put("ItemText", getResources().getText(R.string.experence));
@@ -762,7 +762,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			map.put("ItemImage", R.drawable.watch);
 			map.put("ItemText", getResources().getText(R.string.watch_baby));
 			lstImageItem.add(map);
-		}
+//		}
 
 		return lstImageItem;
 	}
