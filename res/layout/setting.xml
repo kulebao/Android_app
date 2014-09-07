@@ -119,6 +119,17 @@
                 android:textSize="24sp"
                 android:visibility="gone" />
 
+            <Button
+                android:id="@+id/changeVideo"
+                style="@style/btn_style"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/sub_btn"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:visibility="gone" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

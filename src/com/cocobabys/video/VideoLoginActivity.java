@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.cocobabys.R;
 import com.cocobabys.activities.ActivityHelper;
+import com.cocobabys.activities.MyApplication;
 import com.cocobabys.activities.UmengStatisticsActivity;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.customview.CustomDialog;
@@ -37,6 +38,16 @@ public class VideoLoginActivity extends UmengStatisticsActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video_login);
 		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.watch_baby);
+
+		if (MyApplication.getInstance().isForTest()) {
+			if (Utils.isMyVideo()) {
+				username = "xmm";
+				password = "123456";
+			} else {
+				username = "2222";
+				password = "6yWw2D";
+			}
+		}
 
 		VideoApp.getJni().init();
 		registerHander();

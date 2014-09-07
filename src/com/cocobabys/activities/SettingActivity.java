@@ -100,37 +100,68 @@ public class SettingActivity extends UmengStatisticsActivity {
 
 	private void setTestBtn() {
 		if (MyApplication.getInstance().isForTest()) {
-			final Button changeHost = (Button) findViewById(R.id.changeHost);
-			changeHost.setVisibility(View.VISIBLE);
-			setHostText(changeHost);
-			changeHost.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					boolean isTestHost = Utils.isTestHost();
-					if (isTestHost) {
-						Utils.setToTestHost("false");
-					} else {
-						Utils.setToTestHost("true");
-					}
-
-					DataMgr.getInstance().upgradeAll();
-					Utils.clearSDFolder();
-					new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-							try {
-								Thread.sleep(3000);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							System.exit(0);
-						}
-					}).start();
-				}
-			});
-
+			setHostBtn();
+			setVideoBtn();
 		}
+	}
+
+	private void setVideoBtn() {
+		final Button changeVideo = (Button) findViewById(R.id.changeVideo);
+		changeVideo.setVisibility(View.VISIBLE);
+		setVideoBtnText(changeVideo);
+
+		changeVideo.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				boolean isMyVideo = Utils.isMyVideo();
+				if (isMyVideo) {
+					Utils.setVideo("false");
+				} else {
+					Utils.setVideo("true");
+				}
+				setVideoBtnText(changeVideo);
+			}
+		});
+	}
+
+	private void setVideoBtnText(final Button changeVideo) {
+		if (Utils.isMyVideo()) {
+			changeVideo.setText("切换到其他摄像头");
+		} else {
+			changeVideo.setText("切换到自己的摄像头");
+		}
+	}
+
+	private void setHostBtn() {
+		final Button changeHost = (Button) findViewById(R.id.changeHost);
+		changeHost.setVisibility(View.VISIBLE);
+		setHostText(changeHost);
+		changeHost.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				boolean isTestHost = Utils.isTestHost();
+				if (isTestHost) {
+					Utils.setToTestHost("false");
+				} else {
+					Utils.setToTestHost("true");
+				}
+
+				DataMgr.getInstance().upgradeAll();
+				Utils.clearSDFolder();
+				new Thread(new Runnable() {
+
+					@Override
+					public void run() {
+						try {
+							Thread.sleep(3000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						System.exit(0);
+					}
+				}).start();
+			}
+		});
 	}
 
 	private void setHostText(Button hostBtn) {

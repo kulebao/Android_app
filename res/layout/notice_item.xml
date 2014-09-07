@@ -65,7 +65,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/default_small_icon"
             android:scaleType="fitXY"
             android:visibility="visible" >
         </ImageView>

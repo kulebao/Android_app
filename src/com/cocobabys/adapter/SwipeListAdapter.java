@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.cocobabys.R;
 import com.cocobabys.adapter.DonwloadModule.DownloadListener;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.SwipeInfo;
 import com.cocobabys.utils.ImageDownloader;
@@ -112,7 +113,9 @@ public class SwipeListAdapter extends BaseAdapter {
 				Utils.setImg(view, loacalBitmap);
 			} else {
 				donwloadModule.addTask(info.getUrl(),
-						info.getSwipeLocalMiniIconPath(), 40, 40);
+						info.getSwipeLocalMiniIconPath(),
+						ConstantValue.MINI_PIC_SIZE,
+						ConstantValue.MINI_PIC_SIZE);
 				view.setImageResource(R.drawable.default_icon);
 			}
 			view.setVisibility(View.VISIBLE);
@@ -127,7 +130,7 @@ public class SwipeListAdapter extends BaseAdapter {
 
 		if (loacalBitmap == null) {
 			loacalBitmap = Utils.getLoacalBitmap(localUrl,
-					ImageDownloader.getMaxPixWithDensity(40, 40));
+					ImageDownloader.getMaxPixWithDensity(160, 160));
 			if (loacalBitmap != null) {
 				Log.d("DJC", "getLoacalBitmap url =" + localUrl);
 				softMap.put(localUrl, new SoftReference<Bitmap>(loacalBitmap));

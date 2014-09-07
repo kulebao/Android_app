@@ -741,6 +741,17 @@ public class Utils {
 		return "true".equals(prop);
 	}
 
+	private static final String IS_MY_VIDEO = "is_my_video";
+
+	public static boolean isMyVideo() {
+		String prop = Utils.getProp(IS_MY_VIDEO, "false");
+		return "true".equals(prop);
+	}
+	
+	public static void setVideo(String enable) {
+		saveProp(IS_MY_VIDEO, enable);
+	}
+
 	public static void saveInSDCard(String str, String fileName) {
 		if (Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED)) {

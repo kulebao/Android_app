@@ -278,7 +278,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			downloadIconTask = new DownLoadImgAndSaveTask(handler,
 					selectedChild.getServer_url(),
 					InfoHelper.getChildrenLocalIconPath(selectedChild
-							.getServer_id()), 100, 100).execute();
+							.getServer_id()), ConstantValue.BABY_HEAD_PIC_SIZE,
+					ConstantValue.BABY_HEAD_PIC_SIZE).execute();
 		}
 	}
 
@@ -752,17 +753,17 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		lstImageItem.add(map);
 
 		// 暂时屏蔽成长经历模块和视频监控模块
-//		if (MyApplication.getInstance().isForTest()) {
-			map = new HashMap<String, Object>();
-			map.put("ItemImage", R.drawable.exp);
-			map.put("ItemText", getResources().getText(R.string.experence));
-			lstImageItem.add(map);
+		// if (MyApplication.getInstance().isForTest()) {
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.exp);
+		map.put("ItemText", getResources().getText(R.string.experence));
+		lstImageItem.add(map);
 
-			map = new HashMap<String, Object>();
-			map.put("ItemImage", R.drawable.watch);
-			map.put("ItemText", getResources().getText(R.string.watch_baby));
-			lstImageItem.add(map);
-//		}
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.watch);
+		map.put("ItemText", getResources().getText(R.string.watch_baby));
+		lstImageItem.add(map);
+		// }
 
 		return lstImageItem;
 	}
