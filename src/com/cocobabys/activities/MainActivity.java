@@ -101,7 +101,7 @@ public class MainActivity extends TabActivity {
 										adInfo.getLocalFileName());
 							}
 						} catch (Exception e) {
-							e.printStackTrace();
+							Log.e("EEE", "DJC runCheckADTask e="+e.toString());
 						}
 					}
 				}, 0, CHECK_AD_DELAY_TIME, TimeUnit.SECONDS);

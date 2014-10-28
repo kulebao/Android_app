@@ -1,6 +1,5 @@
 package com.cocobabys.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -144,7 +143,7 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 
 		content.append(swipeinfo.getNoticeTitle() + "\n\n");
 
-		if (adInfo != null) {
+		if (adInfo != null && !TextUtils.isEmpty(adInfo.getName())) {
 			content.append(Utils.getAdNotice(adInfo.getName()));
 		}
 
