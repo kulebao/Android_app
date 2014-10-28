@@ -91,11 +91,6 @@ public class EventType {
 	public static final int GET_SENDER_SUCCESS = 1730;
 	public static final int GET_SENDER_FAIL = 1731;
 
-	public static final int SUCCESS = 2000;
-	public static final int FAIL = 2001;
-
-	public static final int CHECK_NEW_DATA = 3000;
-
 	public static final int POST_EXP_SUCCESS = 1800;
 	public static final int POST_EXP_FAIL = 1801;
 
@@ -110,12 +105,22 @@ public class EventType {
 
 	public static final int UPLOAD_ICON_SUCCESS = 1830;
 
+	/**************** ad event ******************/
+	public static final int GET_AD_SUCCESS = 1850;
+	public static final int GET_AD_FAIL = 1851;
+
+	public static final int SUCCESS = 2000;
+	public static final int FAIL = 2001;
+
+	public static final int CHECK_NEW_DATA = 3000;
+
 	/**************** Video event ******************/
 	public static final int VIDEO_LOGIN_SUCCESS = 10010;
 	public static final int VIDEO_LOGIN_FAIL = 10011;
-	
+
 	public static final int VIDEO_GET_INFO_SUCCESS = 10030;
-	//未开通
+	// 未开通
 	public static final int VIDEO_GET_INFO_NOT_REG = 10032;
 	public static final int VIDEO_GET_INFO_FAIL = 10031;
+
 }

@@ -1,6 +1,7 @@
 package com.cocobabys.jobs;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.cocobabys.bean.VideoAccount;
 import com.cocobabys.constant.EventType;
@@ -12,23 +13,20 @@ import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.video.VideoApp;
 import com.huamaitel.api.HMDefines;
+import com.huamaitel.api.HMDefines.LoginServerInfo;
 import com.huamaitel.api.HMDefines.UserInfo;
 import com.huamaitel.api.HMJniInterface;
 
 public class LoginVideoJob extends MyJob {
 	private Handler handler;
-	private String name;
-	private String password;
 
 	private static final String SERVER_ADDR = "www.seebaobei.com";
 	// private static final String SERVER_ADDR = "www.huamaiyun.com";
 
 	private static final short SERVER_PORT = 80;
 
-	public LoginVideoJob(Handler handler, String name, String password) {
+	public LoginVideoJob(Handler handler) {
 		this.handler = handler;
-		this.name = name;
-		this.password = password;
 	}
 
 	@Override
@@ -52,7 +50,14 @@ public class LoginVideoJob extends MyJob {
 
 			if (event == EventType.VIDEO_GET_INFO_SUCCESS) {
 				VideoAccount account = (VideoAccount) result.getResultObj();
-				event = loginToHuamai();
+				// HMDefines.LoginServerInfo info = getInfo("cocbaby",
+				// "13880498549");
+
+				Log.d("EEE", "name =" + account.getAccountName());
+				Log.d("EEE", "pwd =" + account.getPwd());
+				HMDefines.LoginServerInfo info = getInfo(
+						account.getAccountName(), account.getPwd());
+				event = loginToHuamai(info);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,19 +66,17 @@ public class LoginVideoJob extends MyJob {
 		}
 	}
 
-	private int loginToHuamai() {
+	private int loginToHuamai(LoginServerInfo info) {
 		int event = EventType.VIDEO_LOGIN_FAIL;
 		try {
 			HMJniInterface jni = VideoApp.getJni();
 			int result = 0;
 
-			HMDefines.LoginServerInfo info = getInfo();
-
 			// step 1: Connect the server.
 			// int serverId = jni.connectServer(info,
 			// VideoApp.mLoginServerError);
 			int serverId = jni.connectServer(info);
-			if (serverId != 0) {
+			if (serverId > 0) {
 				VideoApp.serverId = serverId;
 				result = jni.getDeviceList(serverId);
 				if (result != HMDefines.HMEC_OK) {
@@ -113,7 +116,7 @@ public class LoginVideoJob extends MyJob {
 		return event;
 	}
 
-	private HMDefines.LoginServerInfo getInfo() {
+	private HMDefines.LoginServerInfo getInfo(String name, String password) {
 		// 平台相关
 		HMDefines.LoginServerInfo info = new HMDefines.LoginServerInfo();
 		info.ip = SERVER_ADDR; // 平台地址

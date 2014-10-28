@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 
 import com.cocobabys.R;
 import com.cocobabys.adapter.ViewPagerAdapter;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 /**
  * 
@@ -72,7 +72,7 @@ public class GuideActivity extends UmengStatisticsActivity implements
 			@Override
 			public void onClick(View v) {
 				// 设置已经引导
-				Utils.setGuided();
+				DataUtils.setGuided();
 				goNextActivity();
 			}
 		});
@@ -85,7 +85,7 @@ public class GuideActivity extends UmengStatisticsActivity implements
 
 	private void goNextActivity() {
 		Class<?> toClass = null;
-		if (Utils.isLoginout()) {
+		if (DataUtils.isLoginout()) {
 			// 用户未绑定
 			toClass = ValidatePhoneNumActivity.class;
 		} else {

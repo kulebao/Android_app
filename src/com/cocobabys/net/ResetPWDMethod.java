@@ -11,7 +11,7 @@ import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.MyErrorCode;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class ResetPWDMethod {
 	private ResetPWDMethod() {
@@ -58,7 +58,7 @@ public class ResetPWDMethod {
 				if (errorcode == 0) {
 					String token = jsonObject
 							.getString(JSONConstant.ACCESS_TOKEN);
-					Utils.saveProp(JSONConstant.ACCESS_TOKEN, token);
+					DataUtils.saveProp(JSONConstant.ACCESS_TOKEN, token);
 					event = EventType.RESET_PWD_SUCCESS;
 				} else if (errorcode == MyErrorCode.INVALID_AUTHCODE) {
 					event = EventType.AUTH_CODE_IS_INVALID;
@@ -86,7 +86,7 @@ public class ResetPWDMethod {
 				if (errorcode == 0) {
 					String token = jsonObject
 							.getString(JSONConstant.ACCESS_TOKEN);
-					Utils.saveProp(JSONConstant.ACCESS_TOKEN, token);
+					DataUtils.saveProp(JSONConstant.ACCESS_TOKEN, token);
 					event = EventType.CHANGE_PWD_SUCCESS;
 				} else {
 					event = EventType.OLD_PWD_NOT_EQUAL;

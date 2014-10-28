@@ -8,13 +8,13 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 
 import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class SwipeInfo {
 	private static String SWIPE_ICON = "swipe_icon";
 	private static String SWIPE_ICON_MINI = "swipe_icon_mini";
 	private static final String SWIPE_CARD_TITLE = "尊敬的用户 %s 您好:";
-
 	private static final String SWIPE_CARD_IN_BODY = "您的小孩 %s 已于%s 由 %s 刷卡入园!";
 	private static final String SWIPE_CARD_OUT_BODY = "您的小孩 %s 已于%s 由 %s 刷卡离园!";
 
@@ -24,6 +24,8 @@ public class SwipeInfo {
 	public static final String CHILD_ID = "child_id";
 	public static final String ICON_URL = "icon_url";
 	public static final String PARENT_NAME = "parent_name";
+	// 暂不记录入数据库
+	public static final String AD = "ad";
 
 	private long timestamp = 0;
 
@@ -32,6 +34,17 @@ public class SwipeInfo {
 	private String child_id = "";
 	private String url = "";
 	private String parent_name = "";
+
+	// 广告词
+	private String ad = "";
+
+	public String getAd() {
+		return ad;
+	}
+
+	public void setAd(String ad) {
+		this.ad = ad;
+	}
 
 	public String getParent_name() {
 		return parent_name;
@@ -92,17 +105,21 @@ public class SwipeInfo {
 	}
 
 	public String getNoticeBody(String nickname) {
+		StringBuffer buffer = new StringBuffer();
+		if (!ad.isEmpty()) {
+			buffer.append(Utils.getAdNotice(ad));
+		}
 		String sample = (type == JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN ? SWIPE_CARD_IN_BODY
 				: SWIPE_CARD_OUT_BODY);
 
-		String body = String.format(sample, nickname, getFormattedTime(),
-				parent_name);
-		return body;
+		buffer.append(String.format(sample, nickname, getFormattedTime(),
+				parent_name));
+		return buffer.toString();
 	}
 
 	public String getNoticeTitle() {
 		String title = String.format(SWIPE_CARD_TITLE,
-				Utils.getProp(JSONConstant.USERNAME));
+				DataUtils.getProp(JSONConstant.USERNAME));
 		return title;
 	}
 
@@ -111,6 +128,7 @@ public class SwipeInfo {
 		final String record_url = obj.getString("record_url");
 		String child_id = obj.getString("child_id");
 		String parent_name = obj.getString("parent_name");
+		String ad = getAd(obj);
 		long timestamp = Long.valueOf(obj.getString(JSONConstant.TIME_STAMP));
 		SwipeInfo info = new SwipeInfo();
 		info.setChild_id(child_id);
@@ -118,7 +136,19 @@ public class SwipeInfo {
 		info.setUrl(record_url);
 		info.setTimestamp(timestamp);
 		info.setParent_name(parent_name);
+		info.setAd(ad);
 		return info;
+	}
+
+	private static String getAd(JSONObject obj) {
+		String ad = "";
+		try {
+			// ad 是后面增加的字段，在获取刷卡历史记录时，旧记录没有这个字段，所以需要特殊处理
+			ad = obj.getString("ad");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ad;
 	}
 
 	// 返回亲子作业本地图片保存路径，如果不存在则返回""

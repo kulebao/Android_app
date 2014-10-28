@@ -70,4 +70,8 @@
         <item name="android:windowBackground">@drawable/round_background</item>
     </style>
 
+    <style name="NotificationTitle" parent="android:TextAppearance.StatusBar.EventContent.Title" />
+
+    <style name="NotificationContent" parent="android:TextAppearance.StatusBar.EventContent" />
+
 </resources>

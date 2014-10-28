@@ -10,7 +10,7 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class ChechUpdateMethod {
 	private ChechUpdateMethod() {
@@ -46,11 +46,11 @@ public class ChechUpdateMethod {
 					String versionName = jsonObject
 							.getString(JSONConstant.UPDATE_VERSION_NAME);
 					long size = jsonObject.getLong(JSONConstant.FILE_SIZE);
-					Utils.saveProp(JSONConstant.UPDATE_URL, updateUrl);
-					Utils.saveProp(JSONConstant.UPDATE_CONTENT, updateContent);
-					Utils.saveProp(JSONConstant.UPDATE_VERSION_NAME,
+					DataUtils.saveProp(JSONConstant.UPDATE_URL, updateUrl);
+					DataUtils.saveProp(JSONConstant.UPDATE_CONTENT, updateContent);
+					DataUtils.saveProp(JSONConstant.UPDATE_VERSION_NAME,
 							versionName);
-					Utils.saveProp(JSONConstant.FILE_SIZE, String.valueOf(size));
+					DataUtils.saveProp(JSONConstant.FILE_SIZE, String.valueOf(size));
 					event = EventType.HAS_NEW_VERSION;
 				}
 			} catch (JSONException e) {

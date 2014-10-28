@@ -17,6 +17,7 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.ValidatePhoneNumTask;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class ValidatePhoneNumActivity extends MyActivity {
@@ -66,7 +67,7 @@ public class ValidatePhoneNumActivity extends MyActivity {
 
 	private void handleAlreadyBind() {
 		String phone = inuputnumView.getText().toString();
-		if (TextUtils.isEmpty(Utils.getUndeleteableProp(phone))) {
+		if (TextUtils.isEmpty(DataUtils.getUndeleteableProp(phone))) {
 			// 该号码之前没有在此机器上登录过，进入获取短信验证码流程
 			startAuthCodeActivity();
 

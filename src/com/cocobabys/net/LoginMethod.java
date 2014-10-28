@@ -10,7 +10,7 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class LoginMethod {
 	private LoginMethod() {
@@ -46,9 +46,9 @@ public class LoginMethod {
 							.getString(JSONConstant.USERNAME);
 					String accountname = jsonObject
 							.getString(JSONConstant.ACCOUNT_NAME);
-					Utils.saveProp(JSONConstant.ACCESS_TOKEN, token);
-					Utils.saveProp(JSONConstant.USERNAME, username);
-					Utils.saveProp(JSONConstant.ACCOUNT_NAME, accountname);
+					DataUtils.saveProp(JSONConstant.ACCESS_TOKEN, token);
+					DataUtils.saveProp(JSONConstant.USERNAME, username);
+					DataUtils.saveProp(JSONConstant.ACCOUNT_NAME, accountname);
 					event = EventType.LOGIN_SUCCESS;
 				} else {
 					event = EventType.PWD_INCORRECT;

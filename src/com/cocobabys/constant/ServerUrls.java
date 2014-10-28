@@ -27,6 +27,7 @@ public class ServerUrls {
 	public static final String EXP_RES_PATH = "history";
 	public static final String STATISTICS_RES_PATH = "statistics";
 	public static final String VIDEO_MEMBER = "video_member";
+	public static final String AD = "ad";
 
 	public static final String TEST_HTTPS_HOST_ADDR = "https://stage2.cocobabys.com/";
 
@@ -164,4 +165,8 @@ public class ServerUrls {
 	// https://stage2.cocobabys.com/api/v1/kindergarten/2088/video_member/222
 	public static final String GET_VIDEO_INFO = getHost() + "api/v1/"
 			+ ROOT_RES_PATH + "/%s/" + VIDEO_MEMBER + "/%s";
+	
+	// https://stage2.cocobabys.com/api/v1/kindergarten/2088/ad
+	public static final String GET_AD_INFO = getHost() + "api/v1/"
+			+ ROOT_RES_PATH + "/%s/" + AD;
 }

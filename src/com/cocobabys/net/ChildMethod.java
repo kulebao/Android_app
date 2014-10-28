@@ -16,7 +16,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class ChildMethod {
 
@@ -128,7 +128,7 @@ public class ChildMethod {
 	private String createGetRelationshipUrl() {
 		String url = String.format(ServerUrls.GET_RELATIONSHIP, DataMgr
 				.getInstance().getSchoolID());
-		url += "parent=" + Utils.getAccount();
+		url += "parent=" + DataUtils.getAccount();
 		return url;
 	}
 

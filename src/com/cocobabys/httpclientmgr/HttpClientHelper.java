@@ -53,6 +53,7 @@ import com.cocobabys.customexception.DuplicateLoginException;
 import com.cocobabys.customexception.InvalidTokenException;
 import com.cocobabys.net.HttpResult;
 import com.cocobabys.net.PushMethod;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class HttpClientHelper {
@@ -143,14 +144,14 @@ public class HttpClientHelper {
 			request.setURI(new URI(url));
 			// 所有访问数据的请求，都必须加上token
 			request.setHeader(ConstantValue.HEADER_TOKEN,
-					Utils.getProp(JSONConstant.ACCESS_TOKEN));
+					DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
 			// 所有访问数据的请求，都必须加上source,区别网页和客户端
 			request.setHeader(ConstantValue.HEADER_SOURCE,
 					ConstantValue.SOURCE_ANDROID);
 			request.setHeader("Content-type", "application/json;charset=UTF-8");
 			// 自定义header，带版本号
 			request.setHeader(VERSION_CODE,
-					String.valueOf(Utils.getVersionCode()));
+					String.valueOf(DataUtils.getVersionCode()));
 			request.setEntity(new StringEntity(content, HTTP.UTF_8));
 
 			HttpResponse response = client.execute(request);
@@ -226,12 +227,12 @@ public class HttpClientHelper {
 			request.setURI(new URI(url));
 			// 所有访问数据的请求，都必须加上token
 			request.setHeader(ConstantValue.HEADER_TOKEN,
-					Utils.getProp(JSONConstant.ACCESS_TOKEN));
+					DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
 			// 所有访问数据的请求，都必须加上source,区别网页和客户端
 			request.setHeader(ConstantValue.HEADER_SOURCE,
 					ConstantValue.SOURCE_ANDROID);
 			request.setHeader(VERSION_CODE,
-					String.valueOf(Utils.getVersionCode()));
+					String.valueOf(DataUtils.getVersionCode()));
 
 			HttpResponse response = client.execute(request);
 			status = response.getStatusLine().getStatusCode();
@@ -290,12 +291,12 @@ public class HttpClientHelper {
 			request.setURI(new URI(url));
 			// 所有访问数据的请求，都必须加上token
 			request.setHeader(ConstantValue.HEADER_TOKEN,
-					Utils.getProp(JSONConstant.ACCESS_TOKEN));
+					DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
 			// 所有访问数据的请求，都必须加上source,区别网页和客户端
 			request.setHeader(ConstantValue.HEADER_SOURCE,
 					ConstantValue.SOURCE_ANDROID);
 			request.setHeader(VERSION_CODE,
-					String.valueOf(Utils.getVersionCode()));
+					String.valueOf(DataUtils.getVersionCode()));
 
 			HttpResponse response = client.execute(request);
 			status = response.getStatusLine().getStatusCode();

@@ -3,6 +3,7 @@ package com.cocobabys.receiver;
 import java.util.concurrent.TimeUnit;
 
 import com.cocobabys.threadpool.MyThreadPoolMgr;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
 
@@ -16,7 +17,7 @@ public class NetStateChangeReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		if (Utils.isLoginout()) {
+		if (DataUtils.isLoginout()) {
 			return;
 		}
 

@@ -22,7 +22,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.CookBookInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.GetCookbookTask;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class CookBookActivity extends UmengStatisticsActivity {
 	private CookBookListAdapter adapter;
@@ -52,12 +52,12 @@ public class CookBookActivity extends UmengStatisticsActivity {
 				switch (msg.what) {
 				case EventType.GET_COOKBOOK_SUCCESS:
 					// 获取到新的食谱，将新食谱的标志置为false
-					Utils.saveProp(ConstantValue.HAVE_COOKBOOK_NOTICE, "false");
+					DataUtils.saveProp(ConstantValue.HAVE_COOKBOOK_NOTICE, "false");
 					initData();
 					break;
 				// 已是最新
 				case EventType.GET_COOKBOOK_LATEST:
-					Utils.saveProp(ConstantValue.HAVE_COOKBOOK_NOTICE, "false");
+					DataUtils.saveProp(ConstantValue.HAVE_COOKBOOK_NOTICE, "false");
 					break;
 				case EventType.NO_COOKBOOK:
 					Toast.makeText(CookBookActivity.this, R.string.no_cookbook_yet, Toast.LENGTH_SHORT).show();

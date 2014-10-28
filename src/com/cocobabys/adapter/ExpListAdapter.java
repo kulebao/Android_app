@@ -41,6 +41,7 @@ import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.jobs.DeleteExpJob;
 import com.cocobabys.jobs.GetSenderInfoJob;
 import com.cocobabys.taskmgr.DownloadImgeJob;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -277,7 +278,7 @@ public class ExpListAdapter extends BaseAdapter {
 		try {
 			ParentInfo parent = DataMgr.getInstance().getParentByID(senderid);
 			if (parent != null) {
-				if (Utils.getAccount().equals(parent.getPhone())) {
+				if (DataUtils.getAccount().equals(parent.getPhone())) {
 					name = SELF_NAME;
 				} else {
 					name = parent.getName();

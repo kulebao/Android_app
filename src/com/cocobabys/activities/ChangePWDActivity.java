@@ -15,6 +15,7 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.ChangePWDTask;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class ChangePWDActivity extends UmengStatisticsActivity {
@@ -86,7 +87,7 @@ public class ChangePWDActivity extends UmengStatisticsActivity {
 
     private void runResetPWDTask() {
         dialog.show();
-        String phonenum = Utils.getProp(JSONConstant.ACCOUNT_NAME);
+        String phonenum = DataUtils.getProp(JSONConstant.ACCOUNT_NAME);
         new ChangePWDTask(handler, phonenum, getOldPwd(), getNewPwd()).execute();
     }
 

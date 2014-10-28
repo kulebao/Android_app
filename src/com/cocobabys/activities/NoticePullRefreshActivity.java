@@ -30,6 +30,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.News;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.GetNormalNewsTask;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
 
@@ -137,7 +138,7 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 	protected void handleSuccess(Message msg) {
 		MethodUtils.removeNewsNotification();
 		List<News> list = (List<News>) msg.obj;
-		Utils.saveProp(ConstantValue.HAVE_NEWS_NOTICE, "false");
+		DataUtils.saveProp(ConstantValue.HAVE_NEWS_NOTICE, "false");
 		if (!list.isEmpty()) {
 			// 刷出新公告了，去掉有新公告的标志
 			bDataChanged = true;

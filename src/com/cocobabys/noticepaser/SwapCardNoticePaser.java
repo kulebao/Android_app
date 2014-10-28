@@ -1,12 +1,9 @@
 package com.cocobabys.noticepaser;
 
-import java.io.File;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -22,9 +19,6 @@ import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.Utils;
 
 public class SwapCardNoticePaser implements NoticePaser {
-	private static String SWIPE_ICON = "swipe_icon";
-	private static String SWIPE_ICON_MINI = "swipe_icon_mini";
-
 	@Override
 	public Notice saveData(JSONObject object) {
 		try {
@@ -46,7 +40,7 @@ public class SwapCardNoticePaser implements NoticePaser {
 								// 就用通知时间搓作为文件名
 								Log.d("LIYI", "downloadIcon begain record_url="
 										+ record_url);
-								downloadIcon(record_url,
+								Utils.downloadIcon(record_url,
 										swipeInfo.getSwipeLocalIconPath());
 							} catch (Exception e) {
 								Log.d("LIYI",
@@ -54,7 +48,7 @@ public class SwapCardNoticePaser implements NoticePaser {
 								e.printStackTrace();
 							}
 							PushMessageReceiver
-									.setNotification(notice, context);
+									.setCustomNotification(notice, context);
 						}
 					});
 					// 此时不要设置通知，等到图片下载完毕后再设置
@@ -94,15 +88,6 @@ public class SwapCardNoticePaser implements NoticePaser {
 		SwipeInfo info = SwipeInfo.toSwipeInfo(object);
 		DataMgr.getInstance().addSwipeData(info);
 		return info;
-	}
-
-	// record_url 下载地址,iconname 下载成功后保存的文件名
-	public void downloadIcon(String record_url, String path) throws Exception {
-		Bitmap bmp = Utils.getBitmapFromUrl(record_url, 2);
-		if (bmp != null) {
-			Log.d("LIYI", "saveBitmapToSDCard path=" + path);
-			Utils.saveBitmapToSDCard(bmp, path);
-		}
 	}
 
 	// public static String createSwipeIconPath(String iconname) {

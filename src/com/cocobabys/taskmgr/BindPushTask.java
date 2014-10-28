@@ -13,6 +13,7 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.net.PushMethod;
 import com.cocobabys.push.PushModel;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class BindPushTask extends AsyncTask<Void, Void, Integer> {
@@ -61,9 +62,9 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 			TimeUnit.SECONDS.sleep(1);
 		}
 		// 此时如果还没有收到百度服务器的返回，可以认为绑定失败，先发一个假的id给服务器，让用户可以登录
-		Utils.saveUndeleteableProp(JSONConstant.CHANNEL_ID,
+		DataUtils.saveUndeleteableProp(JSONConstant.CHANNEL_ID,
 				ConstantValue.FAKE_CHANNEL_ID);
-		Utils.saveUndeleteableProp(JSONConstant.USER_ID,
+		DataUtils.saveUndeleteableProp(JSONConstant.USER_ID,
 				ConstantValue.FAKE_USER_ID);
 		return sendInfoToSelfServer();
 	}
@@ -71,8 +72,8 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 	public int sendInfoToSelfServer() throws Exception {
 		PushMethod method = PushMethod.getMethod();
 		return method.sendBinfInfo(phonenum,
-				Utils.getUndeleteableProp(JSONConstant.USER_ID),
-				Utils.getUndeleteableProp(JSONConstant.CHANNEL_ID));
+				DataUtils.getUndeleteableProp(JSONConstant.USER_ID),
+				DataUtils.getUndeleteableProp(JSONConstant.CHANNEL_ID));
 	}
 
 	@Override
@@ -84,7 +85,7 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 	}
 
 	private boolean checkBindInfo() {
-		String userid = Utils.getUndeleteableProp(JSONConstant.USER_ID);
+		String userid = DataUtils.getUndeleteableProp(JSONConstant.USER_ID);
 		return !"".equals(userid) && !ConstantValue.FAKE_USER_ID.equals(userid);
 	}
 }

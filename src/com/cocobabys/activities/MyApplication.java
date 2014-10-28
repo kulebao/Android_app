@@ -47,7 +47,7 @@ public class MyApplication extends FrontiaApplication {
 		this.tmpNewChatList = tmpNewChatList;
 	}
 
-	private boolean forTest = false;
+	private boolean forTest = true;
 
 	public boolean isForTest() {
 		return forTest;

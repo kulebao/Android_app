@@ -4,8 +4,8 @@ import android.os.AsyncTask;
 
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.MethodUtils;
-import com.cocobabys.utils.Utils;
 
 public class CommandCheckSchedule implements Command {
 
@@ -27,7 +27,7 @@ public class CommandCheckSchedule implements Command {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			if (has_new) {
-				Utils.saveProp(ConstantValue.HAVE_SCHEDULE_NOTICE, "true");
+				DataUtils.saveProp(ConstantValue.HAVE_SCHEDULE_NOTICE, "true");
 				MyApplication instance = MyApplication.getInstance();
 				if (instance != null) {
 					instance.updateNotify(0, 0);

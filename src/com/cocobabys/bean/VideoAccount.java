@@ -1,5 +1,6 @@
 package com.cocobabys.bean;
 
+
 public class VideoAccount {
 	private String accountName;
 	private String pwd;

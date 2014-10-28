@@ -1,5 +1,6 @@
 package com.cocobabys.activities;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import android.app.TabActivity;
@@ -23,18 +24,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocobabys.R;
+import com.cocobabys.bean.AdInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.handler.MyHandler;
+import com.cocobabys.jobs.GetADJob;
+import com.cocobabys.net.AdMethod;
 import com.cocobabys.push.PushModel;
 import com.cocobabys.taskmgr.BindPushTask;
 import com.cocobabys.taskmgr.CheckUpdateTask;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class MainActivity extends TabActivity {
+	// 5小时检查一次公告更新
+	private static final int CHECK_AD_DELAY_TIME = 60;// * 60 *5;
+
 	// 每30分钟检查push相关参数是否正常，如不正常，重新绑定
-	private static final int DELAY_TIME = 60 * 30;
+	private static final int CHECK_PUSH_DELAY_TIME = 60 * 30;
 	// 启动后，2分钟时，开始检查push相关参数是否正常，如不正常，重新绑定
 	private static final int FIRST_DELAY_TIME = 120;
 	private TabHost tabHost;
@@ -61,12 +69,13 @@ public class MainActivity extends TabActivity {
 		checkNew();
 		initDirs();
 		runCheckBindTask();
+		runCheckADTask();
 	}
 
 	private void runCheckBindTask() {
 		if (!PushModel.getPushModel().isBindInfoSentToServer()) {
 			Log.d("DJC", "BindPushTask run !");
-			new BindPushTask(handler, Utils.getAccount()).execute();
+			new BindPushTask(handler, DataUtils.getAccount()).execute();
 		}
 
 		MyThreadPoolMgr.getGenericService().scheduleWithFixedDelay(
@@ -75,7 +84,27 @@ public class MainActivity extends TabActivity {
 					public void run() {
 						Utils.bindPush();
 					}
-				}, FIRST_DELAY_TIME, DELAY_TIME, TimeUnit.SECONDS);
+				}, FIRST_DELAY_TIME, CHECK_PUSH_DELAY_TIME, TimeUnit.SECONDS);
+	}
+
+	private void runCheckADTask() {
+		MyThreadPoolMgr.getGenericService().scheduleWithFixedDelay(
+				new Runnable() {
+					@Override
+					public void run() {
+						try {
+							AdMethod.getMethod().getInfo();
+							AdInfo adInfo = DataUtils.getAdInfo();
+							if (adInfo != null
+									&& !new File(adInfo.getLocalFileName()).exists()) {
+								Utils.downloadIcon(adInfo.getImage(),
+										adInfo.getLocalFileName());
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}, 0, CHECK_AD_DELAY_TIME, TimeUnit.SECONDS);
 	}
 
 	private void initDirs() {
@@ -87,7 +116,7 @@ public class MainActivity extends TabActivity {
 			Log.d("DDD", "wifi closed do nothing!");
 			return;
 		}
-		long checkNewTime = Utils.getCheckNewTime();
+		long checkNewTime = DataUtils.getCheckNewTime();
 		long currentTime = System.currentTimeMillis();
 		if ((currentTime - checkNewTime) >= ConstantValue.CHECK_NEW_TIME_SPAN) {
 			runCheckUpdateTask();
@@ -135,9 +164,9 @@ public class MainActivity extends TabActivity {
 	}
 
 	private void runCheckUpdateTask() {
-		Utils.saveCheckNewTime(System.currentTimeMillis());
-		uodateTask = new CheckUpdateTask(handler, Utils.getAccount(),
-				Utils.getVersionCode()).execute();
+		DataUtils.saveCheckNewTime(System.currentTimeMillis());
+		uodateTask = new CheckUpdateTask(handler, DataUtils.getAccount(),
+				DataUtils.getVersionCode()).execute();
 	}
 
 	private void initUI() {

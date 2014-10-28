@@ -10,7 +10,7 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class FeedBackMethod {
 
@@ -38,7 +38,7 @@ public class FeedBackMethod {
 	private String formatContent(String content) {
 		JSONObject jsonObject = new JSONObject();
 		try {
-			jsonObject.put(PHONE_NUM, Utils.getProp(JSONConstant.ACCOUNT_NAME));
+			jsonObject.put(PHONE_NUM, DataUtils.getProp(JSONConstant.ACCOUNT_NAME));
 			jsonObject.put(FEEDBACK_CONTENT, content);
 		} catch (JSONException e) {
 			e.printStackTrace();

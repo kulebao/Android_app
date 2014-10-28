@@ -34,6 +34,7 @@ import com.cocobabys.dbmgr.info.EducationInfo;
 import com.cocobabys.dbmgr.info.InfoHelper;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.GetEducationTask;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class EducationActivity extends UmengStatisticsActivity {
@@ -154,7 +155,7 @@ public class EducationActivity extends UmengStatisticsActivity {
 	}
 
 	protected void handleSuccess(Message msg) {
-		Utils.saveProp(ConstantValue.HAVE_EDUCATION_NOTICE, "false");
+		DataUtils.saveProp(ConstantValue.HAVE_EDUCATION_NOTICE, "false");
 		@SuppressWarnings("unchecked")
 		List<EducationInfo> list = (List<EducationInfo>) msg.obj;
 		if (!list.isEmpty()) {

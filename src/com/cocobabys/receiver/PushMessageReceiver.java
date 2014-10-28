@@ -1,6 +1,8 @@
 package com.cocobabys.receiver;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,6 +13,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import com.baidu.frontia.api.FrontiaPushMessageReceiver;
 import com.cocobabys.R;
@@ -20,6 +23,7 @@ import com.cocobabys.dbmgr.info.Notice;
 import com.cocobabys.noticepaser.NoticePaser;
 import com.cocobabys.noticepaser.NoticePaserFactory;
 import com.cocobabys.service.MyService;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 /**
@@ -53,13 +57,13 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 			String userId, String channelId, String requestId) {
 		String responseString = "onBind errorCode=" + errorCode + " appid="
 				+ appid + " userId=" + userId + " channelId=" + channelId
-				+ " requestId=" + requestId + " phone=" + Utils.getAccount();
+				+ " requestId=" + requestId + " phone=" + DataUtils.getAccount();
 		Log.d(TAG, responseString);
 
 		// 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
 		if (errorCode == 0) {
-			Utils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, channelId);
-			Utils.saveUndeleteableProp(JSONConstant.USER_ID, userId);
+			DataUtils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, channelId);
+			DataUtils.saveUndeleteableProp(JSONConstant.USER_ID, userId);
 		} else {
 			sendErrorToSercice(context, responseString);
 		}
@@ -67,7 +71,7 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 
 	private void sendErrorToSercice(Context context, String responseString) {
 		try {
-			Utils.saveProp(ConstantValue.BIND_ERROR, responseString);
+			DataUtils.saveProp(ConstantValue.BIND_ERROR, responseString);
 			Intent myintent = new Intent(context, MyService.class);
 			myintent.putExtra(ConstantValue.SERVICE_COMMAND,
 					ConstantValue.COMMAND_TYPE_SEND_BIND_ERROR);
@@ -93,7 +97,7 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 		String messageString = "透传消息 message=\"" + message
 				+ "\" customContentString=" + customContentString;
 		Log.d(TAG, messageString);
-		if (Utils.isLoginout()) {
+		if (DataUtils.isLoginout()) {
 			// 未登录情况下，不接收任何消息,baidu绑定消息是通过ACTION_RECEIVE来通知应用的
 			Log.i("DDD", "logout do not receive any msg");
 			return;
@@ -129,7 +133,7 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 			if (paser != null) {
 				Notice notice = paser.saveData(object);
 				if (notice != null) {
-					setNotification(notice, context);
+					setCustomNotification(notice, context);
 				}
 			}
 		} catch (JSONException e) {
@@ -144,10 +148,54 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 		}
 	}
 
-	public static void setNotification(Notice notice, Context context) {
+	public static void setCustomNotification(Notice notice, Context context) {
 		// look up the notification manager service
 		NotificationManager nm = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
+		Intent intent = getIntent(notice, context);
+
+		RemoteViews mRemoteViews = getRemoteView(notice, context);
+		
+		// 每次调用到这句时，第二个参数一定要不同，否则多个通知同时存在时，对于同一个id的通知
+		// 点击后，始终会使用最后一次发送时的intent，这样导致每次打开activity看到的都是最后一次
+		// 通知的内容
+		PendingIntent contentIntent = PendingIntent.getActivity(context,
+				notify_id++, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+		Notification notif = new Notification(R.drawable.small_logo,
+				notice.getTicker(), System.currentTimeMillis());
+
+		// notif.setLatestEventInfo(context, notice.getTitle(), content,
+		// contentIntent);
+		notif.contentIntent = contentIntent;
+		notif.contentView = mRemoteViews;
+		setSound(notif);
+		notif.defaults |= Notification.DEFAULT_VIBRATE;
+		// long[] vibrate = { 0, 250 };
+		// notif.vibrate = vibrate;
+		notif.flags |= Notification.FLAG_AUTO_CANCEL; // 在通知栏上点击此通知后自动清除此通知
+		notif.icon = R.drawable.tiny_logo;
+		if (!notice.isClear()) {
+			notif.flags |= Notification.FLAG_NO_CLEAR; // 表明在点击了通知栏中的"清除通知"后，此通知不清除，
+		}
+
+		nm.notify(notify_id, notif);
+	}
+
+	private static RemoteViews getRemoteView(Notice notice, Context context) {
+		RemoteViews mRemoteViews = new RemoteViews(context.getPackageName(),
+				R.layout.view_custom);
+		// mRemoteViews.setImageViewResource(R.id.custom_icon,
+		// R.drawable.small_logo);
+		// API3.0 以上的时候显示按钮，否则消失
+		mRemoteViews.setTextViewText(R.id.tv_custom_title, notice.getTitle());
+		mRemoteViews.setTextViewText(R.id.tv_custom_content,
+				notice.getContent());
+		mRemoteViews.setTextViewText(R.id.tv_custom_time, getCurrentTime());
+		return mRemoteViews;
+	}
+
+	private static Intent getIntent(Notice notice, Context context) {
 		Intent intent = new Intent(context, notice.getToClass());
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.putExtra(JSONConstant.NOTIFICATION_TITLE, notice.getTitle());
@@ -156,6 +204,21 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 		intent.putExtra(JSONConstant.TIME_STAMP, notice.getTimestamp());
 		intent.putExtra(JSONConstant.PUBLISHER, notice.getPublisher());
 		intent.putExtra(JSONConstant.NOTIFICATION_ID, notice.getId());
+		return intent;
+	}
+
+	private static CharSequence getCurrentTime() {
+		SimpleDateFormat sDateFormat = new SimpleDateFormat("hh:mm",
+				Locale.CHINESE);
+		String date = sDateFormat.format(new java.util.Date());
+		return date;
+	}
+
+	public static void setNotification(Notice notice, Context context) {
+		// look up the notification manager service
+		NotificationManager nm = (NotificationManager) context
+				.getSystemService(Context.NOTIFICATION_SERVICE);
+		Intent intent = getIntent(notice, context);
 
 		// 每次调用到这句时，第二个参数一定要不同，否则多个通知同时存在时，对于同一个id的通知
 		// 点击后，始终会使用最后一次发送时的intent，这样导致每次打开activity看到的都是最后一次
@@ -222,7 +285,7 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 				+ " sucessTags=" + sucessTags + " failTags=" + failTags
 				+ " requestId=" + requestId;
 		Log.d(TAG, responseString);
-		Utils.saveUndeleteableProp(JSONConstant.PUSH_TAGS,
+		DataUtils.saveUndeleteableProp(JSONConstant.PUSH_TAGS,
 				listToString(sucessTags));
 	}
 

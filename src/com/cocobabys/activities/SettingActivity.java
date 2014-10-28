@@ -20,6 +20,7 @@ import com.cocobabys.customview.SwitchButton.OnCheckedChangeListener;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.CheckUpdateTask;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class SettingActivity extends UmengStatisticsActivity {
@@ -192,7 +193,7 @@ public class SettingActivity extends UmengStatisticsActivity {
 			public void checkedChange(boolean isChecked) {
 				String result = isChecked ? ConstantValue.VOICE_OPEN
 						: ConstantValue.VOICE_OFF;
-				Utils.saveProp(ConstantValue.VOICE_CONFIG, result);
+				DataUtils.saveProp(ConstantValue.VOICE_CONFIG, result);
 				Log.d("DDD", "VOICE_CONFIG  result=" + result);
 			}
 		});
@@ -234,13 +235,13 @@ public class SettingActivity extends UmengStatisticsActivity {
 	protected void runCheckUpdateTask() {
 		// 如果后台在自动更新，这里可能会有冲突，后续需要把后台任务统一管理起来
 		dialog.show();
-		Utils.saveCheckNewTime(System.currentTimeMillis());
-		new CheckUpdateTask(handler, Utils.getAccount(), Utils.getVersionCode())
+		DataUtils.saveCheckNewTime(System.currentTimeMillis());
+		new CheckUpdateTask(handler, DataUtils.getAccount(), DataUtils.getVersionCode())
 				.execute();
 	}
 
 	private void handleExitLogin() {
-		Utils.clearProp();
+		DataUtils.clearProp();
 		DataMgr.getInstance().upgradeAll();
 		Utils.clearSDFolder();
 		setResult(ConstantValue.EXIT_LOGIN_RESULT);

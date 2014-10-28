@@ -20,12 +20,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,7 +28,6 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
@@ -45,6 +38,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.cocobabys.activities.MyApplication;
+import com.cocobabys.activities.UpdateActivity;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventMap;
 import com.cocobabys.constant.JSONConstant;
@@ -69,8 +63,6 @@ public class Utils {
 	public static String EXP_ICON = "exp_icon";
 	public static String CHAT_VOICE = "chat_voice";
 
-	private static int versionCode = Integer.MAX_VALUE;
-
 	public static String getResString(int resID) {
 		Resources resources = MyApplication.getInstance().getResources();
 		return resources.getString(resID);
@@ -82,44 +74,6 @@ public class Utils {
 
 	public static void makeToast(Context context, String content) {
 		Toast.makeText(context, content, Toast.LENGTH_SHORT).show();
-	}
-
-	// 获取AppKey
-	public static String getMetaValue(Context context, String metaKey) {
-		Bundle metaData = null;
-		String apiKey = null;
-		if (context == null || metaKey == null) {
-			return null;
-		}
-		try {
-			ApplicationInfo ai = context.getPackageManager()
-					.getApplicationInfo(context.getPackageName(),
-							PackageManager.GET_META_DATA);
-			if (null != ai) {
-				metaData = ai.metaData;
-			}
-			if (null != metaData) {
-				apiKey = metaData.getString(metaKey);
-			}
-		} catch (NameNotFoundException e) {
-
-		}
-		return apiKey;
-	}
-
-	public static int getVersionCode() {
-		if (versionCode == Integer.MAX_VALUE) {
-			Context context = MyApplication.getInstance();
-			try {
-				PackageInfo info = context.getPackageManager().getPackageInfo(
-						context.getPackageName(), 0);
-				versionCode = info.versionCode;
-			} catch (NameNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return versionCode;
 	}
 
 	public static void showSingleBtnEventDlg(int errorEventType, Context context) {
@@ -154,108 +108,6 @@ public class Utils {
 				configListener);
 		builder.setMessage(context.getResources().getString(resID));
 		builder.createTwoBtn().show();
-	}
-
-	public static void deleteProp(String key) {
-		SharedPreferences.Editor editor = getEditor();
-		editor.putString(key, "");
-		editor.commit();
-	}
-
-	public static String getAccount() {
-		return getProp(JSONConstant.ACCOUNT_NAME);
-	}
-
-	/**
-	 * 
-	 * method desc：设置已经引导过了，下次启动不用再次引导
-	 */
-	public static void setGuided() {
-		Editor editor = getEditor(ConstantValue.UNDELETEABLE_CONFIG);
-		// 存入数据
-		editor.putBoolean(ConstantValue.IS_FIRST_IN, false);
-		// 提交修改
-		editor.commit();
-	}
-
-	public static boolean isFirstStart() {
-		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
-		return conf.getBoolean(ConstantValue.IS_FIRST_IN, true);
-	}
-
-	public static String getProp(String key, String defaultValue) {
-		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
-		return conf.getString(key, defaultValue);
-	}
-
-	public static String getProp(String key) {
-		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
-		return conf.getString(key, "");
-	}
-
-	public static void saveCheckNewTime(long value) {
-		SharedPreferences.Editor editor = getEditor();
-		editor.putLong(ConstantValue.LATEST_CHECK_NEW_TIME, value);
-		editor.commit();
-	}
-
-	public static long getCheckNewTime() {
-		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
-		return conf.getLong(ConstantValue.LATEST_CHECK_NEW_TIME, 0);
-	}
-
-	public static void saveProp(String key, String value) {
-		SharedPreferences.Editor editor = getEditor();
-		editor.putString(key, value);
-		editor.commit();
-	}
-
-	// 调用该接口保存的数据，退出登录后，不会清空
-	public static void saveUndeleteableProp(String key, String value) {
-		SharedPreferences.Editor editor = getEditor(ConstantValue.UNDELETEABLE_CONFIG);
-		editor.putString(key, value);
-		editor.commit();
-	}
-
-	public static String getUndeleteableProp(String key) {
-		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
-		return conf.getString(key, "");
-	}
-
-	private static SharedPreferences.Editor getEditor() {
-		return getEditor(ConstantValue.CONF_INI);
-	}
-
-	private static SharedPreferences.Editor getEditor(String name) {
-		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(name,
-				Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = conf.edit();
-		return editor;
-	}
-
-	public static void clearProp() {
-		SharedPreferences.Editor editor = getEditor(ConstantValue.CONF_INI);
-		editor.clear();
-		editor.commit();
-		// editor = getEditor(ConstantValue.PUSH_CONFIG);
-		// editor.clear();
-		// editor.commit();
-	}
-
-	// 应用是否登录 true 未登录 false已经登录
-	public static boolean isLoginout() {
-		return DataMgr.getInstance().getSchoolInfo() == null;
 	}
 
 	public static void close(Closeable closeable) {
@@ -351,6 +203,8 @@ public class Utils {
 		return NETWORK_NOT_CONNECTED;
 	}
 
+	public static final String AD_FORMAT = "%s 提醒您，";
+
 	public boolean isMobileConnected(Context context) {
 		if (context != null) {
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
@@ -362,6 +216,20 @@ public class Utils {
 			}
 		}
 		return false;
+	}
+
+	public static String getAdNotice(String adContent) {
+		return String.format(Utils.AD_FORMAT, adContent);
+	}
+
+	// record_url 下载地址,iconname 下载成功后保存的文件名
+	public static void downloadIcon(String record_url, String path)
+			throws Exception {
+		Bitmap bmp = getBitmapFromUrl(record_url, 2);
+		if (bmp != null) {
+			Log.d("LIYI", "saveBitmapToSDCard path=" + path);
+			saveBitmapToSDCard(bmp, path);
+		}
 	}
 
 	public static String getFixedUrl(String originalUrl, int limitwidth,
@@ -385,7 +253,7 @@ public class Utils {
 	}
 
 	public static boolean isVoiceOn() {
-		return ConstantValue.VOICE_OPEN.equals(getProp(
+		return ConstantValue.VOICE_OPEN.equals(DataUtils.getProp(
 				ConstantValue.VOICE_CONFIG, ConstantValue.VOICE_OPEN));
 	}
 
@@ -543,7 +411,7 @@ public class Utils {
 	public static String getChatIconUrl(long timestamp) {
 		String dir = CHAT_ICON + File.separator
 				+ DataMgr.getInstance().getSchoolID() + File.separator
-				+ Utils.getAccount();
+				+ DataUtils.getAccount();
 		return dir + File.separator + timestamp + ".jpg";
 	}
 
@@ -733,23 +601,23 @@ public class Utils {
 	private static final String TEST_HOST = "test_host";
 
 	public static void setToTestHost(String enable) {
-		saveProp(TEST_HOST, enable);
+		DataUtils.saveProp(TEST_HOST, enable);
 	}
 
 	public static boolean isTestHost() {
-		String prop = Utils.getProp(TEST_HOST, "false");
+		String prop = DataUtils.getProp(TEST_HOST, "false");
 		return "true".equals(prop);
 	}
 
 	private static final String IS_MY_VIDEO = "is_my_video";
 
 	public static boolean isMyVideo() {
-		String prop = Utils.getProp(IS_MY_VIDEO, "false");
+		String prop = DataUtils.getProp(IS_MY_VIDEO, "false");
 		return "true".equals(prop);
 	}
-	
+
 	public static void setVideo(String enable) {
-		saveProp(IS_MY_VIDEO, enable);
+		DataUtils.saveProp(IS_MY_VIDEO, enable);
 	}
 
 	public static void saveInSDCard(String str, String fileName) {

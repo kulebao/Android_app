@@ -20,7 +20,7 @@ import com.cocobabys.dbmgr.info.ScheduleInfo;
 import com.cocobabys.dbmgr.info.SchoolInfo;
 import com.cocobabys.dbmgr.info.SwipeInfo;
 import com.cocobabys.dbmgr.info.Teacher;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class DataMgr {
 	private static int DB_VERSION = 2;
@@ -314,7 +314,7 @@ public class DataMgr {
 
 	// 获取当前家长信息
 	public ParentInfo getSelfInfoByPhone() {
-		return parentMgr.getParentByPhone(Utils.getAccount());
+		return parentMgr.getParentByPhone(DataUtils.getAccount());
 	}
 
 	public List<NewChatInfo> getNewChatInfoWithLimite(int max, String childid) {

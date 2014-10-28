@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.cocobabys.R;
 import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class TransitActivity extends UmengStatisticsActivity {
 	@Override
@@ -22,7 +22,7 @@ public class TransitActivity extends UmengStatisticsActivity {
 		TextView welcomeView = (TextView) findViewById(R.id.welcomeView);
 		String firstlogin = String.format(
 				getResources().getString(R.string.firstwelcome),
-				Utils.getProp(JSONConstant.USERNAME),Utils.getProp(JSONConstant.ACCOUNT_NAME));
+				DataUtils.getProp(JSONConstant.USERNAME),DataUtils.getProp(JSONConstant.ACCOUNT_NAME));
 		
 		welcomeView.setText(firstlogin);
 		

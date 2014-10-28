@@ -65,6 +65,7 @@ import com.cocobabys.taskmgr.GetTeacherTask;
 import com.cocobabys.taskmgr.UploadInfoTask;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.upload.UploadFactory;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
 import com.cocobabys.video.VideoApp;
@@ -732,7 +733,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		}
 
 		String member_status = MemberStatus.FREE.toString();
-		if (member_status.equalsIgnoreCase(Utils.getProp(JSONConstant.MEMBER_STATUS, member_status))) {
+		if (member_status.equalsIgnoreCase(DataUtils.getProp(JSONConstant.MEMBER_STATUS, member_status))) {
 			//SWAPCARD_NOTICE 和 NORMAL_NOTICE 免费开放 ，WATCH是单独的权限控制
 			if (position != SWAPCARD_NOTICE && position != NORMAL_NOTICE && position != WATCH) {
 				Utils.makeToast(this, map.get(position));

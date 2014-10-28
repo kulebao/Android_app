@@ -35,6 +35,7 @@ import com.cocobabys.jobs.GetChatJob;
 import com.cocobabys.jobs.GetSenderInfoJob;
 import com.cocobabys.media.MediaMgr;
 import com.cocobabys.taskmgr.DownloadImgeJob;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 
@@ -406,7 +407,7 @@ public class ChatActivity extends UmengStatisticsActivity {
 	}
 
 	protected void handleSuccess(Message msg) {
-		Utils.saveProp(ConstantValue.HAVE_CHAT_NOTICE, "false");
+		DataUtils.saveProp(ConstantValue.HAVE_CHAT_NOTICE, "false");
 		List<NewChatInfo> list = (List<NewChatInfo>) msg.obj;
 
 		if (!list.isEmpty()) {

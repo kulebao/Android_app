@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class JsonHelper {
     
@@ -18,8 +18,8 @@ public class JsonHelper {
             String channelid = params.getString(JSONConstant.CHANNEL_ID);
             String userid = params.getString(JSONConstant.USER_ID);
             Log.d("bbind","saveBindInfo userid="+userid);
-            Utils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, channelid);
-            Utils.saveUndeleteableProp(JSONConstant.USER_ID, userid);
+            DataUtils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, channelid);
+            DataUtils.saveUndeleteableProp(JSONConstant.USER_ID, userid);
         } catch (JSONException e) {
             Log.e("", "Parse bind json infos error: " + e);
         }

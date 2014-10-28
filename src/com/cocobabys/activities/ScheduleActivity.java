@@ -22,7 +22,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ScheduleInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.GetScheduleTask;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class ScheduleActivity extends UmengStatisticsActivity {
 	private ScheduleListAdapter adapter;
@@ -51,12 +51,12 @@ public class ScheduleActivity extends UmengStatisticsActivity {
 				super.handleMessage(msg);
 				switch (msg.what) {
 				case EventType.GET_SCHEDULE_SUCCESS:
-					Utils.saveProp(ConstantValue.HAVE_SCHEDULE_NOTICE, "false");
+					DataUtils.saveProp(ConstantValue.HAVE_SCHEDULE_NOTICE, "false");
 					initData();
 					break;
 				// 已是最新
 				case EventType.GET_SCHEDULE_LATEST:
-					Utils.saveProp(ConstantValue.HAVE_SCHEDULE_NOTICE, "false");
+					DataUtils.saveProp(ConstantValue.HAVE_SCHEDULE_NOTICE, "false");
 					break;
 				case EventType.NO_SCHEDULE:
 					Toast.makeText(ScheduleActivity.this, R.string.no_schedule_yet, Toast.LENGTH_SHORT).show();

@@ -57,7 +57,7 @@ public class VideoLoginActivity extends UmengStatisticsActivity {
 	public void runLogin() {
 		showWaitDialog("logining...");
 		Log.d(TAG, "username: " + username + ", password: " + password);
-		LoginVideoJob job = new LoginVideoJob(handler, username, password);
+		LoginVideoJob job = new LoginVideoJob(handler);
 		job.execute();
 	}
 
@@ -78,25 +78,29 @@ public class VideoLoginActivity extends UmengStatisticsActivity {
 				if (msg.what == EventType.VIDEO_LOGIN_SUCCESS) {
 					gotoDeviceListActivity();
 				} else if (msg.what == EventType.VIDEO_GET_INFO_NOT_REG) {
-					CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(
-							VideoLoginActivity.this, new OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									VideoLoginActivity.this.finish();
-								}
-							});
-					builder.setMessage("还未开通\"看宝贝\"功能,该功能可以让家长通过视频，实时查看孩子在幼儿园的动态,如有需要"
+					createDlg("还未开通\"看宝贝\"功能,该功能可以让家长通过视频，实时查看孩子在幼儿园的动态,如有需要"
 							+ "请联系幼儿园开通");
-					builder.create().show();
 				} else {
 					VideoApp.getJni().disconnectServer(VideoApp.serverId);
-					Utils.makeToast(VideoLoginActivity.this, "登录视频服务器失败");
-					VideoLoginActivity.this.finish();
-					Log.e(TAG, "login fail");
+					createDlg("登录视频服务器失败,请联系幼儿园解决");
 				}
 			}
+
 		};
+	}
+
+	private void createDlg(String content) {
+		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(
+				VideoLoginActivity.this, new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						VideoLoginActivity.this.finish();
+					}
+				});
+		builder.setMessage(content);
+		CustomDialog create = builder.create();
+		create.setCancelable(false);
+		create.show();
 	}
 
 	private void gotoDeviceListActivity() {

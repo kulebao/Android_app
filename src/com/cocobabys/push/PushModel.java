@@ -15,7 +15,7 @@ import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class PushModel {
 
@@ -34,7 +34,7 @@ public class PushModel {
 	public void bind() {
 		Log.d("bbind", "do bind!");
 		PushManager.startWork(MyApplication.getInstance(),
-				PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(
+				PushConstants.LOGIN_TYPE_API_KEY, DataUtils.getMetaValue(
 						MyApplication.getInstance(), ConstantValue.API_KEY));
 	}
 
@@ -75,13 +75,13 @@ public class PushModel {
 	}
 
 	public boolean isBindInfoSentToServer() {
-		return !ConstantValue.FAKE_USER_ID.equals(Utils
+		return !ConstantValue.FAKE_USER_ID.equals(DataUtils
 				.getUndeleteableProp(JSONConstant.USER_ID));
 	}
 
 	public List<String> getTags() {
 		List<String> tags = new ArrayList<String>();
-		String tagsStr = Utils.getUndeleteableProp(JSONConstant.PUSH_TAGS);
+		String tagsStr = DataUtils.getUndeleteableProp(JSONConstant.PUSH_TAGS);
 		Log.d("DJC 10-16", "tags =" + tagsStr);
 		if (!"".equals(tagsStr)) {
 			String[] split = tagsStr.split(",");

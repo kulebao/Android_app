@@ -19,6 +19,7 @@ import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.BindPushTask;
 import com.cocobabys.taskmgr.LoginTask;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class LoginActivity extends MyActivity {
@@ -68,20 +69,20 @@ public class LoginActivity extends MyActivity {
 					break;
 				case EventType.BIND_FAILED:
 					// 绑定失败，删除登录成功时保存的用户信息
-					Utils.clearProp();
+					DataUtils.clearProp();
 					Utils.showSingleBtnEventDlg(EventType.BIND_FAILED, LoginActivity.this);
 					break;
 				case EventType.PHONE_NUM_IS_INVALID:
-					Utils.clearProp();
+					DataUtils.clearProp();
 					Utils.showSingleBtnEventDlg(EventType.PHONE_NUM_IS_INVALID, LoginActivity.this);
 					break;
 				case EventType.PHONE_NUM_IS_ALREADY_LOGIN:
-					Utils.clearProp();
+					DataUtils.clearProp();
 					Utils.showSingleBtnEventDlg(EventType.PHONE_NUM_IS_ALREADY_LOGIN, LoginActivity.this);
 					break;
 				case EventType.SERVER_BUSY:
 					// 绑定失败，删除登录成功时保存的用户信息
-					Utils.clearProp();
+					DataUtils.clearProp();
 					Toast.makeText(LoginActivity.this, "服务器忙，请稍后再试，谢谢！", Toast.LENGTH_SHORT).show();
 					break;
 				default:

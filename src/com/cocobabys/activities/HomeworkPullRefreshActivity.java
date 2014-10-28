@@ -30,6 +30,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.Homework;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.GetHomeworkTask;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
@@ -132,7 +133,7 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 	protected void handleSuccess(Message msg) {
 		@SuppressWarnings("unchecked")
 		List<Homework> list = (List<Homework>) msg.obj;
-		Utils.saveProp(ConstantValue.HAVE_HOMEWORK_NOTICE, "false");
+		DataUtils.saveProp(ConstantValue.HAVE_HOMEWORK_NOTICE, "false");
 		if (!list.isEmpty()) {
 			bDataChanged = true;
 			if (msg.arg1 == ConstantValue.Type_INSERT_HEAD) {

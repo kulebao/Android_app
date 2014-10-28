@@ -20,6 +20,7 @@ import com.cocobabys.handler.MyHandler;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.httpclientmgr.HttpClientHelper.DownloadFileListener;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class UpdateActivity extends UmengStatisticsActivity {
@@ -117,13 +118,13 @@ public class UpdateActivity extends UmengStatisticsActivity {
 
 			@Override
 			public void onClick(View v) {
-				String last_update_url = Utils
+				String last_update_url = DataUtils
 						.getProp(JSONConstant.LAST_UPDATE_URL);
 				if (current_apk_url.equals(last_update_url)) {
 					File file = new File(savepath);
 
 					if (file.exists()
-							&& file.length() == Long.valueOf(Utils
+							&& file.length() == Long.valueOf(DataUtils
 									.getProp(JSONConstant.FILE_SIZE))) {
 						Log.d("DDD", "installApk");
 						installApk();
@@ -175,7 +176,7 @@ public class UpdateActivity extends UmengStatisticsActivity {
 
 							@Override
 							public void onComplete() {
-								Utils.saveProp(JSONConstant.LAST_UPDATE_URL,
+								DataUtils.saveProp(JSONConstant.LAST_UPDATE_URL,
 										current_apk_url);
 								handler.sendEmptyMessage(COMPLETE);
 							}
@@ -215,12 +216,12 @@ public class UpdateActivity extends UmengStatisticsActivity {
 
 	// 在ChechUpdateMethod中保存到文件，这里直接从文件获取
 	public void initTextview() {
-		current_apk_url = Utils.getProp(JSONConstant.UPDATE_URL);
+		current_apk_url = DataUtils.getProp(JSONConstant.UPDATE_URL);
 
-		String content = Utils.getProp(JSONConstant.UPDATE_CONTENT);
+		String content = DataUtils.getProp(JSONConstant.UPDATE_CONTENT);
 		content = content.replace("\\n", "\n");
-		String versionName = Utils.getProp(JSONConstant.UPDATE_VERSION_NAME);
-		long fileSize = Long.valueOf(Utils.getProp(JSONConstant.FILE_SIZE));
+		String versionName = DataUtils.getProp(JSONConstant.UPDATE_VERSION_NAME);
+		long fileSize = Long.valueOf(DataUtils.getProp(JSONConstant.FILE_SIZE));
 
 		TextView version = (TextView) findViewById(R.id.versionNameContent);
 		version.setText(versionName);

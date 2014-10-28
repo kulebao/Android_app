@@ -12,7 +12,7 @@ import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.SchoolInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class PushMethod {
 
@@ -28,9 +28,9 @@ public class PushMethod {
 		int ret = EventType.NET_WORK_INVALID;
 		try {
 			String bindCommand = getBindCommand(
-					Utils.getProp(JSONConstant.ACCOUNT_NAME),
-					Utils.getUndeleteableProp(JSONConstant.USER_ID),
-					Utils.getUndeleteableProp(JSONConstant.CHANNEL_ID));
+					DataUtils.getProp(JSONConstant.ACCOUNT_NAME),
+					DataUtils.getUndeleteableProp(JSONConstant.USER_ID),
+					DataUtils.getUndeleteableProp(JSONConstant.CHANNEL_ID));
 			HttpResult result = new HttpResult();
 			Log.d("DJC", "bindCommand =" + bindCommand);
 			result = HttpClientHelper.executePost(
@@ -76,10 +76,10 @@ public class PushMethod {
 					String member_status = jsonObject
 							.getString(JSONConstant.MEMBER_STATUS);
 					
-					Utils.saveProp(JSONConstant.ACCESS_TOKEN, token);
-					Utils.saveProp(JSONConstant.ACCOUNT_NAME, accountname);
-					Utils.saveProp(JSONConstant.MEMBER_STATUS, member_status);
-					Utils.saveUndeleteableProp(accountname, "true");
+					DataUtils.saveProp(JSONConstant.ACCESS_TOKEN, token);
+					DataUtils.saveProp(JSONConstant.ACCOUNT_NAME, accountname);
+					DataUtils.saveProp(JSONConstant.MEMBER_STATUS, member_status);
+					DataUtils.saveUndeleteableProp(accountname, "true");
 					
 					SchoolInfo info = new SchoolInfo();
 					info.setSchool_id(schoolid);
@@ -112,7 +112,7 @@ public class PushMethod {
 			jsonObject.put(JSONConstant.CHANNEL_ID, channelid);
 			jsonObject.put(JSONConstant.DEVICE_TYPE, "android");
 			jsonObject.put(JSONConstant.ACCESS_TOKEN,
-					Utils.getProp(JSONConstant.ACCESS_TOKEN));
+					DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

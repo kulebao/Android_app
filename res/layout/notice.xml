@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/bg_null"
     android:orientation="vertical" >
 
-    <include layout="@layout/topbar" />
+    <include
+        android:id="@+id/top"
+        layout="@layout/topbar" />
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/adimage"
+        android:layout_below="@+id/top" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -73,16 +77,24 @@
 
             <ImageView
                 android:id="@+id/noticeicon"
-                android:layout_width="320dp"
-                android:layout_height="480dp"
+                android:layout_width="480dp"
+                android:layout_height="320dp"
                 android:layout_below="@+id/swipefrom"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
                 android:scaleType="fitCenter"
                 android:visibility="gone" />
         </RelativeLayout>
     </ScrollView>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/adimage"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:visibility="gone" />
+
+</RelativeLayout>

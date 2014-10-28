@@ -18,7 +18,7 @@ import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.push.info.JsonHelper;
 import com.cocobabys.push.info.PushEvent;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class PushEventHandler {
     private static final String TAGS_SEPERATOR = ",";
@@ -90,7 +90,7 @@ public class PushEventHandler {
             } else if (PushConstants.METHOD_SET_TAGS.equals(event.getMethod())
                     && event.getErrorCode() == 0) {
                 // 绑定tag成功,保存数据
-                Utils.saveUndeleteableProp(JSONConstant.PUSH_TAGS, getTags(event));
+                DataUtils.saveUndeleteableProp(JSONConstant.PUSH_TAGS, getTags(event));
                 bret = true;
             }
         } catch (Exception e) {

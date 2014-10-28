@@ -44,6 +44,7 @@ import com.cocobabys.jobs.DeleteChatJob;
 import com.cocobabys.jobs.GetSenderInfoJob;
 import com.cocobabys.media.MediaMgr;
 import com.cocobabys.taskmgr.DownloadImgeJob;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class NewChatListAdapter extends BaseAdapter {
@@ -254,7 +255,7 @@ public class NewChatListAdapter extends BaseAdapter {
 		try {
 			ParentInfo parent = DataMgr.getInstance().getParentByID(senderid);
 			if (parent != null) {
-				if (Utils.getAccount().equals(parent.getPhone())) {
+				if (DataUtils.getAccount().equals(parent.getPhone())) {
 					name = SELF_NAME;
 				} else {
 					name = parent.getName();

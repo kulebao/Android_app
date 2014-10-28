@@ -13,7 +13,7 @@ import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.push.PushModel;
 import com.cocobabys.taskmgr.LoadingTask;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.DataUtils;
 
 public class LoadingActivity extends UmengStatisticsActivity {
 	private Handler handler;
@@ -31,10 +31,10 @@ public class LoadingActivity extends UmengStatisticsActivity {
 
 	private void initData() {
 		if (MyApplication.getInstance().isForTest()) {
-			Utils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, "133d");
-			Utils.saveUndeleteableProp(JSONConstant.USER_ID, "963386802751977894");
-			Utils.saveUndeleteableProp(ConstantValue.TEST_PHONE, "true");
-			Utils.setGuided();
+			DataUtils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, "133d");
+			DataUtils.saveUndeleteableProp(JSONConstant.USER_ID, "963386802751977894");
+			DataUtils.saveUndeleteableProp(ConstantValue.TEST_PHONE, "true");
+			DataUtils.setGuided();
 		}
 	}
 

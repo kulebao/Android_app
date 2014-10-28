@@ -1,7 +1,9 @@
 package com.cocobabys.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,17 +11,19 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cocobabys.R;
+import com.cocobabys.bean.AdInfo;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.SwipeInfo;
 import com.cocobabys.handler.MyHandler;
-import com.cocobabys.noticepaser.SwapCardNoticePaser;
 import com.cocobabys.taskmgr.DownLoadImgAndSaveTask;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class SwipeDetailActivity extends UmengStatisticsActivity {
@@ -30,6 +34,7 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 	private SwipeInfo swipeinfo;
 	private AsyncTask<Void, Void, Integer> downloadIconTask;
 	private TextView swipefromview;
+	private AdInfo adInfo;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,36 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 		initHandler();
 		initView();
 		setData(getIntent());
+	}
+
+	private void setAD() {
+		if (adInfo != null && DataUtils.isFileExist(adInfo.getLocalFileName())) {
+			ImageView adimageView = (ImageView) findViewById(R.id.adimage);
+			adimageView.setVisibility(View.VISIBLE);
+			Bitmap loacalBitmap = Utils.getLoacalBitmap(adInfo
+					.getLocalFileName());
+			Utils.setImg(adimageView, loacalBitmap);
+
+			if (!TextUtils.isEmpty(adInfo.getLink())) {
+				adimageView.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						launchBrowser(adInfo.getLink());
+					}
+				});
+			}
+		}
+	}
+
+	public void launchBrowser(String url) {
+		try {
+			Log.d("DJC GET ", "url = " + url);
+			Uri uri = Uri.parse(url);
+			Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+			startActivity(intent);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void initHandler() {
@@ -67,14 +102,15 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 		swipeinfo = DataMgr.getInstance().getSwipeDataByTimeStamp(id);
 		try {
 			if (swipeinfo != null) {
+				adInfo = DataUtils.getAdInfo();
 				setIcon();
 				setPublisher();
 				setContent();
+				setAD();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void setIcon() {
@@ -104,11 +140,18 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 	}
 
 	public void setContent() {
-		String source = swipeinfo.getNoticeTitle()
-				+ "\n\n"
-				+ swipeinfo.getNoticeBody(DataMgr.getInstance()
-						.getSelectedChild().getChild_nick_name());
-		contentView.setText(source);
+		StringBuffer content = new StringBuffer();
+
+		content.append(swipeinfo.getNoticeTitle() + "\n\n");
+
+		if (adInfo != null) {
+			content.append(Utils.getAdNotice(adInfo.getName()));
+		}
+
+		content.append(swipeinfo.getNoticeBody(DataMgr.getInstance()
+				.getSelectedChild().getChild_nick_name()));
+
+		contentView.setText(content.toString());
 	}
 
 	public void setTimestamp() {
