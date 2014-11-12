@@ -195,10 +195,10 @@
     <string name="self_care_explain">能自己收拾整理玩具和用具、自己入厕</string>
     <string name="manner_explain">对人有礼貌、会主动使用礼貌用语、尊重他人、不打扰别人</string>
     <string name="game_explain">喜欢玩游戏、能与同学分享玩具，学习并遵守游戏规则</string>
-    <string name="token_invalid">无效账号，请注销后重新登录，或联系幼儿园处理，谢谢！</string>
+    <string name="token_invalid">无效账号，请重新登录，或联系幼儿园处理，谢谢！</string>
     <string name="invalid_phone">无效电话号码: %1$s</string>
-    <string name="phone_invalid">账号未激活或已过期，请联系幼儿园处理，谢谢！</string>
-    <string name="phone_num_is_already_login">该手机号已经在其他手机上登录，为了您账号的安全，请修改密码后再重新登录！</string>
+    <string name="phone_invalid">账号未激活或已过期，请重新登录，谢谢！</string>
+    <string name="phone_num_is_already_login">该手机号已经在其他手机上登录，为了您账号的安全，请重新登录并及时修改密码！</string>
     <string name="no_cookbook_yet">学校目前还未发布食谱</string>
     <string name="no_schedule_yet">学校目前还未发布课程表</string>
     <string name="get_child_info">获取小孩信息</string>

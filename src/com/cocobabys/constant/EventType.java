@@ -6,6 +6,7 @@ public class EventType {
 	public static final int PHONE_NUM_IS_FIRST_USE = 1101;
 	public static final int PHONE_NUM_IS_ALREADY_BIND = 1102;
 	public static final int PHONE_NUM_IS_ALREADY_LOGIN = 1103;
+	public static final int ACCOUNT_IS_EXPIRED = 1120;
 
 	public static final int AUTH_CODE_IS_VALID = 1130;
 	public static final int AUTH_CODE_IS_INVALID = 1131;

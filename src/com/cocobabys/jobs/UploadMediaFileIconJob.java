@@ -19,6 +19,7 @@ import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.upload.UploadFactory;
+import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
 
 public class UploadMediaFileIconJob extends MyJob {
@@ -58,7 +59,7 @@ public class UploadMediaFileIconJob extends MyJob {
 				}
 			});
 
-			bret = (MethodResult) bind.handle();
+			bret = MethodUtils.getBindResult(bind);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

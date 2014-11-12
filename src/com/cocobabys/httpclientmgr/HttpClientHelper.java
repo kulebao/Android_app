@@ -48,6 +48,7 @@ import android.util.Log;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.customexception.AccountExpiredException;
 import com.cocobabys.customexception.BindFailException;
 import com.cocobabys.customexception.DuplicateLoginException;
 import com.cocobabys.customexception.InvalidTokenException;
@@ -115,18 +116,10 @@ public class HttpClientHelper {
 		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
 			PushMethod method = PushMethod.getMethod();
 			int ret = method.sendBinfInfo();
-			if (ret == EventType.BIND_SUCCESS) {
-				// bind 成功，刷新cookie，重新请求
-				Log.d("DDD code:", "" + "doGetImpl again!");
-				result = doPostImpl(url, content);
-			} else if (ret == EventType.BIND_FAILED) {
-				throw new InvalidTokenException("InvalidTokenException error");
-			} else if (ret == EventType.PHONE_NUM_IS_ALREADY_LOGIN) {
-				throw new DuplicateLoginException(
-						"DuplicateLoginException error");
-			} else {
-				throw new BindFailException("BindFailException error");
-			}
+			checkResult(ret);
+			// bind 成功，刷新cookie，重新请求
+			Log.d("DDD code:", "" + "doGetImpl again!");
+			result = doPostImpl(url, content);
 		}
 		return result;
 	}
@@ -199,18 +192,10 @@ public class HttpClientHelper {
 		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
 			PushMethod method = PushMethod.getMethod();
 			int ret = method.sendBinfInfo();
-			if (ret == EventType.BIND_SUCCESS) {
-				// bind 成功，刷新cookie，重新请求
-				Log.d("DDD code:", "" + "doGetImpl again!");
-				result = doDeleteImpl(url);
-			} else if (ret == EventType.BIND_FAILED) {
-				throw new InvalidTokenException("InvalidTokenException error");
-			} else if (ret == EventType.PHONE_NUM_IS_ALREADY_LOGIN) {
-				throw new DuplicateLoginException(
-						"DuplicateLoginException error");
-			} else {
-				throw new BindFailException("BindFailException error");
-			}
+			checkResult(ret);
+			// bind 成功，刷新cookie，重新请求
+			Log.d("DDD code:", "" + "doGetImpl again!");
+			result = doDeleteImpl(url);
 		}
 		return result;
 	}
@@ -263,20 +248,28 @@ public class HttpClientHelper {
 		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
 			PushMethod method = PushMethod.getMethod();
 			int ret = method.sendBinfInfo();
-			if (ret == EventType.BIND_SUCCESS) {
-				// bind 成功，刷新cookie，重新请求
-				Log.d("DDD code:", "" + "doGetImpl again!");
-				result = doGetImpl(url);
-			} else if (ret == EventType.BIND_FAILED) {
+			checkResult(ret);
+			// bind 成功，刷新cookie，重新请求
+			Log.d("DDD code:", "" + "doGetImpl again!");
+			result = doGetImpl(url);
+		}
+		return result;
+	}
+
+	private static void checkResult(int ret) {
+		if (ret != EventType.BIND_SUCCESS) {
+			if (ret == EventType.BIND_FAILED) {
 				throw new InvalidTokenException("InvalidTokenException error");
 			} else if (ret == EventType.PHONE_NUM_IS_ALREADY_LOGIN) {
 				throw new DuplicateLoginException(
 						"DuplicateLoginException error");
+			} else if (ret == EventType.PHONE_NUM_IS_INVALID) {
+				throw new AccountExpiredException(
+						"AccountExpiredException error");
 			} else {
 				throw new BindFailException("BindFailException error");
 			}
 		}
-		return result;
 	}
 
 	private static HttpResult doGetImpl(String url) throws Exception {

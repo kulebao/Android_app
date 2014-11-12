@@ -9,6 +9,7 @@ import com.cocobabys.net.NewChatMethod;
 import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
+import com.cocobabys.utils.MethodUtils;
 
 public class GetChatJob extends MyJob {
 	// 最少等2s
@@ -49,7 +50,7 @@ public class GetChatJob extends MyJob {
 
 		try {
 			long now = System.currentTimeMillis();
-			bret = getBindResult(bind);
+			bret = MethodUtils.getBindResult(bind);
 			long ellapse = now - current;
 			if (ellapse < LIMIT_TIME) {
 				try {
@@ -68,19 +69,5 @@ public class GetChatJob extends MyJob {
 			handler.sendMessage(msg);
 		}
 
-	}
-
-	// 临时处理一下，本来应该都返回MethodResult，但是有大量老接口，还是使用int做返回，这里做一下适配
-	private MethodResult getBindResult(MyProxyImpl bind) throws Exception {
-		MethodResult bret = null;
-		Object obj = null;
-		try {
-			obj = bind.handle();
-			bret = (MethodResult) obj;
-		} catch (ClassCastException e) {
-			bret = new MethodResult();
-			bret.setResultType((Integer) obj);
-		}
-		return bret;
 	}
 }

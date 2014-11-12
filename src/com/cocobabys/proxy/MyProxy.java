@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.EventType;
+import com.cocobabys.customexception.AccountExpiredException;
 import com.cocobabys.customexception.BindFailException;
 import com.cocobabys.customexception.DuplicateLoginException;
 import com.cocobabys.customexception.InvalidTokenException;
@@ -57,6 +58,8 @@ public class MyProxy implements InvocationHandler {
 			result = EventType.TOKEN_INVALID;
 		} else if (e.getCause() instanceof DuplicateLoginException) {
 			result = EventType.PHONE_NUM_IS_ALREADY_LOGIN;
+		} else if (e.getCause() instanceof AccountExpiredException) {
+			result = EventType.ACCOUNT_IS_EXPIRED;
 		} else if (isNetworkException(e)) {
 			result = EventType.NET_WORK_INVALID;
 		} else {

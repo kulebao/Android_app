@@ -26,6 +26,7 @@ import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.upload.UploadMgr;
+import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
 
 public class SendExpJob extends MyJob {
@@ -56,7 +57,7 @@ public class SendExpJob extends MyJob {
 				}
 			});
 
-			bret = (MethodResult) bind.handle();
+			bret = MethodUtils.getBindResult(bind);
 			saveBmpToSDCard();
 		} catch (Exception e) {
 			e.printStackTrace();

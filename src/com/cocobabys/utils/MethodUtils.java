@@ -26,6 +26,7 @@ import com.cocobabys.net.MethodResult;
 import com.cocobabys.net.NewChatMethod;
 import com.cocobabys.net.NewsMethod;
 import com.cocobabys.net.ScheduleMethod;
+import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.service.MyService;
 
 public class MethodUtils {
@@ -300,5 +301,19 @@ public class MethodUtils {
 			classIDs += id + ",";
 		}
 		return classIDs.substring(0, classIDs.length() - 1);
+	}
+
+	// 临时处理一下，本来应该都返回MethodResult，但是有大量老接口，还是使用int做返回，这里做一下适配
+	public static MethodResult getBindResult(MyProxyImpl bind) throws Exception {
+		MethodResult bret = null;
+		Object obj = null;
+		try {
+			obj = bind.handle();
+			bret = (MethodResult) obj;
+		} catch (ClassCastException e) {
+			bret = new MethodResult();
+			bret.setResultType((Integer) obj);
+		}
+		return bret;
 	}
 }

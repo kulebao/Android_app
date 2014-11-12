@@ -18,6 +18,7 @@ import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.upload.UploadFactory;
+import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
 
 public class UploadChatIconJob extends MyJob {
@@ -51,7 +52,7 @@ public class UploadChatIconJob extends MyJob {
 				}
 			});
 
-			bret = (MethodResult) bind.handle();
+			bret = MethodUtils.getBindResult(bind);
 			saveBmpToSDCard(url);
 		} catch (Exception e) {
 			e.printStackTrace();

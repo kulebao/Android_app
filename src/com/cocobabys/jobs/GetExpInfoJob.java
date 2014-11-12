@@ -9,6 +9,7 @@ import com.cocobabys.net.MethodResult;
 import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
+import com.cocobabys.utils.MethodUtils;
 
 public class GetExpInfoJob extends MyJob {
 	private Handler handler;
@@ -35,7 +36,7 @@ public class GetExpInfoJob extends MyJob {
 		});
 
 		try {
-			bret = (MethodResult) bind.handle();
+			bret = MethodUtils.getBindResult(bind);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
