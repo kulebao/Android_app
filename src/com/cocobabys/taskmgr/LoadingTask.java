@@ -54,10 +54,10 @@ public class LoadingTask extends AsyncTask<Void, Void, Void> {
 	// 检查是否有数据库正在升级，如果有，需要等到升级完毕再执行下一步操作
 	private void checkDbUpdate() {
 		try {
-			//先等300ms，以免sqliteHelper 的 upgrade还没有触发
+			// 先等300ms，以免sqliteHelper 的 upgrade还没有触发
 			Thread.sleep(300);
 			while (MyApplication.getInstance().isDbUpdating()) {
-				//每次等300ms
+				// 每次等300ms
 				Thread.sleep(300);
 			}
 		} catch (InterruptedException e) {

@@ -4,7 +4,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class MyThreadPoolMgr {
-	private static final int MAX_THREAD_IN_POOL = 10;
+	private static final int MAX_THREAD_IN_POOL = 30;
 	private static ScheduledExecutorService genericThreadService = Executors
 			.newScheduledThreadPool(MAX_THREAD_IN_POOL);
 

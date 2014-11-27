@@ -59,7 +59,7 @@ public class ConstantValue {
 	public static final String SCHOOL_INFO_TIMESTAMP = "school_info_timestamp";
 
 	public static final String ENTER = "\n";
-	
+
 	public static final int PUSH_ACTION_QUEUE_MAX_SIZE = 100;
 
 	public static final int TIME_LIMIT_TO_GET_AUTHCODE_AGAIN = 60 * 10;
@@ -112,14 +112,14 @@ public class ConstantValue {
 	public static final int Type_INSERT_TAIl = 1;
 	public static final String TEST_PHONE = "13408654680";
 	public static final String TEST_PHONE_PWD = "zzzzzz";
-	
-	//缩略图的像素限制(长或宽)
+
+	// 缩略图的像素限制(长或宽)
 	public static final int MINI_PIC_SIZE = 80;
-	
-	//小孩头像像素限制，主界面上显示的
+
+	// 小孩头像像素限制，主界面上显示的
 	public static final int BABY_HEAD_PIC_SIZE = 320;
-	
-	//列表界面，显示头像
+
+	// 列表界面，显示头像
 	public static final int HEAD_ICON_HEIGHT = 50;
 	public static final int HEAD_ICON_WIDTH = 50;
 
@@ -138,6 +138,8 @@ public class ConstantValue {
 	public static final String FAKE_USER_ID = "fake_user_id";
 
 	public static final String BIND_ERROR = "bind_error";
-	
+
 	public static final String DEFAULT_VOICE_TYPE = ".amr";
+
+	public static final String RECENTLY_PIC_DIR = "recently_pic_dir";
 }

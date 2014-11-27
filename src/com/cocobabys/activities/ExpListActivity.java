@@ -25,6 +25,7 @@ import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetExpInfoJob;
 import com.cocobabys.jobs.GetSenderInfoJob;
 import com.cocobabys.taskmgr.DownloadImgeJob;
+import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -60,19 +61,7 @@ public class ExpListActivity extends UmengStatisticsActivity {
 	}
 
 	private void initImageLoader() {
-		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-				.cacheOnDisc().imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-				.bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true)
-				.build();
-		ImageLoaderConfiguration.Builder builder = new ImageLoaderConfiguration.Builder(
-				this).defaultDisplayImageOptions(defaultOptions)
-				.memoryCache(new LruMemoryCache(CACHE_SIZE))
-				.memoryCacheSize(CACHE_SIZE);
-
-		ImageLoaderConfiguration config = builder.build();
-		imageLoader = ImageLoader.getInstance();
-
-		imageLoader.init(config);
+		imageLoader = ImageUtils.getImageLoader();
 	}
 
 	private void runGetExpByYearAndMonth() {
@@ -100,12 +89,10 @@ public class ExpListActivity extends UmengStatisticsActivity {
 	}
 
 	private void initCustomListView() {
-		explist = DataMgr.getInstance().getExpInfoByMonthAndYear(
-				getYearAndMonth());
+		explist = DataMgr.getInstance().getExpInfoByMonthAndYear(getYearAndMonth());
 		downloadImgeJob = new DownloadImgeJob();
 		getTeacherInfoJob = new GetSenderInfoJob();
-		adapter = new ExpListAdapter(this, explist, downloadImgeJob,
-				getTeacherInfoJob, imageLoader);
+		adapter = new ExpListAdapter(this, explist, downloadImgeJob, getTeacherInfoJob, imageLoader);
 		listView = (ListView) findViewById(R.id.explist);// 继承ListActivity，id要写成android.R.id.list，否则报异常
 		listView.setAdapter(adapter);
 	}
@@ -154,8 +141,7 @@ public class ExpListActivity extends UmengStatisticsActivity {
 	}
 
 	protected void handleGetExpInfoSuccess() {
-		List<ExpInfo> list = DataMgr.getInstance().getExpInfoByMonthAndYear(
-				getYearAndMonth());
+		List<ExpInfo> list = DataMgr.getInstance().getExpInfoByMonthAndYear(getYearAndMonth());
 		if (list.isEmpty()) {
 			Utils.makeToast(ExpListActivity.this, "没有更多的记录了");
 		}

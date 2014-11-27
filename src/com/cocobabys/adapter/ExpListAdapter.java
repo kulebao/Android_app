@@ -427,7 +427,6 @@ public class ExpListAdapter extends BaseAdapter {
 		lruCache.evictAll();
 		senderMap.clear();
 		imageLoader.clearMemoryCache();
-		imageLoader.clearDiscCache();
 	}
 
 	public void addAll(List<ExpInfo> list) {

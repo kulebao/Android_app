@@ -7,5 +7,5 @@
     <dimen name="chat_max_width">300dp</dimen>
     <dimen name="chat_icon_size">80dp</dimen>
     <dimen name="education_griditem_width">70dp</dimen>
-
+    <dimen name="slidingmenu_no_offset">0dp</dimen>
 </resources>

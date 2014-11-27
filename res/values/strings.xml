@@ -223,6 +223,8 @@
     <string name="access_forbid">权限不足，请联系幼儿园开通权限,谢谢！</string>
     <string name="watch_baby">看宝贝</string>
     <string name="record_time">00:00:00</string>
+    <string name="album">相册</string>
+    <string name="recent_photo">最近照片</string>
     
     <string name="want_cookbook">您想知道宝贝每天的膳食情况吗？赶快联系幼儿园开通此功能吧！</string>
     <string name="want_schedule">您想知道宝贝每天的学习内容吗？赶快联系幼儿园开通此功能吧！</string>

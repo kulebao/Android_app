@@ -916,6 +916,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		DataMgr.getInstance().close();
 		MediaMgr.close();
 		VideoApp.getJni().uninit();
+		// EventBus.clearCaches();
 	}
 
 	private interface ActivityLauncher {

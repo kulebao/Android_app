@@ -1,6 +1,9 @@
 package com.cocobabys.activities;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +11,6 @@ import java.util.List;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.MediaScannerConnectionClient;
 import android.net.Uri;
@@ -35,15 +37,11 @@ import com.cocobabys.constant.NoticeAction;
 import com.cocobabys.customview.CustomGallery;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.SendExpJob;
+import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class SendExpActivity extends UmengStatisticsActivity {
-	private static final int CACHE_SIZE = 2 * 1024 * 1024;
 	private GridView gridGallery;
 	private Handler myhandler;
 	private GalleryAdapter adapter;
@@ -72,19 +70,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	}
 
 	private void initImageLoader() {
-		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-				.cacheOnDisc().imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-				.bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true)
-				.build();
-		ImageLoaderConfiguration.Builder builder = new ImageLoaderConfiguration.Builder(
-				this).defaultDisplayImageOptions(defaultOptions)
-				.memoryCache(new LruMemoryCache(CACHE_SIZE))
-				.memoryCacheSize(CACHE_SIZE);
-
-		ImageLoaderConfiguration config = builder.build();
-		imageLoader = ImageLoader.getInstance();
-
-		imageLoader.init(config);
+		imageLoader = ImageUtils.getImageLoader();
 	}
 
 	private void initHeader() {
@@ -175,7 +161,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Log.d("DDDDDD", "startToSlideGalleryActivity position="+position);
+				Log.d("DDDDDD", "startToSlideGalleryActivity position="
+						+ position);
 				startToSlideGalleryActivity(position);
 			}
 		});

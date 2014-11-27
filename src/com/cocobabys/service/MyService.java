@@ -22,7 +22,6 @@ public class MyService extends Service {
 		super.onCreate();
 		Log.d("DJC 10-16", "MyService onCreate");
 		PushSettings.enableDebugMode(this, true);
-		// PushEventHandler.getPushEventHandler().start();
 	}
 
 	@Override

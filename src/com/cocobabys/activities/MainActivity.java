@@ -28,7 +28,6 @@ import com.cocobabys.bean.AdInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.GetADJob;
 import com.cocobabys.net.AdMethod;
 import com.cocobabys.push.PushModel;
 import com.cocobabys.taskmgr.BindPushTask;

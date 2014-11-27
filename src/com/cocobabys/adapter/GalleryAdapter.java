@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,8 @@ import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.customview.CustomGallery;
 import com.cocobabys.utils.Utils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
 public class GalleryAdapter extends BaseAdapter {
 
@@ -26,6 +27,7 @@ public class GalleryAdapter extends BaseAdapter {
 
 	private boolean isActionMultiplePick;
 	protected boolean showDefaultPic = false;
+	private DisplayImageOptions options;
 
 	public void setShowDefaultPic(boolean showDefaultPic) {
 		this.showDefaultPic = showDefaultPic;
@@ -36,6 +38,10 @@ public class GalleryAdapter extends BaseAdapter {
 		mContext = c;
 		this.imageLoader = imageLoader;
 		// clearCache();
+
+		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.default_small_icon)
+				.showImageForEmptyUri(R.drawable.default_small_icon).showImageOnFail(R.drawable.default_small_icon)
+				.cacheInMemory(true).considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).build();
 	}
 
 	public List<String> getAllSelectedPath() {
@@ -195,7 +201,7 @@ public class GalleryAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.imgQueue.setTag(position);
+		// holder.imgQueue.setTag(position);
 
 		showImgByLoader(position, holder);
 
@@ -216,15 +222,17 @@ public class GalleryAdapter extends BaseAdapter {
 			// .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)
 			// .cacheInMemory(true).bitmapConfig(Bitmap.Config.RGB_565)
 			// .build();
-			imageLoader.displayImage("file://" + sdcardPath, holder.imgQueue, new SimpleImageLoadingListener() {
-				@Override
-				public void onLoadingStarted(String imageUri, View view) {
-					if (showDefaultPic) {
-						holder.imgQueue.setImageResource(R.drawable.default_small_icon);
-					}
-					super.onLoadingStarted(imageUri, view);
-				}
-			});
+			// imageLoader.displayImage("file://" + sdcardPath, holder.imgQueue, new SimpleImageLoadingListener() {
+			// @Override
+			// public void onLoadingStarted(String imageUri, View view) {
+			// if (showDefaultPic) {
+			// holder.imgQueue.setImageResource(R.drawable.default_small_icon);
+			// }
+			// super.onLoadingStarted(imageUri, view);
+			// }
+			// });
+
+			ImageLoader.getInstance().displayImage("file://" + sdcardPath, holder.imgQueue, options);
 
 			if (isActionMultiplePick) {
 
@@ -243,7 +251,6 @@ public class GalleryAdapter extends BaseAdapter {
 	}
 
 	public void clearCache() {
-		imageLoader.clearDiscCache();
 		imageLoader.clearMemoryCache();
 	}
 
