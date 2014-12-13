@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.baidu.frontia.FrontiaApplication;
+import com.baidu.mapapi.SDKInitializer;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChatInfo;
@@ -47,7 +48,7 @@ public class MyApplication extends FrontiaApplication {
 		this.tmpNewChatList = tmpNewChatList;
 	}
 
-	private boolean forTest = false;
+	private boolean forTest = true;
 
 	public boolean isForTest() {
 		return forTest;
@@ -87,6 +88,10 @@ public class MyApplication extends FrontiaApplication {
 		// 如果有数据库需要升级，则触发onUpgrade方法
 		DataMgr.getInstance();
 		Log.d("Database", "MyApplication onCreate");
+
+		if (isForTest()) {
+			SDKInitializer.initialize(this);
+		}
 	}
 
 	public List<ChatInfo> getTmpList() {
