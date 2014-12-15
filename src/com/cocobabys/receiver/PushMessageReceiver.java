@@ -1,9 +1,6 @@
 package com.cocobabys.receiver;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,18 +57,11 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 			String userId, String channelId, String requestId) {
 		String responseString = "onBind errorCode=" + errorCode + " appid="
 				+ appid + " userId=" + userId + " channelId=" + channelId
-				+ " requestId=" + requestId + " phone="
-				+ DataUtils.getAccount();
+				+ " requestId=" + requestId + " phone=" + DataUtils.getAccount();
 		Log.d(TAG, responseString);
 
 		// 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
 		if (errorCode == 0) {
-			try {
-				Utils.saveInSDCard("bind success USER_ID=" + userId,
-						new SimpleDateFormat().format(new Date()));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 			DataUtils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, channelId);
 			DataUtils.saveUndeleteableProp(JSONConstant.USER_ID, userId);
 		} else {
@@ -165,7 +155,7 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 		Intent intent = getIntent(notice, context);
 
 		RemoteViews mRemoteViews = getRemoteView(notice, context);
-
+		
 		// 每次调用到这句时，第二个参数一定要不同，否则多个通知同时存在时，对于同一个id的通知
 		// 点击后，始终会使用最后一次发送时的intent，这样导致每次打开activity看到的都是最后一次
 		// 通知的内容

@@ -464,33 +464,33 @@
 
         <!-- lbs activities -->
         <activity
-            android:name="com.djc.lbsapp.LbsMainActivity"
+            android:name="com.cocobabys.lbs.LbsMainActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.djc.lbsapp.LbsTrack"
+            android:name="com.cocobabys.lbs.LbsTrack"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.djc.lbsapp.LbsLocation"
+            android:name="com.cocobabys.lbs.LbsLocation"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.djc.lbsapp.LbsOfflineMapList"
+            android:name="com.cocobabys.lbs.LbsOfflineMapList"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.djc.lbsapp.LbsFence"
+            android:name="com.cocobabys.lbs.LbsFence"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
 

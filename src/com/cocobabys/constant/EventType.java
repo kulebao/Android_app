@@ -124,4 +124,8 @@ public class EventType {
 	public static final int VIDEO_GET_INFO_NOT_REG = 10032;
 	public static final int VIDEO_GET_INFO_FAIL = 10031;
 
+	/***************** lbs event ********************/
+	public static final int COUNTDOWN_EVENT = 20001;
+	public static final int GET_LAST_LOCATION_SUCCESS = 20010;
+	public static final int GET_LAST_LOCATION_FAIL = 20011;
 }

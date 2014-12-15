@@ -9,5 +9,7 @@
 	<classpathentry kind="lib" path="libs/HMSDK.jar"/>
 	<classpathentry kind="lib" path="libs/umeng_sdk.jar"/>
 	<classpathentry kind="lib" path="libs/universal-image-loader.jar"/>
+	<classpathentry kind="lib" path="libs/BaiduLBS_Android.jar"/>
+	<classpathentry kind="lib" path="libs/locSDK_4.2.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

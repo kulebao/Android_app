@@ -89,9 +89,13 @@ public class MyApplication extends FrontiaApplication {
 		DataMgr.getInstance();
 		Log.d("Database", "MyApplication onCreate");
 
-		if (isForTest()) {
+		if (useLbs()) {
 			SDKInitializer.initialize(this);
 		}
+	}
+
+	public boolean useLbs() {
+		return true;
 	}
 
 	public List<ChatInfo> getTmpList() {

@@ -233,5 +233,8 @@
     <string name="want_estimation">您想了解老师对宝贝在幼儿园的表现有什么评价吗？赶快联系幼儿园开通此功能吧！</string>
     <string name="want_exp">您想记录下宝贝在幼儿园的点点滴滴吗？赶快联系幼儿园开通此功能吧！</string>
     
+    <string name="lbs_refresh_time">%1$d秒后刷新</string>
+    <string name="lbs_get_location_fail">获取定位器坐标失败</string>
+    
     
 </resources>
