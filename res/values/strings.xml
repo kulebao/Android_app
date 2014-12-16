@@ -235,6 +235,10 @@
     
     <string name="lbs_refresh_time">%1$d秒后刷新</string>
     <string name="lbs_get_location_fail">获取定位器坐标失败</string>
+    <string name="lbs_get_history_location_fail">获取定位器历史数据失败</string>
+    <string name="lbs_get_history_location_is_empty">历史数据为空</string>
+    <string name="lbs_get_power_fail">获取电量失败</string>
+    <string name="lbs_power">电量:</string>
     
     
 </resources>

@@ -14,10 +14,10 @@ import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.MethodUtils;
 
 //获取定位器最后一次坐标任务
-public class GetLocatorCoorJob extends MyJob {
+public class GetLocatorPowerJob extends MyJob {
 	private Handler handler;
 
-	public GetLocatorCoorJob(Handler handler) {
+	public GetLocatorPowerJob(Handler handler) {
 		this.handler = handler;
 	}
 
@@ -27,13 +27,12 @@ public class GetLocatorCoorJob extends MyJob {
 	}
 
 	private void getLoaction() {
-		MethodResult bret = new MethodResult(EventType.GET_LAST_LOCATION_FAIL);
+		MethodResult bret = new MethodResult(EventType.GET_LOCATOR_POWER_FAIL);
 		MyProxy proxy = new MyProxy();
 		MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
 			@Override
 			public MethodResult handle() throws Exception {
-				MethodResult result = LbsMethod.getMethod().getLastLocation(
-						DataUtils.getProp(ConstantValue.LOCATOR_ID));
+				MethodResult result = LbsMethod.getMethod().getPower(DataUtils.getProp(ConstantValue.LOCATOR_ID));
 				return result;
 			}
 		});

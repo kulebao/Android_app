@@ -46,6 +46,7 @@ import com.baidu.mapapi.utils.DistanceUtil;
 import com.cocobabys.R;
 import com.cocobabys.bean.LocationInfo;
 import com.cocobabys.constant.EventType;
+import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetLocatorCoorJob;
 import com.cocobabys.jobs.RefreshLocationJob;
 import com.cocobabys.utils.DataUtils;
@@ -55,8 +56,7 @@ import com.cocobabys.utils.Utils;
  * 此demo用来展示如何结合定位SDK实现定位，并使用MyLocationOverlay绘制定位位置 同时展示如何使用自定义图标绘制并点击时弹出泡泡
  * 
  */
-public class LbsLocation extends Activity implements
-		OnGetGeoCoderResultListener {
+public class LbsLocation extends Activity implements OnGetGeoCoderResultListener {
 	private static final String COOR_TYPE = "bd09ll";
 	private static final int GET_LOC_TIME_SPAN = 14000;
 	// 固定刷新间隔时间，设置为20s
@@ -80,8 +80,7 @@ public class LbsLocation extends Activity implements
 	private TextView distanceView;
 	private Button changeCircleBtn;
 	private TextView locationInfoView;
-	private BitmapDescriptor bdA = BitmapDescriptorFactory
-			.fromResource(R.drawable.lbs_icon_marka);
+	private BitmapDescriptor bdA = BitmapDescriptorFactory.fromResource(R.drawable.lbs_icon_marka);
 	private Handler handler;
 	private RefreshLocationJob refreshJob;
 	private TextView showtime;
@@ -101,12 +100,11 @@ public class LbsLocation extends Activity implements
 	}
 
 	private void initHandler() {
-		handler = new Handler() {
+		handler = new MyHandler(LbsLocation.this) {
 			@Override
 			public void handleMessage(Message msg) {
 				if (LbsLocation.this.isFinishing()) {
-					Log.w("TrackDemoDJC isFinishing",
-							"handleMessage donothing msg=" + msg.what);
+					Log.w("TrackDemoDJC isFinishing", "handleMessage donothing msg=" + msg.what);
 					return;
 				}
 
@@ -114,13 +112,10 @@ public class LbsLocation extends Activity implements
 				case EventType.COUNTDOWN_EVENT:
 					Log.d("", "AAA showtime.setText msg.arg1=" + msg.arg1);
 
-					showtime.setText(String.format(
-							Utils.getResString(R.string.lbs_refresh_time),
-							msg.arg1));
+					showtime.setText(String.format(Utils.getResString(R.string.lbs_refresh_time), msg.arg1));
 					break;
 				case EventType.GET_LAST_LOCATION_FAIL:
-					Utils.makeToast(LbsLocation.this,
-							Utils.getResString(R.string.lbs_get_location_fail));
+					Utils.makeToast(LbsLocation.this, Utils.getResString(R.string.lbs_get_location_fail));
 					handleGetLocFail();
 					break;
 				case EventType.GET_LAST_LOCATION_SUCCESS:
@@ -142,7 +137,7 @@ public class LbsLocation extends Activity implements
 		Log.d("", "AAA handleGetLocSuccess");
 
 		LocationInfo info = (LocationInfo) msg.obj;
-		end = DataUtils.getLatLng(info);
+		end = DataUtils.getCoor(info);
 
 		mBaiduMap.clear();
 
@@ -215,8 +210,8 @@ public class LbsLocation extends Activity implements
 					refreshJob.cancel(true);
 					runRefreshTask();
 				}
-				
-				if(getCoorJob != null){
+
+				if (getCoorJob != null) {
 					getCoorJob.cancel(true);
 					getCoorJob = new GetLocatorCoorJob(handler);
 					getCoorJob.execute();
@@ -254,22 +249,19 @@ public class LbsLocation extends Activity implements
 					requestLocButton.setText("跟随");
 					mCurrentMode = LocationMode.FOLLOWING;
 					mBaiduMap
-							.setMyLocationConfigeration(new MyLocationConfiguration(
-									mCurrentMode, true, mCurrentMarker));
+							.setMyLocationConfigeration(new MyLocationConfiguration(mCurrentMode, true, mCurrentMarker));
 					break;
 				case COMPASS:
 					requestLocButton.setText("普通");
 					mCurrentMode = LocationMode.NORMAL;
 					mBaiduMap
-							.setMyLocationConfigeration(new MyLocationConfiguration(
-									mCurrentMode, true, mCurrentMarker));
+							.setMyLocationConfigeration(new MyLocationConfiguration(mCurrentMode, true, mCurrentMarker));
 					break;
 				case FOLLOWING:
 					requestLocButton.setText("罗盘");
 					mCurrentMode = LocationMode.COMPASS;
 					mBaiduMap
-							.setMyLocationConfigeration(new MyLocationConfiguration(
-									mCurrentMode, true, mCurrentMarker));
+							.setMyLocationConfigeration(new MyLocationConfiguration(mCurrentMode, true, mCurrentMarker));
 					break;
 				}
 			}
@@ -292,8 +284,7 @@ public class LbsLocation extends Activity implements
 
 	private void setCenter(LatLng center) {
 		// 设置定位器为地图中心
-		MapStatus status = new MapStatus.Builder().target(center).zoom(15.0f)
-				.build();
+		MapStatus status = new MapStatus.Builder().target(center).zoom(15.0f).build();
 		mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(status));
 	}
 
@@ -354,15 +345,12 @@ public class LbsLocation extends Activity implements
 			if (location == null || mMapView == null)
 				return;
 
-			locData = new MyLocationData.Builder()
-					.accuracy(location.getRadius())
-					// 此处设置开发者获取到的方向信息，顺时针0-360
-					.direction(100).latitude(location.getLatitude())
-					.longitude(location.getLongitude()).build();
+			locData = new MyLocationData.Builder().accuracy(location.getRadius())
+			// 此处设置开发者获取到的方向信息，顺时针0-360
+					.direction(100).latitude(location.getLatitude()).longitude(location.getLongitude()).build();
 			start = new LatLng(location.getLatitude(), location.getLongitude());
 
-			Log.d("TTT", "lat =" + location.getLatitude() + "  lon ="
-					+ location.getLongitude());
+			Log.d("TTT", "lat =" + location.getLatitude() + "  lon =" + location.getLongitude());
 			changeCircleBtn.setVisibility(View.VISIBLE);
 			runGetLocatorCoorTask();
 			// handleReceiveLocation();
@@ -402,20 +390,24 @@ public class LbsLocation extends Activity implements
 		Button button = new Button(getApplicationContext());
 		button.setBackgroundResource(R.drawable.lbs_popup);
 		button.setTextColor(android.graphics.Color.BLACK);
-		StringBuffer buffer = new StringBuffer(Utils.convertTime(info
-				.getTimestamp()));
+		String content = getPopContent(info);
+		button.setText(content);
+
+		button.setTextSize(14.0f);
+		OverlayOptions option = new MarkerOptions().position(point).icon(bdA);
+		InfoWindow mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), point, -52, null);
+		mBaiduMap.addOverlay(option);
+		mBaiduMap.showInfoWindow(mInfoWindow);
+	}
+
+	private String getPopContent(LocationInfo info) {
+		StringBuffer buffer = new StringBuffer(Utils.convertTime(info.getTimestamp()));
 		buffer.append("\n");
 		buffer.append("速度:");
 		buffer.append(DataUtils.convertSpeed(info.getSpeed()));
 		buffer.append("千米/小时");
-		button.setText(buffer.toString());
-
-		button.setTextSize(14.0f);
-		OverlayOptions option = new MarkerOptions().position(point).icon(bdA);
-		InfoWindow mInfoWindow = new InfoWindow(
-				BitmapDescriptorFactory.fromView(button), point, -52, null);
-		mBaiduMap.addOverlay(option);
-		mBaiduMap.showInfoWindow(mInfoWindow);
+		String content = buffer.toString();
+		return content;
 	}
 
 	@Override
@@ -476,8 +468,7 @@ public class LbsLocation extends Activity implements
 			double minDis = Double.MAX_VALUE;
 			PoiInfo shouldShow = null;
 			for (PoiInfo info : poiList) {
-				double currentDis = DistanceUtil
-						.getDistance(end, info.location);
+				double currentDis = DistanceUtil.getDistance(end, info.location);
 
 				if (currentDis < minDis) {
 					shouldShow = info;
@@ -489,8 +480,7 @@ public class LbsLocation extends Activity implements
 			}
 
 			if (shouldShow != null) {
-				content.append(".离").append(shouldShow.name).append("约")
-						.append((int) minDis).append("米");
+				content.append(".离").append(shouldShow.name).append("约").append((int) minDis).append("米");
 			}
 		}
 

@@ -152,4 +152,10 @@ public class ServerUrls {
 
 	// https://stage2.cocobabys.com/api/v2/location/1451351909/record?most=1
 	public static final String GET_LAST_LOCATION = getHost() + "api/v2/" + LOCATION_PATH + "/%s/" + "record?most=1";
+
+	// https://stage2.cocobabys.com/api/v2/location/1451351909/record
+	public static final String GET_HISTORY_LOCATION = getHost() + "api/v2/" + LOCATION_PATH + "/%s/" + "record";
+
+	// https://stage2.cocobabys.com/api/v2/location/1451351909/status/power
+	public static final String GET_LOCATOR_POWER = getHost() + "api/v2/" + LOCATION_PATH + "/%s/" + "status/power";
 }

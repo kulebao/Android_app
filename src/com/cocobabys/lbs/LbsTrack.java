@@ -1,13 +1,14 @@
 package com.cocobabys.lbs;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,24 +17,26 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.baidu.mapapi.map.ArcOptions;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.CircleOptions;
-import com.baidu.mapapi.map.DotOptions;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.PolygonOptions;
 import com.baidu.mapapi.map.PolylineOptions;
-import com.baidu.mapapi.map.Stroke;
-import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.cocobabys.R;
+import com.cocobabys.bean.LocationInfo;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.jobs.GetLocatorCoorHistoryJob;
+import com.cocobabys.threadpool.MyThreadPoolMgr;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.Utils;
 
 /**
  * 此demo用来展示如何在地图上用GraphicsOverlay添加点、线、多边形、圆 同时展示如何在地图上用TextOverlay添加文字
@@ -46,6 +49,8 @@ public class LbsTrack extends Activity {
 	protected static final int STOP = 200;
 
 	private static final int PAUSE = 300;
+
+	private ProgressDialog dialog;
 
 	// 地图相关
 	MapView mMapView;
@@ -63,10 +68,31 @@ public class LbsTrack extends Activity {
 
 	private Handler handler;
 
+	private List<LocInfo> lList;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lbs_activity_track);
+		initViews();
+
+		// 界面加载时添加绘制图层
+		// addCustomElementsDemo();
+
+		initPlayRecordTask();
+
+		initHandler();
+
+		runGetHistoryLocTask();
+	}
+
+	private void runGetHistoryLocTask() {
+		dialog.show();
+		GetLocatorCoorHistoryJob coorHistoryJob = new GetLocatorCoorHistoryJob(handler);
+		coorHistoryJob.execute();
+	}
+
+	private void initViews() {
 		// 初始化地图
 		mMapView = (MapView) findViewById(R.id.bmapView);
 		mBaiduMap = mMapView.getMap();
@@ -88,28 +114,33 @@ public class LbsTrack extends Activity {
 		runBtn.setOnClickListener(runListener);
 		stopBtn.setOnClickListener(stopListener);
 
-		// 界面加载时添加绘制图层
-		addCustomElementsDemo();
+		initProgressDlg();
+	}
 
-		initMarker();
-
-		initTask();
-
-		initHandler();
+	private void initProgressDlg() {
+		dialog = new ProgressDialog(this);
+		dialog.setMessage(getResources().getString(R.string.loading_data));
 	}
 
 	private void initHandler() {
-		handler = new Handler() {
+		handler = new MyHandler(LbsTrack.this, dialog) {
 			@Override
 			public void handleMessage(Message msg) {
 				if (LbsTrack.this.isFinishing()) {
 					Log.w("TrackDemoDJC isFinishing", "handleMessage donothing msg=" + msg.what);
 					return;
 				}
-
+				super.handleMessage(msg);
 				switch (msg.what) {
 				case GO_NEXT:
 					doGoNext();
+					break;
+				case EventType.GET_HISTORY_LOCATION_SUCCESS:
+					hanldeGetHistoryLocSuccess(msg);
+					break;
+				case EventType.GET_HISTORY_LOCATION_FAIL:
+					Utils.makeToast(LbsTrack.this, Utils.getResString(R.string.lbs_get_history_location_fail));
+					LbsTrack.this.finish();
 					break;
 				default:
 					break;
@@ -118,91 +149,185 @@ public class LbsTrack extends Activity {
 		};
 	}
 
+	protected void hanldeGetHistoryLocSuccess(Message msg) {
+		@SuppressWarnings("unchecked")
+		List<LocationInfo> list = (List<LocationInfo>) msg.obj;
+		if (list == null || list.isEmpty()) {
+			Utils.makeToast(LbsTrack.this, Utils.getResString(R.string.lbs_get_history_location_is_empty));
+			LbsTrack.this.finish();
+			return;
+		}
+
+		list = removeSameLoc(list);
+
+		lList = getLocInfoList(list);
+
+		addCustomElements(lList);
+		setCenter();
+	}
+
+	private List<LocInfo> getLocInfoList(List<LocationInfo> list) {
+		List<LocInfo> locInfos = new ArrayList<LbsTrack.LocInfo>();
+
+		Iterator<LocationInfo> iterator = list.iterator();
+
+		LocationInfo pre = null;
+		LocationInfo next = null;
+
+		while (iterator.hasNext()) {
+			next = iterator.next();
+
+			if (pre != null) {
+				LocInfo object = new LocInfo();
+				object.info = pre;
+				object.timeStay = next.getTimestamp() - pre.getTimestamp();
+				locInfos.add(object);
+			}
+
+			pre = next;
+		}
+
+		// 加上最后一个节点
+		LocInfo object = new LocInfo();
+		object.info = next;
+		object.timeStay = -1;
+		locInfos.add(object);
+
+		return locInfos;
+	}
+
+	// 如果相邻2个节点的坐标一致，就去掉，这表示定位器没有移动
+	private List<LocationInfo> removeSameLoc(List<LocationInfo> list) {
+		Iterator<LocationInfo> iterator = list.iterator();
+		LocationInfo pre = null;
+
+		while (iterator.hasNext()) {
+			LocationInfo next = iterator.next();
+			if (next.equals(pre)) {
+				iterator.remove();
+				continue;
+			}
+			pre = next;
+		}
+		return list;
+	}
+
 	protected synchronized void doPause() {
 		runBtn.setText("播放");
 		future.cancel(true);
 	}
 
-	private void initTask() {
-		service = Executors.newScheduledThreadPool(10);
+	private void initPlayRecordTask() {
+		service = MyThreadPoolMgr.getGenericService();
 	}
 
-	private void initMarker() {
-		if (currentMarker != null) {
-			currentMarker.remove();
+	public void showWindow(LatLng point, Button button) {
+		// mBaiduMap.hideInfoWindow();
+		InfoWindow mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), point, -52, null);
+		mBaiduMap.showInfoWindow(mInfoWindow);
+	}
+
+	private Button getWindowBtn(LocInfo locInfo) {
+		LocationInfo info = locInfo.info;
+		StringBuffer buffer = new StringBuffer(Utils.convertTime(info.getTimestamp()));
+		buffer.append("\n");
+		buffer.append("速度:");
+		buffer.append(DataUtils.convertSpeed(info.getSpeed()));
+		buffer.append("km/h");
+
+		if (locInfo.timeStay != -1) {
+			buffer.append("\n");
+			buffer.append("停留时长：" + getStayTime(locInfo.timeStay));
 		}
-		OverlayOptions ooA = new MarkerOptions().position(points.get(0)).icon(bdA);
-		currentMarker = (Marker) (mBaiduMap.addOverlay(ooA));
 
-		setCenter();
+		String content = buffer.toString();
+
+		Button button = new Button(getApplicationContext());
+		button.setBackgroundResource(R.drawable.lbs_popup);
+		button.setTextColor(android.graphics.Color.BLACK);
+		button.setText(content);
+
+		button.setTextSize(14.0f);
+		return button;
 	}
 
-	private void setCenter() {
-		// 设置起点为地图中心
-		MapStatus status = new MapStatus.Builder().target(points.get(0)).zoom(13.0f).build();
-		mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(status));
+	private String getStayTime(long timeStay) {
+		StringBuffer buffer = new StringBuffer();
+
+		long seconds = timeStay / 1000;
+
+		long hour = seconds / 3600;
+
+		long minute = (seconds % 3600) / 60;
+
+		if (hour > 0) {
+			buffer.append(hour + "小时");
+		}
+
+		if (hour == 0 && minute == 0) {
+			minute = 1;
+		}
+
+		if (minute > 0) {
+			buffer.append(minute + "分");
+		}
+
+		return buffer.toString();
 	}
 
 	/**
 	 * 添加点、线、多边形、圆、文字
 	 */
-	public void addCustomElementsDemo() {
-		// 添加折线
-		double original_lat = 30.539591;
-		double original_lon = 104.079256;
+	public void addCustomElements(List<LocInfo> locInfos) {
 
-		LatLng p1 = new LatLng(original_lat, original_lon);
-		LatLng p2 = new LatLng(original_lat + 0.005, original_lon + 0.012);
-		LatLng p3 = new LatLng(original_lat + 0.011, original_lon + 0.008);
-		LatLng p4 = new LatLng(original_lat - 0.012, original_lon - 0.07);
-		LatLng p5 = new LatLng(original_lat + 0.004, original_lon + 0.05);
-		LatLng p6 = new LatLng(original_lat + 0.003, original_lon + 0.06);
+		Log.d("", "BBB addCustomElements size=" + locInfos.size());
 
-		points.add(p1);
-		points.add(p2);
-		points.add(p3);
-		points.add(p4);
-		points.add(p5);
-		points.add(p6);
-		OverlayOptions ooPolyline = new PolylineOptions().width(5).color(0xAAFF0000).points(points);
-		mBaiduMap.addOverlay(ooPolyline);
-		// someElse(p1, p2, p3);
+		for (LocInfo locInfo : locInfos) {
+			LatLng coor = DataUtils.getCoor(locInfo.info);
+			points.add(coor);
+		}
+
+		// 只有一个点，说明定位器从始至终就没有动过，无法画线,必须大于1才可以
+		if (locInfos.size() > 1) {
+			OverlayOptions ooPolyline = new PolylineOptions().width(5).color(0xAAFF0000).points(points);
+			mBaiduMap.addOverlay(ooPolyline);
+		}
 	}
 
-	private void someElse(LatLng p1, LatLng p2, LatLng p3) {
-		// 添加弧线
-		OverlayOptions ooArc = new ArcOptions().color(0xAA00FF00).width(4).points(p1, p2, p3);
-		mBaiduMap.addOverlay(ooArc);
-		// 添加圆
-		LatLng llCircle = new LatLng(39.90923, 116.447428);
-		OverlayOptions ooCircle = new CircleOptions().fillColor(0x000000FF).center(llCircle)
-				.stroke(new Stroke(5, 0xAA000000)).radius(1400);
-		mBaiduMap.addOverlay(ooCircle);
-
-		LatLng llDot = new LatLng(39.98923, 116.397428);
-		OverlayOptions ooDot = new DotOptions().center(llDot).radius(6).color(0xFF0000FF);
-		mBaiduMap.addOverlay(ooDot);
-		// 添加多边形
-		LatLng pt1 = new LatLng(39.93923, 116.357428);
-		LatLng pt2 = new LatLng(39.91923, 116.327428);
-		LatLng pt3 = new LatLng(39.89923, 116.347428);
-		LatLng pt4 = new LatLng(39.89923, 116.367428);
-		LatLng pt5 = new LatLng(39.91923, 116.387428);
-		List<LatLng> pts = new ArrayList<LatLng>();
-		pts.add(pt1);
-		pts.add(pt2);
-		pts.add(pt3);
-		pts.add(pt4);
-		pts.add(pt5);
-		OverlayOptions ooPolygon = new PolygonOptions().points(pts).stroke(new Stroke(5, 0xAA00FF00))
-				.fillColor(0xAAFFFF00);
-		mBaiduMap.addOverlay(ooPolygon);
-		// 添加文字
-		LatLng llText = new LatLng(39.86923, 116.397428);
-		OverlayOptions ooText = new TextOptions().bgColor(0xAAFFFF00).fontSize(24).fontColor(0xFFFF00FF)
-				.text("百度地图SDK").rotate(-30).position(llText);
-		mBaiduMap.addOverlay(ooText);
-	}
+	// private void someElse(LatLng p1, LatLng p2, LatLng p3) {
+	// // 添加弧线
+	// OverlayOptions ooArc = new ArcOptions().color(0xAA00FF00).width(4).points(p1, p2, p3);
+	// mBaiduMap.addOverlay(ooArc);
+	// // 添加圆
+	// LatLng llCircle = new LatLng(39.90923, 116.447428);
+	// OverlayOptions ooCircle = new CircleOptions().fillColor(0x000000FF).center(llCircle)
+	// .stroke(new Stroke(5, 0xAA000000)).radius(1400);
+	// mBaiduMap.addOverlay(ooCircle);
+	//
+	// LatLng llDot = new LatLng(39.98923, 116.397428);
+	// OverlayOptions ooDot = new DotOptions().center(llDot).radius(6).color(0xFF0000FF);
+	// mBaiduMap.addOverlay(ooDot);
+	// // 添加多边形
+	// LatLng pt1 = new LatLng(39.93923, 116.357428);
+	// LatLng pt2 = new LatLng(39.91923, 116.327428);
+	// LatLng pt3 = new LatLng(39.89923, 116.347428);
+	// LatLng pt4 = new LatLng(39.89923, 116.367428);
+	// LatLng pt5 = new LatLng(39.91923, 116.387428);
+	// List<LatLng> pts = new ArrayList<LatLng>();
+	// pts.add(pt1);
+	// pts.add(pt2);
+	// pts.add(pt3);
+	// pts.add(pt4);
+	// pts.add(pt5);
+	// OverlayOptions ooPolygon = new PolygonOptions().points(pts).stroke(new Stroke(5, 0xAA00FF00))
+	// .fillColor(0xAAFFFF00);
+	// mBaiduMap.addOverlay(ooPolygon);
+	// // 添加文字
+	// LatLng llText = new LatLng(39.86923, 116.397428);
+	// OverlayOptions ooText = new TextOptions().bgColor(0xAAFFFF00).fontSize(24).fontColor(0xFFFF00FF)
+	// .text("百度地图SDK").rotate(-30).position(llText);
+	// mBaiduMap.addOverlay(ooText);
+	// }
 
 	public void stopClick() {
 		if (currentMarkerIndex != 0) {
@@ -211,6 +336,11 @@ public class LbsTrack extends Activity {
 	}
 
 	public void runClick() {
+		if (points.isEmpty()) {
+			Utils.makeToast(LbsTrack.this, Utils.getResString(R.string.lbs_get_history_location_is_empty));
+			return;
+		}
+
 		if ("播放".equals(runBtn.getText().toString())) {
 			runBtn.setText("暂停");
 			runTask();
@@ -232,7 +362,7 @@ public class LbsTrack extends Activity {
 
 	private synchronized void doStop() {
 		currentMarkerIndex = 0;
-		initMarker();
+		setCenter();
 		runBtn.setText("播放");
 		boolean cancel = future.cancel(true);
 		Log.w("doStop", "doStop cancel=" + cancel);
@@ -245,10 +375,37 @@ public class LbsTrack extends Activity {
 		}
 
 		currentMarkerIndex++;
-		OverlayOptions ooA = new MarkerOptions().position(points.get(currentMarkerIndex)).icon(bdA);
-		currentMarker.remove();
+		LatLng latLng = points.get(currentMarkerIndex);
+		LocInfo locInfo = lList.get(currentMarkerIndex);
+
+		showMarker(latLng);
+		showWindow(latLng, getWindowBtn(locInfo));
+	}
+
+	private void showMarker(LatLng point) {
+		if (currentMarker != null) {
+			currentMarker.remove();
+		}
+		OverlayOptions ooA = new MarkerOptions().position(point).icon(bdA);
 		currentMarker = (Marker) (mBaiduMap.addOverlay(ooA));
-		mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newLatLng(points.get(currentMarkerIndex)));
+		mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newLatLng(point));
+	}
+
+	private void setCenter() {
+		if (currentMarker != null) {
+			currentMarker.remove();
+		}
+		LatLng latLng = points.get(0);
+		LocInfo locInfo = lList.get(0);
+
+		OverlayOptions ooA = new MarkerOptions().position(latLng).icon(bdA);
+		currentMarker = (Marker) (mBaiduMap.addOverlay(ooA));
+
+		// 设置起点为地图中心
+		MapStatus status = new MapStatus.Builder().target(latLng).zoom(15.0f).build();
+		mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(status));
+
+		showWindow(latLng, getWindowBtn(locInfo));
 	}
 
 	@Override
@@ -267,8 +424,15 @@ public class LbsTrack extends Activity {
 	protected void onDestroy() {
 		mMapView.onDestroy();
 		super.onDestroy();
-		service.shutdownNow();
 		bdA.recycle();
+		if (future != null) {
+			future.cancel(true);
+		}
+	}
+
+	private static class LocInfo {
+		private LocationInfo info;
+		private long timeStay;
 	}
 
 }

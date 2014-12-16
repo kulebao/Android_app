@@ -31,6 +31,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="fence"
-        android:text="围栏" />
+        android:text="围栏"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/power"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="电量:" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/power"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设备id" />
+
+        <EditText
+            android:id="@+id/inputid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="请输入设备id" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="confirm"
+            android:text="确认" />
+    </LinearLayout>
 
 </LinearLayout>

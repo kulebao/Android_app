@@ -128,4 +128,10 @@ public class EventType {
 	public static final int COUNTDOWN_EVENT = 20001;
 	public static final int GET_LAST_LOCATION_SUCCESS = 20010;
 	public static final int GET_LAST_LOCATION_FAIL = 20011;
+	
+	public static final int GET_HISTORY_LOCATION_SUCCESS = 20020;
+	public static final int GET_HISTORY_LOCATION_FAIL = 20021;
+	
+	public static final int GET_LOCATOR_POWER_SUCCESS = 20030;
+	public static final int GET_LOCATOR_POWER_FAIL = 20031;
 }

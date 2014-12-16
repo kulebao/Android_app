@@ -348,7 +348,7 @@ public class DataUtils {
 	}
 
 	// 原始数据包含度和分，要转换为度
-	public static LatLng getLatLng(LocationInfo info) {
+	public static LatLng getCoor(LocationInfo info) {
 		double baiduLat = getBaiduLat(info.getLatitude());
 		double baidulon = getBaiduLon(info.getLongitude());
 
