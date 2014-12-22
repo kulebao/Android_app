@@ -2,6 +2,7 @@ package com.cocobabys.net;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
@@ -13,6 +14,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.InfoHelper;
 import com.cocobabys.dbmgr.info.SchoolInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
+import com.cocobabys.utils.DataUtils;
 
 public class SchoolMethod {
 
@@ -21,6 +23,36 @@ public class SchoolMethod {
 
 	public static SchoolMethod getGetAuthCodeMethod() {
 		return new SchoolMethod();
+	}
+
+	public void saveSchoolConfig() {
+		HttpResult result = new HttpResult();
+		try {
+			result = HttpClientHelper.executeGet(String.format(ServerUrls.GET_SCHOOL_CONFIG, DataMgr.getInstance()
+					.getSchoolID()));
+
+			if (result.getResCode() == HttpStatus.SC_OK) {
+				saveVideoProperty(result);
+			} else {
+				Log.e("getSchoolConfig failed", "result =" + result.toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void saveVideoProperty(HttpResult result) throws JSONException {
+		JSONObject jsonObject = result.getJsonObject();
+		JSONArray jsonArray = jsonObject.getJSONArray("config");
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+			if ("hideVideo".equals(jsonObject2.getString("name"))) {
+				DataUtils.saveProp(JSONConstant.HIDE_VIDEO, jsonObject2.getString("value"));
+				break;
+			}
+
+		}
 	}
 
 	public int checkSchoolInfo() throws Exception {

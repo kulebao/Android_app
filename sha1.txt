@@ -1,0 +1,5 @@
+home debug:  66:9F:F9:AE:92:06:5C:14:8E:35:A4:A5:51:7D:37:33:4A:EB:DD:FD
+
+home release:  09:47:49:90:86:19:37:6D:D2:E2:6B:B3:B1:8A:C5:59:14:3D:AF:54
+
++   ;   +    packagename

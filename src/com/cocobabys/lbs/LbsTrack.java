@@ -22,6 +22,7 @@ import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatus.Builder;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
@@ -60,14 +61,15 @@ public class LbsTrack extends Activity {
 	Button runBtn;
 	private List<LatLng> points = new ArrayList<LatLng>();
 	// 初始化全局 bitmap 信息，不用时及时 recycle
-	private BitmapDescriptor bdA = BitmapDescriptorFactory.fromResource(R.drawable.lbs_icon_marka);
+	private BitmapDescriptor bdA = BitmapDescriptorFactory
+			.fromResource(R.drawable.lbs_icon_marka);
 	private Marker currentMarker = null;
 	private int currentMarkerIndex = 0;
 	private ScheduledExecutorService service;
 	private ScheduledFuture<?> future;
 
 	private Handler handler;
-
+	private boolean firstUse = true;
 	private List<LocInfo> lList;
 
 	@Override
@@ -88,7 +90,8 @@ public class LbsTrack extends Activity {
 
 	private void runGetHistoryLocTask() {
 		dialog.show();
-		GetLocatorCoorHistoryJob coorHistoryJob = new GetLocatorCoorHistoryJob(handler);
+		GetLocatorCoorHistoryJob coorHistoryJob = new GetLocatorCoorHistoryJob(
+				handler);
 		coorHistoryJob.execute();
 	}
 
@@ -110,7 +113,6 @@ public class LbsTrack extends Activity {
 				stopClick();
 			}
 		};
-
 		runBtn.setOnClickListener(runListener);
 		stopBtn.setOnClickListener(stopListener);
 
@@ -127,7 +129,8 @@ public class LbsTrack extends Activity {
 			@Override
 			public void handleMessage(Message msg) {
 				if (LbsTrack.this.isFinishing()) {
-					Log.w("TrackDemoDJC isFinishing", "handleMessage donothing msg=" + msg.what);
+					Log.w("TrackDemoDJC isFinishing",
+							"handleMessage donothing msg=" + msg.what);
 					return;
 				}
 				super.handleMessage(msg);
@@ -139,7 +142,9 @@ public class LbsTrack extends Activity {
 					hanldeGetHistoryLocSuccess(msg);
 					break;
 				case EventType.GET_HISTORY_LOCATION_FAIL:
-					Utils.makeToast(LbsTrack.this, Utils.getResString(R.string.lbs_get_history_location_fail));
+					Utils.makeToast(
+							LbsTrack.this,
+							Utils.getResString(R.string.lbs_get_history_location_fail));
 					LbsTrack.this.finish();
 					break;
 				default:
@@ -153,7 +158,8 @@ public class LbsTrack extends Activity {
 		@SuppressWarnings("unchecked")
 		List<LocationInfo> list = (List<LocationInfo>) msg.obj;
 		if (list == null || list.isEmpty()) {
-			Utils.makeToast(LbsTrack.this, Utils.getResString(R.string.lbs_get_history_location_is_empty));
+			Utils.makeToast(LbsTrack.this, Utils
+					.getResString(R.string.lbs_get_history_location_is_empty));
 			LbsTrack.this.finish();
 			return;
 		}
@@ -223,13 +229,15 @@ public class LbsTrack extends Activity {
 
 	public void showWindow(LatLng point, Button button) {
 		// mBaiduMap.hideInfoWindow();
-		InfoWindow mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), point, -52, null);
+		InfoWindow mInfoWindow = new InfoWindow(
+				BitmapDescriptorFactory.fromView(button), point, -52, null);
 		mBaiduMap.showInfoWindow(mInfoWindow);
 	}
 
 	private Button getWindowBtn(LocInfo locInfo) {
 		LocationInfo info = locInfo.info;
-		StringBuffer buffer = new StringBuffer(Utils.convertTime(info.getTimestamp()));
+		StringBuffer buffer = new StringBuffer(Utils.convertTime(info
+				.getTimestamp()));
 		buffer.append("\n");
 		buffer.append("速度:");
 		buffer.append(DataUtils.convertSpeed(info.getSpeed()));
@@ -289,23 +297,27 @@ public class LbsTrack extends Activity {
 
 		// 只有一个点，说明定位器从始至终就没有动过，无法画线,必须大于1才可以
 		if (locInfos.size() > 1) {
-			OverlayOptions ooPolyline = new PolylineOptions().width(5).color(0xAAFF0000).points(points);
+			OverlayOptions ooPolyline = new PolylineOptions().width(5)
+					.color(0xAAFF0000).points(points);
 			mBaiduMap.addOverlay(ooPolyline);
 		}
 	}
 
 	// private void someElse(LatLng p1, LatLng p2, LatLng p3) {
 	// // 添加弧线
-	// OverlayOptions ooArc = new ArcOptions().color(0xAA00FF00).width(4).points(p1, p2, p3);
+	// OverlayOptions ooArc = new
+	// ArcOptions().color(0xAA00FF00).width(4).points(p1, p2, p3);
 	// mBaiduMap.addOverlay(ooArc);
 	// // 添加圆
 	// LatLng llCircle = new LatLng(39.90923, 116.447428);
-	// OverlayOptions ooCircle = new CircleOptions().fillColor(0x000000FF).center(llCircle)
+	// OverlayOptions ooCircle = new
+	// CircleOptions().fillColor(0x000000FF).center(llCircle)
 	// .stroke(new Stroke(5, 0xAA000000)).radius(1400);
 	// mBaiduMap.addOverlay(ooCircle);
 	//
 	// LatLng llDot = new LatLng(39.98923, 116.397428);
-	// OverlayOptions ooDot = new DotOptions().center(llDot).radius(6).color(0xFF0000FF);
+	// OverlayOptions ooDot = new
+	// DotOptions().center(llDot).radius(6).color(0xFF0000FF);
 	// mBaiduMap.addOverlay(ooDot);
 	// // 添加多边形
 	// LatLng pt1 = new LatLng(39.93923, 116.357428);
@@ -319,12 +331,14 @@ public class LbsTrack extends Activity {
 	// pts.add(pt3);
 	// pts.add(pt4);
 	// pts.add(pt5);
-	// OverlayOptions ooPolygon = new PolygonOptions().points(pts).stroke(new Stroke(5, 0xAA00FF00))
+	// OverlayOptions ooPolygon = new PolygonOptions().points(pts).stroke(new
+	// Stroke(5, 0xAA00FF00))
 	// .fillColor(0xAAFFFF00);
 	// mBaiduMap.addOverlay(ooPolygon);
 	// // 添加文字
 	// LatLng llText = new LatLng(39.86923, 116.397428);
-	// OverlayOptions ooText = new TextOptions().bgColor(0xAAFFFF00).fontSize(24).fontColor(0xFFFF00FF)
+	// OverlayOptions ooText = new
+	// TextOptions().bgColor(0xAAFFFF00).fontSize(24).fontColor(0xFFFF00FF)
 	// .text("百度地图SDK").rotate(-30).position(llText);
 	// mBaiduMap.addOverlay(ooText);
 	// }
@@ -337,7 +351,8 @@ public class LbsTrack extends Activity {
 
 	public void runClick() {
 		if (points.isEmpty()) {
-			Utils.makeToast(LbsTrack.this, Utils.getResString(R.string.lbs_get_history_location_is_empty));
+			Utils.makeToast(LbsTrack.this, Utils
+					.getResString(R.string.lbs_get_history_location_is_empty));
 			return;
 		}
 
@@ -402,7 +417,15 @@ public class LbsTrack extends Activity {
 		currentMarker = (Marker) (mBaiduMap.addOverlay(ooA));
 
 		// 设置起点为地图中心
-		MapStatus status = new MapStatus.Builder().target(latLng).zoom(15.0f).build();
+		Builder builder = new MapStatus.Builder().target(latLng);
+
+		if (firstUse) {
+			builder.zoom(15.0f);
+			firstUse = false;
+		}
+
+		MapStatus status = builder.build();
+
 		mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(status));
 
 		showWindow(latLng, getWindowBtn(locInfo));

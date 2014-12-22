@@ -158,4 +158,7 @@ public class ServerUrls {
 
 	// https://stage2.cocobabys.com/api/v2/location/1451351909/status/power
 	public static final String GET_LOCATOR_POWER = getHost() + "api/v2/" + LOCATION_PATH + "/%s/" + "status/power";
+
+	public static final String GET_SCHOOL_CONFIG = getHost() + "api/v2/school_config/%s";
+
 }

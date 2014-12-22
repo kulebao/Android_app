@@ -29,6 +29,7 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MapStatus.Builder;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
@@ -56,7 +57,8 @@ import com.cocobabys.utils.Utils;
  * 此demo用来展示如何结合定位SDK实现定位，并使用MyLocationOverlay绘制定位位置 同时展示如何使用自定义图标绘制并点击时弹出泡泡
  * 
  */
-public class LbsLocation extends Activity implements OnGetGeoCoderResultListener {
+public class LbsLocation extends Activity implements
+		OnGetGeoCoderResultListener {
 	private static final String COOR_TYPE = "bd09ll";
 	private static final int GET_LOC_TIME_SPAN = 14000;
 	// 固定刷新间隔时间，设置为20s
@@ -80,13 +82,15 @@ public class LbsLocation extends Activity implements OnGetGeoCoderResultListener
 	private TextView distanceView;
 	private Button changeCircleBtn;
 	private TextView locationInfoView;
-	private BitmapDescriptor bdA = BitmapDescriptorFactory.fromResource(R.drawable.lbs_icon_marka);
+	private BitmapDescriptor bdA = BitmapDescriptorFactory
+			.fromResource(R.drawable.lbs_icon_marka);
 	private Handler handler;
 	private RefreshLocationJob refreshJob;
 	private TextView showtime;
 	private GetLocatorCoorJob getCoorJob;
 	private MyLocationData locData;
 	private Button refreshBtn;
+	private boolean firstUse = true;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -104,7 +108,8 @@ public class LbsLocation extends Activity implements OnGetGeoCoderResultListener
 			@Override
 			public void handleMessage(Message msg) {
 				if (LbsLocation.this.isFinishing()) {
-					Log.w("TrackDemoDJC isFinishing", "handleMessage donothing msg=" + msg.what);
+					Log.w("TrackDemoDJC isFinishing",
+							"handleMessage donothing msg=" + msg.what);
 					return;
 				}
 
@@ -112,10 +117,13 @@ public class LbsLocation extends Activity implements OnGetGeoCoderResultListener
 				case EventType.COUNTDOWN_EVENT:
 					Log.d("", "AAA showtime.setText msg.arg1=" + msg.arg1);
 
-					showtime.setText(String.format(Utils.getResString(R.string.lbs_refresh_time), msg.arg1));
+					showtime.setText(String.format(
+							Utils.getResString(R.string.lbs_refresh_time),
+							msg.arg1));
 					break;
 				case EventType.GET_LAST_LOCATION_FAIL:
-					Utils.makeToast(LbsLocation.this, Utils.getResString(R.string.lbs_get_location_fail));
+					Utils.makeToast(LbsLocation.this,
+							Utils.getResString(R.string.lbs_get_location_fail));
 					handleGetLocFail();
 					break;
 				case EventType.GET_LAST_LOCATION_SUCCESS:
@@ -249,19 +257,22 @@ public class LbsLocation extends Activity implements OnGetGeoCoderResultListener
 					requestLocButton.setText("跟随");
 					mCurrentMode = LocationMode.FOLLOWING;
 					mBaiduMap
-							.setMyLocationConfigeration(new MyLocationConfiguration(mCurrentMode, true, mCurrentMarker));
+							.setMyLocationConfigeration(new MyLocationConfiguration(
+									mCurrentMode, true, mCurrentMarker));
 					break;
 				case COMPASS:
 					requestLocButton.setText("普通");
 					mCurrentMode = LocationMode.NORMAL;
 					mBaiduMap
-							.setMyLocationConfigeration(new MyLocationConfiguration(mCurrentMode, true, mCurrentMarker));
+							.setMyLocationConfigeration(new MyLocationConfiguration(
+									mCurrentMode, true, mCurrentMarker));
 					break;
 				case FOLLOWING:
 					requestLocButton.setText("罗盘");
 					mCurrentMode = LocationMode.COMPASS;
 					mBaiduMap
-							.setMyLocationConfigeration(new MyLocationConfiguration(mCurrentMode, true, mCurrentMarker));
+							.setMyLocationConfigeration(new MyLocationConfiguration(
+									mCurrentMode, true, mCurrentMarker));
 					break;
 				}
 			}
@@ -284,7 +295,16 @@ public class LbsLocation extends Activity implements OnGetGeoCoderResultListener
 
 	private void setCenter(LatLng center) {
 		// 设置定位器为地图中心
-		MapStatus status = new MapStatus.Builder().target(center).zoom(15.0f).build();
+		// 设置起点为地图中心
+		Builder builder = new MapStatus.Builder().target(center);
+
+		if (firstUse) {
+			builder.zoom(15.0f);
+			firstUse = false;
+		}
+
+		MapStatus status = builder.build();
+
 		mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(status));
 	}
 
@@ -345,12 +365,15 @@ public class LbsLocation extends Activity implements OnGetGeoCoderResultListener
 			if (location == null || mMapView == null)
 				return;
 
-			locData = new MyLocationData.Builder().accuracy(location.getRadius())
-			// 此处设置开发者获取到的方向信息，顺时针0-360
-					.direction(100).latitude(location.getLatitude()).longitude(location.getLongitude()).build();
+			locData = new MyLocationData.Builder()
+					.accuracy(location.getRadius())
+					// 此处设置开发者获取到的方向信息，顺时针0-360
+					.direction(100).latitude(location.getLatitude())
+					.longitude(location.getLongitude()).build();
 			start = new LatLng(location.getLatitude(), location.getLongitude());
 
-			Log.d("TTT", "lat =" + location.getLatitude() + "  lon =" + location.getLongitude());
+			Log.d("TTT", "lat =" + location.getLatitude() + "  lon ="
+					+ location.getLongitude());
 			changeCircleBtn.setVisibility(View.VISIBLE);
 			runGetLocatorCoorTask();
 			// handleReceiveLocation();
@@ -395,13 +418,15 @@ public class LbsLocation extends Activity implements OnGetGeoCoderResultListener
 
 		button.setTextSize(14.0f);
 		OverlayOptions option = new MarkerOptions().position(point).icon(bdA);
-		InfoWindow mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(button), point, -52, null);
+		InfoWindow mInfoWindow = new InfoWindow(
+				BitmapDescriptorFactory.fromView(button), point, -52, null);
 		mBaiduMap.addOverlay(option);
 		mBaiduMap.showInfoWindow(mInfoWindow);
 	}
 
 	private String getPopContent(LocationInfo info) {
-		StringBuffer buffer = new StringBuffer(Utils.convertTime(info.getTimestamp()));
+		StringBuffer buffer = new StringBuffer(Utils.convertTime(info
+				.getTimestamp()));
 		buffer.append("\n");
 		buffer.append("速度:");
 		buffer.append(DataUtils.convertSpeed(info.getSpeed()));
@@ -468,7 +493,8 @@ public class LbsLocation extends Activity implements OnGetGeoCoderResultListener
 			double minDis = Double.MAX_VALUE;
 			PoiInfo shouldShow = null;
 			for (PoiInfo info : poiList) {
-				double currentDis = DistanceUtil.getDistance(end, info.location);
+				double currentDis = DistanceUtil
+						.getDistance(end, info.location);
 
 				if (currentDis < minDis) {
 					shouldShow = info;
@@ -480,7 +506,8 @@ public class LbsLocation extends Activity implements OnGetGeoCoderResultListener
 			}
 
 			if (shouldShow != null) {
-				content.append(".离").append(shouldShow.name).append("约").append((int) minDis).append("米");
+				content.append(".离").append(shouldShow.name).append("约")
+						.append((int) minDis).append("米");
 			}
 		}
 

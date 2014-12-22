@@ -32,11 +32,14 @@ public class LbsMethod {
 	}
 
 	private MethodResult getPowerResult(HttpResult result) {
-		MethodResult methodResult = new MethodResult(EventType.GET_LOCATOR_POWER_FAIL);
+		MethodResult methodResult = new MethodResult(
+				EventType.GET_LOCATOR_POWER_FAIL);
 		if (result.getResCode() == HttpStatus.SC_OK) {
-			Log.d("DDD getPowerResult ", " getPowerResult : " + result.getContent());
+			Log.d("DDD getPowerResult ",
+					" getPowerResult : " + result.getContent());
 			methodResult.setResultType(EventType.GET_LOCATOR_POWER_SUCCESS);
-			LocatorPower parseObject = JSON.parseObject(result.getContent(), LocatorPower.class);
+			LocatorPower parseObject = JSON.parseObject(result.getContent(),
+					LocatorPower.class);
 			methodResult.setResultObj(parseObject);
 		}
 		return methodResult;
@@ -59,23 +62,30 @@ public class LbsMethod {
 	}
 
 	private MethodResult getHistoryResult(HttpResult result) throws Exception {
-		MethodResult methodResult = new MethodResult(EventType.GET_HISTORY_LOCATION_FAIL);
+		MethodResult methodResult = new MethodResult(
+				EventType.GET_HISTORY_LOCATION_FAIL);
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			Log.d("DDD getLastLocation ", " str : " + result.getContent());
 			methodResult.setResultType(EventType.GET_HISTORY_LOCATION_SUCCESS);
-			List<LocationInfo> parseArray = JSON.parseArray(result.getContent(), LocationInfo.class);
+			List<LocationInfo> parseArray = JSON.parseArray(
+					result.getContent(), LocationInfo.class);
 			methodResult.setResultObj(parseArray);
 		}
 		return methodResult;
 	}
 
 	private MethodResult getLastResult(HttpResult result) throws Exception {
-		MethodResult methodResult = new MethodResult(EventType.GET_LAST_LOCATION_FAIL);
+		MethodResult methodResult = new MethodResult(
+				EventType.GET_LAST_LOCATION_FAIL);
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			Log.d("DDD getLastLocation ", " str : " + result.getContent());
-			methodResult.setResultType(EventType.GET_LAST_LOCATION_SUCCESS);
-			List<LocationInfo> parseArray = JSON.parseArray(result.getContent(), LocationInfo.class);
-			methodResult.setResultObj(parseArray.get(0));
+
+			List<LocationInfo> parseArray = JSON.parseArray(
+					result.getContent(), LocationInfo.class);
+			if (!parseArray.isEmpty()) {
+				methodResult.setResultObj(parseArray.get(0));
+				methodResult.setResultType(EventType.GET_LAST_LOCATION_SUCCESS);
+			}
 		}
 		return methodResult;
 	}

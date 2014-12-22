@@ -38,7 +38,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.cocobabys.activities.MyApplication;
-import com.cocobabys.activities.UpdateActivity;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventMap;
 import com.cocobabys.constant.JSONConstant;
@@ -675,7 +674,6 @@ public class Utils {
 	}
 
 	/**
-	 * 实现文本复制功能 add by wangqianzhou
 	 * 
 	 * @param content
 	 */

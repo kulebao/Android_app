@@ -32,7 +32,8 @@ public class JSONConstant {
 	public static final String SCHOOL_ID = "school_id";
 	//当前账号的状态，是免费用户还是付费用户
 	public static final String MEMBER_STATUS = "member_status";
-	// public static final String CLASS_ID = "class_id";
+	//是否显示视频
+	public static final String HIDE_VIDEO = "hide_video";
 	
 	//最近一次下载新版本的地址
 	public static final String LAST_UPDATE_URL = "last_update_url";

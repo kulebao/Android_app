@@ -48,4 +48,9 @@ public class HttpResult {
 	public JSONArray getJSONArray() throws JSONException {
 		return new JSONArray(content);
 	}
+
+	@Override
+	public String toString() {
+		return "HttpResult [resCode=" + resCode + ", content=" + content + "]";
+	}
 }

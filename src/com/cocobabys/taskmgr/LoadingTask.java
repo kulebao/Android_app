@@ -9,6 +9,7 @@ import android.os.Message;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.net.PushMethod;
+import com.cocobabys.net.SchoolMethod;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
@@ -39,6 +40,8 @@ public class LoadingTask extends AsyncTask<Void, Void, Void> {
 				if (Utils.isNetworkConnected(MyApplication.getInstance())) {
 					PushMethod.getMethod().sendBinfInfo();
 				}
+				
+				SchoolMethod.getGetAuthCodeMethod().saveSchoolConfig();
 			}
 			long now = System.currentTimeMillis();
 			long ellapse = now - current;

@@ -715,18 +715,18 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		map.put("ItemText", getResources().getText(R.string.education));
 		lstImageItem.add(map);
 
-		// 暂时屏蔽成长经历模块和视频监控模块
-		// if (MyApplication.getInstance().isForTest()) {
 		map = new HashMap<String, Object>();
 		map.put("ItemImage", R.drawable.exp);
 		map.put("ItemText", getResources().getText(R.string.experence));
 		lstImageItem.add(map);
 
-		map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.watch);
-		map.put("ItemText", getResources().getText(R.string.watch_baby));
-		lstImageItem.add(map);
-		// }
+		// 如果幼儿园属性里面隐藏了视频模块，则不显示
+		if ("false".equals(DataUtils.getProp(JSONConstant.HIDE_VIDEO, "false"))) {
+			map = new HashMap<String, Object>();
+			map.put("ItemImage", R.drawable.watch);
+			map.put("ItemText", getResources().getText(R.string.watch_baby));
+			lstImageItem.add(map);
+		}
 
 		return lstImageItem;
 	}
