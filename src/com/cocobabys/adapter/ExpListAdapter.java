@@ -8,12 +8,14 @@ import java.util.Map;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,10 +27,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cocobabys.R;
+import com.cocobabys.activities.ShowVideoActivity;
 import com.cocobabys.bean.IconInfo;
 import com.cocobabys.bean.SenderInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.NoticeAction;
 import com.cocobabys.customview.LongClickDlg;
 import com.cocobabys.customview.LongClickDlg.OnDeleteBtnClickListener;
@@ -63,8 +67,7 @@ public class ExpListAdapter extends BaseAdapter {
 	private static final String ANONYMOUS_TEACHER_NAME = "匿名老师";
 	private int deletePos = -1;
 
-	public ExpListAdapter(Context activityContext, List<ExpInfo> list,
-			DownloadImgeJob downloadImgeTask,
+	public ExpListAdapter(Context activityContext, List<ExpInfo> list, DownloadImgeJob downloadImgeTask,
 			GetSenderInfoJob getTeacherInfoJob, ImageLoader imageLoader) {
 		this.context = activityContext;
 		this.dataList = list;
@@ -156,21 +159,16 @@ public class ExpListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		FlagHolder flagholder = null;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(this.context).inflate(
-					R.layout.exp_item, null);
+			convertView = LayoutInflater.from(this.context).inflate(R.layout.exp_item, null);
 			flagholder = new FlagHolder();
-			flagholder.nameView = (TextView) convertView
-					.findViewById(R.id.name);
-			flagholder.contentView = (TextView) convertView
-					.findViewById(R.id.content);
-			flagholder.timestampView = (TextView) convertView
-					.findViewById(R.id.time);
-			flagholder.headiconView = (ImageView) convertView
-					.findViewById(R.id.headicon);
-			flagholder.gridview = (MyGridView) convertView
-					.findViewById(R.id.gridview);
-			flagholder.layout = (LinearLayout) convertView
-					.findViewById(R.id.linearLayout);
+			flagholder.nameView = (TextView) convertView.findViewById(R.id.name);
+			flagholder.contentView = (TextView) convertView.findViewById(R.id.content);
+			flagholder.timestampView = (TextView) convertView.findViewById(R.id.time);
+			flagholder.headiconView = (ImageView) convertView.findViewById(R.id.headicon);
+			flagholder.gridview = (MyGridView) convertView.findViewById(R.id.gridview);
+			flagholder.layout = (LinearLayout) convertView.findViewById(R.id.linearLayout);
+			flagholder.videonail = (ImageView) convertView.findViewById(R.id.videonail);
+
 			convertView.setTag(flagholder);
 		} else {
 			flagholder = (FlagHolder) convertView.getTag();
@@ -190,12 +188,39 @@ public class ExpListAdapter extends BaseAdapter {
 
 		setHeadIcon(flagholder, info);
 		setContent(flagholder, info);
-		setIcon(flagholder, info);
+
+		if (JSONConstant.IMAGE_TYPE.equals(info.getMediumType())) {
+			setIcon(flagholder, info);
+		} else {
+			setVideoNail(flagholder, info);
+		}
 		setOnLongClickListener(flagholder, position);
 	}
 
-	private void setOnLongClickListener(FlagHolder flagholder,
-			final int position) {
+	private void setVideoNail(FlagHolder flagholder, final ExpInfo info) {
+		flagholder.gridview.setVisibility(View.GONE);
+		flagholder.videonail.setVisibility(View.VISIBLE);
+
+		List<String> serverUrls = info.getServerUrls();
+		String nail = info.serverUrlToLocalUrl(serverUrls.get(0), true);
+		if (new File(nail).exists()) {
+			flagholder.videonail.setBackgroundDrawable(new BitmapDrawable(Utils.getLoacalBitmap(nail, 160 * 160)));
+		} else {
+			flagholder.videonail.setBackgroundColor(context.getResources().getColor(R.color.black));
+			// flagholder.videonail.setImageResource(R.drawable.pvideo);
+		}
+
+		flagholder.videonail.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, ShowVideoActivity.class);
+				intent.putExtra(ConstantValue.EXP_ID, info.getExp_id());
+				context.startActivity(intent);
+			}
+		});
+	}
+
+	private void setOnLongClickListener(FlagHolder flagholder, final int position) {
 		flagholder.layout.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
@@ -204,14 +229,13 @@ public class ExpListAdapter extends BaseAdapter {
 			}
 		});
 
-		flagholder.contentView
-				.setOnLongClickListener(new OnLongClickListener() {
-					@Override
-					public boolean onLongClick(View v) {
-						showDlgEx(position);
-						return false;
-					}
-				});
+		flagholder.contentView.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				showDlgEx(position);
+				return false;
+			}
+		});
 
 		flagholder.gridview.setOnLongClickListener(new OnLongClickListener() {
 			@Override
@@ -228,24 +252,20 @@ public class ExpListAdapter extends BaseAdapter {
 
 		longClickDlg.setTextContent(info.getContent());
 
-		if (DataMgr.getInstance().getSelfInfoByPhone().getParent_id()
-				.equals(info.getSender_id())) {
-			longClickDlg
-					.setOnDeleteBtnClickListener(new OnDeleteBtnClickListener() {
+		// 只能删除自己发的
+		if (DataMgr.getInstance().getSelfInfoByPhone().getParent_id().equals(info.getSender_id())) {
+			longClickDlg.setOnDeleteBtnClickListener(new OnDeleteBtnClickListener() {
 
-						@Override
-						public void onDeleteClicked() {
-							ExpInfo item = getItem(pos);
-							DeleteExpJob deleteExpJob = new DeleteExpJob(
-									handler, item.getExp_id(), DataMgr
-											.getInstance().getSelectedChild()
-											.getServer_id());
-							deletePos = pos;
-							longClickDlg.getDeleteChatListener()
-									.onDeleteBegain();
-							deleteExpJob.execute();
-						}
-					});
+				@Override
+				public void onDeleteClicked() {
+					ExpInfo item = getItem(pos);
+					DeleteExpJob deleteExpJob = new DeleteExpJob(handler, item.getExp_id(), DataMgr.getInstance()
+							.getSelectedChild().getServer_id());
+					deletePos = pos;
+					longClickDlg.getDeleteChatListener().onDeleteBegain();
+					deleteExpJob.execute();
+				}
+			});
 		}
 
 		longClickDlg.showDlg();
@@ -304,17 +324,14 @@ public class ExpListAdapter extends BaseAdapter {
 		Bitmap bitmap = null;
 		IconInfo iconInfo = getIconInfo(info);
 
-		bitmap = getLocalIcon(iconInfo, ConstantValue.HEAD_ICON_WIDTH,
-				ConstantValue.HEAD_ICON_HEIGHT);
+		bitmap = getLocalIcon(iconInfo, ConstantValue.HEAD_ICON_WIDTH, ConstantValue.HEAD_ICON_HEIGHT);
 
 		if (bitmap != null) {
 			Utils.setImg(flagholder.headiconView, bitmap);
 		} else {
-			downloadImgeJob.addTask(iconInfo.getNetPath(),
-					iconInfo.getLocalPath(), ConstantValue.HEAD_ICON_WIDTH,
+			downloadImgeJob.addTask(iconInfo.getNetPath(), iconInfo.getLocalPath(), ConstantValue.HEAD_ICON_WIDTH,
 					ConstantValue.HEAD_ICON_HEIGHT);
-			flagholder.headiconView
-					.setImageResource(R.drawable.default_small_icon);
+			flagholder.headiconView.setImageResource(R.drawable.default_small_icon);
 		}
 	}
 
@@ -322,13 +339,11 @@ public class ExpListAdapter extends BaseAdapter {
 		IconInfo iconInfo = new IconInfo();
 		try {
 			if (ExpInfo.PARENT_TYPE.equals(info.getSender_type())) {
-				ChildInfo childByID = DataMgr.getInstance().getChildByID(
-						info.getChild_id());
+				ChildInfo childByID = DataMgr.getInstance().getChildByID(info.getChild_id());
 				iconInfo.setLocalPath(childByID.getLocal_url());
 				iconInfo.setNetPath(childByID.getServer_url());
 			} else {
-				Teacher teacherByID = DataMgr.getInstance().getTeacherByID(
-						info.getSender_id());
+				Teacher teacherByID = DataMgr.getInstance().getTeacherByID(info.getSender_id());
 				iconInfo.setLocalPath(teacherByID.getLocalIconPath());
 				iconInfo.setNetPath(teacherByID.getHead_icon());
 			}
@@ -338,8 +353,7 @@ public class ExpListAdapter extends BaseAdapter {
 		return iconInfo;
 	}
 
-	private Bitmap getLocalIcon(IconInfo iconInfo, int limitWidth,
-			int limitHeight) {
+	private Bitmap getLocalIcon(IconInfo iconInfo, int limitWidth, int limitHeight) {
 		Bitmap loacalBitmap = null;
 		if (TextUtils.isEmpty(iconInfo.getNetPath())) {
 			return null;
@@ -349,8 +363,7 @@ public class ExpListAdapter extends BaseAdapter {
 
 		if (loacalBitmap == null) {
 			loacalBitmap = Utils.getLoacalBitmap(iconInfo.getLocalPath(),
-					ImageDownloader.getMaxPixWithDensity(limitWidth,
-							limitHeight));
+					ImageDownloader.getMaxPixWithDensity(limitWidth, limitHeight));
 
 			if (loacalBitmap != null) {
 				lruCache.put(iconInfo.getLocalPath(), loacalBitmap);
@@ -370,27 +383,25 @@ public class ExpListAdapter extends BaseAdapter {
 	}
 
 	private void setIcon(FlagHolder flagholder, final ExpInfo info) {
+		flagholder.videonail.setVisibility(View.GONE);
+
 		final List<String> localUrls = info.getLocalUrls(true);
 		if (localUrls.isEmpty()) {
 			flagholder.gridview.setVisibility(View.GONE);
 		} else {
 			addToDownloadTask(info);
 
-			SimpleGridViewAdapter adapter = new SimpleGridViewAdapter(context,
-					imageLoader, localUrls);
+			SimpleGridViewAdapter adapter = new SimpleGridViewAdapter(context, imageLoader, localUrls);
 			flagholder.gridview.setVisibility(View.VISIBLE);
-			flagholder.gridview
-					.setOnItemClickListener(new OnItemClickListener() {
+			flagholder.gridview.setOnItemClickListener(new OnItemClickListener() {
 
-						@Override
-						public void onItemClick(AdapterView<?> parent,
-								View view, int position, long id) {
-							if (checkFileExist(localUrls)) {
-								startToSlideGalleryActivity(info.getExp_id(),
-										position);
-							}
-						}
-					});
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					if (checkFileExist(localUrls)) {
+						startToSlideGalleryActivity(info.getExp_id(), position);
+					}
+				}
+			});
 			flagholder.gridview.setAdapter(adapter);
 		}
 	}
@@ -436,6 +447,7 @@ public class ExpListAdapter extends BaseAdapter {
 	}
 
 	private class FlagHolder {
+		public ImageView videonail;
 		public TextView nameView;
 		public TextView contentView;
 		public TextView timestampView;

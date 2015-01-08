@@ -40,7 +40,7 @@ public class UploadChatIconJob extends MyJob {
 		try {
 			String url = uploadBmpToServer();
 			// 上传到云服务器后，生成的外部链接
-			String image = UploadFactory.CLOUD_STORAGE_HOST + url;
+			String image = UploadFactory.getUploadHost() + url;
 			final String content = InfoHelper.formatChatContent("", image, childid, JSONConstant.IMAGE_TYPE);
 
 			MyProxy proxy = new MyProxy();

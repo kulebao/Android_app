@@ -134,7 +134,7 @@ public class NewChatInfo {
 			if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone()
 					.getParent_id())) {
 				// 自己发的图片，就从本地读，以免再次去服务器下载
-				localUrl = media_url.replace(UploadFactory.CLOUD_STORAGE_HOST,
+				localUrl = media_url.replace(UploadFactory.getUploadHost(),
 						Utils.getSDCardPicRootPath() + File.separator);
 
 				// 这里必须增加容错处理，如果服务器上传图片的保存路径与客户端不一致，那么

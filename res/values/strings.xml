@@ -240,5 +240,8 @@
     <string name="lbs_get_power_fail">获取电量失败</string>
     <string name="lbs_power">电量:</string>
     
+    <string name="dl_video">是否下载视频？建议在wifi下进行下载</string>
+    <string name="dling">正在下载...</string>
+    <string name="dl_failed">下载失败!</string>
     
 </resources>

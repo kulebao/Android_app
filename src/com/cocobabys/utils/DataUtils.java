@@ -13,6 +13,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -43,15 +45,13 @@ public class DataUtils {
 
 	public static long getCheckNewTime() {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(ConstantValue.CONF_INI, Context.MODE_PRIVATE);
 		return conf.getLong(ConstantValue.LATEST_CHECK_NEW_TIME, 0);
 	}
 
 	public static String getProp(String key) {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(ConstantValue.CONF_INI, Context.MODE_PRIVATE);
 		return conf.getString(key, "");
 	}
 
@@ -63,30 +63,26 @@ public class DataUtils {
 
 	public static String getProp(String key, String defaultValue) {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.CONF_INI, Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(ConstantValue.CONF_INI, Context.MODE_PRIVATE);
 		return conf.getString(key, defaultValue);
 	}
 
 	// 调用该接口保存的数据，退出登录后，不会清空
 	public static void saveUndeleteableProp(String key, String value) {
-		SharedPreferences.Editor editor = DataUtils
-				.getEditor(ConstantValue.UNDELETEABLE_CONFIG);
+		SharedPreferences.Editor editor = DataUtils.getEditor(ConstantValue.UNDELETEABLE_CONFIG);
 		editor.putString(key, value);
 		editor.commit();
 	}
 
 	public static String getUndeleteableProp(String key) {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
 		return conf.getString(key, "");
 	}
 
 	public static boolean isFirstStart() {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(
-				ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(ConstantValue.UNDELETEABLE_CONFIG, Context.MODE_PRIVATE);
 		return conf.getBoolean(ConstantValue.IS_FIRST_IN, true);
 	}
 
@@ -96,8 +92,7 @@ public class DataUtils {
 
 	static SharedPreferences.Editor getEditor(String name) {
 		Context context = MyApplication.getInstance().getApplicationContext();
-		SharedPreferences conf = context.getSharedPreferences(name,
-				Context.MODE_PRIVATE);
+		SharedPreferences conf = context.getSharedPreferences(name, Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = conf.edit();
 		return editor;
 	}
@@ -146,9 +141,8 @@ public class DataUtils {
 			return null;
 		}
 		try {
-			ApplicationInfo ai = context.getPackageManager()
-					.getApplicationInfo(context.getPackageName(),
-							PackageManager.GET_META_DATA);
+			ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(),
+					PackageManager.GET_META_DATA);
 			if (null != ai) {
 				metaData = ai.metaData;
 			}
@@ -165,8 +159,7 @@ public class DataUtils {
 		if (DataUtils.VERSION_CODE == Integer.MAX_VALUE) {
 			Context context = MyApplication.getInstance();
 			try {
-				PackageInfo info = context.getPackageManager().getPackageInfo(
-						context.getPackageName(), 0);
+				PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
 				DataUtils.VERSION_CODE = info.versionCode;
 			} catch (NameNotFoundException e) {
 				e.printStackTrace();
@@ -200,27 +193,22 @@ public class DataUtils {
 		Cursor imagecursor = null;
 		Context context = MyApplication.getInstance();
 		try {
-			final String[] columns = { MediaStore.Images.Media._ID,
-					MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
+			final String[] columns = { MediaStore.Images.Media._ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
 					MediaStore.Images.Media.DATA };
 			final String orderBy = MediaStore.Images.Media._ID + " DESC";
 
-			String selection = MediaStore.Images.Media.MIME_TYPE + "=? or "
-					+ MediaStore.Images.Media.MIME_TYPE + "=?";
+			String selection = MediaStore.Images.Media.MIME_TYPE + "=? or " + MediaStore.Images.Media.MIME_TYPE + "=?";
 			String[] selectionArgs = new String[] { "image/jpeg", "image/png" };
-			imagecursor = context.getContentResolver().query(
-					MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns,
+			imagecursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns,
 					selection, selectionArgs, orderBy);
 
 			if (imagecursor != null && imagecursor.getCount() > 0) {
 
 				while (imagecursor.moveToNext()) {
-					int dataColumnIndex = imagecursor
-							.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
+					int dataColumnIndex = imagecursor.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
 					String dir = imagecursor.getString(dataColumnIndex);
 
-					dataColumnIndex = imagecursor
-							.getColumnIndex(MediaStore.Images.Media.DATA);
+					dataColumnIndex = imagecursor.getColumnIndex(MediaStore.Images.Media.DATA);
 					String path = imagecursor.getString(dataColumnIndex);
 					AblumInfo info = new AblumInfo();
 					info.setDirName(dir);
@@ -259,17 +247,14 @@ public class DataUtils {
 		Context context = MyApplication.getInstance();
 		Cursor imagecursor = null;
 		try {
-			final String[] columns = { MediaStore.Images.Media.DATA,
-					MediaStore.Images.Media._ID };
+			final String[] columns = { MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID };
 			final String orderBy = MediaStore.Images.Media._ID + " DESC LIMIT "
 					+ CustomGalleryActivity.MAX_PICS_SHOW_IN_GALLERY;
 
-			String selection = MediaStore.Images.Media.BUCKET_DISPLAY_NAME
-					+ "=?";
+			String selection = MediaStore.Images.Media.BUCKET_DISPLAY_NAME + "=?";
 			String[] selectionArgs = new String[] { dir };
 
-			imagecursor = context.getContentResolver().query(
-					MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns,
+			imagecursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns,
 					selection, selectionArgs, orderBy);
 
 			if (imagecursor != null && imagecursor.getCount() > 0) {
@@ -277,8 +262,7 @@ public class DataUtils {
 				while (imagecursor.moveToNext()) {
 					CustomGallery item = new CustomGallery();
 
-					int dataColumnIndex = imagecursor
-							.getColumnIndex(MediaStore.Images.Media.DATA);
+					int dataColumnIndex = imagecursor.getColumnIndex(MediaStore.Images.Media.DATA);
 
 					String path = imagecursor.getString(dataColumnIndex);
 
@@ -301,13 +285,11 @@ public class DataUtils {
 		Context context = MyApplication.getInstance();
 		Cursor imagecursor = null;
 		try {
-			final String[] columns = { MediaStore.Images.Media.DATA,
-					MediaStore.Images.Media._ID };
+			final String[] columns = { MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID };
 			final String orderBy = MediaStore.Images.Media._ID + " DESC LIMIT "
 					+ CustomGalleryActivity.MAX_PICS_SHOW_IN_GALLERY;
 
-			imagecursor = context.getContentResolver().query(
-					MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns,
+			imagecursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns,
 					null, null, orderBy);
 
 			if (imagecursor != null && imagecursor.getCount() > 0) {
@@ -315,8 +297,7 @@ public class DataUtils {
 				while (imagecursor.moveToNext()) {
 					CustomGallery item = new CustomGallery();
 
-					int dataColumnIndex = imagecursor
-							.getColumnIndex(MediaStore.Images.Media.DATA);
+					int dataColumnIndex = imagecursor.getColumnIndex(MediaStore.Images.Media.DATA);
 
 					String path = imagecursor.getString(dataColumnIndex);
 
@@ -400,5 +381,26 @@ public class DataUtils {
 	public static double convertSpeed(double jie) {
 		BigDecimal b = new BigDecimal(jie * 1.852);
 		return b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+	}
+
+	public static Bitmap createVideoThumbnail(String filePath) {
+		Bitmap bitmap = null;
+		MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+		try {
+			mmr.setDataSource(filePath);
+			bitmap = mmr.getFrameAtTime();
+			mmr.release();
+		} catch (IllegalArgumentException ex) {
+			// Assume this is a corrupt video file
+		} catch (RuntimeException ex) {
+			// Assume this is a corrupt video file.
+		} finally {
+			try {
+				mmr.release();
+			} catch (RuntimeException ex) {
+				// Ignore failures while cleaning up.
+			}
+		}
+		return bitmap;
 	}
 }

@@ -6,6 +6,7 @@ public class JSONConstant {
 	public static final String OLD_PASSWORD = "old_password";
 	public static final String NEW_PASSWORD = "new_password";
 
+	public static final String VIDEO_TYPE = "video";
 	public static final String IMAGE_TYPE = "image";
 	public static final String VOICE_TYPE = "voice";
 	public static final String TOPIC = "topic";

@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="90dp"
+        android:layout_marginTop="50dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/nailview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="90dp"
+        android:layout_marginTop="50dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/TitleTextStyle"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:onClick="cancel"
+            android:visibility="gone"
+            android:text="@string/cancel"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/play"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/pvideo" />
+
+        <TextView
+             android:visibility="gone"
+            style="@style/TitleTextStyle"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:onClick="send"
+            android:text="@string/send"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</RelativeLayout>

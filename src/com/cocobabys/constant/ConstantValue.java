@@ -144,4 +144,10 @@ public class ConstantValue {
 	public static final String DEFAULT_VOICE_TYPE = ".amr";
 
 	public static final String RECENTLY_PIC_DIR = "recently_pic_dir";
+
+	public static final String VIDEO_URL = "video_url";
+
+	public static final String VIDEO_SIZE = "video_size";
+
+	public static final String EXP_TEXT = "exp_text";
 }

@@ -18,4 +18,5 @@ public class NoticeAction {
 	public static final int SELECT_SLIDE_GALLERY = 300;
 	public static final int SELECT_GALLERY = 200;
 	public static final int SELECT_CAMERA = 100;
+	public static final int SELECT_VIDEO = 400;
 }

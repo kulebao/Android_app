@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
@@ -86,7 +85,7 @@ public class SendExpJob extends MyJob {
 			JSONArray array = new JSONArray();
 			for (String url : mediums) {
 				JSONObject object = new JSONObject();
-				object.put(JSONConstant.URL, UploadFactory.CLOUD_STORAGE_HOST + Utils.getExpRelativePath(url));
+				object.put(JSONConstant.URL, UploadFactory.getUploadHost() + Utils.getExpRelativePath(url));
 				object.put(JSONConstant.TYPE, JSONConstant.IMAGE_TYPE);
 				array.put(object);
 			}

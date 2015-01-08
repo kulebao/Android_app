@@ -31,7 +31,7 @@ public class UploadTokenMethod {
 
 	private String createGetUploadTokenCommand(String key) {
 		String url = String.format(ServerUrls.GET_UPLOAD_TOKEN,
-				UploadFactory.BUCKET_NAME);
+				UploadFactory.getUploadBucket());
 		if (!TextUtils.isEmpty(key)) {
 			url += "&key=" + key;
 		}

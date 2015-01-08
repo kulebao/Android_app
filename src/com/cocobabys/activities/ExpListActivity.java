@@ -3,7 +3,6 @@ package com.cocobabys.activities;
 import java.util.List;
 
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,11 +26,7 @@ import com.cocobabys.jobs.GetSenderInfoJob;
 import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class ExpListActivity extends UmengStatisticsActivity {
 	private static final int CACHE_SIZE = 1 * 1024 * 1024;

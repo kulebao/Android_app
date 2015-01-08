@@ -128,7 +128,7 @@ public class ChatInfo {
 		if (!"".equals(icon_url)) {
 			if ("".equals(getSender())) {
 				localUrl = getIcon_url().replace(
-						UploadFactory.CLOUD_STORAGE_HOST,
+						UploadFactory.getUploadHost(),
 						Utils.getSDCardPicRootPath() + File.separator);
 			} else {
 				// 老师发的图片，不一定是来自阿里oss,可能是七牛，后续要统一

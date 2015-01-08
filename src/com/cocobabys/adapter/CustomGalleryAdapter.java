@@ -12,15 +12,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.cocobabys.R;
-import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.customview.CustomGallery;
-import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class CustomGalleryAdapter extends BaseAdapter {
-
-	private Context mContext;
 	private LayoutInflater infalter;
 	private List<CustomGallery> data = new ArrayList<CustomGallery>();
 	private ImageLoader imageLoader;
@@ -34,15 +30,18 @@ public class CustomGalleryAdapter extends BaseAdapter {
 	}
 
 	public CustomGalleryAdapter(Context c, ImageLoader imageLoader) {
-		infalter = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mContext = c;
+		infalter = (LayoutInflater) c
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.imageLoader = imageLoader;
 
-		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.default_small_icon)
-				.showImageForEmptyUri(R.drawable.default_small_icon).showImageOnFail(R.drawable.default_small_icon)
+		options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.default_small_icon)
+				.showImageForEmptyUri(R.drawable.default_small_icon)
+				.showImageOnFail(R.drawable.default_small_icon)
 				.cacheInMemory(true)
 				// .cacheOnDisk(true)
-				.considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).build();
+				.considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565)
+				.build();
 	}
 
 	public List<String> getAllSelectedPath() {
@@ -131,40 +130,9 @@ public class CustomGalleryAdapter extends BaseAdapter {
 		}
 	}
 
-	public boolean checkMaxIconSelected() {
-		if (getSelectedCount() >= ConstantValue.MAX_SELECT_LIMIT) {
-			String content = String
-					.format(Utils.getResString(R.string.max_icon_select), ConstantValue.MAX_SELECT_LIMIT);
-			Utils.makeToast(mContext, content);
-			return true;
-		}
-
-		return false;
-	}
-
-	private int getSelectedCount() {
-		int count = 0;
-		for (CustomGallery gallery : data) {
-			if (gallery.isSeleted()) {
-				count++;
-			}
-		}
-
-		return count;
-	}
-
 	public void changeSelection(View v, int position) {
-
-		if (data.get(position).isSeleted()) {
-			data.get(position).setSeleted(false);
-		} else {
-			if (checkMaxIconSelected()) {
-				return;
-			}
-			data.get(position).setSeleted(true);
-		}
-
-		((ViewHolder) v.getTag()).imgQueueMultiSelected.setSelected(data.get(position).isSeleted());
+		((ViewHolder) v.getTag()).imgQueueMultiSelected.setSelected(data.get(
+				position).isSeleted());
 	}
 
 	@Override
@@ -174,9 +142,11 @@ public class CustomGalleryAdapter extends BaseAdapter {
 
 			convertView = infalter.inflate(R.layout.gallery_item, null);
 			holder = new ViewHolder();
-			holder.imgQueue = (ImageView) convertView.findViewById(R.id.imgQueue);
+			holder.imgQueue = (ImageView) convertView
+					.findViewById(R.id.imgQueue);
 
-			holder.imgQueueMultiSelected = (ImageView) convertView.findViewById(R.id.imgQueueMultiSelected);
+			holder.imgQueueMultiSelected = (ImageView) convertView
+					.findViewById(R.id.imgQueueMultiSelected);
 
 			if (isActionMultiplePick) {
 				holder.imgQueueMultiSelected.setVisibility(View.VISIBLE);
@@ -199,10 +169,12 @@ public class CustomGalleryAdapter extends BaseAdapter {
 	private void showImgByLoader(int position, final ViewHolder holder) {
 		try {
 			String sdcardPath = data.get(position).getSdcardPath();
-			ImageLoader.getInstance().displayImage("file://" + sdcardPath, holder.imgQueue, options);
+			ImageLoader.getInstance().displayImage("file://" + sdcardPath,
+					holder.imgQueue, options);
 
 			if (isActionMultiplePick) {
-				holder.imgQueueMultiSelected.setSelected(data.get(position).isSeleted());
+				holder.imgQueueMultiSelected.setSelected(data.get(position)
+						.isSeleted());
 			}
 
 		} catch (Exception e) {

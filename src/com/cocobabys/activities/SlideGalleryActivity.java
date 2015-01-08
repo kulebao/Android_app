@@ -16,7 +16,6 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cocobabys.R;

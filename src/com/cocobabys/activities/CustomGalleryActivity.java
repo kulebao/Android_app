@@ -1,6 +1,7 @@
 package com.cocobabys.activities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,7 +49,8 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 	private ImageLoader imageLoader;
 
 	// 当前选中的图片，因为图片可以分目录显示，所以需要在这里统一保存一份,adapter里保存的是当前目录下选中的图片
-	private ArrayList<CustomGallery> currentSelected = new ArrayList<CustomGallery>(10);
+	private ArrayList<CustomGallery> currentSelected = new ArrayList<CustomGallery>(
+			10);
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -106,7 +108,8 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 		handler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				String[] stringArrayExtra = getIntent().getStringArrayExtra(NoticeAction.SELECTED_PATH);
+				String[] stringArrayExtra = getIntent().getStringArrayExtra(
+						NoticeAction.SELECTED_PATH);
 				initCurrentSelected(stringArrayExtra);
 				loadData(stringArrayExtra);
 				adapter.notifyDataSetChanged();
@@ -190,7 +193,8 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 		firstInfo.setDirName(getResources().getString(R.string.recent_photo));
 		firstInfo.setDirCount(adapter.getCount());
 		if (adapter.getCount() > 0) {
-			firstInfo.setLastestPicPath("file://" + adapter.getData().get(0).getSdcardPath());
+			firstInfo.setLastestPicPath("file://"
+					+ adapter.getData().get(0).getSdcardPath());
 		}
 
 		EventBus.getDefault().post(firstInfo);
@@ -207,7 +211,8 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 	public void onEventBackgroundThread(String dirName) {
 		// 如果用户选择了不同的目录，需要重新加载数据
 		if (!currentDir.equals(dirName)) {
-			Log.d("DDD", TAG + "onEventBackgroundThread 222 dirName=" + dirName + " currentDir=" + currentDir);
+			Log.d("DDD", TAG + "onEventBackgroundThread 222 dirName=" + dirName
+					+ " currentDir=" + currentDir);
 			currentDir = dirName;
 			// String[] selected = formatSelected(getCurrentSelected());
 			loadData(formatSelected(currentSelected));
@@ -243,11 +248,36 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 		}
 	};
 
+	public void changeSelection(View v, List<CustomGallery> data, int position) {
+		if (data.get(position).isSeleted()) {
+			data.get(position).setSeleted(false);
+		} else {
+			if (checkMaxIconSelected()) {
+				return;
+			}
+			data.get(position).setSeleted(true);
+		}
+
+		adapter.changeSelection(v, position);
+		changeCurrentSelected(position);
+	}
+
+	private boolean checkMaxIconSelected() {
+		if (currentSelected.size() >= ConstantValue.MAX_SELECT_LIMIT) {
+			String content = String.format(
+					Utils.getResString(R.string.max_icon_select),
+					ConstantValue.MAX_SELECT_LIMIT);
+			Utils.makeToast(CustomGalleryActivity.this, content);
+			return true;
+		}
+
+		return false;
+	}
+
 	private AdapterView.OnItemClickListener mItemMulClickListener = new AdapterView.OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-			adapter.changeSelection(v, position);
-			changeCurrentSelected(position);
+			changeSelection(v, adapter.getData(), position);
 		}
 	};
 
@@ -271,7 +301,8 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 		@Override
 		public void onItemClick(AdapterView<?> l, View v, int position, long id) {
 			CustomGallery item = adapter.getItem(position);
-			Intent data = new Intent().putExtra("single_path", item.getSdcardPath());
+			Intent data = new Intent().putExtra("single_path",
+					item.getSdcardPath());
 			setResult(RESULT_OK, data);
 			finish();
 		}
@@ -285,7 +316,9 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 		menu.setBehindScrollScale(0.25f);
 		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
 		menu.setMenu(R.layout.menu_frame);
-		getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame, new GalleryDirListFragment()).commit();
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.menu_frame, new GalleryDirListFragment())
+				.commit();
 	}
 
 	@Override

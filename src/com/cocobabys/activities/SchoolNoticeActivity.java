@@ -395,7 +395,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			try {
 				Bitmap bitmap = getBitmap(data);
 				JSONObject obj = InfoHelper.childInfoToJSONObject(selectedChild);
-				obj.put(InfoHelper.PHOTO, UploadFactory.CLOUD_STORAGE_HOST + Utils.getUploadChildUrl());
+				obj.put(InfoHelper.PHOTO, UploadFactory.getUploadHost() + Utils.getUploadChildUrl());
 
 				runUploadTask(obj.toString(), bitmap, getResources().getString(R.string.uploading_icon),
 						new TaskResultHandler() {

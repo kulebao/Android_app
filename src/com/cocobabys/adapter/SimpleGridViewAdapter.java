@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import com.cocobabys.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class SimpleGridViewAdapter extends BaseAdapter {

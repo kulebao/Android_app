@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -7,11 +7,13 @@
     android:orientation="vertical" >
 
     <include
+        android:id="@+id/first"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         layout="@layout/topbar" />
 
     <EditText
+        android:layout_below="@+id/first"
         android:id="@+id/exp_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -23,46 +25,38 @@
         android:padding="6dp"
         android:textSize="16sp" />
 
-    <ViewSwitcher
-        android:id="@+id/viewSwitcher"
+    <GridView
+        android:layout_below="@+id/exp_content"
+        android:id="@+id/gridGallery"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_weight="1" >
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginBottom="-10dp"
+        android:layout_marginLeft="-10dp"
+        android:layout_marginRight="-10dp"
+        android:layout_marginTop="-10dp"
+        android:columnWidth="55dp"
+        android:horizontalSpacing="-15dp"
+        android:numColumns="3"
+        android:padding="0dp"
+        android:verticalSpacing="-15dp"
+        tools:listitem="@layout/gallery_item" >
+    </GridView>
 
-        <GridView
-            android:id="@+id/gridGallery"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginBottom="-10dp"
-            android:layout_marginLeft="-10dp"
-            android:layout_marginRight="-10dp"
-            android:layout_marginTop="-10dp"
-            android:columnWidth="55dp"
-            android:horizontalSpacing="-15dp"
-            android:numColumns="3"
-            android:padding="0dp"
-            android:verticalSpacing="-15dp"
-            tools:listitem="@layout/gallery_item" >
-        </GridView>
-
-        <ImageView
-            android:id="@+id/imgSinglePick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/default_small_icon"
-            android:visibility="gone" />
-    </ViewSwitcher>
+    <ImageView
+        android:id="@+id/videonail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_name"
+        android:visibility="gone" />
 
     <LinearLayout
-        android:id="@+id/llBottomContainer"
+        android:id="@+id/BottomContainer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         android:padding="5dp" >
 
         <Button
@@ -86,6 +80,18 @@
             android:layout_weight="1"
             android:background="@drawable/btn_sel"
             android:text="图库" />
+
+        <Button
+            android:id="@+id/video"
+            style="@style/btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:background="@drawable/btn_sel"
+            android:text="视频" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

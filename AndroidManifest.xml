@@ -339,6 +339,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activities.ShowVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop" >
+        </activity>
+        <activity
             android:name=".activities.SlideGalleryActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"

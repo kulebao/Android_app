@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.cocobabys.bean.GroupExpInfo;
+import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.info.ExpInfo;
 
 class ExpMgr {
@@ -87,16 +88,21 @@ class ExpMgr {
 			List<ExpInfo> tmpList = getExpInfoByMonthAndYear(year + "-" + month);
 			FindIcon: for (int i = tmpList.size() - 1; i >= 0; i--) {
 				// 先找非缩略图的
-				List<String> localUrls = tmpList.get(i).getLocalUrls(false);
-				for (String path : localUrls) {
-					if (new File(path).exists()) {
-						info.setIconpath(path);
-						break FindIcon;
+				ExpInfo expInfo = tmpList.get(i);
+				List<String> localUrls = expInfo.getLocalUrls(false);
+				
+				//是图片资源才找原图，视频资源只找缩略图
+				if(expInfo.getMediumType() == JSONConstant.IMAGE_TYPE){
+					for (String path : localUrls) {
+						if (new File(path).exists()) {
+							info.setIconpath(path);
+							break FindIcon;
+						}
 					}
 				}
 
 				// 没有，再去找缩略图
-				localUrls = tmpList.get(i).getLocalUrls(true);
+				localUrls = expInfo.getLocalUrls(true);
 				for (String path : localUrls) {
 					if (new File(path).exists()) {
 						info.setIconpath(path);

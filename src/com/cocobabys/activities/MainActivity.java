@@ -28,7 +28,6 @@ import com.cocobabys.bean.AdInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.GetADJob;
 import com.cocobabys.net.AdMethod;
 import com.cocobabys.push.PushModel;
 import com.cocobabys.taskmgr.BindPushTask;
@@ -38,8 +37,8 @@ import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class MainActivity extends TabActivity {
-	// 5小时检查一次公告更新
-	private static final int CHECK_AD_DELAY_TIME = 60;// * 60 *5;
+	// 5小时检查一次广告更新
+	private static final int CHECK_AD_DELAY_TIME = 60 * 60 *5;
 
 	// 每30分钟检查push相关参数是否正常，如不正常，重新绑定
 	private static final int CHECK_PUSH_DELAY_TIME = 60 * 30;

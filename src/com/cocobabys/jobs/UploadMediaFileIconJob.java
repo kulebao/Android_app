@@ -45,7 +45,7 @@ public class UploadMediaFileIconJob extends MyJob {
 		try {
 			String url = uploadFileToServer();
 			// 上传到云服务器后，生成的外部链接
-			String media = UploadFactory.CLOUD_STORAGE_HOST + url;
+			String media = UploadFactory.getUploadHost() + url;
 			final String content = InfoHelper.formatChatContent("", media,
 					childid, mediaType);
 

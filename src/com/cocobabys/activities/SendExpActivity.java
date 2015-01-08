@@ -12,6 +12,7 @@ import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.MediaScannerConnectionClient;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -24,8 +25,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import com.cocobabys.R;
 import com.cocobabys.adapter.GalleryAdapter;
@@ -34,6 +35,7 @@ import com.cocobabys.constant.NoticeAction;
 import com.cocobabys.customview.CustomGallery;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.SendExpJob;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -42,12 +44,14 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	private GridView gridGallery;
 	private Handler myhandler;
 	private GalleryAdapter adapter;
-	private ViewSwitcher viewSwitcher;
+	// private ViewSwitcher viewSwitcher;
 	private ImageLoader imageLoader;
 	private Uri uri;
 	private EditText exp_content;
 	private MediaScannerConnection msc;
 	private ProgressDialog dialog;
+	private Uri mVideoUri;
+	private ImageView videonail;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -139,6 +143,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		initHeader();
 		initDialog();
 
+		videonail = (ImageView) findViewById(R.id.videonail);
+
 		exp_content = (EditText) findViewById(R.id.exp_content);
 		initGallery();
 		initBtn();
@@ -159,8 +165,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			}
 		});
 
-		viewSwitcher = (ViewSwitcher) findViewById(R.id.viewSwitcher);
-		viewSwitcher.setDisplayedChild(1);
+		// viewSwitcher = (ViewSwitcher) findViewById(R.id.viewSwitcher);
+		// viewSwitcher.setDisplayedChild(1);
 	}
 
 	private void runSendExpJob() {
@@ -239,6 +245,35 @@ public class SendExpActivity extends UmengStatisticsActivity {
 				startActivityForResult(i, NoticeAction.SELECT_GALLERY);
 			}
 		});
+
+		if (MyApplication.getInstance().isForTest()) {
+			Button video = (Button) findViewById(R.id.video);
+			video.setVisibility(View.VISIBLE);
+			video.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					videoRecord();
+				}
+			});
+		}
+	}
+
+	private void videoRecord() {
+		Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+		// 设置了下面这个参数后，系统摄像头就无法选择画质了，1表示高清，0表示低分辨率
+		intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+		// 设置最大录像时间，单位秒
+		intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60);
+		// 指定录像文件保存地址
+		String ur = Environment.getExternalStorageDirectory().getPath() + "/Test_Movie.m4v";
+		File file = new File(ur);
+		Uri uri = Uri.fromFile(file);
+
+		Log.d("DDD", "path =" + uri.getPath());
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+		// 指定录像文件最大尺寸，单位字节
+		intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 3 * 1024 * 1024);
+		startActivityForResult(intent, NoticeAction.SELECT_VIDEO);
 	}
 
 	@Override
@@ -246,6 +281,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (resultCode != Activity.RESULT_OK) {
+			Log.e("", "AAA requestCode=" + requestCode);
 			return;
 		}
 
@@ -262,6 +298,13 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			String[] changed_array = data.getStringArrayExtra(NoticeAction.PATH_AFTER_CHANGE);
 			changeView(changed_array);
 			break;
+		case NoticeAction.SELECT_VIDEO:
+			mVideoUri = data.getData();
+			gridGallery.setVisibility(View.GONE);
+			videonail.setVisibility(View.VISIBLE);
+			videonail.setImageBitmap(DataUtils.createVideoThumbnail(mVideoUri.getPath()));
+			break;
+
 		default:
 			break;
 		}
@@ -281,7 +324,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		Log.d("DJC", "path bbb=" + uri.getPath());
 		gallery.setSdcardPath(uri.getPath());
 		gallery.setSeleted(true);
-		viewSwitcher.setDisplayedChild(0);
+		// viewSwitcher.setDisplayedChild(0);
 		adapter.insert(gallery);
 	}
 
@@ -311,7 +354,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			dataT.add(customGallery);
 		}
 
-		viewSwitcher.setDisplayedChild(0);
+		// viewSwitcher.setDisplayedChild(0);
 		adapter.addAll(dataT);
 	}
 

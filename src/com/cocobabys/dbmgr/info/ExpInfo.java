@@ -152,6 +152,21 @@ public class ExpInfo {
 		return info;
 	}
 
+	public String getMediumType() {
+		String type = JSONConstant.IMAGE_TYPE;
+		if (!"".equals(medium)) {
+			try {
+				JSONArray array = new JSONArray(medium);
+				if (array.length() > 0) {
+					type = array.getJSONObject(0).getString(JSONConstant.TYPE);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return type;
+	}
+
 	public List<String> getLocalUrls(boolean bThumbnail) {
 		List<String> list = new ArrayList<String>();
 		if (!"".equals(medium)) {
@@ -193,7 +208,7 @@ public class ExpInfo {
 
 		if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone().getParent_id())) {
 			// 自己发的图片，就从本地读，以免再次去服务器下载
-			localUrl = serverUrl.replace(UploadFactory.CLOUD_STORAGE_HOST, Utils.getSDCardPicRootPath()
+			localUrl = serverUrl.replace(UploadFactory.getUploadHost(), Utils.getSDCardPicRootPath()
 					+ File.separator);
 
 			// 如果文件不存在，则区分是否是缩略图
@@ -208,6 +223,7 @@ public class ExpInfo {
 			} else {
 				dir = getOriginalDir();
 			}
+
 			localUrl = dir + Utils.getName(serverUrl);
 		}
 

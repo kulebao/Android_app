@@ -39,6 +39,7 @@ public class ImageUtils {
 					.denyCacheImageMultipleSizesInMemory().diskCacheFileNameGenerator(new Md5FileNameGenerator())
 					.diskCacheSize(50 * 1024 * 1024) // 50 Mb
 					.tasksProcessingOrder(QueueProcessingType.LIFO)
+					.memoryCacheSize(4*1024*1024)
 					// .writeDebugLogs() // Remove for release app
 					.build();
 
