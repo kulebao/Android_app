@@ -90,9 +90,9 @@ class ExpMgr {
 				// 先找非缩略图的
 				ExpInfo expInfo = tmpList.get(i);
 				List<String> localUrls = expInfo.getLocalUrls(false);
-				
-				//是图片资源才找原图，视频资源只找缩略图
-				if(expInfo.getMediumType() == JSONConstant.IMAGE_TYPE){
+
+				// 是图片资源才找原图，视频资源只找缩略图
+				if (expInfo.getMediumType().equals(JSONConstant.IMAGE_TYPE)) {
 					for (String path : localUrls) {
 						if (new File(path).exists()) {
 							info.setIconpath(path);

@@ -10,6 +10,10 @@
     <string-array name="resend_items">
         <item>重发</item>
     </string-array>
+    <string-array name="video_choose">
+        <item>录像</item>
+        <item>选择视频文件</item>
+    </string-array>
 
     <declare-styleable name="RoundedImageView">
         <attr name="corner_radius" format="dimension" />

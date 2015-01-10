@@ -25,6 +25,7 @@ import com.cocobabys.bean.GroupExpInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.NativeMediumInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetExpCountJob;
 import com.cocobabys.utils.Utils;
@@ -48,6 +49,16 @@ public class GrowthActivity extends UmengStatisticsActivity {
 		initUI();
 		initHandler();
 		runGetExpCountJob();
+
+		// test
+		{
+			List<NativeMediumInfo> allNativeMediumInfo = DataMgr.getInstance()
+					.getAllNativeMediumInfo();
+			Log.d("", "dDD getAllNativeMediumInfo");
+			for (NativeMediumInfo info : allNativeMediumInfo) {
+				Log.d("", "dDD info =" + info.toString());
+			}
+		}
 	}
 
 	private void runGetExpCountJob() {
@@ -151,7 +162,8 @@ public class GrowthActivity extends UmengStatisticsActivity {
 				}
 				currentYear--;
 				setTitle();
-				runGetExpCountJob();
+				adapter.addAll(getData());
+				// runGetExpCountJob();
 			}
 		});
 
@@ -165,7 +177,8 @@ public class GrowthActivity extends UmengStatisticsActivity {
 				}
 				currentYear++;
 				setTitle();
-				runGetExpCountJob();
+				adapter.addAll(getData());
+				// runGetExpCountJob();
 			}
 		});
 

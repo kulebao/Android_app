@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -192,6 +193,7 @@ public class ExpListAdapter extends BaseAdapter {
 		if (JSONConstant.IMAGE_TYPE.equals(info.getMediumType())) {
 			setIcon(flagholder, info);
 		} else {
+			Log.d("DDDE", "DDDE setVideoNail medium=" + info.getMedium() + "  type=" + info.getMediumType());
 			setVideoNail(flagholder, info);
 		}
 		setOnLongClickListener(flagholder, position);

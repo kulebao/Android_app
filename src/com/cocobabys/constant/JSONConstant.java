@@ -95,5 +95,7 @@ public class JSONConstant {
 
 	// 学校信息的json字符串，包括学校logo地址，学校描述，学校联系电话,学校信息版本
 	public static final String SCHOOL_INFO = "school_info";
+	
+	public static final String EXP_TYPE = "exp";
 
 }

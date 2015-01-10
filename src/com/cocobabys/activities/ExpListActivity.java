@@ -166,6 +166,7 @@ public class ExpListActivity extends UmengStatisticsActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == Menu.FIRST) {
 			DataMgr.getInstance().clearExp();
+			DataMgr.getInstance().clearNativeMedium();
 			adapter.clear();
 		}
 		return true;

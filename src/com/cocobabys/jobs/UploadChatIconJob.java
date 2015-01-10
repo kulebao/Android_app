@@ -10,7 +10,9 @@ import android.util.Log;
 
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.InfoHelper;
+import com.cocobabys.dbmgr.info.NativeMediumInfo;
 import com.cocobabys.net.MethodResult;
 import com.cocobabys.net.NewChatMethod;
 import com.cocobabys.net.UploadTokenMethod;
@@ -26,34 +28,48 @@ public class UploadChatIconJob extends MyJob {
 	private Bitmap bitmap = null;
 	private long lastid;
 	private String childid;
+	// 文件名关键字
+	private long currentTimeMillis;
+	private String bitmapPath;
 
-	public UploadChatIconJob(Handler handler, Bitmap bitmap, long lastid, String childid) {
+	public UploadChatIconJob(Handler handler, Bitmap bitmap, long lastid,
+			String childid, String bitmapPath) {
 		this.handler = handler;
 		this.lastid = lastid;
 		this.bitmap = bitmap;
 		this.childid = childid;
+		this.bitmapPath = bitmapPath;
 	}
 
 	@Override
 	public void run() {
+		currentTimeMillis = System.currentTimeMillis();
 		MethodResult bret = new MethodResult(EventType.SEND_CHAT_FAIL);
 		try {
 			String url = uploadBmpToServer();
 			// 上传到云服务器后，生成的外部链接
 			String image = UploadFactory.getUploadHost() + url;
-			final String content = InfoHelper.formatChatContent("", image, childid, JSONConstant.IMAGE_TYPE);
+			final String content = InfoHelper.formatChatContent("", image,
+					childid, JSONConstant.IMAGE_TYPE);
 
 			MyProxy proxy = new MyProxy();
 			MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
 				@Override
 				public MethodResult handle() throws Exception {
-					MethodResult result = NewChatMethod.getMethod().sendChat(content, lastid, childid);
+					MethodResult result = NewChatMethod.getMethod().sendChat(
+							content, lastid, childid);
 					return result;
 				}
 			});
 
 			bret = MethodUtils.getBindResult(bind);
-			saveBmpToSDCard(url);
+			
+			NativeMediumInfo info = new NativeMediumInfo();
+			info.setKey(currentTimeMillis+".jpg");
+			info.setValue(bitmapPath);
+			DataMgr.getInstance().addNativeMediumInfo(info);
+			
+			// saveBmpToSDCard(url);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -76,7 +92,7 @@ public class UploadChatIconJob extends MyJob {
 	}
 
 	private String uploadBmpToServer() throws Exception {
-		String url = Utils.getChatIconUrl(System.currentTimeMillis());
+		String url = Utils.getChatIconUrl(currentTimeMillis);
 		String uploadToken = UploadTokenMethod.getMethod().getUploadToken("");
 		if (TextUtils.isEmpty(uploadToken)) {
 			throw new RuntimeException("getUploadToken failed ");

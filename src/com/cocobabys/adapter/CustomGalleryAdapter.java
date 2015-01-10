@@ -15,6 +15,12 @@ import com.cocobabys.R;
 import com.cocobabys.customview.CustomGallery;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.imageaware.ImageAware;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class CustomGalleryAdapter extends BaseAdapter {
 	private LayoutInflater infalter;
@@ -38,10 +44,9 @@ public class CustomGalleryAdapter extends BaseAdapter {
 				.showImageOnLoading(R.drawable.default_small_icon)
 				.showImageForEmptyUri(R.drawable.default_small_icon)
 				.showImageOnFail(R.drawable.default_small_icon)
-				.cacheInMemory(true)
-				// .cacheOnDisk(true)
-				.considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565)
-				.build();
+				.cacheInMemory(true).imageScaleType(ImageScaleType.EXACTLY)
+				.cacheOnDisk(false).considerExifParams(true)
+				.bitmapConfig(Bitmap.Config.RGB_565).build();
 	}
 
 	public List<String> getAllSelectedPath() {
@@ -171,6 +176,25 @@ public class CustomGalleryAdapter extends BaseAdapter {
 			String sdcardPath = data.get(position).getSdcardPath();
 			ImageLoader.getInstance().displayImage("file://" + sdcardPath,
 					holder.imgQueue, options);
+
+			// ImageSize imagesize = new ImageSize(160, 160);
+			// ImageLoader.getInstance().loadImage("file://" + sdcardPath,
+			// imagesize, options, new SimpleImageLoadingListener() {
+			// @Override
+			// public void onLoadingComplete(String imageUri,
+			// View view, Bitmap loadedImage) {
+			// super.onLoadingComplete(imageUri, view, loadedImage);
+			// holder.imgQueue.setImageBitmap(loadedImage);
+			// }
+			//
+			// @Override
+			// public void onLoadingStarted(String imageUri, View view) {
+			// super.onLoadingStarted(imageUri, view);
+			// holder.imgQueue
+			// .setImageResource(R.drawable.default_small_icon);
+			// }
+			//
+			// });
 
 			if (isActionMultiplePick) {
 				holder.imgQueueMultiSelected.setSelected(data.get(position)

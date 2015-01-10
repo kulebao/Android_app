@@ -13,6 +13,12 @@ import com.cocobabys.R;
 import com.cocobabys.customview.CustomDialog;
 
 public class DlgMgr {
+	public static void showSingleBtnResDlg(int resID, Context context) {
+		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context);
+		builder.setMessage(context.getResources().getString(resID));
+		builder.create().show();
+	}
+
 	public static CustomDialog.Builder getSingleBtnDlg(Context context, OnClickListener confirmListener) {
 		CustomDialog.Builder builder = new com.cocobabys.customview.CustomDialog.Builder(context);
 		builder.setTitle(context.getResources().getString(R.string.notice));

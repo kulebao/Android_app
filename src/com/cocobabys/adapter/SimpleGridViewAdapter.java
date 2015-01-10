@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.cocobabys.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class SimpleGridViewAdapter extends BaseAdapter {
@@ -30,6 +31,7 @@ public class SimpleGridViewAdapter extends BaseAdapter {
 		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.default_small_icon)
 				.showImageForEmptyUri(R.drawable.default_small_icon).showImageOnFail(R.drawable.default_small_icon)
 				.cacheInMemory(true)
+				.imageScaleType(ImageScaleType.EXACTLY)
 				// .cacheOnDisk(true)
 				.considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).build();
 	}

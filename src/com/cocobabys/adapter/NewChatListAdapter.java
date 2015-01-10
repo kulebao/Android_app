@@ -45,7 +45,10 @@ import com.cocobabys.jobs.GetSenderInfoJob;
 import com.cocobabys.media.MediaMgr;
 import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class NewChatListAdapter extends BaseAdapter {
 	private static final String SELF_NAME = "我";
@@ -66,6 +69,7 @@ public class NewChatListAdapter extends BaseAdapter {
 	private GetSenderInfoJob getTeacherInfoJob;
 	private LongClickDlg longClickDlg;
 	private AnimHelper animHelper;
+	private ImageLoader imageLoader;
 
 	public NewChatListAdapter(Context activityContext, List<NewChatInfo> list,
 			DownloadImgeJob downloadImgeTask, GetSenderInfoJob getTeacherInfoJob) {
@@ -109,6 +113,8 @@ public class NewChatListAdapter extends BaseAdapter {
 		};
 		this.downloadImgeJob.setHanlder(handler);
 		this.getTeacherInfoJob.setHanlder(handler);
+		
+		imageLoader = ImageUtils.getImageLoader();
 	}
 
 	private void handleDeleteSuccess() {

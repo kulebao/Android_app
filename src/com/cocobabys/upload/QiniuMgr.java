@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import android.graphics.Bitmap;
@@ -32,9 +33,13 @@ public class QiniuMgr implements UploadMgr {
 	}
 
 	@Override
-	public void uploadFile(String filePath, String url, String uptoken) throws Exception {
-		InputStream inputStream = new FileInputStream(new File(filePath));
-		uploadPhoto(inputStream, url, uptoken);
+	public void uploadFile(String filePath, String url, String uptoken) {
+		try {
+			InputStream inputStream = new FileInputStream(new File(filePath));
+			uploadPhoto(inputStream, url, uptoken);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private InputStream bitmap2InputStream(Bitmap bm) {

@@ -225,23 +225,21 @@
     <string name="record_time">00:00:00</string>
     <string name="album">相册</string>
     <string name="recent_photo">最近照片</string>
-    
     <string name="want_cookbook">您想知道宝贝每天的膳食情况吗？赶快联系幼儿园开通此功能吧！</string>
     <string name="want_schedule">您想知道宝贝每天的学习内容吗？赶快联系幼儿园开通此功能吧！</string>
     <string name="want_homework">您想看看老师布置了什么作业吗？赶快联系幼儿园开通此功能吧！</string>
     <string name="want_chat">您想随时和老师零距离沟通吗？赶快联系幼儿园开通此功能吧！</string>
     <string name="want_estimation">您想了解老师对宝贝在幼儿园的表现有什么评价吗？赶快联系幼儿园开通此功能吧！</string>
     <string name="want_exp">您想记录下宝贝在幼儿园的点点滴滴吗？赶快联系幼儿园开通此功能吧！</string>
-    
     <string name="lbs_refresh_time">%1$d秒后刷新</string>
     <string name="lbs_get_location_fail">获取定位器坐标失败</string>
     <string name="lbs_get_history_location_fail">获取定位器历史数据失败</string>
     <string name="lbs_get_history_location_is_empty">历史数据为空</string>
     <string name="lbs_get_power_fail">获取电量失败</string>
     <string name="lbs_power">电量:</string>
-    
     <string name="dl_video">是否下载视频？建议在wifi下进行下载</string>
     <string name="dling">正在下载...</string>
     <string name="dl_failed">下载失败!</string>
-    
+    <string name="video_invalid">视频大小超出限制，最大5m，请重新选择!</string>
+
 </resources>

@@ -18,28 +18,40 @@ public class ImageUtils {
 
 	private static void initImageLoader() {
 		try {
-			String CACHE_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + "/.temp_tmp";
+			String CACHE_DIR = Environment.getExternalStorageDirectory()
+					.getAbsolutePath() + "/.temp_tmp";
 			new File(CACHE_DIR).mkdirs();
 
 			MyApplication context = MyApplication.getInstance();
-			File cacheDir = StorageUtils.getOwnCacheDirectory(context, CACHE_DIR);
+			File cacheDir = StorageUtils.getOwnCacheDirectory(context,
+					CACHE_DIR);
 
 			DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-					.imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2).bitmapConfig(Bitmap.Config.RGB_565)
-					.cacheInMemory(true).cacheOnDisk(true).build();
+					.imageScaleType(ImageScaleType.EXACTLY)
+					.bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true)
+					.cacheOnDisk(true).build();
 
-			// ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
-			// .defaultDisplayImageOptions(defaultOptions).discCache(new UnlimitedDiscCache(cacheDir))
-			// .diskCacheSize(50 * 1024 * 1024).diskCacheFileCount(100).memoryCacheExtraOptions(480, 800)
+			// ImageLoaderConfiguration config = new
+			// ImageLoaderConfiguration.Builder(context)
+			// .defaultDisplayImageOptions(defaultOptions).discCache(new
+			// UnlimitedDiscCache(cacheDir))
+			// .diskCacheSize(50 * 1024 *
+			// 1024).diskCacheFileCount(100).memoryCacheExtraOptions(480, 800)
 			// .diskCacheExtraOptions(480, 800, null)
-			// .memoryCache(new UsingFreqLimitedMemoryCache(4 * 1024 * 1024)).memoryCacheSizePercentage(12).build();
+			// .memoryCache(new UsingFreqLimitedMemoryCache(4 * 1024 *
+			// 1024)).memoryCacheSizePercentage(12).build();
 
-			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
-					.defaultDisplayImageOptions(defaultOptions).threadPriority(Thread.NORM_PRIORITY - 2)
-					.denyCacheImageMultipleSizesInMemory().diskCacheFileNameGenerator(new Md5FileNameGenerator())
-					.diskCacheSize(50 * 1024 * 1024) // 50 Mb
+			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+					context).defaultDisplayImageOptions(defaultOptions)
+					.threadPriority(Thread.NORM_PRIORITY - 2)
+					.denyCacheImageMultipleSizesInMemory()
+					.diskCacheFileNameGenerator(new Md5FileNameGenerator())
+					.diskCacheSize(50 * 1024 * 1024)
+					// 50 Mb
+					.memoryCacheExtraOptions(480, 800)
+					// .writeDebugLogs()
 					.tasksProcessingOrder(QueueProcessingType.LIFO)
-					.memoryCacheSize(4*1024*1024)
+					.memoryCacheSize(4 * 1024 * 1024)
 					// .writeDebugLogs() // Remove for release app
 					.build();
 

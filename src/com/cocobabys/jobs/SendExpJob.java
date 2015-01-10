@@ -1,6 +1,7 @@
 package com.cocobabys.jobs;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -11,12 +12,14 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ExpInfo;
+import com.cocobabys.dbmgr.info.NativeMediumInfo;
 import com.cocobabys.net.ExpMethod;
 import com.cocobabys.net.MethodResult;
 import com.cocobabys.net.UploadTokenMethod;
@@ -29,22 +32,29 @@ import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
 
 public class SendExpJob extends MyJob {
-	private static final int STANDARD_PIC = 1080 * 1080;
+	private static final int STANDARD_PIC = 600 * 800;
 	private Handler handler;
 	private String text;
 	private List<String> mediums;
+	// 与mediums 一一对应
+	private List<String> nativePath = new ArrayList<String>();
+	private String mediumType;
+	// 当做文件名关键字
+	private long currentTimeMillis;
 
-	public SendExpJob(Handler handler, String text, List<String> mediums) {
+	public SendExpJob(Handler handler, String text, List<String> mediums, String mediumType) {
 		this.handler = handler;
 		this.text = text;
 		this.mediums = mediums;
+		this.mediumType = mediumType;
 	}
 
 	@Override
 	public void run() {
+		currentTimeMillis = System.currentTimeMillis();
 		MethodResult bret = new MethodResult(EventType.POST_EXP_FAIL);
 		try {
-			uploadBmpToServer();
+			uploadFileToServer();
 
 			final String content = getContent();
 			MyProxy proxy = new MyProxy();
@@ -57,7 +67,10 @@ public class SendExpJob extends MyJob {
 			});
 
 			bret = MethodUtils.getBindResult(bind);
-			saveBmpToSDCard();
+
+			saveData(bret);
+
+			// saveBmpToSDCard();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -66,6 +79,28 @@ public class SendExpJob extends MyJob {
 			handler.sendMessage(msg);
 		}
 
+	}
+
+	private void saveData(MethodResult bret) {
+		if (!mediums.isEmpty()) {
+			// 该信息已经保存到数据库，这里如果存在medium，将medium路径保存到数据库，以免从本地选择的资源又再次到服务器下载
+
+			List<NativeMediumInfo> list = new ArrayList<NativeMediumInfo>();
+
+			for (int i = 0; i < mediums.size(); i++) {
+				NativeMediumInfo info = new NativeMediumInfo();
+				info.setKey(nativePath.get(i));
+				info.setValue(mediums.get(i));
+				list.add(info);
+			}
+			DataMgr.getInstance().addNativeMediumInfoList(list);
+
+			// 如果发送的是视频文件，此时保存对应的nail
+			ExpInfo expInfo = (ExpInfo) bret.getResultObj();
+			if (JSONConstant.VIDEO_TYPE.equals(mediumType)) {
+				saveAndCompressNail(expInfo);
+			}
+		}
 	}
 
 	private String getContent() throws JSONException {
@@ -83,10 +118,11 @@ public class SendExpJob extends MyJob {
 
 		if (!mediums.isEmpty()) {
 			JSONArray array = new JSONArray();
-			for (String url : mediums) {
+			for (int i = 0; i < mediums.size(); i++) {
 				JSONObject object = new JSONObject();
-				object.put(JSONConstant.URL, UploadFactory.getUploadHost() + Utils.getExpRelativePath(url));
-				object.put(JSONConstant.TYPE, JSONConstant.IMAGE_TYPE);
+				object.put(JSONConstant.URL,
+						UploadFactory.getUploadHost() + Utils.getExpRelativePathExt(nativePath.get(i)));
+				object.put(JSONConstant.TYPE, mediumType);
 				array.put(object);
 			}
 
@@ -96,7 +132,7 @@ public class SendExpJob extends MyJob {
 		return jsonObject.toString();
 	}
 
-	private void uploadBmpToServer() throws Exception {
+	private void uploadFileToServer() throws Exception {
 		String uploadToken = UploadTokenMethod.getMethod().getUploadToken("");
 		if (TextUtils.isEmpty(uploadToken)) {
 			throw new RuntimeException("getUploadToken failed ");
@@ -106,8 +142,11 @@ public class SendExpJob extends MyJob {
 
 		for (int i = 0; i < mediums.size(); i++) {
 			String sdCardPath = mediums.get(i);
-			String name = Utils.getExpRelativePath(sdCardPath);
+			// String name = Utils.getExpRelativePath(sdCardPath);
+			String realName = currentTimeMillis + i + ".jpg";
+			String name = Utils.getExpRelativePathExt(realName);
 			uploadImpl(uploadToken, uploadMgr, sdCardPath, name);
+			nativePath.add(realName);
 			sendProgressEvent(i + 2);
 		}
 
@@ -122,15 +161,51 @@ public class SendExpJob extends MyJob {
 	}
 
 	private void uploadImpl(String uploadToken, UploadMgr uploadMgr, String url, String name) throws Exception {
+		if (JSONConstant.IMAGE_TYPE.equals(mediumType)) {
+			uploadPhoto(uploadToken, uploadMgr, url, name);
+		} else {
+			uploadFile(uploadToken, uploadMgr, url, name);
+		}
+	}
+
+	private void uploadFile(String uploadToken, UploadMgr uploadMgr, String url, String name)
+			throws InterruptedException {
+		try {
+			uploadMgr.uploadFile(url, name, uploadToken);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Thread.sleep(500);
+			// 重试一次
+			uploadMgr.uploadFile(url, name, uploadToken);
+		}
+	}
+
+	// 图片需要先压缩，控制最大值
+	private void uploadPhoto(String uploadToken, UploadMgr uploadMgr, String url, String name)
+			throws InterruptedException {
 		Bitmap bitmap = Utils.getLoacalBitmap(url, STANDARD_PIC);
+		Log.d("DJC", "Size =" + bitmap.getRowBytes() * bitmap.getHeight());
 
 		try {
+			// uploadMgr.uploadPhoto(url, name, uploadToken);
 			uploadMgr.uploadPhoto(bitmap, name, uploadToken);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Thread.sleep(500);
 			// 重试一次
 			uploadMgr.uploadPhoto(bitmap, name, uploadToken);
+		}
+	}
+
+	protected void saveAndCompressNail(ExpInfo info) {
+		String nail = info.serverUrlToLocalUrl(info.getServerUrls().get(0), true);
+		try {
+			if (!new File(nail).exists()) {
+				Bitmap nailbitmap = Utils.createVideoThumbnail(mediums.get(0));
+				Utils.saveBitmapToSDCard(nailbitmap, nail);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

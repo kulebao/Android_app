@@ -31,12 +31,15 @@ public class NewCheckIconActivity extends UmengStatisticsActivity {
 	private Handler handler;
 	private ProgressDialog dialog;
 	private String childid;
+	private String path;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.check_icon);
 		childid = DataMgr.getInstance().getSelectedChild().getServer_id();
+		path = getIntent().getStringExtra(ConstantValue.TMP_CHAT_PATH);
+		
 		showIcon();
 		initBtn();
 		initDialog();
@@ -103,15 +106,13 @@ public class NewCheckIconActivity extends UmengStatisticsActivity {
 
 	protected void runSendPicTask() {
 		long lastid = DataMgr.getInstance().getLastNewChatServerid(childid);
-		UploadChatIconJob uploadChatIconTask = new UploadChatIconJob(handler, bitmap, lastid, childid);
+		UploadChatIconJob uploadChatIconTask = new UploadChatIconJob(handler, bitmap, lastid, childid, path);
 		uploadChatIconTask.execute();
 		dialog.show();
 	}
 
 	private void showIcon() {
 		ImageView image = (ImageView) findViewById(R.id.imageview);
-		String path = getIntent().getStringExtra(ConstantValue.TMP_CHAT_PATH);
-
 		int maxPixel = getMaxPix();
 
 		bitmap = getResizedBmp(maxPixel, path);
@@ -139,7 +140,9 @@ public class NewCheckIconActivity extends UmengStatisticsActivity {
 
 	@Override
 	protected void onDestroy() {
-		bitmap.recycle();
+		if(bitmap != null){
+			bitmap.recycle();
+		}
 		super.onDestroy();
 	}
 

@@ -234,7 +234,7 @@ public class DataUtils {
 		return list;
 	}
 
-	private static void closeCursor(Cursor imagecursor) {
+	public static void closeCursor(Cursor imagecursor) {
 		// if (Build.VERSION.SDK_INT < 14) {
 		if (imagecursor != null) {
 			imagecursor.close();

@@ -95,15 +95,17 @@ public class ExpMethod {
 			return methodResult;
 		}
 
-		saveExpInfoToDB(result);
+		ExpInfo info = saveExpInfoToDB(result);
+		methodResult.setResultObj(info);
 		return methodResult;
 	}
 
-	private void saveExpInfoToDB(HttpResult result) throws JSONException {
+	private ExpInfo saveExpInfoToDB(HttpResult result) throws JSONException {
 		ExpInfo info = ExpInfo.parseFromJsonObj(result.getJsonObject());
 		List<ExpInfo> list = new ArrayList<ExpInfo>();
 		list.add(info);
 		DataMgr.getInstance().addExpDataList(list);
+		return info;
 	}
 
 	private String createSendExpUrl() {

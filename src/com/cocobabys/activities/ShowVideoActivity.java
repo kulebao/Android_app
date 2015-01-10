@@ -1,6 +1,7 @@
 package com.cocobabys.activities;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ProgressDialog;
@@ -22,14 +23,16 @@ import android.widget.VideoView;
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.constant.NoticeAction;
 import com.cocobabys.customview.CustomDialog.Builder;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.dlgmgr.DlgMgr;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
+import com.cocobabys.jobs.SendExpJob;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
-import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 
 public class ShowVideoActivity extends UmengStatisticsActivity {
@@ -106,13 +109,23 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 
 					singleBtnDlg.create().show();
 					break;
-
+				case EventType.POST_EXP_SUCCESS:
+					handSendExpSuccess();
+					break;
+				case EventType.POST_EXP_FAIL:
+					Utils.makeToast(ShowVideoActivity.this, R.string.send_fail);
+					break;
 				default:
 					break;
 				}
 			}
 
 		};
+	}
+
+	protected void handSendExpSuccess() {
+		Utils.makeToast(this, R.string.send_success);
+		finish();
 	}
 
 	private void goSeeVideo() {
@@ -180,6 +193,9 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 	private void goSendVideo() {
 		initData();
 		initUI();
+
+		findViewById(R.id.cancel).setVisibility(View.VISIBLE);
+		findViewById(R.id.send).setVisibility(View.VISIBLE);
 	}
 
 	private void getExpID() {
@@ -235,9 +251,9 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 	}
 
 	private void initData() {
-		videoUrl = getIntent().getStringExtra(ConstantValue.VIDEO_URL);
-		size = getIntent().getLongExtra(ConstantValue.VIDEO_SIZE, 0);
-		content = getIntent().getStringExtra(ConstantValue.EXP_TEXT);
+		videoUrl = getIntent().getStringExtra(NoticeAction.VIDEO_URL);
+		size = getIntent().getLongExtra(NoticeAction.VIDEO_SIZE, 0);
+		content = getIntent().getStringExtra(NoticeAction.EXP_TEXT);
 	}
 
 	public void onPause() {
@@ -275,6 +291,15 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 	}
 
 	public void send(View view) {
+		dialog.setMessage(getResources().getString(R.string.sending));
+		dialog.show();
+		
+		videoView.stopPlayback();
+		List<String> list = new ArrayList<String>(1);
+		list.add(videoUrl);
+
+		SendExpJob expJob = new SendExpJob(handler, content, list, JSONConstant.VIDEO_TYPE);
+		expJob.execute();
 	}
 
 }

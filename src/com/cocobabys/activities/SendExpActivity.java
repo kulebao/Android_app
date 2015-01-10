@@ -7,12 +7,13 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.MediaScannerConnectionClient;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -31,8 +32,10 @@ import android.widget.Toast;
 import com.cocobabys.R;
 import com.cocobabys.adapter.GalleryAdapter;
 import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.NoticeAction;
 import com.cocobabys.customview.CustomGallery;
+import com.cocobabys.dlgmgr.DlgMgr;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.SendExpJob;
 import com.cocobabys.utils.DataUtils;
@@ -41,6 +44,8 @@ import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SendExpActivity extends UmengStatisticsActivity {
+	private static final int VIDEO_RECORD = 0;
+	private static final int VIDEO_FILE = 1;
 	private GridView gridGallery;
 	private Handler myhandler;
 	private GalleryAdapter adapter;
@@ -186,7 +191,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		}
 		dialog.show();
 
-		SendExpJob expJob = new SendExpJob(myhandler, exp_content.getText().toString(), mediaPaths);
+		SendExpJob expJob = new SendExpJob(myhandler, exp_content.getText().toString(), mediaPaths,
+				JSONConstant.IMAGE_TYPE);
 		expJob.execute();
 	}
 
@@ -246,34 +252,57 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			}
 		});
 
-		if (MyApplication.getInstance().isForTest()) {
-			Button video = (Button) findViewById(R.id.video);
-			video.setVisibility(View.VISIBLE);
-			video.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					videoRecord();
-				}
-			});
+		Button video = (Button) findViewById(R.id.video);
+		video.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				DlgMgr.getListDialog(SendExpActivity.this, R.array.video_choose, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						Log.d("initTitle ddd", "which =" + which);
+						handleClick(which);
+					}
+				}).create().show();
+			}
+		});
+	}
+
+	private void handleClick(int which) {
+		switch (which) {
+		case VIDEO_RECORD:
+			captureVideo();
+			break;
+		case VIDEO_FILE:
+			chooseVideoFile();
+			break;
+		default:
+			break;
 		}
 	}
 
-	private void videoRecord() {
+	private void chooseVideoFile() {
+		Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+				.setType("video/*");
+		startActivityForResult(i, NoticeAction.SELECT_VIDEO_FILE);
+	}
+
+	private void captureVideo() {
 		Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 		// 设置了下面这个参数后，系统摄像头就无法选择画质了，1表示高清，0表示低分辨率
 		intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
 		// 设置最大录像时间，单位秒
 		intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60);
-		// 指定录像文件保存地址
-		String ur = Environment.getExternalStorageDirectory().getPath() + "/Test_Movie.m4v";
-		File file = new File(ur);
-		Uri uri = Uri.fromFile(file);
+		intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 5 * 1024 * 1024);
 
-		Log.d("DDD", "path =" + uri.getPath());
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+		// ur = Environment.getExternalStorageDirectory().getPath() + "/Test_Movie.m4v";
+		// File file = new File(ur);
+		//
+		// Uri uri = Uri.fromFile(file);
+		//
+		// Log.d("DDD", "path =" + uri.getPath());
+		// intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 		// 指定录像文件最大尺寸，单位字节
-		intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 3 * 1024 * 1024);
-		startActivityForResult(intent, NoticeAction.SELECT_VIDEO);
+		startActivityForResult(intent, NoticeAction.VIDEO_CAPTURE);
 	}
 
 	@Override
@@ -304,11 +333,57 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			videonail.setVisibility(View.VISIBLE);
 			videonail.setImageBitmap(DataUtils.createVideoThumbnail(mVideoUri.getPath()));
 			break;
-
+		case NoticeAction.SELECT_VIDEO_FILE:
+			handleVideoFile(data);
+			break;
+		case NoticeAction.VIDEO_CAPTURE:
+			handleVideoFile(data);
+			break;
 		default:
 			break;
 		}
 
+	}
+
+	private void handleVideoFile(Intent data) {
+		Uri myUri = data.getData();
+		Cursor cursor = getContentResolver().query(myUri, null, null, null, null);
+
+		if (cursor != null && cursor.getCount() > 0) {
+			try {
+				cursor.moveToFirst();
+				long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
+				// int intduration = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
+				String url = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
+
+				Log.d("", "url =" + url);
+				Log.d("", "size =" + size);
+				// Log.d("", "duration =" + intduration);
+
+				if (!isValidSize(size)) {
+					DlgMgr.showSingleBtnResDlg(R.string.video_invalid, SendExpActivity.this);
+					return;
+				}
+
+				startToSendVideo(url, size);
+
+			} finally {
+				DataUtils.closeCursor(cursor);
+			}
+		}
+	}
+
+	private void startToSendVideo(String url, long size) {
+		Intent intent = new Intent(SendExpActivity.this, ShowVideoActivity.class);
+		intent.putExtra(NoticeAction.VIDEO_URL, url);
+		intent.putExtra(NoticeAction.VIDEO_SIZE, size);
+		intent.putExtra(NoticeAction.EXP_TEXT, exp_content.getText().toString());
+
+		startActivity(intent);
+	}
+
+	private boolean isValidSize(long size) {
+		return (double) size < 5.0 * 1024.0 * 1024.0;
 	}
 
 	private void clearAllContent() {

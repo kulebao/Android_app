@@ -30,13 +30,14 @@
         android:orientation="horizontal" >
 
         <TextView
+            android:id="@+id/cancel"
             style="@style/TitleTextStyle"
             android:layout_centerVertical="true"
             android:clickable="true"
             android:onClick="cancel"
-            android:visibility="gone"
             android:text="@string/cancel"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/play"
@@ -47,14 +48,15 @@
             android:src="@drawable/pvideo" />
 
         <TextView
-             android:visibility="gone"
+            android:id="@+id/send"
             style="@style/TitleTextStyle"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:clickable="true"
             android:onClick="send"
             android:text="@string/send"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </RelativeLayout>

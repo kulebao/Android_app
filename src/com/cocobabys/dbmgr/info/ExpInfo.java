@@ -131,7 +131,8 @@ public class ExpInfo {
 		return TEACHER_TYPE.equals(sender_type);
 	}
 
-	public static List<ExpInfo> parseFromJsonArray(JSONArray array) throws JSONException {
+	public static List<ExpInfo> parseFromJsonArray(JSONArray array)
+			throws JSONException {
 		List<ExpInfo> list = new ArrayList<ExpInfo>();
 		for (int i = 0; i < array.length(); i++) {
 			list.add(parseFromJsonObj(array.getJSONObject(i)));
@@ -139,14 +140,17 @@ public class ExpInfo {
 		return list;
 	}
 
-	public static ExpInfo parseFromJsonObj(JSONObject object) throws JSONException {
+	public static ExpInfo parseFromJsonObj(JSONObject object)
+			throws JSONException {
 		ExpInfo info = new ExpInfo();
 
 		info.setExp_id(object.getLong("id"));
 		info.setChild_id(object.getString(JSONConstant.TOPIC));
 		info.setContent(object.getString(CONTENT));
-		info.setSender_id(object.getJSONObject(JSONConstant.SENDER).getString(JSONConstant.ID));
-		info.setSender_type(object.getJSONObject(JSONConstant.SENDER).getString(JSONConstant.TYPE));
+		info.setSender_id(object.getJSONObject(JSONConstant.SENDER).getString(
+				JSONConstant.ID));
+		info.setSender_type(object.getJSONObject(JSONConstant.SENDER)
+				.getString(JSONConstant.TYPE));
 		info.setTimestamp(object.getLong(TIMESTAMP));
 		info.setMedium(object.getJSONArray(MEDIUM).toString());
 		return info;
@@ -154,11 +158,13 @@ public class ExpInfo {
 
 	public String getMediumType() {
 		String type = JSONConstant.IMAGE_TYPE;
-		if (!"".equals(medium)) {
+		if (!TextUtils.isEmpty(medium)) {
 			try {
 				JSONArray array = new JSONArray(medium);
 				if (array.length() > 0) {
-					type = array.getJSONObject(0).getString(JSONConstant.TYPE);
+					// 返回的类型会多出\\，临时解决一下
+					type = array.getJSONObject(0).getString(JSONConstant.TYPE)
+							.replace("\\", "");
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -169,11 +175,12 @@ public class ExpInfo {
 
 	public List<String> getLocalUrls(boolean bThumbnail) {
 		List<String> list = new ArrayList<String>();
-		if (!"".equals(medium)) {
+		if (!TextUtils.isEmpty(medium)) {
 			try {
 				JSONArray array = new JSONArray(medium);
 				for (int i = 0; i < array.length(); i++) {
-					String url = array.getJSONObject(i).getString(JSONConstant.URL);
+					String url = array.getJSONObject(i).getString(
+							JSONConstant.URL);
 					String localUrl = serverUrlToLocalUrl(url, bThumbnail);
 					list.add(localUrl);
 				}
@@ -186,11 +193,12 @@ public class ExpInfo {
 
 	public List<String> getServerUrls() {
 		List<String> list = new ArrayList<String>();
-		if (!"".equals(medium)) {
+		if (!TextUtils.isEmpty(medium)) {
 			try {
 				JSONArray array = new JSONArray(medium);
 				for (int i = 0; i < array.length(); i++) {
-					String url = array.getJSONObject(i).getString(JSONConstant.URL);
+					String url = array.getJSONObject(i).getString(
+							JSONConstant.URL);
 					list.add(url);
 				}
 			} catch (JSONException e) {
@@ -206,15 +214,32 @@ public class ExpInfo {
 			return "";
 		}
 
-		if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone().getParent_id())) {
+		if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone()
+				.getParent_id())) {
+
+			// 如果是视频的缩略图，因为自己发送的资源，除了视频外，是不会保存缩略图的
+			if (!JSONConstant.VIDEO_TYPE.equals(getMediumType()) || !bThumbnail) {
+				NativeMediumInfo nativeMediumInfo = DataMgr.getInstance()
+						.getNativeMediumInfo(Utils.getName(serverUrl));
+				// 不为空表示该资源是由用户上传过，并记录到本地数据库.nail文件是不会上传到服务器的
+				if (nativeMediumInfo != null) {
+					String value = nativeMediumInfo.getValue();
+					// 如果文件存在才返回，否则继续
+					if (new File(value).exists()) {
+						return value;
+					}
+				}
+			}
+
 			// 自己发的图片，就从本地读，以免再次去服务器下载
-			localUrl = serverUrl.replace(UploadFactory.getUploadHost(), Utils.getSDCardPicRootPath()
-					+ File.separator);
+			localUrl = serverUrl.replace(UploadFactory.getUploadHost(),
+					Utils.getSDCardPicRootPath() + File.separator);
 
 			// 如果文件不存在，则区分是否是缩略图
 			if (!new File(localUrl).exists() && bThumbnail) {
 				String name = Utils.getName(localUrl);
-				localUrl = Utils.getDir(localUrl) + File.separator + THUMBNAIL + File.separator + name;
+				localUrl = Utils.getDir(localUrl) + File.separator + THUMBNAIL
+						+ File.separator + name;
 			}
 		} else {
 			String dir = "";
@@ -237,7 +262,8 @@ public class ExpInfo {
 	}
 
 	public String getThumbnailDir() {
-		return Utils.getExpIconDir(child_id) + exp_id + File.separator + THUMBNAIL + File.separator;
+		return Utils.getExpIconDir(child_id) + exp_id + File.separator
+				+ THUMBNAIL + File.separator;
 	}
 
 	@Override
@@ -260,6 +286,10 @@ public class ExpInfo {
 		if (exp_id != other.exp_id)
 			return false;
 		return true;
+	}
+
+	public static String getExpType(long expid) {
+		return JSONConstant.EXP_TYPE + "_" + expid;
 	}
 
 }

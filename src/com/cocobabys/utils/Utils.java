@@ -527,6 +527,12 @@ public class Utils {
 		return name;
 	}
 
+	public static String getExpRelativePathExt(String realName) {
+		String name = DataMgr.getInstance().getSchoolID() + File.separator + EXP_ICON + File.separator
+				+ DataMgr.getInstance().getSelectedChild().getServer_id() + File.separator + realName;
+		return name;
+	}
+
 	public static Bitmap downloadImgWithJudgement(String url, float limitWidth, float limitHeight) {
 		Bitmap bitmap = null;
 		try {

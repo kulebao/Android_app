@@ -133,6 +133,18 @@ public class NewChatInfo {
 		if (!"".equals(media_url)) {
 			if (sender_id.equals(DataMgr.getInstance().getSelfInfoByPhone()
 					.getParent_id())) {
+
+				NativeMediumInfo nativeMediumInfo = DataMgr.getInstance()
+						.getNativeMediumInfo(Utils.getName(media_url));
+				// 不为空表示该资源是由用户上传过，并记录到本地数据库
+				if (nativeMediumInfo != null) {
+					String value = nativeMediumInfo.getValue();
+					// 如果文件存在才返回，否则继续
+					if (new File(value).exists()) {
+						return value;
+					}
+				}
+
 				// 自己发的图片，就从本地读，以免再次去服务器下载
 				localUrl = media_url.replace(UploadFactory.getUploadHost(),
 						Utils.getSDCardPicRootPath() + File.separator);

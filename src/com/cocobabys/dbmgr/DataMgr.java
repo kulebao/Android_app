@@ -13,6 +13,7 @@ import com.cocobabys.dbmgr.info.CookBookInfo;
 import com.cocobabys.dbmgr.info.EducationInfo;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.dbmgr.info.Homework;
+import com.cocobabys.dbmgr.info.NativeMediumInfo;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.News;
 import com.cocobabys.dbmgr.info.ParentInfo;
@@ -23,7 +24,7 @@ import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.utils.DataUtils;
 
 public class DataMgr {
-	private static int DB_VERSION = 2;
+	private static int DB_VERSION = 3;
 	private static final String DB_NAME = "coolbao" + ".db";
 	private static Object mLock = new Object();
 	private static DataMgr instance;
@@ -43,6 +44,7 @@ public class DataMgr {
 	private ParentMgr parentMgr;
 	private NewChatMgr newChatMgr;
 	private ExpMgr expMgr;
+	private NativeMediumMgr nativeMediumMgr;
 
 	public static synchronized DataMgr getInstance() {
 		synchronized (mLock) {
@@ -69,6 +71,7 @@ public class DataMgr {
 		parentMgr = new ParentMgr(dbHelper);
 		newChatMgr = new NewChatMgr(dbHelper);
 		expMgr = new ExpMgr(dbHelper);
+		nativeMediumMgr = new NativeMediumMgr(dbHelper);
 	}
 
 	public void upgradeAll() {
@@ -208,18 +211,15 @@ public class DataMgr {
 	}
 
 	public String getLastestSwipeIn(String date) {
-		return swipeMgr.getLastestSwipeIn(date, childrenInfoMgr
-				.getSelectedChild().getServer_id());
+		return swipeMgr.getLastestSwipeIn(date, childrenInfoMgr.getSelectedChild().getServer_id());
 	}
 
 	public String getLatestSwipeOut(String date) {
-		return swipeMgr.getLatestSwipeOut(date, childrenInfoMgr
-				.getSelectedChild().getServer_id());
+		return swipeMgr.getLatestSwipeOut(date, childrenInfoMgr.getSelectedChild().getServer_id());
 	}
 
 	public List<SwipeInfo> getAllSwipeCardNotice(String date) {
-		return swipeMgr.getAllSwipeCardNotice(date, childrenInfoMgr
-				.getSelectedChild().getServer_id());
+		return swipeMgr.getAllSwipeCardNotice(date, childrenInfoMgr.getSelectedChild().getServer_id());
 	}
 
 	public long addHomework(Homework info) {
@@ -251,13 +251,11 @@ public class DataMgr {
 	}
 
 	public List<EducationInfo> getSelectedChildEduRecord() {
-		return educationMgr.getEduRecordByChildID(childrenInfoMgr
-				.getSelectedChild().getServer_id());
+		return educationMgr.getEduRecordByChildID(childrenInfoMgr.getSelectedChild().getServer_id());
 	}
 
 	public void removeSelectedChildEduRecord() {
-		educationMgr.removeEduRecord(childrenInfoMgr.getSelectedChild()
-				.getServer_id());
+		educationMgr.removeEduRecord(childrenInfoMgr.getSelectedChild().getServer_id());
 	}
 
 	public void removeEduRecord(String childid) {
@@ -321,8 +319,7 @@ public class DataMgr {
 		return newChatMgr.getChatInfoWithLimite(max, childid);
 	}
 
-	public List<NewChatInfo> getNewChatInfoWithLimite(int max, long to,
-			String childid) {
+	public List<NewChatInfo> getNewChatInfoWithLimite(int max, long to, String childid) {
 		return newChatMgr.getChatInfoWithLimite(max, to, childid);
 	}
 
@@ -376,6 +373,26 @@ public class DataMgr {
 		expMgr.clear();
 	}
 
+	public void addNativeMediumInfo(NativeMediumInfo info) {
+		nativeMediumMgr.addInfo(info);
+	}
+
+	public void addNativeMediumInfoList(List<NativeMediumInfo> list) {
+		nativeMediumMgr.addList(list);
+	}
+
+	public NativeMediumInfo getNativeMediumInfo(String key) {
+		return nativeMediumMgr.getInfo(key);
+	}
+
+	public List<NativeMediumInfo> getAllNativeMediumInfo() {
+		return nativeMediumMgr.getAllInfo();
+	}
+
+	public void clearNativeMedium() {
+		nativeMediumMgr.clear();
+	}
+	
 	public void close() {
 		synchronized (mLock) {
 			if (dbHelper != null) {

@@ -135,7 +135,7 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 		gridGallery.setFastScrollEnabled(true);
 		adapter = new CustomGalleryAdapter(getApplicationContext(), imageLoader);
 		adapter.setShowDefaultPic(true);
-
+		
 		if (action.equalsIgnoreCase(NoticeAction.ACTION_MULTIPLE_PICK)) {
 			findViewById(R.id.llBottomContainer).setVisibility(View.VISIBLE);
 			gridGallery.setOnItemClickListener(mItemMulClickListener);

@@ -13,10 +13,10 @@
         layout="@layout/topbar" />
 
     <EditText
-        android:layout_below="@+id/first"
         android:id="@+id/exp_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/first"
         android:layout_marginTop="2dp"
         android:background="@android:color/transparent"
         android:gravity="top"
@@ -26,10 +26,10 @@
         android:textSize="16sp" />
 
     <GridView
-        android:layout_below="@+id/exp_content"
         android:id="@+id/gridGallery"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/exp_content"
         android:layout_gravity="top"
         android:layout_marginBottom="-10dp"
         android:layout_marginLeft="-10dp"
@@ -55,8 +55,8 @@
         android:id="@+id/BottomContainer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
         android:padding="5dp" >
 
         <Button
@@ -89,7 +89,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:visibility="gone"
             android:background="@drawable/btn_sel"
             android:text="视频" />
     </LinearLayout>
