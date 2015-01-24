@@ -78,7 +78,7 @@ public class NewChatListAdapter extends BaseAdapter {
 		this.downloadImgeJob = downloadImgeTask;
 		this.getTeacherInfoJob = getTeacherInfoJob;
 
-		final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+		final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024)/8;
 
 		lruCache = new LruCache<String, Bitmap>(maxMemory) {
 			@Override

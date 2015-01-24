@@ -19,7 +19,7 @@
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
     <string name="back">返回</string>
-    <string name="exit_app">确认退出要退出应用吗？</string>
+    <string name="exit_app">确认退出幼乐宝么？</string>
     <string name="confirm_exit">确定要退出登录？退出后无法接收任何消息!</string>
     <string name="unknow_error">未知错误</string>
     <string name="setting">设置</string>
@@ -118,11 +118,11 @@
     <string name="swap">接送信息</string>
     <string name="schedule">课程表</string>
     <string name="baby_default_nickname">宝宝</string>
-    <string name="set_baby_nickname">设置宝宝昵称</string>
+    <string name="set_baby_nickname">设置宝贝昵称</string>
     <string name="baby_age_limit">宝宝年龄必须超过1岁哦</string>
     <string name="age_year"> %1$s岁 </string>
     <string name="age_month"> %1$s个月</string>
-    <string name="set_birthday">设置宝宝生日</string>
+    <string name="set_birthday">设置宝贝生日</string>
     <string name="school_info">关于我园</string>
     <string name="contact_school">联系我们</string>
     <string name="about_cocobabys">关于我们</string>

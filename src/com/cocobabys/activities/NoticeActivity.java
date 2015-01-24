@@ -1,5 +1,7 @@
 package com.cocobabys.activities;
 
+import java.io.File;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -17,7 +19,9 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.DownLoadImgAndSaveTask;
+import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class NoticeActivity extends UmengStatisticsActivity {
 	private TextView contentView;
@@ -53,7 +57,7 @@ public class NoticeActivity extends UmengStatisticsActivity {
 		net_url = intent.getStringExtra(JSONConstant.NET_URL);
 		local_url = intent.getStringExtra(JSONConstant.LOCAL_URL);
 
-		setIcon();
+		setIconExt();
 
 		signView.setText(publisher);
 		timeView.setText(time);
@@ -73,7 +77,7 @@ public class NoticeActivity extends UmengStatisticsActivity {
 				super.handleMessage(msg);
 				switch (msg.what) {
 				case EventType.DOWNLOAD_FILE_SUCCESS:
-					setIcon();
+					setIconExt();
 					break;
 				default:
 					break;
@@ -81,6 +85,25 @@ public class NoticeActivity extends UmengStatisticsActivity {
 			}
 
 		};
+	}
+
+	private void setIconExt() {
+		if (!TextUtils.isEmpty(local_url)) {
+			ImageLoader imageLoader = ImageUtils.getImageLoader();
+			if (new File(local_url).exists()) {
+				noticeiconView.setVisibility(View.VISIBLE);
+				String path = "file://" + local_url;
+				imageLoader.displayImage(path, noticeiconView);
+			} else {
+				// 如果本地图片有路径却没有文件，那么从服务器重新下载并保存到本地
+				if (!TextUtils.isEmpty(net_url)) {
+					runDownloadIconTask();
+					noticeiconView.setVisibility(View.VISIBLE);
+					noticeiconView.setImageResource(R.drawable.default_icon);
+				}
+			}
+
+		}
 	}
 
 	private void setIcon() {
@@ -95,8 +118,7 @@ public class NoticeActivity extends UmengStatisticsActivity {
 					if (!TextUtils.isEmpty(net_url)) {
 						runDownloadIconTask();
 						noticeiconView.setVisibility(View.VISIBLE);
-						noticeiconView
-								.setImageResource(R.drawable.default_icon);
+						noticeiconView.setImageResource(R.drawable.default_icon);
 					}
 				}
 			}
@@ -107,15 +129,13 @@ public class NoticeActivity extends UmengStatisticsActivity {
 	}
 
 	private void runDownloadIconTask() {
-		if (downloadIconTask != null
-				&& downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
+		if (downloadIconTask != null && downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
 			// 有任务执行，则返回
 			Log.d("DDD", "NoticeActivity DownloadIconTask already running!");
 			return;
 		}
 
-		downloadIconTask = new DownLoadImgAndSaveTask(handler, net_url,
-				local_url).execute();
+		downloadIconTask = new DownLoadImgAndSaveTask(handler, net_url, local_url).execute();
 	}
 
 	private void initView() {

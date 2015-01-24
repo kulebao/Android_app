@@ -14,63 +14,70 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/internal_logo" />
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/i_logo"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/bg_2" >
+        android:scrollbars="none" >
 
-        <TextView
-            android:id="@+id/aucodeContentView"
-            style="@style/NormalTextviewStyle"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/text_normal"
-            android:padding="6dp"
-            android:text="@string/aucodeContent"
-            android:textColor="@color/juhong" />
-
-        <Button
-            android:id="@+id/getAuthCodeBtn"
-            style="@style/btn_style"
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/aucodeContentView"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/normal_btn"
-            android:text="@string/getAuthCode" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bg_2" >
 
-        <EditText
-            android:id="@+id/inuputAuthCodeView"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/getAuthCodeBtn"
-            android:layout_below="@+id/getAuthCodeBtn"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/input_e"
-            android:digits="0123456789"
-            android:hint="@string/inuput_auth_code"
-            android:inputType="number"
-            android:maxLength="6"
-            android:padding="4dp"
-            android:singleLine="true"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/aucodeContentView"
+                style="@style/NormalTextviewStyle"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/text_normal"
+                android:padding="6dp"
+                android:text="@string/aucodeContent"
+                android:textColor="@color/juhong" />
 
-        <Button
-            android:id="@+id/sendAuthCodeBtn"
-            style="@style/btn_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/getAuthCodeBtn"
-            android:layout_below="@+id/getAuthCodeBtn"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@+id/inuputAuthCodeView"
-            android:background="@drawable/bind_btn"
-            android:text="@string/bind" />
-    </RelativeLayout>
+            <Button
+                android:id="@+id/getAuthCodeBtn"
+                style="@style/btn_style"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/aucodeContentView"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/normal_btn"
+                android:text="@string/getAuthCode" />
+
+            <EditText
+                android:id="@+id/inuputAuthCodeView"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/getAuthCodeBtn"
+                android:layout_below="@+id/getAuthCodeBtn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/input_e"
+                android:digits="0123456789"
+                android:hint="@string/inuput_auth_code"
+                android:inputType="number"
+                android:maxLength="6"
+                android:padding="4dp"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/sendAuthCodeBtn"
+                style="@style/btn_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/getAuthCodeBtn"
+                android:layout_below="@+id/getAuthCodeBtn"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/inuputAuthCodeView"
+                android:background="@drawable/bind_btn"
+                android:text="@string/bind" />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

@@ -11,6 +11,7 @@ import com.cocobabys.net.VideoMethod;
 import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
+import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.video.VideoApp;
 import com.huamaitel.api.HMDefines;
 import com.huamaitel.api.HMDefines.LoginServerInfo;
@@ -45,7 +46,7 @@ public class LoginVideoJob extends MyJob {
 		});
 
 		try {
-			MethodResult result = (MethodResult) bind.handle();
+			MethodResult result = MethodUtils.getBindResult(bind);
 			event = result.getResultType();
 
 			if (event == EventType.VIDEO_GET_INFO_SUCCESS) {

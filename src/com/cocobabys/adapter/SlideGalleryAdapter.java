@@ -20,7 +20,11 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.customview.ProgressWheel;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.taskmgr.DownloadImgeJob;
+import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class SlideGalleryAdapter extends BaseAdapter {
 	private static final int MAXPIX = 1080 * 1080;
@@ -30,6 +34,7 @@ public class SlideGalleryAdapter extends BaseAdapter {
 	private DownloadImgeJob downloadImgeJob;
 	private Handler handler;
 	private LruCache<String, Bitmap> lruCache;
+	private ImageLoader imageLoader;
 
 	public SlideGalleryAdapter(Context c, ExpInfo expInfo, DownloadImgeJob downloadImgeJob) {
 		infalter = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -37,17 +42,21 @@ public class SlideGalleryAdapter extends BaseAdapter {
 		this.localUrlList = expInfo.getLocalUrls(false);
 		this.downloadImgeJob = downloadImgeJob;
 
-		initCache();
+		// initCache();
 		initHandler();
-		
+
 		this.downloadImgeJob.setHanlder(handler);
 		addToDownloadTask(expInfo);
+
+		imageLoader = ImageUtils.getImageLoader();
 	}
 
 	public SlideGalleryAdapter(Context c, List<String> localUrlList) {
 		infalter = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.localUrlList = localUrlList;
-		initCache();
+		imageLoader = ImageUtils.getImageLoader();
+		// do not use cache,use Universal-Image-Load
+		// initCache();
 	}
 
 	private void initHandler() {
@@ -124,11 +133,33 @@ public class SlideGalleryAdapter extends BaseAdapter {
 	private void setDataToView(final int position, final ViewHolder holder) {
 		try {
 			String path = getItem(position);
-			showIcon(holder, path);
+			showIconExt(holder, path);
 			showAnimate(holder, path);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void showIconExt(final ViewHolder holder, String path) {
+		String url = path;
+
+		// 如果原图不存在，则找缩略图
+		if (!new File(path).exists()) {
+			String name = Utils.getName(path);
+			// 原图显示失败则暂时显示缩略图
+			url = expInfo.getThumbnailDir() + name;
+		}
+
+		url = "file://" + url;
+
+		imageLoader.displayImage(url, holder.imageView, new SimpleImageLoadingListener() {
+			@Override
+			public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+				holder.imageView.setImageResource(R.drawable.default_icon);
+				super.onLoadingFailed(imageUri, view, failReason);
+			}
+
+		});
 	}
 
 	private void showIcon(final ViewHolder holder, String path) {
@@ -170,7 +201,7 @@ public class SlideGalleryAdapter extends BaseAdapter {
 		for (String serverUrl : serverUrls) {
 			String localUrl = info.serverUrlToLocalUrl(serverUrl, false);
 			if (!new File(localUrl).exists()) {
-				downloadImgeJob.addTask(serverUrl, localUrl, 1080f, 1080f);
+				downloadImgeJob.addTask(serverUrl, localUrl, 800f, 600f);
 			}
 		}
 	}

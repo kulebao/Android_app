@@ -21,6 +21,7 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -239,13 +240,24 @@ public class ExpListAdapter extends BaseAdapter {
 			}
 		});
 
-		flagholder.gridview.setOnLongClickListener(new OnLongClickListener() {
+		flagholder.gridview.setOnItemLongClickListener(new OnItemLongClickListener() {
+
 			@Override
-			public boolean onLongClick(View v) {
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int p, long id) {
+				Log.d("", "DDDA onItemLongClick");
 				showDlgEx(position);
 				return false;
 			}
 		});
+
+		// flagholder.gridview.setOnLongClickListener(new OnLongClickListener() {
+		// @Override
+		// public boolean onLongClick(View v) {
+		// Log.d("", "DDDA onLongClick");
+		// showDlgEx(position);
+		// return false;
+		// }
+		// });
 	}
 
 	private void showDlgEx(final int pos) {

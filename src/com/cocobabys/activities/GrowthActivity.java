@@ -184,7 +184,7 @@ public class GrowthActivity extends UmengStatisticsActivity {
 
 		Button send = (Button) findViewById(R.id.rightBtn);
 		send.setVisibility(View.VISIBLE);
-		send.setText(R.string.send);
+		send.setText(R.string.add);
 		send.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
