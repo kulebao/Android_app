@@ -1,6 +1,5 @@
 package com.cocobabys.lbs;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.cocobabys.R;
+import com.cocobabys.activities.UmengStatisticsActivity;
 import com.cocobabys.bean.LocatorPower;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
@@ -24,7 +24,7 @@ import com.cocobabys.net.LbsMethod;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
-public class LbsMainActivity extends Activity {
+public class LbsMainActivity extends UmengStatisticsActivity {
 
 	private SDKReceiver mReceiver;
 	private MyHandler handler;

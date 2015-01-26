@@ -7,7 +7,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +30,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.cocobabys.R;
+import com.cocobabys.activities.UmengStatisticsActivity;
 import com.cocobabys.bean.LocationInfo;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.handler.MyHandler;
@@ -43,7 +43,7 @@ import com.cocobabys.utils.Utils;
  * 此demo用来展示如何在地图上用GraphicsOverlay添加点、线、多边形、圆 同时展示如何在地图上用TextOverlay添加文字
  * 
  */
-public class LbsTrack extends Activity {
+public class LbsTrack extends UmengStatisticsActivity {
 
 	protected static final int GO_NEXT = 100;
 
@@ -432,13 +432,13 @@ public class LbsTrack extends Activity {
 	}
 
 	@Override
-	protected void onPause() {
+	public void onPause() {
 		mMapView.onPause();
 		super.onPause();
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		mMapView.onResume();
 		super.onResume();
 	}

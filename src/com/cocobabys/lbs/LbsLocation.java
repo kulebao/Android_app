@@ -3,7 +3,6 @@ package com.cocobabys.lbs;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,12 +23,12 @@ import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatus.Builder;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
-import com.baidu.mapapi.map.MapStatus.Builder;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
@@ -45,6 +44,7 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult.AddressComponent;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.cocobabys.R;
+import com.cocobabys.activities.UmengStatisticsActivity;
 import com.cocobabys.bean.LocationInfo;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.handler.MyHandler;
@@ -57,7 +57,7 @@ import com.cocobabys.utils.Utils;
  * 此demo用来展示如何结合定位SDK实现定位，并使用MyLocationOverlay绘制定位位置 同时展示如何使用自定义图标绘制并点击时弹出泡泡
  * 
  */
-public class LbsLocation extends Activity implements
+public class LbsLocation extends UmengStatisticsActivity implements
 		OnGetGeoCoderResultListener {
 	private static final String COOR_TYPE = "bd09ll";
 	private static final int GET_LOC_TIME_SPAN = 14000;
@@ -404,7 +404,7 @@ public class LbsLocation extends Activity implements
 	}
 
 	@Override
-	protected void onPause() {
+	public void onPause() {
 		mMapView.onPause();
 		super.onPause();
 	}
@@ -436,7 +436,7 @@ public class LbsLocation extends Activity implements
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		mMapView.onResume();
 		super.onResume();
 	}

@@ -1,6 +1,5 @@
 package com.cocobabys.lbs;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,12 +16,13 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.Stroke;
 import com.baidu.mapapi.model.LatLng;
 import com.cocobabys.R;
+import com.cocobabys.activities.UmengStatisticsActivity;
 
 /**
  * 此demo用来展示如何在地图上用GraphicsOverlay添加点、线、多边形、圆 同时展示如何在地图上用TextOverlay添加文字
  * 
  */
-public class LbsFence extends Activity {
+public class LbsFence extends UmengStatisticsActivity {
 
 	// 地图相关
 	MapView mMapView;
@@ -111,13 +111,13 @@ public class LbsFence extends Activity {
 	}
 
 	@Override
-	protected void onPause() {
+	public void onPause() {
 		mMapView.onPause();
 		super.onPause();
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		mMapView.onResume();
 		super.onResume();
 	}

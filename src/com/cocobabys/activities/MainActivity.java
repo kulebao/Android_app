@@ -35,10 +35,11 @@ import com.cocobabys.taskmgr.CheckUpdateTask;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends TabActivity {
 	// 5小时检查一次广告更新
-	private static final int CHECK_AD_DELAY_TIME = 60 * 60 *5;
+	private static final int CHECK_AD_DELAY_TIME = 60 * 60 * 5;
 
 	// 每30分钟检查push相关参数是否正常，如不正常，重新绑定
 	private static final int CHECK_PUSH_DELAY_TIME = 60 * 30;
@@ -69,6 +70,10 @@ public class MainActivity extends TabActivity {
 		initDirs();
 		runCheckBindTask();
 		runCheckADTask();
+
+		// 测试版本的fault信息不上报给友盟
+		MobclickAgent.setCatchUncaughtExceptions(!MyApplication.getInstance()
+				.isForTest());
 	}
 
 	private void runCheckBindTask() {
@@ -100,7 +105,7 @@ public class MainActivity extends TabActivity {
 										adInfo.getLocalFileName());
 							}
 						} catch (Exception e) {
-							Log.e("EEE", "DJC runCheckADTask e="+e.toString());
+							Log.e("EEE", "DJC runCheckADTask e=" + e.toString());
 						}
 					}
 				}, 0, CHECK_AD_DELAY_TIME, TimeUnit.SECONDS);

@@ -49,16 +49,6 @@ public class GrowthActivity extends UmengStatisticsActivity {
 		initUI();
 		initHandler();
 		runGetExpCountJob();
-
-		// test
-		{
-			List<NativeMediumInfo> allNativeMediumInfo = DataMgr.getInstance()
-					.getAllNativeMediumInfo();
-			Log.d("", "dDD getAllNativeMediumInfo");
-			for (NativeMediumInfo info : allNativeMediumInfo) {
-				Log.d("", "dDD info =" + info.toString());
-			}
-		}
 	}
 
 	private void runGetExpCountJob() {

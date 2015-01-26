@@ -2,7 +2,6 @@ package com.cocobabys.lbs;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,8 +24,9 @@ import com.baidu.mapapi.map.offline.MKOLUpdateElement;
 import com.baidu.mapapi.map.offline.MKOfflineMap;
 import com.baidu.mapapi.map.offline.MKOfflineMapListener;
 import com.cocobabys.R;
+import com.cocobabys.activities.UmengStatisticsActivity;
 
-public class LbsOfflineMapList extends Activity implements MKOfflineMapListener {
+public class LbsOfflineMapList extends UmengStatisticsActivity implements MKOfflineMapListener {
 
 	private MKOfflineMap mOffline = null;
 	private TextView cidView;
@@ -206,7 +206,7 @@ public class LbsOfflineMapList extends Activity implements MKOfflineMapListener 
 	}
 
 	@Override
-	protected void onPause() {
+	public void onPause() {
 		int cityid = Integer.parseInt(cidView.getText().toString());
 		MKOLUpdateElement temp = mOffline.getUpdateInfo(cityid);
 		if (temp != null && temp.status == MKOLUpdateElement.DOWNLOADING) {
@@ -216,7 +216,7 @@ public class LbsOfflineMapList extends Activity implements MKOfflineMapListener 
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 	}
 

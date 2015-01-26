@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,7 +27,7 @@ import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.Utils;
 
-public class SlideGalleryActivity extends Activity {
+public class SlideGalleryActivity extends UmengStatisticsActivity {
 	/** Called when the activity is first created. */
 	private SlideGallery gallery;
 	private SlideGalleryAdapter adapter;

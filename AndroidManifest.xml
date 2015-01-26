@@ -297,15 +297,9 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.LocationActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".activities.SchoolInfoActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
