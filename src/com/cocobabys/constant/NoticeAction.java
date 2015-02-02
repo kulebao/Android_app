@@ -20,8 +20,11 @@ public class NoticeAction {
 	public static final int SELECT_CAMERA = 100;
 	public static final int SELECT_VIDEO = 400;
 
-	public static final int VIDEO_CAPTURE = 500;
+	public static final int VIDEO_CAPTURE_SYS = 500;
+	
 	public static final int SELECT_VIDEO_FILE = 510;
+	
+	public static final int VIDEO_CAPTURE_SELF = 520;
 	
 	
 	public static final String VIDEO_URL = "video_url";

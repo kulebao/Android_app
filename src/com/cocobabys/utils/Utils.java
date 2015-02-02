@@ -53,7 +53,8 @@ public class Utils {
 	public static final String APP_DIR_ROOT = "cocobaby";
 	public static final String APP_DIR_TMP = "cocobaby/tmp";
 	public static final String APP_DIR_PIC = "cocobaby/pic";
-	public static final String APP_DIR_VOI = "cocobaby_tclient/voi";
+	public static final String APP_DIR_VOI = "cocobaby/voi";
+	public static final String APP_DIR_VID = "cocobaby/video";
 	public static final String APP_LOGS = "cocobaby/logs";
 	public static final int LIMIT_WIDTH = 320;
 	public static final int LIMIT_HEIGHT = 480;
@@ -62,6 +63,7 @@ public class Utils {
 	public static String VIDEO_PIC = "video_pic";
 	public static String EXP_ICON = "exp_icon";
 	public static String CHAT_VOICE = "chat_voice";
+	public static final String DEFAULT_VIDEO_ENDS = ".mp4";
 
 	public static String getResString(int resID) {
 		Resources resources = MyApplication.getInstance().getResources();
@@ -303,6 +305,8 @@ public class Utils {
 			dir = new File(getAppSDCardPath(), APP_DIR_PIC).getAbsolutePath();
 		} else if (JSONConstant.VOICE_TYPE.equals(type)) {
 			dir = new File(getAppSDCardPath(), APP_DIR_VOI).getAbsolutePath();
+		} else if (JSONConstant.VIDEO_TYPE.equals(type)) {
+			dir = new File(getAppSDCardPath(), APP_DIR_VID).getAbsolutePath();
 		}
 		return dir;
 	}
@@ -589,6 +593,20 @@ public class Utils {
 
 	public static void setVideo(String enable) {
 		DataUtils.saveProp(IS_MY_VIDEO, enable);
+	}
+
+	public static String getExpVideoPath(long timestamp) {
+		String parentid = DataMgr.getInstance().getSelfInfoByPhone().getParent_id();
+
+		String dir = getSDCardMediaRootPath(JSONConstant.VIDEO_TYPE) + File.separator + parentid;
+
+		File file = new File(dir);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+
+		String name = dir + File.separator + timestamp + DEFAULT_VIDEO_ENDS;
+		return name;
 	}
 
 	public static void saveInSDCard(String str, String fileName) {

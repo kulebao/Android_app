@@ -143,13 +143,21 @@ public class SendExpJob extends MyJob {
 		for (int i = 0; i < mediums.size(); i++) {
 			String sdCardPath = mediums.get(i);
 			// String name = Utils.getExpRelativePath(sdCardPath);
-			String realName = currentTimeMillis + i + ".jpg";
+			String realName = currentTimeMillis + i + getMediumEnds();
+
 			String name = Utils.getExpRelativePathExt(realName);
+
 			uploadImpl(uploadToken, uploadMgr, sdCardPath, name);
+
 			nativePath.add(realName);
+
 			sendProgressEvent(i + 2);
 		}
 
+	}
+
+	private String getMediumEnds() {
+		return JSONConstant.IMAGE_TYPE.equals(mediumType) ? ".jpg" : Utils.DEFAULT_VIDEO_ENDS;
 	}
 
 	private void sendProgressEvent(int progress) {

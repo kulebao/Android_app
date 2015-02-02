@@ -12,7 +12,6 @@ import java.util.concurrent.Future;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -39,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocobabys.R;
+import com.cocobabys.activities.UmengStatisticsActivity;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.Utils;
 import com.huamaitel.api.HMCallback;
@@ -51,7 +51,7 @@ import com.huamaitel.api.HMDefines;
  * @author admin
  * 
  */
-public class PlayActivity extends Activity {
+public class PlayActivity extends UmengStatisticsActivity {
 	private static final String TAG = "PlayActivity";
 
 	// Records/Pictures/Logs related.

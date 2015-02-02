@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cocobabys"
-    android:versionCode="80"
-    android:versionName="V1.3.1" >
+    android:versionCode="81"
+    android:versionName="V1.3.2" >
 
     <uses-sdk android:minSdkVersion="10" />
 
@@ -297,9 +297,15 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activities.LocationActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activities.SchoolInfoActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -376,6 +382,11 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.RecordVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop" >
         </activity>
         <activity
             android:name=".activities.ShowVideoActivity"

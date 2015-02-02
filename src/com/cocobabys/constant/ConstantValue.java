@@ -38,7 +38,7 @@ public class ConstantValue {
 	public static final String BABY_BIRTHDAY = "baby_birthday";
 	public static final String BABY_ICONURL = "baby_iconurl";
 	public static final String BABY_ICONNAME = "baby_icon";
-	
+
 	public static final String LOCATOR_ID = "locator_id";
 
 	public static final String LOCAL_URL = "local_url";
@@ -144,5 +144,7 @@ public class ConstantValue {
 	public static final String DEFAULT_VOICE_TYPE = ".amr";
 
 	public static final String RECENTLY_PIC_DIR = "recently_pic_dir";
+
+	public static final String RECORD_FILE_NAME = "record_file_name";
 
 }

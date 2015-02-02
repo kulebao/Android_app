@@ -1,6 +1,7 @@
 package com.cocobabys.activities;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 
 import com.cocobabys.R;
 import com.cocobabys.adapter.GalleryAdapter;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.NoticeAction;
@@ -270,7 +272,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	private void handleClick(int which) {
 		switch (which) {
 		case VIDEO_RECORD:
-			captureVideo();
+			RecordVideo();
 			break;
 		case VIDEO_FILE:
 			chooseVideoFile();
@@ -286,7 +288,12 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		startActivityForResult(i, NoticeAction.SELECT_VIDEO_FILE);
 	}
 
-	private void captureVideo() {
+	private void RecordVideo() {
+		Intent intent = new Intent(this, RecordVideoActivity.class);
+		startActivityForResult(intent, NoticeAction.VIDEO_CAPTURE_SELF);
+	}
+
+	private void RecordVideoBySys() {
 		Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 		// 设置了下面这个参数后，系统摄像头就无法选择画质了，1表示高清，0表示低分辨率
 		intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
@@ -302,7 +309,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		// Log.d("DDD", "path =" + uri.getPath());
 		// intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 		// 指定录像文件最大尺寸，单位字节
-		startActivityForResult(intent, NoticeAction.VIDEO_CAPTURE);
+		startActivityForResult(intent, NoticeAction.VIDEO_CAPTURE_SYS);
 	}
 
 	@Override
@@ -336,13 +343,44 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		case NoticeAction.SELECT_VIDEO_FILE:
 			handleVideoFile(data);
 			break;
-		case NoticeAction.VIDEO_CAPTURE:
+		case NoticeAction.VIDEO_CAPTURE_SYS:
 			handleVideoFile(data);
 			break;
+		case NoticeAction.VIDEO_CAPTURE_SELF:
+			handleRecordVideoBySelf(data);
+			break;
+
 		default:
 			break;
 		}
 
+	}
+
+	// 添加视频到系统文件路径，从系统视频中可以选择播放
+	private void AddVideoToSys(String path) {
+		Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+		mediaScanIntent.setData(Uri.fromFile(new File(path)));
+		this.sendBroadcast(mediaScanIntent);
+	}
+
+	private void handleRecordVideoBySelf(Intent data) {
+		String videoUrl = data.getStringExtra(ConstantValue.RECORD_FILE_NAME);
+		AddVideoToSys(videoUrl);
+
+		File file = new File(videoUrl);
+
+		long size = file.length();
+
+		showSize(size);
+
+		startToSendVideo(videoUrl, size);
+	}
+
+	// for test
+	private void showSize(long size) {
+		DecimalFormat format = new DecimalFormat("0.00");
+		double rSize = size / (1024.0f * 1024.0f);
+		Utils.makeToast(this, format.format(rSize) + "m");
 	}
 
 	private void handleVideoFile(Intent data) {

@@ -38,7 +38,7 @@
 
     <!-- <target name="run" depends="static.analysis,ut,clean,release"> -->
     <!-- <target name="run" depends="clean,release,uninstall,installr"> -->
-
+    <!--
    <target name="copy_release_lbs_key" >
         <copy
             file="${basedir}/manifest/AndroidManifest.xml"
@@ -46,10 +46,11 @@
             tofile="${basedir}/AndroidManifest.xml" >
         </copy>
     </target>
+    -->
 
     <target
         name="run"
-        depends="copy_release_lbs_key,clean,release" >
+        depends="clean,release,installr" >
     </target>
 
 </project>

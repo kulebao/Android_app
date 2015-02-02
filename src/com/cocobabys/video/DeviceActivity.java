@@ -3,7 +3,6 @@ package com.cocobabys.video;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,12 +15,13 @@ import android.widget.SimpleAdapter;
 
 import com.cocobabys.R;
 import com.cocobabys.activities.ActivityHelper;
+import com.cocobabys.activities.UmengStatisticsActivity;
 import com.cocobabys.adapter.VideoDeviceListAdapter;
 import com.cocobabys.utils.Utils;
 import com.huamaitel.api.HMDefines.NodeTypeInfo;
 import com.huamaitel.api.HMJniInterface;
 
-public class DeviceActivity extends Activity {
+public class DeviceActivity extends UmengStatisticsActivity {
 	private static final String TAG = "DeviceActivity";
 	private ListView mListView;
 	private List<VideoDeviceInfo> mListData = new ArrayList<VideoDeviceInfo>();
