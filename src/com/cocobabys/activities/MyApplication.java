@@ -28,7 +28,7 @@ public class MyApplication extends FrontiaApplication {
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
 	private List<ChatInfo> tmpList = new ArrayList<ChatInfo>();
 	private List<NewChatInfo> tmpNewChatList = new ArrayList<NewChatInfo>();
-	private boolean forTest = false;
+	private boolean forTest = true;
 
 	// 当前是否有数据库正在升级
 	private boolean isDbUpdating = false;

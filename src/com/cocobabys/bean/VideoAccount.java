@@ -1,6 +1,5 @@
 package com.cocobabys.bean;
 
-
 public class VideoAccount {
 	private String accountName;
 	private String pwd;
@@ -19,6 +18,12 @@ public class VideoAccount {
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
+	}
+
+	@Override
+	public String toString() {
+		return "VideoAccount [accountName=" + accountName + ", pwd=" + pwd
+				+ "]";
 	}
 
 }

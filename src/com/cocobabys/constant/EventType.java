@@ -116,7 +116,10 @@ public class EventType {
 	public static final int CHECK_NEW_DATA = 3000;
 
 	/**************** Video event ******************/
+	// 登录家长对应视频账号成功
 	public static final int VIDEO_LOGIN_SUCCESS = 10010;
+	// 登录公共示范账号成功
+	public static final int VIDEO_LOGIN_PUBLIC_SUCCESS = 10020;
 	public static final int VIDEO_LOGIN_FAIL = 10011;
 
 	public static final int VIDEO_GET_INFO_SUCCESS = 10030;
@@ -128,10 +131,10 @@ public class EventType {
 	public static final int COUNTDOWN_EVENT = 20001;
 	public static final int GET_LAST_LOCATION_SUCCESS = 20010;
 	public static final int GET_LAST_LOCATION_FAIL = 20011;
-	
+
 	public static final int GET_HISTORY_LOCATION_SUCCESS = 20020;
 	public static final int GET_HISTORY_LOCATION_FAIL = 20021;
-	
+
 	public static final int GET_LOCATOR_POWER_SUCCESS = 20030;
 	public static final int GET_LOCATOR_POWER_FAIL = 20031;
 }

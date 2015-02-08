@@ -26,28 +26,30 @@ public class LoginVideoJob extends MyJob {
 
 	private static final short SERVER_PORT = 80;
 
+	private boolean requestPublic = false;
+
 	public LoginVideoJob(Handler handler) {
 		this.handler = handler;
 	}
 
 	@Override
 	public void run() {
+
 		int event = EventType.VIDEO_LOGIN_FAIL;
-
-		MyProxy proxy = new MyProxy();
-		MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
-			@Override
-			public MethodResult handle() throws Exception {
-				String parentid = DataMgr.getInstance().getSelfInfoByPhone()
-						.getParent_id();
-				MethodResult result = VideoMethod.getMethod().getInfo(parentid);
-				return result;
-			}
-		});
-
 		try {
-			MethodResult result = MethodUtils.getBindResult(bind);
+			MyProxyImpl proxy = getParentProxy();
+			MethodResult result = MethodUtils.getBindResult(proxy);
 			event = result.getResultType();
+
+			Log.d("", "login to parent info event =" + event);
+
+			// 需求变更，如果发现家长没有注册视频账号，则提供公共示范账号给家长观看
+			if (event == EventType.VIDEO_GET_INFO_NOT_REG) {
+				proxy = getPublicProxy();
+				result = MethodUtils.getBindResult(proxy);
+				event = result.getResultType();
+				requestPublic = true;
+			}
 
 			if (event == EventType.VIDEO_GET_INFO_SUCCESS) {
 				VideoAccount account = (VideoAccount) result.getResultObj();
@@ -65,6 +67,36 @@ public class LoginVideoJob extends MyJob {
 		} finally {
 			handler.sendEmptyMessage(event);
 		}
+	}
+
+	private MyProxyImpl getPublicProxy() {
+		MyProxy proxy = new MyProxy();
+		MyProxyImpl parentAccountProxy = (MyProxyImpl) proxy
+				.bind(new MyProxyImpl() {
+					@Override
+					public MethodResult handle() throws Exception {
+						MethodResult result = VideoMethod.getMethod()
+								.getPublicInfo();
+						return result;
+					}
+				});
+		return parentAccountProxy;
+	}
+
+	private MyProxyImpl getParentProxy() {
+		MyProxy proxy = new MyProxy();
+		MyProxyImpl parentAccountProxy = (MyProxyImpl) proxy
+				.bind(new MyProxyImpl() {
+					@Override
+					public MethodResult handle() throws Exception {
+						String parentid = DataMgr.getInstance()
+								.getSelfInfoByPhone().getParent_id();
+						MethodResult result = VideoMethod.getMethod().getInfo(
+								parentid);
+						return result;
+					}
+				});
+		return parentAccountProxy;
 	}
 
 	private int loginToHuamai(LoginServerInfo info) {
@@ -109,7 +141,11 @@ public class LoginVideoJob extends MyJob {
 
 				// step 4: Get tree id.
 				VideoApp.treeId = jni.getTree(serverId);
-				event = EventType.VIDEO_LOGIN_SUCCESS;
+				if (requestPublic) {
+					event = EventType.VIDEO_LOGIN_PUBLIC_SUCCESS;
+				} else {
+					event = EventType.VIDEO_LOGIN_SUCCESS;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -30,24 +30,12 @@ public class VideoLoginActivity extends UmengStatisticsActivity {
 
 	private ProgressDialog loginProcessDialog;
 	private Handler handler;
-	private String username = "2222";// "2222";// "xmm";// "cocbaby";
-	private String password = "6yWw2D";// "6yWw2D";// "123456";// "13880498549";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video_login);
 		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.watch_baby);
-
-		if (MyApplication.getInstance().isForTest()) {
-			if (Utils.isMyVideo()) {
-				username = "xmm";
-				password = "123456";
-			} else {
-				username = "2222";
-				password = "6yWw2D";
-			}
-		}
 
 		VideoApp.getJni().init();
 		registerHander();
@@ -56,7 +44,6 @@ public class VideoLoginActivity extends UmengStatisticsActivity {
 
 	public void runLogin() {
 		showWaitDialog("logining...");
-		Log.d(TAG, "username: " + username + ", password: " + password);
 		LoginVideoJob job = new LoginVideoJob(handler);
 		job.execute();
 	}
@@ -75,14 +62,21 @@ public class VideoLoginActivity extends UmengStatisticsActivity {
 				}
 				closeWaitDoalog();
 
-				if (msg.what == EventType.VIDEO_LOGIN_SUCCESS) {
+				switch (msg.what) {
+				case EventType.VIDEO_LOGIN_SUCCESS:
 					gotoDeviceListActivity();
-				} else if (msg.what == EventType.VIDEO_GET_INFO_NOT_REG) {
+					break;
+				case EventType.VIDEO_LOGIN_PUBLIC_SUCCESS:
+					gotoDeviceListActivity();
+					break;
+				case EventType.VIDEO_GET_INFO_NOT_REG:
 					createDlg("还未开通\"看宝贝\"功能,该功能可以让家长通过视频，实时查看孩子在幼儿园的动态,如有需要"
 							+ "请联系幼儿园开通");
-				} else {
+					break;
+				default:
 					VideoApp.getJni().disconnectServer(VideoApp.serverId);
-					createDlg("登录视频服务器失败,请联系幼儿园解决");
+					createDlg("登录视频服务器失败,请稍后重试！");
+					break;
 				}
 			}
 
@@ -108,7 +102,7 @@ public class VideoLoginActivity extends UmengStatisticsActivity {
 		intent.setClass(VideoLoginActivity.this, DeviceActivity.class);
 		startActivity(intent);
 		VideoLoginActivity.this.finish();
-		Log.i(TAG, "login success");
+		Log.d(TAG, "login success");
 	}
 
 	private void closeWaitDoalog() {

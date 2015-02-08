@@ -19,6 +19,15 @@ public class VideoMethod {
 		return new VideoMethod();
 	}
 
+	// 获取公共示范幼儿园账号
+	public MethodResult getPublicInfo() throws Exception {
+		HttpResult result = new HttpResult();
+		String command = createPublicCommand();
+		Log.d("DDD VideoMethod getPublicInfo", " str : " + command);
+		result = HttpClientHelper.executeGet(command);
+		return getResult(result);
+	}
+
 	public MethodResult getInfo(String parentid) throws Exception {
 		HttpResult result = new HttpResult();
 		String command = createCommand(parentid);
@@ -35,6 +44,7 @@ public class VideoMethod {
 			VideoAccount account = new VideoAccount();
 			account.setAccountName(jsonObject.getString("account"));
 			account.setPwd(jsonObject.getString("password"));
+			Log.d("DDD", "getResult getInfo : " + account.toString());
 			methodResult.setResultObj(account);
 			methodResult.setResultType(EventType.VIDEO_GET_INFO_SUCCESS);
 		} else if (result.getResCode() == HttpStatus.SC_NOT_FOUND) {
@@ -46,6 +56,12 @@ public class VideoMethod {
 	private String createCommand(String parentid) {
 		String cmd = String.format(ServerUrls.GET_VIDEO_INFO, DataMgr
 				.getInstance().getSchoolID(), parentid);
+		return cmd;
+	}
+
+	private String createPublicCommand() {
+		String cmd = String.format(ServerUrls.GET_PUBLIC_VIDEO_INFO, DataMgr
+				.getInstance().getSchoolID());
 		return cmd;
 	}
 }
