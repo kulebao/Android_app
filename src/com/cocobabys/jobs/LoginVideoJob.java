@@ -108,6 +108,8 @@ public class LoginVideoJob extends MyJob {
 			// step 1: Connect the server.
 			// int serverId = jni.connectServer(info,
 			// VideoApp.mLoginServerError);
+			StringBuilder error = new StringBuilder();
+			// int serverId = jni.connectServer(info,error);
 			int serverId = jni.connectServer(info);
 			if (serverId > 0) {
 				VideoApp.serverId = serverId;

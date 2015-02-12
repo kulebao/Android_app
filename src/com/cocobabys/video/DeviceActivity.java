@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -17,6 +18,7 @@ import com.cocobabys.R;
 import com.cocobabys.activities.ActivityHelper;
 import com.cocobabys.activities.UmengStatisticsActivity;
 import com.cocobabys.adapter.VideoDeviceListAdapter;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.utils.Utils;
 import com.huamaitel.api.HMDefines.NodeTypeInfo;
 import com.huamaitel.api.HMJniInterface;
@@ -26,6 +28,7 @@ public class DeviceActivity extends UmengStatisticsActivity {
 	private ListView mListView;
 	private List<VideoDeviceInfo> mListData = new ArrayList<VideoDeviceInfo>();
 	private VideoDeviceListAdapter adapter;
+	private boolean isPublicVideoAccount;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,12 +78,24 @@ public class DeviceActivity extends UmengStatisticsActivity {
 					Intent intent = new Intent();
 					intent.setClass(DeviceActivity.this, PlayActivity.class);
 					intent.putExtra("nodeId", nodeId);
+					intent.putExtra(ConstantValue.IS_PUBLIC_VIDEO,
+							isPublicVideoAccount);
 					VideoApp.mIsUserLogin = true;
 					startActivity(intent);
 				}
 			}
 		});
 
+		showNotice();
+	}
+
+	private void showNotice() {
+		isPublicVideoAccount = getIntent().getBooleanExtra(
+				ConstantValue.IS_PUBLIC_VIDEO, false);
+		if (isPublicVideoAccount) {
+			LinearLayout video_notice = (LinearLayout) findViewById(R.id.video_notice);
+			video_notice.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override

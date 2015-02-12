@@ -70,11 +70,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:background="@drawable/btn_video_close_voice" 
         android:layout_below="@id/id_btn_openlisten"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-         />
+        android:background="@drawable/btn_video_close_voice" />
 
     <Button
         android:id="@+id/id_btn_capture"
@@ -125,5 +124,23 @@
         android:layout_marginTop="16dp"
         android:text="撤防"
         android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/video_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" >
+
+        <TextView
+            style="@style/NormalTextviewStyle"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/video_notice"
+            android:gravity="center"
+            android:text="@string/public_video_notice_1"
+            android:textStyle="normal" />
+    </LinearLayout>
 
 </RelativeLayout>

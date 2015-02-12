@@ -147,4 +147,6 @@ public class ConstantValue {
 
 	public static final String RECORD_FILE_NAME = "record_file_name";
 
+	public static final String IS_PUBLIC_VIDEO = "is_public_video";
+
 }

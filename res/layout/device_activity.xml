@@ -7,6 +7,20 @@
 
     <include layout="@layout/topbar" />
 
+    <LinearLayout
+        android:id="@+id/video_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/video_notice"
+        android:visibility="gone" >
+
+        <TextView
+            style="@style/NormalTextviewStyle"
+            android:layout_margin="10dp"
+            android:text="@string/public_video_notice"
+            android:textStyle="normal" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/id_device_list"
         android:layout_width="match_parent"

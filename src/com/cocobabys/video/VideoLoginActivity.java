@@ -13,6 +13,7 @@ import com.cocobabys.R;
 import com.cocobabys.activities.ActivityHelper;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.activities.UmengStatisticsActivity;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.customview.CustomDialog;
 import com.cocobabys.dlgmgr.DlgMgr;
@@ -64,10 +65,10 @@ public class VideoLoginActivity extends UmengStatisticsActivity {
 
 				switch (msg.what) {
 				case EventType.VIDEO_LOGIN_SUCCESS:
-					gotoDeviceListActivity();
+					gotoDeviceListActivity(false);
 					break;
 				case EventType.VIDEO_LOGIN_PUBLIC_SUCCESS:
-					gotoDeviceListActivity();
+					gotoDeviceListActivity(true);
 					break;
 				case EventType.VIDEO_GET_INFO_NOT_REG:
 					createDlg("还未开通\"看宝贝\"功能,该功能可以让家长通过视频，实时查看孩子在幼儿园的动态,如有需要"
@@ -97,9 +98,10 @@ public class VideoLoginActivity extends UmengStatisticsActivity {
 		create.show();
 	}
 
-	private void gotoDeviceListActivity() {
+	private void gotoDeviceListActivity(boolean bPublic) {
 		Intent intent = new Intent();
 		intent.setClass(VideoLoginActivity.this, DeviceActivity.class);
+		intent.putExtra(ConstantValue.IS_PUBLIC_VIDEO, bPublic);
 		startActivity(intent);
 		VideoLoginActivity.this.finish();
 		Log.d(TAG, "login success");

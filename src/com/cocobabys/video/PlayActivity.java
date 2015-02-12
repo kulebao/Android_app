@@ -34,11 +34,13 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocobabys.R;
 import com.cocobabys.activities.UmengStatisticsActivity;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.Utils;
 import com.huamaitel.api.HMCallback;
@@ -112,6 +114,8 @@ public class PlayActivity extends UmengStatisticsActivity {
 
 	private ProgressDialog mProgressDialog;
 
+	private boolean isPublicVideoAccount;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -147,6 +151,16 @@ public class PlayActivity extends UmengStatisticsActivity {
 		// 登录 & 打开视频
 		openVideo();
 
+		showNotice();
+	}
+
+	private void showNotice() {
+		isPublicVideoAccount = getIntent().getBooleanExtra(
+				ConstantValue.IS_PUBLIC_VIDEO, false);
+		if (isPublicVideoAccount) {
+			LinearLayout video_notice = (LinearLayout) findViewById(R.id.video_notice);
+			video_notice.setVisibility(View.VISIBLE);
+		}
 	}
 
 	private void showProgressDlg() {
@@ -277,6 +291,12 @@ public class PlayActivity extends UmengStatisticsActivity {
 		mbtn_capture.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (isPublicVideoAccount) {
+					Utils.makeToast(PlayActivity.this,
+							R.string.public_video_can_not_screenshot);
+					return;
+				}
+
 				mbtn_capture.setVisibility(View.GONE);
 				MyThreadPoolMgr.getGenericService().submit(new Runnable() {
 
@@ -576,6 +596,8 @@ public class PlayActivity extends UmengStatisticsActivity {
 
 			// Step 1: Login the device.
 			Log.d("VIDEO", "try to login");
+			// VideoApp.mUserId = VideoApp.getJni().loginEx(nodeId,
+			// HMDefines.ConnectPolicy.CONN_POLICY_NAT);
 			VideoApp.mUserId = VideoApp.getJni().loginEx(nodeId);
 			Log.d("VIDEO", "after login mUserId=" + VideoApp.mUserId);
 			// 原始代码这里只有0才返回，实测中会返回-1，如果返回-1继续向下执行，程序假死，且按键无反应
