@@ -71,4 +71,12 @@ public class ImageUtils {
 
 		return instance;
 	}
+	
+	public synchronized static void clearCache(){
+	    getImageLoader().clearDiskCache();
+	    getImageLoader().clearMemoryCache();
+	}
+	
 }
+
+

@@ -67,6 +67,7 @@ import com.cocobabys.taskmgr.UploadInfoTask;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
 import com.cocobabys.video.VideoApp;
@@ -930,6 +931,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		MediaMgr.close();
 		VideoApp.getJni().uninit();
 		EventBus.clearCaches();
+		ImageUtils.clearCache();
 	}
 
 	private interface ActivityLauncher {
