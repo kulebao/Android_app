@@ -1,5 +1,7 @@
 package com.cocobabys.activities;
 
+import java.io.File;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +16,7 @@ import com.cocobabys.handler.MyHandler;
 import com.cocobabys.push.PushModel;
 import com.cocobabys.taskmgr.LoadingTask;
 import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.Utils;
 
 public class LoadingActivity extends UmengStatisticsActivity {
 	private Handler handler;
@@ -26,13 +29,15 @@ public class LoadingActivity extends UmengStatisticsActivity {
 		initHandler();
 		// initData();
 		new LoadingTask(handler).execute();
-		PushModel.getPushModel().enableDebug(true);
+		PushModel.getPushModel().enableDebug(
+				MyApplication.getInstance().isForTest());
 	}
 
 	private void initData() {
 		if (MyApplication.getInstance().isForTest()) {
 			DataUtils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, "133d");
-			DataUtils.saveUndeleteableProp(JSONConstant.USER_ID, "963386802751977894");
+			DataUtils.saveUndeleteableProp(JSONConstant.USER_ID,
+					"963386802751977894");
 			DataUtils.saveUndeleteableProp(ConstantValue.TEST_PHONE, "true");
 			DataUtils.setGuided();
 		}

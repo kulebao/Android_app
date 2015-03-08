@@ -40,9 +40,12 @@ public class LoadingTask extends AsyncTask<Void, Void, Void> {
 				if (Utils.isNetworkConnected(MyApplication.getInstance())) {
 					PushMethod.getMethod().sendBinfInfo();
 				}
-				
+
 				SchoolMethod.getGetAuthCodeMethod().saveSchoolConfig();
+				Utils.renamePicDir();
 			}
+			
+
 			long now = System.currentTimeMillis();
 			long ellapse = now - current;
 			if (ellapse < LIMIT_TIME) {

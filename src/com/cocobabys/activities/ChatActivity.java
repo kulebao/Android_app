@@ -191,6 +191,7 @@ public class ChatActivity extends UmengStatisticsActivity {
 			break;
 		case CAMERA_REQUEST_CODE:
 			Log.d("", "CAMERA_REQUEST_CODE url" + uri.getPath());
+			Utils.addPicToGallery(uri);
 			startToCheckIconActivity(uri.getPath());
 			break;
 		case CHECK_ICON_CODE:

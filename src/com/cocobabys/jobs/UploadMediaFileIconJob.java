@@ -1,8 +1,6 @@
 package com.cocobabys.jobs;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import android.os.Handler;
 import android.os.Message;
@@ -10,7 +8,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.info.ChatInfo;
 import com.cocobabys.dbmgr.info.InfoHelper;
 import com.cocobabys.net.MethodResult;
 import com.cocobabys.net.NewChatMethod;
@@ -25,7 +22,6 @@ import com.cocobabys.utils.Utils;
 public class UploadMediaFileIconJob extends MyJob {
 	private Handler handler;
 	private long lastid;
-	List<ChatInfo> list = new ArrayList<ChatInfo>();
 	private String childid;
 	private String mediaPath = "";
 	private String mediaType = "";

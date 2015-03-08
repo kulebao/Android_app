@@ -64,7 +64,7 @@ public class ConstantValue {
 
 	public static final int PUSH_ACTION_QUEUE_MAX_SIZE = 100;
 
-	public static final int TIME_LIMIT_TO_GET_AUTHCODE_AGAIN = 60 * 10;
+	public static final int TIME_LIMIT_TO_GET_AUTHCODE_AGAIN = 60 * 2;
 
 	public static final int DO_NOT_CANCEL_DIALOG = 100;
 

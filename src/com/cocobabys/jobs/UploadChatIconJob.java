@@ -65,7 +65,7 @@ public class UploadChatIconJob extends MyJob {
 			bret = MethodUtils.getBindResult(bind);
 			
 			NativeMediumInfo info = new NativeMediumInfo();
-			info.setKey(currentTimeMillis+".jpg");
+			info.setKey(currentTimeMillis+"");
 			info.setValue(bitmapPath);
 			DataMgr.getInstance().addNativeMediumInfo(info);
 			

@@ -49,7 +49,7 @@ public class AdInfo {
 				+ File.separator;
 		Utils.mkDirs(dir);
 
-		return dir + position_id + ".jpg";
+		return dir + position_id;
 	}
 
 }

@@ -12,9 +12,9 @@ import com.baidu.frontia.FrontiaApplication;
 import com.baidu.mapapi.SDKInitializer;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ChatInfo;
 import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.handler.CrashHandler;
+import com.cocobabys.media.MyMediaScannerConnectionClient;
 import com.cocobabys.net.HttpsModel;
 import com.cocobabys.push.info.PushEvent;
 import com.cocobabys.receiver.NotificationObserver;
@@ -26,9 +26,14 @@ public class MyApplication extends FrontiaApplication {
 			ConstantValue.PUSH_ACTION_QUEUE_MAX_SIZE);
 
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
-	private List<ChatInfo> tmpList = new ArrayList<ChatInfo>();
 	private List<NewChatInfo> tmpNewChatList = new ArrayList<NewChatInfo>();
 	private boolean forTest = false;
+
+	private MyMediaScannerConnectionClient mediaScannerConnectionClient;
+
+	public MyMediaScannerConnectionClient getMediaScannerConnectionClient() {
+		return mediaScannerConnectionClient;
+	}
 
 	// 当前是否有数据库正在升级
 	private boolean isDbUpdating = false;
@@ -88,21 +93,14 @@ public class MyApplication extends FrontiaApplication {
 		DataMgr.getInstance();
 		Log.d("Database", "MyApplication onCreate");
 
+		mediaScannerConnectionClient = new MyMediaScannerConnectionClient(this);
 		if (useLbs()) {
 			SDKInitializer.initialize(this);
 		}
 	}
 
 	public boolean useLbs() {
-		return true;
+		return false;
 	}
 
-	public List<ChatInfo> getTmpList() {
-		return tmpList;
-	}
-
-	public void setTmpList(List<ChatInfo> tmpList) {
-		this.tmpList.clear();
-		this.tmpList = tmpList;
-	}
 }

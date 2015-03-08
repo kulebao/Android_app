@@ -139,7 +139,7 @@ public class SlideGalleryActivity extends UmengStatisticsActivity {
 	private void handleAddToGallery() {
 		try {
 			File file = new File(adapter.getList().get(current));
-			Utils.galleryAddPic(Uri.fromFile(file));
+			Utils.addPicToGallery(Uri.fromFile(file));
 			Utils.makeToast(SlideGalleryActivity.this, R.string.copy_to_gallery);
 		} catch (Exception e) {
 			e.printStackTrace();

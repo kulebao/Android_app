@@ -159,11 +159,21 @@ public class NewChatInfo {
 					Utils.mkDirs(Utils.getDir(localUrl));
 				}
 
-			} else {
+				// 如果文件存在，则直接返回
+				if (new File(localUrl).exists()) {
+					return localUrl;
+				}
+
+			}
+			
+			// 文件不存在，则需要从网上下载，此时命名规则以我为准.不考虑是从哪儿上传的
+			{
 				localUrl = getDefaultPath();
 			}
 
+			localUrl = Utils.getPicFileNameNoExt(localUrl);
 		}
+
 		Log.d("DDD", "getLocalUrl =" + localUrl);
 		return localUrl;
 	}

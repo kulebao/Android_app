@@ -134,7 +134,7 @@ public class LongClickDlg {
 	private void handleAddToGallery() {
 		try {
 			File file = new File(imageUrl);
-			Utils.galleryAddPic(Uri.fromFile(file));
+			Utils.addPicToGallery(Uri.fromFile(file));
 			Utils.makeToast(context, R.string.copy_to_gallery);
 		} catch (Exception e) {
 			e.printStackTrace();

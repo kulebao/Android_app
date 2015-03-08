@@ -134,8 +134,8 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 		List<String> serverUrls = info.getServerUrls();
 
 		serverUrl = serverUrls.get(0);
-		videoUrl = info.serverUrlToLocalUrl(serverUrl, false);
 
+		videoUrl = info.serverUrlToLocalUrl(serverUrl, false);
 		if (!new File(videoUrl).exists()) {
 			showDlg(serverUrl);
 		} else {

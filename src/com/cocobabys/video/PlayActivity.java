@@ -323,7 +323,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 			if (null != data) {
 				boolean res = saveCapturedPic(data, VideoApp.mCapturePath);
 				if (res) {
-					Utils.galleryAddPic(Uri.fromFile(new File(path)));
+					Utils.addPicToGallery(Uri.fromFile(new File(path)));
 					event = EVT_TAKE_PIC_SUCCESS;
 					Log.i(TAG, "Local capture success." + "拍照成功！图片存放在：" + path);
 				} else {
@@ -373,7 +373,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 		} else {
 			boolean res = saveCapturedPic(data, VideoApp.mCapturePath);
 			if (res) {
-				Utils.galleryAddPic(Uri.fromFile(new File(path)));
+				Utils.addPicToGallery(Uri.fromFile(new File(path)));
 				Log.i(TAG, "Local capture success." + "拍照成功！图片存放在：" + path);
 				Utils.makeToast(PlayActivity.this, "拍照成功，照片已保存到图库");
 
@@ -921,7 +921,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 			return path;
 		}
 		// Generate the path of Android client.
-		path = sdPath + File.separator + "HMSDKDemo";
+		path = sdPath + File.separator + "HMSDK";
 		switch (fileType) {
 		case FILE_TYPE_RECORD:
 			path += File.separator + FOLDER_NAME_RECORD;

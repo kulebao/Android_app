@@ -64,7 +64,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.send_exp);
-		msc = new MediaScannerConnection(this, new MyMediaScannerConnectionClient());
+		msc = new MediaScannerConnection(this,
+				new MyMediaScannerConnectionClient());
 		initImageLoader();
 		initUI();
 		initHander();
@@ -88,7 +89,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			@Override
 			public void onClick(View v) {
 				if (!checkContentValid()) {
-					Utils.makeToast(SendExpActivity.this, R.string.invalid_exp_content);
+					Utils.makeToast(SendExpActivity.this,
+							R.string.invalid_exp_content);
 					return;
 				}
 				runSendExpJob();
@@ -108,7 +110,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	}
 
 	protected boolean checkContentValid() {
-		if (TextUtils.isEmpty(exp_content.getText().toString().trim()) && adapter.getCount() == 0) {
+		if (TextUtils.isEmpty(exp_content.getText().toString().trim())
+				&& adapter.getCount() == 0) {
 			return false;
 		}
 		return true;
@@ -166,8 +169,10 @@ public class SendExpActivity extends UmengStatisticsActivity {
 
 		gridGallery.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Log.d("DDDDDD", "startToSlideGalleryActivity position=" + position);
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Log.d("DDDDDD", "startToSlideGalleryActivity position="
+						+ position);
 				startToSlideGalleryActivity(position);
 			}
 		});
@@ -193,14 +198,15 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		}
 		dialog.show();
 
-		SendExpJob expJob = new SendExpJob(myhandler, exp_content.getText().toString(), mediaPaths,
-				JSONConstant.IMAGE_TYPE);
+		SendExpJob expJob = new SendExpJob(myhandler, exp_content.getText()
+				.toString(), mediaPaths, JSONConstant.IMAGE_TYPE);
 		expJob.execute();
 	}
 
 	// 将拍照后保存的照片加入到图库,速度慢
 	private void galleryAddPic() {
-		Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+		Intent mediaScanIntent = new Intent(
+				Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 		mediaScanIntent.setData(uri);
 		this.sendBroadcast(mediaScanIntent);
 	}
@@ -214,7 +220,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		Intent intent = new Intent(NoticeAction.ACTION_GALLERY_CAN_DELETE);
 		List<String> allSelectedPath = adapter.getAllSelectedPath();
 		if (!allSelectedPath.isEmpty()) {
-			intent.putExtra(NoticeAction.SELECTED_PATH, allSelectedPath.toArray(new String[allSelectedPath.size()]));
+			intent.putExtra(NoticeAction.SELECTED_PATH,
+					allSelectedPath.toArray(new String[allSelectedPath.size()]));
 		}
 
 		intent.putExtra(NoticeAction.EXP_TEXT, exp_content.getText().toString());
@@ -228,7 +235,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			@Override
 			public void onClick(View v) {
 				if (!Utils.isSdcardExisting()) {
-					Toast.makeText(SendExpActivity.this, "未找到存储卡，无法保存图片！", Toast.LENGTH_LONG).show();
+					Toast.makeText(SendExpActivity.this, "未找到存储卡，无法保存图片！",
+							Toast.LENGTH_LONG).show();
 					return;
 				}
 
@@ -248,7 +256,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 				Intent i = new Intent(NoticeAction.ACTION_MULTIPLE_PICK);
 				List<String> allSelectedPath = adapter.getAllSelectedPath();
 				if (!allSelectedPath.isEmpty()) {
-					i.putExtra(NoticeAction.SELECTED_PATH, allSelectedPath.toArray(new String[allSelectedPath.size()]));
+					i.putExtra(NoticeAction.SELECTED_PATH, allSelectedPath
+							.toArray(new String[allSelectedPath.size()]));
 				}
 				startActivityForResult(i, NoticeAction.SELECT_GALLERY);
 			}
@@ -259,12 +268,15 @@ public class SendExpActivity extends UmengStatisticsActivity {
 
 			@Override
 			public void onClick(View v) {
-				DlgMgr.getListDialog(SendExpActivity.this, R.array.video_choose, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						Log.d("initTitle ddd", "which =" + which);
-						handleClick(which);
-					}
-				}).create().show();
+				DlgMgr.getListDialog(SendExpActivity.this,
+						R.array.video_choose,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								Log.d("initTitle ddd", "which =" + which);
+								handleClick(which);
+							}
+						}).create().show();
 			}
 		});
 	}
@@ -283,7 +295,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	}
 
 	private void chooseVideoFile() {
-		Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+		Intent i = new Intent(Intent.ACTION_PICK,
+				android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
 				.setType("video/*");
 		startActivityForResult(i, NoticeAction.SELECT_VIDEO_FILE);
 	}
@@ -301,7 +314,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60);
 		intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 5 * 1024 * 1024);
 
-		// ur = Environment.getExternalStorageDirectory().getPath() + "/Test_Movie.m4v";
+		// ur = Environment.getExternalStorageDirectory().getPath() +
+		// "/Test_Movie.m4v";
 		// File file = new File(ur);
 		//
 		// Uri uri = Uri.fromFile(file);
@@ -331,14 +345,16 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			changeView(all_path);
 			break;
 		case NoticeAction.SELECT_SLIDE_GALLERY:
-			String[] changed_array = data.getStringArrayExtra(NoticeAction.PATH_AFTER_CHANGE);
+			String[] changed_array = data
+					.getStringArrayExtra(NoticeAction.PATH_AFTER_CHANGE);
 			changeView(changed_array);
 			break;
 		case NoticeAction.SELECT_VIDEO:
 			mVideoUri = data.getData();
 			gridGallery.setVisibility(View.GONE);
 			videonail.setVisibility(View.VISIBLE);
-			videonail.setImageBitmap(DataUtils.createVideoThumbnail(mVideoUri.getPath()));
+			videonail.setImageBitmap(DataUtils.createVideoThumbnail(mVideoUri
+					.getPath()));
 			break;
 		case NoticeAction.SELECT_VIDEO_FILE:
 			handleVideoFile(data);
@@ -358,7 +374,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 
 	// 添加视频到系统文件路径，从系统视频中可以选择播放
 	private void AddVideoToSys(String path) {
-		Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+		Intent mediaScanIntent = new Intent(
+				Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 		mediaScanIntent.setData(Uri.fromFile(new File(path)));
 		this.sendBroadcast(mediaScanIntent);
 	}
@@ -385,21 +402,26 @@ public class SendExpActivity extends UmengStatisticsActivity {
 
 	private void handleVideoFile(Intent data) {
 		Uri myUri = data.getData();
-		Cursor cursor = getContentResolver().query(myUri, null, null, null, null);
+		Cursor cursor = getContentResolver().query(myUri, null, null, null,
+				null);
 
 		if (cursor != null && cursor.getCount() > 0) {
 			try {
 				cursor.moveToFirst();
-				long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
-				// int intduration = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
-				String url = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
+				long size = cursor.getLong(cursor
+						.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
+				// int intduration =
+				// cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
+				String url = cursor.getString(cursor
+						.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
 
 				Log.d("", "url =" + url);
 				Log.d("", "size =" + size);
 				// Log.d("", "duration =" + intduration);
 
 				if (!isValidSize(size)) {
-					DlgMgr.showSingleBtnResDlg(R.string.video_invalid, SendExpActivity.this);
+					DlgMgr.showSingleBtnResDlg(R.string.video_invalid,
+							SendExpActivity.this);
 					return;
 				}
 
@@ -412,7 +434,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	}
 
 	private void startToSendVideo(String url, long size) {
-		Intent intent = new Intent(SendExpActivity.this, ShowVideoActivity.class);
+		Intent intent = new Intent(SendExpActivity.this,
+				ShowVideoActivity.class);
 		intent.putExtra(NoticeAction.VIDEO_URL, url);
 		intent.putExtra(NoticeAction.VIDEO_SIZE, size);
 		intent.putExtra(NoticeAction.EXP_TEXT, exp_content.getText().toString());
@@ -432,7 +455,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 
 	private void handleTakePicSuccess() {
 		// galleryAddPic();
-		galleryAddPicExt();
+		// galleryAddPicExt();
+		Utils.addPicToGallery(uri);
 		CustomGallery gallery = new CustomGallery();
 		Log.d("DJC", "path bbb=" + uri.getPath());
 		gallery.setSdcardPath(uri.getPath());
@@ -477,7 +501,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 		super.onDestroy();
 	}
 
-	private class MyMediaScannerConnectionClient implements MediaScannerConnectionClient {
+	private class MyMediaScannerConnectionClient implements
+			MediaScannerConnectionClient {
 
 		@Override
 		public void onMediaScannerConnected() {
