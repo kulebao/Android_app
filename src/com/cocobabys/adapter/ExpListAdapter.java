@@ -51,6 +51,7 @@ import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class ExpListAdapter extends BaseAdapter {
 	private static final String SELF_NAME = "我";
@@ -69,7 +70,8 @@ public class ExpListAdapter extends BaseAdapter {
 	private static final String ANONYMOUS_TEACHER_NAME = "匿名老师";
 	private int deletePos = -1;
 
-	public ExpListAdapter(Context activityContext, List<ExpInfo> list, DownloadImgeJob downloadImgeTask,
+	public ExpListAdapter(Context activityContext, List<ExpInfo> list,
+			DownloadImgeJob downloadImgeTask,
 			GetSenderInfoJob getTeacherInfoJob, ImageLoader imageLoader) {
 		this.context = activityContext;
 		this.dataList = list;
@@ -161,15 +163,23 @@ public class ExpListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		FlagHolder flagholder = null;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(this.context).inflate(R.layout.exp_item, null);
+			convertView = LayoutInflater.from(this.context).inflate(
+					R.layout.exp_item, null);
 			flagholder = new FlagHolder();
-			flagholder.nameView = (TextView) convertView.findViewById(R.id.name);
-			flagholder.contentView = (TextView) convertView.findViewById(R.id.content);
-			flagholder.timestampView = (TextView) convertView.findViewById(R.id.time);
-			flagholder.headiconView = (ImageView) convertView.findViewById(R.id.headicon);
-			flagholder.gridview = (MyGridView) convertView.findViewById(R.id.gridview);
-			flagholder.layout = (LinearLayout) convertView.findViewById(R.id.linearLayout);
-			flagholder.videonail = (ImageView) convertView.findViewById(R.id.videonail);
+			flagholder.nameView = (TextView) convertView
+					.findViewById(R.id.name);
+			flagholder.contentView = (TextView) convertView
+					.findViewById(R.id.content);
+			flagholder.timestampView = (TextView) convertView
+					.findViewById(R.id.time);
+			flagholder.headiconView = (ImageView) convertView
+					.findViewById(R.id.headicon);
+			flagholder.gridview = (MyGridView) convertView
+					.findViewById(R.id.gridview);
+			flagholder.layout = (LinearLayout) convertView
+					.findViewById(R.id.linearLayout);
+			flagholder.videonail = (ImageView) convertView
+					.findViewById(R.id.videonail);
 
 			convertView.setTag(flagholder);
 		} else {
@@ -194,7 +204,8 @@ public class ExpListAdapter extends BaseAdapter {
 		if (JSONConstant.IMAGE_TYPE.equals(info.getMediumType())) {
 			setIcon(flagholder, info);
 		} else {
-			Log.d("DDDE", "DDDE setVideoNail medium=" + info.getMedium() + "  type=" + info.getMediumType());
+			Log.d("DDDE", "DDDE setVideoNail medium=" + info.getMedium()
+					+ "  type=" + info.getMediumType());
 			setVideoNail(flagholder, info);
 		}
 		setOnLongClickListener(flagholder, position);
@@ -206,10 +217,15 @@ public class ExpListAdapter extends BaseAdapter {
 
 		List<String> serverUrls = info.getServerUrls();
 		String nail = info.serverUrlToLocalUrl(serverUrls.get(0), true);
+		Log.d("DDDE", "setVideoNail nail =" + nail);
 		if (new File(nail).exists()) {
-			flagholder.videonail.setBackgroundDrawable(new BitmapDrawable(Utils.getLoacalBitmap(nail, 160 * 160)));
+			// flagholder.videonail.setBackgroundDrawable(new
+			// BitmapDrawable(Utils.getLoacalBitmap(nail, 160 * 160)));
+			imageLoader.displayImage("file://" + nail, flagholder.videonail,
+					new SimpleImageLoadingListener());
 		} else {
-			flagholder.videonail.setBackgroundColor(context.getResources().getColor(R.color.black));
+			flagholder.videonail.setBackgroundColor(context.getResources()
+					.getColor(R.color.black));
 			// flagholder.videonail.setImageResource(R.drawable.pvideo);
 		}
 
@@ -223,7 +239,8 @@ public class ExpListAdapter extends BaseAdapter {
 		});
 	}
 
-	private void setOnLongClickListener(FlagHolder flagholder, final int position) {
+	private void setOnLongClickListener(FlagHolder flagholder,
+			final int position) {
 		flagholder.layout.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
@@ -232,25 +249,29 @@ public class ExpListAdapter extends BaseAdapter {
 			}
 		});
 
-		flagholder.contentView.setOnLongClickListener(new OnLongClickListener() {
-			@Override
-			public boolean onLongClick(View v) {
-				showDlgEx(position);
-				return false;
-			}
-		});
+		flagholder.contentView
+				.setOnLongClickListener(new OnLongClickListener() {
+					@Override
+					public boolean onLongClick(View v) {
+						showDlgEx(position);
+						return false;
+					}
+				});
 
-		flagholder.gridview.setOnItemLongClickListener(new OnItemLongClickListener() {
+		flagholder.gridview
+				.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view, int p, long id) {
-				Log.d("", "DDDA onItemLongClick");
-				showDlgEx(position);
-				return false;
-			}
-		});
+					@Override
+					public boolean onItemLongClick(AdapterView<?> parent,
+							View view, int p, long id) {
+						Log.d("", "DDDA onItemLongClick");
+						showDlgEx(position);
+						return false;
+					}
+				});
 
-		// flagholder.gridview.setOnLongClickListener(new OnLongClickListener() {
+		// flagholder.gridview.setOnLongClickListener(new OnLongClickListener()
+		// {
 		// @Override
 		// public boolean onLongClick(View v) {
 		// Log.d("", "DDDA onLongClick");
@@ -267,19 +288,24 @@ public class ExpListAdapter extends BaseAdapter {
 		longClickDlg.setTextContent(info.getContent());
 
 		// 只能删除自己发的
-		if (DataMgr.getInstance().getSelfInfoByPhone().getParent_id().equals(info.getSender_id())) {
-			longClickDlg.setOnDeleteBtnClickListener(new OnDeleteBtnClickListener() {
+		if (DataMgr.getInstance().getSelfInfoByPhone().getParent_id()
+				.equals(info.getSender_id())) {
+			longClickDlg
+					.setOnDeleteBtnClickListener(new OnDeleteBtnClickListener() {
 
-				@Override
-				public void onDeleteClicked() {
-					ExpInfo item = getItem(pos);
-					DeleteExpJob deleteExpJob = new DeleteExpJob(handler, item.getExp_id(), DataMgr.getInstance()
-							.getSelectedChild().getServer_id());
-					deletePos = pos;
-					longClickDlg.getDeleteChatListener().onDeleteBegain();
-					deleteExpJob.execute();
-				}
-			});
+						@Override
+						public void onDeleteClicked() {
+							ExpInfo item = getItem(pos);
+							DeleteExpJob deleteExpJob = new DeleteExpJob(
+									handler, item.getExp_id(), DataMgr
+											.getInstance().getSelectedChild()
+											.getServer_id());
+							deletePos = pos;
+							longClickDlg.getDeleteChatListener()
+									.onDeleteBegain();
+							deleteExpJob.execute();
+						}
+					});
 		}
 
 		longClickDlg.showDlg();
@@ -338,14 +364,17 @@ public class ExpListAdapter extends BaseAdapter {
 		Bitmap bitmap = null;
 		IconInfo iconInfo = getIconInfo(info);
 
-		bitmap = getLocalIcon(iconInfo, ConstantValue.HEAD_ICON_WIDTH, ConstantValue.HEAD_ICON_HEIGHT);
+		bitmap = getLocalIcon(iconInfo, ConstantValue.HEAD_ICON_WIDTH,
+				ConstantValue.HEAD_ICON_HEIGHT);
 
 		if (bitmap != null) {
 			Utils.setImg(flagholder.headiconView, bitmap);
 		} else {
-			downloadImgeJob.addTask(iconInfo.getNetPath(), iconInfo.getLocalPath(), ConstantValue.HEAD_ICON_WIDTH,
+			downloadImgeJob.addTask(iconInfo.getNetPath(),
+					iconInfo.getLocalPath(), ConstantValue.HEAD_ICON_WIDTH,
 					ConstantValue.HEAD_ICON_HEIGHT);
-			flagholder.headiconView.setImageResource(R.drawable.default_small_icon);
+			flagholder.headiconView
+					.setImageResource(R.drawable.default_small_icon);
 		}
 	}
 
@@ -353,11 +382,13 @@ public class ExpListAdapter extends BaseAdapter {
 		IconInfo iconInfo = new IconInfo();
 		try {
 			if (ExpInfo.PARENT_TYPE.equals(info.getSender_type())) {
-				ChildInfo childByID = DataMgr.getInstance().getChildByID(info.getChild_id());
+				ChildInfo childByID = DataMgr.getInstance().getChildByID(
+						info.getChild_id());
 				iconInfo.setLocalPath(childByID.getLocal_url());
 				iconInfo.setNetPath(childByID.getServer_url());
 			} else {
-				Teacher teacherByID = DataMgr.getInstance().getTeacherByID(info.getSender_id());
+				Teacher teacherByID = DataMgr.getInstance().getTeacherByID(
+						info.getSender_id());
 				iconInfo.setLocalPath(teacherByID.getLocalIconPath());
 				iconInfo.setNetPath(teacherByID.getHead_icon());
 			}
@@ -367,7 +398,8 @@ public class ExpListAdapter extends BaseAdapter {
 		return iconInfo;
 	}
 
-	private Bitmap getLocalIcon(IconInfo iconInfo, int limitWidth, int limitHeight) {
+	private Bitmap getLocalIcon(IconInfo iconInfo, int limitWidth,
+			int limitHeight) {
 		Bitmap loacalBitmap = null;
 		if (TextUtils.isEmpty(iconInfo.getNetPath())) {
 			return null;
@@ -377,7 +409,8 @@ public class ExpListAdapter extends BaseAdapter {
 
 		if (loacalBitmap == null) {
 			loacalBitmap = Utils.getLoacalBitmap(iconInfo.getLocalPath(),
-					ImageDownloader.getMaxPixWithDensity(limitWidth, limitHeight));
+					ImageDownloader.getMaxPixWithDensity(limitWidth,
+							limitHeight));
 
 			if (loacalBitmap != null) {
 				lruCache.put(iconInfo.getLocalPath(), loacalBitmap);
@@ -405,17 +438,21 @@ public class ExpListAdapter extends BaseAdapter {
 		} else {
 			addToDownloadTask(info);
 
-			SimpleGridViewAdapter adapter = new SimpleGridViewAdapter(context, imageLoader, localUrls);
+			SimpleGridViewAdapter adapter = new SimpleGridViewAdapter(context,
+					imageLoader, localUrls);
 			flagholder.gridview.setVisibility(View.VISIBLE);
-			flagholder.gridview.setOnItemClickListener(new OnItemClickListener() {
+			flagholder.gridview
+					.setOnItemClickListener(new OnItemClickListener() {
 
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					if (checkFileExist(localUrls)) {
-						startToSlideGalleryActivity(info.getExp_id(), position);
-					}
-				}
-			});
+						@Override
+						public void onItemClick(AdapterView<?> parent,
+								View view, int position, long id) {
+							if (checkFileExist(localUrls)) {
+								startToSlideGalleryActivity(info.getExp_id(),
+										position);
+							}
+						}
+					});
 			flagholder.gridview.setAdapter(adapter);
 		}
 	}

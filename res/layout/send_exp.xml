@@ -91,7 +91,7 @@
             android:layout_weight="1"
             android:background="@drawable/btn_sel"
             android:text="视频"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </LinearLayout>
 
 </RelativeLayout>

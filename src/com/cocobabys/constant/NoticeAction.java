@@ -20,10 +20,12 @@ public class NoticeAction {
 	public static final int SELECT_CAMERA = 100;
 	public static final int SELECT_VIDEO = 400;
 
+	//调用系统摄像头应用返回
 	public static final int VIDEO_CAPTURE_SYS = 500;
 	
 	public static final int SELECT_VIDEO_FILE = 510;
-	
+
+	//调用摄像头api返回
 	public static final int VIDEO_CAPTURE_SELF = 520;
 	
 	
