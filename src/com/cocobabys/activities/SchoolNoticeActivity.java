@@ -82,11 +82,11 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	public static final int COOK_NOTICE = 1;
 	public static final int SWAPCARD_NOTICE = 2;
 	public static final int SCHEDULE = 3;
-	public static final int HOMEWORK = 4;
-	public static final int INTERACTION = 5;
-	public static final int EDUCATION = 6;
-	public static final int EXPERENCE = 7;
-	public static final int WATCH = 8;
+	// public static final int HOMEWORK = 4;
+	public static final int INTERACTION = 4;
+	public static final int EDUCATION = 5;
+	public static final int EXPERENCE = 6;
+	public static final int WATCH = 7;
 
 	// 下列序号与资源文件arrays.xml中的baby_setting_items配置保持一致
 	private static final int SET_BABY_NICKNAME = 0;
@@ -110,7 +110,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		{
 			put(COOK_NOTICE, R.string.want_cookbook);
 			put(SCHEDULE, R.string.want_schedule);
-			put(HOMEWORK, R.string.want_homework);
+			// put(HOMEWORK, R.string.want_homework);
 			put(INTERACTION, R.string.want_chat);
 			put(EDUCATION, R.string.want_estimation);
 			put(EXPERENCE, R.string.want_exp);
@@ -297,8 +297,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				Utils.setImg(babyHeadIcon, loacalBitmap);
 				return;
 			}
-		} 
-		
+		}
+
 		if (!"".equals(selectedChild.getServer_url())) {
 			if (downloadIconTask != null
 					&& downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
@@ -769,10 +769,10 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		map.put("ItemText", getResources().getText(R.string.schedule));
 		lstImageItem.add(map);
 
-		map = new HashMap<String, Object>();
-		map.put("ItemImage", R.drawable.homework);
-		map.put("ItemText", getResources().getText(R.string.homework));
-		lstImageItem.add(map);
+		// map = new HashMap<String, Object>();
+		// map.put("ItemImage", R.drawable.homework);
+		// map.put("ItemText", getResources().getText(R.string.homework));
+		// lstImageItem.add(map);
 
 		map = new HashMap<String, Object>();
 		map.put("ItemImage", R.drawable.chat);
@@ -847,7 +847,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
-					startToNoticeRecordActivity(JSONConstant.NOTICE_TYPE_NORMAL);
+					// startToNoticeRecordActivity(JSONConstant.NOTICE_TYPE_NORMAL);
+					startToNoticeTabActivity();
 				}
 			});
 			break;
@@ -860,14 +861,14 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			});
 
 			break;
-		case HOMEWORK:
-			startToActivity(new ActivityLauncher() {
-				@Override
-				public void startActivity() {
-					startToHomeworkActivity();
-				}
-			});
-			break;
+		// case HOMEWORK:
+		// startToActivity(new ActivityLauncher() {
+		// @Override
+		// public void startActivity() {
+		// startToHomeworkActivity();
+		// }
+		// });
+		// break;
 		case INTERACTION:
 			startToActivity(new ActivityLauncher() {
 				@Override
@@ -946,6 +947,12 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		startActivityForResult(intent, ConstantValue.START_SETTING);
 	}
 
+	private void startToNoticeTabActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, NoticeTabActivity.class);
+		startActivity(intent);
+	}
+
 	private void startToNoticeRecordActivity(int noticeType) {
 		Intent intent = new Intent();
 		intent.putExtra(ConstantValue.NOTICE_TYPE, noticeType);
@@ -957,7 +964,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private void startToHomeworkActivity() {
 		Intent intent = new Intent();
-		intent.setClass(this, HomeworkPullRefreshActivity.class);
+		intent.setClass(this, NewHomeworkPullRefreshActivity.class);
 		startActivity(intent);
 	}
 

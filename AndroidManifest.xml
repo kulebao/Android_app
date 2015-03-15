@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cocobabys"
-    android:versionCode="82"
-    android:versionName="V1.3.3" >
+    android:versionCode="83"
+    android:versionName="V1.3.4" >
 
     <uses-sdk android:minSdkVersion="10" />
 
@@ -148,6 +148,13 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activities.NoticeTabActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activities.LocationMgrActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
@@ -170,6 +177,13 @@
         </activity>
         <activity
             android:name=".activities.NoticePullRefreshActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.NewNoticePullRefreshActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -247,6 +261,12 @@
         </activity>
         <activity
             android:name=".activities.HomeworkPullRefreshActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.NewHomeworkPullRefreshActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >

@@ -27,7 +27,7 @@ public class MyApplication extends FrontiaApplication {
 
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
 	private List<NewChatInfo> tmpNewChatList = new ArrayList<NewChatInfo>();
-	private boolean forTest = true;
+	private boolean forTest = false;
 
 	private MyMediaScannerConnectionClient mediaScannerConnectionClient;
 

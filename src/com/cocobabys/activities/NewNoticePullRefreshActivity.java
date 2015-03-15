@@ -11,14 +11,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cocobabys.R;
@@ -26,7 +26,6 @@ import com.cocobabys.adapter.NewsListAdapter;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.customview.MsgListView;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.News;
 import com.cocobabys.handler.MyHandler;
@@ -34,11 +33,14 @@ import com.cocobabys.taskmgr.GetNormalNewsTask;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-public class NoticePullRefreshActivity extends UmengStatisticsActivity {
+public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 	private NewsListAdapter adapter;
-	private MsgListView msgListView;
-	private View footer;
+	private PullToRefreshListView msgListView;
 	private Handler myhandler;
 	private GetNormalNewsTask getNoticeTask;
 	private List<News> newsList;
@@ -48,7 +50,7 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.notice_pull_refresh_list);
+		setContentView(R.layout.new_notice_pull_refresh_list);
 		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.pnotice);
 		initDialog();
 		initHander();
@@ -111,7 +113,7 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 			@Override
 			public void handleMessage(Message msg) {
 				msgListView.onRefreshComplete();
-				if (NoticePullRefreshActivity.this.isFinishing()) {
+				if (NewNoticePullRefreshActivity.this.isFinishing()) {
 					Log.w("djc", "do nothing when activity finishing!");
 					return;
 				}
@@ -121,13 +123,10 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 					// Toast.makeText(NoticePullRefreshActivity.this,
 					// "get suceess!", Toast.LENGTH_SHORT).show();
 					handleSuccess(msg);
-					footer.setVisibility(View.GONE);
 					break;
 				case EventType.GET_NOTICE_FAILED:
-					Toast.makeText(NoticePullRefreshActivity.this, "获取公告消息失败",
-							Toast.LENGTH_SHORT).show();
-
-					footer.setVisibility(View.GONE);
+					Toast.makeText(NewNoticePullRefreshActivity.this,
+							"获取公告消息失败", Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;
@@ -148,6 +147,7 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 			} else if (msg.arg1 == ConstantValue.Type_INSERT_TAIl) {
 				// 旧数据不保存数据库
 				newsList.addAll(list);
+				// msgListView.scrollBy(0, 0);
 			} else {
 				Log.e("DDD", "handleSuccess bad param arg1=" + msg.arg1);
 			}
@@ -176,23 +176,39 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 				JSONConstant.NOTICE_TYPE_NORMAL,
 				ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT);
 		adapter = new NewsListAdapter(this, newsList);
-		msgListView = (MsgListView) findViewById(R.id.noticelist);// 继承ListActivity，id要写成android.R.id.list，否则报异常
+		msgListView = (PullToRefreshListView) findViewById(R.id.noticelist);
+		// msgListView.setScrollingWhileRefreshingEnabled(true);
+		msgListView.setMode(Mode.BOTH);
 		setRefreshListener();
 		msgListView.setAdapter(adapter);
 		setItemClickListener();
-		setScrollListener();
-		addFooter();
 	}
 
 	private void setRefreshListener() {
-		msgListView
-				.setonRefreshListener(new com.cocobabys.customview.MsgListView.OnRefreshListener() {
-					@Override
-					public void onRefresh() {
-						refreshHead();
-					}
+		// Set a listener to be invoked when the list should be refreshed.
+		msgListView.setOnRefreshListener(new OnRefreshListener2<ListView>() {
+			/**
+			 * onPullDownToRefresh will be called only when the user has Pulled
+			 * from the start, and released.
+			 */
+			@Override
+			public void onPullDownToRefresh(
+					PullToRefreshBase<ListView> refreshView) {
+				// Do work to refresh the list here.
+				refreshHead();
+			}
 
-				});
+			/**
+			 * onPullUpToRefresh will be called only when the user has Pulled
+			 * from the end, and released.
+			 */
+			@Override
+			public void onPullUpToRefresh(
+					PullToRefreshBase<ListView> refreshView) {
+				refreshTail();
+			}
+		});
+
 	}
 
 	private void refreshHead() {
@@ -234,50 +250,19 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 		});
 	}
 
-	private void setScrollListener() {
-		msgListView.setOnScrollListener(new OnScrollListener() {
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				if (scrollState == OnScrollListener.SCROLL_STATE_IDLE
-				// 0,1都不行，因为有一个隐藏的header，所以必须是大于1才刷新尾部
-						&& msgListView.getFirstVisiblePosition() > 1) {
-					refreshTail(view);
-				}
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
-			}
-		});
-	}
-
-	private void refreshTail(AbsListView view) {
+	private void refreshTail() {
 		// 判断是否滚动到底部
-		if (view.getLastVisiblePosition() == view.getCount() - 1) {
-			long to = 0;
-			if (!newsList.isEmpty()) {
-				try {
-					to = newsList.get(newsList.size() - 1).getTimestamp();
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				}
-			}
-			Log.d("djc", "refreshTail to=" + to);
-			boolean runtask = runGetNoticeTask(0, to,
-					ConstantValue.Type_INSERT_TAIl);
-			if (runtask) {
-				footer.setVisibility(View.VISIBLE);
-				// Toast.makeText(NoticePullRefreshActivity.this,
-				// "Tail Tail Tail!",
-				// Toast.LENGTH_SHORT).show();
+		long to = 0;
+		if (!newsList.isEmpty()) {
+			try {
+				to = newsList.get(newsList.size() - 1).getTimestamp();
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
 			}
 		}
-	}
-
-	public void addFooter() {
-		footer = getLayoutInflater().inflate(R.layout.footerview, null);
-		msgListView.addFooterView(footer);
+		Log.d("djc", "refreshTail to=" + to);
+		boolean runtask = runGetNoticeTask(0, to,
+				ConstantValue.Type_INSERT_TAIl);
 	}
 
 	private void startTo(News info) {

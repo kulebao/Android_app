@@ -80,7 +80,9 @@ public class SchoolNoticeGridViewAdapter extends BaseAdapter {
 	private void setNoticeImg(final int position, FlagHolder flagholder) {
 		if (position == SchoolNoticeActivity.NORMAL_NOTICE) {
 			String prop = DataUtils.getProp(ConstantValue.HAVE_NEWS_NOTICE);
-			if ("true".equals(prop)) {
+			String hprop = DataUtils
+					.getProp(ConstantValue.HAVE_HOMEWORK_NOTICE);
+			if ("true".equals(prop) || "true".equals(hprop)) {
 				flagholder.newDataSymble.setVisibility(View.VISIBLE);
 			} else {
 				flagholder.newDataSymble.setVisibility(View.GONE);
@@ -92,29 +94,32 @@ public class SchoolNoticeGridViewAdapter extends BaseAdapter {
 			} else {
 				flagholder.newDataSymble.setVisibility(View.GONE);
 			}
-		} else if (position == SchoolNoticeActivity.HOMEWORK) {
-			String prop = DataUtils.getProp(ConstantValue.HAVE_HOMEWORK_NOTICE);
-			if ("true".equals(prop)) {
-				flagholder.newDataSymble.setVisibility(View.VISIBLE);
-			} else {
-				flagholder.newDataSymble.setVisibility(View.GONE);
-			}
-		}else if (position == SchoolNoticeActivity.SCHEDULE) {
+		}
+		// else if (position == SchoolNoticeActivity.HOMEWORK) {
+		// String prop = DataUtils.getProp(ConstantValue.HAVE_HOMEWORK_NOTICE);
+		// if ("true".equals(prop)) {
+		// flagholder.newDataSymble.setVisibility(View.VISIBLE);
+		// } else {
+		// flagholder.newDataSymble.setVisibility(View.GONE);
+		// }
+		// }
+		else if (position == SchoolNoticeActivity.SCHEDULE) {
 			String prop = DataUtils.getProp(ConstantValue.HAVE_SCHEDULE_NOTICE);
 			if ("true".equals(prop)) {
 				flagholder.newDataSymble.setVisibility(View.VISIBLE);
 			} else {
 				flagholder.newDataSymble.setVisibility(View.GONE);
 			}
-		}else if (position == SchoolNoticeActivity.INTERACTION) {
+		} else if (position == SchoolNoticeActivity.INTERACTION) {
 			String prop = DataUtils.getProp(ConstantValue.HAVE_CHAT_NOTICE);
 			if ("true".equals(prop)) {
 				flagholder.newDataSymble.setVisibility(View.VISIBLE);
 			} else {
 				flagholder.newDataSymble.setVisibility(View.GONE);
 			}
-		}else if (position == SchoolNoticeActivity.EDUCATION) {
-			String prop = DataUtils.getProp(ConstantValue.HAVE_EDUCATION_NOTICE);
+		} else if (position == SchoolNoticeActivity.EDUCATION) {
+			String prop = DataUtils
+					.getProp(ConstantValue.HAVE_EDUCATION_NOTICE);
 			if ("true".equals(prop)) {
 				flagholder.newDataSymble.setVisibility(View.VISIBLE);
 			} else {
