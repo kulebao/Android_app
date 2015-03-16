@@ -335,6 +335,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activities.NewChatActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activities.SendNewChatActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"

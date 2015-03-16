@@ -3,6 +3,8 @@ package com.cocobabys.activities;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -10,6 +12,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +29,7 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.NoticeAction;
 import com.cocobabys.customview.CustomDialog.Builder;
+import com.cocobabys.customview.FullScreenVideoView;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.dlgmgr.DlgMgr;
@@ -38,7 +42,7 @@ import com.cocobabys.utils.Utils;
 public class ShowVideoActivity extends UmengStatisticsActivity {
 	private Bitmap bitmap;
 	private String videoUrl;
-	private VideoView videoView;
+	private FullScreenVideoView videoView;
 	private ImageView play;
 	private ImageView nailview;
 
@@ -96,15 +100,19 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 					playVideo();
 					break;
 				case EventType.DOWNLOAD_FILE_FAILED:
-					Builder singleBtnDlg = DlgMgr.getSingleBtnDlg(ShowVideoActivity.this,
-							new android.content.DialogInterface.OnClickListener() {
+					Builder singleBtnDlg = DlgMgr
+							.getSingleBtnDlg(
+									ShowVideoActivity.this,
+									new android.content.DialogInterface.OnClickListener() {
 
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									dialog.dismiss();
-									ShowVideoActivity.this.finish();
-								}
-							});
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											dialog.dismiss();
+											ShowVideoActivity.this.finish();
+										}
+									});
 					singleBtnDlg.setMessage(R.string.dl_failed);
 
 					singleBtnDlg.create().show();
@@ -145,19 +153,21 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 	}
 
 	private void showDlg(final String serverUrl) {
-		final Builder builder = DlgMgr.getTwoBtnDlg(this, new android.content.DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialogInterface, int which) {
-				dialog.show();
-				downloadVideo(serverUrl);
-			}
-		}, new android.content.DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-				ShowVideoActivity.this.finish();
-			}
-		});
+		final Builder builder = DlgMgr.getTwoBtnDlg(this,
+				new android.content.DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface,
+							int which) {
+						dialog.show();
+						downloadVideo(serverUrl);
+					}
+				}, new android.content.DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						ShowVideoActivity.this.finish();
+					}
+				});
 		builder.setMessage(Utils.getResString(R.string.dl_video));
 		builder.createTwoBtn().show();
 	}
@@ -206,18 +216,35 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		Log.d("", "ShowVideoActivity onConfigurationChanged");
+		// if (this.getResources().getConfiguration().orientation ==
+		// Configuration.ORIENTATION_LANDSCAPE) {
+		// // land donothing is ok
+		// setContentView(R.layout.show_video_hori);
+		// } else if (this.getResources().getConfiguration().orientation ==
+		// Configuration.ORIENTATION_PORTRAIT) {
+		// // port donothing is ok
+		// setContentView(R.layout.show_video);
+		// }
 	}
 
 	private void initUI() {
 		nailview = (ImageView) findViewById(R.id.nailview);
 		play = (ImageView) findViewById(R.id.play);
-		videoView = (VideoView) findViewById(R.id.videoView);
+		videoView = (FullScreenVideoView) findViewById(R.id.videoView);
 		bitmap = Utils.createVideoThumbnail(videoUrl);
 		nailview.setImageBitmap(bitmap);
 
 		videoView.setMediaController(mMediaController);
 
 		videoView.setVideoPath(videoUrl);
+
+		videoView.setOnPreparedListener(new OnPreparedListener() {
+			@Override
+			public void onPrepared(MediaPlayer mp) {
+				videoView.setVideoWidth(mp.getVideoWidth());
+				videoView.setVideoHeight(mp.getVideoHeight());
+			}
+		});
 
 		videoView.setOnCompletionListener(new OnCompletionListener() {
 			@Override
@@ -293,12 +320,13 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 	public void send(View view) {
 		dialog.setMessage(getResources().getString(R.string.sending));
 		dialog.show();
-		
+
 		videoView.stopPlayback();
 		List<String> list = new ArrayList<String>(1);
 		list.add(videoUrl);
 
-		SendExpJob expJob = new SendExpJob(handler, content, list, JSONConstant.VIDEO_TYPE);
+		SendExpJob expJob = new SendExpJob(handler, content, list,
+				JSONConstant.VIDEO_TYPE);
 		expJob.execute();
 	}
 
