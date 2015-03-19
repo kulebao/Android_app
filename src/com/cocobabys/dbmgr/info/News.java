@@ -17,6 +17,7 @@ public class News {
 	public static final String NEWS_SERVER_ID = "news_server_id";
 	public static final String ICON_URL = "icon_url";
 	public static final String CLASS_ID = "class_id";
+	public static final String NEED_RECEIPT = "need_receipt";
 	private static final String NEWS_ICON = "news_icon";
 	private static final String NEWS_ICON_MINI = "news_icon_mini";
 
@@ -30,6 +31,16 @@ public class News {
 	private int type = 0;
 	private int id = 0;
 	private int news_server_id = 0;
+	// 0表示不需要回执，否则需要
+	private int need_receipt = 0;
+
+	public int getNeed_receipt() {
+		return need_receipt;
+	}
+
+	public void setNeed_receipt(int need_receipt) {
+		this.need_receipt = need_receipt;
+	}
 
 	public int getNews_server_id() {
 		return news_server_id;

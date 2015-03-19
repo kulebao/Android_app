@@ -33,6 +33,7 @@ class NewsMgr {
 		values.put(News.NEWS_SERVER_ID, info.getNews_server_id());
 		values.put(News.ICON_URL, info.getIcon_url());
 		values.put(News.CLASS_ID, info.getClass_id());
+		values.put(News.NEED_RECEIPT, info.getNeed_receipt());
 		return values;
 	}
 
@@ -46,8 +47,8 @@ class NewsMgr {
 		try {
 			for (News info : list) {
 				ContentValues values = buildNewsInfo(info);
-				writableDatabase.insertWithOnConflict(SqliteHelper.NEWS_TAB, null,
-						values, SQLiteDatabase.CONFLICT_REPLACE);
+				writableDatabase.insertWithOnConflict(SqliteHelper.NEWS_TAB,
+						null, values, SQLiteDatabase.CONFLICT_REPLACE);
 			}
 			// 数据插入操作循环
 			writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
@@ -126,6 +127,7 @@ class NewsMgr {
 		info.setPublisher(cursor.getString(6));
 		info.setIcon_url(cursor.getString(7));
 		info.setClass_id(cursor.getInt(8));
+		info.setNeed_receipt(cursor.getInt(9));
 		return info;
 	}
 }

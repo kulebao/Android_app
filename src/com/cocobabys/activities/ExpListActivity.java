@@ -29,7 +29,6 @@ import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ExpListActivity extends UmengStatisticsActivity {
-	private static final int CACHE_SIZE = 1 * 1024 * 1024;
 	private ProgressDialog dialog;
 	private ExpListAdapter adapter;
 	private ListView listView;

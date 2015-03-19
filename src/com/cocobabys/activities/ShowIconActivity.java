@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.utils.ImageDownloader;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ShowIconActivity extends UmengStatisticsActivity {
 
@@ -23,10 +23,12 @@ public class ShowIconActivity extends UmengStatisticsActivity {
 		ImageView image = (ImageView) findViewById(R.id.imageview);
 		String path = getIntent().getStringExtra(ConstantValue.LOCAL_URL);
 
-		int maxPixel = ImageDownloader.getMaxPix();
+		// int maxPixel = ImageDownloader.getMaxPix();
+		//
+		// bitmap = ImageDownloader.getResizedBmp(maxPixel, path);
+		// image.setImageBitmap(bitmap);
 
-		bitmap = ImageDownloader.getResizedBmp(maxPixel, path);
-		image.setImageBitmap(bitmap);
+		ImageLoader.getInstance().displayImage("file://" + path, image);
 	}
 
 	@Override

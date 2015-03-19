@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.cocobabys.dbmgr.info.NativeMediumInfo;
-import com.cocobabys.dbmgr.info.News;
 
 class NativeMediumMgr {
 	private SqliteHelper dbHelper;

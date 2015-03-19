@@ -12,6 +12,16 @@
         android:text="title"
         android:textColor="@color/juhong" />
 
+    <TextView
+        android:id="@+id/feedback"
+        style="@style/item_style"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="8dp"
+        android:text="发送回执"
+        android:textColor="@color/juhong"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/left"
         android:layout_width="match_parent"

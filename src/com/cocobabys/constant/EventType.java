@@ -110,6 +110,9 @@ public class EventType {
 	public static final int GET_AD_SUCCESS = 1850;
 	public static final int GET_AD_FAIL = 1851;
 
+	public static final int POST_RECEIPT_SUCCESS = 1860;
+	public static final int POST_RECEIPT_FAIL = 1861;
+
 	public static final int SUCCESS = 2000;
 	public static final int FAIL = 2001;
 

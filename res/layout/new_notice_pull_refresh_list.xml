@@ -21,7 +21,7 @@
         android:dividerHeight="2.0dp"
         android:fadingEdge="none"
         android:fadingEdgeLength="0dip"
-        android:fastScrollEnabled="false"
+        android:fastScrollEnabled="true"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         android:smoothScrollbar="true" />

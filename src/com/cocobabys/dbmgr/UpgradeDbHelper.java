@@ -121,10 +121,18 @@ public class UpgradeDbHelper {
 			}
 		});
 
-		tableMap.put(SqliteHelper.NATIVE_MEDIUM_URL_TAB, new CreateTableListener() {
+		tableMap.put(SqliteHelper.NATIVE_MEDIUM_URL_TAB,
+				new CreateTableListener() {
+					@Override
+					public void onCreateTable() {
+						dbhelper.addNativeMediumUrlTab(db);
+					}
+				});
+
+		tableMap.put(SqliteHelper.RECEIPT_TAB, new CreateTableListener() {
 			@Override
 			public void onCreateTable() {
-				dbhelper.addNativeMediumUrlTab(db);
+				dbhelper.addReceiptTab(db);
 			}
 		});
 	}
@@ -133,7 +141,8 @@ public class UpgradeDbHelper {
 		getOldTables();
 
 		Set<Entry<String, CreateTableListener>> entrySet = tableMap.entrySet();
-		Iterator<Entry<String, CreateTableListener>> iterator = entrySet.iterator();
+		Iterator<Entry<String, CreateTableListener>> iterator = entrySet
+				.iterator();
 
 		while (iterator.hasNext()) {
 			Entry<String, CreateTableListener> next = iterator.next();
@@ -142,7 +151,8 @@ public class UpgradeDbHelper {
 			String tablename = next.getKey();
 			CreateTableListener listener = next.getValue();
 			// MONTH_TAB数据不需要更新，只需要新建
-			if (oldTables.contains(tablename) && !SqliteHelper.MONTH_TAB.equals(tablename)) {
+			if (oldTables.contains(tablename)
+					&& !SqliteHelper.MONTH_TAB.equals(tablename)) {
 				updateData(tablename, listener);
 			} else {
 				// 表只在新数据库中存在，旧数据库不存在，那么直接创建新表，注意如果有index也在这里创建
@@ -158,7 +168,8 @@ public class UpgradeDbHelper {
 		try {
 			// 修改旧表名为临时表名,如果临时表已经存在，则可能是上次未删除干净的垃圾数据，再次删除之
 			db.execSQL(String.format("DROP TABLE IF EXISTS %s", tmpName));
-			String changeTableNameSql = String.format("ALTER TABLE %s RENAME TO %s", tablename, tmpName);
+			String changeTableNameSql = String.format(
+					"ALTER TABLE %s RENAME TO %s", tablename, tmpName);
 			Log.d("TABLE_NAME", "changeTableNameSql =" + changeTableNameSql);
 			db.execSQL(changeTableNameSql);
 
@@ -172,14 +183,17 @@ public class UpgradeDbHelper {
 			listener.onCreateTable();
 
 			// 导入旧表数据到新表
-			String addDataSql = String.format("insert into %s(%s) select * from %s", tablename, columns, tmpName);
+			String addDataSql = String.format(
+					"insert into %s(%s) select * from %s", tablename, columns,
+					tmpName);
 			Log.d("TABLE_NAME", "addDataSql =" + addDataSql);
 			db.execSQL(addDataSql);
 
 			// 如果只是删除临时表出错，不需要回滚,但是会造成垃圾数据
 			needRollback = false;
 			// 删除旧表,注意是临时表名
-			String deleteOldTableSql = String.format("DROP TABLE IF EXISTS %s", tmpName);
+			String deleteOldTableSql = String.format("DROP TABLE IF EXISTS %s",
+					tmpName);
 			db.execSQL(deleteOldTableSql);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -192,11 +206,13 @@ public class UpgradeDbHelper {
 
 	private void rollbackData(String tablename, String tmpName) {
 		try {
-			String droptable = String.format("DROP TABLE IF EXISTS %s", tablename);
+			String droptable = String.format("DROP TABLE IF EXISTS %s",
+					tablename);
 			db.execSQL(droptable);
 
 			// 把临时表改回真实表名，相对于数据回滚
-			String changeTableNameSql = String.format("ALTER TABLE %s RENAME TO %s", tmpName, tablename);
+			String changeTableNameSql = String.format(
+					"ALTER TABLE %s RENAME TO %s", tmpName, tablename);
 			Log.d("TABLE_NAME", "rollbak =" + changeTableNameSql);
 			db.execSQL(changeTableNameSql);
 		} catch (SQLException e) {
@@ -231,7 +247,10 @@ public class UpgradeDbHelper {
 
 	private void getOldTables() {
 		oldTables = new ArrayList<String>();
-		Cursor cursor = db.rawQuery("select name from sqlite_master where type='table' order by name", null);
+		Cursor cursor = db
+				.rawQuery(
+						"select name from sqlite_master where type='table' order by name",
+						null);
 
 		try {
 			cursor.moveToFirst();

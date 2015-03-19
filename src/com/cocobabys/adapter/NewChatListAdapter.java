@@ -49,7 +49,6 @@ import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class NewChatListAdapter extends BaseAdapter {
     private static final String SELF_NAME = "我";
