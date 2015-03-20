@@ -87,6 +87,7 @@ public class NewsListAdapter extends BaseAdapter{
 
     public void clear(){
         newsList.clear();
+        map.clear();
         notifyDataSetChanged();
     }
 

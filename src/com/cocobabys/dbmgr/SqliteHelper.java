@@ -194,7 +194,7 @@ public class SqliteHelper extends SQLiteOpenHelper{
                 + News.TITLE + " varchar," + News.CONTENT + " varchar," + News.TIMESTAMP + " biginteger ,"
                 + News.NEWS_TYPE + " integer," + News.NEWS_SERVER_ID + " integer," + News.PUBLISHER + " varchar,"
                 + News.ICON_URL + " varchar," + News.CLASS_ID + " integer," + News.NEED_RECEIPT + " integer,"
-                + "UNIQUE(" + News.NEWS_SERVER_ID + ") " + ")");
+                + News.TAGS + " varchar," + "UNIQUE(" + News.NEWS_SERVER_ID + ") " + ")");
     }
 
     void addSwipeTab(SQLiteDatabase db){

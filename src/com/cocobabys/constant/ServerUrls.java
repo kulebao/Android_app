@@ -30,6 +30,8 @@ public class ServerUrls{
     public static final String  VIDEO_MEMBER         = "video_member";
     public static final String  AD                   = "ad";
 
+    public static final String  FIX_PATH             = "api/v2/";
+
     public static final String  TEST_HTTPS_HOST_ADDR = "https://stage2.cocobabys.com/";
 
     private static String getHost(){
@@ -68,8 +70,12 @@ public class ServerUrls{
     public static final String  GET_SWIPE_RECORD        = getHost() + ROOT_RES_PATH + "/%s/" + CHILD_RES_PATH + "/%s/"
                                                                 + DAILYLOG;
 
-    // https://www.cocobabys.com/kindergarten/93740362/news?most=25&from=1389718964408&to=1389801005344
+    // https://www.cocobabys.com/api/v2/kindergarten/93740362/news?most=25&from=1389718964408&to=1389801005344
     public static final String  GET_NORMAL_NOTICE       = getHost() + ROOT_RES_PATH + "/%s/" + NEWS_RES_PATH + "?";
+
+    // https://www.cocobabys.com/kindergarten/93740362/news?most=25&from=1389718964408&to=1389801005344
+    public static final String  GET_NOTICE_WITH_TAGS    = getHost() + FIX_PATH + ROOT_RES_PATH + "/%s/" + NEWS_RES_PATH
+                                                                + "?";
 
     // https://www.cocobabys.com/kindergarten/93740362/child/1_93740362_456/assess?from=1&to=10&most=5
     public static final String  GET_EDUCATION           = getHost() + ROOT_RES_PATH + "/%s/" + CHILD_RES_PATH + "/%s/"
@@ -171,7 +177,7 @@ public class ServerUrls{
     // https://stage2.cocobabys.com/api/v1/kindergarten/2088/video_member/default
     public static final String  GET_PUBLIC_VIDEO_INFO   = getHost() + "api/v1/kindergarten/%s/video_member/default";
 
-    // https://stage2.cocobabys.com/ api/v2/kindergarten/2088/news/123/reader
+    // https://stage2.cocobabys.com/api/v2/kindergarten/2088/news/123/reader
     public static final String  POST_NEWS_RECEIPT       = getHost() + "api/v2/kindergarten/%s/" + NEWS_RES_PATH
                                                                 + "/%d/reader";
 

@@ -45,7 +45,6 @@ public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 	private Handler myhandler;
 	private GetNormalNewsTask getNoticeTask;
 	private List<News> newsList;
-	private boolean bDataChanged = false;
 	private ProgressDialog dialog;
 
 	@Override
@@ -87,17 +86,6 @@ public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		// 最多保存最新的25条通知
-		if (bDataChanged) {
-			if (newsList.size() > ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
-				newsList = newsList.subList(0,
-						ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT);
-			}
-
-			DataMgr.getInstance().removeAllNewsByType(
-					JSONConstant.NOTICE_TYPE_NORMAL);
-			DataMgr.getInstance().addNewsList(newsList);
-		}
 		adapter.close();
 	}
 
@@ -144,13 +132,10 @@ public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 		DataUtils.saveProp(ConstantValue.HAVE_NEWS_NOTICE, "false");
 		if (!list.isEmpty()) {
 			// 刷出新公告了，去掉有新公告的标志
-			bDataChanged = true;
-			if (msg.arg1 == ConstantValue.Type_INSERT_HEAD) {
+			if (msg.arg1 == ConstantValue.Type_GET_NEW) {
 				addToHead(list);
-			} else if (msg.arg1 == ConstantValue.Type_INSERT_TAIl) {
-				// 旧数据不保存数据库
+			} else if (msg.arg1 == ConstantValue.Type_GET_OLD) {
 				newsList.addAll(list);
-				// msgListView.scrollBy(0, 0);
 			} else {
 				Log.e("DDD", "handleSuccess bad param arg1=" + msg.arg1);
 			}
@@ -165,13 +150,9 @@ public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 		// 如果大于等于25条，就说明很可能还有公告没有一次性获取完，为了获取
 		// 到连续的公告数据，避免排序和获取复杂化，删除旧的全部公告，只保留最新的25条
 		if (list.size() >= ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
-			newsList.clear();
-			DataMgr.getInstance().removeAllNewsByType(
-					JSONConstant.NOTICE_TYPE_NORMAL);
+			adapter.clear();
 		}
 		newsList.addAll(0, list);
-
-		DataMgr.getInstance().addNewsList(list);
 	}
 
 	private void initCustomListView() {
@@ -241,8 +222,7 @@ public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 		}
 
 		Log.d("DDD", "refreshHead from=" + from);
-		boolean runtask = runGetNoticeTask(from, 0,
-				ConstantValue.Type_INSERT_HEAD);
+		boolean runtask = runGetNoticeTask(from, 0, ConstantValue.Type_GET_NEW);
 		if (!runtask) {
 			// 任务没有执行，立即去掉下拉显示
 			msgListView.onRefreshComplete();
@@ -280,8 +260,7 @@ public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 			}
 		}
 		Log.d("djc", "refreshTail to=" + to);
-		boolean runtask = runGetNoticeTask(0, to,
-				ConstantValue.Type_INSERT_TAIl);
+		boolean runtask = runGetNoticeTask(0, to, ConstantValue.Type_GET_OLD);
 	}
 
 	private void startTo(News info) {

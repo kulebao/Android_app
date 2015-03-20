@@ -184,6 +184,10 @@ public class DataMgr{
     public void addNewsList(List<News> list){
         newsMgr.addNewsList(list);
     }
+    
+    public List<News> getNews(int max, long timestamp){
+    	return newsMgr.getNews(max, timestamp);
+    }
 
     public News getNewsByID(int id){
         return newsMgr.getNewsByID(id);

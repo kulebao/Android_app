@@ -10,7 +10,7 @@ import android.content.Intent;
 
 import com.cocobabys.R;
 import com.cocobabys.activities.MyApplication;
-import com.cocobabys.activities.NoticePullRefreshActivity;
+import com.cocobabys.activities.NewNoticePullRefreshActivity;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
@@ -41,8 +41,9 @@ public class MethodUtils {
 		if (networkConnected) {
 			NewsMethod method = NewsMethod.getMethod();
 			try {
-				long from = getMaxNewsID();
-				has_new = !method.getNormalNews(1, from, 0).isEmpty();
+				long from = getMaxNewsTimestamp();
+				has_new = !method.getNormalNews(1, from, 0,
+						ConstantValue.Type_CHECK_NEW).isEmpty();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -176,12 +177,12 @@ public class MethodUtils {
 		return from;
 	}
 
-	private static long getMaxNewsID() {
+	private static long getMaxNewsTimestamp() {
 		long from = 0;
 		List<News> list = DataMgr.getInstance().getNewsByType(
 				JSONConstant.NOTICE_TYPE_NORMAL, 1);
 		if (!list.isEmpty()) {
-			from = list.get(0).getNews_server_id();
+			from = list.get(0).getTimestamp();
 		}
 		return from;
 	}
@@ -228,7 +229,7 @@ public class MethodUtils {
 		// look up the notification manager service
 		NotificationManager nm = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
-		Intent intent = new Intent(context, NoticePullRefreshActivity.class);
+		Intent intent = new Intent(context, NewNoticePullRefreshActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 		// 每次调用到这句时，第二个参数一定要不同，否则多个通知同时存在时，对于同一个id的通知

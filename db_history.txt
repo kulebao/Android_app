@@ -1,1 +1,5 @@
 2 --> 3 :  swipeInfo 增加 ad字段，表示广告词
+
+3-->4 : newstab 新增字段NEED_RECEIPT，表示是否需要回执。新增字段tags，表示标签
+        新增receipt_tab表，存放news对应的回执状态，已经回执或未回执
+        V1.3.5,84 版本后改变(包含84版本)

@@ -34,6 +34,7 @@ class NewsMgr {
 		values.put(News.ICON_URL, info.getIcon_url());
 		values.put(News.CLASS_ID, info.getClass_id());
 		values.put(News.NEED_RECEIPT, info.getNeed_receipt());
+		values.put(News.TAGS, info.getTags());
 		return values;
 	}
 
@@ -92,6 +93,16 @@ class NewsMgr {
 		return getNewsList(cursor);
 	}
 
+	// timestamp 小于这个timestamp的消息
+	List<News> getNews(int max, long timestamp) {
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NEWS_TAB
+				+ " WHERE " + News.TIMESTAMP + " < " + timestamp + " ORDER BY "
+				+ News.TIMESTAMP + " DESC LIMIT " + max, null);
+
+		return getNewsList(cursor);
+	}
+
 	void removeAllNewsByType(int type) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		db.execSQL("DELETE FROM " + SqliteHelper.NEWS_TAB + " WHERE "
@@ -128,6 +139,7 @@ class NewsMgr {
 		info.setIcon_url(cursor.getString(7));
 		info.setClass_id(cursor.getInt(8));
 		info.setNeed_receipt(cursor.getInt(9));
+		info.setTags(cursor.getString(10));
 		return info;
 	}
 }

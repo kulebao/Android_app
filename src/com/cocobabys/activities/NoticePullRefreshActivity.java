@@ -143,9 +143,9 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 		if (!list.isEmpty()) {
 			// 刷出新公告了，去掉有新公告的标志
 			bDataChanged = true;
-			if (msg.arg1 == ConstantValue.Type_INSERT_HEAD) {
+			if (msg.arg1 == ConstantValue.Type_GET_NEW) {
 				addToHead(list);
-			} else if (msg.arg1 == ConstantValue.Type_INSERT_TAIl) {
+			} else if (msg.arg1 == ConstantValue.Type_GET_OLD) {
 				// 旧数据不保存数据库
 				newsList.addAll(list);
 			} else {
@@ -207,7 +207,7 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 
 		Log.d("DDD", "refreshHead from=" + from);
 		boolean runtask = runGetNoticeTask(from, 0,
-				ConstantValue.Type_INSERT_HEAD);
+				ConstantValue.Type_GET_NEW);
 		if (!runtask) {
 			// 任务没有执行，立即去掉下拉显示
 			msgListView.onRefreshComplete();
@@ -265,7 +265,7 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 			}
 			Log.d("djc", "refreshTail to=" + to);
 			boolean runtask = runGetNoticeTask(0, to,
-					ConstantValue.Type_INSERT_TAIl);
+					ConstantValue.Type_GET_OLD);
 			if (runtask) {
 				footer.setVisibility(View.VISIBLE);
 				// Toast.makeText(NoticePullRefreshActivity.this,

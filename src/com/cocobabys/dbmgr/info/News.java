@@ -18,6 +18,7 @@ public class News {
 	public static final String ICON_URL = "icon_url";
 	public static final String CLASS_ID = "class_id";
 	public static final String NEED_RECEIPT = "need_receipt";
+	public static final String TAGS = "tags";
 	private static final String NEWS_ICON = "news_icon";
 	private static final String NEWS_ICON_MINI = "news_icon_mini";
 
@@ -26,6 +27,7 @@ public class News {
 	private long timestamp = 0;
 	private String publisher = "";
 	private String icon_url = "";
+	private String tags = "";
 	private int class_id = 0;
 
 	private int type = 0;
@@ -33,6 +35,14 @@ public class News {
 	private int news_server_id = 0;
 	// 0表示不需要回执，否则需要
 	private int need_receipt = 0;
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
 
 	public int getNeed_receipt() {
 		return need_receipt;
