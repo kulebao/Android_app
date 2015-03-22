@@ -250,5 +250,7 @@
     <string name="news_already_feedback">"已回执"</string>
     <string name="news_need_feedback">"请回执"</string>
     <string name="send_news_feedback">"发送中"</string>
+    
+    <string name="class_notice">"班级通知"</string>
 
 </resources>

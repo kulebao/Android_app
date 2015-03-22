@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
+
+    <ImageView
+        android:id="@+id/iconView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="5dp"
+        android:scaleType="fitXY"
+        android:visibility="visible" >
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iconView" >
+
+        <TextView
+            android:id="@+id/tagView"
+            style="@style/item_style"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/school_notice_back"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="园内通知"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/titleView"
+            style="@style/item_style"
+            android:layout_below="@+id/tagView"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="2dp"
+            android:text="title"
+            android:textColor="@color/juhong" />
+
+        <TextView
+            android:id="@+id/feedback"
+            style="@style/item_style"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/need_feedback"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="请回执"
+            android:textColor="@color/white"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/first"
+        android:layout_marginTop="2dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp" >
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/bodyView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="bodybodybodybodybodybodyybodybodybodybodybodybodyybodybodybodybodybodybodyy"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            autofit:minTextSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/bodyView"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/timeStampView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="8月23号  11点25分"
+                android:textColor="@color/timecolor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/fromview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="乐山幼儿园"
+                android:textColor="@color/timecolor"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -51,7 +51,7 @@ public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_notice_pull_refresh_list);
-		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.pnotice);
+		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.noticeTitle);
 		initDialog();
 		initHander();
 		initCustomListView();
@@ -148,7 +148,7 @@ public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 
 	private void addToHead(List<News> list) {
 		// 如果大于等于25条，就说明很可能还有公告没有一次性获取完，为了获取
-		// 到连续的公告数据，避免排序和获取复杂化，删除旧的全部公告，只保留最新的25条
+		// 到连续的公告数据，避免排序和获取复杂化，在界面上删除旧的全部公告，只保留最新的25条
 		if (list.size() >= ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
 			adapter.clear();
 		}

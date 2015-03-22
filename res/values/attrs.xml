@@ -5,7 +5,6 @@
         <attr name="textOn" format="string" />
         <attr name="textOff" format="string" />
     </declare-styleable>
-    
     <declare-styleable name="ProgressWheel">
         <attr name="text" format="string" />
         <attr name="textColor" format="color" />
@@ -22,8 +21,6 @@
         <attr name="contourColor" format="color" />
         <attr name="contourSize" format="dimension" />
     </declare-styleable>
-    
-    
     <declare-styleable name="SlidingMenu">
         <attr name="mode">
             <enum name="left" value="0" />
@@ -50,6 +47,19 @@
         <attr name="fadeDegree" format="float" />
         <attr name="selectorEnabled" format="boolean" />
         <attr name="selectorDrawable" format="reference" />
+    </declare-styleable>
+    
+    <declare-styleable name="AutofitTextView">
+
+        <!-- Minimum size of the text. -->
+        <attr name="minTextSize" format="dimension" />
+        <!--
+        Amount of precision used to calculate the correct text size to fit within its
+        bounds. Lower precision is more precise and takes more time.
+        -->
+        <attr name="precision" format="float" />
+        <!-- Defines whether to automatically resize text to fit to the view's bounds. -->
+        <attr name="sizeToFit" format="boolean" />
     </declare-styleable>
 
 </resources>

@@ -31,226 +31,282 @@ import com.cocobabys.jobs.SendReceiptJob;
 import com.cocobabys.utils.ImageDownloader;
 import com.cocobabys.utils.Utils;
 
-public class NewsListAdapter extends BaseAdapter{
-    private final Context                             context;
-    private List<News>                                newsList;
-    private static Map<String, SoftReference<Bitmap>> softMap = new HashMap<String, SoftReference<Bitmap>>();
-    private DonwloadModule                            donwloadModule;
-    private Handler                                   handler;
-    private Map<Integer, FeedbackState>               map     = new ConcurrentHashMap<Integer, NewsListAdapter.FeedbackState>();
+public class NewsListAdapter extends BaseAdapter {
+	private final Context context;
+	private List<News> newsList;
+	private static Map<String, SoftReference<Bitmap>> softMap = new HashMap<String, SoftReference<Bitmap>>();
+	private DonwloadModule donwloadModule;
+	private Handler handler;
+	private Map<Integer, FeedbackState> map = new ConcurrentHashMap<Integer, NewsListAdapter.FeedbackState>();
 
-    public void setLocationInfoList(List<News> list){
-        this.newsList = list;
-    }
+	public void setLocationInfoList(List<News> list) {
+		this.newsList = list;
+	}
 
-    public NewsListAdapter(Context activityContext, List<News> list){
-        this.context = activityContext;
-        newsList = list;
-        donwloadModule = new DonwloadModule();
-        donwloadModule.setDownloadListener(new DownloadListener(){
-            @Override
-            public void downloadSuccess(){
-                notifyDataSetChanged();
-            }
-        });
-        initHandler();
-    }
+	public NewsListAdapter(Context activityContext, List<News> list) {
+		this.context = activityContext;
+		newsList = list;
+		donwloadModule = new DonwloadModule();
+		donwloadModule.setDownloadListener(new DownloadListener() {
+			@Override
+			public void downloadSuccess() {
+				notifyDataSetChanged();
+			}
+		});
+		initHandler();
+	}
 
-    private void initHandler(){
-        handler = new InnerHandler(){
+	private void initHandler() {
+		handler = new InnerHandler() {
 
-            @Override
-            public void handleMessage(Message msg){
-                super.handleMessage(msg);
-                try{
-                    switch(msg.what){
-                        case EventType.POST_RECEIPT_FAIL:
-                            Utils.makeToast(context, R.string.send_news_feedback_fail);
-                            map.put(msg.arg1, FeedbackState.NEED_FEEDBACK);
-                            NewsListAdapter.this.notifyDataSetChanged();
-                        case EventType.POST_RECEIPT_SUCCESS:
-                            map.put(msg.arg1, FeedbackState.ALREADY_FEEDBACK);
-                            NewsListAdapter.this.notifyDataSetChanged();
-                            Log.d("", "POST_RECEIPT_SUCCESS id=" + msg.arg1);
-                            break;
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				try {
+					switch (msg.what) {
+					case EventType.POST_RECEIPT_FAIL:
+						Utils.makeToast(context,
+								R.string.send_news_feedback_fail);
+						map.put(msg.arg1, FeedbackState.NEED_FEEDBACK);
+						NewsListAdapter.this.notifyDataSetChanged();
+					case EventType.POST_RECEIPT_SUCCESS:
+						map.put(msg.arg1, FeedbackState.ALREADY_FEEDBACK);
+						NewsListAdapter.this.notifyDataSetChanged();
+						Log.d("", "POST_RECEIPT_SUCCESS id=" + msg.arg1);
+						break;
 
-                        default:
-                            break;
-                    }
-                } catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
+					default:
+						break;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 
-        };
-    };
+		};
+	};
 
-    public void clear(){
-        newsList.clear();
-        map.clear();
-        notifyDataSetChanged();
-    }
+	public void clear() {
+		newsList.clear();
+		map.clear();
+		notifyDataSetChanged();
+	}
 
-    @Override
-    public int getCount(){
-        return newsList.size();
-    }
+	@Override
+	public int getCount() {
+		return newsList.size();
+	}
 
-    @Override
-    public Object getItem(int position){
-        return newsList.get(position);
-    }
+	@Override
+	public Object getItem(int position) {
+		return newsList.get(position);
+	}
 
-    @Override
-    public long getItemId(int position){
-        return position;
-    }
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        if(convertView == null){
-            FlagHolder flagholder = this.new FlagHolder();
-            convertView = LayoutInflater.from(this.context).inflate(R.layout.notice_item, null);
-            flagholder.titleView = (TextView)convertView.findViewById(R.id.titleView);
-            flagholder.bodyView = (TextView)convertView.findViewById(R.id.bodyView);
-            flagholder.timestampView = (TextView)convertView.findViewById(R.id.timeStampView);
-            flagholder.iconView = (ImageView)convertView.findViewById(R.id.iconView);
-            flagholder.fromview = (TextView)convertView.findViewById(R.id.fromview);
-            flagholder.feedBackView = (TextView)convertView.findViewById(R.id.feedback);
-            setDataToViews(position, flagholder);
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		if (convertView == null) {
+			FlagHolder flagholder = this.new FlagHolder();
+			convertView = LayoutInflater.from(this.context).inflate(
+					R.layout.new_notice_item, null);
+			flagholder.tagView = (TextView) convertView
+					.findViewById(R.id.tagView);
+			flagholder.titleView = (TextView) convertView
+					.findViewById(R.id.titleView);
+			flagholder.bodyView = (TextView) convertView
+					.findViewById(R.id.bodyView);
+			flagholder.timestampView = (TextView) convertView
+					.findViewById(R.id.timeStampView);
+			flagholder.iconView = (ImageView) convertView
+					.findViewById(R.id.iconView);
+			flagholder.fromview = (TextView) convertView
+					.findViewById(R.id.fromview);
+			flagholder.feedBackView = (TextView) convertView
+					.findViewById(R.id.feedback);
+			setDataToViews(position, flagholder);
 
-            convertView.setBackgroundResource(R.drawable.news_item);
-            convertView.setTag(flagholder);
-        } else{
-            convertView.setBackgroundResource(R.drawable.news_item);
-            FlagHolder flagholder = (FlagHolder)convertView.getTag();
-            if(flagholder != null){
-                setDataToViews(position, flagholder);
-            }
-        }
+			convertView.setTag(flagholder);
+		} else {
+			FlagHolder flagholder = (FlagHolder) convertView.getTag();
+			if (flagholder != null) {
+				setDataToViews(position, flagholder);
+			}
+		}
 
-        return convertView;
-    }
+		return convertView;
+	}
 
-    private void setDataToViews(final int position, FlagHolder flagholder){
-        final News info = newsList.get(position);
-        flagholder.titleView.setText(info.getTitle());
-        flagholder.bodyView.setText(info.getContent());
-        flagholder.timestampView.setText(Utils.formatChineseTime(info.getTimestamp()));
-        flagholder.fromview.setText(info.getFrom());
-        setFeedBackBtn(flagholder, info);
-        setIcon(flagholder.iconView, info);
-    }
+	private void setDataToViews(final int position, FlagHolder flagholder) {
+		final News info = newsList.get(position);
+		setTagview(flagholder, info);
+		flagholder.titleView.setText(info.getTitle());
+		flagholder.bodyView.setText(info.getContent());
+		flagholder.timestampView.setText(Utils.formatChineseTime(info
+				.getTimestamp()));
+		flagholder.fromview.setText(info.getFrom());
+		setFeedBackBtn(flagholder, info);
+		setIcon(flagholder.iconView, info);
+	}
 
-    private void setFeedBackBtn(final FlagHolder flagholder, final News info){
-        int need_receipt = info.getNeed_receipt();
-        if(need_receipt != 0){
-            flagholder.feedBackView.setVisibility(View.VISIBLE);
-            final int news_server_id = info.getNews_server_id();
-            ReceiptInfo receiptInfo = DataMgr.getInstance().getReceiptInfo(news_server_id);
+	private void setTagview(FlagHolder flagholder, News info) {
+		String tags = info.getTags();
 
-            FeedbackState feedbackState = map.get(news_server_id);
+		if (!TextUtils.isEmpty(tags)
+				&& tags.contains(ConstantValue.TAGS_HOMEWORK)) {
+			setTextviewProp(flagholder.tagView, R.drawable.homework_back,
+					R.string.homework, true);
+			return;
+		}
 
-            Log.d("", "setFeedBackBtn  id=" + news_server_id + " feedbackState=" + feedbackState);
+		// classid对于0表示范围是学校
+		if (info.getClass_id() == 0) {
+			setTextviewProp(flagholder.tagView, R.drawable.school_notice_back,
+					R.string.pnotice, true);
+		} else {
+			setTextviewProp(flagholder.tagView, R.drawable.class_notice_back,
+					R.string.class_notice, true);
+		}
+	}
 
-            if(feedbackState == null){
-                if(receiptInfo != null && receiptInfo.getReceipt_state() != 0){
-                    feedbackState = FeedbackState.ALREADY_FEEDBACK;
-                } else{
-                    feedbackState = FeedbackState.NEED_FEEDBACK;
-                }
-                map.put(news_server_id, feedbackState);
-            }
+	private void setFeedBackBtn(final FlagHolder flagholder, final News info) {
+		int need_receipt = info.getNeed_receipt();
+		if (need_receipt != 0) {
+			flagholder.feedBackView.setVisibility(View.VISIBLE);
+			final int news_server_id = info.getNews_server_id();
+			ReceiptInfo receiptInfo = DataMgr.getInstance().getReceiptInfo(
+					news_server_id);
 
-            switch(feedbackState){
-                case ALREADY_FEEDBACK:
-                    flagholder.feedBackView.setText(R.string.news_already_feedback);
-                    flagholder.feedBackView.setClickable(false);
-                    break;
-                case NEED_FEEDBACK:
-                    flagholder.feedBackView.setText(R.string.news_need_feedback);
-                    flagholder.feedBackView.setClickable(true);
-                    flagholder.feedBackView.setOnClickListener(new OnClickListener(){
-                        @Override
-                        public void onClick(View v){
-                            map.put(news_server_id, FeedbackState.SENDING_FEEDBACK);
-                            flagholder.feedBackView.setText(R.string.send_news_feedback);
-                            // send feedback
-                            SendReceiptJob expJob = new SendReceiptJob(handler, news_server_id);
-                            expJob.execute();
-                        }
-                    });
-                    break;
-                case SENDING_FEEDBACK:
-                    flagholder.feedBackView.setText(R.string.send_news_feedback);
-                    flagholder.feedBackView.setClickable(false);
-                    break;
+			FeedbackState feedbackState = map.get(news_server_id);
 
-                default:
-                    break;
-            }
+			Log.d("", "setFeedBackBtn  id=" + news_server_id
+					+ " feedbackState=" + feedbackState);
 
-        } else{
-            flagholder.feedBackView.setVisibility(View.GONE);
-        }
-    }
+			if (feedbackState == null) {
+				if (receiptInfo != null && receiptInfo.getReceipt_state() != 0) {
+					feedbackState = FeedbackState.ALREADY_FEEDBACK;
+				} else {
+					feedbackState = FeedbackState.NEED_FEEDBACK;
+				}
+				map.put(news_server_id, feedbackState);
+			}
 
-    private void setIcon(ImageView view, News info){
-        if(TextUtils.isEmpty(info.getIcon_url())){
-            view.setVisibility(View.GONE);
-        } else{
-            String localUrl = info.getNewsLocalMiniIconPath();
-            Bitmap loacalBitmap = getLocalBmp(localUrl);
-            if(loacalBitmap != null){
-                Log.d("DJC", "setIcon url =" + localUrl);
-                Utils.setImg(view, loacalBitmap);
-            } else{
-                donwloadModule.addTask(info.getIcon_url(), info.getNewsLocalMiniIconPath(),
-                                       ConstantValue.MINI_PIC_SIZE, ConstantValue.MINI_PIC_SIZE);
-                view.setImageResource(R.drawable.default_icon);
+			switch (feedbackState) {
+			case ALREADY_FEEDBACK:
+				setTextviewProp(flagholder.feedBackView,
+						R.drawable.already_feedback,
+						R.string.news_already_feedback, false);
+				break;
+			case NEED_FEEDBACK:
+				setTextviewProp(flagholder.feedBackView,
+						R.drawable.need_feedback, R.string.news_need_feedback,
+						true);
 
-            }
-            view.setVisibility(View.VISIBLE);
-        }
-    }
+				flagholder.feedBackView
+						.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								map.put(news_server_id,
+										FeedbackState.SENDING_FEEDBACK);
+								flagholder.feedBackView
+										.setText(R.string.send_news_feedback);
+								// send feedback
+								SendReceiptJob expJob = new SendReceiptJob(
+										handler, news_server_id);
+								expJob.execute();
+							}
+						});
+				break;
+			case SENDING_FEEDBACK:
+				setTextviewProp(flagholder.feedBackView,
+						R.drawable.already_feedback,
+						R.string.send_news_feedback, false);
+				break;
 
-    private Bitmap getLocalBmp(String localUrl){
-        Bitmap loacalBitmap = null;
-        if(softMap.containsKey(localUrl)){
-            loacalBitmap = softMap.get(localUrl).get();
-        }
+			default:
+				break;
+			}
 
-        if(loacalBitmap == null){
-            loacalBitmap = Utils.getLoacalBitmap(localUrl, ImageDownloader.getMaxPixWithDensity(160, 160));
-            if(loacalBitmap != null){
-                Log.d("DJC", "getLoacalBitmap url =" + localUrl);
-                softMap.put(localUrl, new SoftReference<Bitmap>(loacalBitmap));
-            }
-        }
-        return loacalBitmap;
-    }
+		} else {
+			flagholder.feedBackView.setVisibility(View.GONE);
+		}
+	}
 
-    public void close(){
-        clear();
-        donwloadModule.close();
-    }
+	private void setIcon(ImageView view, News info) {
+		if (TextUtils.isEmpty(info.getIcon_url())) {
+			view.setVisibility(View.GONE);
+		} else {
+			String localUrl = info.getNewsLocalMiniIconPath();
+			Bitmap loacalBitmap = getLocalBmp(localUrl);
+			if (loacalBitmap != null) {
+				Log.d("DJC", "setIcon url =" + localUrl);
+				Utils.setImg(view, loacalBitmap);
+			} else {
+				donwloadModule.addTask(info.getIcon_url(),
+						info.getNewsLocalMiniIconPath(),
+						ConstantValue.MINI_PIC_SIZE,
+						ConstantValue.MINI_PIC_SIZE);
+				view.setImageResource(R.drawable.default_icon);
 
-    private class FlagHolder{
-        public TextView  titleView;
-        public TextView  feedBackView;
-        public TextView  bodyView;
-        public TextView  timestampView;
-        public TextView  fromview;
-        public ImageView iconView;
-    }
+			}
+			view.setVisibility(View.VISIBLE);
+		}
+	}
 
-    public enum FeedbackState{
-            NEED_FEEDBACK,
-            ALREADY_FEEDBACK,
-            SENDING_FEEDBACK;
-    }
+	private Bitmap getLocalBmp(String localUrl) {
+		Bitmap loacalBitmap = null;
+		if (softMap.containsKey(localUrl)) {
+			loacalBitmap = softMap.get(localUrl).get();
+		}
 
-    public static class InnerHandler extends Handler{
+		if (loacalBitmap == null) {
+			loacalBitmap = Utils.getLoacalBitmap(localUrl,
+					ImageDownloader.getMaxPixWithDensity(160, 160));
+			if (loacalBitmap != null) {
+				Log.d("DJC", "getLoacalBitmap url =" + localUrl);
+				softMap.put(localUrl, new SoftReference<Bitmap>(loacalBitmap));
+			}
+		}
+		return loacalBitmap;
+	}
 
-    }
+	private void setTextviewProp(TextView view, int backResID, int textID,
+			boolean clickable) {
+		view.setText(textID);
+		view.setBackgroundResource(backResID);
+		// 默认padding是2dp
+		view.setPadding(2, 2, 2, 2);
+		view.setClickable(clickable);
+		if (!clickable) {
+			view.setTextColor(Utils.getResColor(R.color.gray));
+		} else {
+			view.setTextColor(Utils.getResColor(R.color.white));
+		}
+	}
+
+	public void close() {
+		clear();
+		donwloadModule.close();
+	}
+
+	private class FlagHolder {
+		public TextView tagView;
+		public TextView titleView;
+		public TextView feedBackView;
+		public TextView bodyView;
+		public TextView timestampView;
+		public TextView fromview;
+		public ImageView iconView;
+	}
+
+	public enum FeedbackState {
+		NEED_FEEDBACK, ALREADY_FEEDBACK, SENDING_FEEDBACK;
+	}
+
+	public static class InnerHandler extends Handler {
+
+	}
 }

@@ -1,5 +1,7 @@
 package com.cocobabys.activities;
 
+import java.io.File;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 
 import com.cocobabys.R;
 import com.cocobabys.bean.AdInfo;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
@@ -23,7 +26,9 @@ import com.cocobabys.dbmgr.info.SwipeInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.DownLoadImgAndSaveTask;
 import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SwipeDetailActivity extends UmengStatisticsActivity {
 	private TextView contentView;
@@ -112,11 +117,27 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 		}
 	}
 
+	private void startToShowIcon(String local_url) {
+		Intent intent = new Intent(this, ShowIconActivity.class);
+		intent.putExtra(ConstantValue.LOCAL_URL, local_url);
+		startActivity(intent);
+	}
+
 	public void setIcon() {
-		Bitmap bmp = Utils.getLoacalBitmap(swipeinfo.getSwipeLocalIconPath());
-		if (bmp != null) {
+		ImageLoader imageLoader = ImageUtils.getImageLoader();
+		final String local_url = swipeinfo.getSwipeLocalIconPath();
+		if (new File(local_url).exists()) {
 			noticeiconView.setVisibility(View.VISIBLE);
-			Utils.setImg(noticeiconView, bmp);
+			String path = "file://" + local_url;
+			imageLoader.displayImage(path, noticeiconView);
+
+			noticeiconView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					startToShowIcon(local_url);
+				}
+
+			});
 		} else {
 			if (!TextUtils.isEmpty(swipeinfo.getUrl())) {
 				noticeiconView.setVisibility(View.VISIBLE);
@@ -124,6 +145,18 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 				runDownloadIconTask();
 			}
 		}
+
+		// Bitmap bmp = Utils.getLoacalBitmap(swipeLocalIconPath);
+		// if (bmp != null) {
+		// noticeiconView.setVisibility(View.VISIBLE);
+		// Utils.setImg(noticeiconView, bmp);
+		// } else {
+		// if (!TextUtils.isEmpty(swipeinfo.getUrl())) {
+		// noticeiconView.setVisibility(View.VISIBLE);
+		// noticeiconView.setImageResource(R.drawable.default_icon);
+		// runDownloadIconTask();
+		// }
+		// }
 	}
 
 	private void runDownloadIconTask() {

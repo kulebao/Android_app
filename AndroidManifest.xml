@@ -7,9 +7,6 @@
     <uses-sdk android:minSdkVersion="10" />
 
     <!-- for lbs perm -->
-    <permission android:name="android.permission.BAIDU_LOCATION_SERVICE" >
-    </permission>
-
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" >
     </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
@@ -67,6 +64,11 @@
 
     <!-- 其它权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECORD_VIDEO" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <!--
             暂时去掉发送短信权限
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -412,7 +414,14 @@
         <activity
             android:name=".activities.RecordVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.NewRecordVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activities.ShowVideoActivity"

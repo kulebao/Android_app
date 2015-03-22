@@ -3,10 +3,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <SurfaceView
+    <com.skd.androidrecording.video.AdaptiveSurfaceView
         android:id="@+id/surfaceview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
     <ProgressBar
         android:id="@+id/progress"
@@ -14,8 +15,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:max="30"
-        android:progress="0" />
+        android:max="20"
+        android:progress="0"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/timer"
@@ -31,22 +33,36 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp" >
+        android:layout_marginRight="100dp"
+        android:gravity="center_horizontal"
+        android:visibility="visible" >
 
         <Button
+            android:id="@+id/record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="record"
+            android:text="录像"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/finishRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="finishRecord"
             android:text="完成"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <Button
+            android:id="@+id/cancelRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:onClick="cancelRecord"
             android:text="取消"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </RelativeLayout>

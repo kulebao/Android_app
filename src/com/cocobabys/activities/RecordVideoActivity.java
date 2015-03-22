@@ -22,7 +22,8 @@ import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.utils.Utils;
 
-public class RecordVideoActivity extends Activity implements SurfaceHolder.Callback {
+public class RecordVideoActivity extends Activity implements
+		SurfaceHolder.Callback {
 	protected static final int STEP_UP = 0;
 	protected static final int MAX_TIME = 30;
 	private MediaRecorder mediarecorder;// 录制视频的类
@@ -123,15 +124,18 @@ public class RecordVideoActivity extends Activity implements SurfaceHolder.Callb
 	}
 
 	private void doRecord(SurfaceHolder holder) {
-		mediarecorder = new MediaRecorder();// 创建mediarecorder对象
+		mediarecorder = new MediaRecorder();// 创建mediarecorder对象.
+		mediarecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+
 		// 设置录制视频源为Camera(相机)
 		mediarecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
 		// 设置录制完成后视频的封装格式THREE_GPP为3gp.MPEG_4为mp4
 		mediarecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+		mediarecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
 		// 设置录制的视频编码h263 h264
 		mediarecorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);
 		// 设置视频录制的分辨率。必须放在设置编码和格式的后面，否则报错
-		mediarecorder.setVideoSize(640, 480);
+		mediarecorder.setVideoSize(800, 480);
 		// 设置录制的视频帧率。必须放在设置编码和格式的后面，否则报错
 		mediarecorder.setVideoFrameRate(50);
 		mediarecorder.setPreviewDisplay(holder.getSurface());
@@ -152,7 +156,8 @@ public class RecordVideoActivity extends Activity implements SurfaceHolder.Callb
 
 	private void createFile() {
 		try {
-			filename = Utils.getDefaultCameraDir() + System.currentTimeMillis() + Utils.DEFAULT_VIDEO_ENDS;
+			filename = Utils.getDefaultCameraDir() + System.currentTimeMillis()
+					+ Utils.DEFAULT_VIDEO_ENDS;
 			new File(filename).createNewFile();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -160,7 +165,8 @@ public class RecordVideoActivity extends Activity implements SurfaceHolder.Callb
 	}
 
 	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height) {
 	}
 
 	@Override

@@ -4,6 +4,8 @@ import android.app.Activity;
 
 public class ConstantValue {
 
+	public static final String TAGS_HOMEWORK = "作业";
+	
 	public static final String COMMON_SEPEARAOR = ",";
 
 	public static final String SERVICE_COMMAND = "service_command";

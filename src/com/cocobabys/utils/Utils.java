@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -75,6 +76,11 @@ public class Utils {
 	public static String getResString(int resID) {
 		Resources resources = MyApplication.getInstance().getResources();
 		return resources.getString(resID);
+	}
+
+	public static ColorStateList getResColor(int colorID) {
+		Resources resources = MyApplication.getInstance().getResources();
+		return resources.getColorStateList(colorID);
 	}
 
 	public static void makeToast(Context context, int resID) {

@@ -302,7 +302,8 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	}
 
 	private void RecordVideo() {
-		Intent intent = new Intent(this, RecordVideoActivity.class);
+		// Intent intent = new Intent(this, RecordVideoActivity.class);
+		Intent intent = new Intent(this, NewRecordVideoActivity.class);
 		startActivityForResult(intent, NoticeAction.VIDEO_CAPTURE_SELF);
 	}
 
