@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.LruCache;
@@ -211,7 +212,7 @@ public class ExpListAdapter extends BaseAdapter {
 		setOnLongClickListener(flagholder, position);
 	}
 
-	private void setVideoNail(FlagHolder flagholder, final ExpInfo info) {
+	private void setVideoNail(final FlagHolder flagholder, final ExpInfo info) {
 		flagholder.gridview.setVisibility(View.GONE);
 		flagholder.videonail.setVisibility(View.VISIBLE);
 
@@ -221,12 +222,33 @@ public class ExpListAdapter extends BaseAdapter {
 		if (new File(nail).exists()) {
 			// flagholder.videonail.setBackgroundDrawable(new
 			// BitmapDrawable(Utils.getLoacalBitmap(nail, 160 * 160)));
-			imageLoader.displayImage("file://" + nail, flagholder.videonail,
-					new SimpleImageLoadingListener());
+			// imageLoader.displayImage("file://" + nail, flagholder.videonail,
+			// new SimpleImageLoadingListener() {
+			// @Override
+			// public void onLoadingComplete(String imageUri,
+			// View view, Bitmap loadedImage) {
+			// super.onLoadingComplete(imageUri, view, loadedImage);
+			// flagholder.videonail
+			// .setImageResource(R.drawable.pvideo);
+			// }
+			// });
+			imageLoader.loadImage("file://" + nail,
+					new SimpleImageLoadingListener() {
+						@Override
+						public void onLoadingComplete(String imageUri,
+								View view, Bitmap loadedImage) {
+							super.onLoadingComplete(imageUri, view, loadedImage);
+							flagholder.videonail.setBackgroundDrawable(new BitmapDrawable(
+									context.getResources(), loadedImage));
+							flagholder.videonail
+									.setImageResource(R.drawable.pvideo);
+						}
+					});
+
 		} else {
 			flagholder.videonail.setBackgroundColor(context.getResources()
 					.getColor(R.color.black));
-			// flagholder.videonail.setImageResource(R.drawable.pvideo);
+			flagholder.videonail.setImageResource(R.drawable.pvideo);
 		}
 
 		flagholder.videonail.setOnClickListener(new OnClickListener() {

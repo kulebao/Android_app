@@ -94,7 +94,7 @@ public class NewsMethod {
 			// 删除本地保存的所有公告。
 			// 复杂处理的处理办法是（暂不考虑实现），继续通过这次获取到的最后一条
 			// 公告的时间搓，继续获取下去，直到获取的公告在本地已经有了
-			if (type == ConstantValue.Type_GET_NEW
+			if (type == ConstantValue.Type_GET_HEAD
 					&& list.size() >= ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT) {
 				DataMgr.getInstance().removeAllNewsByType(
 						JSONConstant.NOTICE_TYPE_NORMAL);
@@ -142,11 +142,11 @@ public class NewsMethod {
 
 		cmd += MOST + "=" + most;
 		//获取新的或者检查是否有更新的，都将带from参数
-		if (type == ConstantValue.Type_GET_NEW || type == ConstantValue.Type_CHECK_NEW) {
+		if (type == ConstantValue.Type_GET_HEAD || type == ConstantValue.Type_CHECK_NEW) {
 			cmd += "&" + FROM + "=" + from;
 		}
 
-		if (type == ConstantValue.Type_GET_OLD) {
+		if (type == ConstantValue.Type_GET_TAIL) {
 			cmd += "&" + TO + "=" + to;
 		}
 
@@ -154,6 +154,7 @@ public class NewsMethod {
 		
 		//返回的公告带标签
 		cmd += "&tag=true";
+		
 		Log.d("DDD", "createNormalNoticeCommand cmd=" + cmd);
 		return cmd;
 	}

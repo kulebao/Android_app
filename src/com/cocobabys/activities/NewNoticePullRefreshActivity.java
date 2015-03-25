@@ -132,9 +132,9 @@ public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 		DataUtils.saveProp(ConstantValue.HAVE_NEWS_NOTICE, "false");
 		if (!list.isEmpty()) {
 			// 刷出新公告了，去掉有新公告的标志
-			if (msg.arg1 == ConstantValue.Type_GET_NEW) {
+			if (msg.arg1 == ConstantValue.Type_GET_HEAD) {
 				addToHead(list);
-			} else if (msg.arg1 == ConstantValue.Type_GET_OLD) {
+			} else if (msg.arg1 == ConstantValue.Type_GET_TAIL) {
 				newsList.addAll(list);
 			} else {
 				Log.e("DDD", "handleSuccess bad param arg1=" + msg.arg1);
@@ -222,7 +222,7 @@ public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 		}
 
 		Log.d("DDD", "refreshHead from=" + from);
-		boolean runtask = runGetNoticeTask(from, 0, ConstantValue.Type_GET_NEW);
+		boolean runtask = runGetNoticeTask(from, 0, ConstantValue.Type_GET_HEAD);
 		if (!runtask) {
 			// 任务没有执行，立即去掉下拉显示
 			msgListView.onRefreshComplete();
@@ -260,7 +260,7 @@ public class NewNoticePullRefreshActivity extends UmengStatisticsActivity {
 			}
 		}
 		Log.d("djc", "refreshTail to=" + to);
-		boolean runtask = runGetNoticeTask(0, to, ConstantValue.Type_GET_OLD);
+		boolean runtask = runGetNoticeTask(0, to, ConstantValue.Type_GET_TAIL);
 	}
 
 	private void startTo(News info) {

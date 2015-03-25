@@ -138,37 +138,6 @@ public class NewChatActivity extends UmengStatisticsActivity{
         return file;
     }
 
-    // private void initImageUri() {
-    // uri = Uri.fromFile(new File(Utils.getSDCardFileDir(Utils.APP_DIR_TMP),
-    // TMP_BMP));
-    // }
-
-    // 拷贝图库图片到sd卡上
-    // private void saveBitmap(Intent data) {
-    // Uri currentUri = data.getData();
-    // Bitmap bitmap = null;
-    // ContentResolver cr = this.getContentResolver();
-    // try {
-    // BitmapFactory.Options options = new BitmapFactory.Options();
-    // options.inJustDecodeBounds = true;
-    // BitmapFactory.decodeStream(cr.openInputStream(currentUri), null,
-    // options);
-    // options.inSampleSize = ImageDownloader.computeSampleSize(options,
-    // -1, ImageDownloader.getMaxPix());
-    // options.inJustDecodeBounds = false;
-    //
-    // bitmap = BitmapFactory.decodeStream(cr.openInputStream(currentUri),
-    // null, options);
-    // Utils.saveBitmapToSDCard(bitmap, uri.getPath());
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // } finally {
-    // if (bitmap != null) {
-    // bitmap.recycle();
-    // }
-    // }
-    // }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode != RESULT_OK){
@@ -296,9 +265,14 @@ public class NewChatActivity extends UmengStatisticsActivity{
     private void refreshHead(){
         List<NewChatInfo> locallist = getChatFromLocal();
         if(!locallist.isEmpty()){
-            chatlist.addAll(0, locallist);
-            adapter.notifyDataSetChanged();
-            msgListView.onRefreshComplete();
+            // chatlist.addAll(0, locallist);
+            // adapter.notifyDataSetChanged();
+            // msgListView.onRefreshComplete();
+            Message msg = Message.obtain();
+            msg.what = EventType.GET_CHAT_SUCCESS;
+            msg.arg1 = ConstantValue.Type_GET_HEAD;
+            msg.obj = locallist;
+            myhandler.sendMessageDelayed(msg, 2000);
             return;
         }
 
@@ -308,7 +282,7 @@ public class NewChatActivity extends UmengStatisticsActivity{
     private void refreshHeadFromServer(){
         long to = chatlist.get(0).getChat_id();
 
-        boolean runtask = runGetChatTask(0, to, ConstantValue.Type_GET_NEW);
+        boolean runtask = runGetChatTask(0, to, ConstantValue.Type_GET_HEAD);
         if(!runtask){
             // 任务没有执行，立即去掉下拉显示
             msgListView.onRefreshComplete();
@@ -347,7 +321,7 @@ public class NewChatActivity extends UmengStatisticsActivity{
                 e.printStackTrace();
             }
         }
-        boolean runtask = runGetChatTask(from, 0, ConstantValue.Type_GET_OLD);
+        boolean runtask = runGetChatTask(from, 0, ConstantValue.Type_GET_TAIL);
         return runtask;
     }
 
@@ -406,10 +380,10 @@ public class NewChatActivity extends UmengStatisticsActivity{
 
         if(!list.isEmpty()){
             removeDuplicatieInfo(list);
-            if(msg.arg1 == ConstantValue.Type_GET_NEW){
+            if(msg.arg1 == ConstantValue.Type_GET_HEAD){
                 chatlist.addAll(0, list);
                 adapter.notifyDataSetChanged();
-            } else if(msg.arg1 == ConstantValue.Type_GET_OLD){
+            } else if(msg.arg1 == ConstantValue.Type_GET_TAIL){
                 chatlist.addAll(list);
                 adapter.notifyDataSetChanged();
                 moveToEndOfList();

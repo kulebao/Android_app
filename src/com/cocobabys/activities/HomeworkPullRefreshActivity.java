@@ -136,9 +136,9 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 		DataUtils.saveProp(ConstantValue.HAVE_HOMEWORK_NOTICE, "false");
 		if (!list.isEmpty()) {
 			bDataChanged = true;
-			if (msg.arg1 == ConstantValue.Type_GET_NEW) {
+			if (msg.arg1 == ConstantValue.Type_GET_HEAD) {
 				addToHead(list);
-			} else if (msg.arg1 == ConstantValue.Type_GET_OLD) {
+			} else if (msg.arg1 == ConstantValue.Type_GET_TAIL) {
 				// 旧数据不保存数据库
 				homeworkList.addAll(list);
 			} else {
@@ -195,7 +195,7 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 		}
 
 		boolean runtask = runGetNoticeTask(from, 0,
-				ConstantValue.Type_GET_NEW);
+				ConstantValue.Type_GET_HEAD);
 		if (!runtask) {
 			// 任务没有执行，立即去掉下拉显示
 			msgListView.onRefreshComplete();
@@ -250,7 +250,7 @@ public class HomeworkPullRefreshActivity extends UmengStatisticsActivity {
 				}
 			}
 			boolean runtask = runGetNoticeTask(0, to,
-					ConstantValue.Type_GET_OLD);
+					ConstantValue.Type_GET_TAIL);
 			if (runtask) {
 				footer.setVisibility(View.VISIBLE);
 			}

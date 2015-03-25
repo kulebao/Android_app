@@ -3,8 +3,6 @@ package com.cocobabys.activities;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -21,7 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.MediaController;
-import android.widget.VideoView;
 
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;

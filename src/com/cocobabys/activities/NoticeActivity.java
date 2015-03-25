@@ -89,8 +89,8 @@ public class NoticeActivity extends UmengStatisticsActivity{
 
     private void setIcon(){
         if(!TextUtils.isEmpty(local_url)){
-            ImageLoader imageLoader = ImageUtils.getImageLoader();
             if(new File(local_url).exists()){
+            	ImageLoader imageLoader = ImageUtils.getImageLoader();
                 noticeiconView.setVisibility(View.VISIBLE);
                 String path = "file://" + local_url;
                 imageLoader.displayImage(path, noticeiconView);

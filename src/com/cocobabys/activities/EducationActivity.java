@@ -101,13 +101,13 @@ public class EducationActivity extends UmengStatisticsActivity {
 
 	protected void handleLeftBtn() {
 		if (eduList.isEmpty()) {
-			runGetEducationTask(0, 0, ConstantValue.Type_GET_OLD);
+			runGetEducationTask(0, 0, ConstantValue.Type_GET_TAIL);
 			return;
 		}
 
 		int currentIndex = eduList.indexOf(currentEdu);
 		if (currentIndex == eduList.size() - 1) {
-			runGetEducationTask(0, currentEdu.getServer_id(), ConstantValue.Type_GET_OLD);
+			runGetEducationTask(0, currentEdu.getServer_id(), ConstantValue.Type_GET_TAIL);
 		} else {
 			currentEdu = eduList.get(currentIndex + 1);
 			refresh();
@@ -117,13 +117,13 @@ public class EducationActivity extends UmengStatisticsActivity {
 
 	protected void handleRightBtn() {
 		if (eduList.isEmpty()) {
-			runGetEducationTask(0, 0, ConstantValue.Type_GET_NEW);
+			runGetEducationTask(0, 0, ConstantValue.Type_GET_HEAD);
 			return;
 		}
 
 		int currentIndex = eduList.indexOf(currentEdu);
 		if (currentIndex == 0) {
-			runGetEducationTask(currentEdu.getServer_id(), 0, ConstantValue.Type_GET_NEW);
+			runGetEducationTask(currentEdu.getServer_id(), 0, ConstantValue.Type_GET_HEAD);
 		} else {
 			currentEdu = eduList.get(currentIndex - 1);
 			refresh();
@@ -162,9 +162,9 @@ public class EducationActivity extends UmengStatisticsActivity {
 			// 刷出新公告了，去掉有新公告的标志
 			// Utils.saveProp(ConstantValue.HAVE_NEWS_NOTICE, "false");
 			bDataChanged = true;
-			if (msg.arg1 == ConstantValue.Type_GET_NEW) {
+			if (msg.arg1 == ConstantValue.Type_GET_HEAD) {
 				addToHead(list);
-			} else if (msg.arg1 == ConstantValue.Type_GET_OLD) {
+			} else if (msg.arg1 == ConstantValue.Type_GET_TAIL) {
 				// 旧数据不保存数据库
 				eduList.addAll(list);
 			} else {
@@ -194,7 +194,7 @@ public class EducationActivity extends UmengStatisticsActivity {
 			}
 		}
 
-		runGetEducationTask(from, 0, ConstantValue.Type_GET_NEW);
+		runGetEducationTask(from, 0, ConstantValue.Type_GET_HEAD);
 	}
 
 	private void runGetEducationTask(long from, int to, int type) {

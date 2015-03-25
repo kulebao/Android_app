@@ -142,7 +142,7 @@ public class NewsListAdapter extends BaseAdapter {
 
 	private void setDataToViews(final int position, FlagHolder flagholder) {
 		final News info = newsList.get(position);
-		setTagview(flagholder, info);
+		setTagView(flagholder, info);
 		flagholder.titleView.setText(info.getTitle());
 		flagholder.bodyView.setText(info.getContent());
 		flagholder.timestampView.setText(Utils.formatChineseTime(info
@@ -152,9 +152,10 @@ public class NewsListAdapter extends BaseAdapter {
 		setIcon(flagholder.iconView, info);
 	}
 
-	private void setTagview(FlagHolder flagholder, News info) {
+	private void setTagView(FlagHolder flagholder, News info) {
 		String tags = info.getTags();
 
+		//tags不为空则显示标签
 		if (!TextUtils.isEmpty(tags)
 				&& tags.contains(ConstantValue.TAGS_HOMEWORK)) {
 			setTextviewProp(flagholder.tagView, R.drawable.homework_back,

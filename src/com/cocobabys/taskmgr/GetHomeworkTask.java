@@ -24,7 +24,7 @@ public class GetHomeworkTask extends AsyncTask<Void, Void, Integer> {
 	private long from;
 	private long to;
 	private List<Homework> list;
-	private int addType = ConstantValue.Type_GET_NEW;
+	private int addType = ConstantValue.Type_GET_HEAD;
 
 	public GetHomeworkTask(Handler handler, int most, long from, long to,
 			int addType) {

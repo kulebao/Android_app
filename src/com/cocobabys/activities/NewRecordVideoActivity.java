@@ -40,6 +40,8 @@ public class NewRecordVideoActivity extends Activity {
 	private Size videoSize = null;
 	private VideoRecordingManager recordingManager;
 
+	boolean isRecording = false;
+
 	private VideoRecordingHandler recordingHandler = new VideoRecordingHandler() {
 		@Override
 		public boolean onPrepareRecording() {
@@ -64,6 +66,7 @@ public class NewRecordVideoActivity extends Activity {
 
 	private void startRecording() {
 		if (recordingManager.startRecording(filename, videoSize)) {
+			isRecording = true;
 			runProgressTask();
 			return;
 		}
@@ -138,14 +141,14 @@ public class NewRecordVideoActivity extends Activity {
 
 	// 简单判断是否正在录像
 	private boolean isRecording() {
-		return thread != null;
+		return isRecording;
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 		if (isRecording()) {
-			//如果切换到后台时正在录像，则直接保存录像并跳转到预览界面
+			// 如果切换到后台时正在录像，则直接保存录像并跳转到预览界面
 			finishRecord(null);
 		}
 	}
@@ -205,6 +208,7 @@ public class NewRecordVideoActivity extends Activity {
 	}
 
 	public void finishRecord(View view) {
+		isRecording = false;
 		stopRecord();
 		Intent intent = new Intent();
 		intent.putExtra(ConstantValue.RECORD_FILE_NAME, filename);
@@ -227,6 +231,7 @@ public class NewRecordVideoActivity extends Activity {
 	}
 
 	public void cancelRecord(View view) {
+		isRecording = false;
 		stopRecord();
 		new File(filename).delete();
 		finish();

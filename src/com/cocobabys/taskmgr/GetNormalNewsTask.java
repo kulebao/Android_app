@@ -24,7 +24,7 @@ public class GetNormalNewsTask extends AsyncTask<Void, Void, Integer> {
 	private long from;
 	private long to;
 	private List<News> list;
-	private int getType = ConstantValue.Type_GET_NEW;
+	private int getType = ConstantValue.Type_GET_HEAD;
 
 	public GetNormalNewsTask(Handler handler, int most, long from, long to,
 			int addType) {
@@ -40,7 +40,7 @@ public class GetNormalNewsTask extends AsyncTask<Void, Void, Integer> {
 		long current = System.currentTimeMillis();
 		int result = EventType.NET_WORK_INVALID;
 		do {
-			if (getType == ConstantValue.Type_GET_OLD) {
+			if (getType == ConstantValue.Type_GET_TAIL) {
 				// 如果是获取旧的公告，那么先读本地数据库
 				list = DataMgr.getInstance().getNews(
 						ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT, to);

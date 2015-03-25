@@ -311,7 +311,7 @@ public class ChatActivity extends UmengStatisticsActivity {
 	private void refreshHeadFromServer() {
 		long to = chatlist.get(0).getChat_id();
 
-		boolean runtask = runGetChatTask(0, to, ConstantValue.Type_GET_NEW);
+		boolean runtask = runGetChatTask(0, to, ConstantValue.Type_GET_HEAD);
 		if (!runtask) {
 			// 任务没有执行，立即去掉下拉显示
 			msgListView.onRefreshComplete();
@@ -385,7 +385,7 @@ public class ChatActivity extends UmengStatisticsActivity {
 			}
 		}
 		boolean runtask = runGetChatTask(from, 0,
-				ConstantValue.Type_GET_OLD);
+				ConstantValue.Type_GET_TAIL);
 		return runtask;
 	}
 
@@ -447,10 +447,10 @@ public class ChatActivity extends UmengStatisticsActivity {
 
 		if (!list.isEmpty()) {
 			removeDuplicatieInfo(list);
-			if (msg.arg1 == ConstantValue.Type_GET_NEW) {
+			if (msg.arg1 == ConstantValue.Type_GET_HEAD) {
 				chatlist.addAll(0, list);
 				adapter.notifyDataSetChanged();
-			} else if (msg.arg1 == ConstantValue.Type_GET_OLD) {
+			} else if (msg.arg1 == ConstantValue.Type_GET_TAIL) {
 				chatlist.addAll(list);
 				adapter.notifyDataSetChanged();
 				moveToEndOfList();
