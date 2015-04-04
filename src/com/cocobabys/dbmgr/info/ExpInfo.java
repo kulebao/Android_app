@@ -209,6 +209,7 @@ public class ExpInfo {
 	}
 
 	public String serverUrlToLocalUrl(String serverUrl, boolean bThumbnail) {
+
 		String localUrl = "";
 		if ("".equals(serverUrl)) {
 			return "";
@@ -236,19 +237,20 @@ public class ExpInfo {
 					Utils.getSDCardPicRootPath() + File.separator);
 
 			// 如果文件不存在，则区分是否是缩略图
-			if (!new File(localUrl).exists() && bThumbnail) {
+			// if (!new File(localUrl).exists() && bThumbnail) {
+			if (bThumbnail) {
 				String name = Utils.getName(localUrl);
 				localUrl = Utils.getDir(localUrl) + File.separator + THUMBNAIL
 						+ File.separator + name;
 			}
-			
-			//如果文件存在，则直接返回
-			if(new File(localUrl).exists()){
+
+			// 如果文件存在，则直接返回
+			if (new File(localUrl).exists()) {
 				return localUrl;
 			}
-		} 
-		
-		//文件不存在，则需要从网上下载，此时命名规则以我为准.不考虑是从哪儿上传的
+		}
+
+		// 文件不存在，则需要从网上下载，此时命名规则以我为准.不考虑是从哪儿上传的
 		{
 			String dir = "";
 			if (bThumbnail) {
@@ -261,10 +263,10 @@ public class ExpInfo {
 		}
 
 		Utils.mkDirs(Utils.getDir(localUrl));
-		
-		localUrl = Utils.getPicFileNameNoExt(localUrl);
+
+		localUrl = Utils.getMediaFileNameNoExt(localUrl);
 		Log.d("DDD", "serverUrlToLocalUrl =" + localUrl);
-		
+
 		return localUrl;
 	}
 

@@ -743,6 +743,13 @@ public class Utils {
 		mediaScannerConnectionClient.addPicToGallery(uri);
 	}
 
+	// 向图库里添加文件路径，可以让视频显示在图库里
+	public static void addVideoToGallery(Uri uri) {
+		MyMediaScannerConnectionClient mediaScannerConnectionClient = MyApplication
+				.getInstance().getMediaScannerConnectionClient();
+		mediaScannerConnectionClient.addVideoToGallery(uri);
+	}
+
 	public static void closeKeyBoard(Activity activity) {
 		View view = activity.getWindow().peekDecorView();
 		if (view != null) {
@@ -817,11 +824,22 @@ public class Utils {
 		return dot;
 	}
 
-	// 去掉.png或.jpg扩展名，不显示图片到系统图库
+	// 去掉.png或.jpg或.mp4扩展名，不显示图片到系统图库
 	public static String getPicFileNameNoExt(String filename) {
 		if ((filename != null) && (filename.length() > 0)
 				&& (filename.endsWith(JPG_EXT) || filename.endsWith(PNG_EXT))) {
 			int dot = Utils.getPicIndex(filename);
+			if ((dot > -1) && (dot < (filename.length()))) {
+				return filename.substring(0, dot);
+			}
+		}
+		return filename;
+	}
+
+	// 去掉媒体文件的扩展名，不显示在本地系统中
+	public static String getMediaFileNameNoExt(String filename) {
+		if ((filename != null) && (filename.length() > 0)) {
+			int dot = filename.lastIndexOf(".");
 			if ((dot > -1) && (dot < (filename.length()))) {
 				return filename.substring(0, dot);
 			}

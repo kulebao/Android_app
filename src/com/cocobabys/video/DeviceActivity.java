@@ -1,8 +1,12 @@
 package com.cocobabys.video;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -163,6 +167,10 @@ public class DeviceActivity extends UmengStatisticsActivity {
 				deviceInfo.setOnline(sdk.isOnline(childrenNode));
 
 				mListData.add(deviceInfo);
+			}
+
+			if (!mListData.isEmpty()) {
+				Collections.sort(mListData, new ChineseComparator());
 			}
 		}
 	}

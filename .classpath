@@ -9,7 +9,8 @@
 	<classpathentry kind="lib" path="libs/universal-image-loader.jar"/>
 	<classpathentry kind="lib" path="libs/BaiduLBS_Android.jar"/>
 	<classpathentry kind="lib" path="libs/locSDK_4.2.jar"/>
-	<classpathentry kind="lib" path="libs/pushservice-4.3.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/fastjson1.44.jar"/>
+	<classpathentry kind="lib" path="libs/pushservice-4.4.0.71.jar"/>
+	<classpathentry kind="lib" path="libs/pinyin4j-2.5.0.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

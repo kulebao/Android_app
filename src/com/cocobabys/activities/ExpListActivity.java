@@ -79,6 +79,7 @@ public class ExpListActivity extends UmengStatisticsActivity {
 	@Override
 	protected void onRestart() {
 		super.onRestart();
+		Log.d("DJC", "initData mYear=" + mYear + " mMonth=" + mMonth);
 		adapter.notifyDataSetChanged();
 	}
 

@@ -184,9 +184,9 @@ public class DataMgr{
     public void addNewsList(List<News> list){
         newsMgr.addNewsList(list);
     }
-    
+
     public List<News> getNews(int max, long timestamp){
-    	return newsMgr.getNews(max, timestamp);
+        return newsMgr.getNews(max, timestamp);
     }
 
     public News getNewsByID(int id){
@@ -406,6 +406,10 @@ public class DataMgr{
 
     public ReceiptInfo getReceiptInfo(int receiptID){
         return receiptMgr.getInfo(receiptID);
+    }
+
+    public void clearReceipts(){
+        receiptMgr.clear();
     }
 
     public void close(){

@@ -48,6 +48,10 @@ public class PushMethod {
 
 		// 拼接为json格式
 		String bindCommand = getBindCommand(phonenum, userid, channelid);
+
+		// 测试，当前服务器只会用userid，将channelid作为usrid传入
+		// String bindCommand = getBindCommand(phonenum, channelid, userid);
+
 		HttpResult result = new HttpResult();
 		result = HttpClientHelper.executePost(ServerUrls.SEND_BIND_INFO_URL,
 				bindCommand);
@@ -75,12 +79,13 @@ public class PushMethod {
 							.getString(JSONConstant.SCHOOL_NAME);
 					String member_status = jsonObject
 							.getString(JSONConstant.MEMBER_STATUS);
-					
+
 					DataUtils.saveProp(JSONConstant.ACCESS_TOKEN, token);
 					DataUtils.saveProp(JSONConstant.ACCOUNT_NAME, accountname);
-					DataUtils.saveProp(JSONConstant.MEMBER_STATUS, member_status);
+					DataUtils.saveProp(JSONConstant.MEMBER_STATUS,
+							member_status);
 					DataUtils.saveUndeleteableProp(accountname, "true");
-					
+
 					SchoolInfo info = new SchoolInfo();
 					info.setSchool_id(schoolid);
 					info.setSchool_name(schoolname);

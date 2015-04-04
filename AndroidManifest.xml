@@ -501,6 +501,14 @@
             </intent-filter>
         </service>
 
+        <!-- 4.4版本新增的CommandService声明，提升小米和魅族手机上的实际推送到达率 -->
+        <service
+            android:name="com.baidu.android.pushservice.CommandService"
+            android:exported="true" />
+        <!-- push结束 -->
+
+
+        <!-- 在百度开发者中心查询应用的API Key 推送使用 -->
         <meta-data
             android:name="api_key"
             android:value="O7Xwbt4DWOzsji57xybprqUc" />

@@ -181,4 +181,7 @@ public class ServerUrls{
     public static final String  POST_NEWS_RECEIPT       = getHost() + "api/v2/kindergarten/%s/" + NEWS_RES_PATH
                                                                 + "/%d/reader";
 
+    public static final String  GET_RECEIPT_STATE       = getHost() + "api/v2/kindergarten/%s/" + NEWS_RES_PATH
+                                                                + "/%d/reader/%s";
+
 }

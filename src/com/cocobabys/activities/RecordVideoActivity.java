@@ -1,19 +1,17 @@
 package com.cocobabys.activities;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
-import android.media.MediaRecorder;
+import android.hardware.Camera.Size;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,21 +19,61 @@ import android.widget.TextView;
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.utils.Utils;
+import com.skd.androidrecording.video.AdaptiveSurfaceView;
+import com.skd.androidrecording.video.CameraHelper;
+import com.skd.androidrecording.video.VideoRecordingHandler;
+import com.skd.androidrecording.video.VideoRecordingManager;
 
-public class RecordVideoActivity extends Activity implements
-		SurfaceHolder.Callback {
+public class RecordVideoActivity extends Activity {
+	protected static final int DEFAULT_W = 800;
+
 	protected static final int STEP_UP = 0;
+	protected static final int START_RECORD = 100;
 	protected static final int MAX_TIME = 30;
-	private MediaRecorder mediarecorder;// 录制视频的类
-	private SurfaceView surfaceview;// 显示视频的控件
-	// 用来显示视频的一个接口，我靠不用还不行，也就是说用mediarecorder录制视频还得给个界面看
-	// 想偷偷录视频的同学可以考虑别的办法。。嗯需要实现这个接口的Callback接口
 	private ProgressBar progress;
 	private Thread thread;
 	private Handler handler;
 	private int currentProgress = 0;
 	private String filename;
 	private TextView timerView;
+	// videoSize为null，recordingManager会自动使用800*480分辨率
+	private Size videoSize = null;
+	private VideoRecordingManager recordingManager;
+
+	boolean isRecording = false;
+
+	private VideoRecordingHandler recordingHandler = new VideoRecordingHandler() {
+		@Override
+		public boolean onPrepareRecording() {
+			return false;
+		}
+
+		@Override
+		public Size getVideoSize() {
+			return videoSize;
+		}
+
+		@Override
+		public int getDisplayRotation() {
+			return RecordVideoActivity.this.getWindowManager()
+					.getDefaultDisplay().getRotation();
+		}
+
+		@Override
+		public void onSurfaceCreated() {
+		}
+	};
+
+	private void startRecording() {
+		Size fitSize = getFitSize();
+
+		if (recordingManager.startRecording(filename, fitSize)) {
+			isRecording = true;
+			runProgressTask();
+			return;
+		}
+		Utils.makeToast(this, "录像失败!");
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,6 +82,13 @@ public class RecordVideoActivity extends Activity implements
 		setContentView(R.layout.video);
 
 		init();
+
+		// handler.postDelayed(new Runnable() {
+		// @Override
+		// public void run() {
+		// handler.sendEmptyMessage(START_RECORD);
+		// }
+		// }, 500);
 	}
 
 	private void runProgressTask() {
@@ -66,12 +111,68 @@ public class RecordVideoActivity extends Activity implements
 	}
 
 	private void init() {
+		AdaptiveSurfaceView surfaceview = (AdaptiveSurfaceView) this
+				.findViewById(R.id.surfaceview);
 		progress = (ProgressBar) this.findViewById(R.id.progress);
+		progress.setMax(MAX_TIME);
+
 		timerView = (TextView) this.findViewById(R.id.timer);
 
-		initSurface();
 		initHandler();
 		createFile();
+
+		Log.d("VideoRecordingManager", "init begain");
+		recordingManager = new VideoRecordingManager(surfaceview,
+				recordingHandler);
+		Log.d("VideoRecordingManager", "init over");
+	}
+
+	// 有宽度为800的配置就用，否则就用800*480，简单判断一下
+	private Size getFitSize() {
+		List<Size> sizes = CameraHelper
+				.getCameraSupportedVideoSizes(recordingManager
+						.getCameraManager().getCamera());
+
+		for (Size size : sizes) {
+			if (size.width == DEFAULT_W) {
+				return size;
+			}
+		}
+
+		for (Size size : sizes) {
+			if (size.width == 640) {
+				return size;
+			}
+		}
+
+		for (Size size : sizes) {
+			if (size.width == 480) {
+				return size;
+			}
+		}
+
+		for (Size size : sizes) {
+			if (size.width == 320) {
+				return size;
+			}
+		}
+
+		return recordingManager.getCameraManager().getCamera().new Size(800,
+				480);
+	}
+
+	// 简单判断是否正在录像
+	private boolean isRecording() {
+		return isRecording;
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (isRecording()) {
+			// 如果切换到后台时正在录像，则直接保存录像并跳转到预览界面
+			finishRecord(null);
+		}
 	}
 
 	private void initHandler() {
@@ -81,14 +182,16 @@ public class RecordVideoActivity extends Activity implements
 			public void handleMessage(Message msg) {
 				switch (msg.what) {
 				case STEP_UP:
-					progress.setProgress(currentProgress++);
+					progress.setProgress(++currentProgress);
 					if (currentProgress == MAX_TIME) {
 						finishRecord(null);
 						return;
 					}
 					setTime();
 					break;
-
+				case START_RECORD:
+					startRecording();
+					break;
 				default:
 					break;
 				}
@@ -99,59 +202,21 @@ public class RecordVideoActivity extends Activity implements
 
 	private void setTime() {
 		if (currentProgress < 10) {
-			timerView.setText("00:0" + currentProgress);
+			timerView.setText("0" + currentProgress + "/" + MAX_TIME);
 		} else {
-			timerView.setText("00:" + currentProgress);
+			timerView.setText(currentProgress + "/" + MAX_TIME);
 		}
-	}
-
-	private void initSurface() {
-		surfaceview = (SurfaceView) this.findViewById(R.id.surfaceview);
-		SurfaceHolder holder = surfaceview.getHolder();// 取得holder
-		holder.addCallback(this); // holder加入回调接口
-		// setType必须设置，要不出错.
-		holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
 
 	private void stopRecord() {
-		if (mediarecorder != null) {
+		if (recordingManager != null) {
 			// 停止录制
-			mediarecorder.stop();
-			// 释放资源
-			mediarecorder.release();
-			mediarecorder = null;
+			recordingManager.stopRecording();
+			recordingManager.dispose();
+			recordingHandler = null;
 		}
-	}
 
-	private void doRecord(SurfaceHolder holder) {
-		mediarecorder = new MediaRecorder();// 创建mediarecorder对象.
-		mediarecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-
-		// 设置录制视频源为Camera(相机)
-		mediarecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-		// 设置录制完成后视频的封装格式THREE_GPP为3gp.MPEG_4为mp4
-		mediarecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-		mediarecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
-		// 设置录制的视频编码h263 h264
-		mediarecorder.setVideoEncoder(MediaRecorder.VideoEncoder.MPEG_4_SP);
-		// 设置视频录制的分辨率。必须放在设置编码和格式的后面，否则报错
-		mediarecorder.setVideoSize(800, 480);
-		// 设置录制的视频帧率。必须放在设置编码和格式的后面，否则报错
-		mediarecorder.setVideoFrameRate(50);
-		mediarecorder.setPreviewDisplay(holder.getSurface());
-
-		mediarecorder.setOutputFile(filename);
-		try {
-			// 准备录制
-			Log.d("", "DDDD prepare start");
-			mediarecorder.prepare();
-			// 开始录制
-			mediarecorder.start();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		stopThread();
 	}
 
 	private void createFile() {
@@ -164,29 +229,8 @@ public class RecordVideoActivity extends Activity implements
 		}
 	}
 
-	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
-	}
-
-	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		try {
-			doRecord(holder);
-			runProgressTask();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void surfaceDestroyed(SurfaceHolder holder) {
-		// surfaceDestroyed的时候同时对象设置为null
-		surfaceview = null;
-		mediarecorder = null;
-	}
-
 	public void finishRecord(View view) {
+		isRecording = false;
 		stopRecord();
 		Intent intent = new Intent();
 		intent.putExtra(ConstantValue.RECORD_FILE_NAME, filename);
@@ -200,12 +244,24 @@ public class RecordVideoActivity extends Activity implements
 		cancelRecord(null);
 	}
 
+	public void record(View view) {
+		startRecording();
+		findViewById(R.id.finishRecord).setVisibility(View.VISIBLE);
+		findViewById(R.id.cancelRecord).setVisibility(View.VISIBLE);
+		progress.setVisibility(View.VISIBLE);
+		findViewById(R.id.record).setVisibility(View.GONE);
+	}
+
 	public void cancelRecord(View view) {
+		isRecording = false;
 		stopRecord();
 		new File(filename).delete();
+		finish();
+	}
+
+	private void stopThread() {
 		if (thread != null) {
 			thread.interrupt();
 		}
-		finish();
 	}
 }

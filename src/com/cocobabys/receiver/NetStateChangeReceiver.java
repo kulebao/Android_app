@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.cocobabys.push.PushModel;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
@@ -28,6 +29,8 @@ public class NetStateChangeReceiver extends BroadcastReceiver{
             if(DataUtils.needCheckNotice()){
                 Log.d("DDD", "onReceive NetStateChangeReceiver");
                 MethodUtils.executeCheckNewsCommand(context);
+                // 绑定百度推送服务器
+                PushModel.getPushModel().bind();
             }
             // runCheckBindTask();
         }

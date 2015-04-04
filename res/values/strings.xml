@@ -241,16 +241,15 @@
     <string name="dling">正在下载...</string>
     <string name="dl_failed">下载失败!</string>
     <string name="video_invalid">视频大小超出限制，最大5m，请重新选择!</string>
-    
     <string name="public_video_notice">宝宝所在幼儿园暂未开通此功能，以下实时视频仅供演示。如需开通，请联系幼儿园，谢谢！</string>
     <string name="public_video_notice_1">此为演示用幼儿园实时监控视频</string>
     <string name="public_video_can_not_screenshot">演示用幼儿园不允许截屏</string>
-    
     <string name="send_news_feedback_fail">发送回执失败</string>
-    <string name="news_already_feedback">"已回执"</string>
-    <string name="news_need_feedback">"请回执"</string>
-    <string name="send_news_feedback">"发送中"</string>
-    
-    <string name="class_notice">"班级通知"</string>
+    <string name="news_already_feedback">已回执</string>
+    <string name="news_need_feedback">请回执</string>
+    <string name="send_news_feedback">发送中</string>
+    <string name="class_notice">班级通知</string>
+    <string name="save">保存</string>
+    <string name="save_to_phone">保存到手机成功</string>
 
 </resources>

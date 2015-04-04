@@ -17,6 +17,7 @@ import android.widget.RemoteViews;
 
 import com.baidu.frontia.api.FrontiaPushMessageReceiver;
 import com.cocobabys.R;
+import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.info.Notice;
@@ -57,8 +58,9 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 			String userId, String channelId, String requestId) {
 		String responseString = "onBind errorCode=" + errorCode + " appid="
 				+ appid + " userId=" + userId + " channelId=" + channelId
-				+ " requestId=" + requestId + " phone=" + DataUtils.getAccount();
-		Log.d(TAG, responseString);
+				+ " requestId=" + requestId + " phone="
+				+ DataUtils.getAccount();
+		Log.d(TAG, "EEE onBind " + responseString);
 
 		// 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
 		if (errorCode == 0) {
@@ -96,7 +98,7 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 			String customContentString) {
 		String messageString = "透传消息 message=\"" + message
 				+ "\" customContentString=" + customContentString;
-		Log.d(TAG, messageString);
+		Log.d(TAG, "EEE onMessage " + messageString);
 		if (DataUtils.isLoginout()) {
 			// 未登录情况下，不接收任何消息,baidu绑定消息是通过ACTION_RECEIVE来通知应用的
 			Log.i("DDD", "logout do not receive any msg");
@@ -104,6 +106,11 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 		}
 
 		handleMsg(message, context);
+
+		if (MyApplication.getInstance().isForTest()) {
+			Utils.makeToast(context, messageString);
+		}
+
 		// 自定义内容获取方式，mykey和myvalue对应透传消息推送时自定义内容中设置的键和值
 		// if (customContentString != null
 		// & TextUtils.isEmpty(customContentString)) {
@@ -155,7 +162,7 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 		Intent intent = getIntent(notice, context);
 
 		RemoteViews mRemoteViews = getRemoteView(notice, context);
-		
+
 		// 每次调用到这句时，第二个参数一定要不同，否则多个通知同时存在时，对于同一个id的通知
 		// 点击后，始终会使用最后一次发送时的intent，这样导致每次打开activity看到的都是最后一次
 		// 通知的内容
@@ -361,7 +368,7 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 	public void onUnbind(Context context, int errorCode, String requestId) {
 		String responseString = "onUnbind errorCode=" + errorCode
 				+ " requestId = " + requestId;
-		Log.d(TAG, responseString);
+		Log.d(TAG, "EEE onUnbind " + responseString);
 
 		// 解绑定成功，设置未绑定flag，
 		if (errorCode == 0) {

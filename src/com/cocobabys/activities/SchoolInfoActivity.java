@@ -17,12 +17,14 @@ import android.widget.Toast;
 
 import com.cocobabys.R;
 import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.InfoHelper;
 import com.cocobabys.dbmgr.info.SchoolInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.DownLoadImgAndSaveTask;
 import com.cocobabys.taskmgr.GetSchoolInfoTask;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class SchoolInfoActivity extends UmengStatisticsActivity {
@@ -105,6 +107,17 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 		logo = (ImageView) findViewById(R.id.school_logo);
 		desc = (TextView) findViewById(R.id.school_desc);
 		contact_school = (Button) findViewById(R.id.contact_school);
+
+		if (MyApplication.getInstance().isForTest()) {
+			String USER_ID = DataUtils
+					.getUndeleteableProp(JSONConstant.USER_ID);
+			String CHANNEL_ID = DataUtils
+					.getUndeleteableProp(JSONConstant.CHANNEL_ID);
+
+			String text = "\nUSER_ID =" + USER_ID + "" + "\n" + "CHANNEL_ID ="
+					+ CHANNEL_ID + "\n";
+			desc.setText(text);
+		}
 	}
 
 	// 返回是否首次查询，首次查询需要显示loading动画
@@ -142,7 +155,8 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 	}
 
 	private void showDesc() {
-		desc.setText(info.getSchool_desc());
+		String school_desc = info.getSchool_desc();
+		desc.setText(school_desc);
 	}
 
 	private void showLogo() {

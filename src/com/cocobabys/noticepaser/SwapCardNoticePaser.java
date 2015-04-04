@@ -64,7 +64,7 @@ public class SwapCardNoticePaser implements NoticePaser {
 		return null;
 	}
 
-	public Notice getNotice(SwipeInfo swipeInfo, Context context,
+	private Notice getNotice(SwipeInfo swipeInfo, Context context,
 			ChildInfo childinfo) throws JSONException {
 		int type = swipeInfo.getType();
 		final Notice notice = new Notice();
