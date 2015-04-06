@@ -921,7 +921,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	protected void startToGrowthActivity() {
 		Intent intent = new Intent();
-		intent.setClass(this, GrowthActivity.class);
+		intent.setClass(this, ExpActivity.class);
 		startActivity(intent);
 	}
 
@@ -939,7 +939,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private void startToChatActivity() {
 		Intent intent = new Intent();
-		intent.setClass(this, NewChatActivity.class);
+		intent.setClass(this, ChatActivity.class);
 		// intent.setClass(this, ChatActivity.class);
 		startActivity(intent);
 	}
@@ -958,13 +958,13 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private void startToNoticeListActivity() {
 		Intent intent = new Intent();
-		intent.setClass(this, NewNoticePullRefreshActivity.class);
+		intent.setClass(this, NoticePullRefreshActivity.class);
 		startActivity(intent);
 	}
 
 	private void startToHomeworkActivity() {
 		Intent intent = new Intent();
-		intent.setClass(this, NewHomeworkPullRefreshActivity.class);
+		intent.setClass(this, HomeworkPullRefreshActivity.class);
 		startActivity(intent);
 	}
 

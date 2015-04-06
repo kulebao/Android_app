@@ -29,7 +29,7 @@ import com.cocobabys.jobs.SendChatJob;
 import com.cocobabys.jobs.UploadMediaFileIconJob;
 import com.cocobabys.utils.Utils;
 
-public class SendNewChatActivity extends UmengStatisticsActivity {
+public class SendChatActivity extends UmengStatisticsActivity {
 	private EditText chatContent;
 	private MyHandler handler;
 	private ProgressDialog dialog;
@@ -66,7 +66,7 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 			@Override
 			public void onClick(View v) {
 				if (isEmptyInput()) {
-					Toast.makeText(SendNewChatActivity.this,
+					Toast.makeText(SendChatActivity.this,
 							R.string.pls_input_chat, Toast.LENGTH_SHORT).show();
 					return;
 				}
@@ -79,7 +79,7 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 			@Override
 			public void onClick(View v) {
 				closeKeyBoard();
-				SendNewChatActivity.this.finish();
+				SendChatActivity.this.finish();
 			}
 		});
 
@@ -137,7 +137,7 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 
 			@Override
 			public void handleMessage(Message msg) {
-				if (SendNewChatActivity.this.isFinishing()) {
+				if (SendChatActivity.this.isFinishing()) {
 					Log.w("djc", "do nothing when activity finishing!");
 					return;
 				}
@@ -147,7 +147,7 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 					handleSuccess(msg);
 					break;
 				case EventType.SEND_CHAT_FAIL:
-					Toast.makeText(SendNewChatActivity.this,
+					Toast.makeText(SendChatActivity.this,
 							R.string.send_fail, Toast.LENGTH_SHORT).show();
 					break;
 				default:
@@ -161,12 +161,12 @@ public class SendNewChatActivity extends UmengStatisticsActivity {
 	@SuppressWarnings("unchecked")
 	private void handleSuccess(Message msg) {
 		closeKeyBoard();
-		Toast.makeText(SendNewChatActivity.this, R.string.send_success,
+		Toast.makeText(SendChatActivity.this, R.string.send_success,
 				Toast.LENGTH_SHORT).show();
 		MyApplication.getInstance().setTmpNewChatList(
 				(List<NewChatInfo>) msg.obj);
 		setResult(ConstantValue.SEND_CHAT_SUCCESS);
-		SendNewChatActivity.this.finish();
+		SendChatActivity.this.finish();
 	}
 
 	private void runSendChatTask() {

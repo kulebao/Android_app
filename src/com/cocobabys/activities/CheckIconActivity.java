@@ -25,7 +25,7 @@ import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.UploadChatIconJob;
 import com.cocobabys.utils.ImageDownloader;
 
-public class NewCheckIconActivity extends UmengStatisticsActivity {
+public class CheckIconActivity extends UmengStatisticsActivity {
 
 	private Bitmap bitmap;
 	private Handler handler;
@@ -39,7 +39,7 @@ public class NewCheckIconActivity extends UmengStatisticsActivity {
 		setContentView(R.layout.check_icon);
 		childid = DataMgr.getInstance().getSelectedChild().getServer_id();
 		path = getIntent().getStringExtra(ConstantValue.TMP_CHAT_PATH);
-		
+
 		showIcon();
 		initBtn();
 		initDialog();
@@ -56,7 +56,7 @@ public class NewCheckIconActivity extends UmengStatisticsActivity {
 		handler = new MyHandler(this, dialog) {
 			@Override
 			public void handleMessage(Message msg) {
-				if (NewCheckIconActivity.this.isFinishing()) {
+				if (CheckIconActivity.this.isFinishing()) {
 					Log.w("djc", "do nothing when activity finishing!");
 					return;
 				}
@@ -66,7 +66,8 @@ public class NewCheckIconActivity extends UmengStatisticsActivity {
 					handleSuccess(msg);
 					break;
 				case EventType.SEND_CHAT_FAIL:
-					Toast.makeText(NewCheckIconActivity.this, R.string.send_icon_fail, Toast.LENGTH_SHORT).show();
+					Toast.makeText(CheckIconActivity.this,
+							R.string.send_icon_fail, Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;
@@ -78,10 +79,12 @@ public class NewCheckIconActivity extends UmengStatisticsActivity {
 
 	@SuppressWarnings("unchecked")
 	private void handleSuccess(Message msg) {
-		Toast.makeText(NewCheckIconActivity.this, R.string.send_icon_success, Toast.LENGTH_SHORT).show();
-		MyApplication.getInstance().setTmpNewChatList((List<NewChatInfo>) msg.obj);
+		Toast.makeText(CheckIconActivity.this, R.string.send_icon_success,
+				Toast.LENGTH_SHORT).show();
+		MyApplication.getInstance().setTmpNewChatList(
+				(List<NewChatInfo>) msg.obj);
 		setResult(ConstantValue.SEND_CHAT_SUCCESS);
-		NewCheckIconActivity.this.finish();
+		CheckIconActivity.this.finish();
 	}
 
 	private void initBtn() {
@@ -99,14 +102,15 @@ public class NewCheckIconActivity extends UmengStatisticsActivity {
 
 			@Override
 			public void onClick(View v) {
-				NewCheckIconActivity.this.finish();
+				CheckIconActivity.this.finish();
 			}
 		});
 	}
 
 	protected void runSendPicTask() {
 		long lastid = DataMgr.getInstance().getLastNewChatServerid(childid);
-		UploadChatIconJob uploadChatIconTask = new UploadChatIconJob(handler, bitmap, lastid, childid, path);
+		UploadChatIconJob uploadChatIconTask = new UploadChatIconJob(handler,
+				bitmap, lastid, childid, path);
 		uploadChatIconTask.execute();
 		dialog.show();
 	}
@@ -123,7 +127,8 @@ public class NewCheckIconActivity extends UmengStatisticsActivity {
 		DisplayMetrics dm = new DisplayMetrics();
 		dm = getResources().getDisplayMetrics();
 
-		Log.d("DDD", "w = " + dm.widthPixels + " h=" + dm.heightPixels + " density=" + dm.density);
+		Log.d("DDD", "w = " + dm.widthPixels + " h=" + dm.heightPixels
+				+ " density=" + dm.density);
 		int maxPixel = (int) (dm.widthPixels * dm.heightPixels * dm.density);
 		return maxPixel;
 	}
@@ -132,7 +137,8 @@ public class NewCheckIconActivity extends UmengStatisticsActivity {
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(path, options);
-		options.inSampleSize = ImageDownloader.computeSampleSize(options, -1, maxPixel);
+		options.inSampleSize = ImageDownloader.computeSampleSize(options, -1,
+				maxPixel);
 		options.inJustDecodeBounds = false;
 		bitmap = BitmapFactory.decodeFile(path, options);
 		return bitmap;
@@ -140,7 +146,7 @@ public class NewCheckIconActivity extends UmengStatisticsActivity {
 
 	@Override
 	protected void onDestroy() {
-		if(bitmap != null){
+		if (bitmap != null) {
 			bitmap.recycle();
 		}
 		super.onDestroy();

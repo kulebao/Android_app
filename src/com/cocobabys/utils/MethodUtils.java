@@ -10,7 +10,7 @@ import android.content.Intent;
 
 import com.cocobabys.R;
 import com.cocobabys.activities.MyApplication;
-import com.cocobabys.activities.NewNoticePullRefreshActivity;
+import com.cocobabys.activities.NoticePullRefreshActivity;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
@@ -229,7 +229,7 @@ public class MethodUtils {
 		// look up the notification manager service
 		NotificationManager nm = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
-		Intent intent = new Intent(context, NewNoticePullRefreshActivity.class);
+		Intent intent = new Intent(context, NoticePullRefreshActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 		// 每次调用到这句时，第二个参数一定要不同，否则多个通知同时存在时，对于同一个id的通知

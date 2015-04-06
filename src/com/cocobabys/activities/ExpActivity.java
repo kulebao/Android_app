@@ -29,7 +29,7 @@ import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetExpCountJob;
 import com.cocobabys.utils.Utils;
 
-public class GrowthActivity extends UmengStatisticsActivity{
+public class ExpActivity extends UmengStatisticsActivity{
     private static final int      START_TO_EXP_LIST = 1;
     private TextView              titleView;
     private int                   currentYear       = Calendar.getInstance().get(Calendar.YEAR);
@@ -61,14 +61,14 @@ public class GrowthActivity extends UmengStatisticsActivity{
 
             @Override
             public void handleMessage(Message msg){
-                if(GrowthActivity.this.isFinishing()){
+                if(ExpActivity.this.isFinishing()){
                     Log.w("djc", "do nothing when activity finishing!");
                     return;
                 }
                 super.handleMessage(msg);
                 switch(msg.what){
                     case EventType.GET_EXP_COUNT_FAIL:
-                        Utils.makeToast(GrowthActivity.this, "获取数量失败");
+                        Utils.makeToast(ExpActivity.this, "获取数量失败");
                         break;
                     case EventType.GET_EXP_COUNT_SUCCESS:
                         handleGetCountSuccess((List<GroupExpInfo>)msg.obj);
@@ -175,7 +175,7 @@ public class GrowthActivity extends UmengStatisticsActivity{
         send.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v){
-                Utils.goNextActivity(GrowthActivity.this, SendExpActivity.class, false);
+                Utils.goNextActivity(ExpActivity.this, SendExpActivity.class, false);
             }
         });
 

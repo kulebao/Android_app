@@ -50,7 +50,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
-public class NewChatListAdapterNewer extends BaseAdapter {
+public class ChatListAdapterNewer extends BaseAdapter {
 	private static final String SELF_NAME = "我";
 	private static final String DEFAULT_PARENT_NAME = "家长";
 	private static final String DEFAULT_TEACHER_NAME = "匿名老师";
@@ -70,7 +70,7 @@ public class NewChatListAdapterNewer extends BaseAdapter {
 	private AnimHelper animHelper;
 	private ImageLoader imageLoader;
 
-	public NewChatListAdapterNewer(Context activityContext, List<NewChatInfo> list, DownloadImgeJob downloadImgeTask,
+	public ChatListAdapterNewer(Context activityContext, List<NewChatInfo> list, DownloadImgeJob downloadImgeTask,
 			GetSenderInfoJob getTeacherInfoJob) {
 		this.context = activityContext;
 		this.dataList = list;
@@ -287,7 +287,7 @@ public class NewChatListAdapterNewer extends BaseAdapter {
 						public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 							super.onLoadingComplete(imageUri, view, loadedImage);
 							try {
-								synchronized (NewChatListAdapterNewer.this) {
+								synchronized (ChatListAdapterNewer.this) {
 									if (!DataUtils.isFileExist(iconInfo.getLocalPath())) {
 									    //保存图片到本地
 										Utils.saveBitmapToSDCard(loadedImage, iconInfo.getLocalPath());

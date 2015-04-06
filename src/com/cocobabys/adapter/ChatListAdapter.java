@@ -50,7 +50,7 @@ import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class NewChatListAdapter extends BaseAdapter {
+public class ChatListAdapter extends BaseAdapter {
     private static final String SELF_NAME = "我";
     private static final String DEFAULT_PARENT_NAME = "家长";
     private static final String DEFAULT_TEACHER_NAME = "匿名老师";
@@ -71,7 +71,7 @@ public class NewChatListAdapter extends BaseAdapter {
     private AnimHelper animHelper;
     private ImageLoader imageLoader;
 
-    public NewChatListAdapter(Context activityContext, List<NewChatInfo> list,
+    public ChatListAdapter(Context activityContext, List<NewChatInfo> list,
             DownloadImgeJob downloadImgeTask, GetSenderInfoJob getTeacherInfoJob) {
         this.context = activityContext;
         this.dataList = list;

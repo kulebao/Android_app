@@ -43,8 +43,8 @@ public class NoticeTabActivity extends TabActivity {
 		tabHost = getTabHost();
 
 		int[] iconIds = { R.drawable.ic_launcher, R.drawable.ic_launcher };
-		Class<?>[] classes = { NewNoticePullRefreshActivity.class,
-				NewHomeworkPullRefreshActivity.class };
+		Class<?>[] classes = { NoticePullRefreshActivity.class,
+				HomeworkPullRefreshActivity.class };
 		Resources res = this.getResources();
 		for (int i = 0; i < TAB_TAGS.length; ++i) {
 			View view = LayoutInflater.from(this).inflate(R.layout.tab_widget,
