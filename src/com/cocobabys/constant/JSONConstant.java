@@ -31,14 +31,14 @@ public class JSONConstant {
 	public static final String PHONE_NUM = "phonenum";
 	public static final String AUTH_CODE = "authcode";
 	public static final String SCHOOL_ID = "school_id";
-	//当前账号的状态，是免费用户还是付费用户
+	// 当前账号的状态，是免费用户还是付费用户
 	public static final String MEMBER_STATUS = "member_status";
-	//是否显示视频
+	// 是否显示视频
 	public static final String HIDE_VIDEO = "hide_video";
-	
-	//最近一次下载新版本的地址
+
+	// 最近一次下载新版本的地址
 	public static final String LAST_UPDATE_URL = "last_update_url";
-	//当前新版本地址
+	// 当前新版本地址
 	public static final String UPDATE_URL = "url";
 	public static final String UPDATE_CONTENT = "summary";
 	public static final String UPDATE_VERSION_CODE = "update_version_code";
@@ -47,6 +47,7 @@ public class JSONConstant {
 
 	public static final int NOTICE_TYPE_SWIPECARD_CHECKOUT = 0;
 	public static final int NOTICE_TYPE_SWIPECARD_CHECKIN = 1;
+
 	public static final int NOTICE_TYPE_NORMAL = 2;
 	public static final int NOTICE_TYPE_LOCATION = 6;
 	public static final int NOTICE_TYPE_OTHER = 11;
@@ -95,7 +96,7 @@ public class JSONConstant {
 
 	// 学校信息的json字符串，包括学校logo地址，学校描述，学校联系电话,学校信息版本
 	public static final String SCHOOL_INFO = "school_info";
-	
+
 	public static final String EXP_TYPE = "exp";
 
 }

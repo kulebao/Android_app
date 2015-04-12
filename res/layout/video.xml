@@ -31,23 +31,24 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:gravity="center_horizontal"
         android:visibility="visible" >
 
-        <Button
+        <ImageView
             android:id="@+id/record"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:onClick="record"
-            android:text="录像"
-            android:textSize="18sp" />
+            android:src="@drawable/record_video" />
 
         <Button
             android:id="@+id/finishRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_sel"
             android:onClick="finishRecord"
             android:text="完成"
             android:textSize="18sp"
@@ -58,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:background="@drawable/btn_sel"
             android:onClick="cancelRecord"
             android:text="取消"
             android:textSize="18sp"

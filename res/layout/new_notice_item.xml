@@ -24,7 +24,7 @@
 
         <TextView
             android:id="@+id/tagView"
-            style="@style/item_style"
+            style="@style/little_notice_style"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/school_notice_back"
@@ -37,20 +37,20 @@
             android:id="@+id/titleView"
             style="@style/item_style"
             android:layout_below="@+id/tagView"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
             android:text="title"
             android:textColor="@color/juhong" />
 
         <TextView
             android:id="@+id/feedback"
-            style="@style/item_style"
+            style="@style/little_notice_style"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/need_feedback"
             android:gravity="center"
-            android:padding="2dp"
+            android:padding="10dp"
             android:text="请回执"
             android:textColor="@color/white"
             android:visibility="visible" />
