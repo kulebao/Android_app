@@ -1,6 +1,7 @@
 package com.cocobabys.command;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
@@ -27,6 +28,7 @@ public class CommandCheckNews implements Command {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			if (has_new) {
+				Log.d("", "CommandCheckNews saveProp true");
 				DataUtils.saveProp(ConstantValue.HAVE_NEWS_NOTICE, "true");
 				MyApplication instance = MyApplication.getInstance();
 				if (instance != null) {

@@ -264,16 +264,26 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			classnameView.setText(child.getClass_name());
 		}
 
-		if (MyApplication.getInstance().useLbs()) {
+		if (MyApplication.getInstance().isForTest()) {
 			classnameView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(SchoolNoticeActivity.this,
-							LbsMainActivity.class);
-					startActivity(intent);
+					startToActivity(new ActivityLauncher() {
+						@Override
+						public void startActivity() {
+							startToSchoolbusActivity();
+							// startToLbsActivity();
+						}
+					});
 				}
 			});
 		}
+	}
+
+	void startToSchoolbusActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, SchoolbusActivity.class);
+		startActivity(intent);
 	}
 
 	public void setSchoolName() {
@@ -458,8 +468,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		intent.putExtra("crop", "true");
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
-		intent.putExtra("outputX", 100);
-		intent.putExtra("outputY", 100);
+		intent.putExtra("outputX", 200);
+		intent.putExtra("outputY", 200);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, RESIZE_REQUEST_CODE);
 	}
@@ -513,15 +523,23 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		adapter.notifyDataSetChanged();
-		if (selectedChild != null
-				&& selectedChild.getId() != DataMgr.getInstance()
-						.getSelectedChild().getId()) {
-			Log.d("DDD", "selectedChild changed redraw!");
-			setTabTitle();
+		handleResume();
+	}
+
+	private void handleResume() {
+		try {
+			adapter.notifyDataSetChanged();
+			if (selectedChild != null
+					&& selectedChild.getId() != DataMgr.getInstance()
+							.getSelectedChild().getId()) {
+				Log.d("DDD", "selectedChild changed redraw!");
+				setTabTitle();
+			}
+			// 查看学校信息后，学校信息可能会变化，这里更新ui
+			setSchoolName();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		// 查看学校信息后，学校信息可能会变化，这里更新ui
-		setSchoolName();
 	}
 
 	private void initTitle() {
@@ -1011,6 +1029,12 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		VideoApp.getJni().uninit();
 		EventBus.clearCaches();
 		ImageUtils.clearCache();
+	}
+
+	private void startToLbsActivity() {
+		Intent intent = new Intent(SchoolNoticeActivity.this,
+				LbsMainActivity.class);
+		startActivity(intent);
 	}
 
 	private interface ActivityLauncher {

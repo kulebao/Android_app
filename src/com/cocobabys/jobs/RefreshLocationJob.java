@@ -30,7 +30,6 @@ public class RefreshLocationJob extends MyJob {
 						+ RefreshLocationJob.this.isCancel());
 		while (true) {
 			try {
-				Log.d("", "AAA sendCountDownMessage");
 				sendCountDownMessage();
 				TimeUnit.SECONDS.sleep(1);
 				currentCount--;
@@ -49,7 +48,6 @@ public class RefreshLocationJob extends MyJob {
 	}
 
 	private void sendCountDownMessage() {
-		Log.d("DDD ", "AAA sendCountDownMessage  currentCount=" + currentCount);
 		Message message = Message.obtain();
 		message.what = EventType.COUNTDOWN_EVENT;
 		message.arg1 = currentCount;

@@ -94,13 +94,9 @@ public class MyApplication extends FrontiaApplication {
 		Log.d("Database", "MyApplication onCreate");
 
 		mediaScannerConnectionClient = new MyMediaScannerConnectionClient(this);
-		if (useLbs()) {
+		if (isForTest()) {
 			SDKInitializer.initialize(this);
 		}
-	}
-
-	public boolean useLbs() {
-		return false;
 	}
 
 }

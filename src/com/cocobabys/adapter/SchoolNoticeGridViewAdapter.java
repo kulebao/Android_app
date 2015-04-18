@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,9 +81,10 @@ public class SchoolNoticeGridViewAdapter extends BaseAdapter {
 	private void setNoticeImg(final int position, FlagHolder flagholder) {
 		if (position == SchoolNoticeActivity.NORMAL_NOTICE) {
 			String prop = DataUtils.getProp(ConstantValue.HAVE_NEWS_NOTICE);
+			Log.d("", "setNoticeImg prop=" + prop);
 			String hprop = DataUtils
 					.getProp(ConstantValue.HAVE_HOMEWORK_NOTICE);
-			if ("true".equals(prop) || "true".equals(hprop)) {
+			if ("true".equals(prop)) {
 				flagholder.newDataSymble.setVisibility(View.VISIBLE);
 			} else {
 				flagholder.newDataSymble.setVisibility(View.GONE);

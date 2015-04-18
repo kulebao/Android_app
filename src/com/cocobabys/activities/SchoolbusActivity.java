@@ -1,4 +1,4 @@
-package com.cocobabys.lbs;
+package com.cocobabys.activities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,23 +44,19 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult.AddressComponent;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.cocobabys.R;
-import com.cocobabys.activities.UmengStatisticsActivity;
 import com.cocobabys.bean.LocationInfo;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.GetLocatorCoorJob;
+import com.cocobabys.jobs.GetSchoolbusLocationJob;
 import com.cocobabys.jobs.RefreshLocationJob;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
-/**
- * 此demo用来展示如何结合定位SDK实现定位，并使用MyLocationOverlay绘制定位位置 同时展示如何使用自定义图标绘制并点击时弹出泡泡
- * 
- */
-public class LbsLocation extends UmengStatisticsActivity implements
+public class SchoolbusActivity extends UmengStatisticsActivity implements
 		OnGetGeoCoderResultListener {
 	private static final String COOR_TYPE = "bd09ll";
-	private static final int GET_LOC_TIME_SPAN = 14000;
+	// 单位毫秒
+	private static final int GET_LOC_TIME_SPAN = 1000;
 	// 固定刷新间隔时间，设置为20s
 	private static final int MAX_COUNT_DOWN = 15;
 	private LatLng start;
@@ -87,7 +83,7 @@ public class LbsLocation extends UmengStatisticsActivity implements
 	private Handler handler;
 	private RefreshLocationJob refreshJob;
 	private TextView showtime;
-	private GetLocatorCoorJob getCoorJob;
+	private GetSchoolbusLocationJob getCoorJob;
 	private MyLocationData locData;
 	private Button refreshBtn;
 	private boolean firstUse = true;
@@ -95,7 +91,7 @@ public class LbsLocation extends UmengStatisticsActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.lbs_activity_location);
+		setContentView(R.layout.schoolbus_location);
 		initHandler();
 		initViews();
 		initGeoCoder();
@@ -104,10 +100,10 @@ public class LbsLocation extends UmengStatisticsActivity implements
 	}
 
 	private void initHandler() {
-		handler = new MyHandler(LbsLocation.this) {
+		handler = new MyHandler(SchoolbusActivity.this) {
 			@Override
 			public void handleMessage(Message msg) {
-				if (LbsLocation.this.isFinishing()) {
+				if (SchoolbusActivity.this.isFinishing()) {
 					Log.w("TrackDemoDJC isFinishing",
 							"handleMessage donothing msg=" + msg.what);
 					return;
@@ -121,12 +117,10 @@ public class LbsLocation extends UmengStatisticsActivity implements
 							Utils.getResString(R.string.lbs_refresh_time),
 							msg.arg1));
 					break;
-				case EventType.GET_LAST_LOCATION_FAIL:
-					Utils.makeToast(LbsLocation.this,
-							Utils.getResString(R.string.lbs_get_location_fail));
+				case EventType.GET_LAST_BUS_LOCATION_FAIL:
 					handleGetLocFail();
 					break;
-				case EventType.GET_LAST_LOCATION_SUCCESS:
+				case EventType.GET_LAST_BUS_LOCATION_SUCCESS:
 					handleGetLocSuccess(msg);
 					break;
 				default:
@@ -149,7 +143,6 @@ public class LbsLocation extends UmengStatisticsActivity implements
 
 		mBaiduMap.clear();
 
-		mBaiduMap.setMyLocationData(locData);
 		drawLine(start, end);
 		drawPop(end, info);
 
@@ -221,7 +214,7 @@ public class LbsLocation extends UmengStatisticsActivity implements
 
 				if (getCoorJob != null) {
 					getCoorJob.cancel(true);
-					getCoorJob = new GetLocatorCoorJob(handler);
+					getCoorJob = new GetSchoolbusLocationJob(handler);
 					getCoorJob.execute();
 				}
 			}
@@ -327,7 +320,6 @@ public class LbsLocation extends UmengStatisticsActivity implements
 					changeCircleBtn.setText("以我为中心");
 					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(end);
 					mBaiduMap.animateMapStatus(u);
-
 				}
 			}
 		});
@@ -371,12 +363,14 @@ public class LbsLocation extends UmengStatisticsActivity implements
 					.direction(100).latitude(location.getLatitude())
 					.longitude(location.getLongitude()).build();
 			start = new LatLng(location.getLatitude(), location.getLongitude());
-			mBaiduMap.setMyLocationData(locData);
+
 			Log.d("TTT", "lat =" + location.getLatitude() + "  lon ="
 					+ location.getLongitude());
-			changeCircleBtn.setVisibility(View.VISIBLE);
-			runGetLocatorCoorTask();
-			// handleReceiveLocation();
+			runGetBusLocationTask();
+			mBaiduMap.setMyLocationData(locData);
+			if (firstUse) {
+				setCenter(start);
+			}
 		}
 	}
 
@@ -385,9 +379,9 @@ public class LbsLocation extends UmengStatisticsActivity implements
 		distanceView.setText("相距 " + (int) distance + "米");
 	}
 
-	public void runGetLocatorCoorTask() {
+	public void runGetBusLocationTask() {
 		if (getCoorJob == null || getCoorJob.isDone()) {
-			getCoorJob = new GetLocatorCoorJob(handler);
+			getCoorJob = new GetSchoolbusLocationJob(handler);
 			getCoorJob.execute();
 			return;
 		}
@@ -421,7 +415,7 @@ public class LbsLocation extends UmengStatisticsActivity implements
 		InfoWindow mInfoWindow = new InfoWindow(
 				BitmapDescriptorFactory.fromView(button), point, -52, null);
 		mBaiduMap.addOverlay(option);
-		mBaiduMap.showInfoWindow(mInfoWindow);
+		// mBaiduMap.showInfoWindow(mInfoWindow);
 	}
 
 	private String getPopContent(LocationInfo info) {
@@ -470,7 +464,7 @@ public class LbsLocation extends UmengStatisticsActivity implements
 
 	@Override
 	public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
-		StringBuffer content = new StringBuffer("定位器位置:");
+		StringBuffer content = new StringBuffer("校车位置:");
 		Log.d("onGetReverseGeoCodeResult", "result =" + result);
 		if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
 			locationInfoView.setText(content.append("未知区域").toString());

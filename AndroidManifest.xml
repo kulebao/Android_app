@@ -192,6 +192,13 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activities.SchoolbusActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activities.BindLocationMgrActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
@@ -523,7 +530,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="pnNFUTx8xer3SDWkRKZWLrYL" />
+            android:value="S5LahVSByFRi7YGz432k3Ote" />
 
         <service
             android:name="com.baidu.location.f"

@@ -251,5 +251,7 @@
     <string name="class_notice">班级通知</string>
     <string name="save">保存</string>
     <string name="save_to_phone">保存到手机成功</string>
+    
+    <string name="no_schoolbus_info">未获取到校车位置</string>
 
 </resources>
