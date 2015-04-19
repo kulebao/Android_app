@@ -291,7 +291,7 @@ public class LbsTrack extends UmengStatisticsActivity {
 		Log.d("", "BBB addCustomElements size=" + locInfos.size());
 
 		for (LocInfo locInfo : locInfos) {
-			LatLng coor = DataUtils.getCoor(locInfo.info);
+			LatLng coor = DataUtils.getCoor(locInfo.info.getLatitude(),locInfo.info.getLongitude());
 			points.add(coor);
 		}
 

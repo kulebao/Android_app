@@ -18,6 +18,9 @@ public class SwipeInfo {
 	private static final String SWIPE_CARD_IN_BODY = "您的小孩 %s 已于%s 由 %s 刷卡入园!";
 	private static final String SWIPE_CARD_OUT_BODY = "您的小孩 %s 已于%s 由 %s 刷卡离园!";
 
+	private static final String SWIPE_CARD_GET_ON = "您的小孩 %s 已于%s 坐上校车!";
+	private static final String SWIPE_CARD_GET_OFF = "您的小孩 %s 已于%s 离开校车!";
+
 	public static final String ID = "_id";
 	public static final String TIMESTAMP = "timestamp";
 	public static final String TYPE = "type";
@@ -109,11 +112,29 @@ public class SwipeInfo {
 		if (!ad.isEmpty()) {
 			buffer.append(Utils.getAdNotice(ad));
 		}
-		String sample = (type == JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN ? SWIPE_CARD_IN_BODY
-				: SWIPE_CARD_OUT_BODY);
 
-		buffer.append(String.format(sample, nickname, getFormattedTime(),
-				parent_name));
+		switch (type) {
+		case JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN:
+			buffer.append(String.format(SWIPE_CARD_IN_BODY, nickname,
+					getFormattedTime(), parent_name));
+			break;
+		case JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKOUT:
+			buffer.append(String.format(SWIPE_CARD_OUT_BODY, nickname,
+					getFormattedTime(), parent_name));
+			break;
+		case JSONConstant.NOTICE_TYPE_AFTERNOON_GET_ON:
+		case JSONConstant.NOTICE_TYPE_MORNING_GET_ON:
+			buffer.append(String.format(SWIPE_CARD_GET_ON, nickname,
+					getFormattedTime()));
+			break;
+		case JSONConstant.NOTICE_TYPE_AFTERNOON_GET_OFF:
+		case JSONConstant.NOTICE_TYPE_MORNING_GET_OFF:
+			buffer.append(String.format(SWIPE_CARD_GET_OFF, nickname,
+					getFormattedTime()));
+			break;
+		default:
+			break;
+		}
 		return buffer.toString();
 	}
 

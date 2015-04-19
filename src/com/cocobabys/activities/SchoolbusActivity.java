@@ -21,7 +21,6 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatus.Builder;
 import com.baidu.mapapi.map.MapStatusUpdate;
@@ -44,7 +43,7 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult.AddressComponent;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.cocobabys.R;
-import com.cocobabys.bean.LocationInfo;
+import com.cocobabys.bean.BusLocation;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetSchoolbusLocationJob;
@@ -56,7 +55,7 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 		OnGetGeoCoderResultListener {
 	private static final String COOR_TYPE = "bd09ll";
 	// 单位毫秒
-	private static final int GET_LOC_TIME_SPAN = 1000;
+	private static final int GET_LOC_TIME_SPAN = 30000;
 	// 固定刷新间隔时间，设置为20s
 	private static final int MAX_COUNT_DOWN = 15;
 	private LatLng start;
@@ -136,20 +135,16 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 	}
 
 	protected void handleGetLocSuccess(Message msg) {
-		Log.d("", "AAA handleGetLocSuccess");
 
-		LocationInfo info = (LocationInfo) msg.obj;
-		end = DataUtils.getCoor(info);
+		BusLocation info = (BusLocation) msg.obj;
+		end = DataUtils.getCoor(info.getLatitude(), info.getLongitude());
 
+		Log.d("", "AAA handleGetLocSuccess info="+info.toString());
+		
 		mBaiduMap.clear();
 
 		drawLine(start, end);
-		drawPop(end, info);
-
-		// MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
-		// MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(start,
-		// 15.0f);
-		// mBaiduMap.animateMapStatus(u);
+		drawPop(end);
 
 		setDistance();
 		getLocationInfo();
@@ -403,30 +398,9 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 		super.onPause();
 	}
 
-	public void drawPop(LatLng point, LocationInfo info) {
-		Button button = new Button(getApplicationContext());
-		button.setBackgroundResource(R.drawable.lbs_popup);
-		button.setTextColor(android.graphics.Color.BLACK);
-		String content = getPopContent(info);
-		button.setText(content);
-
-		button.setTextSize(14.0f);
+	public void drawPop(LatLng point) {
 		OverlayOptions option = new MarkerOptions().position(point).icon(bdA);
-		InfoWindow mInfoWindow = new InfoWindow(
-				BitmapDescriptorFactory.fromView(button), point, -52, null);
 		mBaiduMap.addOverlay(option);
-		// mBaiduMap.showInfoWindow(mInfoWindow);
-	}
-
-	private String getPopContent(LocationInfo info) {
-		StringBuffer buffer = new StringBuffer(Utils.convertTime(info
-				.getTimestamp()));
-		buffer.append("\n");
-		buffer.append("速度:");
-		buffer.append(DataUtils.convertSpeed(info.getSpeed()));
-		buffer.append("千米/小时");
-		String content = buffer.toString();
-		return content;
 	}
 
 	@Override

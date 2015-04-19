@@ -4,6 +4,8 @@ import org.apache.http.HttpStatus;
 
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.cocobabys.bean.BusLocation;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
@@ -26,16 +28,20 @@ public class SchoolbusMethod {
 	}
 
 	private MethodResult getResult(HttpResult result) throws Exception {
-		MethodResult methodResult = new MethodResult(EventType.GET_LAST_BUS_LOCATION_FAIL);
+		MethodResult methodResult = new MethodResult(
+				EventType.GET_LAST_BUS_LOCATION_FAIL);
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			methodResult.setResultType(EventType.GET_LAST_BUS_LOCATION_SUCCESS);
+			BusLocation info = JSON.parseObject(result.getContent(),
+					BusLocation.class);
+			methodResult.setResultObj(info);
 		}
 		return methodResult;
 	}
 
 	private String createCommand(String childid) {
-		String cmd = String.format(ServerUrls.GET_SCHOOLBUS_LAST_LOCATION, DataMgr
-				.getInstance().getSchoolID(),childid);
+		String cmd = String.format(ServerUrls.GET_SCHOOLBUS_LAST_LOCATION,
+				DataMgr.getInstance().getSchoolID(), childid);
 		return cmd;
 	}
 }

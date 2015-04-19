@@ -145,7 +145,7 @@ public class LbsLocation extends UmengStatisticsActivity implements
 		Log.d("", "AAA handleGetLocSuccess");
 
 		LocationInfo info = (LocationInfo) msg.obj;
-		end = DataUtils.getCoor(info);
+		end = DataUtils.getCoor(info.getLatitude(), info.getLongitude());
 
 		mBaiduMap.clear();
 

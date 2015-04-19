@@ -47,6 +47,11 @@ public class JSONConstant {
 
 	public static final int NOTICE_TYPE_SWIPECARD_CHECKOUT = 0;
 	public static final int NOTICE_TYPE_SWIPECARD_CHECKIN = 1;
+	
+	public static final int NOTICE_TYPE_MORNING_GET_ON = 10;
+	public static final int NOTICE_TYPE_MORNING_GET_OFF = 11;
+	public static final int NOTICE_TYPE_AFTERNOON_GET_ON = 12;
+	public static final int NOTICE_TYPE_AFTERNOON_GET_OFF = 13;
 
 	public static final int NOTICE_TYPE_NORMAL = 2;
 	public static final int NOTICE_TYPE_LOCATION = 6;
