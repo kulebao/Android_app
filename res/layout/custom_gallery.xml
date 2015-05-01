@@ -7,8 +7,6 @@
     android:orientation="vertical" >
 
     <include
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         layout="@layout/topbar" />
 
     <FrameLayout
@@ -54,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/btn_sel"
+            android:background="@drawable/big_btn"
             android:text="@string/confirm" />
     </LinearLayout>
 

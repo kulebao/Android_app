@@ -2,11 +2,8 @@ package com.cocobabys.video;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import net.sourceforge.pinyin4j.PinyinHelper;
-import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;

@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocobabys.R;
@@ -82,7 +83,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	}
 
 	private void initHeader() {
-		Button send = (Button) findViewById(R.id.rightBtn);
+		TextView send = (TextView) findViewById(R.id.rightBtn);
 		send.setText(R.string.send);
 		send.setVisibility(View.VISIBLE);
 		send.setOnClickListener(new OnClickListener() {
@@ -97,7 +98,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 			}
 		});
 
-		Button cancel = (Button) findViewById(R.id.leftBtn);
+		TextView cancel = (TextView) findViewById(R.id.leftBtn);
 		cancel.setText(R.string.cancel);
 		cancel.setVisibility(View.VISIBLE);
 		cancel.setOnClickListener(new OnClickListener() {

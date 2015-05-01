@@ -10,7 +10,9 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/sub_bg"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_2"
         android:paddingBottom="20dp"
         android:paddingTop="30dp" >
 
@@ -50,7 +52,7 @@
                 android:id="@+id/contact_school"
                 style="@style/btn_style"
                 android:layout_margin="30dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:text="@string/contact_school"
                 android:visibility="gone" />
         </LinearLayout>

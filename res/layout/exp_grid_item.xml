@@ -16,9 +16,9 @@
             android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="2dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/small_logo" />
+            android:src="@drawable/exp_default" />
 
         <TextView
             android:id="@+id/monthname"
@@ -27,7 +27,7 @@
             android:layout_below="@+id/ItemImage"
             android:layout_centerHorizontal="true"
             android:text="1月"
-            android:textColor="@color/juhong"
+            android:textColor="@color/blue"
             android:textSize="14sp"
             android:textStyle="bold" />
     </RelativeLayout>

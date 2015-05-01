@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg"
+    android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
@@ -12,13 +12,16 @@
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="40dip"
-        android:background="#EDE8DD" >
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp" >
 
         <TextView
             android:id="@+id/Top_Date"
             android:layout_width="150dip"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/swipe_calendar_title"
             android:gravity="center_horizontal|center"
             android:textColor="@color/white"
@@ -29,18 +32,16 @@
             android:id="@+id/btn_pre_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
+            android:layout_toLeftOf="@+id/Top_Date"
             android:background="@drawable/left_arrow" />
 
         <Button
             android:id="@+id/btn_next_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="30dp"
+            android:layout_toRightOf="@+id/Top_Date"
             android:background="@drawable/right_arrow" />
     </RelativeLayout>
 

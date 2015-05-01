@@ -6,11 +6,11 @@
     android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/i_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="15dp"
+        android:layout_above="@+id/scrollView"
         android:layout_marginTop="5dp"
         android:background="@drawable/internal_logo" />
 
@@ -18,7 +18,7 @@
         android:id="@+id/scrollView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/i_logo"
+        android:layout_centerVertical="true"
         android:scrollbars="none" >
 
         <RelativeLayout
@@ -26,16 +26,16 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/bg_2" >
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_2"
+            android:padding="6dp" >
 
             <TextView
                 android:id="@+id/aucodeContentView"
                 style="@style/NormalTextviewStyle"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/text_normal"
-                android:padding="6dp"
                 android:text="@string/aucodeContent"
-                android:textColor="@color/juhong" />
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/getAuthCodeBtn"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/aucodeContentView"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/normal_btn"
+                android:background="@drawable/small_btn"
                 android:text="@string/getAuthCode" />
 
             <EditText
@@ -55,7 +55,7 @@
                 android:layout_below="@+id/getAuthCodeBtn"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/input_e"
+                android:background="@drawable/input_normal"
                 android:digits="0123456789"
                 android:hint="@string/inuput_auth_code"
                 android:inputType="number"
@@ -75,7 +75,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/inuputAuthCodeView"
-                android:background="@drawable/bind_btn"
+                android:background="@drawable/small_btn"
                 android:text="@string/bind" />
         </RelativeLayout>
     </ScrollView>

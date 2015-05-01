@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
+
+    <ImageView
+        android:id="@+id/iconView"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo"
+        android:visibility="visible" >
+    </ImageView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iconView" >
+
+        <TextView
+            android:id="@+id/titleView"
+            style="@style/item_style"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="10dp"
+            android:text="title"
+            android:textColor="@color/black" />
+
+        <RelativeLayout
+            android:id="@+id/left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="35dp" >
+
+            <TextView
+                android:id="@+id/bodyView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titleView"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:maxLines="2"
+                android:text="bodybodybodybodybodybodyybodybodybodybodybodybodyybodybodybodybodybodybodyy"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/timeStampView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bodyView"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:text="time"
+                android:textColor="@color/timecolor"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/fromview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/timeStampView"
+                android:layout_below="@+id/bodyView"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/timeStampView"
+                android:text="time"
+                android:textColor="@color/timecolor"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

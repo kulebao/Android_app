@@ -130,20 +130,20 @@ public class ResetPWDActivity extends UmengStatisticsActivity {
 
 	private void disableGetAuthBtn() {
 		getAuthCodeBtn.setTextColor(getResources().getColor(R.color.dark_gray));
-		getAuthCodeBtn.setBackgroundResource(R.drawable.normal_btn_pressed);
+		getAuthCodeBtn.setBackgroundResource(R.drawable.small_btn);
 		getAuthCodeBtn.setEnabled(false);
 	}
 
 	private void enableGetAuthBtn() {
 		getAuthCodeBtn.setEnabled(true);
-		getAuthCodeBtn.setBackgroundResource(R.drawable.normal_btn);
+		getAuthCodeBtn.setBackgroundResource(R.drawable.small_btn);
 		getAuthCodeBtn.setTextColor(getResources().getColor(R.color.white));
 	}
 
 	private void runResetPWDTask() {
 		try {
-			
-			//907024 后门验证码
+
+			// 907024 后门验证码
 			new ResetPWDTask(handler, phonenum, getAuthCode(), getPwd())
 					.execute();
 			// ResetPWDJob resetPWDJob = new ResetPWDJob(handler, phonenum,

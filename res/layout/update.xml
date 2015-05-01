@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <TextView
@@ -123,7 +123,7 @@
             android:layout_width="0dp"
             android:layout_margin="4dp"
             android:layout_weight="1"
-            android:background="@drawable/sub_btn"
+            android:background="@drawable/small_btn"
             android:text="@string/update" />
 
         <Button
@@ -132,7 +132,7 @@
             android:layout_width="0dp"
             android:layout_margin="4dp"
             android:layout_weight="1"
-            android:background="@drawable/sub_btn"
+            android:background="@drawable/small_btn"
             android:text="@string/back" />
     </LinearLayout>
 

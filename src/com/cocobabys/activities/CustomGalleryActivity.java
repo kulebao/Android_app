@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cocobabys.R;
 import com.cocobabys.adapter.CustomGalleryAdapter;
@@ -150,7 +151,7 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 	}
 
 	private void initHeader() {
-		Button showSlideMenu = (Button) findViewById(R.id.leftBtn);
+		TextView showSlideMenu = (TextView) findViewById(R.id.leftBtn);
 		showSlideMenu.setText(R.string.album);
 		showSlideMenu.setVisibility(View.VISIBLE);
 		showSlideMenu.setOnClickListener(new OnClickListener() {

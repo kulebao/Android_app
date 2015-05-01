@@ -2,17 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg" >
+    android:background="@color/white" >
 
     <include
         android:id="@+id/head"
         layout="@layout/topbar" />
 
     <RelativeLayout
-        android:layout_below="@+id/head"
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="40dip"
+        android:layout_below="@+id/head"
         android:layout_marginTop="20dp" >
 
         <TextView
@@ -20,6 +20,8 @@
             android:layout_width="150dip"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/swipe_calendar_title"
             android:gravity="center_horizontal|center"
             android:textColor="@android:color/white"
@@ -30,18 +32,16 @@
             android:id="@+id/left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
+            android:layout_toLeftOf="@+id/commentTime"
             android:background="@drawable/left_arrow" />
 
         <ImageButton
             android:id="@+id/right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="30dp"
+            android:layout_toRightOf="@+id/commentTime"
             android:background="@drawable/right_arrow" />
     </RelativeLayout>
 
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/gridview"
         android:layout_margin="10dp"
-        android:textColor="@color/juhong"
+        android:textColor="@color/blue"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -73,7 +73,7 @@
         android:layout_height="140dp"
         android:layout_below="@+id/comentfrom"
         android:layout_margin="10dp"
-        android:background="@drawable/comment" >
+        android:background="@drawable/bg_a" >
 
         <TextView
             android:id="@+id/coment"

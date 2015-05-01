@@ -6,30 +6,29 @@
     android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/i_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/second"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/internal_logo" />
 
     <RelativeLayout
+        android:id="@+id/second"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/i_logo"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/bg_2" >
+        android:layout_centerVertical="true"
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_2"
+        android:padding="20dp" >
 
         <TextView
             android:id="@+id/resetPwdNoticeView"
             style="@style/NormalTextviewStyle"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/text_normal"
             android:padding="6dp"
             android:text="@string/forget_pwd_notice"
-            android:textColor="@color/juhong" />
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/getAuthCodeBtn"
@@ -37,7 +36,7 @@
             android:layout_below="@+id/resetPwdNoticeView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:background="@drawable/normal_btn"
+            android:background="@drawable/small_btn"
             android:text="@string/getAuthCode" />
 
         <EditText
@@ -49,12 +48,12 @@
             android:layout_below="@+id/getAuthCodeBtn"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:background="@drawable/input_b"
+            android:background="@drawable/input_normal"
             android:digits="0123456789"
             android:hint="@string/inuput_auth_code"
             android:inputType="number"
             android:maxLength="6"
-            android:paddingLeft="40dp"
+            android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:singleLine="true"
             android:textSize="16sp"
@@ -69,11 +68,11 @@
             android:layout_below="@+id/inputAuthCodeView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:background="@drawable/input_b"
+            android:background="@drawable/input_normal"
             android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:hint="@string/input_new_pwd"
             android:maxLength="16"
-            android:paddingLeft="40dp"
+            android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:password="true"
             android:singleLine="true"
@@ -89,11 +88,11 @@
             android:layout_below="@+id/inuputPWDView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:background="@drawable/input_b"
+            android:background="@drawable/input_normal"
             android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:hint="@string/reinput_new_pwd"
             android:maxLength="16"
-            android:paddingLeft="40dp"
+            android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:password="true"
             android:singleLine="true"
@@ -105,7 +104,7 @@
             style="@style/btn_style"
             android:layout_below="@+id/reInuputPWDView"
             android:layout_marginTop="10dp"
-            android:background="@drawable/sub_btn"
+            android:background="@drawable/small_btn"
             android:text="@string/reset_pwd" />
     </RelativeLayout>
 

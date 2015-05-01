@@ -28,8 +28,8 @@
     <string name="change_pwd">修改密码</string>
     <string name="forget_pwd"><u>忘记密码</u></string>
     <string name="choose_another_account"><u>其他账户登录</u></string>
-    <string name="reset_pwd">重置密码</string>
-    <string name="forget_pwd_notice">1.点击下方按钮获取验证码，验证码会以短信的方式发送到该手机上\n2.按照提示,输入验证码和新密码，然后点击重置密码按钮</string>
+    <string name="reset_pwd">确认修改</string>
+    <string name="forget_pwd_notice">1.获取短信验证码\n2.按照提示输入验证码和新密码，点击确认修改按钮</string>
     <string name="input_old_pwd">请输入旧密码</string>
     <string name="input_new_pwd">请输入新密码</string>
     <string name="reinput_new_pwd">请重复输入新密码</string>
@@ -253,5 +253,7 @@
     <string name="save_to_phone">保存到手机成功</string>
     
     <string name="no_schoolbus_info">未获取到校车位置</string>
+    
+    <string name="init_pwd">提示:初始密码是手机号码后8位</string>
 
 </resources>

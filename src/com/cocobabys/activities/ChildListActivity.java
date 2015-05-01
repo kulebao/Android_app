@@ -22,7 +22,7 @@ public class ChildListActivity extends UmengStatisticsActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.notice_list);
+		setContentView(R.layout.notice_list);
         ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.select_child);
         initListAdapter();
     }

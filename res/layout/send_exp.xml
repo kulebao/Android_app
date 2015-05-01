@@ -3,33 +3,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/bg_light_blue"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <include
         android:id="@+id/first"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         layout="@layout/topbar" />
 
     <EditText
         android:id="@+id/exp_content"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="240dp"
         android:layout_below="@+id/first"
-        android:layout_marginTop="2dp"
-        android:background="@android:color/transparent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_a"
         android:gravity="top"
         android:hint="说点儿什么"
         android:maxLength="140"
         android:padding="6dp"
         android:textSize="16sp" />
 
+    <LinearLayout
+        android:id="@+id/btnContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/exp_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <Button
+            android:id="@+id/camera"
+            style="@style/btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/small_btn"
+            android:gravity="center"
+            android:text="拍照" />
+
+        <Button
+            android:id="@+id/gallery"
+            style="@style/btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/small_btn"
+            android:gravity="center"
+            android:text="图库" />
+
+        <Button
+            android:id="@+id/video"
+            style="@style/btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/small_btn"
+            android:gravity="center"
+            android:text="视频"
+            android:visibility="visible" />
+    </LinearLayout>
+
     <GridView
         android:id="@+id/gridGallery"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/exp_content"
+        android:layout_below="@+id/btnContainer"
         android:layout_gravity="top"
         android:layout_marginBottom="-10dp"
         android:layout_marginLeft="-10dp"
@@ -50,48 +98,5 @@
         android:layout_centerInParent="true"
         android:contentDescription="@string/app_name"
         android:visibility="gone" />
-
-    <LinearLayout
-        android:id="@+id/BottomContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:padding="5dp" >
-
-        <Button
-            android:id="@+id/camera"
-            style="@style/btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/btn_sel"
-            android:text="拍照" />
-
-        <Button
-            android:id="@+id/gallery"
-            style="@style/btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/btn_sel"
-            android:text="图库" />
-
-        <Button
-            android:id="@+id/video"
-            style="@style/btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/btn_sel"
-            android:text="视频"
-            android:visibility="visible" />
-    </LinearLayout>
 
 </RelativeLayout>

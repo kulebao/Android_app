@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.cocobabys.R;
 import com.cocobabys.bean.GroupExpInfo;
-import com.cocobabys.utils.Utils;
+import com.cocobabys.utils.ImageUtils;
 
 public class GrowthGridViewAdapter extends BaseAdapter {
 	private Context context = null;
@@ -82,8 +82,11 @@ public class GrowthGridViewAdapter extends BaseAdapter {
 		// Integer iconid = GroupExpInfo.getIconMap().get(info.getMonth());
 		if (!TextUtils.isEmpty(info.getIconpath())) {
 			Log.d("EXP_ICON", "path =" + info.getIconpath());
-			flagholder.headView.setImageBitmap(Utils.getLoacalBitmap(
-					info.getIconpath(), 200, 200));
+			// flagholder.headView.setImageBitmap(Utils.getLoacalBitmap(
+			// info.getIconpath(), 200, 200));
+			ImageUtils.getImageLoader()
+					.displayImage(ImageUtils.wrapper(info.getIconpath()),
+							flagholder.headView);
 		} else {
 			flagholder.headView.setImageResource(R.drawable.exp_default);
 		}

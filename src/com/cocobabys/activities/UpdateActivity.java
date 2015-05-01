@@ -176,7 +176,8 @@ public class UpdateActivity extends UmengStatisticsActivity {
 
 							@Override
 							public void onComplete() {
-								DataUtils.saveProp(JSONConstant.LAST_UPDATE_URL,
+								DataUtils.saveProp(
+										JSONConstant.LAST_UPDATE_URL,
 										current_apk_url);
 								handler.sendEmptyMessage(COMPLETE);
 							}
@@ -220,7 +221,8 @@ public class UpdateActivity extends UmengStatisticsActivity {
 
 		String content = DataUtils.getProp(JSONConstant.UPDATE_CONTENT);
 		content = content.replace("\\n", "\n");
-		String versionName = DataUtils.getProp(JSONConstant.UPDATE_VERSION_NAME);
+		String versionName = DataUtils
+				.getProp(JSONConstant.UPDATE_VERSION_NAME);
 		long fileSize = Long.valueOf(DataUtils.getProp(JSONConstant.FILE_SIZE));
 
 		TextView version = (TextView) findViewById(R.id.versionNameContent);

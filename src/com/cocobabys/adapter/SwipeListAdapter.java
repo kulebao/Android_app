@@ -77,7 +77,7 @@ public class SwipeListAdapter extends BaseAdapter {
 		if (convertView == null) {
 			FlagHolder flagholder = this.new FlagHolder();
 			convertView = LayoutInflater.from(this.context).inflate(
-					R.layout.notice_item, null);
+					R.layout.swip_item, null);
 			flagholder.titleView = (TextView) convertView
 					.findViewById(R.id.titleView);
 			flagholder.bodyView = (TextView) convertView
@@ -89,11 +89,9 @@ public class SwipeListAdapter extends BaseAdapter {
 			flagholder.iconView = (ImageView) convertView
 					.findViewById(R.id.iconView);
 			setDataToViews(position, flagholder);
-			convertView.setBackgroundResource(R.drawable.swip_item);
 			convertView.setTag(flagholder);
 		} else {
 			FlagHolder flagholder = (FlagHolder) convertView.getTag();
-			convertView.setBackgroundResource(R.drawable.swip_item);
 			if (flagholder != null) {
 				setDataToViews(position, flagholder);
 			}
@@ -104,7 +102,7 @@ public class SwipeListAdapter extends BaseAdapter {
 
 	private void setIcon(ImageView view, SwipeInfo info) {
 		if (TextUtils.isEmpty(info.getUrl())) {
-			view.setVisibility(View.GONE);
+			view.setImageResource(R.drawable.medium);
 		} else {
 			String localUrl = info.getSwipeLocalMiniIconPath();
 			Bitmap loacalBitmap = getLocalBmp(localUrl);

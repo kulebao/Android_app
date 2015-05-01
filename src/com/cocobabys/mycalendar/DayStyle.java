@@ -21,13 +21,13 @@ public class DayStyle {
 
 	private static String[] getWeekDayNames() {
 		String[] vec = new String[10];
-        vec[Calendar.SUNDAY] = "日";
-        vec[Calendar.MONDAY] = "一";
-        vec[Calendar.TUESDAY] = "二";
-        vec[Calendar.WEDNESDAY] = "三";
-        vec[Calendar.THURSDAY] = "四";
-        vec[Calendar.FRIDAY] = "五";
-        vec[Calendar.SATURDAY] = "六";
+        vec[Calendar.SUNDAY] = "周日";
+        vec[Calendar.MONDAY] = "周一";
+        vec[Calendar.TUESDAY] = "周二";
+        vec[Calendar.WEDNESDAY] = "周三";
+        vec[Calendar.THURSDAY] = "周四";
+        vec[Calendar.FRIDAY] = "周五";
+        vec[Calendar.SATURDAY] = "周六";
 		
 		return vec;
 	}

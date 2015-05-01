@@ -2,21 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg_1" >
+    android:background="@drawable/bg" >
 
     <ImageView
-        android:id="@+id/i_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/second"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/internal_logo" />
 
     <RelativeLayout
+        android:id="@+id/second"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/i_logo"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/bg_2" >
@@ -26,12 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:background="@drawable/text_normal"
-            android:padding="10dp"
             android:text="@string/warning"
-            android:textColor="@color/juhong"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/inuputnumView"
@@ -61,7 +59,7 @@
             android:layout_marginLeft="9dp"
             android:layout_marginRight="9dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/sub_btn"
+            android:background="@drawable/small_btn"
             android:focusable="true"
             android:text="@string/send" />
     </RelativeLayout>

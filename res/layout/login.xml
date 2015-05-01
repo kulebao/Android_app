@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_1" >
+    android:background="@drawable/bg" >
 
     <ImageView
-        android:id="@+id/i_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/scrollView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/internal_logo" />
 
@@ -17,7 +17,7 @@
         android:id="@+id/scrollView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/i_logo"
+        android:layout_centerVertical="true"
         android:scrollbars="none" >
 
         <RelativeLayout
@@ -32,10 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:background="@drawable/text_normal"
-                android:padding="10dp"
                 android:text="@string/login_notice"
-                android:textColor="@color/juhong"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -67,7 +65,7 @@
                 android:layout_marginLeft="9dp"
                 android:layout_marginRight="9dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:focusable="true"
                 android:text="@string/login" />
 
@@ -78,7 +76,8 @@
                 android:layout_marginLeft="9dp"
                 android:layout_marginRight="9dp"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:paddingBottom="10dp" >
 
                 <TextView
                     android:id="@+id/choose_another_account"
@@ -87,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="@string/choose_another_account"
-                    android:textColor="@color/red" />
+                    android:textColor="@color/blue" />
 
                 <TextView
                     android:id="@+id/forgetPwdView"
@@ -96,9 +95,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="@string/forget_pwd"
-                    android:textColor="@color/red" />
+                    android:textColor="@color/blue" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
+
+    <TextView
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/scrollView"
+        style="@style/NormalTextviewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/init_pwd"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

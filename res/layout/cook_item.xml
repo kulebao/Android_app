@@ -2,40 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp" >
+    android:layout_marginTop="10dp"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:id="@+id/timeView"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-2dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/cook_title" >
+
+        <TextView
+            android:id="@+id/weekView"
+            style="@style/item_style"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="星期二"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/dateView"
+            style="@style/item_style"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/weekView"
+            android:text="11月23号"
+            android:textColor="@color/white"
+            android:textStyle="normal" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/timeView"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/cook_bg"
         android:orientation="vertical" >
-
-        <RelativeLayout
-            android:id="@+id/timeView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/cook_title"
-            android:paddingLeft="10dp" >
-
-            <TextView
-                android:id="@+id/weekView"
-                style="@style/item_style"
-                android:layout_centerVertical="true"
-                android:text="星期二"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/dateView"
-                style="@style/item_style"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/weekView"
-                android:text="11月23号"
-                android:textColor="@color/black"
-                android:textStyle="normal" />
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/firstLayout"
@@ -53,25 +58,20 @@
 
             <TextView
                 android:id="@+id/breakfast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/cook_txt"
                 android:layout_alignTop="@+id/imgdemo"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/imgdemo"
                 android:text="@string/breakfast"
-                android:textColor="@color/juhong"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/firstcontent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/cook_txt"
                 android:layout_alignLeft="@+id/breakfast"
                 android:layout_below="@+id/breakfast"
                 android:layout_marginTop="6dp"
                 android:text="鸡蛋馒头,稀饭包子"
-                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:typeface="monospace" />
@@ -79,9 +79,10 @@
 
         <View
             android:layout_width="fill_parent"
-            android:layout_marginLeft="2dp"
             android:layout_height="2dp"
-            android:background="@color/gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/lightblue"
             android:visibility="visible" />
 
         <RelativeLayout
@@ -100,35 +101,30 @@
 
             <TextView
                 android:id="@+id/breakfast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/cook_txt"
                 android:layout_alignTop="@+id/imgdemo"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/imgdemo"
                 android:text="@string/lunch"
-                android:textColor="#CC6600"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/secondcontent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/cook_txt"
                 android:layout_alignLeft="@+id/breakfast"
                 android:layout_below="@+id/breakfast"
                 android:layout_marginTop="6dp"
                 android:text="鸡蛋馒头,稀饭包子"
-                android:textColor="@color/black"
                 android:textSize="12sp"
-                android:textStyle="bold"
                 android:typeface="monospace" />
         </RelativeLayout>
 
         <View
             android:layout_width="fill_parent"
-            android:layout_marginLeft="2dp"
             android:layout_height="2dp"
-            android:background="@color/gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/lightblue"
             android:visibility="visible" />
 
         <RelativeLayout
@@ -147,35 +143,30 @@
 
             <TextView
                 android:id="@+id/breakfast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/cook_txt"
                 android:layout_alignTop="@+id/imgdemo"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/imgdemo"
                 android:text="@string/extralunch"
-                android:textColor="#CC6600"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/thirdcontent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/cook_txt"
                 android:layout_alignLeft="@+id/breakfast"
                 android:layout_below="@+id/breakfast"
                 android:layout_marginTop="6dp"
                 android:text="鸡蛋馒头,稀饭包子"
-                android:textColor="@color/black"
                 android:textSize="12sp"
-                android:textStyle="bold"
                 android:typeface="monospace" />
         </RelativeLayout>
 
         <View
             android:layout_width="fill_parent"
-            android:layout_marginLeft="2dp"
             android:layout_height="2dp"
-            android:background="@color/gray"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/lightblue"
             android:visibility="visible" />
 
         <RelativeLayout
@@ -194,27 +185,21 @@
 
             <TextView
                 android:id="@+id/breakfast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/cook_txt"
                 android:layout_alignTop="@+id/imgdemo"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/imgdemo"
                 android:text="@string/dinner"
-                android:textColor="#CC6600"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/fouthcontent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/cook_txt"
                 android:layout_alignLeft="@+id/breakfast"
                 android:layout_below="@+id/breakfast"
                 android:layout_marginTop="6dp"
                 android:text="鸡蛋馒头,稀饭包子"
-                android:textColor="@color/black"
                 android:textSize="12sp"
-                android:textStyle="bold"
                 android:typeface="monospace" />
         </RelativeLayout>
     </LinearLayout>

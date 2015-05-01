@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_null"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <include layout="@layout/topbar" />
@@ -26,8 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:cacheColorHint="#00000000"
-        android:divider="@android:color/white"
-        android:dividerHeight="2.0dip"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5.0dip"
         android:drawSelectorOnTop="false"
         android:fadingEdgeLength="0dip"
         android:scrollbars="vertical" />

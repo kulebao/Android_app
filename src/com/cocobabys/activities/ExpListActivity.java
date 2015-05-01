@@ -11,8 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.cocobabys.R;
 import com.cocobabys.adapter.ExpListAdapter;
@@ -47,11 +47,19 @@ public class ExpListActivity extends UmengStatisticsActivity {
 		setContentView(R.layout.exp_list);
 		initImageLoader();
 		initData();
-		initBtn();
-		initDialog();
+		initUI();
 		initHander();
 		initCustomListView();
 		runGetExpByYearAndMonth();
+	}
+
+	private void initUI() {
+		initBtn();
+		initDialog();
+		// from topbar
+		TextView topbarTitle = (TextView) findViewById(R.id.topbarTitleView);
+		topbarTitle.setVisibility(View.VISIBLE);
+		topbarTitle.setText(R.string.experence);
 	}
 
 	private void initImageLoader() {
@@ -65,7 +73,7 @@ public class ExpListActivity extends UmengStatisticsActivity {
 	}
 
 	private void initBtn() {
-		Button refreshBtn = (Button) findViewById(R.id.rightBtn);
+		TextView refreshBtn = (TextView) findViewById(R.id.rightBtn);
 		refreshBtn.setVisibility(View.VISIBLE);
 		refreshBtn.setText(Utils.getResString(R.string.refresh));
 		refreshBtn.setOnClickListener(new OnClickListener() {

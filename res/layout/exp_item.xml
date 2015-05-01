@@ -2,83 +2,93 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
     android:background="@color/white"
     android:paddingBottom="5dp" >
 
     <RelativeLayout
-        android:id="@+id/first"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical" >
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_a"
+        android:paddingBottom="5dp" >
 
-        <ImageView
-            android:id="@+id/headicon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/cook" />
-
-        <TextView
-            android:id="@+id/name"
-            style="@style/TitleTextStyle"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/headicon"
-            android:textColor="@color/juhong"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/time"
-            style="@style/NormalTextviewStyle"
-            android:layout_below="@+id/name"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/headicon"
-            android:text="addd"
-            android:textColor="@color/new_time_color"
-            android:textSize="14sp" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/first"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/content"
-            style="@style/TitleTextStyle"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:text="addddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <com.cocobabys.customview.MyGridView
-            android:id="@+id/gridview"
-            android:layout_width="190dp"
+        <RelativeLayout
+            android:id="@+id/first"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/content"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="5dp"
-            android:columnWidth="60dp"
-            android:gravity="fill"
-            android:horizontalSpacing="5dp"
-            android:listSelector="@drawable/color_btn"
-            android:numColumns="3"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="5dp" />
-        <ImageView
-            android:id="@+id/videonail"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/pvideo"
-            android:scaleType="center" />
-    </LinearLayout>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/headicon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/cook" />
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/TitleTextStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/headicon"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/time"
+                style="@style/NormalTextviewStyle"
+                android:layout_below="@+id/name"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/headicon"
+                android:text="addd"
+                android:textColor="@color/new_time_color"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/first"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/content"
+                style="@style/TitleTextStyle"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="addddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <com.cocobabys.customview.MyGridView
+                android:id="@+id/gridview"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="5dp"
+                android:columnWidth="60dp"
+                android:gravity="fill"
+                android:horizontalSpacing="5dp"
+                android:listSelector="@drawable/color_btn"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="5dp" />
+
+            <ImageView
+                android:id="@+id/videonail"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="5dp"
+                android:scaleType="center"
+                android:src="@drawable/pvideo" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

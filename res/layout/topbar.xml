@@ -5,37 +5,26 @@
     android:background="@drawable/topbar"
     android:orientation="horizontal" >
 
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:padding="6dp"
-        android:visibility="gone" />
-
-    <Button
+    <TextView
         android:id="@+id/leftBtn"
         style="@style/item_style"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="2dp"
-        android:background="@drawable/top_btn"
-        android:padding="6dp"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:visibility="gone" />
 
-    <Button
+    <TextView
         android:id="@+id/rightBtn"
         style="@style/item_style"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="2dp"
-        android:background="@drawable/top_btn"
-        android:padding="6dp"
         android:text="刷新"
         android:textColor="@color/white"
         android:textSize="14sp"

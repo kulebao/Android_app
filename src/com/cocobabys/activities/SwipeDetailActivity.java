@@ -44,6 +44,7 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notice);
+		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.swap);
 		Log.d("DDD JJJ", "SwipeDetailActivity onCreate");
 		initHandler();
 		initView();

@@ -3,7 +3,7 @@
     xmlns:my="http://schemas.android.com/apk/res/com.cocobabys"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <include layout="@layout/topbar" />
@@ -24,7 +24,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:gravity="center"
                 android:text="@string/check_version"
                 android:textSize="24sp" />
@@ -35,7 +35,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:gravity="center"
                 android:text="@string/user_response"
                 android:textSize="24sp" />
@@ -46,7 +46,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:gravity="center"
                 android:text="@string/school_info"
                 android:textSize="24sp"
@@ -58,7 +58,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:gravity="center"
                 android:text="@string/bind_location"
                 android:textSize="24sp"
@@ -70,7 +70,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:gravity="center"
                 android:text="@string/change_pwd"
                 android:textSize="24sp" />
@@ -81,7 +81,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:gravity="center"
                 android:text="@string/change_child"
                 android:textSize="24sp" />
@@ -92,7 +92,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:gravity="center"
                 android:text="@string/about_cocobabys"
                 android:textSize="24sp" />
@@ -103,7 +103,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:gravity="center"
                 android:text="@string/exit_login"
                 android:textSize="24sp" />
@@ -114,7 +114,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:gravity="center"
                 android:textSize="24sp"
                 android:visibility="gone" />
@@ -125,7 +125,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/sub_btn"
+                android:background="@drawable/small_btn"
                 android:gravity="center"
                 android:textSize="24sp"
                 android:visibility="gone" />
