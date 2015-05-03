@@ -38,17 +38,17 @@ public class SwapCardNoticePaser implements NoticePaser {
 						public void run() {
 							try {
 								// 就用通知时间搓作为文件名
-								Log.d("LIYI", "downloadIcon begain record_url="
+								Log.d("", "DDA downloadIcon begain record_url="
 										+ record_url);
 								Utils.downloadIcon(record_url,
 										swipeInfo.getSwipeLocalIconPath());
 							} catch (Exception e) {
-								Log.d("LIYI",
-										"downloadIcon exp:" + e.toString());
+								Log.d("",
+										"DDA downloadIcon exp:" + e.toString());
 								e.printStackTrace();
 							}
-							PushMessageReceiver
-									.setCustomNotification(notice, context);
+							PushMessageReceiver.setCustomNotification(notice,
+									context);
 						}
 					});
 					// 此时不要设置通知，等到图片下载完毕后再设置

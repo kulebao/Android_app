@@ -119,6 +119,9 @@ public class EventType {
 	public static final int GET_LAST_BUS_LOCATION_SUCCESS = 1880;
 	public static final int GET_LAST_BUS_LOCATION_FAIL = 1881;
 
+	public static final int GET_LAST_BUS_LOCATION_NOT_RUN = 1882;
+	public static final int GET_LAST_BUS_LOCATION_CHILD_GETOFF = 1883;
+
 	public static final int SUCCESS = 2000;
 	public static final int FAIL = 2001;
 

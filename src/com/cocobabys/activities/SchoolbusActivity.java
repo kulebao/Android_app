@@ -119,6 +119,10 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 				case EventType.GET_LAST_BUS_LOCATION_FAIL:
 					handleGetLocFail();
 					break;
+				case EventType.GET_LAST_BUS_LOCATION_NOT_RUN:
+					break;
+				case EventType.GET_LAST_BUS_LOCATION_CHILD_GETOFF:
+					break;
 				case EventType.GET_LAST_BUS_LOCATION_SUCCESS:
 					handleGetLocSuccess(msg);
 					break;
@@ -139,8 +143,8 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 		BusLocation info = (BusLocation) msg.obj;
 		end = DataUtils.getCoor(info.getLatitude(), info.getLongitude());
 
-		Log.d("", "AAA handleGetLocSuccess info="+info.toString());
-		
+		Log.d("", "AAA handleGetLocSuccess info=" + info.toString());
+
 		mBaiduMap.clear();
 
 		drawLine(start, end);

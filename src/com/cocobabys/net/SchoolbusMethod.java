@@ -35,6 +35,21 @@ public class SchoolbusMethod {
 			BusLocation info = JSON.parseObject(result.getContent(),
 					BusLocation.class);
 			methodResult.setResultObj(info);
+		} else if (result.getResCode() == HttpStatus.SC_NOT_FOUND) {
+			int errorCode = result.getErrorCode();
+			if (errorCode == 1) {
+				// 班车未出发
+				methodResult
+						.setResultType(EventType.GET_LAST_BUS_LOCATION_NOT_RUN);
+			} else if (errorCode == 2) {
+				// 小孩已经上午下车
+				methodResult
+						.setResultType(EventType.GET_LAST_BUS_LOCATION_CHILD_GETOFF);
+			} else if (errorCode == 4) {
+				// 小孩已经下午下车
+				methodResult
+						.setResultType(EventType.GET_LAST_BUS_LOCATION_CHILD_GETOFF);
+			}
 		}
 		return methodResult;
 	}

@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.info.SwipeInfo;
@@ -66,12 +67,17 @@ class SwipeMgr {
 		long startLimitTime = Date.valueOf(date).getTime();
 		long endLimitTime = startLimitTime + 24L * 60 * 60 * 1000L;
 		String sql = "SELECT * FROM " + SqliteHelper.SWIPE_TAB + " WHERE "
-				+ SwipeInfo.TYPE + " = "
-				+ JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN + " AND "
+				+ SwipeInfo.TYPE + " in( "
+				+ JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKIN + "," 
+				+ JSONConstant.NOTICE_TYPE_MORNING_GET_ON + "," 
+				+ JSONConstant.NOTICE_TYPE_MORNING_GET_OFF + ")"
+				+ " AND "
 				+ SwipeInfo.CHILD_ID + " = '" + childid + "' AND "
 				+ SwipeInfo.TIMESTAMP + " >= " + startLimitTime + " AND "
 				+ SwipeInfo.TIMESTAMP + " < " + endLimitTime + " ORDER BY "
 				+ SwipeInfo.TIMESTAMP + " DESC LIMIT 1";
+		
+		Log.d("", "getLastestSwipeIn sql =" +sql);
 		Cursor cursor = db.rawQuery(sql, null);
 
 		List<SwipeInfo> list = getDataList(cursor);
@@ -84,12 +90,17 @@ class SwipeMgr {
 		long startLimitTime = Date.valueOf(date).getTime();
 		long endLimitTime = startLimitTime + 24L * 60 * 60 * 1000L;
 		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.SWIPE_TAB
-				+ " WHERE " + SwipeInfo.TYPE + " = "
-				+ JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKOUT + " AND "
+				+ " WHERE " + SwipeInfo.TYPE + " in( "
+				+ JSONConstant.NOTICE_TYPE_SWIPECARD_CHECKOUT +","
+				+ JSONConstant.NOTICE_TYPE_AFTERNOON_GET_ON +","
+				+ JSONConstant.NOTICE_TYPE_AFTERNOON_GET_OFF +")"
+				+ " AND "
 				+ SwipeInfo.CHILD_ID + " = '" + childid + "' AND "
 				+ SwipeInfo.TIMESTAMP + " >= " + startLimitTime + " AND "
 				+ SwipeInfo.TIMESTAMP + " < " + endLimitTime + " ORDER BY "
 				+ SwipeInfo.TIMESTAMP + " DESC LIMIT 1", null);
+		
+		
 		List<SwipeInfo> list = getDataList(cursor);
 		return list.isEmpty() ? "" : list.get(0).getFormattedTime();
 	}

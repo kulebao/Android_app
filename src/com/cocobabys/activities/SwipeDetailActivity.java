@@ -125,8 +125,10 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 	}
 
 	public void setIcon() {
+		noticeiconView.setImageDrawable(null);
 		ImageLoader imageLoader = ImageUtils.getImageLoader();
 		final String local_url = swipeinfo.getSwipeLocalIconPath();
+		Log.d("", "DDA local_url=" + local_url);
 		if (new File(local_url).exists()) {
 			noticeiconView.setVisibility(View.VISIBLE);
 			String path = "file://" + local_url;
