@@ -251,9 +251,12 @@
     <string name="class_notice">班级通知</string>
     <string name="save">保存</string>
     <string name="save_to_phone">保存到手机成功</string>
-    
     <string name="no_schoolbus_info">未获取到校车位置</string>
-    
     <string name="init_pwd">提示:初始密码是手机号码后8位</string>
+    <string name="bus_not_run">校车还未出发</string>
+    <string name="child_already_getoff">小孩已下车</string>
+    
+    <string name="self_center">看自己的位置</string>
+    <string name="bus_center">看校车的位置</string>
 
 </resources>

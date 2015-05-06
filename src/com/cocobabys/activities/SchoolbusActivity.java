@@ -48,7 +48,6 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetSchoolbusLocationJob;
 import com.cocobabys.jobs.RefreshLocationJob;
-import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class SchoolbusActivity extends UmengStatisticsActivity implements
@@ -110,8 +109,6 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 
 				switch (msg.what) {
 				case EventType.COUNTDOWN_EVENT:
-					Log.d("", "AAA showtime.setText msg.arg1=" + msg.arg1);
-
 					showtime.setText(String.format(
 							Utils.getResString(R.string.lbs_refresh_time),
 							msg.arg1));
@@ -120,8 +117,10 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 					handleGetLocFail();
 					break;
 				case EventType.GET_LAST_BUS_LOCATION_NOT_RUN:
+					locationInfoView.setText(R.string.bus_not_run);
 					break;
 				case EventType.GET_LAST_BUS_LOCATION_CHILD_GETOFF:
+					locationInfoView.setText(R.string.child_already_getoff);
 					break;
 				case EventType.GET_LAST_BUS_LOCATION_SUCCESS:
 					handleGetLocSuccess(msg);
@@ -141,7 +140,7 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 	protected void handleGetLocSuccess(Message msg) {
 
 		BusLocation info = (BusLocation) msg.obj;
-		end = DataUtils.getCoor(info.getLatitude(), info.getLongitude());
+		end = new LatLng(info.getLatitude(), info.getLongitude());
 
 		Log.d("", "AAA handleGetLocSuccess info=" + info.toString());
 
@@ -153,7 +152,7 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 		setDistance();
 		getLocationInfo();
 
-		if (isLocatorCenter()) {
+		if (isSelfCenter()) {
 			setCenter(end);
 		} else {
 			setCenter(start);
@@ -311,12 +310,13 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 		changeCircleBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if ("以我为中心".equals(changeCircleBtn.getText().toString())) {
-					changeCircleBtn.setText("以定位器为中心");
+				if (Utils.getResString(R.string.self_center).equals(
+						changeCircleBtn.getText().toString())) {
+					changeCircleBtn.setText(R.string.bus_center);
 					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(start);
 					mBaiduMap.animateMapStatus(u);
 				} else {
-					changeCircleBtn.setText("以我为中心");
+					changeCircleBtn.setText(R.string.self_center);
 					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(end);
 					mBaiduMap.animateMapStatus(u);
 				}
@@ -324,9 +324,10 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 		});
 	}
 
-	// 是否是以定位器为中心
-	private boolean isLocatorCenter() {
-		return "以我为中心".equals(changeCircleBtn.getText().toString());
+	// 是否是以自己为中心
+	private boolean isSelfCenter() {
+		return Utils.getResString(R.string.self_center).equals(
+				changeCircleBtn.getText().toString());
 	}
 
 	private void drawLine(LatLng start, LatLng end) {
@@ -385,11 +386,11 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 			return;
 		}
 
-		if (getCoorJob != null && !getCoorJob.isDone()) {
-			// 上次获取定位器坐标的任务未执行完,新任务又来了，这里任务执行失败
-			getCoorJob.cancel(true);
-			handler.sendEmptyMessage(EventType.GET_LAST_LOCATION_FAIL);
-		}
+		// if (getCoorJob != null && !getCoorJob.isDone()) {
+		// // 上次获取定位器坐标的任务未执行完,新任务又来了，这里任务执行失败
+		// getCoorJob.cancel(true);
+		// handler.sendEmptyMessage(EventType.GET_LAST_LOCATION_FAIL);
+		// }
 	}
 
 	public void getLocationInfo() {
@@ -459,6 +460,12 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 		Log.d("onGetReverseGeoCodeResult", "" + result.getBusinessCircle());
 		content.append(result.getAddress());
 
+		// showPoiInfo(result, content);
+
+		locationInfoView.setText(content.toString());
+	}
+
+	private void showPoiInfo(ReverseGeoCodeResult result, StringBuffer content) {
 		List<PoiInfo> poiList = result.getPoiList();
 
 		if (poiList != null) {
@@ -482,8 +489,6 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 						.append((int) minDis).append("米");
 			}
 		}
-
-		locationInfoView.setText(content.toString());
 	}
 
 }

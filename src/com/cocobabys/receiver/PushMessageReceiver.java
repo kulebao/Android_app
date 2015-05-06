@@ -107,9 +107,9 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 
 		handleMsg(message, context);
 
-		if (MyApplication.getInstance().isForTest()) {
-			Utils.makeToast(context, messageString);
-		}
+		// if (MyApplication.getInstance().isForTest()) {
+		// Utils.makeToast(context, messageString);
+		// }
 
 		// 自定义内容获取方式，mykey和myvalue对应透传消息推送时自定义内容中设置的键和值
 		// if (customContentString != null

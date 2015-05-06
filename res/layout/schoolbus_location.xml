@@ -73,8 +73,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/distance"
         android:layout_centerHorizontal="true"
-        android:text="以我为中心"
-        android:visibility="gone" />
+        android:text="@string/self_center"
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/button1"
