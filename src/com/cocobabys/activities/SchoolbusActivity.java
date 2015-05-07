@@ -58,7 +58,7 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 	// 固定刷新间隔时间，设置为20s
 	private static final int MAX_COUNT_DOWN = 15;
 	private LatLng start;
-	private LatLng end = new LatLng(30.541591, 104.082256);;
+	private LatLng end = null;
 	// 定位相关
 	private LocationClient mLocClient;
 	public MyLocationListenner myListener = new MyLocationListenner();
@@ -138,7 +138,6 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 	}
 
 	protected void handleGetLocSuccess(Message msg) {
-
 		BusLocation info = (BusLocation) msg.obj;
 		end = new LatLng(info.getLatitude(), info.getLongitude());
 
@@ -310,15 +309,21 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 		changeCircleBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (Utils.getResString(R.string.self_center).equals(
-						changeCircleBtn.getText().toString())) {
-					changeCircleBtn.setText(R.string.bus_center);
+				//如果没有获取到校车位置，那么只能查看自己位置
+				if(end == null){
 					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(start);
 					mBaiduMap.animateMapStatus(u);
-				} else {
-					changeCircleBtn.setText(R.string.self_center);
-					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(end);
-					mBaiduMap.animateMapStatus(u);
+				}else{
+					if (Utils.getResString(R.string.self_center).equals(
+							changeCircleBtn.getText().toString())) {
+						changeCircleBtn.setText(R.string.bus_center);
+						MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(start);
+						mBaiduMap.animateMapStatus(u);
+					} else {
+						changeCircleBtn.setText(R.string.self_center);
+						MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(end);
+						mBaiduMap.animateMapStatus(u);
+					}
 				}
 			}
 		});

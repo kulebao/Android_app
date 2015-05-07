@@ -88,7 +88,6 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 					break;
 				}
 			}
-
 		};
 	}
 
@@ -107,7 +106,9 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 		logo = (ImageView) findViewById(R.id.school_logo);
 		desc = (TextView) findViewById(R.id.school_desc);
 		contact_school = (Button) findViewById(R.id.contact_school);
+	}
 
+	private void showPushInfo() {
 		if (MyApplication.getInstance().isForTest()) {
 			String USER_ID = DataUtils
 					.getUndeleteableProp(JSONConstant.USER_ID);
