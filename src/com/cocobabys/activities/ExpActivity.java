@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.cocobabys.R;
@@ -33,8 +34,8 @@ public class ExpActivity extends UmengStatisticsActivity {
 	private static final int START_TO_EXP_LIST = 1;
 	private TextView titleView;
 	private int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-	private Button leftBtn;
-	private Button rightBtn;
+	private ImageButton leftBtn;
+	private ImageButton rightBtn;
 	private GridView gridview;
 	private GrowthGridViewAdapter adapter;
 	private ProgressDialog dialog;
@@ -142,7 +143,7 @@ public class ExpActivity extends UmengStatisticsActivity {
 	}
 
 	private void initBtn() {
-		leftBtn = (Button) findViewById(R.id.leftArrow);
+		leftBtn = (ImageButton) findViewById(R.id.leftArrow);
 		leftBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -156,7 +157,7 @@ public class ExpActivity extends UmengStatisticsActivity {
 			}
 		});
 
-		rightBtn = (Button) findViewById(R.id.rightArrow);
+		rightBtn = (ImageButton) findViewById(R.id.rightArrow);
 
 		rightBtn.setOnClickListener(new OnClickListener() {
 			@Override

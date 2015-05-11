@@ -53,7 +53,7 @@
             <Button
                 android:id="@+id/positiveButton"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="3dip"
@@ -68,7 +68,7 @@
             <Button
                 android:id="@+id/negativeButton"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="3dip"

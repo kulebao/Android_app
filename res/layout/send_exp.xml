@@ -13,13 +13,13 @@
     <EditText
         android:id="@+id/exp_content"
         android:layout_width="fill_parent"
-        android:layout_height="240dp"
+        android:layout_height="145dp"
         android:layout_below="@+id/first"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/bg_a"
+        android:background="@drawable/exp_input"
         android:gravity="top"
         android:hint="说点儿什么"
         android:maxLength="140"
@@ -31,7 +31,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/exp_content"
-        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         android:padding="5dp" >
 
@@ -39,36 +38,39 @@
             android:id="@+id/camera"
             style="@style/btn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/small_btn"
             android:gravity="center"
+            android:paddingBottom="4dp"
             android:text="拍照" />
 
         <Button
             android:id="@+id/gallery"
             style="@style/btn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/small_btn"
             android:gravity="center"
+            android:paddingBottom="4dp"
             android:text="图库" />
 
         <Button
             android:id="@+id/video"
             style="@style/btn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/small_btn"
             android:gravity="center"
+            android:paddingBottom="4dp"
             android:text="视频"
             android:visibility="visible" />
     </LinearLayout>
@@ -79,15 +81,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnContainer"
         android:layout_gravity="top"
-        android:layout_marginBottom="-10dp"
-        android:layout_marginLeft="-10dp"
-        android:layout_marginRight="-10dp"
-        android:layout_marginTop="-10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:columnWidth="55dp"
-        android:horizontalSpacing="-15dp"
+        android:horizontalSpacing="-10dp"
         android:numColumns="3"
         android:padding="0dp"
-        android:verticalSpacing="-15dp"
+        android:verticalSpacing="-10dp"
         tools:listitem="@layout/gallery_item" >
     </GridView>
 

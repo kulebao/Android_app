@@ -76,8 +76,8 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 	private TextView distanceView;
 	private Button changeCircleBtn;
 	private TextView locationInfoView;
-	private BitmapDescriptor bdA = BitmapDescriptorFactory
-			.fromResource(R.drawable.lbs_icon_marka);
+	private BitmapDescriptor bdBus = BitmapDescriptorFactory
+			.fromResource(R.drawable.bus);
 	private Handler handler;
 	private RefreshLocationJob refreshJob;
 	private TextView showtime;
@@ -409,7 +409,7 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 	}
 
 	public void drawPop(LatLng point) {
-		OverlayOptions option = new MarkerOptions().position(point).icon(bdA);
+		OverlayOptions option = new MarkerOptions().position(point).icon(bdBus);
 		mBaiduMap.addOverlay(option);
 	}
 
@@ -428,7 +428,7 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 		mBaiduMap.setMyLocationEnabled(false);
 		mMapView.onDestroy();
 		mMapView = null;
-		bdA.recycle();
+		bdBus.recycle();
 		stopTasks();
 	}
 

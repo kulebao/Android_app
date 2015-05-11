@@ -258,5 +258,7 @@
     
     <string name="self_center">看自己的位置</string>
     <string name="bus_center">看校车的位置</string>
+    
+    <string name="invalid_feedback">反馈内容不能为空</string>
 
 </resources>
