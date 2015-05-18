@@ -244,8 +244,6 @@ public class AutofitHelper {
 
 	private TextWatcher mTextWatcher = new AutofitTextWatcher();
 
-	private View.OnLayoutChangeListener mOnLayoutChangeListener = new AutofitOnLayoutChangeListener();
-
 	private AutofitHelper(TextView view) {
 		final Context context = view.getContext();
 		float scaledDensity = context.getResources().getDisplayMetrics().scaledDensity;
@@ -453,22 +451,35 @@ public class AutofitHelper {
 		if (mEnabled != enabled) {
 			mEnabled = enabled;
 
-			if (enabled) {
-				mTextView.addTextChangedListener(mTextWatcher);
-				if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
-					mTextView
-							.addOnLayoutChangeListener(mOnLayoutChangeListener);
-				}
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+				View.OnLayoutChangeListener mOnLayoutChangeListener = new View.OnLayoutChangeListener() {
 
-				autofit();
-			} else {
-				mTextView.removeTextChangedListener(mTextWatcher);
-				if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
-					mTextView
-							.removeOnLayoutChangeListener(mOnLayoutChangeListener);
-				}
+					@Override
+					public void onLayoutChange(View arg0, int arg1, int arg2,
+							int arg3, int arg4, int arg5, int arg6, int arg7,
+							int arg8) {
+						autofit();
+					}
 
-				mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
+				};
+				if (enabled) {
+					mTextView.addTextChangedListener(mTextWatcher);
+					if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+						mTextView
+								.addOnLayoutChangeListener(mOnLayoutChangeListener);
+					}
+
+					autofit();
+				} else {
+					mTextView.removeTextChangedListener(mTextWatcher);
+					if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
+						mTextView
+								.removeOnLayoutChangeListener(mOnLayoutChangeListener);
+					}
+
+					mTextView
+							.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
+				}
 			}
 		}
 		return this;
@@ -565,14 +576,14 @@ public class AutofitHelper {
 		}
 	}
 
-	private class AutofitOnLayoutChangeListener implements
-			View.OnLayoutChangeListener {
-		@Override
-		public void onLayoutChange(View view, int left, int top, int right,
-				int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-			autofit();
-		}
-	}
+	// private class AutofitOnLayoutChangeListener implements
+	// View.OnLayoutChangeListener {
+	// @Override
+	// public void onLayoutChange(View view, int left, int top, int right,
+	// int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+	// autofit();
+	// }
+	// }
 
 	/**
 	 * When an object of a type is attached to an {@code AutofitHelper}, its

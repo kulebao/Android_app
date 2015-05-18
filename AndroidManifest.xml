@@ -9,12 +9,6 @@
     <!-- for lbs perm -->
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" >
     </uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.INTERNET" >
-    </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" >
     </uses-permission>
     <!-- <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"></uses-permission> -->
@@ -24,28 +18,22 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" >
     </uses-permission>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_GPS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <!-- SDK1.5需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用? -->
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.CAMERA" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.RECORD_AUDIO" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <!-- for lbs perm end -->
 
-
+    <!-- share sdk perm -->
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- share sdk perm end -->
+    
     <!-- Push service 运行需要的权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -75,274 +63,274 @@
     -->
 
     <application
-        android:name=".activities.MyApplication"
+        android:name="com.cocobabys.activities.MyApplication"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/DefaultLightTheme" >
         <activity
-            android:name=".activities.ValidatePhoneNumActivity"
+            android:name="com.cocobabys.activities.ValidatePhoneNumActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.ValidateAuthCodeActivity"
+            android:name="com.cocobabys.activities.ValidateAuthCodeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.SettingActivity"
+            android:name="com.cocobabys.activities.SettingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.UpdateActivity"
+            android:name="com.cocobabys.activities.UpdateActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.cocobabys.activities.LoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.ChildListActivity"
+            android:name="com.cocobabys.activities.ChildListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.ResetPWDActivity"
+            android:name="com.cocobabys.activities.ResetPWDActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.ChangePWDActivity"
+            android:name="com.cocobabys.activities.ChangePWDActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.cocobabys.activities.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.NoticeTabActivity"
+            android:name="com.cocobabys.activities.NoticeTabActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.LocationMgrActivity"
+            android:name="com.cocobabys.activities.LocationMgrActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.SchoolNoticeActivity"
+            android:name="com.cocobabys.activities.SchoolNoticeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.LocationRecordActivity"
+            android:name="com.cocobabys.activities.LocationRecordActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.NoticePullRefreshActivity"
+            android:name="com.cocobabys.activities.NoticePullRefreshActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.NoticeRecordActivity"
+            android:name="com.cocobabys.activities.NoticeRecordActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.SchoolbusActivity"
+            android:name="com.cocobabys.activities.SchoolbusActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.BindLocationMgrActivity"
+            android:name="com.cocobabys.activities.BindLocationMgrActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.SwipeCalendarActivity"
+            android:name="com.cocobabys.activities.SwipeCalendarActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.SwipeListActivity"
+            android:name="com.cocobabys.activities.SwipeListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.GuideActivity"
+            android:name="com.cocobabys.activities.GuideActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.NoticePullRefreshOldActivity"
+            android:name="com.cocobabys.activities.NoticePullRefreshOldActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.FeedBackActivity"
+            android:name="com.cocobabys.activities.FeedBackActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.AboutUsActivity"
+            android:name="com.cocobabys.activities.AboutUsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.SwipeDetailActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".activities.NoticeActivity"
+            android:name="com.cocobabys.activities.SwipeDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.HomeworkPullRefreshActivity"
+            android:name="com.cocobabys.activities.NoticeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.cocobabys.activities.HomeworkPullRefreshActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.InteractionActivity"
+            android:name="com.cocobabys.activities.InteractionActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.CookBookActivity"
+            android:name="com.cocobabys.activities.CookBookActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.ScheduleActivity"
+            android:name="com.cocobabys.activities.ScheduleActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.SendChatActivity"
+            android:name="com.cocobabys.activities.SendChatActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
-            android:name=".activities.ShowIconActivity"
+            android:name="com.cocobabys.activities.ShowIconActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.EducationActivity"
+            android:name="com.cocobabys.activities.EducationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.CheckIconActivity"
+            android:name="com.cocobabys.activities.CheckIconActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.LocationActivity"
+            android:name="com.cocobabys.activities.LocationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.SchoolInfoActivity"
+            android:name="com.cocobabys.activities.SchoolInfoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.ChatActivity"
+            android:name="com.cocobabys.activities.ChatActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.SendNewChatActivity"
+            android:name="com.cocobabys.activities.SendNewChatActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.ExpActivity"
+            android:name="com.cocobabys.activities.ExpActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.ExpListActivity"
+            android:name="com.cocobabys.activities.ExpListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.SlideGalleryActivity"
+            android:name="com.cocobabys.activities.SlideGalleryActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
@@ -354,7 +342,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.SendExpActivity"
+            android:name="com.cocobabys.activities.SendExpActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
@@ -375,7 +363,7 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".activities.CustomGalleryActivity"
+            android:name="com.cocobabys.activities.CustomGalleryActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
@@ -387,18 +375,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.RecordVideoActivity"
+            android:name="com.cocobabys.activities.RecordVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".activities.ShowVideoActivity"
+            android:name="com.cocobabys.activities.ShowVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop" >
         </activity>
         <activity
-            android:name=".activities.LoadingActivity"
+            android:name="com.cocobabys.activities.LoadingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -417,6 +405,15 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+        <!-- 微信分享回调 -->
+        <activity
+            android:name="com.cocobabys.share.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!-- push service client -->
         <receiver android:name="com.cocobabys.receiver.PushMessageReceiver" >

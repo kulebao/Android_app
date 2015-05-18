@@ -23,6 +23,8 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.sharesdk.framework.ShareSDK;
+
 import com.cocobabys.R;
 import com.cocobabys.bean.AdInfo;
 import com.cocobabys.constant.ConstantValue;
@@ -74,6 +76,8 @@ public class MainActivity extends TabActivity {
 		// 测试版本的fault信息不上报给友盟
 		MobclickAgent.setCatchUncaughtExceptions(!MyApplication.getInstance()
 				.isForTest());
+
+		ShareSDK.initSDK(this);
 	}
 
 	private void runCheckBindTask() {

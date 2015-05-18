@@ -221,19 +221,6 @@ public class ExpListAdapter extends BaseAdapter {
 		final String nail = info.serverUrlToLocalUrl(serverUrls.get(0), true);
 		Log.d("DDDE", "setVideoNail AAA =" + nail);
 		if (new File(nail).exists()) {
-			// flagholder.videonail.setBackgroundDrawable(new
-			// BitmapDrawable(Utils
-			// .getLoacalBitmap(nail, 160 * 160)));
-			// imageLoader.displayImage("file://" + nail, flagholder.videonail,
-			// new SimpleImageLoadingListener() {
-			// @Override
-			// public void onLoadingComplete(String imageUri,
-			// View view, Bitmap loadedImage) {
-			// super.onLoadingComplete(imageUri, view, loadedImage);
-			// flagholder.videonail
-			// .setImageResource(R.drawable.pvideo);
-			// }
-			// });
 			ImageSize minImageSize = new ImageSize(100, 100);
 			imageLoader.loadImage(ImageUtils.wrapper(nail), minImageSize,
 					new SimpleImageLoadingListener() {
@@ -280,7 +267,7 @@ public class ExpListAdapter extends BaseAdapter {
 		flagholder.layout.setOnLongClickListener(new OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
-				showDlgEx(position);
+				showDlgEx(position, 0);
 				return false;
 			}
 		});
@@ -289,7 +276,7 @@ public class ExpListAdapter extends BaseAdapter {
 				.setOnLongClickListener(new OnLongClickListener() {
 					@Override
 					public boolean onLongClick(View v) {
-						showDlgEx(position);
+						showDlgEx(position, 0);
 						return false;
 					}
 				});
@@ -299,25 +286,29 @@ public class ExpListAdapter extends BaseAdapter {
 
 					@Override
 					public boolean onItemLongClick(AdapterView<?> parent,
-							View view, int p, long id) {
+							View view, int pos, long id) {
 						Log.d("", "DDDA onItemLongClick");
-						showDlgEx(position);
+						ExpInfo info = getItem(position);
+						showDlgEx(position, pos);
 						return false;
 					}
 				});
 
-		// flagholder.gridview.setOnLongClickListener(new OnLongClickListener()
-		// {
-		// @Override
-		// public boolean onLongClick(View v) {
-		// Log.d("", "DDDA onLongClick");
-		// showDlgEx(position);
-		// return false;
-		// }
-		// });
+		flagholder.videonail.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View v) {
+				ExpInfo info = getItem(position);
+				// 视频已经下载到本地才允许分享
+				if (info.isVideoFileExist()) {
+					showDlgEx(position, 0);
+				}
+				return false;
+			}
+		});
 	}
 
-	private void showDlgEx(final int pos) {
+	private void showDlgEx(final int pos, int mediumIndex) {
 		ExpInfo info = getItem(pos);
 		longClickDlg = new LongClickDlg(context);
 
@@ -344,7 +335,28 @@ public class ExpListAdapter extends BaseAdapter {
 					});
 		}
 
+		setUrls(mediumIndex, info);
+
 		longClickDlg.showDlg();
+	}
+
+	private void setUrls(int mediumIndex, ExpInfo info) {
+		try {
+			List<String> localUrls = info.getLocalUrls(false);
+			if (!localUrls.isEmpty()) {
+				String url = localUrls.get(mediumIndex);
+				Log.d("", "showDlgEx url =" + url);
+				if (DataUtils.isFileExist(url)) {
+					longClickDlg.setImageUrl(url);
+
+					List<String> serverUrls = info.getServerUrls();
+					String shareUrl = serverUrls.get(mediumIndex);
+					longClickDlg.setShareUrl(shareUrl);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private String getSenderName(ExpInfo info) {

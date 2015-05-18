@@ -270,6 +270,19 @@ public class ExpInfo {
 		return localUrl;
 	}
 
+	public boolean isVideoFileExist() {
+		List<String> serverUrls = getServerUrls();
+
+		if (serverUrls.isEmpty()) {
+			return false;
+		}
+
+		// 视频一次只能发一条，所以取第一个
+		String videoUrl = serverUrlToLocalUrl(serverUrls.get(0), false);
+
+		return new File(videoUrl).exists();
+	}
+
 	public String getOriginalDir() {
 		return Utils.getExpIconDir(child_id) + exp_id + File.separator;
 	}

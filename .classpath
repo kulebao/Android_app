@@ -3,6 +3,7 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="sharelibs"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="lib" path="libs/HMSDK.jar"/>
 	<classpathentry kind="lib" path="libs/umeng_sdk.jar"/>
@@ -12,5 +13,10 @@
 	<classpathentry kind="lib" path="libs/fastjson1.44.jar"/>
 	<classpathentry kind="lib" path="libs/pushservice-4.4.0.71.jar"/>
 	<classpathentry kind="lib" path="libs/pinyin4j-2.5.0.jar"/>
+	<classpathentry kind="lib" path="sharelibs/mframework.jar"/>
+	<classpathentry kind="lib" path="sharelibs/ShareSDK-Core-2.4.0.jar"/>
+	<classpathentry kind="lib" path="sharelibs/ShareSDK-Wechat-2.4.0.jar"/>
+	<classpathentry kind="lib" path="sharelibs/ShareSDK-Wechat-Core-2.4.0.jar"/>
+	<classpathentry kind="lib" path="sharelibs/ShareSDK-Wechat-Moments-2.4.0.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -52,7 +52,7 @@ public class SendExpActivity extends UmengStatisticsActivity {
 	private GridView gridGallery;
 	private Handler myhandler;
 	private GalleryAdapter adapter;
-	// private ViewSwitcher viewSwitcher;
+	// private ViewSwitcher viewSwitcher;d
 	private ImageLoader imageLoader;
 	private Uri uri;
 	private EditText exp_content;

@@ -70,8 +70,8 @@ public class Utils {
 	public static String CHAT_VOICE = "chat_voice";
 	public static final String DEFAULT_VIDEO_ENDS = ".mp4";
 	public static final String AD_FORMAT = "%s 提醒您，";
-	static String JPG_EXT = ".jpg";
-	static String PNG_EXT = ".png";
+	public static String JPG_EXT = ".jpg";
+	public static String PNG_EXT = ".png";
 
 	public static String getResString(int resID) {
 		Resources resources = MyApplication.getInstance().getResources();
@@ -422,14 +422,14 @@ public class Utils {
 				+ DataMgr.getInstance().getSelectedChild().getServer_id()
 				+ File.separator
 				+ DataMgr.getInstance().getSelectedChild().getServer_id()
-				+ ".jpg";
+				+ JPG_EXT;
 	}
 
 	public static String getChatIconUrl(long timestamp) {
 		String dir = CHAT_ICON + File.separator
 				+ DataMgr.getInstance().getSchoolID() + File.separator
 				+ DataUtils.getAccount();
-		return dir + File.separator + timestamp + ".jpg";
+		return dir + File.separator + timestamp + JPG_EXT;
 	}
 
 	// 获取自己发送的图片的地址，避免自己发送的还从服务器去下

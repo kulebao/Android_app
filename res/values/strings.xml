@@ -260,5 +260,8 @@
     <string name="bus_center">看校车的位置</string>
     
     <string name="invalid_feedback">反馈内容不能为空</string>
+    
+    <string name="share_to_wexin_circle">分享到微信朋友圈</string>
+    <string name="share_to_wexin_friends">发送给微信好友</string>
 
 </resources>

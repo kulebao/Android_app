@@ -10,19 +10,37 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 
 import com.cocobabys.R;
+import com.cocobabys.activities.MyApplication;
 import com.cocobabys.dlgmgr.DlgMgr;
+import com.cocobabys.share.WeiXinUtils;
 import com.cocobabys.utils.Utils;
 
 public class LongClickDlg {
 	private String textContent = "";
+	// 本地路径，用来保存到图库
 	private String imageUrl = "";
+
+	// 服务器路径，用来分享到微信微博
+	private String shareUrl = "";
+
 	private DeleteChatListener deleteChatListener = null;
 	private OnDeleteBtnClickListener onDeleteBtnClickListener = null;
 	private Context context;
 	private String[] items;
 	private ProgressDialog dialog;
+
+	public String getShareUrl() {
+		return shareUrl;
+	}
+
+	public void setShareUrl(String shareUrl) {
+		this.shareUrl = shareUrl;
+	}
 
 	public LongClickDlg(Context context) {
 		this.context = context;
@@ -92,6 +110,14 @@ public class LongClickDlg {
 
 		if (!TextUtils.isEmpty(imageUrl) && new File(imageUrl).exists()) {
 			list.add(Utils.getResString(R.string.save_to_gallery));
+
+			if (MyApplication.getInstance().isForTest()) {
+				// 微信目前不支持分享视频到朋友圈
+				if (!shareUrl.endsWith(Utils.DEFAULT_VIDEO_ENDS)) {
+					list.add(Utils.getResString(R.string.share_to_wexin_circle));
+				}
+				list.add(Utils.getResString(R.string.share_to_wexin_friends));
+			}
 		}
 
 		if (onDeleteBtnClickListener != null) {
@@ -123,6 +149,16 @@ public class LongClickDlg {
 			if (onDeleteBtnClickListener != null) {
 				onDeleteBtnClickListener.onDeleteClicked();
 			}
+		} else if (Utils.getResString(R.string.share_to_wexin_circle).equals(
+				btnName)) {
+			Log.d("", "share_to_wexin_circle shareUrl=" + shareUrl);
+			WeiXinUtils.getInstance().share("", "", shareUrl,
+					Platform.SHARE_IMAGE, WechatMoments.NAME);
+		} else if (Utils.getResString(R.string.share_to_wexin_friends).equals(
+				btnName)) {
+			Log.d("", "share_to_wexin_friends shareUrl=" + shareUrl);
+			WeiXinUtils.getInstance().share("", "", shareUrl,
+					Platform.SHARE_IMAGE, Wechat.NAME);
 		}
 	}
 

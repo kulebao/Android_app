@@ -161,7 +161,7 @@ public class SendExpJob extends MyJob {
 	}
 
 	private String getMediumEnds() {
-		return JSONConstant.IMAGE_TYPE.equals(mediumType) ? ".jpg"
+		return JSONConstant.IMAGE_TYPE.equals(mediumType) ? Utils.JPG_EXT
 				: Utils.DEFAULT_VIDEO_ENDS;
 	}
 
