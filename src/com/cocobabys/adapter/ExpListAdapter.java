@@ -205,11 +205,15 @@ public class ExpListAdapter extends BaseAdapter {
 
 		if (JSONConstant.IMAGE_TYPE.equals(info.getMediumType())) {
 			setIcon(flagholder, info);
-		} else {
+		} else if (JSONConstant.VIDEO_TYPE.equals(info.getMediumType())) {
 			Log.d("DDDE", "DDDE setVideoNail medium=" + info.getMedium()
 					+ "  type=" + info.getMediumType());
 			setVideoNail(flagholder, info);
+		} else {
+			flagholder.videonail.setVisibility(View.GONE);
+			flagholder.gridview.setVisibility(View.GONE);
 		}
+
 		setOnLongClickListener(flagholder, position);
 	}
 
@@ -222,8 +226,10 @@ public class ExpListAdapter extends BaseAdapter {
 		Log.d("DDDE", "setVideoNail AAA =" + nail);
 		if (new File(nail).exists()) {
 			ImageSize minImageSize = new ImageSize(100, 100);
+
 			imageLoader.loadImage(ImageUtils.wrapper(nail), minImageSize,
 					new SimpleImageLoadingListener() {
+						@SuppressWarnings("deprecation")
 						@Override
 						public void onLoadingComplete(String imageUri,
 								View view, Bitmap loadedImage) {
@@ -232,6 +238,7 @@ public class ExpListAdapter extends BaseAdapter {
 									context.getResources(), loadedImage));
 							flagholder.videonail
 									.setImageResource(R.drawable.pvideo);
+							// notifyDataSetChanged();
 						}
 
 						@Override
@@ -288,7 +295,6 @@ public class ExpListAdapter extends BaseAdapter {
 					public boolean onItemLongClick(AdapterView<?> parent,
 							View view, int pos, long id) {
 						Log.d("", "DDDA onItemLongClick");
-						ExpInfo info = getItem(position);
 						showDlgEx(position, pos);
 						return false;
 					}
@@ -347,16 +353,47 @@ public class ExpListAdapter extends BaseAdapter {
 				String url = localUrls.get(mediumIndex);
 				Log.d("", "showDlgEx url =" + url);
 				if (DataUtils.isFileExist(url)) {
-					longClickDlg.setImageUrl(url);
-
-					List<String> serverUrls = info.getServerUrls();
-					String shareUrl = serverUrls.get(mediumIndex);
-					longClickDlg.setShareUrl(shareUrl);
+					copyFile(info, url);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void copyFile(ExpInfo info, String url) {
+		longClickDlg.setImageUrl(url);
+
+		// List<String> serverUrls = info.getServerUrls();
+		// String shareUrl = serverUrls.get(mediumIndex);
+
+		// 如果本地文件带扩展名，则可以直接传给微信
+		if (url.endsWith(Utils.PNG_EXT) || url.endsWith(Utils.JPG_EXT)
+				|| url.endsWith(Utils.DEFAULT_VIDEO_ENDS)) {
+			longClickDlg.setShareUrl(url);
+			return;
+		}
+		// 本地保存的文件是不带扩展名的，为了不显示在本地相册
+		// 而微信上需要扩展名，否则打不开文件,这里需要拷贝一份分享文件到本地
+		String shareFileName = Utils.getName(url);
+
+		Log.d("", "shareFileName =" + shareFileName);
+
+		if (JSONConstant.IMAGE_TYPE.equals(info.getMediumType())) {
+			shareFileName += Utils.PNG_EXT;
+		} else if (JSONConstant.VIDEO_TYPE.equals(info.getMediumType())) {
+			shareFileName += Utils.DEFAULT_VIDEO_ENDS;
+		}
+
+		Log.d("", "shareFileName =" + shareFileName);
+
+		File to = new File(Utils.getSDCardFileDir(Utils.APP_DIR_SHARE),
+				shareFileName);
+
+		Log.d("", "setShareUrl to =" + to.getAbsolutePath());
+
+		DataUtils.copyFile(new File(url), to);
+		longClickDlg.setShareUrl(to.getAbsolutePath());
 	}
 
 	private String getSenderName(ExpInfo info) {
@@ -479,7 +516,8 @@ public class ExpListAdapter extends BaseAdapter {
 	private void setIcon(FlagHolder flagholder, final ExpInfo info) {
 		flagholder.videonail.setVisibility(View.GONE);
 
-		final List<String> localUrls = info.getLocalUrls(true);
+		// final List<String> localUrls = info.getLocalUrls(true);
+		final List<String> localUrls = info.getLocalUrls(false);
 		if (localUrls.isEmpty()) {
 			flagholder.gridview.setVisibility(View.GONE);
 		} else {

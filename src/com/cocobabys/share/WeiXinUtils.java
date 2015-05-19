@@ -41,13 +41,12 @@ public class WeiXinUtils {
 		ShareParams wechat = new ShareParams();
 		wechat.setTitle(title);
 		wechat.setText(content);
-		
-		//本地文件的方式，由微博服务器负责上传下载，节约费用。。。
-		// wechat.setContentType(Platform.SHARE_IMAGE);
-		// wechat.setFilePath(mediumUrl);
-		// wechat.setImagePath(mediumUrl);
-		
-		wechat.setImageUrl(mediumUrl);
+
+		// 本地文件的方式，由微信服务器负责上传下载，节约费用。。。
+		wechat.setFilePath(mediumUrl);
+		wechat.setImagePath(mediumUrl);
+		// wechat.setImageUrl(mediumUrl);
+
 		wechat.setShareType(type);
 
 		Platform weixin = ShareSDK.getPlatform(platform);

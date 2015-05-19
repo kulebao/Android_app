@@ -54,6 +54,11 @@ public class Utils {
 	public static final String TAG = "Utils";
 	public static final String APP_DIR_ROOT = "cocobaby";
 	public static final String APP_DIR_TMP = "cocobaby/tmp";
+
+	public static final String APP_DIR_SHARE = "cocobaby/share";
+	public static final String APP_DIR_SHARE_NO_MEDIA = APP_DIR_SHARE
+			+ File.separator + ".nomedia";
+
 	public static final String OLD_APP_DIR_PIC = "cocobaby/pic";
 	public static final String APP_DIR_PIC = "cocobaby/images";
 
@@ -320,6 +325,10 @@ public class Utils {
 			// makeAppDirInSDCard(APP_DIR_PIC_NOMEIDA);
 			makeAppDirInSDCard(APP_DIR_TMP);
 			makeAppDirInSDCard(APP_LOGS);
+			
+			//分享到其他社交app的文件目录
+			makeAppDirInSDCard(APP_DIR_SHARE);
+			makeAppDirInSDCard(APP_DIR_SHARE_NO_MEDIA);
 		}
 	}
 

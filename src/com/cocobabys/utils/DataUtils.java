@@ -1,7 +1,12 @@
 package com.cocobabys.utils;
 
+import java.io.Closeable;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +31,6 @@ import com.cocobabys.activities.CustomGalleryActivity;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.bean.AblumInfo;
 import com.cocobabys.bean.AdInfo;
-import com.cocobabys.bean.LocationInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.customview.CustomGallery;
@@ -446,5 +450,54 @@ public class DataUtils {
 			}
 		}
 		return bitmap;
+	}
+
+	public static void copyFile(File from, File to) {
+		if (null == from || !from.exists()) {
+			return;
+		}
+		if (null == to) {
+			return;
+		}
+		FileInputStream is = null;
+		FileOutputStream os = null;
+		try {
+			is = new FileInputStream(from);
+			if (!to.exists()) {
+				to.createNewFile();
+			}
+			os = new FileOutputStream(to);
+			copyFileFast(is, os);
+		} catch (Exception e) {
+			throw new RuntimeException(DataUtils.class.getClass().getName(), e);
+		} finally {
+			closeIO(is, os);
+		}
+	}
+
+	private static void copyFileFast(FileInputStream is, FileOutputStream os)
+			throws IOException {
+		FileChannel in = null;
+		FileChannel out = null;
+		in = is.getChannel();
+		out = os.getChannel();
+		in.transferTo(0, in.size(), out);
+	}
+
+	public static void closeIO(Closeable... closeables) {
+		if (null == closeables || closeables.length <= 0) {
+			return;
+		}
+		for (Closeable cb : closeables) {
+			try {
+				if (null == cb) {
+					continue;
+				}
+				cb.close();
+			} catch (IOException e) {
+				throw new RuntimeException(
+						DataUtils.class.getClass().getName(), e);
+			}
+		}
 	}
 }
