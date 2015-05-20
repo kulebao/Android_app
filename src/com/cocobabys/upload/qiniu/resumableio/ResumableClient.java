@@ -14,7 +14,6 @@ import android.util.Base64;
 
 import com.cocobabys.upload.qiniu.auth.CallRet;
 import com.cocobabys.upload.qiniu.auth.Client;
-import com.cocobabys.upload.qiniu.auth.Client.ClientExecutor;
 import com.cocobabys.upload.qiniu.auth.JSONObjectRet;
 import com.cocobabys.upload.qiniu.conf.Conf;
 import com.cocobabys.upload.qiniu.utils.ICancel;

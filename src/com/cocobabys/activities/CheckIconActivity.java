@@ -24,6 +24,7 @@ import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.UploadChatIconJob;
 import com.cocobabys.utils.ImageDownloader;
+import com.cocobabys.utils.ImageUtils;
 
 public class CheckIconActivity extends UmengStatisticsActivity {
 
@@ -118,9 +119,12 @@ public class CheckIconActivity extends UmengStatisticsActivity {
 	private void showIcon() {
 		ImageView image = (ImageView) findViewById(R.id.imageview);
 		int maxPixel = getMaxPix();
-
+		// bitmap 用于上传
 		bitmap = getResizedBmp(maxPixel, path);
-		image.setImageBitmap(bitmap);
+
+		ImageUtils.getImageLoader().displayImage(ImageUtils.wrapper(path),
+				image);
+		// image.setImageBitmap(bitmap);
 	}
 
 	private int getMaxPix() {

@@ -11,9 +11,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.cocobabys.utils.Utils;
-
-
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -22,6 +19,8 @@ import android.os.Build;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.cocobabys.utils.Utils;
 
 public class CrashHandler implements UncaughtExceptionHandler {  
     

@@ -1,7 +1,5 @@
 package com.cocobabys.activities;
 
-import java.io.File;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +14,6 @@ import com.cocobabys.handler.MyHandler;
 import com.cocobabys.push.PushModel;
 import com.cocobabys.taskmgr.LoadingTask;
 import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.Utils;
 
 public class LoadingActivity extends UmengStatisticsActivity {
 	private Handler handler;

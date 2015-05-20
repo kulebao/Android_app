@@ -2,11 +2,11 @@ package com.cocobabys.taskmgr;
 
 import java.util.concurrent.TimeUnit;
 
-import com.cocobabys.constant.EventType;
-
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+
+import com.cocobabys.constant.EventType;
 
 public class GetNoticeTask extends AsyncTask<Void, Void, Void> {
 

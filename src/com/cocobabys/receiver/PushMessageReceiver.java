@@ -17,7 +17,6 @@ import android.widget.RemoteViews;
 
 import com.baidu.frontia.api.FrontiaPushMessageReceiver;
 import com.cocobabys.R;
-import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.info.Notice;

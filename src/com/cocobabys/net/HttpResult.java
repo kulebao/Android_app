@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 
 import com.cocobabys.constant.EventType;
-import com.cocobabys.constant.JSONConstant;
 
 public class HttpResult {
 	public static final String ERROR_CODE = "error_code";

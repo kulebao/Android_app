@@ -2,12 +2,12 @@ package com.cocobabys.taskmgr;
 
 import java.util.concurrent.TimeUnit;
 
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
 
 public class AuthCodeCountDownTask extends AsyncTask<Void, Void, Void> {
 

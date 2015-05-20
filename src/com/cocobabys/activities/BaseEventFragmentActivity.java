@@ -1,8 +1,8 @@
 package com.cocobabys.activities;
 
-import de.greenrobot.event.EventBus;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import de.greenrobot.event.EventBus;
 
 public class BaseEventFragmentActivity extends FragmentActivity {
 	@Override

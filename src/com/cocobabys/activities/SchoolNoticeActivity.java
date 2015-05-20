@@ -440,7 +440,14 @@ public class SchoolNoticeActivity extends TabChildActivity{
     // 此时是选中或拍好照片后，对照片进行裁剪
     public void resizeImage(Uri uri){
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
+
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT){
+            String url = DataUtils.getPath(uri);
+            intent.setDataAndType(Uri.fromFile(new File(url)), "image/*");
+        } else{
+            intent.setDataAndType(uri, "image/*");
+        }
+
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);

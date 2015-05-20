@@ -1,9 +1,9 @@
 package com.cocobabys.command;
 
+import android.os.AsyncTask;
+
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.utils.DataUtils;
-
-import android.os.AsyncTask;
 
 public class CommandSendBindError implements Command {
 

@@ -6,61 +6,67 @@ import android.media.MediaScannerConnection.MediaScannerConnectionClient;
 import android.net.Uri;
 import android.util.Log;
 
-public class MyMediaScannerConnectionClient {
-	private MediaScannerConnection picScannerConnection;
-	private MediaScannerConnection videoScannerConnection;
-	private Uri uri;
+import com.cocobabys.utils.DataUtils;
 
-	public MyMediaScannerConnectionClient(Context context) {
-		picScannerConnection = new MediaScannerConnection(context,
-				new PicMediaScannerConnectionClient());
+public class MyMediaScannerConnectionClient{
+    private MediaScannerConnection picScannerConnection;
+    private MediaScannerConnection videoScannerConnection;
+    private Uri                    uri;
 
-		videoScannerConnection = new MediaScannerConnection(context,
-				new VideoMediaScannerConnectionClient());
-	}
+    public MyMediaScannerConnectionClient(Context context){
+        picScannerConnection = new MediaScannerConnection(context, new PicMediaScannerConnectionClient());
 
-	public void addPicToGallery(Uri uri) {
-		this.uri = uri;
-		picScannerConnection.connect();
-	}
+        videoScannerConnection = new MediaScannerConnection(context, new VideoMediaScannerConnectionClient());
+    }
 
-	public void addVideoToGallery(Uri uri) {
-		this.uri = uri;
-		videoScannerConnection.connect();
-	}
+    public void addPicToGallery(Uri uri){
+        this.uri = uri;
+        picScannerConnection.connect();
+    }
 
-	private class PicMediaScannerConnectionClient implements
-			MediaScannerConnectionClient {
+    public void addVideoToGallery(Uri uri){
+        this.uri = uri;
+        videoScannerConnection.connect();
+    }
 
-		@Override
-		public void onMediaScannerConnected() {
-			Log.d("DDD", "onMediaScannerConnected");
-			picScannerConnection.scanFile(uri.getPath(), "image/jpeg");
-		}
+    private class PicMediaScannerConnectionClient implements MediaScannerConnectionClient{
 
-		@Override
-		public void onScanCompleted(String path, Uri uri) {
-			Log.d("DDD", "onScanCompleted");
-			picScannerConnection.disconnect();
-		}
+        @Override
+        public void onMediaScannerConnected(){
+            Log.d("DDD", "onMediaScannerConnected");
+            try{
+                picScannerConnection.scanFile(DataUtils.getPath(uri), "image/jpeg");
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
 
-	}
+        @Override
+        public void onScanCompleted(String path, Uri uri){
+            Log.d("DDD", "onScanCompleted");
+            picScannerConnection.disconnect();
+        }
 
-	private class VideoMediaScannerConnectionClient implements
-			MediaScannerConnectionClient {
+    }
 
-		@Override
-		public void onMediaScannerConnected() {
-			Log.d("DDD", "onMediaScannerConnected");
-			videoScannerConnection.scanFile(uri.getPath(), "video/mpeg");
-		}
+    private class VideoMediaScannerConnectionClient implements MediaScannerConnectionClient{
 
-		@Override
-		public void onScanCompleted(String path, Uri uri) {
-			Log.d("DDD", "onScanCompleted");
-			videoScannerConnection.disconnect();
-		}
+        @Override
+        public void onMediaScannerConnected(){
+            Log.d("DDD", "onMediaScannerConnected");
+            try{
+                videoScannerConnection.scanFile(DataUtils.getPath(uri), "video/mpeg");
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
 
-	}
+        @Override
+        public void onScanCompleted(String path, Uri uri){
+            Log.d("DDD", "onScanCompleted");
+            videoScannerConnection.disconnect();
+        }
+
+    }
 
 }

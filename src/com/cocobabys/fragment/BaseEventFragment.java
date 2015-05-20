@@ -15,9 +15,9 @@
  *******************************************************************************/
 package com.cocobabys.fragment;
 
-import de.greenrobot.event.EventBus;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import de.greenrobot.event.EventBus;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)

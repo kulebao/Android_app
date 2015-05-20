@@ -11,14 +11,12 @@ import android.util.Log;
 
 import com.cocobabys.R;
 import com.cocobabys.activities.ActivityHelper;
-import com.cocobabys.activities.MyApplication;
 import com.cocobabys.activities.UmengStatisticsActivity;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.customview.CustomDialog;
 import com.cocobabys.dlgmgr.DlgMgr;
 import com.cocobabys.jobs.LoginVideoJob;
-import com.cocobabys.utils.Utils;
 
 /**
  * 登录平台，获取设备列表

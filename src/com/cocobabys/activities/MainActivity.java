@@ -22,7 +22,6 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import cn.sharesdk.framework.ShareSDK;
 
 import com.cocobabys.R;

@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.cocobabys.R;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.upload.UploadFactory;

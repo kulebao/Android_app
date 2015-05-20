@@ -1,13 +1,13 @@
 package com.cocobabys.upload.qiniu.utils;
 
-import org.apache.http.entity.AbstractHttpEntity;
-import org.apache.http.message.BasicHeader;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Random;
+
+import org.apache.http.entity.AbstractHttpEntity;
+import org.apache.http.message.BasicHeader;
 
 public class MultipartEntity extends AbstractHttpEntity {
 	private String mBoundary;
