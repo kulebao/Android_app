@@ -38,6 +38,12 @@ public class MyApplication extends FrontiaApplication {
 	// 当前是否有数据库正在升级
 	private boolean isDbUpdating = false;
 
+	private boolean weixinBypass = false;
+
+	public boolean isWeixinBypass() {
+		return weixinBypass;
+	}
+
 	public boolean isDbUpdating() {
 		return isDbUpdating;
 	}

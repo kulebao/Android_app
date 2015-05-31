@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
@@ -69,8 +69,8 @@ public class SwipeCalendarActivity extends UmengStatisticsActivity {
 	private int cell_Width = 0;
 
 	TextView top_Date = null;
-	Button btn_pre_month = null;
-	Button btn_next_month = null;
+	ImageButton btn_pre_month = null;
+	ImageButton btn_next_month = null;
 	TextView arrange_text = null;
 	LinearLayout mainLayout = null;
 	LinearLayout arrange_layout = null;
@@ -218,8 +218,8 @@ public class SwipeCalendarActivity extends UmengStatisticsActivity {
 
 		// 声明控件，并绑定事件
 		top_Date = (TextView) findViewById(R.id.Top_Date);
-		btn_pre_month = (Button) findViewById(R.id.btn_pre_month);
-		btn_next_month = (Button) findViewById(R.id.btn_next_month);
+		btn_pre_month = (ImageButton) findViewById(R.id.btn_pre_month);
+		btn_next_month = (ImageButton) findViewById(R.id.btn_next_month);
 		btn_pre_month.setOnClickListener(new Pre_MonthOnClickListener());
 		btn_next_month.setOnClickListener(new Next_MonthOnClickListener());
 	}

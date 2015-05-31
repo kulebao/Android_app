@@ -121,6 +121,17 @@ public class Utils {
 		builder.setMessage(context.getResources().getString(resID));
 		builder.create().show();
 	}
+	
+	//无法取消，必须点击确认
+	public static void showSingleBtnMustConfirmResDlg(int resID, Context context,
+			OnClickListener configListener) {
+		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context,
+				configListener);
+		builder.setMessage(context.getResources().getString(resID));
+		CustomDialog dlg = builder.create();
+		dlg.setCancelable(false);
+		dlg.show();
+	}
 
 	public static void showTwoBtnResDlg(int resID, Context context,
 			OnClickListener configListener) {

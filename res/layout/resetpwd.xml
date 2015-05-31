@@ -19,20 +19,21 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_margin="20dp"
-        android:background="@drawable/bg_2"
+        android:background="@drawable/login_bg"
         android:padding="20dp" >
 
         <TextView
             android:id="@+id/resetPwdNoticeView"
             style="@style/NormalTextviewStyle"
             android:layout_centerHorizontal="true"
-            android:padding="6dp"
+            
+            android:layout_marginBottom="10dp"
             android:text="@string/forget_pwd_notice"
             android:textColor="@color/black" />
 
         <Button
             android:id="@+id/getAuthCodeBtn"
-            style="@style/btn_style"
+            style="@style/btn_style_small"
             android:layout_below="@+id/resetPwdNoticeView"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
@@ -41,67 +42,43 @@
 
         <EditText
             android:id="@+id/inputAuthCodeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/input_style"
             android:layout_alignLeft="@+id/getAuthCodeBtn"
             android:layout_alignRight="@+id/getAuthCodeBtn"
             android:layout_below="@+id/getAuthCodeBtn"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:background="@drawable/input_normal"
             android:digits="0123456789"
             android:hint="@string/inuput_auth_code"
             android:inputType="number"
-            android:maxLength="6"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:singleLine="true"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:maxLength="6" />
 
         <EditText
             android:id="@+id/inuputPWDView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/input_style"
             android:layout_alignLeft="@+id/getAuthCodeBtn"
             android:layout_alignRight="@+id/getAuthCodeBtn"
             android:layout_below="@+id/inputAuthCodeView"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:background="@drawable/input_normal"
             android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:hint="@string/input_new_pwd"
             android:maxLength="16"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:password="true"
-            android:singleLine="true"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:password="true" />
 
         <EditText
             android:id="@+id/reInuputPWDView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/input_style"
             android:layout_alignLeft="@+id/getAuthCodeBtn"
             android:layout_alignRight="@+id/getAuthCodeBtn"
             android:layout_below="@+id/inuputPWDView"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:background="@drawable/input_normal"
             android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:hint="@string/reinput_new_pwd"
             android:maxLength="16"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:password="true"
-            android:singleLine="true"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:password="true" />
 
         <Button
             android:id="@+id/resetPWDBtn"
-            style="@style/btn_style"
+            style="@style/btn_style_small"
             android:layout_below="@+id/reInuputPWDView"
             android:layout_marginTop="10dp"
             android:background="@drawable/small_btn"

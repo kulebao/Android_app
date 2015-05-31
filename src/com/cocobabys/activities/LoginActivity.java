@@ -33,6 +33,7 @@ public class LoginActivity extends MyActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
+		
 		initDialog();
 		initHandler();
 		initView();

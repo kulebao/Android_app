@@ -42,7 +42,8 @@ public class MyHandler extends Handler {
 		// }
 
 		try {
-			if (msg.arg2 != ConstantValue.DO_NOT_CANCEL_DIALOG && dialog != null) {
+			if (msg.arg2 != ConstantValue.DO_NOT_CANCEL_DIALOG
+					&& dialog != null) {
 				dialog.cancel();
 			}
 
@@ -51,19 +52,22 @@ public class MyHandler extends Handler {
 				showRestartDlg(R.string.token_invalid);
 				break;
 			case EventType.PHONE_NUM_IS_ALREADY_LOGIN:
-				showRestartDlg(R.string.phone_num_is_already_login);
+				//早期不允许一个账号在多个手机上登录，目前允许了
+				//所以只有密码发生变化，才会走到这里
+				// showRestartDlg(R.string.phone_num_is_already_login);
+				showRestartDlg(R.string.pwd_has_changed);
 				break;
 			case EventType.NET_WORK_INVALID:
 				Toast.makeText(activity, R.string.net_error, Toast.LENGTH_SHORT)
 						.show();
 				break;
 			case EventType.SERVER_INNER_ERROR:
-				Toast.makeText(activity, R.string.server_error, Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(activity, R.string.server_error,
+						Toast.LENGTH_SHORT).show();
 				break;
 			case EventType.SERVER_BUSY:
-				Toast.makeText(activity, R.string.server_error, Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(activity, R.string.server_error,
+						Toast.LENGTH_SHORT).show();
 				break;
 			case EventType.AUTH_CODE_IS_INVALID:
 				Utils.showSingleBtnEventDlg(EventType.AUTH_CODE_IS_INVALID,
@@ -81,7 +85,7 @@ public class MyHandler extends Handler {
 	}
 
 	private void showRestartDlg(int resID) {
-		Utils.showSingleBtnResDlg(resID, activity, new OnClickListener() {
+		Utils.showSingleBtnMustConfirmResDlg(resID, activity, new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

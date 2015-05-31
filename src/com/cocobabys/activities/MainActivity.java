@@ -1,6 +1,7 @@
 package com.cocobabys.activities;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import android.app.TabActivity;
@@ -23,6 +24,8 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 
 import com.cocobabys.R;
 import com.cocobabys.bean.AdInfo;
@@ -76,7 +79,30 @@ public class MainActivity extends TabActivity {
 		MobclickAgent.setCatchUncaughtExceptions(!MyApplication.getInstance()
 				.isForTest());
 
-		ShareSDK.initSDK(this);
+		if (MyApplication.getInstance().isWeixinBypass()) {
+			ShareSDK.initSDK(this);
+		} else {
+			ShareSDK.initSDK(this, "77da60e4dcd8");
+			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+			hashMap.put("Id", "4");
+			hashMap.put("SortId", "4");
+			hashMap.put("AppId", "wxf3c9e8b20267320e");
+			hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
+			hashMap.put("BypassApproval", "false");
+			hashMap.put("Enable", "true");
+			ShareSDK.setPlatformDevInfo(Wechat.NAME, hashMap);
+
+			hashMap = new HashMap<String, Object>();
+			hashMap.put("Id", "5");
+			hashMap.put("SortId", "5");
+			hashMap.put("AppId", "wxf3c9e8b20267320e");
+			hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
+			hashMap.put("BypassApproval", "false");
+			hashMap.put("Enable", "true");
+
+			ShareSDK.setPlatformDevInfo(WechatMoments.NAME, hashMap);
+		}
+
 	}
 
 	private void runCheckBindTask() {

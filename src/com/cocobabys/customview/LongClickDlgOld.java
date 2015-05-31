@@ -17,13 +17,18 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 import com.cocobabys.R;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.bean.ShareInfo;
-import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dlgmgr.DlgMgr;
 import com.cocobabys.share.WeiXinUtils;
-import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
-public class LongClickDlg {
+public class LongClickDlgOld {
+	private String textContent = "";
+	// 本地路径，用来保存到图库
+	private String imageUrl = "";
+
+	// 服务器路径，用来分享到微信微博
+	private String shareUrl = "";
+
 	private DeleteChatListener deleteChatListener = null;
 	private OnDeleteBtnClickListener onDeleteBtnClickListener = null;
 	private Context context;
@@ -40,7 +45,7 @@ public class LongClickDlg {
 		this.info = info;
 	}
 
-	public LongClickDlg(Context context) {
+	public LongClickDlgOld(Context context) {
 		this.context = context;
 
 		initProgressDlg(context);
@@ -84,22 +89,34 @@ public class LongClickDlg {
 		this.onDeleteBtnClickListener = onDeleteBtnClickListener;
 	}
 
+	public String getTextContent() {
+		return textContent;
+	}
+
+	public void setTextContent(String textContent) {
+		this.textContent = textContent;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	public void showDlg() {
 		List<String> list = new ArrayList<String>();
-		if (!TextUtils.isEmpty(info.getContent())) {
+		if (!TextUtils.isEmpty(textContent)) {
 			list.add(Utils.getResString(R.string.copy));
 		}
 
-		if (info.isValidShareType() && !TextUtils.isEmpty(info.getLocalUrl())
-				&& new File(info.getLocalUrl()).exists()) {
-
-			if (JSONConstant.IMAGE_TYPE.equals(info.getMediaType())) {
-				list.add(Utils.getResString(R.string.save_to_gallery));
-			}
+		if (!TextUtils.isEmpty(imageUrl) && new File(imageUrl).exists()) {
+			list.add(Utils.getResString(R.string.save_to_gallery));
 
 			if (MyApplication.getInstance().isForTest()) {
 				// 微信目前不支持分享视频到朋友圈
-				if (!JSONConstant.VIDEO_TYPE.equals(info.getMediaType())) {
+				if (!shareUrl.endsWith(Utils.DEFAULT_VIDEO_ENDS)) {
 					list.add(Utils.getResString(R.string.share_to_wexin_circle));
 				}
 				list.add(Utils.getResString(R.string.share_to_wexin_friends));
@@ -137,27 +154,25 @@ public class LongClickDlg {
 			}
 		} else if (Utils.getResString(R.string.share_to_wexin_circle).equals(
 				btnName)) {
-			copyFile();
-			Log.d("", "share_to_wexin_circle shareUrl=" + info.getMediaUrl());
-			WeiXinUtils.getInstance().share("", "", info.getMediaUrl(),
-					Platform.SHARE_IMAGE, WechatMoments.NAME);
+			Log.d("", "share_to_wexin_circle shareUrl=" + shareUrl);
+			WeiXinUtils.getInstance().share("", "", shareUrl,
+					Platform.SHARE_FILE, WechatMoments.NAME);
 		} else if (Utils.getResString(R.string.share_to_wexin_friends).equals(
 				btnName)) {
-			copyFile();
-			Log.d("", "share_to_wexin_friends shareUrl=" + info.getMediaUrl());
-			WeiXinUtils.getInstance().share("", "", info.getMediaUrl(),
+			Log.d("", "share_to_wexin_friends shareUrl=" + shareUrl);
+			WeiXinUtils.getInstance().share("", "", shareUrl,
 					Platform.SHARE_FILE, Wechat.NAME);
 		}
 	}
 
 	private void handleCopy() {
-		Utils.copy(info.getContent());
+		Utils.copy(textContent);
 		Utils.makeToast(context, R.string.copy_to_clipboard);
 	}
 
 	private void handleAddToGallery() {
 		try {
-			File file = new File(info.getLocalUrl());
+			File file = new File(imageUrl);
 			Utils.addPicToGallery(Uri.fromFile(file));
 			Utils.makeToast(context, R.string.copy_to_gallery);
 		} catch (Exception e) {
@@ -175,42 +190,5 @@ public class LongClickDlg {
 		public void onDeleteSuccess();
 
 		public void onDeleteFail();
-	}
-
-	private void copyFile() {
-		String mediaUrl = info.getLocalUrl();
-		Log.d("", "mediaUrl =" + mediaUrl);
-
-		// 如果本地文件带扩展名，则可以直接传给微信
-		if (mediaUrl.endsWith(Utils.PNG_EXT)
-				|| mediaUrl.endsWith(Utils.JPG_EXT)
-				|| mediaUrl.endsWith(Utils.DEFAULT_VIDEO_ENDS)) {
-			info.setMediaUrl(mediaUrl);
-			return;
-		}
-
-		// 本地保存的文件是不带扩展名的，为了不显示在本地相册
-		// 而微信上需要扩展名，否则打不开文件,这里需要拷贝一份分享文件到本地
-		String shareFileName = Utils.getName(mediaUrl);
-
-		Log.d("", "shareFileName =" + shareFileName);
-
-		if (JSONConstant.IMAGE_TYPE.equals(info.getMediaType())) {
-			shareFileName += Utils.PNG_EXT;
-		} else if (JSONConstant.VIDEO_TYPE.equals(info.getMediaType())) {
-			shareFileName += Utils.DEFAULT_VIDEO_ENDS;
-		}
-
-		Log.d("", "shareFileName =" + shareFileName);
-
-		File to = new File(Utils.getSDCardFileDir(Utils.APP_DIR_SHARE),
-				shareFileName);
-
-		if (!to.exists()) {
-			Log.d("", "setShareUrl to =" + to.getAbsolutePath());
-			DataUtils.copyFile(new File(mediaUrl), to);
-		}
-
-		info.setMediaUrl(to.getAbsolutePath());
 	}
 }

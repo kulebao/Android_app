@@ -35,31 +35,24 @@
                 android:text="@string/login_notice"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="normal" />
 
             <EditText
                 android:id="@+id/inuputpwdView"
+                style="@style/input_style"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_below="@+id/accountView"
-                android:layout_centerHorizontal="true"
                 android:layout_margin="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/input_normal"
                 android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:hint="@string/inuputpwd"
                 android:inputType="textPassword"
-                android:maxLength="11"
-                android:paddingLeft="10dp"
-                android:paddingRight="4dp"
-                android:singleLine="true"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:maxLength="16" />
 
             <Button
                 android:id="@+id/loginBtn"
-                style="@style/btn_style"
+                style="@style/btn_style_small"
                 android:layout_below="@+id/inuputpwdView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="9dp"
@@ -101,12 +94,12 @@
     </ScrollView>
 
     <TextView
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/scrollView"
         style="@style/NormalTextviewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollView"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
         android:text="@string/init_pwd"
         android:textColor="@color/white" />
 

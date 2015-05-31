@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -20,9 +21,9 @@ import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class SlideGalleryAdapter extends BaseAdapter {
 	private LayoutInflater infalter;
@@ -31,6 +32,7 @@ public class SlideGalleryAdapter extends BaseAdapter {
 	private DownloadImgeJob downloadImgeJob;
 	private Handler handler;
 	private ImageLoader imageLoader;
+	private DisplayImageOptions options;
 
 	public SlideGalleryAdapter(Context c, ExpInfo expInfo,
 			DownloadImgeJob downloadImgeJob) {
@@ -46,6 +48,14 @@ public class SlideGalleryAdapter extends BaseAdapter {
 		addToDownloadTask(expInfo);
 
 		imageLoader = ImageUtils.getImageLoader();
+
+		options = new DisplayImageOptions.Builder()
+				.showImageOnFail(R.drawable.default_icon) // 设置图片加载/解码过程中错误时候显示的图片
+				.cacheInMemory(true)// 设置下载的图片是否缓存在内存中
+				// .considerExifParams(true) // 是否考虑JPEG图像EXIF参数（旋转，翻转）
+				.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)// 设置图片以如何的编码方式显示
+				.bitmapConfig(Bitmap.Config.RGB_565)// 设置图片的解码类型//
+				.build();// 构建完成
 	}
 
 	public SlideGalleryAdapter(Context c, List<String> localUrlList) {
@@ -140,17 +150,7 @@ public class SlideGalleryAdapter extends BaseAdapter {
 
 		url = "file://" + url;
 
-		imageLoader.displayImage(url, holder.imageView,
-				new SimpleImageLoadingListener() {
-					@Override
-					public void onLoadingFailed(String imageUri, View view,
-							FailReason failReason) {
-						holder.imageView
-								.setImageResource(R.drawable.default_icon);
-						super.onLoadingFailed(imageUri, view, failReason);
-					}
-
-				});
+		imageLoader.displayImage(url, holder.imageView, options);
 	}
 
 	private void showAnimate(final ViewHolder holder, String path) {

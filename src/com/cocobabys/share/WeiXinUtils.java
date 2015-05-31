@@ -2,6 +2,7 @@ package com.cocobabys.share;
 
 import java.util.HashMap;
 
+import android.util.Log;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.Platform.ShareParams;
 import cn.sharesdk.framework.PlatformActionListener;
@@ -19,17 +20,24 @@ public class WeiXinUtils {
 		paListener = new PlatformActionListener() {
 			@Override
 			public void onError(Platform arg0, int arg1, Throwable arg2) {
-
+				// Utils.makeToast(MyApplication.getInstance(), "err code=" +
+				// arg1);
+				Log.e("", "djcweixin arg2=" + arg2.getMessage() + " arg1="
+						+ arg1);
 			}
 
 			@Override
 			public void onComplete(Platform arg0, int arg1,
 					HashMap<String, Object> arg2) {
+				// Utils.makeToast(MyApplication.getInstance(), "onComplete");
+				Log.e("", "djcweixin onComplete");
 			}
 
 			@Override
 			public void onCancel(Platform arg0, int arg1) {
-
+				// Utils.makeToast(MyApplication.getInstance(), "onCancel arg1="
+				// + arg1);
+				Log.e("", "djcweixin onCancel arg1 =" + arg1);
 			}
 		};
 	}
