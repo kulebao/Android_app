@@ -25,6 +25,7 @@
             style="@style/item_style"
             android:layout_marginTop="8dp"
             android:paddingLeft="10dp"
+            android:textSize="14sp"
             android:text="title"
             android:textColor="@color/black" />
 
@@ -42,7 +43,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/titleView"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:lines="2"
                 android:maxLines="2"

@@ -28,7 +28,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:textColor="@color/juhong" />
+                android:textColor="@color/black" />
 
             <RelativeLayout
                 android:id="@+id/middle"

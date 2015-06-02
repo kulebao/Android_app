@@ -273,13 +273,15 @@ public class NoticePullRefreshActivity extends UmengStatisticsActivity {
 	private void startTo(News info) {
 		Intent intent = new Intent(this, NoticeActivity.class);
 		// intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
-		intent.putExtra(JSONConstant.NOTIFICATION_BODY, info.getContent());
-		intent.putExtra(JSONConstant.TIME_STAMP,
-				Utils.formatChineseTime(info.getTimestamp()));
-		intent.putExtra(JSONConstant.PUBLISHER, info.getFrom());
-		intent.putExtra(JSONConstant.NET_URL, info.getIcon_url());
-		intent.putExtra(JSONConstant.LOCAL_URL, info.getNewsLocalIconPath());
+		// intent.putExtra(JSONConstant.NOTIFICATION_TITLE, info.getTitle());
+		// intent.putExtra(JSONConstant.NOTIFICATION_BODY, info.getContent());
+		// intent.putExtra(JSONConstant.TIME_STAMP,
+		// Utils.formatChineseTime(info.getTimestamp()));
+		// intent.putExtra(JSONConstant.PUBLISHER, info.getFrom());
+		// intent.putExtra(JSONConstant.NET_URL, info.getIcon_url());
+		// intent.putExtra(JSONConstant.LOCAL_URL, info.getNewsLocalIconPath());
+
+		intent.putExtra(JSONConstant.NOTIFICATION_ID, info.getId());
 		startActivity(intent);
 	}
 

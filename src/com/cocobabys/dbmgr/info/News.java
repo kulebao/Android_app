@@ -4,6 +4,8 @@ import java.io.File;
 
 import android.text.TextUtils;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.utils.Utils;
 
@@ -167,6 +169,23 @@ public class News {
 			e.printStackTrace();
 		}
 		return ret;
+	}
+
+	// 获取通知类型的字符串表示，园内公告，班级通知，亲子作业等
+	public String getNoticeTypeStr() {
+
+		// tags不为空则显示标签
+		if (!TextUtils.isEmpty(tags)
+				&& tags.contains(ConstantValue.TAGS_HOMEWORK)) {
+			return Utils.getResString(R.string.homework);
+		}
+
+		// classid对于0表示范围是学校
+		if (getClass_id() == 0) {
+			return Utils.getResString(R.string.pnotice);
+		} else {
+			return Utils.getResString(R.string.cnotice);
+		}
 	}
 
 }

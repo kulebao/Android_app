@@ -24,10 +24,8 @@ import com.cocobabys.customview.CustomGallery;
 import com.cocobabys.fragment.GalleryDirListFragment;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import de.greenrobot.event.EventBus;
 
@@ -47,7 +45,6 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 
 	private String action;
 	private String currentDir = ConstantValue.RECENTLY_PIC_DIR;
-	private ImageLoader imageLoader;
 
 	// 当前选中的图片，因为图片可以分目录显示，所以需要在这里统一保存一份,adapter里保存的是当前目录下选中的图片
 	private ArrayList<CustomGallery> currentSelected = new ArrayList<CustomGallery>(
@@ -64,7 +61,6 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 			return;
 		}
 		initHandler();
-		initImageLoader();
 		createFragmentSlideMenu();
 		init();
 	}
@@ -88,10 +84,6 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 				}
 			}
 		};
-	}
-
-	private void initImageLoader() {
-		imageLoader = ImageUtils.getImageLoader();
 	}
 
 	public CustomGalleryAdapter getAdapter() {
@@ -134,9 +126,9 @@ public class CustomGalleryActivity extends BaseEventFragmentActivity {
 	private void initGallery() {
 		gridGallery = (GridView) findViewById(R.id.gridGallery);
 		gridGallery.setFastScrollEnabled(true);
-		adapter = new CustomGalleryAdapter(getApplicationContext(), imageLoader);
+		adapter = new CustomGalleryAdapter(getApplicationContext());
 		adapter.setShowDefaultPic(true);
-		
+
 		if (action.equalsIgnoreCase(NoticeAction.ACTION_MULTIPLE_PICK)) {
 			findViewById(R.id.llBottomContainer).setVisibility(View.VISIBLE);
 			gridGallery.setOnItemClickListener(mItemMulClickListener);

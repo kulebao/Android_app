@@ -263,5 +263,7 @@
     <string name="share_to_wexin_friends">发送给微信好友</string>
     <string name="take_pic_failed">拍照失败</string>
     <string name="choose_pic_failed">选择图片失败</string>
+    
+    <string name="exp_content">发布内容</string>
 
 </resources>

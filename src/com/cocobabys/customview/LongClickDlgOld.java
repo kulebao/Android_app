@@ -155,12 +155,12 @@ public class LongClickDlgOld {
 		} else if (Utils.getResString(R.string.share_to_wexin_circle).equals(
 				btnName)) {
 			Log.d("", "share_to_wexin_circle shareUrl=" + shareUrl);
-			WeiXinUtils.getInstance().share("", "", shareUrl,
+			WeiXinUtils.getInstance().shareFile("", "", shareUrl,
 					Platform.SHARE_FILE, WechatMoments.NAME);
 		} else if (Utils.getResString(R.string.share_to_wexin_friends).equals(
 				btnName)) {
 			Log.d("", "share_to_wexin_friends shareUrl=" + shareUrl);
-			WeiXinUtils.getInstance().share("", "", shareUrl,
+			WeiXinUtils.getInstance().shareFile("", "", shareUrl,
 					Platform.SHARE_FILE, Wechat.NAME);
 		}
 	}

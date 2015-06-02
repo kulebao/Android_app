@@ -10,8 +10,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaScannerConnection;
-import android.media.MediaScannerConnection.MediaScannerConnectionClient;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,7 +18,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -46,25 +43,23 @@ import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SendExpActivity extends UmengStatisticsActivity{
-    private static final int       VIDEO_RECORD = 0;
-    private static final int       VIDEO_FILE   = 1;
-    private GridView               gridGallery;
-    private Handler                myhandler;
-    private GalleryAdapter         adapter;
+    private static final int VIDEO_RECORD = 0;
+    private static final int VIDEO_FILE   = 1;
+    private GridView         gridGallery;
+    private Handler          myhandler;
+    private GalleryAdapter   adapter;
     // private ViewSwitcher viewSwitcher;d
-    private ImageLoader            imageLoader;
-    private Uri                    uri;
-    private EditText               exp_content;
-    private MediaScannerConnection msc;
-    private ProgressDialog         dialog;
-    private Uri                    mVideoUri;
-    private ImageView              videonail;
+    private ImageLoader      imageLoader;
+    private Uri              uri;
+    private EditText         exp_content;
+    private ProgressDialog   dialog;
+    private Uri              mVideoUri;
+    private ImageView        videonail;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_exp);
-        msc = new MediaScannerConnection(this, new MyMediaScannerConnectionClient());
         initImageLoader();
         initUI();
         initHander();
@@ -81,30 +76,9 @@ public class SendExpActivity extends UmengStatisticsActivity{
     }
 
     private void initHeader(){
-        TextView send = (TextView)findViewById(R.id.rightBtn);
-        send.setText(R.string.send);
-        send.setVisibility(View.VISIBLE);
-        send.setOnClickListener(new OnClickListener(){
-            @Override
-            public void onClick(View v){
-                if(!checkContentValid()){
-                    Utils.makeToast(SendExpActivity.this, R.string.invalid_exp_content);
-                    return;
-                }
-                runSendExpJob();
-            }
-        });
-
-        TextView cancel = (TextView)findViewById(R.id.leftBtn);
-        cancel.setText(R.string.cancel);
-        cancel.setVisibility(View.VISIBLE);
-        cancel.setOnClickListener(new OnClickListener(){
-            @Override
-            public void onClick(View v){
-                SendExpActivity.this.finish();
-            }
-        });
-
+        TextView topbarTitleView = (TextView)findViewById(R.id.topbarTitleView);
+        topbarTitleView.setText(R.string.exp_content);
+        topbarTitleView.setVisibility(View.VISIBLE);
     }
 
     protected boolean checkContentValid(){
@@ -198,18 +172,6 @@ public class SendExpActivity extends UmengStatisticsActivity{
         expJob.execute();
     }
 
-    // 将拍照后保存的照片加入到图库,速度慢
-    private void galleryAddPic(){
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        mediaScanIntent.setData(uri);
-        this.sendBroadcast(mediaScanIntent);
-    }
-
-    // 将拍照后保存的照片加入到图库,速度快
-    private void galleryAddPicExt(){
-        msc.connect();
-    }
-
     protected void startToSlideGalleryActivity(int position){
         Intent intent = new Intent(NoticeAction.ACTION_GALLERY_CAN_DELETE);
         List<String> allSelectedPath = adapter.getAllSelectedPath();
@@ -292,26 +254,6 @@ public class SendExpActivity extends UmengStatisticsActivity{
         // Intent intent = new Intent(this, RecordVideoActivity.class);
         Intent intent = new Intent(this, RecordVideoActivity.class);
         startActivityForResult(intent, NoticeAction.VIDEO_CAPTURE_SELF);
-    }
-
-    private void RecordVideoBySys(){
-        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        // 设置了下面这个参数后，系统摄像头就无法选择画质了，1表示高清，0表示低分辨率
-        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
-        // 设置最大录像时间，单位秒
-        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60);
-        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 5 * 1024 * 1024);
-
-        // ur = Environment.getExternalStorageDirectory().getPath() +
-        // "/Test_Movie.m4v";
-        // File file = new File(ur);
-        //
-        // Uri uri = Uri.fromFile(file);
-        //
-        // Log.d("DDD", "path =" + uri.getPath());
-        // intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        // 指定录像文件最大尺寸，单位字节
-        startActivityForResult(intent, NoticeAction.VIDEO_CAPTURE_SYS);
     }
 
     @Override
@@ -498,19 +440,11 @@ public class SendExpActivity extends UmengStatisticsActivity{
         super.onDestroy();
     }
 
-    private class MyMediaScannerConnectionClient implements MediaScannerConnectionClient{
-
-        @Override
-        public void onMediaScannerConnected(){
-            Log.d("DDD", "onMediaScannerConnected");
-            msc.scanFile(uri.getPath(), "image/jpeg");
+    public void sendExp(View view){
+        if(!checkContentValid()){
+            Utils.makeToast(SendExpActivity.this, R.string.invalid_exp_content);
+            return;
         }
-
-        @Override
-        public void onScanCompleted(String path, Uri uri){
-            Log.d("DDD", "onScanCompleted");
-            msc.disconnect();
-        }
-
+        runSendExpJob();
     }
 }

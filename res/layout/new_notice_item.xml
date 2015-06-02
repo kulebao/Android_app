@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/iconView"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"
@@ -40,6 +40,7 @@
             style="@style/item_style"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
+            android:textSize="14sp"
             android:layout_toRightOf="@+id/tagView"
             android:text="title"
             android:textColor="@color/black" />

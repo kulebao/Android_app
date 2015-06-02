@@ -45,11 +45,10 @@
 
         <Button
             android:id="@+id/btnGalleryOk"
-            style="@style/btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/big_btn"
+            style="@style/btn_style_small"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/small_btn"
             android:text="@string/confirm" />
     </LinearLayout>
 

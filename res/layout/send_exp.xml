@@ -36,42 +36,28 @@
 
         <Button
             android:id="@+id/camera"
-            style="@style/btn"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
+            style="@style/send_exp_btn_style"
             android:background="@drawable/small_btn"
-            android:gravity="center"
-            android:paddingBottom="4dp"
             android:text="拍照" />
 
         <Button
             android:id="@+id/gallery"
-            style="@style/btn"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
+            style="@style/send_exp_btn_style"
             android:background="@drawable/small_btn"
-            android:gravity="center"
-            android:paddingBottom="4dp"
             android:text="图库" />
 
         <Button
             android:id="@+id/video"
-            style="@style/btn"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
+            style="@style/send_exp_btn_style"
             android:background="@drawable/small_btn"
-            android:gravity="center"
-            android:paddingBottom="4dp"
             android:text="视频"
+            android:visibility="visible" />
+
+        <Button
+            android:onClick="sendExp"
+            style="@style/send_exp_btn_style"
+            android:background="@drawable/small_btn"
+            android:text="@string/send"
             android:visibility="visible" />
     </LinearLayout>
 
