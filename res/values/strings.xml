@@ -265,5 +265,16 @@
     <string name="choose_pic_failed">选择图片失败</string>
     
     <string name="exp_content">发布内容</string>
+    
+    <string name="share">分\u0020\u0020\u0020\u0020享</string>
+    
+    <string name="wechat_friends">微信好友</string>
+    <string name="wechat_circle">微信朋友圈</string>
+    
+    <string name="share_failed">分享失败</string>
+    <string name="sharing">分享中，请稍后...</string>
+    
+    <string name="send_feedback">发送回执</string>
+    <string name="sending_feedback">发送回执中...</string>
 
 </resources>

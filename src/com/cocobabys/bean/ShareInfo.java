@@ -4,16 +4,26 @@ import com.cocobabys.constant.JSONConstant;
 
 public class ShareInfo{
     // 分享的文字内容
-    private String title     = "";
+    private String    title     = "";
     // 分享的文字内容
-    private String content   = "";
+    private String    content   = "";
 
     // 本地源文件路径
-    private String localUrl  = "";
+    private String    localUrl  = "";
     // 分享出去的路径
-    private String mediaUrl  = "";
+    private String    mediaUrl  = "";
     // 分享的类型
-    private String mediaType = JSONConstant.IMAGE_TYPE;
+    private String    mediaType = JSONConstant.IMAGE_TYPE;
+
+    private ShareType shareType = ShareType.TYPE_NONE;
+
+    public ShareType getShareType(){
+        return shareType;
+    }
+
+    public void setShareType(ShareType shareType){
+        this.shareType = shareType;
+    }
 
     public ShareInfo(String content){
         this.content = content;
@@ -70,5 +80,12 @@ public class ShareInfo{
 
     public boolean isValidShareType(){
         return JSONConstant.IMAGE_TYPE.equals(mediaType) || JSONConstant.VIDEO_TYPE.equals(mediaType);
+    }
+
+    public static enum ShareType{
+            TYPE_NONE,
+            TYPE_FILE,
+            TYPE_URL,
+            TYPE_WEBPAGE
     }
 }

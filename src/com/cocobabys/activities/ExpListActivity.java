@@ -123,7 +123,7 @@ public class ExpListActivity extends UmengStatisticsActivity {
 		}
 
 		if (adapter != null) {
-			adapter.releaseCache();
+			adapter.close();
 		}
 		super.onDestroy();
 	}

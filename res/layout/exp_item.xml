@@ -9,8 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:paddingBottom="5dp" >
 
         <RelativeLayout
@@ -89,6 +89,18 @@
                 android:scaleType="center"
                 android:src="@drawable/pvideo" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/share"
+            style="@style/TitleTextStyle"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/share"
+            android:visibility="gone"
+            android:textColor="@color/blue"
+            android:textSize="14sp" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -2,11 +2,15 @@ package com.cocobabys.share;
 
 import java.util.HashMap;
 
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.Platform.ShareParams;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
+
+import com.cocobabys.R;
+import com.cocobabys.activities.MyApplication;
 
 public class WeiXinUtils{
 
@@ -72,11 +76,29 @@ public class WeiXinUtils{
         // 本地文件的方式，由微信服务器负责上传下载，节约费用。。。
         wechat.setImageUrl(mediumUrl);
         wechat.setUrl(mediumUrl);
-
+        wechat.setImageData(BitmapFactory.decodeResource(MyApplication.getInstance().getResources(), R.drawable.logo));
         wechat.setShareType(type);
 
         Platform weixin = ShareSDK.getPlatform(platform);
         Log.w("", "djcweixin mediumUrl =" + mediumUrl + " type=" + type + " platform=" + platform);
+        weixin.setPlatformActionListener(paListener);
+        weixin.share(wechat);
+    }
+
+    // 分享网页
+    public void shareWebPage(String title, String content, String mediumUrl, String platform){
+        ShareParams wechat = new ShareParams();
+        wechat.setTitle(title);
+        wechat.setText(content);
+
+        mediumUrl = mediumUrl.replace("https", "http");
+
+        wechat.setUrl(mediumUrl);
+        wechat.setImageData(BitmapFactory.decodeResource(MyApplication.getInstance().getResources(), R.drawable.logo));
+        wechat.setShareType(Platform.SHARE_WEBPAGE);
+
+        Platform weixin = ShareSDK.getPlatform(platform);
+        Log.w("", "djcweixin mediumUrl =" + mediumUrl + " type=" + Platform.SHARE_WEBPAGE + " platform=" + platform);
         weixin.setPlatformActionListener(paListener);
         weixin.share(wechat);
     }

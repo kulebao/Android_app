@@ -15,7 +15,6 @@ import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 
 import com.cocobabys.R;
-import com.cocobabys.activities.MyApplication;
 import com.cocobabys.bean.ShareInfo;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dlgmgr.DlgMgr;
@@ -95,13 +94,14 @@ public class LongClickDlg{
                 list.add(Utils.getResString(R.string.save_to_gallery));
             }
 
-            if(MyApplication.getInstance().isForTest()){
-                // 微信目前不支持分享视频到朋友圈
-                if(!JSONConstant.VIDEO_TYPE.equals(info.getMediaType())){
-                    list.add(Utils.getResString(R.string.share_to_wexin_circle));
-                }
-                list.add(Utils.getResString(R.string.share_to_wexin_friends));
-            }
+            // 暂时屏蔽长按显示分享的选项
+            // if(MyApplication.getInstance().isForTest()){
+            // // 微信目前不支持分享视频到朋友圈
+            // if(!JSONConstant.VIDEO_TYPE.equals(info.getMediaType())){
+            // list.add(Utils.getResString(R.string.share_to_wexin_circle));
+            // }
+            // list.add(Utils.getResString(R.string.share_to_wexin_friends));
+            // }
         }
 
         if(onDeleteBtnClickListener != null){

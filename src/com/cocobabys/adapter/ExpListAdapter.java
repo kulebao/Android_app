@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,14 +27,16 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 
 import com.cocobabys.R;
 import com.cocobabys.activities.ShowVideoActivity;
 import com.cocobabys.bean.IconInfo;
 import com.cocobabys.bean.SenderInfo;
 import com.cocobabys.bean.ShareInfo;
+import com.cocobabys.bean.ShareToken;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
@@ -46,7 +50,9 @@ import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.jobs.DeleteExpJob;
+import com.cocobabys.jobs.GetExpShareTokenJob;
 import com.cocobabys.jobs.GetSenderInfoJob;
+import com.cocobabys.share.WeiXinUtils;
 import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.ImageDownloader;
@@ -59,6 +65,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 public class ExpListAdapter extends BaseAdapter{
     private static final String      SELF_NAME              = "我";
     private static final String      DEFAULT_PARENT_NAME    = "家长";
+    private static final String      SHARE_CONTENT          = "分享";
 
     private LruCache<String, Bitmap> lruCache;
     private final Context            context;
@@ -72,6 +79,8 @@ public class ExpListAdapter extends BaseAdapter{
     private LongClickDlg             longClickDlg;
     private static final String      ANONYMOUS_TEACHER_NAME = "匿名老师";
     private int                      deletePos              = -1;
+    private String                   shareType              = "";
+    private ProgressDialog           dialog;
 
     public ExpListAdapter(Context activityContext, List<ExpInfo> list, DownloadImgeJob downloadImgeTask,
             GetSenderInfoJob getTeacherInfoJob, ImageLoader imageLoader){
@@ -81,15 +90,17 @@ public class ExpListAdapter extends BaseAdapter{
         this.getSenderInfoJob = getTeacherInfoJob;
         this.imageLoader = imageLoader;
 
-        final int maxMemory = (int)(Runtime.getRuntime().maxMemory() / 1024);
+        initCache();
+        initHandler();
 
-        lruCache = new LruCache<String, Bitmap>(maxMemory){
-            @Override
-            protected int sizeOf(String key, Bitmap value){
-                return value.getRowBytes() * value.getHeight() / 1024;
-            }
-        };
+        dialog = new ProgressDialog(context);
+        dialog.setTitle(R.string.sharing);
 
+        this.downloadImgeJob.setHanlder(handler);
+        this.getSenderInfoJob.setHanlder(handler);
+    }
+
+    private void initHandler(){
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg){
@@ -104,8 +115,12 @@ public class ExpListAdapter extends BaseAdapter{
                     case EventType.DELETE_EXP_SUCCESS:
                         handleDeleteSuccess();
                         break;
-                    case EventType.DELETE_EXP_FAIL:
-                        longClickDlg.getDeleteChatListener().onDeleteFail();
+                    case EventType.GET_EXP_TOKEN_SUCCESS:
+                        handleGetShareTokenSuccess(msg);
+                        break;
+                    case EventType.GET_EXP_TOKEN_FAIL:
+                        dialog.dismiss();
+                        Utils.makeToast(context, R.string.share_failed);
                         break;
                     default:
                         break;
@@ -113,8 +128,24 @@ public class ExpListAdapter extends BaseAdapter{
             }
 
         };
-        this.downloadImgeJob.setHanlder(handler);
-        this.getSenderInfoJob.setHanlder(handler);
+    }
+
+    private void handleGetShareTokenSuccess(Message msg){
+        dialog.dismiss();
+        ShareToken shareToken = (ShareToken)msg.obj;
+        Log.d("", "share url =" + shareToken.buildShareUrl());
+        WeiXinUtils.getInstance().shareWebPage(SHARE_CONTENT, SHARE_CONTENT, shareToken.buildShareUrl(), shareType);
+    }
+
+    private void initCache(){
+        final int maxMemory = (int)(Runtime.getRuntime().maxMemory() / 1024);
+
+        lruCache = new LruCache<String, Bitmap>(maxMemory){
+            @Override
+            protected int sizeOf(String key, Bitmap value){
+                return value.getRowBytes() * value.getHeight() / 1024;
+            }
+        };
     }
 
     private void handleDeleteSuccess(){
@@ -168,11 +199,11 @@ public class ExpListAdapter extends BaseAdapter{
             convertView = LayoutInflater.from(this.context).inflate(R.layout.exp_item, null);
             flagholder = new FlagHolder();
             flagholder.nameView = (TextView)convertView.findViewById(R.id.name);
+            flagholder.shareView = (TextView)convertView.findViewById(R.id.share);
             flagholder.contentView = (TextView)convertView.findViewById(R.id.content);
             flagholder.timestampView = (TextView)convertView.findViewById(R.id.time);
             flagholder.headiconView = (ImageView)convertView.findViewById(R.id.headicon);
             flagholder.gridview = (MyGridView)convertView.findViewById(R.id.gridview);
-            flagholder.layout = (LinearLayout)convertView.findViewById(R.id.linearLayout);
             flagholder.videonail = (ImageView)convertView.findViewById(R.id.videonail);
 
             convertView.setTag(flagholder);
@@ -196,16 +227,65 @@ public class ExpListAdapter extends BaseAdapter{
         setContent(flagholder, info);
 
         if(JSONConstant.IMAGE_TYPE.equals(info.getMediumType())){
+            flagholder.shareView.setVisibility(View.VISIBLE);
             setIcon(flagholder, info);
         } else if(JSONConstant.VIDEO_TYPE.equals(info.getMediumType())){
+            flagholder.shareView.setVisibility(View.VISIBLE);
             Log.d("DDDE", "DDDE setVideoNail medium=" + info.getMedium() + "  type=" + info.getMediumType());
             setVideoNail(flagholder, info);
         } else{
+            flagholder.shareView.setVisibility(View.GONE);
             flagholder.videonail.setVisibility(View.GONE);
             flagholder.gridview.setVisibility(View.GONE);
         }
 
+        setShareBtn(flagholder, info);
+
         setOnLongClickListener(flagholder, position);
+    }
+
+    private void setShareBtn(FlagHolder flagholder, final ExpInfo info){
+        flagholder.shareView.setOnClickListener(new OnClickListener(){
+
+            @Override
+            public void onClick(View view){
+                showDLg(info);
+            }
+        });
+    }
+
+    protected void showDLg(final ExpInfo info){
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        View view = layoutInflater.inflate(R.layout.share_dialog, null);
+        ImageView wechatView = (ImageView)view.findViewById(R.id.wechat);
+        ImageView wechatCircleView = (ImageView)view.findViewById(R.id.wechatCircle);
+
+        final AlertDialog myDialog = new AlertDialog.Builder(context).setView(view).create();
+
+        wechatView.setOnClickListener(new OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                shareType = Wechat.NAME;
+                GetExpShareTokenJob job = new GetExpShareTokenJob(info, handler);
+                job.execute();
+                dialog.show();
+                myDialog.dismiss();
+            }
+        });
+
+        wechatCircleView.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View v){
+                shareType = WechatMoments.NAME;
+                GetExpShareTokenJob job = new GetExpShareTokenJob(info, handler);
+                dialog.show();
+                job.execute();
+                myDialog.dismiss();
+            }
+        });
+
+        myDialog.show();
     }
 
     private void setVideoNail(final FlagHolder flagholder, final ExpInfo info){
@@ -502,9 +582,10 @@ public class ExpListAdapter extends BaseAdapter{
         }
     }
 
-    public void releaseCache(){
+    public void close(){
         lruCache.evictAll();
         senderMap.clear();
+        dialog.dismiss();
         // imageLoader.clearMemoryCache();
     }
 
@@ -515,12 +596,12 @@ public class ExpListAdapter extends BaseAdapter{
     }
 
     private class FlagHolder{
-        public ImageView    videonail;
-        public TextView     nameView;
-        public TextView     contentView;
-        public TextView     timestampView;
-        public ImageView    headiconView;
-        public GridView     gridview;
-        public LinearLayout layout;
+        public ImageView videonail;
+        public TextView  nameView;
+        public TextView  shareView;
+        public TextView  contentView;
+        public TextView  timestampView;
+        public ImageView headiconView;
+        public GridView  gridview;
     }
 }

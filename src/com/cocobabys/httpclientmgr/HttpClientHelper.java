@@ -43,6 +43,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.cocobabys.constant.ConstantValue;
@@ -57,409 +58,389 @@ import com.cocobabys.net.PushMethod;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
-public class HttpClientHelper {
+public class HttpClientHelper{
 
-	private static final String VERSION_CODE = "versioncode";
-	private static HttpClient httpClient;
+    private static final String VERSION_CODE = "versioncode";
+    private static HttpClient   httpClient;
 
-	private HttpClientHelper() {
-	}
+    private HttpClientHelper(){}
 
-	public static synchronized HttpClient getHttpClient() {
-		if (null == httpClient) {
-			// 初始化工作
-			try {
-				KeyStore trustStore = KeyStore.getInstance(KeyStore
-						.getDefaultType());
-				trustStore.load(null, null);
-				SSLSocketFactory sf = new SSLSocketFactoryEx(trustStore);
-				sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER); // 允许所有主机的验证
+    public static synchronized HttpClient getHttpClient(){
+        if(null == httpClient){
+            // 初始化工作
+            try{
+                KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
+                trustStore.load(null, null);
+                SSLSocketFactory sf = new SSLSocketFactoryEx(trustStore);
+                sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER); // 允许所有主机的验证
 
-				HttpParams params = new BasicHttpParams();
-				HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-				HttpProtocolParams.setContentCharset(params,
-						HTTP.DEFAULT_CONTENT_CHARSET);
-				HttpProtocolParams.setUseExpectContinue(params, true);
-				// 设置最大连接数
-				ConnManagerParams.setMaxTotalConnections(params, 50);
-				// 设置获取连接管理器的超时
-				ConnManagerParams.setTimeout(params, 10000);
+                HttpParams params = new BasicHttpParams();
+                HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+                HttpProtocolParams.setContentCharset(params, HTTP.DEFAULT_CONTENT_CHARSET);
+                HttpProtocolParams.setUseExpectContinue(params, true);
+                // 设置最大连接数
+                ConnManagerParams.setMaxTotalConnections(params, 50);
+                // 设置获取连接管理器的超时
+                ConnManagerParams.setTimeout(params, 10000);
 
-				// 设置连接超时
-				HttpConnectionParams.setConnectionTimeout(params, 10000);
-				// 设置socket超时
-				HttpConnectionParams.setSoTimeout(params, 10000);
-				// 设置http https支持
-				SchemeRegistry schReg = new SchemeRegistry();
-				schReg.register(new Scheme("http", PlainSocketFactory
-						.getSocketFactory(), 80));
-				schReg.register(new Scheme("https", sf, 443));
+                // 设置连接超时
+                HttpConnectionParams.setConnectionTimeout(params, 10000);
+                // 设置socket超时
+                HttpConnectionParams.setSoTimeout(params, 10000);
+                // 设置http https支持
+                SchemeRegistry schReg = new SchemeRegistry();
+                schReg.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+                schReg.register(new Scheme("https", sf, 443));
 
-				ClientConnectionManager conManager = new ThreadSafeClientConnManager(
-						params, schReg);
+                ClientConnectionManager conManager = new ThreadSafeClientConnManager(params, schReg);
 
-				httpClient = new DefaultHttpClient(conManager, params);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return new DefaultHttpClient();
-			}
-		}
-		return httpClient;
-	}
+                httpClient = new DefaultHttpClient(conManager, params);
+            } catch(Exception e){
+                e.printStackTrace();
+                return new DefaultHttpClient();
+            }
+        }
+        return httpClient;
+    }
 
-	public static HttpResult executePost(String url, String content)
-			throws Exception {
-		HttpResult result = doPostImpl(url, content);
-		Log.d("execute:", "url =" + url);
-		Log.d("execute:", "content =" + content);
+    public static HttpResult executePost(String url, String content) throws Exception{
+        HttpResult result = doPostImpl(url, content);
+        Log.d("execute:", "url =" + url);
+        Log.d("execute:", "content =" + content);
 
-		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
-			PushMethod method = PushMethod.getMethod();
-			// 内置锁同步，以免A线程请求服务器返回新token后，B线程使用旧token再次请求，导致服务器返回error 3，token错误
-			synchronized (HttpClientHelper.class) {
-				int ret = method.sendBinfInfo();
-				checkResult(ret);
-			}
-			// bind 成功，刷新cookie，重新请求
-			Log.d("DDD code:", "" + "doGetImpl again!");
-			result = doPostImpl(url, content);
-		}
-		return result;
-	}
+        if(result.getResCode() == HttpStatus.SC_UNAUTHORIZED){
+            PushMethod method = PushMethod.getMethod();
+            // 内置锁同步，以免A线程请求服务器返回新token后，B线程使用旧token再次请求，导致服务器返回error 3，token错误
+            synchronized(HttpClientHelper.class){
+                int ret = method.sendBinfInfo();
+                checkResult(ret);
+            }
+            // bind 成功，刷新cookie，重新请求
+            Log.d("DDD code:", "" + "doGetImpl again!");
+            result = doPostImpl(url, content);
+        }
+        return result;
+    }
 
-	private static HttpResult doPostImpl(String url, String content)
-			throws Exception {
-		int status = HttpStatus.SC_UNAUTHORIZED;
-		HttpResult httpResult = new HttpResult();
-		BufferedReader in = null;
-		HttpPost request = new HttpPost();
-		try {
-			// 定义HttpClient
-			HttpClient client = getHttpClient();
-			// 实例化HTTP方法
-			request.setURI(new URI(url));
-			// 所有访问数据的请求，都必须加上token
-			request.setHeader(ConstantValue.HEADER_TOKEN,
-					DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
-			// 所有访问数据的请求，都必须加上source,区别网页和客户端
-			request.setHeader(ConstantValue.HEADER_SOURCE,
-					ConstantValue.SOURCE_ANDROID);
-			request.setHeader("Content-type", "application/json;charset=UTF-8");
-			// 自定义header，带版本号
-			request.setHeader(VERSION_CODE,
-					String.valueOf(DataUtils.getVersionCode()));
-			request.setEntity(new StringEntity(content, HTTP.UTF_8));
+    private static HttpResult doPostImpl(String url, String content) throws Exception{
+        int status = HttpStatus.SC_UNAUTHORIZED;
+        HttpResult httpResult = new HttpResult();
+        BufferedReader in = null;
+        HttpPost request = new HttpPost();
+        try{
+            // 定义HttpClient
+            HttpClient client = getHttpClient();
+            // 实例化HTTP方法
+            request.setURI(new URI(url));
+            // 所有访问数据的请求，都必须加上token
+            request.setHeader(ConstantValue.HEADER_TOKEN, DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
+            // 所有访问数据的请求，都必须加上source,区别网页和客户端
+            request.setHeader(ConstantValue.HEADER_SOURCE, ConstantValue.SOURCE_ANDROID);
+            // 自定义header，带版本号
+            request.setHeader(VERSION_CODE, String.valueOf(DataUtils.getVersionCode()));
 
-			HttpResponse response = client.execute(request);
-			status = response.getStatusLine().getStatusCode();
-			Log.d("DDD doPostImpl code:",
-					"" + status + " vercode=" + DataUtils.getVersionCode());
-			in = readContent(httpResult, response);
-			if (HttpClientHelper.isHttpRequestOK(status)) {
-				request.abort();
-			}
-		} catch (Exception e) {
-			request.abort();
-			throw e;
-		} finally {
-			if (in != null) {
-				try {
-					in.close();// 最后要关闭BufferedReader
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		httpResult.setResCode(status);
-		return httpResult;
-	}
+            if(!TextUtils.isEmpty(content)){
+                request.setHeader("Content-type", "application/json;charset=UTF-8");
+                request.setEntity(new StringEntity(content, HTTP.UTF_8));
+            }
 
-	private static BufferedReader readContent(HttpResult httpResult,
-			HttpResponse response) throws IOException {
-		BufferedReader in;
-		in = new BufferedReader(new InputStreamReader(response.getEntity()
-				.getContent()));
-		StringBuffer sb = new StringBuffer("");
-		String line = "";
-		while ((line = in.readLine()) != null) {
-			sb.append(line);
-		}
-		Log.d("DDD code:", "content =" + sb.toString());
+            HttpResponse response = client.execute(request);
+            status = response.getStatusLine().getStatusCode();
+            Log.d("DDD doPostImpl code:", "" + status + " vercode=" + DataUtils.getVersionCode());
+            in = readContent(httpResult, response);
+            if(HttpClientHelper.isHttpRequestOK(status)){
+                request.abort();
+            }
+        } catch(Exception e){
+            request.abort();
+            throw e;
+        }
+        finally{
+            if(in != null){
+                try{
+                    in.close();// 最后要关闭BufferedReader
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        httpResult.setResCode(status);
+        return httpResult;
+    }
 
-		httpResult.setContent(sb.toString());
-		return in;
-	}
+    private static BufferedReader readContent(HttpResult httpResult, HttpResponse response) throws IOException{
+        BufferedReader in;
+        in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuffer sb = new StringBuffer("");
+        String line = "";
+        while((line = in.readLine()) != null){
+            sb.append(line);
+        }
+        Log.d("DDD code:", "content =" + sb.toString());
 
-	public static HttpResult executeDelete(String url) throws Exception {
-		HttpResult result = doDeleteImpl(url);
-		Log.d("execute:", "url =" + url);
-		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
-			PushMethod method = PushMethod.getMethod();
-			synchronized (HttpClientHelper.class) {
-				int ret = method.sendBinfInfo();
-				checkResult(ret);
-			}
-			// bind 成功，刷新cookie，重新请求
-			Log.d("DDD code:", "" + "doGetImpl again!");
-			result = doDeleteImpl(url);
-		}
-		return result;
-	}
+        httpResult.setContent(sb.toString());
+        return in;
+    }
 
-	private static HttpResult doDeleteImpl(String url) throws Exception {
-		int status = HttpStatus.SC_UNAUTHORIZED;
-		HttpResult httpResult = new HttpResult();
-		BufferedReader in = null;
-		try {
-			// 定义HttpClient
-			HttpClient client = getHttpClient();
-			// 实例化HTTP方法
-			HttpDelete request = new HttpDelete();
-			request.setURI(new URI(url));
-			// 所有访问数据的请求，都必须加上token
-			request.setHeader(ConstantValue.HEADER_TOKEN,
-					DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
-			// 所有访问数据的请求，都必须加上source,区别网页和客户端
-			request.setHeader(ConstantValue.HEADER_SOURCE,
-					ConstantValue.SOURCE_ANDROID);
-			request.setHeader(VERSION_CODE,
-					String.valueOf(DataUtils.getVersionCode()));
+    public static HttpResult executeDelete(String url) throws Exception{
+        HttpResult result = doDeleteImpl(url);
+        Log.d("execute:", "url =" + url);
+        if(result.getResCode() == HttpStatus.SC_UNAUTHORIZED){
+            PushMethod method = PushMethod.getMethod();
+            synchronized(HttpClientHelper.class){
+                int ret = method.sendBinfInfo();
+                checkResult(ret);
+            }
+            // bind 成功，刷新cookie，重新请求
+            Log.d("DDD code:", "" + "doGetImpl again!");
+            result = doDeleteImpl(url);
+        }
+        return result;
+    }
 
-			HttpResponse response = client.execute(request);
-			status = response.getStatusLine().getStatusCode();
-			Log.d("DDD code:", "" + status);
-			if (status != 200) {
-				Log.w("WWW", "doDeleteImpl warning url=" + url);
-			}
-			in = readContent(httpResult, response);
-			if (HttpClientHelper.isHttpRequestOK(status)) {
-				request.abort();
-			}
-		} finally {
-			if (in != null) {
-				try {
-					in.close();// 最后要关闭BufferedReader
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		httpResult.setResCode(status);
-		return httpResult;
-	}
+    private static HttpResult doDeleteImpl(String url) throws Exception{
+        int status = HttpStatus.SC_UNAUTHORIZED;
+        HttpResult httpResult = new HttpResult();
+        BufferedReader in = null;
+        try{
+            // 定义HttpClient
+            HttpClient client = getHttpClient();
+            // 实例化HTTP方法
+            HttpDelete request = new HttpDelete();
+            request.setURI(new URI(url));
+            // 所有访问数据的请求，都必须加上token
+            request.setHeader(ConstantValue.HEADER_TOKEN, DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
+            // 所有访问数据的请求，都必须加上source,区别网页和客户端
+            request.setHeader(ConstantValue.HEADER_SOURCE, ConstantValue.SOURCE_ANDROID);
+            request.setHeader(VERSION_CODE, String.valueOf(DataUtils.getVersionCode()));
 
-	public static HttpResult executeGet(String url) throws Exception {
-		HttpResult result = doGetImpl(url);
-		Log.d("execute:", "url =" + url);
-		if (result.getResCode() == HttpStatus.SC_UNAUTHORIZED) {
-			PushMethod method = PushMethod.getMethod();
-			synchronized (HttpClientHelper.class) {
-				int ret = method.sendBinfInfo();
-				checkResult(ret);
-			}
-			// bind 成功，刷新cookie，重新请求
-			Log.d("DDD code:", "" + "doGetImpl again!");
-			result = doGetImpl(url);
-		}
-		return result;
-	}
+            HttpResponse response = client.execute(request);
+            status = response.getStatusLine().getStatusCode();
+            Log.d("DDD code:", "" + status);
+            if(status != 200){
+                Log.w("WWW", "doDeleteImpl warning url=" + url);
+            }
+            in = readContent(httpResult, response);
+            if(HttpClientHelper.isHttpRequestOK(status)){
+                request.abort();
+            }
+        }
+        finally{
+            if(in != null){
+                try{
+                    in.close();// 最后要关闭BufferedReader
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        httpResult.setResCode(status);
+        return httpResult;
+    }
 
-	private static void checkResult(int ret) {
-		if (ret != EventType.BIND_SUCCESS) {
-			if (ret == EventType.BIND_FAILED) {
-				throw new InvalidTokenException("InvalidTokenException error");
-			} else if (ret == EventType.PHONE_NUM_IS_ALREADY_LOGIN) {
-				throw new DuplicateLoginException(
-						"DuplicateLoginException error");
-			} else if (ret == EventType.PHONE_NUM_IS_INVALID) {
-				throw new AccountExpiredException(
-						"AccountExpiredException error");
-			} else {
-				throw new BindFailException("BindFailException error");
-			}
-		}
-	}
+    public static HttpResult executeGet(String url) throws Exception{
+        HttpResult result = doGetImpl(url);
+        Log.d("execute:", "url =" + url);
+        if(result.getResCode() == HttpStatus.SC_UNAUTHORIZED){
+            PushMethod method = PushMethod.getMethod();
+            synchronized(HttpClientHelper.class){
+                int ret = method.sendBinfInfo();
+                checkResult(ret);
+            }
+            // bind 成功，刷新cookie，重新请求
+            Log.d("DDD code:", "" + "doGetImpl again!");
+            result = doGetImpl(url);
+        }
+        return result;
+    }
 
-	private static HttpResult doGetImpl(String url) throws Exception {
-		int status = HttpStatus.SC_UNAUTHORIZED;
-		HttpResult httpResult = new HttpResult();
-		BufferedReader in = null;
-		try {
-			// 定义HttpClient
-			HttpClient client = getHttpClient();
-			// 实例化HTTP方法
-			HttpGet request = new HttpGet();
-			request.setURI(new URI(url));
-			// 所有访问数据的请求，都必须加上token
-			request.setHeader(ConstantValue.HEADER_TOKEN,
-					DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
-			// 所有访问数据的请求，都必须加上source,区别网页和客户端
-			request.setHeader(ConstantValue.HEADER_SOURCE,
-					ConstantValue.SOURCE_ANDROID);
-			request.setHeader(VERSION_CODE,
-					String.valueOf(DataUtils.getVersionCode()));
+    private static void checkResult(int ret){
+        if(ret != EventType.BIND_SUCCESS){
+            if(ret == EventType.BIND_FAILED){
+                throw new InvalidTokenException("InvalidTokenException error");
+            } else if(ret == EventType.PHONE_NUM_IS_ALREADY_LOGIN){
+                throw new DuplicateLoginException("DuplicateLoginException error");
+            } else if(ret == EventType.PHONE_NUM_IS_INVALID){
+                throw new AccountExpiredException("AccountExpiredException error");
+            } else{
+                throw new BindFailException("BindFailException error");
+            }
+        }
+    }
 
-			HttpResponse response = client.execute(request);
-			status = response.getStatusLine().getStatusCode();
-			Log.d("DDD doGetImpl code:",
-					"" + status + " vercode=" + DataUtils.getVersionCode());
-			if (status != 200) {
-				Log.w("WWW", "doGetImpl warning url=" + url);
-			}
-			in = readContent(httpResult, response);
-			if (HttpClientHelper.isHttpRequestOK(status)) {
-				request.abort();
-			}
-		} finally {
-			if (in != null) {
-				try {
-					in.close();// 最后要关闭BufferedReader
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		httpResult.setResCode(status);
-		return httpResult;
-	}
+    private static HttpResult doGetImpl(String url) throws Exception{
+        int status = HttpStatus.SC_UNAUTHORIZED;
+        HttpResult httpResult = new HttpResult();
+        BufferedReader in = null;
+        try{
+            // 定义HttpClient
+            HttpClient client = getHttpClient();
+            // 实例化HTTP方法
+            HttpGet request = new HttpGet();
+            request.setURI(new URI(url));
+            // 所有访问数据的请求，都必须加上token
+            request.setHeader(ConstantValue.HEADER_TOKEN, DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
+            // 所有访问数据的请求，都必须加上source,区别网页和客户端
+            request.setHeader(ConstantValue.HEADER_SOURCE, ConstantValue.SOURCE_ANDROID);
+            request.setHeader(VERSION_CODE, String.valueOf(DataUtils.getVersionCode()));
 
-	private static boolean isHttpRequestOK(int status) {
-		// 特殊情况，返回400也认为请求成功
-		return (status == HttpStatus.SC_OK || status == HttpStatus.SC_BAD_REQUEST);
-	}
+            HttpResponse response = client.execute(request);
+            status = response.getStatusLine().getStatusCode();
+            Log.d("DDD doGetImpl code:", "" + status + " vercode=" + DataUtils.getVersionCode());
+            if(status != 200){
+                Log.w("WWW", "doGetImpl warning url=" + url);
+            }
+            in = readContent(httpResult, response);
+            if(HttpClientHelper.isHttpRequestOK(status)){
+                request.abort();
+            }
+        }
+        finally{
+            if(in != null){
+                try{
+                    in.close();// 最后要关闭BufferedReader
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        httpResult.setResCode(status);
+        return httpResult;
+    }
 
-	public static void downloadFile(String url, String savepath)
-			throws Exception {
-		File file = new File(savepath);
-		file.createNewFile();
-		OutputStream outputStream = new FileOutputStream(file);
+    private static boolean isHttpRequestOK(int status){
+        // 特殊情况，返回400也认为请求成功
+        return (status == HttpStatus.SC_OK || status == HttpStatus.SC_BAD_REQUEST);
+    }
 
-		int status = HttpStatus.SC_UNAUTHORIZED;
-		InputStream in = null;
-		try {
-			// 定义HttpClient
-			HttpClient client = getHttpClient();
-			// 实例化HTTP方法
-			HttpGet request = new HttpGet();
-			request.setURI(new URI(url));
-			HttpResponse response = client.execute(request);
-			status = response.getStatusLine().getStatusCode();
-			Log.d("DDD code:", "" + status + " url=" + url);
+    public static void downloadFile(String url, String savepath) throws Exception{
+        File file = new File(savepath);
+        file.createNewFile();
+        OutputStream outputStream = new FileOutputStream(file);
 
-			in = response.getEntity().getContent();
-			byte buffer[] = new byte[1024];
-			int length = -1;
-			while ((length = in.read(buffer, 0, 1024)) != -1) {
-				outputStream.write(buffer, 0, length);
-			}
-			if (HttpClientHelper.isHttpRequestOK(status)) {
-				request.abort();
-			}
-		} finally {
-			Utils.close(in);
-			Utils.close(outputStream);
-		}
-	}
+        int status = HttpStatus.SC_UNAUTHORIZED;
+        InputStream in = null;
+        try{
+            // 定义HttpClient
+            HttpClient client = getHttpClient();
+            // 实例化HTTP方法
+            HttpGet request = new HttpGet();
+            request.setURI(new URI(url));
+            HttpResponse response = client.execute(request);
+            status = response.getStatusLine().getStatusCode();
+            Log.d("DDD code:", "" + status + " url=" + url);
 
-	public static void downloadFile(String url, String savepath,
-			DownloadFileListener listener) {
-		File file = new File(savepath);
-		OutputStream outputStream = null;
-		InputStream in = null;
-		int downloadSize = 4096;
-		try {
-			file.createNewFile();
-			outputStream = new FileOutputStream(file);
+            in = response.getEntity().getContent();
+            byte buffer[] = new byte[1024];
+            int length = -1;
+            while((length = in.read(buffer, 0, 1024)) != -1){
+                outputStream.write(buffer, 0, length);
+            }
+            if(HttpClientHelper.isHttpRequestOK(status)){
+                request.abort();
+            }
+        }
+        finally{
+            Utils.close(in);
+            Utils.close(outputStream);
+        }
+    }
 
-			int status = HttpStatus.SC_UNAUTHORIZED;
-			// 定义HttpClient
-			HttpClient client = getHttpClient();
-			// 实例化HTTP方法
-			HttpGet request = new HttpGet();
-			request.setURI(new URI(url));
-			HttpResponse response = client.execute(request);
-			status = response.getStatusLine().getStatusCode();
-			Log.d("DDD code:", "" + status + " url=" + url);
+    public static void downloadFile(String url, String savepath, DownloadFileListener listener){
+        File file = new File(savepath);
+        OutputStream outputStream = null;
+        InputStream in = null;
+        int downloadSize = 4096;
+        try{
+            file.createNewFile();
+            outputStream = new FileOutputStream(file);
 
-			HttpEntity entity = response.getEntity();
-			listener.onBegain(entity.getContentLength());
+            int status = HttpStatus.SC_UNAUTHORIZED;
+            // 定义HttpClient
+            HttpClient client = getHttpClient();
+            // 实例化HTTP方法
+            HttpGet request = new HttpGet();
+            request.setURI(new URI(url));
+            HttpResponse response = client.execute(request);
+            status = response.getStatusLine().getStatusCode();
+            Log.d("DDD code:", "" + status + " url=" + url);
 
-			in = entity.getContent();
-			byte buffer[] = new byte[downloadSize];
-			int length = -1;
+            HttpEntity entity = response.getEntity();
+            listener.onBegain(entity.getContentLength());
 
-			while ((length = in.read(buffer, 0, downloadSize)) != -1) {
-				outputStream.write(buffer, 0, length);
-				listener.onDownloading(length);
-			}
-			if (HttpClientHelper.isHttpRequestOK(status)) {
-				request.abort();
-			}
+            in = entity.getContent();
+            byte buffer[] = new byte[downloadSize];
+            int length = -1;
 
-			listener.onComplete();
-		} catch (Exception e) {
-			listener.onException(e);
-			e.printStackTrace();
-		} finally {
-			Utils.close(in);
-			Utils.close(outputStream);
-		}
-	}
+            while((length = in.read(buffer, 0, downloadSize)) != -1){
+                outputStream.write(buffer, 0, length);
+                listener.onDownloading(length);
+            }
+            if(HttpClientHelper.isHttpRequestOK(status)){
+                request.abort();
+            }
 
-	public static interface DownloadFileListener {
-		public void onBegain(long contentLength);
+            listener.onComplete();
+        } catch(Exception e){
+            listener.onException(e);
+            e.printStackTrace();
+        }
+        finally{
+            Utils.close(in);
+            Utils.close(outputStream);
+        }
+    }
 
-		public void onComplete();
+    public static interface DownloadFileListener{
+        public void onBegain(long contentLength);
 
-		public void onDownloading(int size);
+        public void onComplete();
 
-		public void onException(Exception e);
-	}
+        public void onDownloading(int size);
+
+        public void onException(Exception e);
+    }
 }
 
-class SSLSocketFactoryEx extends SSLSocketFactory {
+class SSLSocketFactoryEx extends SSLSocketFactory{
 
-	SSLContext sslContext = SSLContext.getInstance("TLS");
+    SSLContext sslContext = SSLContext.getInstance("TLS");
 
-	public SSLSocketFactoryEx(KeyStore truststore)
-			throws NoSuchAlgorithmException, KeyManagementException,
-			KeyStoreException, UnrecoverableKeyException {
-		super(truststore);
+    public SSLSocketFactoryEx(KeyStore truststore) throws NoSuchAlgorithmException, KeyManagementException,
+            KeyStoreException, UnrecoverableKeyException{
+        super(truststore);
 
-		TrustManager tm = new X509TrustManager() {
+        TrustManager tm = new X509TrustManager(){
 
-			@Override
-			public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-				return null;
-			}
+            @Override
+            public java.security.cert.X509Certificate[] getAcceptedIssuers(){
+                return null;
+            }
 
-			@Override
-			public void checkClientTrusted(
-					java.security.cert.X509Certificate[] chain, String authType)
-					throws java.security.cert.CertificateException {
+            @Override
+            public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType)
+                    throws java.security.cert.CertificateException{
 
-			}
+            }
 
-			@Override
-			public void checkServerTrusted(
-					java.security.cert.X509Certificate[] chain, String authType)
-					throws java.security.cert.CertificateException {
+            @Override
+            public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType)
+                    throws java.security.cert.CertificateException{
 
-			}
-		};
+            }
+        };
 
-		sslContext.init(null, new TrustManager[] { tm }, null);
-	}
+        sslContext.init(null, new TrustManager[] { tm }, null);
+    }
 
-	@Override
-	public Socket createSocket(Socket socket, String host, int port,
-			boolean autoClose) throws IOException, UnknownHostException {
-		return sslContext.getSocketFactory().createSocket(socket, host, port,
-				autoClose);
-	}
+    @Override
+    public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException,
+            UnknownHostException{
+        return sslContext.getSocketFactory().createSocket(socket, host, port, autoClose);
+    }
 
-	@Override
-	public Socket createSocket() throws IOException {
-		return sslContext.getSocketFactory().createSocket();
-	}
+    @Override
+    public Socket createSocket() throws IOException{
+        return sslContext.getSocketFactory().createSocket();
+    }
 }
