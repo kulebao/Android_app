@@ -415,7 +415,11 @@ public class DataMgr{
     public void close(){
         synchronized(mLock){
             if(dbHelper != null){
-                dbHelper.close();
+                try {
+					dbHelper.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
                 dbHelper = null;
             }
 

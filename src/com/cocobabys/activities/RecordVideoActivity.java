@@ -38,7 +38,7 @@ public class RecordVideoActivity extends Activity{
     private TextView              timerView;
     // videoSize为null，recordingManager会自动使用800*480分辨率
     private Size                  videoSize        = null;
-    private VideoRecordingManager recordingManager;
+    private VideoRecordingManager recordingManager = null;
 
     boolean                       isRecording      = false;
 
@@ -209,9 +209,14 @@ public class RecordVideoActivity extends Activity{
     private void stopRecord(){
         if(recordingManager != null){
             // 停止录制
-            recordingManager.stopRecording();
-            recordingManager.dispose();
-            recordingHandler = null;
+            try {
+            	//第三方库有时会抛出null异常，原因不明，暂时捕获一下
+				recordingManager.stopRecording();
+				recordingManager.dispose();
+				recordingHandler = null;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
         }
 
         stopThread();

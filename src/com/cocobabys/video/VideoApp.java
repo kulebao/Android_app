@@ -44,4 +44,16 @@ public class VideoApp {
 		}
 		return jni;
 	}
+
+	public synchronized static void close() {
+		if (null != jni) {
+			try {
+				jni.uninit();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			jni = null;
+		}
+	}
+
 }

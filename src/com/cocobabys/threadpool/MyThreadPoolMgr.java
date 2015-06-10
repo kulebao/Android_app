@@ -19,7 +19,11 @@ public class MyThreadPoolMgr {
 
 	public synchronized static void shutdown() {
 		if (genericThreadService != null) {
-			genericThreadService.shutdown();
+			try {
+				genericThreadService.shutdown();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			genericThreadService = null;
 		}
 	}
