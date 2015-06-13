@@ -44,8 +44,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocobabys.R;
-import com.cocobabys.adapter.SchoolNoticeGridViewAdapter;
-import com.cocobabys.bean.MainGridInfo;
+import com.cocobabys.adapter.SchoolNoticeGridViewAdapterOld;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
@@ -78,7 +77,7 @@ import com.umeng.analytics.MobclickAgent;
 
 import de.greenrobot.event.EventBus;
 
-public class SchoolNoticeActivity extends TabChildActivity {
+public class SchoolNoticeActivityOld extends TabChildActivity {
 	private GridView gridview;
 	public static final int NORMAL_NOTICE = 0;
 	public static final int COOK_NOTICE = 1;
@@ -100,7 +99,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	private AsyncTask<Void, Void, Integer> downloadIconTask;
 	private Handler handler;
 	private ProgressDialog progressDialog;
-	private SchoolNoticeGridViewAdapter adapter;
+	private SchoolNoticeGridViewAdapterOld adapter;
 	private NotificationObserver notificationObserver;
 
 	private Map<Integer, Integer> map = new HashMap<Integer, Integer>() {
@@ -204,7 +203,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		handler = new MyHandler(this, progressDialog) {
 			@Override
 			public void handleMessage(Message msg) {
-				if (SchoolNoticeActivity.this.isFinishing()) {
+				if (SchoolNoticeActivityOld.this.isFinishing()) {
 					Log.w("djc", "do nothing when activity finishing!");
 					return;
 				}
@@ -222,7 +221,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					checkNewDatas();
 					break;
 				case EventType.SERVER_INNER_ERROR:
-					Toast.makeText(SchoolNoticeActivity.this,
+					Toast.makeText(SchoolNoticeActivityOld.this,
 							R.string.get_child_info_fail, Toast.LENGTH_SHORT)
 							.show();
 					break;
@@ -411,7 +410,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				if (Utils.isSdcardExisting()) {
 					resizeImage(getImageUri());
 				} else {
-					Toast.makeText(SchoolNoticeActivity.this, "未找到存储卡，无法存储照片！",
+					Toast.makeText(SchoolNoticeActivityOld.this, "未找到存储卡，无法存储照片！",
 							Toast.LENGTH_LONG).show();
 				}
 				break;
@@ -446,7 +445,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 								if (result == EventType.UPLOAD_SUCCESS) {
 									updateChildPhoto((Bitmap) param);
 								} else {
-									Toast.makeText(SchoolNoticeActivity.this,
+									Toast.makeText(SchoolNoticeActivityOld.this,
 											R.string.upload_icon_failed,
 											Toast.LENGTH_SHORT).show();
 								}
@@ -633,7 +632,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 								selectedChild.setChild_birthday(born);
 								setBirthDay();
 							} else {
-								Toast.makeText(SchoolNoticeActivity.this,
+								Toast.makeText(SchoolNoticeActivityOld.this,
 										R.string.uploading_child_info_failed,
 										Toast.LENGTH_SHORT).show();
 							}
@@ -656,7 +655,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				Log.d("", "date :" + birthday.toString());
 
 				if (!checkValid(birthday)) {
-					Toast.makeText(SchoolNoticeActivity.this,
+					Toast.makeText(SchoolNoticeActivityOld.this,
 							R.string.baby_age_limit, Toast.LENGTH_SHORT).show();
 					return;
 				}
@@ -716,7 +715,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 								if (TextUtils.isEmpty(nick)) {
 									Toast.makeText(
-											SchoolNoticeActivity.this,
+											SchoolNoticeActivityOld.this,
 											getResources().getString(
 													R.string.invalid_nick),
 											Toast.LENGTH_SHORT).show();
@@ -749,7 +748,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 								selectedChild.setChild_nick_name(nick);
 								setNickName();
 							} else {
-								Toast.makeText(SchoolNoticeActivity.this,
+								Toast.makeText(SchoolNoticeActivityOld.this,
 										R.string.uploading_child_info_failed,
 										Toast.LENGTH_SHORT).show();
 							}
@@ -785,61 +784,61 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	public void initGridView() {
 		gridview = (GridView) findViewById(R.id.gridview);
-		ArrayList<MainGridInfo> lstImageItem = initData();
-		adapter = new SchoolNoticeGridViewAdapter(this, lstImageItem);
+		ArrayList<HashMap<String, Object>> lstImageItem = initData();
+		adapter = new SchoolNoticeGridViewAdapterOld(this, lstImageItem);
 		gridview.setAdapter(adapter);
 		gridview.setOnItemClickListener(new ItemClickListener());
 	}
 
-	public ArrayList<MainGridInfo> initData() {
-		ArrayList<MainGridInfo> lstImageItem = new ArrayList<MainGridInfo>();
+	public ArrayList<HashMap<String, Object>> initData() {
+		ArrayList<HashMap<String, Object>> lstImageItem = new ArrayList<HashMap<String, Object>>();
 
-		MainGridInfo info = new MainGridInfo();
-		info.setResID(R.drawable.pnotice);
-		info.setTitleID(R.string.noticeTitle);
-		lstImageItem.add(info);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.pnotice);
+		map.put("ItemText", getResources().getText(R.string.noticeTitle));
+		lstImageItem.add(map);
 
-		info = new MainGridInfo();
-		info.setResID(R.drawable.schedule);
-		info.setTitleID(R.string.schedule);
-		lstImageItem.add(info);
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.cook);
+		map.put("ItemText", getResources().getText(R.string.cook));
+		lstImageItem.add(map);
 
-		info = new MainGridInfo();
-		info.setResID(R.drawable.cook);
-		info.setTitleID(R.string.cook);
-		lstImageItem.add(info);
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.swap);
+		map.put("ItemText", getResources().getText(R.string.swap));
+		lstImageItem.add(map);
 
-		info = new MainGridInfo();
-		info.setResID(R.drawable.chat);
-		info.setTitleID(R.string.interaction);
-		lstImageItem.add(info);
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.schedule);
+		map.put("ItemText", getResources().getText(R.string.schedule));
+		lstImageItem.add(map);
 
-		info = new MainGridInfo();
-		info.setResID(R.drawable.exp);
-		info.setTitleID(R.string.experence);
-		lstImageItem.add(info);
+		// map = new HashMap<String, Object>();
+		// map.put("ItemImage", R.drawable.homework);
+		// map.put("ItemText", getResources().getText(R.string.homework));
+		// lstImageItem.add(map);
 
-		info = new MainGridInfo();
-		info.setResID(R.drawable.swap);
-		info.setTitleID(R.string.swap);
-		lstImageItem.add(info);
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.chat);
+		map.put("ItemText", getResources().getText(R.string.interaction));
+		lstImageItem.add(map);
 
-		info = new MainGridInfo();
-		info.setResID(R.drawable.education);
-		info.setTitleID(R.string.education);
-		lstImageItem.add(info);
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.education);
+		map.put("ItemText", getResources().getText(R.string.education));
+		lstImageItem.add(map);
 
-		info = new MainGridInfo();
-		info.setResID(R.drawable.bus_big);
-		info.setTitleID(R.string.bus_service);
-		lstImageItem.add(info);
+		map = new HashMap<String, Object>();
+		map.put("ItemImage", R.drawable.exp);
+		map.put("ItemText", getResources().getText(R.string.experence));
+		lstImageItem.add(map);
 
 		// 如果幼儿园属性里面隐藏了视频模块，则不显示
 		if ("false".equals(DataUtils.getProp(JSONConstant.HIDE_VIDEO, "false"))) {
-			info = new MainGridInfo();
-			info.setResID(R.drawable.watch);
-			info.setTitleID(R.string.watch_baby);
-			lstImageItem.add(info);
+			map = new HashMap<String, Object>();
+			map.put("ItemImage", R.drawable.watch);
+			map.put("ItemText", getResources().getText(R.string.watch_baby));
+			lstImageItem.add(map);
 		}
 
 		return lstImageItem;
@@ -871,18 +870,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			}
 		}
 
-		MainGridInfo item = adapter.getItem(position);
-
-		switch (item.getResID()) {
-		case R.drawable.bus_big:
-			startToActivity(new ActivityLauncher() {
-				@Override
-				public void startActivity() {
-					startToSchoolbusActivity();
-				}
-			});
-			break;
-		case R.drawable.cook:
+		switch (position) {
+		case COOK_NOTICE:
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
@@ -890,7 +879,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				}
 			});
 			break;
-		case R.drawable.swap:
+		case SWAPCARD_NOTICE:
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
@@ -898,7 +887,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				}
 			});
 			break;
-		case R.drawable.pnotice:
+		case NORMAL_NOTICE:
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
@@ -908,7 +897,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				}
 			});
 			break;
-		case R.drawable.schedule:
+		case SCHEDULE:
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
@@ -917,7 +906,15 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			});
 
 			break;
-		case R.drawable.chat:
+		// case HOMEWORK:
+		// startToActivity(new ActivityLauncher() {
+		// @Override
+		// public void startActivity() {
+		// startToHomeworkActivity();
+		// }
+		// });
+		// break;
+		case INTERACTION:
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
@@ -925,7 +922,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				}
 			});
 			break;
-		case R.drawable.education:
+		case EDUCATION:
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
@@ -933,7 +930,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				}
 			});
 			break;
-		case R.drawable.exp:
+		case EXPERENCE:
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
@@ -941,7 +938,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				}
 			});
 			break;
-		case R.drawable.watch:
+		case WATCH:
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
@@ -1049,7 +1046,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	}
 
 	private void startToLbsActivity() {
-		Intent intent = new Intent(SchoolNoticeActivity.this,
+		Intent intent = new Intent(SchoolNoticeActivityOld.this,
 				LbsMainActivity.class);
 		startActivity(intent);
 	}
@@ -1097,7 +1094,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			Object result = null;
 			Log.d("DDD", "check child info!!!!");
 			if (DataMgr.getInstance().getSelectedChild() == null) {
-				Toast.makeText(SchoolNoticeActivity.this,
+				Toast.makeText(SchoolNoticeActivityOld.this,
 						R.string.child_info_is_null, Toast.LENGTH_SHORT).show();
 				return null;
 			}

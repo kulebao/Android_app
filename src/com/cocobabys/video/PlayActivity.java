@@ -752,6 +752,9 @@ public class PlayActivity extends UmengStatisticsActivity {
 		if (mIsListening) {
 			VideoApp.getJni().stopAudio(VideoApp.mAudioHandle);
 		}
+		
+		//切到后台时，直接退出，不要占用资源
+		finish();
 	}
 
 	@Override

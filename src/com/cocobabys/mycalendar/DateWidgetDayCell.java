@@ -14,6 +14,7 @@ import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -127,8 +128,13 @@ public class DateWidgetDayCell extends View {
 
 	// 绘制日历方格
 	private void drawDayView(Canvas canvas, boolean bFocused) {
+		if (iDateDay == 13) {
+			Log.d("", "drawDayView bSelected=" + bSelected + " bFocused="
+					+ bFocused + " bToday=" + bToday);
+		}
 
-		if (bSelected || bFocused) {
+		//将bToday与bSelected保持一致，修改一个颜色显示bug
+		if (bSelected || bFocused || bToday) {
 			LinearGradient lGradBkg = null;
 
 			if (bFocused) {
@@ -136,7 +142,7 @@ public class DateWidgetDayCell extends View {
 						0xffaa5500, 0xffffddbb, Shader.TileMode.CLAMP);
 			}
 
-			if (bSelected) {
+			if (bSelected || bToday) {
 				lGradBkg = new LinearGradient(rect.left, 0, rect.right, 0,
 						0xff225599, 0xffbbddff, Shader.TileMode.CLAMP);
 			}

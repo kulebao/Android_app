@@ -277,5 +277,7 @@
     
     <string name="send_feedback">发送回执</string>
     <string name="sending_feedback">发送回执中...</string>
+    
+    <string name="bus_service">校车接送</string>
 
 </resources>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.Locale;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -213,8 +214,7 @@ public class SwipeCalendarActivity extends UmengStatisticsActivity {
 		// mainLayout.setPadding(2, 0, 2, 0);
 		setContentView(mainLayout);
 
-		ActivityHelper
-				.setBackKeyLitsenerOnTopbar(this, R.string.swap);
+		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.swap);
 
 		// 声明控件，并绑定事件
 		top_Date = (TextView) findViewById(R.id.Top_Date);

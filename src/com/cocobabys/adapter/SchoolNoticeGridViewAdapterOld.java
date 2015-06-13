@@ -1,6 +1,8 @@
 package com.cocobabys.adapter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,15 +15,15 @@ import android.widget.TextView;
 
 import com.cocobabys.R;
 import com.cocobabys.activities.SchoolNoticeActivity;
-import com.cocobabys.bean.MainGridInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.utils.DataUtils;
 
-public class SchoolNoticeGridViewAdapter extends BaseAdapter {
+public class SchoolNoticeGridViewAdapterOld extends BaseAdapter {
 	private Context context = null;
-	private List<MainGridInfo> data;
+	private List<? extends Map<String, ?>> data;
 
-	public SchoolNoticeGridViewAdapter(Context context, List<MainGridInfo> data) {
+	public SchoolNoticeGridViewAdapterOld(Context context,
+			List<? extends Map<String, ?>> data) {
 		this.context = context;
 		this.data = data;
 	}
@@ -32,7 +34,7 @@ public class SchoolNoticeGridViewAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public MainGridInfo getItem(int position) {
+	public Object getItem(int position) {
 		return data.get(position);
 	}
 
@@ -68,19 +70,16 @@ public class SchoolNoticeGridViewAdapter extends BaseAdapter {
 	private void setDataToViews(final int position, FlagHolder flagholder) {
 		setNoticeImg(position, flagholder);
 
-		MainGridInfo info = getItem(position);
-		int resid = info.getResID();
-		flagholder.headView.setBackgroundResource(resid);
+		HashMap<String, Object> map = (HashMap<String, Object>) getItem(position);
+		int object = (Integer) map.get("ItemImage");
+		flagholder.headView.setBackgroundResource(object);
 
-		int titleid = info.getTitleID();
-		flagholder.nameView.setText(titleid);
+		String content = (String) map.get("ItemText");
+		flagholder.nameView.setText(content);
 	}
 
 	private void setNoticeImg(final int position, FlagHolder flagholder) {
-		MainGridInfo item = getItem(position);
-		int resID = item.getResID();
-
-		if (resID == R.drawable.pnotice) {
+		if (position == SchoolNoticeActivity.NORMAL_NOTICE) {
 			String prop = DataUtils.getProp(ConstantValue.HAVE_NEWS_NOTICE);
 			Log.d("", "setNoticeImg prop=" + prop);
 			String hprop = DataUtils
@@ -90,7 +89,7 @@ public class SchoolNoticeGridViewAdapter extends BaseAdapter {
 			} else {
 				flagholder.newDataSymble.setVisibility(View.GONE);
 			}
-		} else if (resID == R.drawable.cook) {
+		} else if (position == SchoolNoticeActivity.COOK_NOTICE) {
 			String prop = DataUtils.getProp(ConstantValue.HAVE_COOKBOOK_NOTICE);
 			if ("true".equals(prop)) {
 				flagholder.newDataSymble.setVisibility(View.VISIBLE);
@@ -106,21 +105,21 @@ public class SchoolNoticeGridViewAdapter extends BaseAdapter {
 		// flagholder.newDataSymble.setVisibility(View.GONE);
 		// }
 		// }
-		else if (resID == R.drawable.schedule) {
+		else if (position == SchoolNoticeActivity.SCHEDULE) {
 			String prop = DataUtils.getProp(ConstantValue.HAVE_SCHEDULE_NOTICE);
 			if ("true".equals(prop)) {
 				flagholder.newDataSymble.setVisibility(View.VISIBLE);
 			} else {
 				flagholder.newDataSymble.setVisibility(View.GONE);
 			}
-		} else if (resID == R.drawable.chat) {
+		} else if (position == SchoolNoticeActivity.INTERACTION) {
 			String prop = DataUtils.getProp(ConstantValue.HAVE_CHAT_NOTICE);
 			if ("true".equals(prop)) {
 				flagholder.newDataSymble.setVisibility(View.VISIBLE);
 			} else {
 				flagholder.newDataSymble.setVisibility(View.GONE);
 			}
-		} else if (resID == R.drawable.education) {
+		} else if (position == SchoolNoticeActivity.EDUCATION) {
 			String prop = DataUtils
 					.getProp(ConstantValue.HAVE_EDUCATION_NOTICE);
 			if ("true".equals(prop)) {
