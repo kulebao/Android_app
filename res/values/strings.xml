@@ -14,6 +14,7 @@
     <string name="phone_input_error">无效手机号码，请检查后重新输入，谢谢!</string>
     <string name="auth_code_input_error">无效验证码,请检查后重新输入，谢谢!</string>
     <string name="auth_code_invalid">验证码错误，请确认输入是否正确，如果点击了重新获取验证码，请输入最后一次收到的验证码，谢谢！</string>
+    <string name="auth_code_error">验证码错误，请重新输入，谢谢！</string>
     <string name="notice">提示</string>
     <string name="error">错误</string>
     <string name="confirm">确认</string>
@@ -44,7 +45,7 @@
     <string name="firstwelcome">尊敬的用户 %1$s 先生/女士:\n您的手机 %2$s
 		已经绑定成功并自动登录。您的账号名就是手机号码，初始密码是手机号码的后8位。
 		\n\n提示：如需修改密码，请在进入应用后，点击屏幕右上角的"设置"按钮，进行修改.</string>
-    <string name="aucodeContent">\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020尊敬的%1$s用户您好，您的手机已经通过验证，请获取短信验证码后进行账号绑定，谢谢！\n\n特别提示:
+    <string name="aucodeContent">\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020尊敬的%1$s用户您好，您的手机已经通过验证，请获取短信验证码并进行账号绑定，谢谢！\n\n特别提示:
 \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020该验证码的有效时间为10分钟,请在10分钟内进行绑定操作</string>
     <string name="reset_pwd_success">密码重置成功，请使用新密码进行登录，谢谢！</string>
     <string name="change_pwd_success">密码修改成功！</string>
@@ -264,20 +265,14 @@
     <string name="share_to_wexin_friends">发送给微信好友</string>
     <string name="take_pic_failed">拍照失败</string>
     <string name="choose_pic_failed">选择图片失败</string>
-    
     <string name="exp_content">发布内容</string>
-    
     <string name="share">分\u0020\u0020\u0020\u0020享</string>
-    
     <string name="wechat_friends">微信好友</string>
     <string name="wechat_circle">微信朋友圈</string>
-    
     <string name="share_failed">分享失败</string>
     <string name="sharing">分享中，请稍后...</string>
-    
     <string name="send_feedback">发送回执</string>
     <string name="sending_feedback">发送回执中...</string>
-    
     <string name="bus_service">校车接送</string>
 
 </resources>

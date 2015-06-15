@@ -8,6 +8,7 @@ import org.json.JSONException;
 
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.cocobabys.bean.GroupExpInfo;
 import com.cocobabys.bean.ShareToken;
 import com.cocobabys.constant.EventType;
@@ -107,9 +108,15 @@ public class ExpMethod{
             return methodResult;
         }
 
-        ShareToken shareToken = new ShareToken();
-        String token = result.getJsonObject().getString("token");
-        shareToken.setToken(token);
+        // ShareToken shareToken = new ShareToken();
+        // String token = result.getJsonObject().getString("token");
+        // shareToken.setToken(token);
+
+        ShareToken shareToken = JSON.parseObject(result.getContent(), ShareToken.class);
+        // 这里要纠错一下，服务器返回的并不是exp的id
+        shareToken.setId(info.getExp_id());
+
+        Log.d("DJC", "uploadChildInfo shareToken:" + shareToken.toString());
 
         methodResult.setResultObj(shareToken);
         return methodResult;

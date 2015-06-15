@@ -133,8 +133,11 @@ public class ExpListAdapter extends BaseAdapter{
     private void handleGetShareTokenSuccess(Message msg){
         dialog.dismiss();
         ShareToken shareToken = (ShareToken)msg.obj;
-        Log.d("", "share url =" + shareToken.buildShareUrl());
-        WeiXinUtils.getInstance().shareWebPage(SHARE_CONTENT, SHARE_CONTENT, shareToken.buildShareUrl(), shareType);
+        Log.d("", "djcweixin share url =" + shareToken.buildShareUrl());
+
+        Log.d("", "djcweixin shareToken =" + shareToken.toString());
+
+        WeiXinUtils.getInstance().shareWebPage(shareToken, shareType);
     }
 
     private void initCache(){
@@ -234,7 +237,9 @@ public class ExpListAdapter extends BaseAdapter{
             Log.d("DDDE", "DDDE setVideoNail medium=" + info.getMedium() + "  type=" + info.getMediumType());
             setVideoNail(flagholder, info);
         } else{
-            flagholder.shareView.setVisibility(View.GONE);
+            // 只有一句话也可以分享。。。
+            // flagholder.shareView.setVisibility(View.GONE);
+
             flagholder.videonail.setVisibility(View.GONE);
             flagholder.gridview.setVisibility(View.GONE);
         }

@@ -20,7 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.cocobabys.R;
-import com.cocobabys.adapter.GrowthGridViewAdapter;
+import com.cocobabys.adapter.ExpGridViewAdapter;
 import com.cocobabys.bean.GroupExpInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
@@ -30,16 +30,16 @@ import com.cocobabys.jobs.GetExpCountJob;
 import com.cocobabys.utils.Utils;
 
 public class ExpActivity extends UmengStatisticsActivity{
-    private static final int      START_TO_EXP_LIST = 1;
-    private TextView              titleView;
-    private int                   currentYear       = Calendar.getInstance().get(Calendar.YEAR);
-    private ImageButton           leftBtn;
-    private ImageButton           rightBtn;
-    private GridView              gridview;
-    private GrowthGridViewAdapter adapter;
-    private ProgressDialog        dialog;
-    private Handler               handler;
-    private String                selectedMonth;
+    private static final int   START_TO_EXP_LIST = 1;
+    private TextView           titleView;
+    private int                currentYear       = Calendar.getInstance().get(Calendar.YEAR);
+    private ImageButton        leftBtn;
+    private ImageButton        rightBtn;
+    private GridView           gridview;
+    private ExpGridViewAdapter adapter;
+    private ProgressDialog     dialog;
+    private Handler            handler;
+    private String             selectedMonth;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -101,7 +101,7 @@ public class ExpActivity extends UmengStatisticsActivity{
     public void initGridView(){
         gridview = (GridView)findViewById(R.id.gridview);
         List<GroupExpInfo> list = getData();
-        adapter = new GrowthGridViewAdapter(this, list);
+        adapter = new ExpGridViewAdapter(this, list);
         gridview.setAdapter(adapter);
         gridview.setOnItemClickListener(new OnItemClickListener(){
             @Override
@@ -209,8 +209,8 @@ public class ExpActivity extends UmengStatisticsActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == Menu.FIRST){
-            DataMgr.getInstance().clearExp();
-            adapter.clear();
+            // DataMgr.getInstance().clearExp();
+            // adapter.clear();
         }
         return true;
     }

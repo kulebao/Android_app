@@ -20,7 +20,7 @@ import com.cocobabys.activities.ExpActivity.LayoutClickListener;
 import com.cocobabys.bean.GroupExpInfo;
 import com.cocobabys.utils.ImageUtils;
 
-public class GrowthGridViewAdapter extends BaseAdapter{
+public class ExpGridViewAdapter extends BaseAdapter{
     private Context             context       = null;
     private List<GroupExpInfo>  data          = new ArrayList<GroupExpInfo>();
     private LayoutClickListener clickListener = null;
@@ -29,7 +29,7 @@ public class GrowthGridViewAdapter extends BaseAdapter{
         this.clickListener = clickListener;
     }
 
-    public GrowthGridViewAdapter(Context context, List<GroupExpInfo> data){
+    public ExpGridViewAdapter(Context context, List<GroupExpInfo> data){
         this.context = context;
         this.data = data;
     }
