@@ -15,11 +15,13 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
+import java.util.zip.GZIPInputStream;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -139,6 +141,9 @@ public class HttpClientHelper{
             // 自定义header，带版本号
             request.setHeader(VERSION_CODE, String.valueOf(DataUtils.getVersionCode()));
 
+            // 测试gzip
+            request.setHeader("Accept-Encoding", "gzip");
+
             if(!TextUtils.isEmpty(content)){
                 request.setHeader("Content-type", "application/json;charset=UTF-8");
                 request.setEntity(new StringEntity(content, HTTP.UTF_8));
@@ -147,7 +152,7 @@ public class HttpClientHelper{
             HttpResponse response = client.execute(request);
             status = response.getStatusLine().getStatusCode();
             Log.d("DDD doPostImpl code:", "" + status + " vercode=" + DataUtils.getVersionCode());
-            in = readContent(httpResult, response);
+            in = readContentEx(httpResult, response);
             if(HttpClientHelper.isHttpRequestOK(status)){
                 request.abort();
             }
@@ -166,6 +171,58 @@ public class HttpClientHelper{
         }
         httpResult.setResCode(status);
         return httpResult;
+    }
+
+    private static BufferedReader readContentEx(HttpResult httpResult, HttpResponse response) throws IOException{
+        Log.d("DDD code:", "gzip statusline = " + response.getStatusLine());
+        Log.d("DDD code:", "gzip Encoding =" + response.getLastHeader("Content-Encoding"));
+        Log.d("DDD code:", "gzip Length =" + response.getLastHeader("Content-Length"));
+
+        GZIPInputStream gzin = null;
+        BufferedReader in = null;
+        InputStreamReader isr = null;
+
+        String contentEncoding = getEncoding(response);
+
+        if(contentEncoding != null && contentEncoding.indexOf("gzip") > -1){
+            // For GZip response
+            try{
+                InputStream is = response.getEntity().getContent();
+                gzin = new GZIPInputStream(is);
+
+                isr = new InputStreamReader(gzin, HTTP.UTF_8);
+
+                in = new BufferedReader(isr);
+                StringBuffer sb = new StringBuffer("");
+                String line = "";
+                while((line = in.readLine()) != null){
+                    sb.append(line);
+                }
+
+                httpResult.setContent(sb.toString());
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            finally{
+                Utils.close(isr);
+                Utils.close(gzin);
+            }
+            return in;
+        } else{
+            return readContent(httpResult, response);
+        }
+
+    }
+
+    private static String getEncoding(HttpResponse response){
+        Header lastHeader = response.getLastHeader("Content-Encoding");
+        String contentEncoding = "";
+
+        if(lastHeader != null){
+            contentEncoding = lastHeader.toString().toLowerCase();
+        }
+
+        return contentEncoding;
     }
 
     private static BufferedReader readContent(HttpResult httpResult, HttpResponse response) throws IOException{
@@ -216,11 +273,12 @@ public class HttpClientHelper{
 
             HttpResponse response = client.execute(request);
             status = response.getStatusLine().getStatusCode();
+
             Log.d("DDD code:", "" + status);
             if(status != 200){
                 Log.w("WWW", "doDeleteImpl warning url=" + url);
             }
-            in = readContent(httpResult, response);
+            in = readContentEx(httpResult, response);
             if(HttpClientHelper.isHttpRequestOK(status)){
                 request.abort();
             }
@@ -284,13 +342,16 @@ public class HttpClientHelper{
             request.setHeader(ConstantValue.HEADER_SOURCE, ConstantValue.SOURCE_ANDROID);
             request.setHeader(VERSION_CODE, String.valueOf(DataUtils.getVersionCode()));
 
+            // 测试gzip
+            request.setHeader("Accept-Encoding", "gzip");
+
             HttpResponse response = client.execute(request);
             status = response.getStatusLine().getStatusCode();
             Log.d("DDD doGetImpl code:", "" + status + " vercode=" + DataUtils.getVersionCode());
             if(status != 200){
                 Log.w("WWW", "doGetImpl warning url=" + url);
             }
-            in = readContent(httpResult, response);
+            in = readContentEx(httpResult, response);
             if(HttpClientHelper.isHttpRequestOK(status)){
                 request.abort();
             }
