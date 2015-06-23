@@ -20,89 +20,89 @@ import com.cocobabys.push.info.PushEvent;
 import com.cocobabys.receiver.NotificationObserver;
 import com.cocobabys.service.MyService;
 
-public class MyApplication extends FrontiaApplication{
-    private static MyApplication            instance;
-    private static BlockingQueue<PushEvent> blockingQueue  = new ArrayBlockingQueue<PushEvent>(
-                                                                   ConstantValue.PUSH_ACTION_QUEUE_MAX_SIZE);
+public class MyApplication extends FrontiaApplication {
+	private static MyApplication instance;
+	private static BlockingQueue<PushEvent> blockingQueue = new ArrayBlockingQueue<PushEvent>(
+			ConstantValue.PUSH_ACTION_QUEUE_MAX_SIZE);
 
-    private List<NotificationObserver>      observers      = new ArrayList<NotificationObserver>();
-    private List<NewChatInfo>               tmpNewChatList = new ArrayList<NewChatInfo>();
-    private boolean                         forTest        = true;
+	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
+	private List<NewChatInfo> tmpNewChatList = new ArrayList<NewChatInfo>();
+	private boolean forTest = true;
 
-    private MyMediaScannerConnectionClient  mediaScannerConnectionClient;
+	private MyMediaScannerConnectionClient mediaScannerConnectionClient;
 
-    public MyMediaScannerConnectionClient getMediaScannerConnectionClient(){
-        return mediaScannerConnectionClient;
-    }
+	public MyMediaScannerConnectionClient getMediaScannerConnectionClient() {
+		return mediaScannerConnectionClient;
+	}
 
-    // 当前是否有数据库正在升级
-    private boolean isDbUpdating = false;
+	// 当前是否有数据库正在升级
+	private boolean isDbUpdating = false;
 
-    private boolean weixinBypass = false;
+	private boolean weixinBypass = false;
 
-    public boolean isWeixinBypass(){
-        return weixinBypass;
-    }
+	public boolean isWeixinBypass() {
+		return weixinBypass;
+	}
 
-    public boolean isDbUpdating(){
-        return isDbUpdating;
-    }
+	public boolean isDbUpdating() {
+		return isDbUpdating;
+	}
 
-    public void setDbUpdating(boolean isDbUpdating){
-        this.isDbUpdating = isDbUpdating;
-    }
+	public void setDbUpdating(boolean isDbUpdating) {
+		this.isDbUpdating = isDbUpdating;
+	}
 
-    public List<NewChatInfo> getTmpNewChatList(){
-        return tmpNewChatList;
-    }
+	public List<NewChatInfo> getTmpNewChatList() {
+		return tmpNewChatList;
+	}
 
-    public void setTmpNewChatList(List<NewChatInfo> tmpNewChatList){
-        this.tmpNewChatList = tmpNewChatList;
-    }
+	public void setTmpNewChatList(List<NewChatInfo> tmpNewChatList) {
+		this.tmpNewChatList = tmpNewChatList;
+	}
 
-    public boolean isForTest(){
-        return forTest;
-    }
+	public boolean isForTest() {
+		return forTest;
+	}
 
-    public BlockingQueue<PushEvent> getBlockingQueue(){
-        return blockingQueue;
-    }
+	public BlockingQueue<PushEvent> getBlockingQueue() {
+		return blockingQueue;
+	}
 
-    public static MyApplication getInstance(){
-        return instance;
-    }
+	public static MyApplication getInstance() {
+		return instance;
+	}
 
-    public void addObserver(NotificationObserver notificationObserver){
-        observers.add(notificationObserver);
-    }
+	public void addObserver(NotificationObserver notificationObserver) {
+		observers.add(notificationObserver);
+	}
 
-    public void removeObserver(NotificationObserver notificationObserver){
-        observers.remove(notificationObserver);
-    }
+	public void removeObserver(NotificationObserver notificationObserver) {
+		observers.remove(notificationObserver);
+	}
 
-    public void updateNotify(int noticeType, int param){
-        for(NotificationObserver observer : observers){
-            observer.update(noticeType, param);
-        }
-    }
+	public void updateNotify(int noticeType, int param) {
+		for (NotificationObserver observer : observers) {
+			observer.update(noticeType, param);
+		}
+	}
 
-    @Override
-    public void onCreate(){
-        super.onCreate();
-        CrashHandler crashHandler = CrashHandler.getInstance();
-        crashHandler.init(getApplicationContext());
-        HttpsModel.initHttpsClient();
-        instance = this;
-        Intent service = new Intent(instance, MyService.class);
-        instance.startService(service);
-        // 如果有数据库需要升级，则触发onUpgrade方法
-        DataMgr.getInstance();
-        Log.d("Database", "MyApplication onCreate");
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		CrashHandler crashHandler = CrashHandler.getInstance();
+		crashHandler.init(getApplicationContext());
+		HttpsModel.initHttpsClient();
+		instance = this;
+		Intent service = new Intent(instance, MyService.class);
+		instance.startService(service);
+		// 如果有数据库需要升级，则触发onUpgrade方法
+		DataMgr.getInstance();
+		Log.d("Database", "MyApplication onCreate");
 
-        mediaScannerConnectionClient = new MyMediaScannerConnectionClient(this);
-        if(isForTest()){
-            SDKInitializer.initialize(this);
-        }
-    }
+		mediaScannerConnectionClient = new MyMediaScannerConnectionClient(this);
+		if (isForTest()) {
+			SDKInitializer.initialize(this);
+		}
+	}
 
 }

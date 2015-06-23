@@ -233,6 +233,7 @@
     <string name="want_chat">您想随时和老师零距离沟通吗？赶快联系幼儿园开通此功能吧！</string>
     <string name="want_estimation">您想了解老师对宝贝在幼儿园的表现有什么评价吗？赶快联系幼儿园开通此功能吧！</string>
     <string name="want_exp">您想记录下宝贝在幼儿园的点点滴滴吗？赶快联系幼儿园开通此功能吧！</string>
+    <string name="want_bus">您想查看校车的行驶情况吗？赶快联系幼儿园开通此功能吧！</string>
     <string name="lbs_refresh_time">%1$d秒后刷新</string>
     <string name="lbs_get_location_fail">获取定位器坐标失败</string>
     <string name="lbs_get_history_location_fail">获取定位器历史数据失败</string>
@@ -274,5 +275,6 @@
     <string name="send_feedback">发送回执</string>
     <string name="sending_feedback">发送回执中...</string>
     <string name="bus_service">校车接送</string>
+    
 
 </resources>
