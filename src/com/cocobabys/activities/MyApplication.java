@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
 
-import com.baidu.frontia.FrontiaApplication;
 import com.baidu.mapapi.SDKInitializer;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.dbmgr.DataMgr;
@@ -20,7 +20,7 @@ import com.cocobabys.push.info.PushEvent;
 import com.cocobabys.receiver.NotificationObserver;
 import com.cocobabys.service.MyService;
 
-public class MyApplication extends FrontiaApplication {
+public class MyApplication extends Application {
 	private static MyApplication instance;
 	private static BlockingQueue<PushEvent> blockingQueue = new ArrayBlockingQueue<PushEvent>(
 			ConstantValue.PUSH_ACTION_QUEUE_MAX_SIZE);

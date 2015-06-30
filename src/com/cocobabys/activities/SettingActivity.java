@@ -15,8 +15,6 @@ import android.widget.Toast;
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
-import com.cocobabys.customview.SwitchButton;
-import com.cocobabys.customview.SwitchButton.OnCheckedChangeListener;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.CheckUpdateTask;
@@ -38,7 +36,6 @@ public class SettingActivity extends UmengStatisticsActivity {
 	}
 
 	private void initView() {
-		initSwitch();
 
 		Button exitLogin = (Button) findViewById(R.id.exitLogin);
 		exitLogin.setOnClickListener(new OnClickListener() {
@@ -185,20 +182,6 @@ public class SettingActivity extends UmengStatisticsActivity {
 		startActivity(intent);
 	}
 
-	public void initSwitch() {
-		SwitchButton switchButton = (SwitchButton) findViewById(R.id.voiceswitchbtn);
-		switchButton.setChecked(Utils.isVoiceOn());
-		switchButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void checkedChange(boolean isChecked) {
-				String result = isChecked ? ConstantValue.VOICE_OPEN
-						: ConstantValue.VOICE_OFF;
-				DataUtils.saveProp(ConstantValue.VOICE_CONFIG, result);
-				Log.d("DDD", "VOICE_CONFIG  result=" + result);
-			}
-		});
-	}
-
 	private void initDialog() {
 		dialog = new ProgressDialog(this);
 		dialog.setCancelable(false);
@@ -236,8 +219,8 @@ public class SettingActivity extends UmengStatisticsActivity {
 		// 如果后台在自动更新，这里可能会有冲突，后续需要把后台任务统一管理起来
 		dialog.show();
 		DataUtils.saveCheckNewTime(System.currentTimeMillis());
-		new CheckUpdateTask(handler, DataUtils.getAccount(), DataUtils.getVersionCode())
-				.execute();
+		new CheckUpdateTask(handler, DataUtils.getAccount(),
+				DataUtils.getVersionCode()).execute();
 	}
 
 	private void handleExitLogin() {

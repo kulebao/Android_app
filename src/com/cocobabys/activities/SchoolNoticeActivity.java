@@ -909,8 +909,6 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
-					// startToNoticeRecordActivity(JSONConstant.NOTICE_TYPE_NORMAL);
-					// startToNoticeTabActivity();
 					startToNoticeListActivity();
 				}
 			});

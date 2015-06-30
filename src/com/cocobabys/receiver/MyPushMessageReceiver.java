@@ -15,7 +15,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.baidu.frontia.api.FrontiaPushMessageReceiver;
+import com.baidu.android.pushservice.PushMessageReceiver;
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
@@ -29,7 +29,7 @@ import com.cocobabys.utils.Utils;
 /**
  * Push消息处理receiver
  */
-public class PushMessageReceiver extends FrontiaPushMessageReceiver {
+public class MyPushMessageReceiver extends PushMessageReceiver {
 	public static final String TAG = "DJC";
 	public static int notify_id = 0;
 
@@ -373,5 +373,11 @@ public class PushMessageReceiver extends FrontiaPushMessageReceiver {
 		if (errorCode == 0) {
 			// Utils.setBind(context, false);
 		}
+	}
+
+	@Override
+	public void onNotificationArrived(Context arg0, String arg1, String arg2,
+			String arg3) {
+
 	}
 }

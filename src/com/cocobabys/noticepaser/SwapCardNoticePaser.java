@@ -14,7 +14,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.Notice;
 import com.cocobabys.dbmgr.info.SwipeInfo;
-import com.cocobabys.receiver.PushMessageReceiver;
+import com.cocobabys.receiver.MyPushMessageReceiver;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.Utils;
 
@@ -47,7 +47,7 @@ public class SwapCardNoticePaser implements NoticePaser {
 										"DDA downloadIcon exp:" + e.toString());
 								e.printStackTrace();
 							}
-							PushMessageReceiver.setCustomNotification(notice,
+							MyPushMessageReceiver.setCustomNotification(notice,
 									context);
 						}
 					});

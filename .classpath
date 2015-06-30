@@ -10,7 +10,6 @@
 	<classpathentry kind="lib" path="libs/BaiduLBS_Android.jar"/>
 	<classpathentry kind="lib" path="libs/locSDK_4.2.jar"/>
 	<classpathentry kind="lib" path="libs/fastjson1.44.jar"/>
-	<classpathentry kind="lib" path="libs/pushservice-4.4.0.71.jar"/>
 	<classpathentry kind="lib" path="libs/pinyin4j-2.5.0.jar"/>
 	<classpathentry kind="lib" path="libs/ShareSDK-Core-2.4.0.jar"/>
 	<classpathentry kind="lib" path="libs/ShareSDK-mframework.jar"/>
