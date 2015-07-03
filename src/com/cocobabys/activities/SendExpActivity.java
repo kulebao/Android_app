@@ -294,6 +294,11 @@ public class SendExpActivity extends UmengStatisticsActivity{
                 handleRecordVideoBySelf(data);
                 break;
 
+            case NoticeAction.SEND_VIDEO:
+                // 发送视频成功返回,清空文字内容，因为文字内容随视频一起发送
+                exp_content.setText("");
+                break;
+
             default:
                 break;
         }
@@ -327,40 +332,6 @@ public class SendExpActivity extends UmengStatisticsActivity{
         Utils.makeToast(this, format.format(rSize) + "m");
     }
 
-    // private void handleVideoFile(Intent data) {
-    // Uri myUri = data.getData();
-    // Cursor cursor = getContentResolver().query(myUri, null, null, null,
-    // null);
-    //
-    // if (cursor != null && cursor.getCount() > 0) {
-    // try {
-    // cursor.moveToFirst();
-    // long size = cursor.getLong(cursor
-    // .getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
-    // // int intduration =
-    // //
-    // cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
-    // String url = cursor.getString(cursor
-    // .getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
-    //
-    // Log.d("", "url =" + url);
-    // Log.d("", "size =" + size);
-    // // Log.d("", "duration =" + intduration);
-    //
-    // if (!isValidSize(size)) {
-    // DlgMgr.showSingleBtnResDlg(R.string.video_invalid,
-    // SendExpActivity.this);
-    // return;
-    // }
-    //
-    // startToSendVideo(url, size);
-    //
-    // } finally {
-    // DataUtils.closeCursor(cursor);
-    // }
-    // }
-    // }
-
     private void handleVideoFile(Intent data){
         String path = DataUtils.getPathByIntent(data);
         File file = new File(path);
@@ -379,7 +350,8 @@ public class SendExpActivity extends UmengStatisticsActivity{
         intent.putExtra(NoticeAction.VIDEO_SIZE, size);
         intent.putExtra(NoticeAction.EXP_TEXT, exp_content.getText().toString());
 
-        startActivity(intent);
+        startActivityForResult(intent, NoticeAction.SEND_VIDEO);
+        // startActivity(intent);
     }
 
     private boolean isValidSize(long size){
