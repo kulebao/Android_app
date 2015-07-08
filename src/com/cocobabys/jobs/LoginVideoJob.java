@@ -110,10 +110,12 @@ public class LoginVideoJob extends MyJob {
 			// VideoApp.mLoginServerError);
 			StringBuilder error = new StringBuilder();
 			int serverId = jni.connectServer(info, error);
+			Log.d("", "serverId =" + serverId);
 			// int serverId = jni.connectServer(info);
-			if (serverId > 0) {
+			if (serverId != -1) {
 				VideoApp.serverId = serverId;
 				result = jni.getDeviceList(serverId);
+				Log.d("", "result =" + result);
 				if (result != HMDefines.HMEC_OK) {
 					jni.disconnectServer(serverId);
 					return event;
@@ -121,6 +123,7 @@ public class LoginVideoJob extends MyJob {
 
 				// step 2: Get user information.
 				UserInfo userInfo = jni.getUserInfo(serverId);
+				Log.d("", "userInfo =" + userInfo);
 				if (userInfo == null) {
 					jni.disconnectServer(serverId);
 					return event;
@@ -133,6 +136,8 @@ public class LoginVideoJob extends MyJob {
 				// step 3: Get transfer service.
 				// if (userInfo.useTransferService !=
 				// 0&&userInfo.useTransferService !=8) {
+
+				Log.d("", "useTransferService =" + userInfo.useTransferService);
 				if (userInfo.useTransferService != 0) {
 					result = jni.getTransferInfo(serverId);
 					if (result != HMDefines.HMEC_OK) {
@@ -148,6 +153,8 @@ public class LoginVideoJob extends MyJob {
 				} else {
 					event = EventType.VIDEO_LOGIN_SUCCESS;
 				}
+			} else {
+				Log.e("", "login failed! error=" + error.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

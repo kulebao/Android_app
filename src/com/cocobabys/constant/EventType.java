@@ -141,6 +141,9 @@ public class EventType{
     // 未开通
     public static final int VIDEO_GET_INFO_NOT_REG             = 10032;
     public static final int VIDEO_GET_INFO_FAIL                = 10031;
+    
+    //进一步获取华迈视频设备
+    public static final int VIDEO_LOGIN_HUMAI                = 10033;
 
     /***************** lbs event ********************/
     public static final int COUNTDOWN_EVENT                    = 20001;
