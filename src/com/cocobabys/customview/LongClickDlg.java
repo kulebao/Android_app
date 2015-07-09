@@ -29,7 +29,7 @@ public class LongClickDlg{
     private String[]                 items;
     private ProgressDialog           dialog;
 
-    private ShareInfo                info;
+    private ShareInfo                info                     = new ShareInfo();
 
     public ShareInfo getInfo(){
         return info;

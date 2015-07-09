@@ -385,9 +385,8 @@ public class ExpListAdapter extends BaseAdapter{
         ExpInfo info = getItem(pos);
         longClickDlg = new LongClickDlg(context);
 
-        ShareInfo shareInfo = getShareInfo(mediumIndex, info);
-
-        longClickDlg.setInfo(shareInfo);
+        // ShareInfo shareInfo = getShareInfo(mediumIndex, info);
+        // longClickDlg.setInfo(shareInfo);
 
         // 只能删除自己发的
         if(DataMgr.getInstance().getSelfInfoByPhone().getParent_id().equals(info.getSender_id())){

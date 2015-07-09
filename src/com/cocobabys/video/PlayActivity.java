@@ -601,8 +601,10 @@ public class PlayActivity extends UmengStatisticsActivity {
 
 			// Step 1: Login the device.
 			Log.d("VIDEO", "try to login");
+
 			VideoApp.mUserId = VideoApp.getJni().loginEx(nodeId,
 					HMDefines.ConnectPolicy.CONN_POLICY_DEFAULT);
+
 			// VideoApp.mUserId = VideoApp.getJni().loginEx(nodeId);
 			Log.d("VIDEO", "after login mUserId=" + VideoApp.mUserId);
 			// 原始代码这里只有0才返回，实测中会返回-1，如果返回-1继续向下执行，程序假死，且按键无反应
@@ -667,14 +669,14 @@ public class PlayActivity extends UmengStatisticsActivity {
 			return false;
 		}
 
-		VideoApp.getJni().setNetworkCallback(VideoApp.mUserId,
-				new NetworkCallback() {
-					@Override
-					public void onNetwork(int errorCode) {
-						handleNetworkCallBack(errorCode);
-					}
-
-				});
+		// VideoApp.getJni().setNetworkCallback(VideoApp.mUserId,
+		// new NetworkCallback() {
+		// @Override
+		// public void onNetwork(int errorCode) {
+		// handleNetworkCallBack(errorCode);
+		// }
+		//
+		// });
 		return true;
 	}
 

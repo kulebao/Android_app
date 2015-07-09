@@ -270,13 +270,19 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					startToActivity(new ActivityLauncher() {
 						@Override
 						public void startActivity() {
-							startToSchoolbusActivity();
+							startToShopLocActivity();
 							// startToLbsActivity();
 						}
 					});
 				}
 			});
 		}
+	}
+
+	void startToShopLocActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, ShopLocationActivity.class);
+		startActivity(intent);
 	}
 
 	void startToSchoolbusActivity() {
@@ -294,8 +300,18 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				startToSchoolInfoActivity();
 			}
 		});
-		schoolNameView.setText(DataMgr.getInstance().getSchoolInfo()
-				.getSchool_name());
+		String schoolName = getSchoolName();
+		schoolNameView.setText(schoolName);
+	}
+
+	private String getSchoolName() {
+		String schoolName = "";
+		try {
+			schoolName = DataMgr.getInstance().getSchoolInfo().getSchool_name();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return schoolName;
 	}
 
 	private void setHeadIcon() {

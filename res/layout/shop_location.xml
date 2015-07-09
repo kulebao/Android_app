@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="刷新"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/locationInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/refresh"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/darker_gray"
+        android:gravity="center_horizontal"
+        android:text="@string/no_schoolbus_info"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/locationInfo"
+        android:clickable="true" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="10dip"
+        android:background="#D000"
+        android:minWidth="100dip"
+        android:orientation="vertical"
+        android:padding="2dp" >
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="定位icon" >
+
+            <RadioButton
+                android:id="@+id/normalType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="地图模式"
+                android:textColor="@android:color/white" >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/satelliteType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="卫星模式"
+                android:textColor="@android:color/white" >
+            </RadioButton>
+        </RadioGroup>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/changeCircle"
+        android:layout_width="wrap_content"
+        android:padding="5dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/distance"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_bus"
+        android:text="@string/self_center"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/button1"
+        android:padding="5dp"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/locationInfo"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dip"
+        android:visibility="gone"
+        android:background="@drawable/btn_bus" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/showtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/locationInfo"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+</RelativeLayout>

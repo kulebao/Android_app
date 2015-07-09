@@ -175,6 +175,13 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.cocobabys.activities.ShopLocationActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.cocobabys.activities.BindLocationMgrActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"

@@ -422,6 +422,7 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 	@Override
 	protected void onDestroy() {
 		// 退出时销毁定位
+		mLocClient.unRegisterLocationListener(myListener);
 		mLocClient.stop();
 		super.onDestroy();
 		// 关闭定位图层
