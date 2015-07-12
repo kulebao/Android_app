@@ -16,7 +16,7 @@
     <RelativeLayout
         android:id="@+id/second"
         android:layout_width="fill_parent"
-        android:layout_height="120dp"
+        android:layout_height="160dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -36,7 +36,7 @@
             android:layout_width="180dp"
             android:layout_height="28dp"
             android:layout_below="@+id/accountView"
-            android:layout_margin="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/input_login"
