@@ -7,13 +7,16 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.cocobabys.R;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.activities.NoticePullRefreshActivity;
+import com.cocobabys.bean.PullToRefreshListInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.EducationInfo;
 import com.cocobabys.dbmgr.info.Homework;
@@ -43,7 +46,7 @@ public class MethodUtils {
 			try {
 				long from = getMaxNewsTimestamp();
 				has_new = !method.getNormalNews(1, from, 0,
-						ConstantValue.Type_CHECK_NEW).isEmpty();
+						ConstantValue.TYPE_CHECK_NEW).isEmpty();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -316,5 +319,33 @@ public class MethodUtils {
 			bret.setResultType((Integer) obj);
 		}
 		return bret;
+	}
+
+	private static final String MOST = "most";
+	private static final String FROM = "from";
+	private static final String TO = "to";
+
+	public static String createFromToParams(PullToRefreshListInfo info) {
+		int most = ConstantValue.GET_NORMAL_NOTICE_MAX_COUNT;
+
+		if (info.getMost() != 0) {
+			most = info.getMost();
+		}
+
+		String cmd = "?";
+
+		cmd += MOST + "=" + most;
+
+		// 获取新的或者检查是否有更新的，都将带from参数
+		if (info.getType() == ConstantValue.TYPE_GET_HEAD) {
+			cmd += "&" + FROM + "=" + info.getFrom();
+		}
+
+		if (info.getType() == ConstantValue.TYPE_GET_TAIL) {
+			cmd += "&" + TO + "=" + info.getTo();
+		}
+
+		Log.d("DDD", "createFromToParams cmd=" + cmd);
+		return cmd;
 	}
 }

@@ -246,7 +246,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		Utils.setImg(babyHeadIcon, loacalBitmap);
 	}
 
-	protected void setTabTitle() {
+	private void setTabTitle() {
 		selectedChild = DataMgr.getInstance().getSelectedChild();
 		if (selectedChild != null) {
 			setNickName();
@@ -270,8 +270,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					startToActivity(new ActivityLauncher() {
 						@Override
 						public void startActivity() {
-							startToShopLocActivity();
+							// startToShopLocActivity();
 							// startToLbsActivity();
+							startToBusinessActivity();
 						}
 					});
 				}
@@ -279,19 +280,25 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		}
 	}
 
-	void startToShopLocActivity() {
+	private void startToBusinessActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, BusinessActivity.class);
+		startActivity(intent);
+	}
+
+	private void startToShopLocActivity() {
 		Intent intent = new Intent();
 		intent.setClass(this, ShopLocationActivity.class);
 		startActivity(intent);
 	}
 
-	void startToSchoolbusActivity() {
+	private void startToSchoolbusActivity() {
 		Intent intent = new Intent();
 		intent.setClass(this, SchoolbusActivity.class);
 		startActivity(intent);
 	}
 
-	public void setSchoolName() {
+	private void setSchoolName() {
 		TextView schoolNameView = (TextView) findViewById(R.id.schoolName);
 		schoolNameView.setOnClickListener(new OnClickListener() {
 

@@ -21,7 +21,7 @@ public class GetEducationTask extends AsyncTask<Void, Void, Integer> {
 	private long from;
 	private long to;
 	private List<EducationInfo> list;
-	private int addType = ConstantValue.Type_GET_HEAD;
+	private int addType = ConstantValue.TYPE_GET_HEAD;
 
 	public GetEducationTask(Handler handler, int most, long from, long to,
 			int addType) {

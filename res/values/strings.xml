@@ -276,5 +276,15 @@
     <string name="sending_feedback">发送回执中...</string>
     <string name="bus_service">校车接送</string>
     
+    <string name="get_action_fail">获取活动失败</string>
+    <string name="get_action_empty">没有更多的活动了</string>
+    
+    <string name="get_merchant_fail">获取商户失败</string>
+    <string name="get_merchant_empty">没有更多的商户了</string>
+    
+    <string name="enroll">马上报名</string>
+    <string name="enrolled">我已参加</string>
+    <string name="enroll_success">报名成功</string>
+    <string name="enroll_fail">报名失败</string>
 
 </resources>
