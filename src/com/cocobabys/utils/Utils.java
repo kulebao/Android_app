@@ -56,8 +56,7 @@ public class Utils {
 	public static final String APP_DIR_TMP = "cocobaby/tmp";
 
 	public static final String APP_DIR_SHARE = "cocobaby/share";
-	public static final String APP_DIR_SHARE_NO_MEDIA = APP_DIR_SHARE
-			+ File.separator + ".nomedia";
+	public static final String APP_DIR_SHARE_NO_MEDIA = APP_DIR_SHARE + File.separator + ".nomedia";
 
 	public static final String OLD_APP_DIR_PIC = "cocobaby/pic";
 	public static final String APP_DIR_PIC = "cocobaby/images";
@@ -114,29 +113,23 @@ public class Utils {
 		builder.create().show();
 	}
 
-	public static void showSingleBtnResDlg(int resID, Context context,
-			OnClickListener configListener) {
-		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context,
-				configListener);
+	public static void showSingleBtnResDlg(int resID, Context context, OnClickListener configListener) {
+		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context, configListener);
 		builder.setMessage(context.getResources().getString(resID));
 		builder.create().show();
 	}
-	
-	//无法取消，必须点击确认
-	public static void showSingleBtnMustConfirmResDlg(int resID, Context context,
-			OnClickListener configListener) {
-		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context,
-				configListener);
+
+	// 无法取消，必须点击确认
+	public static void showSingleBtnMustConfirmResDlg(int resID, Context context, OnClickListener configListener) {
+		CustomDialog.Builder builder = DlgMgr.getSingleBtnDlg(context, configListener);
 		builder.setMessage(context.getResources().getString(resID));
 		CustomDialog dlg = builder.create();
 		dlg.setCancelable(false);
 		dlg.show();
 	}
 
-	public static void showTwoBtnResDlg(int resID, Context context,
-			OnClickListener configListener) {
-		CustomDialog.Builder builder = DlgMgr.getTwoBtnDlg(context,
-				configListener);
+	public static void showTwoBtnResDlg(int resID, Context context, OnClickListener configListener) {
+		CustomDialog.Builder builder = DlgMgr.getTwoBtnDlg(context, configListener);
 		builder.setMessage(context.getResources().getString(resID));
 		builder.createTwoBtn().show();
 	}
@@ -190,8 +183,7 @@ public class Utils {
 	}
 
 	public static String convertTime(long timestamp) {
-		SimpleDateFormat fomat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-				Locale.CHINESE);
+		SimpleDateFormat fomat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE);
 		return fomat.format(new Date(timestamp));
 	}
 
@@ -199,8 +191,7 @@ public class Utils {
 		if (context != null) {
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo mWiFiNetworkInfo = mConnectivityManager
-					.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+			NetworkInfo mWiFiNetworkInfo = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 			if (mWiFiNetworkInfo != null) {
 				return mWiFiNetworkInfo.isAvailable();
 			}
@@ -212,8 +203,7 @@ public class Utils {
 		if (context != null) {
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo mNetworkInfo = mConnectivityManager
-					.getActiveNetworkInfo();
+			NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
 			if (mNetworkInfo != null) {
 				return mNetworkInfo.isAvailable();
 			}
@@ -225,8 +215,7 @@ public class Utils {
 		if (context != null) {
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo mNetworkInfo = mConnectivityManager
-					.getActiveNetworkInfo();
+			NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
 			if (mNetworkInfo != null && mNetworkInfo.isAvailable()) {
 				return mNetworkInfo.getType();
 			}
@@ -238,8 +227,7 @@ public class Utils {
 		if (context != null) {
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo mMobileNetworkInfo = mConnectivityManager
-					.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+			NetworkInfo mMobileNetworkInfo = mConnectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 			if (mMobileNetworkInfo != null) {
 				return mMobileNetworkInfo.isAvailable();
 			}
@@ -252,8 +240,7 @@ public class Utils {
 	}
 
 	// record_url 下载地址,iconname 下载成功后保存的文件名
-	public static void downloadIcon(String record_url, String path)
-			throws Exception {
+	public static void downloadIcon(String record_url, String path) throws Exception {
 		Bitmap bmp = getBitmapFromUrl(record_url, 2);
 		if (bmp != null) {
 			Log.d("LIYI", "saveBitmapToSDCard path=" + path);
@@ -261,19 +248,15 @@ public class Utils {
 		}
 	}
 
-	public static String getFixedUrl(String originalUrl, int limitwidth,
-			int limitheight) {
-		String fixedUrl = originalUrl
-				+ String.format("?imageView/2/w/%d/h/%d", limitwidth,
-						limitheight);
+	public static String getFixedUrl(String originalUrl, int limitwidth, int limitheight) {
+		String fixedUrl = originalUrl + String.format("?imageView/2/w/%d/h/%d", limitwidth, limitheight);
 		Log.d("III", "getFixedUrl  fixedUrl=" + fixedUrl);
 		return fixedUrl;
 	}
 
 	// 月日 时分
 	public static String formatChineseTime(long time) {
-		SimpleDateFormat format = new SimpleDateFormat("MM月dd日 HH:mm",
-				Locale.CHINESE);
+		SimpleDateFormat format = new SimpleDateFormat("MM月dd日 HH:mm", Locale.CHINESE);
 		String timestr = format.format(new Date(time));
 		if (timestr.startsWith("0")) {
 			timestr = timestr.replaceFirst("0", "");
@@ -282,8 +265,7 @@ public class Utils {
 	}
 
 	public static boolean isVoiceOn() {
-		return ConstantValue.VOICE_OPEN.equals(DataUtils.getProp(
-				ConstantValue.VOICE_CONFIG, ConstantValue.VOICE_OPEN));
+		return ConstantValue.VOICE_OPEN.equals(DataUtils.getProp(ConstantValue.VOICE_CONFIG, ConstantValue.VOICE_OPEN));
 	}
 
 	public static Calendar getMonDayCalendar() {
@@ -336,8 +318,8 @@ public class Utils {
 			// makeAppDirInSDCard(APP_DIR_PIC_NOMEIDA);
 			makeAppDirInSDCard(APP_DIR_TMP);
 			makeAppDirInSDCard(APP_LOGS);
-			
-			//分享到其他社交app的文件目录
+
+			// 分享到其他社交app的文件目录
 			makeAppDirInSDCard(APP_DIR_SHARE);
 			makeAppDirInSDCard(APP_DIR_SHARE_NO_MEDIA);
 		}
@@ -415,8 +397,7 @@ public class Utils {
 		}
 	}
 
-	public static void saveBitmapToSDCard(Bitmap bitmap, String name)
-			throws Exception {
+	public static void saveBitmapToSDCard(Bitmap bitmap, String name) throws Exception {
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream(name);
@@ -437,17 +418,13 @@ public class Utils {
 
 	// 上传到oss的小孩照片固定地址
 	public static String getUploadChildUrl() {
-		return CHILD_PHOTO + File.separator
-				+ DataMgr.getInstance().getSchoolID() + File.separator
-				+ DataMgr.getInstance().getSelectedChild().getServer_id()
-				+ File.separator
-				+ DataMgr.getInstance().getSelectedChild().getServer_id()
-				+ JPG_EXT;
+		return CHILD_PHOTO + File.separator + DataMgr.getInstance().getSchoolID() + File.separator
+				+ DataMgr.getInstance().getSelectedChild().getServer_id() + File.separator
+				+ DataMgr.getInstance().getSelectedChild().getServer_id() + JPG_EXT;
 	}
 
 	public static String getChatIconUrl(long timestamp) {
-		String dir = CHAT_ICON + File.separator
-				+ DataMgr.getInstance().getSchoolID() + File.separator
+		String dir = CHAT_ICON + File.separator + DataMgr.getInstance().getSchoolID() + File.separator
 				+ DataUtils.getAccount();
 		return dir + File.separator + timestamp + JPG_EXT;
 	}
@@ -464,32 +441,26 @@ public class Utils {
 	}
 
 	public static String getChatVoiceUrl(long timestamp) {
-		String dir = CHAT_VOICE + File.separator
-				+ DataMgr.getInstance().getSelfInfoByPhone().getParent_id();
-		return dir + File.separator + timestamp
-				+ ConstantValue.DEFAULT_VOICE_TYPE;
+		String dir = CHAT_VOICE + File.separator + DataMgr.getInstance().getSelfInfoByPhone().getParent_id();
+		return dir + File.separator + timestamp + ConstantValue.DEFAULT_VOICE_TYPE;
 	}
 
 	public static String getVideoPicPath(String filename) {
-		return getSDCardPicRootPath() + File.separator + VIDEO_PIC
-				+ File.separator + filename;
+		return getSDCardPicRootPath() + File.separator + VIDEO_PIC + File.separator + filename;
 	}
 
 	public static String getChatIconDir(String childid) {
-		return getSDCardPicRootPath() + File.separator + CHAT_ICON
-				+ File.separator + childid + File.separator;
+		return getSDCardPicRootPath() + File.separator + CHAT_ICON + File.separator + childid + File.separator;
 	}
 
 	public static String getExpIconDir(String childid) {
-		return getSDCardPicRootPath() + File.separator + EXP_ICON
-				+ File.separator + childid + File.separator;
+		return getSDCardPicRootPath() + File.separator + EXP_ICON + File.separator + childid + File.separator;
 	}
 
 	// url是针对sd卡，应用保存图片路径+name
 	public static Bitmap getLoacalBitmapByName(String name) {
 		// url 类似mnt/sdcard/cocobaby/pic name 类似school_logo
-		String url = Utils.getSDCardFileDir(Utils.APP_DIR_PIC).getPath()
-				+ File.separator + name;
+		String url = Utils.getSDCardFileDir(Utils.APP_DIR_PIC).getPath() + File.separator + name;
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(url);
@@ -577,8 +548,7 @@ public class Utils {
 		Bitmap bitmap = null;
 		try {
 			// bitmap = downloader.download();
-			bitmap = downloadImgImpl(Utils.getFixedUrl(url, LIMIT_WIDTH,
-					LIMIT_HEIGHT));
+			bitmap = downloadImgImpl(Utils.getFixedUrl(url, LIMIT_WIDTH, LIMIT_HEIGHT));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -586,27 +556,21 @@ public class Utils {
 	}
 
 	public static String getExpRelativePath(String sdCardPath) {
-		String name = DataMgr.getInstance().getSchoolID() + File.separator
-				+ EXP_ICON + File.separator
-				+ DataMgr.getInstance().getSelectedChild().getServer_id()
-				+ File.separator + getName(sdCardPath);
+		String name = DataMgr.getInstance().getSchoolID() + File.separator + EXP_ICON + File.separator
+				+ DataMgr.getInstance().getSelectedChild().getServer_id() + File.separator + getName(sdCardPath);
 		return name;
 	}
 
 	public static String getExpRelativePathExt(String realName) {
-		String name = DataMgr.getInstance().getSchoolID() + File.separator
-				+ EXP_ICON + File.separator
-				+ DataMgr.getInstance().getSelectedChild().getServer_id()
-				+ File.separator + realName;
+		String name = DataMgr.getInstance().getSchoolID() + File.separator + EXP_ICON + File.separator
+				+ DataMgr.getInstance().getSelectedChild().getServer_id() + File.separator + realName;
 		return name;
 	}
 
-	public static Bitmap downloadImgWithJudgement(String url, float limitWidth,
-			float limitHeight) {
+	public static Bitmap downloadImgWithJudgement(String url, float limitWidth, float limitHeight) {
 		Bitmap bitmap = null;
 		try {
-			bitmap = downloadImgImpl(Utils.getFixedUrl(url, (int) limitWidth,
-					(int) limitHeight));
+			bitmap = downloadImgImpl(Utils.getFixedUrl(url, (int) limitWidth, (int) limitHeight));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -620,12 +584,9 @@ public class Utils {
 		}
 	}
 
-	public static void saveInSDCard(String log) throws FileNotFoundException,
-			IOException {
-		if (Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED)) {
-			String filename = getSDCardFileDir(APP_LOGS).getPath()
-					+ File.separator + "logs.txt";
+	public static void saveInSDCard(String log) throws FileNotFoundException, IOException {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+			String filename = getSDCardFileDir(APP_LOGS).getPath() + File.separator + "logs.txt";
 			File file = new File(filename);
 			if (!file.exists()) {
 				file.createNewFile();
@@ -637,8 +598,7 @@ public class Utils {
 		}
 	}
 
-	public static void saveInSDCard(StringBuffer sb, String fileName)
-			throws FileNotFoundException, IOException {
+	public static void saveInSDCard(StringBuffer sb, String fileName) throws FileNotFoundException, IOException {
 		saveInSDCard(sb.toString(), fileName);
 	}
 
@@ -666,11 +626,9 @@ public class Utils {
 	}
 
 	public static String getExpVideoPath(long timestamp) {
-		String parentid = DataMgr.getInstance().getSelfInfoByPhone()
-				.getParent_id();
+		String parentid = DataMgr.getInstance().getSelfInfoByPhone().getParent_id();
 
-		String dir = getSDCardMediaRootPath(JSONConstant.VIDEO_TYPE)
-				+ File.separator + parentid;
+		String dir = getSDCardMediaRootPath(JSONConstant.VIDEO_TYPE) + File.separator + parentid;
 
 		File file = new File(dir);
 		if (!file.exists()) {
@@ -682,8 +640,7 @@ public class Utils {
 	}
 
 	public static void saveInSDCard(String str, String fileName) {
-		if (Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED)) {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 			String path = getSDCardFileDir(APP_LOGS).getPath();
 			File dir = new File(path);
 			if (!dir.exists()) {
@@ -711,13 +668,11 @@ public class Utils {
 
 	public static String getName(String fullpath) {
 		int separatorIndex = fullpath.lastIndexOf(File.separator);
-		return (separatorIndex < 0) ? fullpath : fullpath.substring(
-				separatorIndex + 1, fullpath.length());
+		return (separatorIndex < 0) ? fullpath : fullpath.substring(separatorIndex + 1, fullpath.length());
 	}
 
 	public static String getDefaultCameraDir() {
-		String path = Environment.getExternalStorageDirectory().getPath()
-				+ "/DCIM/Camera/";
+		String path = Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/";
 		File file = new File(path);
 		if (!file.exists()) {
 			file.mkdirs();
@@ -725,8 +680,7 @@ public class Utils {
 		return path;
 	}
 
-	public static void goNextActivity(Activity activity, Class<?> toClass,
-			boolean closeSelf) {
+	public static void goNextActivity(Activity activity, Class<?> toClass, boolean closeSelf) {
 		Intent intent = new Intent();
 		intent.setClass(activity, toClass);
 		activity.startActivity(intent);
@@ -745,8 +699,7 @@ public class Utils {
 		}
 		// 得到剪贴板管理器
 		Context context = MyApplication.getInstance().getApplicationContext();
-		ClipboardManager cmb = (ClipboardManager) context
-				.getSystemService(Context.CLIPBOARD_SERVICE);
+		ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		cmb.setText(content.trim());
 	}
 
@@ -758,15 +711,15 @@ public class Utils {
 		// Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 		// mediaScanIntent.setData(uri);
 		// context.sendBroadcast(mediaScanIntent);
-		MyMediaScannerConnectionClient mediaScannerConnectionClient = MyApplication
-				.getInstance().getMediaScannerConnectionClient();
+		MyMediaScannerConnectionClient mediaScannerConnectionClient = MyApplication.getInstance()
+				.getMediaScannerConnectionClient();
 		mediaScannerConnectionClient.addPicToGallery(uri);
 	}
 
 	// 向图库里添加文件路径，可以让视频显示在图库里
 	public static void addVideoToGallery(Uri uri) {
-		MyMediaScannerConnectionClient mediaScannerConnectionClient = MyApplication
-				.getInstance().getMediaScannerConnectionClient();
+		MyMediaScannerConnectionClient mediaScannerConnectionClient = MyApplication.getInstance()
+				.getMediaScannerConnectionClient();
 		mediaScannerConnectionClient.addVideoToGallery(uri);
 	}
 
@@ -819,10 +772,8 @@ public class Utils {
 
 	private static void removeImpl(File file) {
 		if (file.isFile()
-				&& (file.getPath().toLowerCase().endsWith(JPG_EXT) || file
-						.getPath().toLowerCase().endsWith(PNG_EXT))) {
-			String picFileNameNoExt = getPicFileNameNoExt(file.getPath()
-					.toLowerCase());
+				&& (file.getPath().toLowerCase().endsWith(JPG_EXT) || file.getPath().toLowerCase().endsWith(PNG_EXT))) {
+			String picFileNameNoExt = getPicFileNameNoExt(file.getPath().toLowerCase());
 			File toFile = new File(picFileNameNoExt);
 			file.renameTo(toFile);
 			return;
@@ -846,8 +797,7 @@ public class Utils {
 
 	// 去掉.png或.jpg或.mp4扩展名，不显示图片到系统图库
 	public static String getPicFileNameNoExt(String filename) {
-		if ((filename != null) && (filename.length() > 0)
-				&& (filename.endsWith(JPG_EXT) || filename.endsWith(PNG_EXT))) {
+		if ((filename != null) && (filename.length() > 0) && (filename.endsWith(JPG_EXT) || filename.endsWith(PNG_EXT))) {
 			int dot = Utils.getPicIndex(filename);
 			if ((dot > -1) && (dot < (filename.length()))) {
 				return filename.substring(0, dot);
@@ -865,5 +815,13 @@ public class Utils {
 			}
 		}
 		return filename;
+	}
+
+	// 去掉double转string后，小数点多余的0
+	public static String doubleToString(double num) {
+		if (num % 1.0 == 0) {
+			return (long) num + "";
+		}
+		return num + "";
 	}
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="5dp" >
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/logo2" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/image" >
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TitleTextStyle"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="dddddd" />
+
+        <TextView
+            android:id="@+id/originalprice"
+            style="@style/MinorTextStyle"
+            android:layout_below="@+id/title"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="dd"
+            android:textColor="@color/gray" />
+
+        <LinearLayout
+            android:id="@+id/middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/originalprice"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="@string/special_discount"
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/discountprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="9999元"
+                android:textColor="@color/blue"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/enroll"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/middle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/btn_blue"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/join"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/address"
+            style="@style/MinorTextStyle"
+            android:layout_below="@+id/enroll"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="dd"
+            android:textColor="@color/gray" />
+    </RelativeLayout>
+
+</RelativeLayout>

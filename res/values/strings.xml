@@ -289,4 +289,9 @@
     <string name="enroll_fail">报名失败</string>
     <string name="check_enroll">检查报名情况</string>
 
+    <string name="join">马上参加</string>
+    
+    <string name="original_price">原价%s元</string>
+    <string name="special_discount">幼乐宝用户专享</string>
+    <string name="format_price">%s元</string>
 </resources>

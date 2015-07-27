@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/top"
+        layout="@layout/topbar" />
+
+    <ImageView
+        android:id="@+id/actionImage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top"
+        android:layout_marginBottom="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo2" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/actionImage" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/NormalTextviewStyle"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="left" />
+
+            <TextView
+                android:id="@+id/contact"
+                style="@style/NormalTextviewStyle"
+                android:layout_below="@+id/title"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="left" />
+
+            <TextView
+                android:id="@+id/detail"
+                style="@style/NormalTextviewStyle"
+                android:layout_below="@+id/contact"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="left" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/enroll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:text="@string/enroll"
+        android:background="@drawable/small_btn" />
+
+</RelativeLayout>
