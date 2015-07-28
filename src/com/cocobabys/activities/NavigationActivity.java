@@ -14,9 +14,8 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.OpenClientUtil;
 import com.baidu.mapapi.utils.route.BaiduMapRoutePlan;
 import com.baidu.mapapi.utils.route.RouteParaOption;
-import com.cocobabys.R;
 
-public class ShopLocationActivity extends UmengStatisticsActivity{
+public class NavigationActivity extends UmengStatisticsActivity{
     // 单位毫秒
     private static final int    GET_LOC_TIME_SPAN = 2000;
 
@@ -32,12 +31,16 @@ public class ShopLocationActivity extends UmengStatisticsActivity{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.schoolbus_location);
         init();
     }
 
+    public void setEndPoint(LatLng latLng){
+        // end = new LatLng(30.541362, 104.075397);
+        end = latLng;
+        Log.d("", "setEndPoint end=" + end.latitude + "," + end.longitude);
+    }
+
     private void init(){
-        end = new LatLng(30.541362, 104.075397);
         initLocationClient();
     }
 
@@ -67,18 +70,18 @@ public class ShopLocationActivity extends UmengStatisticsActivity{
                 return;
             }
 
-            Log.d("", "onReceiveLocation location=" + location.toString());
+            Log.d("", "onReceiveLocation location=" + location.getAltitude() + "," + location.getLongitude());
 
             if(isFirstLoc){
                 isFirstLoc = false;
                 myLoc = new LatLng(location.getLatitude(), location.getLongitude());
 
+                Log.d("", "mLocClient stop");
                 // 获取到位置后，就无须再定位
                 mLocClient.stop();
-
-                startRoutePlanDriving();
-
-                ShopLocationActivity.this.finish();
+                mLocClient.unRegisterLocationListener(myListener);
+                // startRoutePlanDriving();
+                // NavigationActivity.this.finish();
             }
         }
 
@@ -86,10 +89,15 @@ public class ShopLocationActivity extends UmengStatisticsActivity{
     }
 
     public void startRoutePlanDriving(){
-        // LatLng pt_start = new LatLng(34.264642646862, 108.95108518068);
+        if(myLoc == null || end == null){
+            Log.d("", "startRoutePlanDriving do nothing myLoc=" + myLoc + " end=" + end);
+            return;
+        }
 
         Log.d("", "startRoutePlanDriving myLoc=" + myLoc.latitude + "," + myLoc.longitude);
         Log.d("", "startRoutePlanDriving end=" + end.latitude + "," + end.longitude);
+
+        // LatLng pt_start = new LatLng(34.264642646862, 108.95108518068);
 
         // 构建 route搜索参数
         RouteParaOption para = new RouteParaOption().startPoint(myLoc)
@@ -125,7 +133,7 @@ public class ShopLocationActivity extends UmengStatisticsActivity{
             @Override
             public void onClick(DialogInterface dialog, int which){
                 dialog.dismiss();
-                OpenClientUtil.getLatestBaiduMapApp(ShopLocationActivity.this);
+                OpenClientUtil.getLatestBaiduMapApp(NavigationActivity.this);
             }
         });
 

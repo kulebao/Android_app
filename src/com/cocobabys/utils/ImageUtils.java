@@ -4,6 +4,8 @@ import java.io.File;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.util.Log;
+import android.widget.ImageView;
 
 import com.cocobabys.activities.MyApplication;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -64,6 +66,13 @@ public class ImageUtils{
         }
 
         return instance;
+    }
+
+    public static void displayEx(String url, ImageView imageView, int maxWidth, int maxHeight){
+        ImageLoader imageLoader = getImageLoader();
+        String fixedUrl = Utils.getFixedUrl(url, maxWidth, maxHeight);
+        Log.d("", "displayEx fixedUrl=" + fixedUrl);
+        imageLoader.displayImage(fixedUrl, imageView);
     }
 
     public synchronized static void clearCache(){

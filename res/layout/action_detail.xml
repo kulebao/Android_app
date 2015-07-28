@@ -9,47 +9,149 @@
         android:id="@+id/top"
         layout="@layout/topbar" />
 
-    <ImageView
-        android:id="@+id/actionImage"
+    <RelativeLayout
+        android:id="@+id/first"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="180dp"
         android:layout_below="@+id/top"
-        android:layout_marginBottom="10dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logo2" />
+        android:layout_marginBottom="10dp" >
+
+        <ImageView
+            android:id="@+id/actionImage"
+            android:layout_width="fill_parent"
+            android:layout_height="240dp"
+            android:layout_below="@+id/top"
+            android:layout_marginBottom="10dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TitleTextStyle"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="left"
+            android:text="ddd"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/actionImage" >
+        android:layout_above="@+id/enroll"
+        android:layout_below="@+id/first" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/NormalTextviewStyle"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="left" />
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" >
 
-            <TextView
-                android:id="@+id/contact"
-                style="@style/NormalTextviewStyle"
-                android:layout_below="@+id/title"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="left" />
+                <TextView
+                    android:id="@+id/pretext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/originalprice"
+                    style="@style/MinorTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="擦擦擦" />
+
+                <TextView
+                    android:id="@+id/discountprice"
+                    style="@style/TitleTextStyle"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/originalprice"
+                    android:text="dddddd"
+                    android:textColor="@color/red" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/gray" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:onClick="contact" >
+
+                <TextView
+                    android:id="@+id/contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="ddd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/action_contact" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/gray" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:onClick="navigation" >
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="ddd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/navigation" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/gray" />
 
             <TextView
                 android:id="@+id/detail"
-                style="@style/NormalTextviewStyle"
-                android:layout_below="@+id/contact"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="left" />
-        </RelativeLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="ddd" />
+        </LinearLayout>
     </ScrollView>
 
     <Button
@@ -58,8 +160,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="5dp"
-        android:textColor="@color/white"
+        android:background="@drawable/small_btn"
         android:text="@string/enroll"
-        android:background="@drawable/small_btn" />
+        android:textColor="@color/white" />
 
 </RelativeLayout>

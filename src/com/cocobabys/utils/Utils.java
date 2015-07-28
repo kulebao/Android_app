@@ -39,6 +39,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.cocobabys.R;
+import com.cocobabys.R.string;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventMap;
@@ -235,7 +237,17 @@ public class Utils {
 		return false;
 	}
 
-	public static String getAdNotice(String adContent) {
+	public static void startToCall(Context context, String phonenum){
+        try{
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phonenum));
+            context.startActivity(intent);
+        } catch(Exception e){
+            makeToast(context, String.format(getResString(R.string.invalid_phone), phonenum));
+            e.printStackTrace();
+        }
+    }
+
+    public static String getAdNotice(String adContent) {
 		return String.format(Utils.AD_FORMAT, adContent);
 	}
 
