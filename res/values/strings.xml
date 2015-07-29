@@ -295,7 +295,10 @@
     <string name="special_discount">幼乐宝用户专享</string>
     <string name="format_price">%s元</string>
     
-    <string name="action_contact">电话咨询</string>
+    <string name="do_contact">电话咨询</string>
     
     <string name="navigation">查看位置</string>
+    
+    <string name="merchant_detail">商户详情</string>
+    <string name="action_detail">活动详情</string>
 </resources>

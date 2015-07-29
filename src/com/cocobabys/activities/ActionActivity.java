@@ -45,7 +45,7 @@ public class ActionActivity extends NavigationActivity{
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_detail);
-
+        ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.action_detail);
         initData();
 
         initView();
@@ -56,10 +56,10 @@ public class ActionActivity extends NavigationActivity{
 
         runCheckEnrollTask();
 
-        // setEndPoint(new LatLng(actioninfo.getLocation().getLatitude(),
-        // actioninfo.getLocation().getLongitude()));
+        setEndPoint(new LatLng(actioninfo.getLocation().getLatitude(), actioninfo.getLocation().getLongitude()));
         // 服务器存反了，这里临时处理一下，等服务器改了再调整
-        setEndPoint(new LatLng(actioninfo.getLocation().getLongitude(), actioninfo.getLocation().getLatitude()));
+        // setEndPoint(new LatLng(actioninfo.getLocation().getLongitude(),
+        // actioninfo.getLocation().getLatitude()));
     }
 
     private void runCheckEnrollTask(){

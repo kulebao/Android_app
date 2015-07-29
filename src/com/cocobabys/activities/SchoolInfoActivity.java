@@ -14,14 +14,12 @@ import android.widget.TextView;
 
 import com.cocobabys.R;
 import com.cocobabys.constant.EventType;
-import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.InfoHelper;
 import com.cocobabys.dbmgr.info.SchoolInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.DownLoadImgAndSaveTask;
 import com.cocobabys.taskmgr.GetSchoolInfoTask;
-import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
 public class SchoolInfoActivity extends UmengStatisticsActivity{
@@ -105,15 +103,17 @@ public class SchoolInfoActivity extends UmengStatisticsActivity{
         contact_school = (Button)findViewById(R.id.contact_school);
     }
 
-    private void showPushInfo(){
-        if(MyApplication.getInstance().isForTest()){
-            String USER_ID = DataUtils.getUndeleteableProp(JSONConstant.USER_ID);
-            String CHANNEL_ID = DataUtils.getUndeleteableProp(JSONConstant.CHANNEL_ID);
-
-            String text = "\nUSER_ID =" + USER_ID + "" + "\n" + "CHANNEL_ID =" + CHANNEL_ID + "\n";
-            desc.setText(text);
-        }
-    }
+    // private void showPushInfo(){
+    // if(MyApplication.getInstance().isForTest()){
+    // String USER_ID = DataUtils.getUndeleteableProp(JSONConstant.USER_ID);
+    // String CHANNEL_ID =
+    // DataUtils.getUndeleteableProp(JSONConstant.CHANNEL_ID);
+    //
+    // String text = "\nUSER_ID =" + USER_ID + "" + "\n" + "CHANNEL_ID =" +
+    // CHANNEL_ID + "\n";
+    // desc.setText(text);
+    // }
+    // }
 
     // 返回是否首次查询，首次查询需要显示loading动画
     private boolean showSchoolInfo(){

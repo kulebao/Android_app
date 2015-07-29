@@ -20,12 +20,12 @@
             android:id="@+id/actionImage"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
-            android:maxHeight="200dp"
             android:layout_below="@+id/top"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
+            android:maxHeight="200dp"
             android:scaleType="centerInside"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo2" />
 
         <TextView
             android:id="@+id/title"
@@ -41,43 +41,12 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/enroll"
         android:layout_below="@+id/first" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp" >
-
-                <TextView
-                    android:id="@+id/pretext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true" />
-
-                <TextView
-                    android:id="@+id/originalprice"
-                    style="@style/MinorTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:text="擦擦擦" />
-
-                <TextView
-                    android:id="@+id/discountprice"
-                    style="@style/TitleTextStyle"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/originalprice"
-                    android:text="dddddd"
-                    android:textColor="@color/red" />
-            </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
@@ -142,8 +111,25 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
+                android:background="@color/gray" />
+
+            <ListView
+                android:id="@+id/action_list"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="5dp"
+                android:divider="@drawable/line"
+                android:dividerHeight="2dip"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="true"
+                android:visibility="gone" >
+            </ListView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
                 android:background="@color/gray" />
 
             <TextView
@@ -154,15 +140,5 @@
                 android:text="ddd" />
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/enroll"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="5dp"
-        android:background="@drawable/small_btn"
-        android:text="@string/enroll"
-        android:textColor="@color/white" />
 
 </RelativeLayout>

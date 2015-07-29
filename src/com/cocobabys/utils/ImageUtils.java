@@ -68,6 +68,7 @@ public class ImageUtils{
         return instance;
     }
 
+    // 封装一下，然下载的图片大小不超过指定值，七牛云端支持这种方式
     public static void displayEx(String url, ImageView imageView, int maxWidth, int maxHeight){
         ImageLoader imageLoader = getImageLoader();
         String fixedUrl = Utils.getFixedUrl(url, maxWidth, maxHeight);

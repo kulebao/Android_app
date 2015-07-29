@@ -24,17 +24,15 @@
             android:id="@+id/title"
             style="@style/TitleTextStyle"
             android:layout_width="match_parent"
-            android:layout_marginBottom="5dp"
             android:gravity="center_horizontal"
             android:singleLine="true"
-            android:textSize="18sp" 
-            android:text="dddddd" />
+            android:text="dddddd"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/originalprice"
             style="@style/MinorTextStyle"
             android:layout_below="@+id/title"
-            android:layout_marginBottom="5dp"
             android:gravity="center_horizontal"
             android:singleLine="true"
             android:text="dd"
@@ -85,7 +83,6 @@
             android:id="@+id/address"
             style="@style/MinorTextStyle"
             android:layout_below="@+id/enroll"
-            android:layout_marginBottom="5dp"
             android:gravity="center_horizontal"
             android:singleLine="true"
             android:text="dd"

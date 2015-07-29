@@ -18,6 +18,15 @@ import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.utils.DataUtils;
 
 public class PushModel {
+	// 测试服使用的push apikey
+	private static String DEBUG_API_KEY = "9mzy6mOGMormOggT67K3jqBg";
+
+	// 正式服服使用的push apikey
+	private static String RELEASE_API_KEY = "O7Xwbt4DWOzsji57xybprqUc";
+
+	private String getApiKey() {
+		return MyApplication.getInstance().isForTest() ? DEBUG_API_KEY : RELEASE_API_KEY;
+	}
 
 	private PushModel() {
 
@@ -33,9 +42,7 @@ public class PushModel {
 
 	public void bind() {
 		Log.d("bbind", "do bind!");
-		PushManager.startWork(MyApplication.getInstance(),
-				PushConstants.LOGIN_TYPE_API_KEY, DataUtils.getMetaValue(
-						MyApplication.getInstance(), ConstantValue.API_KEY));
+		PushManager.startWork(MyApplication.getInstance(), PushConstants.LOGIN_TYPE_API_KEY, getApiKey());
 	}
 
 	public void unBind() {
@@ -51,8 +58,7 @@ public class PushModel {
 		try {
 			List<String> tags = new ArrayList<String>();
 			String schoolTag = DataMgr.getInstance().getSchoolID();
-			List<ChildInfo> allChildrenInfo = DataMgr.getInstance()
-					.getAllChildrenInfo();
+			List<ChildInfo> allChildrenInfo = DataMgr.getInstance().getAllChildrenInfo();
 
 			if (!allChildrenInfo.isEmpty() && !"".equals(schoolTag)) {
 				for (ChildInfo info : allChildrenInfo) {
@@ -75,8 +81,10 @@ public class PushModel {
 	}
 
 	public boolean isBindInfoSentToServer() {
-		return !ConstantValue.FAKE_USER_ID.equals(DataUtils
-				.getUndeleteableProp(JSONConstant.USER_ID));
+		String user_id = DataUtils.getUndeleteableProp(JSONConstant.USER_ID);
+		String channel_id = DataUtils.getUndeleteableProp(JSONConstant.CHANNEL_ID);
+		Log.d("", "BindPushTask pusid =" + user_id + "\nchannel_id=" + channel_id);
+		return !ConstantValue.FAKE_USER_ID.equals(user_id);
 	}
 
 	public List<String> getTags() {

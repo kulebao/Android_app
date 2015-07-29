@@ -320,6 +320,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.cocobabys.activities.MerchantActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.cocobabys.activities.ExpListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
@@ -390,8 +396,8 @@
         <activity
             android:name="com.cocobabys.activities.BusinessActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.cocobabys.activities.LoadingActivity"
