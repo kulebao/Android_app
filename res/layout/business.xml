@@ -22,7 +22,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:background="@android:color/white"
+        android:background="@drawable/topbar"
         android:orientation="horizontal" >
 
         <RelativeLayout
@@ -31,24 +31,24 @@
             android:layout_centerVertical="true"
             android:gravity="center_horizontal" >
 
-            <Button
-                android:id="@+id/action"
+            <ImageView
+                android:id="@+id/actionView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:background="@drawable/btn_blue"
+                android:clickable="true"
                 android:onClick="action"
-                android:text="活动" />
+                android:src="@drawable/action1" />
 
-            <Button
-                android:id="@+id/shop"
+            <ImageView
+                android:id="@+id/shopView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/action"
-                android:background="@drawable/btn_blue_2"
+                android:layout_toRightOf="@+id/actionView"
+                android:clickable="true"
                 android:onClick="shop"
-                android:text="商户" />
+                android:src="@drawable/shop0" />
         </RelativeLayout>
     </RelativeLayout>
 

@@ -41,180 +41,178 @@ import com.cocobabys.listener.MyPullToRefreshOnItemClickListener;
 import com.cocobabys.utils.Utils;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-public class ShopFragment extends MyListFragment{
+public class ShopFragment extends MyListFragment {
 
-    private int                     currentCategory = ConstantValue.MERCHANT_CATEGORY_CAMERA;
+	private int currentCategory = ConstantValue.MERCHANT_CATEGORY_CAMERA;
 
-    private List<MerchantInfo>      merchantInfos   = new ArrayList<MerchantInfo>();
+	private List<MerchantInfo> merchantInfos = new ArrayList<MerchantInfo>();
 
-    private List<MerchantGridInfo>  gridInfos       = new ArrayList<MerchantGridInfo>(){
-                                                        private static final long serialVersionUID = 1L;
+	private List<MerchantGridInfo> gridInfos = new ArrayList<MerchantGridInfo>() {
+		private static final long serialVersionUID = 1L;
 
-                                                        {
-                                                            add(new MerchantGridInfo(R.drawable.badrank,
-                                                                    ConstantValue.MERCHANT_CATEGORY_CAMERA));
-                                                            add(new MerchantGridInfo(R.drawable.normalrank,
-                                                                    ConstantValue.MERCHANT_CATEGORY_EDUCATION));
-                                                            add(new MerchantGridInfo(R.drawable.goodrank,
-                                                                    ConstantValue.MERCHANT_CATEGORY_GAME));
-                                                            add(new MerchantGridInfo(R.drawable.goodrank,
-                                                                    ConstantValue.MERCHANT_CATEGORY_SHOPPING));
-                                                            add(new MerchantGridInfo(R.drawable.goodrank,
-                                                                    ConstantValue.MERCHANT_CATEGORY_OTHER));
-                                                        }
-                                                    };
+		{
+			add(new MerchantGridInfo(R.drawable.photography1, R.drawable.photography0,
+					ConstantValue.MERCHANT_CATEGORY_CAMERA));
+			add(new MerchantGridInfo(R.drawable.tour1, R.drawable.tour0, ConstantValue.MERCHANT_CATEGORY_EDUCATION));
+			add(new MerchantGridInfo(R.drawable.train1, R.drawable.train0, ConstantValue.MERCHANT_CATEGORY_GAME));
+			add(new MerchantGridInfo(R.drawable.shopping1, R.drawable.shopping0,
+					ConstantValue.MERCHANT_CATEGORY_SHOPPING));
+			add(new MerchantGridInfo(R.drawable.other1, R.drawable.other0, ConstantValue.MERCHANT_CATEGORY_OTHER));
+		}
+	};
 
-    private MerchantGridViewAdapter gridViewAdapter;
-    private MerchantListAdapter     listAdapter;
+	private MerchantGridViewAdapter gridViewAdapter;
+	private MerchantListAdapter listAdapter;
 
-    private GridView                gridview;
+	private GridView gridview;
 
-    private GetMechantJob           actionJob;
+	private GetMechantJob actionJob;
 
-    public ShopFragment(){}
+	public ShopFragment() {
+	}
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.shop, container, false);
-        // 注意pulltorefreshlist的高度必须设置为fill_parent,否则无法显示
-        msgListView = (PullToRefreshListView)view.findViewById(R.id.pulltorefreshlist);
-        return view;
-    }
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.shop, container, false);
+		// 注意pulltorefreshlist的高度必须设置为fill_parent,否则无法显示
+		msgListView = (PullToRefreshListView) view.findViewById(R.id.pulltorefreshlist);
+		return view;
+	}
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        super.onViewCreated(view, savedInstanceState);
-        initGridView(view);
-        initListView(view);
-    }
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		initGridView(view);
+		initListView(view);
+	}
 
-    private void initListView(View view){
-        listAdapter = new MerchantListAdapter(getActivity(), merchantInfos);
+	private void initListView(View view) {
+		listAdapter = new MerchantListAdapter(getActivity(), merchantInfos);
 
-        msgListView.setAdapter(listAdapter);
+		msgListView.setAdapter(listAdapter);
 
-        msgListView.setOnItemClickListener(new MyPullToRefreshOnItemClickListener(){
-            @Override
-            public void handleClick(int realPosition){
-                startToActionDetailActivity(realPosition);
-            }
-        });
+		msgListView.setOnItemClickListener(new MyPullToRefreshOnItemClickListener() {
+			@Override
+			public void handleClick(int realPosition) {
+				startToActionDetailActivity(realPosition);
+			}
+		});
 
-    }
+	}
 
-    private void startToActionDetailActivity(int position){
-        MerchantInfo item = (MerchantInfo)listAdapter.getItem(position);
+	private void startToActionDetailActivity(int position) {
+		MerchantInfo item = (MerchantInfo) listAdapter.getItem(position);
 
-        Intent intent = new Intent();
-        FragmentActivity activity = getActivity();
-        intent.setClass(activity, MerchantActivity.class);
-        intent.putExtra(ConstantValue.MERCHANT_DETAIL, JSON.toJSONString(item));
-        activity.startActivity(intent);
-    }
+		Intent intent = new Intent();
+		FragmentActivity activity = getActivity();
+		intent.setClass(activity, MerchantActivity.class);
+		intent.putExtra(ConstantValue.MERCHANT_DETAIL, JSON.toJSONString(item));
+		activity.startActivity(intent);
+	}
 
-    private void initGridView(View view){
-        gridview = (GridView)view.findViewById(R.id.gridview);
-        gridViewAdapter = new MerchantGridViewAdapter(getActivity(), gridInfos);
-        gridview.setAdapter(gridViewAdapter);
-        gridview.setOnItemClickListener(new OnItemClickListener(){
+	private void initGridView(View view) {
+		gridview = (GridView) view.findViewById(R.id.gridview);
+		gridViewAdapter = new MerchantGridViewAdapter(getActivity(), gridInfos);
+		gridview.setAdapter(gridViewAdapter);
+		gridview.setOnItemClickListener(new OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                handleGridItemClick(position);
-            }
-        });
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				handleGridItemClick(position);
+			}
+		});
 
-        gridViewAdapter.setSeclection(0);
-    }
+		gridViewAdapter.setSeclection(0);
+	}
 
-    @Override
-    public void runLoadDataTask(){
-        dialog.show();
-        PullToRefreshListInfo info = new PullToRefreshListInfo();
-        doGet(info, ConstantValue.MERCHANT_CATEGORY_CAMERA);
-    }
+	@Override
+	public void runLoadDataTask() {
+		dialog.show();
+		PullToRefreshListInfo info = new PullToRefreshListInfo();
+		doGet(info, ConstantValue.MERCHANT_CATEGORY_CAMERA);
+	}
 
-    private synchronized void doGet(PullToRefreshListInfo info, int category){
-        if(actionJob != null && !actionJob.isDone()){
-            actionJob.cancel(true);
-        }
+	private synchronized void doGet(PullToRefreshListInfo info, int category) {
+		if (actionJob != null && !actionJob.isDone()) {
+			actionJob.cancel(true);
+		}
 
-        actionJob = new GetMechantJob(myhandler, info, category);
-        actionJob.execute();
-    }
+		actionJob = new GetMechantJob(myhandler, info, category);
+		actionJob.execute();
+	}
 
-    @Override
-    public void handleMsg(Message msg){
-        Log.d("DDD handleMsg getResult", "handleMsg what : " + msg.what + " ar1=" + msg.arg1);
-        switch(msg.what){
-            case EventType.MECHANT_GET_FAIL:
-                Utils.makeToast(getActivity(), Utils.getResString(R.string.get_merchant_fail));
-                break;
-            case EventType.MECHANT_GET_SUCCESS:
-                handleGetMerchantSuccess(msg);
-                break;
-            default:
-                break;
-        }
-    }
+	@Override
+	public void handleMsg(Message msg) {
+		Log.d("DDD handleMsg getResult", "handleMsg what : " + msg.what + " ar1=" + msg.arg1);
+		switch (msg.what) {
+		case EventType.MECHANT_GET_FAIL:
+			Utils.makeToast(getActivity(), Utils.getResString(R.string.get_merchant_fail));
+			break;
+		case EventType.MECHANT_GET_SUCCESS:
+			handleGetMerchantSuccess(msg);
+			break;
+		default:
+			break;
+		}
+	}
 
-    private void handleGetMerchantSuccess(Message msg){
-        @SuppressWarnings("unchecked")
-        List<MerchantInfo> list = (List<MerchantInfo>)msg.obj;
-        if(list.isEmpty()){
-            Utils.makeToast(getActivity(), Utils.getResString(R.string.get_merchant_empty));
-        } else{
-            if(msg.arg1 == ConstantValue.TYPE_GET_HEAD){
-                merchantInfos.addAll(0, list);
-            } else{
-                merchantInfos.addAll(list);
-            }
-            listAdapter.notifyDataSetChanged();
-        }
-    }
+	private void handleGetMerchantSuccess(Message msg) {
+		@SuppressWarnings("unchecked")
+		List<MerchantInfo> list = (List<MerchantInfo>) msg.obj;
+		if (list.isEmpty()) {
+			Utils.makeToast(getActivity(), Utils.getResString(R.string.get_merchant_empty));
+		} else {
+			if (msg.arg1 == ConstantValue.TYPE_GET_HEAD) {
+				merchantInfos.addAll(0, list);
+			} else {
+				merchantInfos.addAll(list);
+			}
+			listAdapter.notifyDataSetChanged();
+		}
+	}
 
-    @Override
-    public void refreshTail(){
-        Log.d("", "refreshTail currentCategory=" + currentCategory);
-        PullToRefreshListInfo info = new PullToRefreshListInfo();
-        if(!merchantInfos.isEmpty()){
-            info.setTo(merchantInfos.get(merchantInfos.size() - 1).getId());
-        }
-        info.setType(ConstantValue.TYPE_GET_TAIL);
-        doGet(info, currentCategory);
-    }
+	@Override
+	public void refreshTail() {
+		Log.d("", "refreshTail currentCategory=" + currentCategory);
+		PullToRefreshListInfo info = new PullToRefreshListInfo();
+		if (!merchantInfos.isEmpty()) {
+			info.setTo(merchantInfos.get(merchantInfos.size() - 1).getId());
+		}
+		info.setType(ConstantValue.TYPE_GET_TAIL);
+		doGet(info, currentCategory);
+	}
 
-    @Override
-    public void refreshHead(){
-        Log.d("", "refreshHead currentCategory=" + currentCategory);
-        PullToRefreshListInfo info = new PullToRefreshListInfo();
-        if(!merchantInfos.isEmpty()){
-            info.setFrom(merchantInfos.get(0).getId());
-        }
-        info.setType(ConstantValue.TYPE_GET_HEAD);
-        doGet(info, currentCategory);
-    }
+	@Override
+	public void refreshHead() {
+		Log.d("", "refreshHead currentCategory=" + currentCategory);
+		PullToRefreshListInfo info = new PullToRefreshListInfo();
+		if (!merchantInfos.isEmpty()) {
+			info.setFrom(merchantInfos.get(0).getId());
+		}
+		info.setType(ConstantValue.TYPE_GET_HEAD);
+		doGet(info, currentCategory);
+	}
 
-    private void handleGridItemClick(int position){
-        MerchantGridInfo item = gridViewAdapter.getItem(position);
+	private void handleGridItemClick(int position) {
+		MerchantGridInfo item = gridViewAdapter.getItem(position);
 
-        if(currentCategory == item.getCategory()){
-            Log.d("", "same currentCategory :" + currentCategory);
-            return;
-        }
+		if (currentCategory == item.getCategory()) {
+			Log.d("", "same currentCategory :" + currentCategory);
+			return;
+		}
 
-        dialog.setCancelable(false);
-        dialog.show();
+		dialog.setCancelable(false);
+		dialog.show();
 
-        gridViewAdapter.setSeclection(position);
-        gridViewAdapter.notifyDataSetChanged();
+		gridViewAdapter.setSeclection(position);
+		gridViewAdapter.notifyDataSetChanged();
 
-        currentCategory = item.getCategory();
+		currentCategory = item.getCategory();
 
-        listAdapter.clearData();
+		listAdapter.clearData();
 
-        PullToRefreshListInfo info = new PullToRefreshListInfo();
-        doGet(info, currentCategory);
-    }
+		PullToRefreshListInfo info = new PullToRefreshListInfo();
+		doGet(info, currentCategory);
+	}
 
 }

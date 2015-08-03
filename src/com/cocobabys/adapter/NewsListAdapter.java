@@ -268,12 +268,21 @@ public class NewsListAdapter extends BaseAdapter {
 		if (TextUtils.isEmpty(info.getIcon_url())) {
 			view.setVisibility(View.GONE);
 		} else {
-			String localUrl = info.getNewsLocalMiniIconPath();
+			//先取大图
+			String localUrl = info.getNewsLocalIconPath();
 			Bitmap loacalBitmap = getLocalBmp(localUrl);
+			
+			//大图不存在，再取小图
+			if(loacalBitmap == null){
+				localUrl = info.getNewsLocalMiniIconPath();
+				loacalBitmap = getLocalBmp(localUrl);
+			}
+			
 			if (loacalBitmap != null) {
 				Log.d("DJC", "setIcon url =" + localUrl);
 				Utils.setImg(view, loacalBitmap);
 			} else {
+				//小图也不存在，从服务器上下载小图
 				donwloadModule.addTask(info.getIcon_url(),
 						info.getNewsLocalMiniIconPath(),
 						ConstantValue.MINI_PIC_SIZE,

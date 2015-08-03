@@ -20,11 +20,10 @@ import com.cocobabys.R;
 import com.cocobabys.adapter.ActionSmallListAdapter;
 import com.cocobabys.bean.ActionInfo;
 import com.cocobabys.bean.MerchantInfo;
-import com.cocobabys.bean.PullToRefreshListInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.GetActionJob;
+import com.cocobabys.jobs.GetMerchantActionJob;
 import com.cocobabys.listener.MyPullToRefreshOnItemClickListener;
 import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
@@ -59,8 +58,7 @@ public class MerchantActivity extends NavigationActivity{
     }
 
     private void runGetActionListTask(){
-        PullToRefreshListInfo info = new PullToRefreshListInfo();
-        GetActionJob actionJob = new GetActionJob(handler, info);
+        GetMerchantActionJob actionJob = new GetMerchantActionJob(handler, merchantInfo.getId());
         actionJob.execute();
     }
 

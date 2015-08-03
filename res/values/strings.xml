@@ -46,7 +46,7 @@
 		已经绑定成功并自动登录。您的账号名就是手机号码，初始密码是手机号码的后8位。
 		\n\n提示：如需修改密码，请在进入应用后，点击屏幕右上角的"设置"按钮，进行修改.</string>
     <string name="aucodeContent">\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020尊敬的%1$s用户您好，您的手机已经通过验证，请获取短信验证码并进行账号绑定，谢谢！\n\n特别提示:
-\n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020该验证码的有效时间为10分钟,请在10分钟内进行绑定操作</string>
+\n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020该验证码的有效时间为2分钟,请在2分钟内进行绑定操作</string>
     <string name="reset_pwd_success">密码重置成功，请使用新密码进行登录，谢谢！</string>
     <string name="change_pwd_success">密码修改成功！</string>
     <string name="change_pwd_failed">密码修改失败！</string>
@@ -223,7 +223,7 @@
     <string name="copy_to_clipboard">复制成功</string>
     <string name="copy_to_gallery">照片保存到图库</string>
     <string name="access_forbid">权限不足，请联系幼儿园开通权限,谢谢！</string>
-    <string name="watch_baby">看宝贝</string>
+    <string name="watch_baby">看宝宝</string>
     <string name="record_time">00:00:00</string>
     <string name="album">相册</string>
     <string name="recent_photo">最近照片</string>

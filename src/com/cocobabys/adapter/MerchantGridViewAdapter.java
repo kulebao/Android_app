@@ -34,11 +34,9 @@ public class MerchantGridViewAdapter extends BaseAdapter {
 		final ViewHolder holder;
 
 		if (convertView == null) {
-			convertView = LayoutInflater.from(this.context).inflate(
-					R.layout.merchant_grid_item, null);
+			convertView = LayoutInflater.from(this.context).inflate(R.layout.merchant_grid_item, null);
 			holder = new ViewHolder();
-			holder.imageView = (ImageView) convertView
-					.findViewById(R.id.ItemImage);
+			holder.imageView = (ImageView) convertView.findViewById(R.id.ItemImage);
 			setDataToViews(position, holder);
 			convertView.setTag(holder);
 		} else {
@@ -51,12 +49,12 @@ public class MerchantGridViewAdapter extends BaseAdapter {
 
 	private void setDataToViews(final int position, ViewHolder flagholder) {
 		MerchantGridInfo item = getItem(position);
-		flagholder.imageView.setImageResource(item.getImageID());
+		// flagholder.imageView.setImageResource(item.getImageID());
 
 		if (clickTemp == position) {
-			flagholder.imageView.setBackgroundColor(Color.BLUE);
+			flagholder.imageView.setImageResource(item.getSelectedImageID());
 		} else {
-			flagholder.imageView.setBackgroundColor(Color.TRANSPARENT);
+			flagholder.imageView.setImageResource(item.getImageID());
 		}
 	}
 

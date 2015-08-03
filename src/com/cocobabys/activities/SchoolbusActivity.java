@@ -54,8 +54,8 @@ public class SchoolbusActivity extends UmengStatisticsActivity implements
 		OnGetGeoCoderResultListener {
 	private static final String COOR_TYPE = "bd09ll";
 	// 单位毫秒
-	private static final int GET_LOC_TIME_SPAN = 30000;
-	// 固定刷新间隔时间，设置为20s
+	private static final int GET_LOC_TIME_SPAN = 15000;
+	// 固定刷新间隔时间，设置为15s
 	private static final int MAX_COUNT_DOWN = 15;
 	private LatLng start;
 	private LatLng end = null;

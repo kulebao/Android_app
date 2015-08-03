@@ -16,11 +16,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:horizontalSpacing="20dp"
-            android:listSelector="@drawable/color_btn"
+            android:horizontalSpacing="10dp"
             android:numColumns="3"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="20dp" />
+            android:verticalSpacing="10dp" />
     </LinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView

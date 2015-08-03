@@ -20,20 +20,19 @@
             android:id="@+id/actionImage"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
-            android:maxHeight="200dp"
             android:layout_below="@+id/top"
-            android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
+            android:maxHeight="200dp"
             android:scaleType="centerInside"
             android:src="@drawable/logo" />
 
         <TextView
             android:id="@+id/title"
-            style="@style/TitleTextStyle"
+            style="@style/NormalTextviewStyle"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="20dp"
-            android:gravity="left"
+            android:background="@drawable/title_back"
+            android:gravity="left|center"
+            android:paddingLeft="15dp"
             android:text="ddd"
             android:textColor="@color/white" />
     </RelativeLayout>
@@ -84,7 +83,7 @@
                 android:layout_height="1dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/gray" />
+                android:background="@color/divid_color" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -103,10 +102,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/right"
                     android:text="@string/do_contact" />
+
+                <ImageView
+                    android:id="@+id/right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/rightarrow" />
             </RelativeLayout>
 
             <View
@@ -114,7 +121,7 @@
                 android:layout_height="1dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/gray" />
+                android:background="@color/divid_color" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -133,10 +140,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/right2"
                     android:text="@string/navigation" />
+
+                <ImageView
+                    android:id="@+id/right2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="2dp"
+                    android:src="@drawable/rightarrow" />
             </RelativeLayout>
 
             <View
@@ -144,7 +159,7 @@
                 android:layout_height="1dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/gray" />
+                android:background="@color/divid_color" />
 
             <TextView
                 android:id="@+id/detail"
