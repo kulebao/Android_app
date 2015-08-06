@@ -10,7 +10,12 @@
         android:layout_above="@+id/bottom"
         android:orientation="vertical" >
 
+        <include 
+            android:id="@+id/top"
+            layout="@layout/topbar" />
+
         <RelativeLayout
+            android:layout_below="@+id/top"
             android:id="@+id/childInfo"
             android:layout_width="fill_parent"
             android:layout_height="140dp"
