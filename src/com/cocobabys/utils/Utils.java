@@ -237,17 +237,17 @@ public class Utils {
 		return false;
 	}
 
-	public static void startToCall(Context context, String phonenum){
-        try{
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phonenum));
-            context.startActivity(intent);
-        } catch(Exception e){
-            makeToast(context, String.format(getResString(R.string.invalid_phone), phonenum));
-            e.printStackTrace();
-        }
-    }
+	public static void startToCall(Context context, String phonenum) {
+		try {
+			Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phonenum));
+			context.startActivity(intent);
+		} catch (Exception e) {
+			makeToast(context, String.format(getResString(R.string.invalid_phone), phonenum));
+			e.printStackTrace();
+		}
+	}
 
-    public static String getAdNotice(String adContent) {
+	public static String getAdNotice(String adContent) {
 		return String.format(Utils.AD_FORMAT, adContent);
 	}
 
@@ -766,15 +766,18 @@ public class Utils {
 
 	// 修改pic目录名称，主要为了老版本和新版本兼容，把老版本的目录改名为新版本目录名
 	public static void renamePicDir() {
-		File fromFile = new File(getAppSDCardPath(), Utils.OLD_APP_DIR_PIC);
-		if (fromFile.exists()) {
-			File toFile = new File(getAppSDCardPath(), Utils.APP_DIR_PIC);
-			if (!fromFile.renameTo(toFile)) {
-				Log.d("", "renameDirectory failed! ");
+		try {
+			File fromFile = new File(getAppSDCardPath(), Utils.OLD_APP_DIR_PIC);
+			if (fromFile.exists()) {
+				File toFile = new File(getAppSDCardPath(), Utils.APP_DIR_PIC);
+				if (!fromFile.renameTo(toFile)) {
+					Log.d("", "renameDirectory failed! ");
+				}
+				Utils.removeAllPicExt();
 			}
-			Utils.removeAllPicExt();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
 	}
 
 	private static void removeAllPicExt() {

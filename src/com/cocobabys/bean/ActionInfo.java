@@ -1,7 +1,7 @@
 package com.cocobabys.bean;
 
 public class ActionInfo extends BusinessInfo {
-	private Price price;
+	private Price price = new Price();
 
 	public Price getPrice() {
 		return price;
@@ -12,8 +12,8 @@ public class ActionInfo extends BusinessInfo {
 	}
 
 	public static class Price {
-		private double origin;
-		private double discounted;
+		private double origin = 0.0;
+		private double discounted = 0.0;
 
 		public double getOrigin() {
 			return origin;

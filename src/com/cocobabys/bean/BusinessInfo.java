@@ -12,8 +12,7 @@ public class BusinessInfo {
 	private String detail;
 	private long updated_at;
 	private PublishState publishing;
-	private Location location;
-
+	private Location location = new Location();
 
 	public Location getLocation() {
 		return location;
@@ -130,8 +129,12 @@ public class BusinessInfo {
 	}
 
 	public static class Location {
-		private double latitude;
-		private double longitude;
+		private double latitude = -1;
+		private double longitude = -1;
+
+		public boolean isValid() {
+			return latitude > 0 && longitude > 0;
+		}
 
 		public double getLatitude() {
 			return latitude;

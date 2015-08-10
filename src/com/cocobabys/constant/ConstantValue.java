@@ -163,6 +163,9 @@ public class ConstantValue{
     public static final String    ACTION_DETAIL                    = "action_detail";
 
     public static final String    MERCHANT_DETAIL                  = "merchant_detail";
+    
+    public static final String    BUSINESS_STATE                  = "business_state";
+    public static final String    BUSINESS_VISIBLE                  = "business_visible";
 
     // 亲子摄影 0001
     public static final int       MERCHANT_CATEGORY_CAMERA         = 1;

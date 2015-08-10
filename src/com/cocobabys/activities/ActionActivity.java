@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.baidu.mapapi.model.LatLng;
 import com.cocobabys.R;
 import com.cocobabys.bean.ActionInfo;
 import com.cocobabys.constant.ConstantValue;
@@ -32,201 +31,202 @@ import com.cocobabys.jobs.GetEnrollJob;
 import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 
-public class ActionActivity extends NavigationActivity{
-    private Handler        handler;
-    private TextView       titleView;
-    private ProgressDialog dialog;
-    private TextView       contactView;
-    private TextView       detailView;
-    private Button         enrollBtn;
-    private ActionInfo     actioninfo;
+public class ActionActivity extends NavigationActivity {
+	private Handler handler;
+	private TextView titleView;
+	private ProgressDialog dialog;
+	private TextView contactView;
+	private TextView detailView;
+	private Button enrollBtn;
+	private ActionInfo actioninfo;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.action_detail);
-        ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.action_detail);
-        initData();
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.action_detail);
+		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.action_detail);
+		initData();
 
-        initView();
+		initView();
 
-        initDlg();
+		initDlg();
 
-        initHandler();
+		initHandler();
 
-        runCheckEnrollTask();
+		runCheckEnrollTask();
 
-        setEndPoint(new LatLng(actioninfo.getLocation().getLatitude(), actioninfo.getLocation().getLongitude()));
-        // 服务器存反了，这里临时处理一下，等服务器改了再调整
-        // setEndPoint(new LatLng(actioninfo.getLocation().getLongitude(),
-        // actioninfo.getLocation().getLatitude()));
-    }
+		setEndPoint(actioninfo);
 
-    private void runCheckEnrollTask(){
-        GetEnrollJob enrollJob = new GetEnrollJob(handler, actioninfo.getId());
-        enrollJob.execute();
-    }
+		// 服务器存反了，这里临时处理一下，等服务器改了再调整
+		// setEndPoint(new LatLng(actioninfo.getLocation().getLongitude(),
+		// actioninfo.getLocation().getLatitude()));
+	}
 
-    private void initData(){
-        String detail = getIntent().getStringExtra(ConstantValue.ACTION_DETAIL);
-        actioninfo = JSON.parseObject(detail, ActionInfo.class);
-    }
+	private void runCheckEnrollTask() {
+		GetEnrollJob enrollJob = new GetEnrollJob(handler, actioninfo.getId());
+		enrollJob.execute();
+	}
 
-    private void initHandler(){
-        handler = new MyHandler(this, dialog){
-            @Override
-            public void handleMessage(Message msg){
-                if(ActionActivity.this.isFinishing()){
-                    Log.w("djc", "do nothing when activity finishing!");
-                    return;
-                }
-                super.handleMessage(msg);
-                switch(msg.what){
-                    case EventType.ACTION_ENROLLED:
-                        handleEnrolled();
-                        break;
-                    case EventType.ACTION_NOT_ENROLL:
-                        break;
-                    case EventType.ACTION_GET_ENROLL_FAIL:
-                        break;
-                    case EventType.ACTION_DO_ENROLL_FAIL:
-                        Utils.makeToast(ActionActivity.this, R.string.enroll_fail);
-                        break;
-                    case EventType.ACTION_DO_ENROLL_SUCCESS:
-                        handleEnrolled();
-                        Utils.makeToast(ActionActivity.this, R.string.enroll_success);
-                        break;
-                    default:
-                        break;
-                }
-            }
+	private void initData() {
+		String detail = getIntent().getStringExtra(ConstantValue.ACTION_DETAIL);
+		actioninfo = JSON.parseObject(detail, ActionInfo.class);
+	}
 
-        };
-    }
+	private void initHandler() {
+		handler = new MyHandler(this, dialog) {
+			@Override
+			public void handleMessage(Message msg) {
+				if (ActionActivity.this.isFinishing()) {
+					Log.w("djc", "do nothing when activity finishing!");
+					return;
+				}
+				super.handleMessage(msg);
+				switch (msg.what) {
+				case EventType.ACTION_ENROLLED:
+					handleEnrolled();
+					break;
+				case EventType.ACTION_NOT_ENROLL:
+					break;
+				case EventType.ACTION_GET_ENROLL_FAIL:
+					break;
+				case EventType.ACTION_DO_ENROLL_FAIL:
+					Utils.makeToast(ActionActivity.this, R.string.enroll_fail);
+					break;
+				case EventType.ACTION_DO_ENROLL_SUCCESS:
+					handleEnrolled();
+					Utils.makeToast(ActionActivity.this, R.string.enroll_success);
+					break;
+				default:
+					break;
+				}
+			}
 
-    private void initDlg(){
-        dialog = new ProgressDialog(this);
-        dialog.setMessage(Utils.getResString(R.string.enrolling));
-        dialog.setCancelable(true);
-    }
+		};
+	}
 
-    private void initView(){
-        setLogo();
+	private void initDlg() {
+		dialog = new ProgressDialog(this);
+		dialog.setMessage(Utils.getResString(R.string.enrolling));
+		dialog.setCancelable(true);
+	}
 
-        initContent();
+	private void initView() {
+		setLogo();
 
-        initBtn();
-    }
+		initContent();
 
-    private void initContent(){
-        setTitle();
+		initBtn();
+	}
 
-        setPrice();
+	private void initContent() {
+		setTitle();
 
-        setContact();
+		setPrice();
 
-        setAddress();
+		setContact();
 
-        setDetail();
-    }
+		setAddress();
 
-    private void setAddress(){
-        TextView address = (TextView)findViewById(R.id.address);
-        address.setText(actioninfo.getAddress());
-    }
+		setDetail();
+	}
 
-    private void setDetail(){
-        detailView = (TextView)findViewById(R.id.detail);
-        detailView.setText(actioninfo.getDetail());
-    }
+	private void setAddress() {
+		TextView address = (TextView) findViewById(R.id.address);
+		address.setText(actioninfo.getAddress());
+	}
 
-    private void setContact(){
-        contactView = (TextView)findViewById(R.id.contact);
-        contactView.setText(actioninfo.getContact());
-    }
+	private void setDetail() {
+		detailView = (TextView) findViewById(R.id.detail);
+		detailView.setText(actioninfo.getDetail());
+	}
 
-    public void contact(View view){
-        Utils.startToCall(this, actioninfo.getContact());
-    }
+	private void setContact() {
+		contactView = (TextView) findViewById(R.id.contact);
+		contactView.setText(actioninfo.getContact());
+	}
 
-    public void navigation(View view){
-        startRoutePlanDriving();
-    }
+	public void contact(View view) {
+		Utils.startToCall(this, actioninfo.getContact());
+	}
 
-    private void setPrice(){
-        setPretext();
+	public void navigation(View view) {
+		startRoutePlanDriving();
+	}
 
-        TextView discountprice = setOriginalPrice();
+	private void setPrice() {
+		setPretext();
 
-        discountprice.setText("¥" + Utils.doubleToString(actioninfo.getPrice().getDiscounted()));
-    }
+		TextView discountprice = setOriginalPrice();
 
-    private void setPretext(){
-        TextView pretext = (TextView)findViewById(R.id.pretext);
+		discountprice.setText("¥" + Utils.doubleToString(actioninfo.getPrice().getDiscounted()));
+	}
 
-        SpannableString spanString = new SpannableString(Utils.getResString(R.string.special_discount));
-        AbsoluteSizeSpan span = new AbsoluteSizeSpan(36);
+	private void setPretext() {
+		TextView pretext = (TextView) findViewById(R.id.pretext);
 
-        spanString.setSpan(span, 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		SpannableString spanString = new SpannableString(Utils.getResString(R.string.special_discount));
+		AbsoluteSizeSpan span = new AbsoluteSizeSpan(36);
 
-        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLUE);
+		spanString.setSpan(span, 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        spanString.setSpan(colorSpan, 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLUE);
 
-        StyleSpan styleSpan = new StyleSpan(android.graphics.Typeface.BOLD);
-        spanString.setSpan(styleSpan, 0, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		spanString.setSpan(colorSpan, 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        pretext.append(spanString);
-    }
+		StyleSpan styleSpan = new StyleSpan(android.graphics.Typeface.BOLD);
+		spanString.setSpan(styleSpan, 0, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-    private TextView setOriginalPrice(){
-        TextView originalprice = (TextView)findViewById(R.id.originalprice);
+		pretext.append(spanString);
+	}
 
-        originalprice.setText(Utils.doubleToString(actioninfo.getPrice().getOrigin()) + "");
+	private TextView setOriginalPrice() {
+		TextView originalprice = (TextView) findViewById(R.id.originalprice);
 
-        originalprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); // 中划线
+		originalprice.setText(Utils.doubleToString(actioninfo.getPrice().getOrigin()) + "");
 
-        originalprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
+		originalprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); // 中划线
 
-        TextView discountprice = (TextView)findViewById(R.id.discountprice);
-        return discountprice;
-    }
+		originalprice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
 
-    private void setTitle(){
-        titleView = (TextView)findViewById(R.id.title);
-        titleView.setText(actioninfo.getTitle());
-    }
+		TextView discountprice = (TextView) findViewById(R.id.discountprice);
+		return discountprice;
+	}
 
-    private void initBtn(){
-        enrollBtn = (Button)findViewById(R.id.enroll);
+	private void setTitle() {
+		titleView = (TextView) findViewById(R.id.title);
+		titleView.setText(actioninfo.getTitle());
+	}
 
-        enrollBtn.setOnClickListener(new OnClickListener(){
+	private void initBtn() {
+		enrollBtn = (Button) findViewById(R.id.enroll);
 
-            @Override
-            public void onClick(View v){
-                runEnrollTask();
-            }
-        });
-    }
+		enrollBtn.setOnClickListener(new OnClickListener() {
 
-    private void runEnrollTask(){
-        dialog.show();
-        DoEnrollJob doEnrollJob = new DoEnrollJob(handler, actioninfo);
-        doEnrollJob.execute();
-    }
+			@Override
+			public void onClick(View v) {
+				runEnrollTask();
+			}
+		});
+	}
 
-    private void setLogo(){
-        ImageView actionImageView = (ImageView)findViewById(R.id.actionImage);
-        if(!TextUtils.isEmpty(actioninfo.getLogo())){
-            ImageUtils.displayEx(actioninfo.getLogo(), actionImageView, ConstantValue.ACTION_PIC_MAX_WIDTH,
-                                 ConstantValue.ACTION_PIC_MAX_HEIGHT);
-        }
-    }
+	private void runEnrollTask() {
+		dialog.show();
+		DoEnrollJob doEnrollJob = new DoEnrollJob(handler, actioninfo);
+		doEnrollJob.execute();
+	}
 
-    private void handleEnrolled(){
-        enrollBtn.setText(R.string.enrolled);
-        enrollBtn.setEnabled(false);
-        enrollBtn.setBackgroundResource(R.drawable.already_feedback);
-    }
+	private void setLogo() {
+		ImageView actionImageView = (ImageView) findViewById(R.id.actionImage);
+		if (!TextUtils.isEmpty(actioninfo.getLogo())) {
+			ImageUtils.displayEx(actioninfo.getLogo(), actionImageView, ConstantValue.ACTION_PIC_MAX_WIDTH,
+					ConstantValue.ACTION_PIC_MAX_HEIGHT);
+		}
+	}
+
+	private void handleEnrolled() {
+		enrollBtn.setText(R.string.enrolled);
+		enrollBtn.setEnabled(false);
+		enrollBtn.setBackgroundResource(R.drawable.already_feedback);
+	}
 
 }

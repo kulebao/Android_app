@@ -65,13 +65,17 @@
                     android:id="@+id/contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="ddd" />
+                    android:layout_toLeftOf="@+id/docontact"
+                    android:text="dddddddddddddddddddddddddddddddddddddddddddddddddddddd" />
 
                 <TextView
+                    android:id="@+id/docontact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_toLeftOf="@+id/right"
                     android:text="@string/do_contact" />
@@ -81,6 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="2dp"
                     android:src="@drawable/rightarrow" />
             </RelativeLayout>
@@ -103,13 +108,17 @@
                     android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/navigation"
                     android:layout_centerVertical="true"
-                    android:text="ddd" />
+                    android:text="dddddddddddddddddddddddddddddddddddddddddddddddddddddd" />
 
                 <TextView
+                    android:id="@+id/navigation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_toLeftOf="@+id/right2"
                     android:text="@string/navigation" />
@@ -119,6 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="2dp"
                     android:src="@drawable/rightarrow" />
             </RelativeLayout>

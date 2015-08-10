@@ -175,17 +175,19 @@
     <string name="interaction">家园互动 </string>
     <string name="weibo">官方微博 : </string>
     <string name="weixin">官方微信 : </string>
-    <string name="weixin_account">库乐宝科技</string>
+    <string name="weixin_account">幼乐宝</string>
     <string name="weibo_account">weibo.com/5066323670</string>
     <string name="homepage">官方网站 : </string>
-    <string name="homepage_url">www.cocobabys.com</string>
+    <string name="homepage_url">http://www.cobabys.com</string>
     <string name="email">电子邮箱 : </string>
-    <string name="email_address">support@cocobabys.com</string>
+    <string name="email_address">business@cobabys.com</string>
     <string name="support_phone">联系电话 : </string>
     <string name="invalid_nick">昵称不能为空</string>
-    <string name="support_phone_num">4009984998\n028-69190987</string>
+    <string name="support_phone_num">400-008-0300\n028-61905012</string>
+    <string name="tech_support">技术支持 : </string>
+    <string name="tech_phone_num">028-69190987</string>
     <string name="about_us">关于我们</string>
-    <string name="about_us_content">幼乐宝（成都库乐宝信息技术有限公司）---提供宝宝、家长和幼儿园三方互动沟通和信息发布服务，并提供丰富的后续服务和专业的技术保障。</string>
+    <string name="about_us_content">幼乐宝（成都库贝信息技术有限公司）---提供宝宝、家长和幼儿园三方互动沟通和信息发布服务，并提供丰富的后续服务和专业的技术保障。</string>
     <string name="get_auth_code_fail">获取验证码失败</string>
     <string name="get_auth_code_too_often">验证码获取过于频繁，请稍后再试</string>
     <string name="emotion_explain">情绪稳定、适应集体生活、乐于亲近老师和同学</string>
@@ -301,4 +303,7 @@
     
     <string name="merchant_detail">商户详情</string>
     <string name="action_detail">活动详情</string>
+    
+    <string name="invalid_myloc">未获取到本机位置，导航失败</string>
+    <string name="invalid_targetloc">商户位置未提供，导航失败</string>
 </resources>
