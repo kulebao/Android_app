@@ -41,217 +41,216 @@ import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 import com.umeng.analytics.MobclickAgent;
 
-public class MainActivity extends TabActivity{
-    // 5小时检查一次广告更新
-    private static final int               CHECK_AD_DELAY_TIME   = 60 * 60 * 5;
+public class MainActivity extends TabActivity {
+	// 5小时检查一次广告更新
+	private static final int CHECK_AD_DELAY_TIME = 60 * 60 * 5;
 
-    // 每30分钟检查push相关参数是否正常，如不正常，重新绑定
-    private static final int               CHECK_PUSH_DELAY_TIME = 60 * 30;
-    // 启动后，10秒时，开始检查push相关参数是否正常，如不正常，重新绑定
-    private static final int               FIRST_DELAY_TIME      = 10;
-    private TabHost                        tabHost;
-    private static final String            TAB_TAG_LOCATION      = "location";
-    private static final String            TAB_TAG_NOTICE        = "notice";
-    private static final String            TAB_TAG_SETTING       = "setting";
-    private static final String[]          TAB_TAGS              = { TAB_TAG_NOTICE, TAB_TAG_LOCATION, TAB_TAG_SETTING };
-    private TabWidget                      tabWidget;
-    private static final int               TAB_WIDGET_HEIGHT     = 60;
-    private int[]                          labelIds              = { R.string.noticeTitle, R.string.locationTitle,
-            R.string.setting                                    };
+	// 每30分钟检查push相关参数是否正常，如不正常，重新绑定
+	private static final int CHECK_PUSH_DELAY_TIME = 60 * 30;
+	// 启动后，10秒时，开始检查push相关参数是否正常，如不正常，重新绑定
+	private static final int FIRST_DELAY_TIME = 10;
+	private TabHost tabHost;
+	private static final String TAB_TAG_LOCATION = "location";
+	private static final String TAB_TAG_NOTICE = "notice";
+	private static final String TAB_TAG_SETTING = "setting";
+	private static final String[] TAB_TAGS = { TAB_TAG_NOTICE, TAB_TAG_LOCATION, TAB_TAG_SETTING };
+	private TabWidget tabWidget;
+	private static final int TAB_WIDGET_HEIGHT = 60;
+	private int[] labelIds = { R.string.noticeTitle, R.string.locationTitle, R.string.setting };
 
-    private Handler                        handler;
-    private AsyncTask<Void, Void, Integer> uodateTask;
+	private Handler handler;
+	private AsyncTask<Void, Void, Integer> uodateTask;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.client_tab);
-        initUI();
-        initHandler();
-        checkNew();
-        initDirs();
-        runCheckBindTask();
-        runCheckADTask();
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.client_tab);
+		initUI();
+		initHandler();
+		checkNew();
+		initDirs();
+		runCheckBindTask();
+		runCheckADTask();
 
-        // 测试版本的fault信息不上报给友盟
-        MobclickAgent.setCatchUncaughtExceptions(!MyApplication.getInstance().isForTest());
+		// 测试版本的fault信息不上报给友盟
+		MobclickAgent.setCatchUncaughtExceptions(!MyApplication.getInstance().isForTest());
 
-        if(MyApplication.getInstance().isWeixinBypass()){
-            ShareSDK.initSDK(this);
-        } else{
-            ShareSDK.initSDK(this, "77da60e4dcd8");
-            HashMap<String, Object> hashMap = new HashMap<String, Object>();
-            hashMap.put("Id", "4");
-            hashMap.put("SortId", "4");
-            hashMap.put("AppId", "wxf3c9e8b20267320e");
-            hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
-            hashMap.put("BypassApproval", "false");
-            hashMap.put("Enable", "true");
-            ShareSDK.setPlatformDevInfo(Wechat.NAME, hashMap);
+		if (MyApplication.getInstance().isWeixinBypass()) {
+			ShareSDK.initSDK(this);
+		} else {
+			ShareSDK.initSDK(this, "77da60e4dcd8");
+			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+			hashMap.put("Id", "4");
+			hashMap.put("SortId", "4");
+			hashMap.put("AppId", "wxf3c9e8b20267320e");
+			hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
+			hashMap.put("BypassApproval", "false");
+			hashMap.put("Enable", "true");
+			ShareSDK.setPlatformDevInfo(Wechat.NAME, hashMap);
 
-            hashMap = new HashMap<String, Object>();
-            hashMap.put("Id", "5");
-            hashMap.put("SortId", "5");
-            hashMap.put("AppId", "wxf3c9e8b20267320e");
-            hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
-            hashMap.put("BypassApproval", "false");
-            hashMap.put("Enable", "true");
+			hashMap = new HashMap<String, Object>();
+			hashMap.put("Id", "5");
+			hashMap.put("SortId", "5");
+			hashMap.put("AppId", "wxf3c9e8b20267320e");
+			hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
+			hashMap.put("BypassApproval", "false");
+			hashMap.put("Enable", "true");
 
-            ShareSDK.setPlatformDevInfo(WechatMoments.NAME, hashMap);
-        }
+			ShareSDK.setPlatformDevInfo(WechatMoments.NAME, hashMap);
+		}
 
-    }
+	}
 
-    private void runCheckBindTask(){
-        if(!PushModel.getPushModel().isBindInfoSentToServer()){
-            Log.d("DJC", "found fake id ,BindPushTask run !");
-            new BindPushTask(handler, DataUtils.getAccount()).execute();
-        } else{
-            // 已经绑定过设备，检查是否绑定学校id
-            PushModel pushModel = PushModel.getPushModel();
-            pushModel.setSchoolTag();
-        }
+	private void runCheckBindTask() {
+		if (!PushModel.getPushModel().isBindInfoSentToServer()) {
+			Log.d("DJC", "found fake id ,BindPushTask run !");
+			new BindPushTask(handler, DataUtils.getAccount()).execute();
+		} else {
+			// 已经绑定过设备，检查是否绑定学校id
+			PushModel pushModel = PushModel.getPushModel();
+			pushModel.setSchoolTag();
+		}
 
-        MyThreadPoolMgr.getGenericService().scheduleWithFixedDelay(new Runnable(){
-            @Override
-            public void run(){
-                Utils.bindPush();
-            }
-        }, FIRST_DELAY_TIME, CHECK_PUSH_DELAY_TIME, TimeUnit.SECONDS);
-    }
+		MyThreadPoolMgr.getGenericService().scheduleWithFixedDelay(new Runnable() {
+			@Override
+			public void run() {
+				Utils.bindPush();
+			}
+		}, FIRST_DELAY_TIME, CHECK_PUSH_DELAY_TIME, TimeUnit.SECONDS);
+	}
 
-    private void runCheckADTask(){
-        MyThreadPoolMgr.getGenericService().scheduleWithFixedDelay(new Runnable(){
-            @Override
-            public void run(){
-                try{
-                    AdMethod.getMethod().getInfo();
-                    AdInfo adInfo = DataUtils.getAdInfo();
-                    if(adInfo != null && !new File(adInfo.getLocalFileName()).exists()){
-                        Utils.downloadIcon(adInfo.getImage(), adInfo.getLocalFileName());
-                    }
-                } catch(Exception e){
-                    Log.e("EEE", "DJC runCheckADTask e=" + e.toString());
-                }
-            }
-        }, 0, CHECK_AD_DELAY_TIME, TimeUnit.SECONDS);
-    }
+	private void runCheckADTask() {
+		MyThreadPoolMgr.getGenericService().scheduleWithFixedDelay(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					AdMethod.getMethod().getInfo();
+					AdInfo adInfo = DataUtils.getAdInfo();
+					if (adInfo != null && !new File(adInfo.getLocalFileName()).exists()) {
+						Utils.downloadIcon(adInfo.getImage(), adInfo.getLocalFileName());
+					}
+				} catch (Exception e) {
+					Log.e("EEE", "DJC runCheckADTask e=" + e.toString());
+				}
+			}
+		}, 0, CHECK_AD_DELAY_TIME, TimeUnit.SECONDS);
+	}
 
-    private void initDirs(){
-        Utils.makeDefaultDirInSDCard();
-    }
+	private void initDirs() {
+		Utils.makeDefaultDirInSDCard();
+	}
 
-    private void checkNew(){
-        if(!Utils.isWiFiActive(this)){
-            Log.d("DDD", "wifi closed do nothing!");
-            return;
-        }
-        long checkNewTime = DataUtils.getCheckNewTime();
-        long currentTime = System.currentTimeMillis();
-        if((currentTime - checkNewTime) >= ConstantValue.CHECK_NEW_TIME_SPAN){
-            runCheckUpdateTask();
-        }
-    }
+	private void checkNew() {
+		if (!Utils.isWiFiActive(this)) {
+			Log.d("DDD", "wifi closed do nothing!");
+			return;
+		}
+		long checkNewTime = DataUtils.getCheckNewTime();
+		long currentTime = System.currentTimeMillis();
+		if ((currentTime - checkNewTime) >= ConstantValue.CHECK_NEW_TIME_SPAN) {
+			runCheckUpdateTask();
+		}
+	}
 
-    private void initHandler(){
-        handler = new MyHandler(this, null){
-            @Override
-            public void handleMessage(Message msg){
-                if(MainActivity.this.isFinishing()){
-                    Log.w("djc", "do nothing when activity finishing!");
-                    return;
-                }
-                super.handleMessage(msg);
-                switch(msg.what){
-                    case EventType.HAS_NEW_VERSION:
-                        Utils.showTwoBtnResDlg(R.string.update_now, MainActivity.this, new OnClickListener(){
-                            @Override
-                            public void onClick(DialogInterface dialog, int which){
-                                startToUpdateActivity();
-                            }
-                        });
-                        break;
-                    case EventType.SERVER_INNER_ERROR:
-                        Toast.makeText(MainActivity.this, R.string.get_child_info_fail, Toast.LENGTH_SHORT).show();
-                        break;
+	private void initHandler() {
+		handler = new MyHandler(this, null) {
+			@Override
+			public void handleMessage(Message msg) {
+				if (MainActivity.this.isFinishing()) {
+					Log.w("djc", "do nothing when activity finishing!");
+					return;
+				}
+				super.handleMessage(msg);
+				switch (msg.what) {
+				case EventType.HAS_NEW_VERSION:
+					Utils.showTwoBtnResDlg(R.string.update_now, MainActivity.this, new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							startToUpdateActivity();
+						}
+					});
+					break;
+				case EventType.SERVER_INNER_ERROR:
+					Toast.makeText(MainActivity.this, R.string.get_child_info_fail, Toast.LENGTH_SHORT).show();
+					break;
 
-                    default:
-                        break;
-                }
-            }
+				default:
+					break;
+				}
+			}
 
-        };
-    }
+		};
+	}
 
-    private void startToUpdateActivity(){
-        Intent intent = new Intent();
-        intent.setClass(this, UpdateActivity.class);
-        startActivity(intent);
-    }
+	private void startToUpdateActivity() {
+		Intent intent = new Intent();
+		intent.setClass(this, UpdateActivity.class);
+		startActivity(intent);
+	}
 
-    private void runCheckUpdateTask(){
-        DataUtils.saveCheckNewTime(System.currentTimeMillis());
-        uodateTask = new CheckUpdateTask(handler, DataUtils.getAccount(), DataUtils.getVersionCode()).execute();
-    }
+	private void runCheckUpdateTask() {
+		DataUtils.saveCheckNewTime(System.currentTimeMillis());
+		uodateTask = new CheckUpdateTask(handler, DataUtils.getAccount(), DataUtils.getVersionCode()).execute();
+	}
 
-    private void initUI(){
-        tabHost = getTabHost();
+	private void initUI() {
+		tabHost = getTabHost();
 
-        int[] iconIds = { R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher };
-        Class<?>[] classes = { SchoolNoticeActivity.class, CookBookActivity.class, SettingActivity.class };
-        Resources res = this.getResources();
-        for(int i = 0; i < TAB_TAGS.length; ++i){
-            View view = LayoutInflater.from(this).inflate(R.layout.tab_widget, null);
-            TextView titleView = (TextView)view.findViewById(R.id.title);
-            ImageView iconView = (ImageView)view.findViewById(R.id.icon);
-            if(i == 0){
-                titleView.setTextColor(Color.BLACK);
-            } else{
-                titleView.setTextColor(Color.WHITE);
-            }
-            titleView.setText(res.getString(labelIds[i]));
-            iconView.setBackgroundDrawable(res.getDrawable(iconIds[i]));
-            appendIntentToTab(classes[i], TAB_TAGS[i], view);
-        }
+		int[] iconIds = { R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher };
+		Class<?>[] classes = { SchoolNoticeActivity.class, CookBookActivity.class, SettingActivity.class };
+		Resources res = this.getResources();
+		for (int i = 0; i < TAB_TAGS.length; ++i) {
+			View view = LayoutInflater.from(this).inflate(R.layout.tab_widget, null);
+			TextView titleView = (TextView) view.findViewById(R.id.title);
+			ImageView iconView = (ImageView) view.findViewById(R.id.icon);
+			if (i == 0) {
+				titleView.setTextColor(Color.BLACK);
+			} else {
+				titleView.setTextColor(Color.WHITE);
+			}
+			titleView.setText(res.getString(labelIds[i]));
+			iconView.setBackgroundDrawable(res.getDrawable(iconIds[i]));
+			appendIntentToTab(classes[i], TAB_TAGS[i], view);
+		}
 
-        setTabWidgetParams();
-        setTabChangedListener();
-    }
+		setTabWidgetParams();
+		setTabChangedListener();
+	}
 
-    private void appendIntentToTab(Class<?> toActivity, String tabTag, View view){
-        tabHost.addTab(tabHost.newTabSpec(tabTag).setIndicator(view)
-                .setContent(new Intent(MainActivity.this, toActivity)));
-    }
+	private void appendIntentToTab(Class<?> toActivity, String tabTag, View view) {
+		tabHost.addTab(tabHost.newTabSpec(tabTag).setIndicator(view)
+				.setContent(new Intent(MainActivity.this, toActivity)));
+	}
 
-    private void setTabWidgetParams(){
-        tabWidget = getTabWidget();
-        for(int i = 0; i < tabWidget.getChildCount(); i++){
-            // 设置高度、宽度，不过宽度由于设置为fill_parent，在此对它没效果
-            tabWidget.getChildAt(i).getLayoutParams().height = TAB_WIDGET_HEIGHT;
-        }
-    }
+	private void setTabWidgetParams() {
+		tabWidget = getTabWidget();
+		for (int i = 0; i < tabWidget.getChildCount(); i++) {
+			// 设置高度、宽度，不过宽度由于设置为fill_parent，在此对它没效果
+			tabWidget.getChildAt(i).getLayoutParams().height = TAB_WIDGET_HEIGHT;
+		}
+	}
 
-    private void setTabChangedListener(){
-        tabHost.setOnTabChangedListener(new OnTabChangeListener(){
-            @Override
-            public void onTabChanged(String tabId){
-                int id = tabHost.getCurrentTab();
-                for(int i = 0; i < TAB_TAGS.length; ++i){
-                    View view = tabHost.getTabWidget().getChildAt(i);
-                    TextView textview = (TextView)view.findViewById(R.id.title);
-                    if(i != id){
-                        textview.setTextColor(Color.WHITE);
-                    } else{
-                        // setTabTitle(id);
-                        textview.setTextColor(Color.BLACK);
-                    }
-                }
-            }
-        });
-    }
+	private void setTabChangedListener() {
+		tabHost.setOnTabChangedListener(new OnTabChangeListener() {
+			@Override
+			public void onTabChanged(String tabId) {
+				int id = tabHost.getCurrentTab();
+				for (int i = 0; i < TAB_TAGS.length; ++i) {
+					View view = tabHost.getTabWidget().getChildAt(i);
+					TextView textview = (TextView) view.findViewById(R.id.title);
+					if (i != id) {
+						textview.setTextColor(Color.WHITE);
+					} else {
+						// setTabTitle(id);
+						textview.setTextColor(Color.BLACK);
+					}
+				}
+			}
+		});
+	}
 
-    public AsyncTask<Void, Void, Integer> getUpdateTask(){
-        return uodateTask;
-    }
+	public AsyncTask<Void, Void, Integer> getUpdateTask() {
+		return uodateTask;
+	}
 
 }

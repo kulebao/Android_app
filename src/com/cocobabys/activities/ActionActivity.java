@@ -12,6 +12,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
@@ -165,7 +166,8 @@ public class ActionActivity extends NavigationActivity {
 		TextView pretext = (TextView) findViewById(R.id.pretext);
 
 		SpannableString spanString = new SpannableString(Utils.getResString(R.string.special_discount));
-		AbsoluteSizeSpan span = new AbsoluteSizeSpan(36);
+		// AbsoluteSizeSpan span = new AbsoluteSizeSpan(36);
+		RelativeSizeSpan span = new RelativeSizeSpan(1.5f);
 
 		spanString.setSpan(span, 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 

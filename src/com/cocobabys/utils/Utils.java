@@ -174,10 +174,10 @@ public class Utils {
 			PushModel pushModel = PushModel.getPushModel();
 
 			if (!pushModel.isBinded()) {
-				Log.w("DJC", "not bind,do it now!");
+				Log.w("DJC", "AAA not bind,do it now!");
 				pushModel.bind();
 			} else {
-				Log.w("DJC", "aleady bind!");
+				Log.w("DJC", "AAA aleady bind!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
