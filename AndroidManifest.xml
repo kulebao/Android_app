@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cocobabys"
-    android:versionCode="99"
-    android:versionName="2.3.1" >
+    android:versionCode="100"
+    android:versionName="2.3.2" >
 
     <uses-sdk android:minSdkVersion="10" />
 
@@ -345,6 +345,12 @@
         </activity>
         <activity
             android:name="com.cocobabys.activities.SendExpActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.cocobabys.activities.MyGalleryActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >

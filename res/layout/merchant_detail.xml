@@ -20,7 +20,7 @@
             android:id="@+id/actionImage"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
-            android:layout_below="@+id/top"
+            android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:maxHeight="200dp"
             android:scaleType="centerInside"
@@ -109,8 +109,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@+id/navigation"
                     android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/navigation"
                     android:text="dddddddddddddddddddddddddddddddddddddddddddddddddddddd" />
 
                 <TextView

@@ -1,6 +1,7 @@
 package com.cocobabys.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -9,8 +10,6 @@ import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextUtils;
-import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
@@ -219,10 +218,24 @@ public class ActionActivity extends NavigationActivity {
 
 	private void setLogo() {
 		ImageView actionImageView = (ImageView) findViewById(R.id.actionImage);
-		if (!TextUtils.isEmpty(actioninfo.getLogo())) {
-			ImageUtils.displayEx(actioninfo.getLogo(), actionImageView, ConstantValue.ACTION_PIC_MAX_WIDTH,
-					ConstantValue.ACTION_PIC_MAX_HEIGHT);
+
+		if (!actioninfo.getLogos().isEmpty()) {
+			// imageLoader.displayImage(item.getLogo(), flagholder.imageView);
+			ImageUtils.displayEx(actioninfo.getLogos().get(0).getUrl(), actionImageView,
+					ConstantValue.ACTION_PIC_MAX_WIDTH, ConstantValue.ACTION_PIC_MAX_HEIGHT);
 		}
+
+		actionImageView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (!actioninfo.getLogos().isEmpty()) {
+					Intent intent = new Intent(ActionActivity.this, MyGalleryActivity.class);
+					String businessinfo = JSON.toJSONString(actioninfo);
+					intent.putExtra(ConstantValue.BUSINESS_INFO, businessinfo);
+					ActionActivity.this.startActivity(intent);
+				}
+			}
+		});
 	}
 
 	private void handleEnrolled() {

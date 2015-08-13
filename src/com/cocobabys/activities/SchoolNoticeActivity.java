@@ -800,13 +800,10 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		info.setTitleID(R.string.education);
 		lstImageItem.add(info);
 
-		// 校车模块暂时只用于测试
-		if (MyApplication.getInstance().isForTest()) {
-			info = new MainGridInfo();
-			info.setResID(R.drawable.bus_big);
-			info.setTitleID(R.string.bus_service);
-			lstImageItem.add(info);
-		}
+		info = new MainGridInfo();
+		info.setResID(R.drawable.bus_big);
+		info.setTitleID(R.string.bus_service);
+		lstImageItem.add(info);
 
 		// 如果幼儿园属性里面隐藏了视频模块，则不显示
 		if ("false".equals(DataUtils.getProp(JSONConstant.HIDE_VIDEO, "false"))) {

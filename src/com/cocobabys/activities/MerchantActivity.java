@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -174,10 +174,23 @@ public class MerchantActivity extends NavigationActivity {
 
 	private void setLogo() {
 		ImageView actionImageView = (ImageView) findViewById(R.id.actionImage);
-		if (!TextUtils.isEmpty(merchantInfo.getLogo())) {
-			ImageUtils.displayEx(merchantInfo.getLogo(), actionImageView, ConstantValue.ACTION_PIC_MAX_WIDTH,
-					ConstantValue.ACTION_PIC_MAX_HEIGHT);
+		if (!merchantInfo.getLogos().isEmpty()) {
+			// imageLoader.displayImage(item.getLogo(), flagholder.imageView);
+			ImageUtils.displayEx(merchantInfo.getLogos().get(0).getUrl(), actionImageView,
+					ConstantValue.ACTION_PIC_MAX_WIDTH, ConstantValue.ACTION_PIC_MAX_HEIGHT);
 		}
+
+		actionImageView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (!merchantInfo.getLogos().isEmpty()) {
+					Intent intent = new Intent(MerchantActivity.this, MyGalleryActivity.class);
+					String businessinfo = JSON.toJSONString(merchantInfo);
+					intent.putExtra(ConstantValue.BUSINESS_INFO, businessinfo);
+					MerchantActivity.this.startActivity(intent);
+				}
+			}
+		});
 	}
 
 }

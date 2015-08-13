@@ -1,18 +1,23 @@
 package com.cocobabys.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.text.TextUtils;
+
 public class BusinessInfo {
 
 	private int id;
 	private int agent_id;
 	private String title;
 	private String address;
-	private String logo;
 	private String contact;
 	private String time_span;
 	private String detail;
 	private long updated_at;
 	private PublishState publishing;
 	private Location location = new Location();
+	private List<Logos> logos = new ArrayList<Logos>();
 
 	public Location getLocation() {
 		return location;
@@ -22,12 +27,12 @@ public class BusinessInfo {
 		this.location = location;
 	}
 
-	public String getLogo() {
-		return logo;
+	public List<Logos> getLogos() {
+		return logos;
 	}
 
-	public void setLogo(String logo) {
-		this.logo = logo;
+	public void setLogos(List<Logos> logos) {
+		this.logos = logos;
 	}
 
 	public int getId() {
@@ -106,6 +111,18 @@ public class BusinessInfo {
 		super();
 	}
 
+	public List<String> getLogoList() {
+		List<String> list = new ArrayList<String>();
+
+		for (Logos logo : logos) {
+			if (!TextUtils.isEmpty(logo.getUrl())) {
+				list.add(logo.getUrl());
+			}
+		}
+
+		return list;
+	}
+
 	public static class PublishState {
 		private int publish_status;
 		private long published_at;
@@ -151,6 +168,20 @@ public class BusinessInfo {
 		public void setLongitude(double longitude) {
 			this.longitude = longitude;
 		}
+	}
+
+	public static class Logos {
+
+		private String url = "";
+
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+
 	}
 
 }
