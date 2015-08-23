@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -20,15 +21,17 @@ public abstract class MyListFragment extends Fragment {
 	PullToRefreshListView msgListView;
 	ProgressDialog dialog;
 	Handler myhandler;
+	private FragmentActivity holderActivity;
 
 	private void initDialog() {
-		dialog = new ProgressDialog(getActivity());
+		dialog = new ProgressDialog(holderActivity);
 		dialog.setMessage(getResources().getString(R.string.loading_data));
 	}
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		holderActivity = getActivity();
 		initListView();
 		initDialog();
 		initHander();
@@ -48,8 +51,7 @@ public abstract class MyListFragment extends Fragment {
 			 * from the start, and released.
 			 */
 			@Override
-			public void onPullDownToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
+			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
 				// Do work to refresh the list here.
 				refreshHead();
 			}
@@ -59,8 +61,7 @@ public abstract class MyListFragment extends Fragment {
 			 * from the end, and released.
 			 */
 			@Override
-			public void onPullUpToRefresh(
-					PullToRefreshBase<ListView> refreshView) {
+			public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 				refreshTail();
 			}
 		});
@@ -76,14 +77,15 @@ public abstract class MyListFragment extends Fragment {
 	public abstract void handleMsg(Message msg);
 
 	private void initHander() {
-		myhandler = new MyHandler(getActivity(), dialog) {
+
+		myhandler = new MyHandler(holderActivity, dialog) {
 			@Override
 			public void handleMessage(Message msg) {
-				msgListView.onRefreshComplete();
-				if (getActivity().isFinishing()) {
+				if (holderActivity == null || holderActivity.isFinishing()) {
 					Log.w("djc", "do nothing when activity finishing!");
 					return;
 				}
+				msgListView.onRefreshComplete();
 				super.handleMessage(msg);
 				handleMsg(msg);
 			}

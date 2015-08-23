@@ -6,5 +6,6 @@
     <dimen name="photo_width">120dp</dimen>
     <dimen name="photo_height">120dp</dimen>
     <dimen name="shop_grid_width">440dp</dimen>
+    <dimen name="main_grid_width">420dp</dimen>
 
 </resources>

@@ -14,6 +14,7 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 import com.cocobabys.R;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.bean.ShareToken;
+import com.cocobabys.utils.Utils;
 
 public class WeiXinUtils {
 
@@ -29,13 +30,11 @@ public class WeiXinUtils {
 			public void onError(Platform arg0, int arg1, Throwable arg2) {
 				// Utils.makeToast(MyApplication.getInstance(), "err code=" +
 				// arg1);
-				Log.e("", "djcweixin arg2=" + arg2.getMessage() + " arg1="
-						+ arg1);
+				Log.e("", "djcweixin arg2=" + arg2.getMessage() + " arg1=" + arg1);
 			}
 
 			@Override
-			public void onComplete(Platform arg0, int arg1,
-					HashMap<String, Object> arg2) {
+			public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
 				// Utils.makeToast(MyApplication.getInstance(), "onComplete");
 				Log.e("", "djcweixin onComplete");
 			}
@@ -52,8 +51,7 @@ public class WeiXinUtils {
 	public static final String JPG_CONTENT_TYPE = "image/jpeg";
 
 	// 分享本地文件
-	public void shareFile(String title, String content, String mediumUrl,
-			int type, String platform) {
+	public void shareFile(String title, String content, String mediumUrl, int type, String platform) {
 		ShareParams wechat = new ShareParams();
 		wechat.setTitle(title);
 		wechat.setText(content);
@@ -66,15 +64,13 @@ public class WeiXinUtils {
 		wechat.setShareType(type);
 
 		Platform weixin = ShareSDK.getPlatform(platform);
-		Log.w("", "djcweixin mediumUrl =" + mediumUrl + " type=" + type
-				+ " platform=" + platform);
+		Log.w("", "djcweixin mediumUrl =" + mediumUrl + " type=" + type + " platform=" + platform);
 		weixin.setPlatformActionListener(paListener);
 		weixin.share(wechat);
 	}
 
 	// 分享链接
-	public void shareUrl(String title, String content, String mediumUrl,
-			int type, String platform) {
+	public void shareUrl(String title, String content, String mediumUrl, int type, String platform) {
 		ShareParams wechat = new ShareParams();
 		wechat.setTitle(title);
 		wechat.setText(content);
@@ -84,30 +80,23 @@ public class WeiXinUtils {
 		// 本地文件的方式，由微信服务器负责上传下载，节约费用。。。
 		wechat.setImageUrl(mediumUrl);
 		wechat.setUrl(mediumUrl);
-		wechat.setImageData(BitmapFactory.decodeResource(MyApplication
-				.getInstance().getResources(), R.drawable.logo));
+		wechat.setImageData(BitmapFactory.decodeResource(MyApplication.getInstance().getResources(), R.drawable.logo));
 		wechat.setShareType(type);
 
 		Platform weixin = ShareSDK.getPlatform(platform);
-		Log.w("", "djcweixin mediumUrl =" + mediumUrl + " type=" + type
-				+ " platform=" + platform);
+		Log.w("", "djcweixin mediumUrl =" + mediumUrl + " type=" + type + " platform=" + platform);
 		weixin.setPlatformActionListener(paListener);
 		weixin.share(wechat);
 	}
 
 	// 分享网页
-	public void shareWebPage(String title, String content, String mediumUrl,
-			String platform) {
+	public void shareWebPage(String title, String content, String mediumUrl, String platform) {
 		ShareParams wechat = new ShareParams();
 
 		if (TextUtils.isEmpty(title)) {
-			title = "[成长经历] 分享";
+			title = Utils.getResString(R.string.share_title);
 		}
 		wechat.setTitle(title);
-
-		// if(TextUtils.isEmpty(content)){
-		// content = "[成长经历] 分享";
-		// }
 
 		wechat.setText(content);
 
@@ -115,14 +104,13 @@ public class WeiXinUtils {
 
 		wechat.setUrl(mediumUrl);
 
-		wechat.setImageData(BitmapFactory.decodeResource(MyApplication
-				.getInstance().getResources(), R.drawable.logo_weixin));
+		wechat.setImageData(BitmapFactory.decodeResource(MyApplication.getInstance().getResources(),
+				R.drawable.logo_weixin));
 
 		wechat.setShareType(Platform.SHARE_WEBPAGE);
 
 		Platform weixin = ShareSDK.getPlatform(platform);
-		Log.w("", "djcweixin mediumUrl =" + mediumUrl + " type="
-				+ Platform.SHARE_WEBPAGE + " platform=" + platform);
+		Log.w("", "djcweixin mediumUrl =" + mediumUrl + " type=" + Platform.SHARE_WEBPAGE + " platform=" + platform);
 		weixin.setPlatformActionListener(paListener);
 		weixin.share(wechat);
 	}
@@ -148,8 +136,7 @@ public class WeiXinUtils {
 
 		Platform weixin = ShareSDK.getPlatform(platform);
 
-		Log.w("", "djcweixin mediumUrl =" + mediumUrl + " type="
-				+ Platform.SHARE_WEBPAGE + " platform=" + platform);
+		Log.w("", "djcweixin mediumUrl =" + mediumUrl + " type=" + Platform.SHARE_WEBPAGE + " platform=" + platform);
 
 		weixin.setPlatformActionListener(paListener);
 		weixin.share(wechat);
@@ -158,13 +145,12 @@ public class WeiXinUtils {
 	private String getTitle(ShareToken shareToken, String platform) {
 		String title = shareToken.getTitle();
 		if (TextUtils.isEmpty(title)) {
-			title = "[成长经历] 分享";
+			title = Utils.getResString(R.string.share_title);
 		}
 
 		// 如果是分享到朋友圈，content不起作用，只有title。如果这时content不为空
 		// 则把content当做title
-		if (WechatMoments.NAME.equals(platform)
-				&& !TextUtils.isEmpty(shareToken.getContent())) {
+		if (WechatMoments.NAME.equals(platform) && !TextUtils.isEmpty(shareToken.getContent())) {
 			title = shareToken.getContent();
 		}
 

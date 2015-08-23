@@ -15,5 +15,6 @@
     <dimen name="share_popup_width">180dp</dimen>
     
     <dimen name="shop_grid_width">330dp</dimen>
+    <dimen name="main_grid_width">310dp</dimen>
 
 </resources>
