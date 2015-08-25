@@ -2,7 +2,6 @@ package com.cocobabys.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -164,13 +163,14 @@ public class ActionActivity extends NavigationActivity {
 	private void setPretext() {
 		TextView pretext = (TextView) findViewById(R.id.pretext);
 
-		SpannableString spanString = new SpannableString(Utils.getResString(R.string.special_discount));
+		SpannableString spanString = new SpannableString(Utils.getResString(R.string.special_discount_1));
 		// AbsoluteSizeSpan span = new AbsoluteSizeSpan(36);
 		RelativeSizeSpan span = new RelativeSizeSpan(1.5f);
 
 		spanString.setSpan(span, 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-		ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLUE);
+		// ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.BLUE);
+		ForegroundColorSpan colorSpan = new ForegroundColorSpan(0xff22ace1);
 
 		spanString.setSpan(colorSpan, 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 

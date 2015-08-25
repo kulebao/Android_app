@@ -295,6 +295,7 @@
     
     <string name="original_price">原价%s元</string>
     <string name="special_discount">幼乐宝用户专享</string>
+    <string name="special_discount_1">幼乐宝 用户专享</string>
     <string name="format_price">%s元</string>
     
     <string name="do_contact">电话咨询</string>

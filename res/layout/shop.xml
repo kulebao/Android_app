@@ -18,11 +18,11 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:gravity="center_horizontal"
-            android:horizontalSpacing="10dp"
+            android:horizontalSpacing="4dp"
             android:listSelector="@android:color/transparent"
             android:numColumns="3"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp" />
+            android:verticalSpacing="4dp" />
     </LinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView

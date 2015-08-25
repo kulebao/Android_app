@@ -11,10 +11,8 @@
     <dimen name="education_griditem_width">70dp</dimen>
     <dimen name="slidingmenu_no_offset">0dp</dimen>
     <dimen name="popup_width">180dp</dimen>
-    
     <dimen name="share_popup_width">180dp</dimen>
-    
-    <dimen name="shop_grid_width">330dp</dimen>
+    <dimen name="shop_grid_width">310dp</dimen>
     <dimen name="main_grid_width">310dp</dimen>
 
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="shop_grid_width">440dp</dimen>
+    <dimen name="shop_grid_width">420dp</dimen>
     <dimen name="main_grid_width">420dp</dimen>
 
 </resources>
