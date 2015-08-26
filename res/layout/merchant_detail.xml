@@ -23,8 +23,8 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:maxHeight="200dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/logo2" />
+            android:scaleType="fitXY"
+            android:src="@drawable/dlogo" />
 
         <TextView
             android:id="@+id/title"

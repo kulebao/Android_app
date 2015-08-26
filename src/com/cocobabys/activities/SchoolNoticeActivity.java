@@ -185,6 +185,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		initTitle();
 		setTabTitle();
 		setSchoolName();
+		setBusinessEntry();
 	}
 
 	private void initProgressDlg() {
@@ -250,14 +251,28 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	}
 
 	public void setClassName() {
-		TextView classnameView = (TextView) findViewById(R.id.classname);
-		ChildInfo child = DataMgr.getInstance().getSelectedChild();
-		if (child != null) {
-			classnameView.setText(child.getClass_name());
+		if (showBusiness()) {
+			TextView classnameView = (TextView) findViewById(R.id.classname);
+			classnameView.setVisibility(View.VISIBLE);
+			ChildInfo child = DataMgr.getInstance().getSelectedChild();
+			if (child != null) {
+				classnameView.setText(child.getClass_name());
+			}
+		} else {
+			TextView rightnameView = (TextView) findViewById(R.id.rightname);
+			ChildInfo child = DataMgr.getInstance().getSelectedChild();
+			if (child != null) {
+				rightnameView.setText(child.getClass_name());
+			}
 		}
+	}
 
-		if (MyApplication.getInstance().isForTest()) {
-			classnameView.setOnClickListener(new OnClickListener() {
+	private void setBusinessEntry() {
+		if (showBusiness()) {
+			TextView rightnameView = (TextView) findViewById(R.id.rightname);
+			rightnameView.setText(R.string.favourable);
+
+			rightnameView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					startToActivity(new ActivityLauncher() {
@@ -273,10 +288,14 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		}
 	}
 
-	private void startToBusinessActivity() {
+	private boolean showBusiness() {
 		String value = DataUtils.getUndeleteableProp(ConstantValue.BUSINESS_STATE);
+		return ConstantValue.BUSINESS_VISIBLE.equals(value);
+	}
+
+	private void startToBusinessActivity() {
 		// 满足条件才显示在客户端
-		if (ConstantValue.BUSINESS_VISIBLE.equals(value)) {
+		if (showBusiness()) {
 			Intent intent = new Intent();
 			intent.setClass(this, BusinessActivity.class);
 			startActivity(intent);
@@ -296,26 +315,13 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	}
 
 	private void setSchoolName() {
-		TextView schoolNameView = (TextView) findViewById(R.id.schoolName);
-		schoolNameView.setOnClickListener(new OnClickListener() {
-
+		TextView schoolSummaryView = (TextView) findViewById(R.id.schoolSummary);
+		schoolSummaryView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				startToSchoolInfoActivity();
 			}
 		});
-		String schoolName = getSchoolName();
-		schoolNameView.setText(schoolName);
-	}
-
-	private String getSchoolName() {
-		String schoolName = "";
-		try {
-			schoolName = DataMgr.getInstance().getSchoolInfo().getSchool_name();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return schoolName;
 	}
 
 	private void setHeadIcon() {
@@ -538,8 +544,6 @@ public class SchoolNoticeActivity extends TabChildActivity {
 				Log.d("DDD", "selectedChild changed redraw!");
 				setTabTitle();
 			}
-			// 查看学校信息后，学校信息可能会变化，这里更新ui
-			setSchoolName();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -744,7 +748,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	}
 
 	private void initBtn() {
-		ImageView settingBtn = (ImageView) findViewById(R.id.settingBtn);
+		TextView settingBtn = (TextView) findViewById(R.id.settingBtn);
 		settingBtn.setOnClickListener(new OnClickListener() {
 
 			@Override

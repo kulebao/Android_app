@@ -309,4 +309,8 @@
     <string name="invalid_targetloc">商户位置未提供，导航失败</string>
     
     <string name="share_title">【幼乐宝】宝宝成长记录</string>
+    
+    <string name="favourable">亲子优惠</string>
+    
+    <string name="schoolsummary">学校简介</string>
 </resources>

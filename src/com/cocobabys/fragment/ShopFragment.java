@@ -53,8 +53,8 @@ public class ShopFragment extends MyListFragment {
 		{
 			add(new MerchantGridInfo(R.drawable.photography1, R.drawable.photography0,
 					ConstantValue.MERCHANT_CATEGORY_CAMERA));
-			add(new MerchantGridInfo(R.drawable.tour1, R.drawable.tour0, ConstantValue.MERCHANT_CATEGORY_EDUCATION));
-			add(new MerchantGridInfo(R.drawable.train1, R.drawable.train0, ConstantValue.MERCHANT_CATEGORY_GAME));
+			add(new MerchantGridInfo(R.drawable.tour1, R.drawable.tour0, ConstantValue.MERCHANT_CATEGORY_GAME));
+			add(new MerchantGridInfo(R.drawable.train1, R.drawable.train0, ConstantValue.MERCHANT_CATEGORY_EDUCATION));
 			add(new MerchantGridInfo(R.drawable.shopping1, R.drawable.shopping0,
 					ConstantValue.MERCHANT_CATEGORY_SHOPPING));
 			add(new MerchantGridInfo(R.drawable.other1, R.drawable.other0, ConstantValue.MERCHANT_CATEGORY_OTHER));

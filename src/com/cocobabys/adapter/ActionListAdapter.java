@@ -56,7 +56,7 @@ public class ActionListAdapter extends BaseAdapter {
 			ImageUtils.displayEx(item.getLogos().get(0).getUrl(), flagholder.imageView,
 					ConstantValue.ACTION_PIC_MAX_WIDTH, ConstantValue.ACTION_PIC_MAX_HEIGHT);
 		}else{
-			flagholder.imageView.setImageResource(R.drawable.logo2);
+			flagholder.imageView.setImageResource(R.drawable.dlogo);
 		}
 
 		flagholder.titleView.setText(item.getTitle());

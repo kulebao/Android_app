@@ -95,60 +95,45 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/bottom"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom"
-        android:orientation="horizontal" >
+        android:background="@drawable/bottom" >
 
-        <TextView
-            android:id="@+id/schoolSummary"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/schoolsummary"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="50dp"
-            android:background="@color/divid_color" />
-
-        <TextView
+        <ImageView
             android:id="@+id/settingBtn"
-            android:layout_width="0dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/btn_set" />
+
+        <TextView
+            android:id="@+id/schoolName"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/settingBtn"
             android:gravity="center_horizontal"
-            android:text="@string/setting"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="50dp"
-            android:background="@color/divid_color" />
 
         <TextView
             android:id="@+id/rightname"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@+id/settingBtn"
             android:gravity="center_horizontal"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
