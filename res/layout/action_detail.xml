@@ -23,18 +23,34 @@
             android:layout_below="@+id/top"
             android:adjustViewBounds="true"
             android:maxHeight="200dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/dlogo" />
 
-        <TextView
-            android:id="@+id/title"
-            style="@style/NormalTextviewStyle"
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/title_back"
-            android:gravity="left|center"
-            android:paddingLeft="15dp"
-            android:text="ddd"
-            android:textColor="@color/white" />
+            android:background="@drawable/title_back" >
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/NormalTextviewStyle"
+                android:layout_centerVertical="true"
+                android:gravity="left"
+                android:paddingLeft="15dp"
+                android:paddingRight="100dp"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/count"
+                style="@style/NormalTextviewStyle"
+                android:layout_centerVertical="true"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/title_btn_go"
+                android:gravity="right"
+                android:paddingRight="15dp"
+                android:textColor="@color/white" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <ScrollView

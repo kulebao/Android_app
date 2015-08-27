@@ -174,10 +174,15 @@ public class MerchantActivity extends NavigationActivity {
 
 	private void setLogo() {
 		ImageView actionImageView = (ImageView) findViewById(R.id.actionImage);
+		TextView count = (TextView) findViewById(R.id.count);
+
 		if (!merchantInfo.getLogos().isEmpty()) {
 			// imageLoader.displayImage(item.getLogo(), flagholder.imageView);
 			ImageUtils.displayEx(merchantInfo.getLogos().get(0).getUrl(), actionImageView,
 					ConstantValue.ACTION_PIC_MAX_WIDTH, ConstantValue.ACTION_PIC_MAX_HEIGHT);
+			count.setText(merchantInfo.getLogos().size() + "张");
+		} else {
+			count.setVisibility(View.GONE);
 		}
 
 		actionImageView.setOnClickListener(new OnClickListener() {
