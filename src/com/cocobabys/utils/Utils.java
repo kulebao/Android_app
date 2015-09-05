@@ -67,6 +67,7 @@ public class Utils {
 	public static final String APP_DIR_VOI = "cocobaby/voi";
 	public static final String APP_DIR_VID = "cocobaby/video";
 	public static final String APP_LOGS = "cocobaby/logs";
+	public static final String APP_COMMON_LOGS = "cocobaby/common_logs";
 	public static final int LIMIT_WIDTH = 320;
 	public static final int LIMIT_HEIGHT = 480;
 	private static String CHILD_PHOTO = "child_photo";
@@ -330,6 +331,7 @@ public class Utils {
 			// makeAppDirInSDCard(APP_DIR_PIC_NOMEIDA);
 			makeAppDirInSDCard(APP_DIR_TMP);
 			makeAppDirInSDCard(APP_LOGS);
+			makeAppDirInSDCard(APP_COMMON_LOGS);
 
 			// 分享到其他社交app的文件目录
 			makeAppDirInSDCard(APP_DIR_SHARE);

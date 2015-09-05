@@ -2,44 +2,84 @@ package com.cocobabys.upload;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import org.json.JSONObject;
 
 import android.graphics.Bitmap;
 
-import com.cocobabys.activities.MyApplication;
-import com.cocobabys.upload.qiniu.io.IO;
-import com.cocobabys.upload.qiniu.io.PutExtra;
-import com.cocobabys.upload.qiniu.utils.InputStreamAt;
+import com.cocobabys.log.LogWriter;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
 
 public class QiniuMgr implements UploadMgr {
+	private static final int COUNT_LIMIT = 1;
+	private static final int MAX_UPLOAD_WAIT = 60;
+	private CountDownLatch countDownLatch = new CountDownLatch(COUNT_LIMIT);
+	private UpCompletionHandler listener;
+
+	private volatile boolean sendSuccess = false;
+
+	public synchronized boolean isSendSuccess() {
+		return sendSuccess;
+	}
+
+	public synchronized void setSendSuccess(boolean sendSuccess) {
+		this.sendSuccess = sendSuccess;
+	}
 
 	QiniuMgr() {
+		listener = new UpCompletionHandler() {
+			@Override
+			public void complete(String key, ResponseInfo info, JSONObject res) {
+				boolean ok = info.isOK();
+				if (ok) {
+					setSendSuccess(true);
+				} else {
+					setSendSuccess(false);
+					LogWriter.getInstance().print(QiniuMgr.class,
+							"upload failed! key=" + key + " " + "res =" + info.toString());
+				}
+				countDownLatch.countDown();
+			}
+		};
 	}
 
-	@Override
-	public void uploadPhoto(Bitmap bitmap, String url, String uptoken) {
-		InputStream is = bitmap2InputStream(bitmap);
-		uploadPhoto(is, url, uptoken);
-	}
-
-	@Override
-	public void uploadPhoto(InputStream is, String url, String uptoken) {
-		InputStreamAt inputStreamAt = InputStreamAt.fromInputStream(MyApplication.getInstance(), is);
-		PutExtra extra = new PutExtra();
-		IO.putFileEx(uptoken, url, inputStreamAt, extra);
-	}
-
-	@Override
-	public void uploadFile(String filePath, String url, String uptoken) {
-		try {
-			InputStream inputStream = new FileInputStream(new File(filePath));
-			uploadPhoto(inputStream, url, uptoken);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+	public void uploadPhoto(Bitmap bitmap, String url, String uptoken) throws Exception {
+		if (countDownLatch.getCount() != COUNT_LIMIT) {
+			throw new Exception("Ilegal state count = " + countDownLatch.getCount());
 		}
+		byte[] bitmap2ByteArray = bitmap2ByteArray(bitmap);
+		UploadManager uploadManager = new UploadManager();
+		uploadManager.put(bitmap2ByteArray, url, uptoken, listener, null);
+
+		checkResult(url);
+	}
+
+	private void checkResult(String url) throws Exception {
+		try {
+			countDownLatch.await(MAX_UPLOAD_WAIT, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			LogWriter.getInstance().print(QiniuMgr.class, "upload failed! timeout! url=" + url);
+			throw e;
+		}
+
+		if (!sendSuccess) {
+			throw new Exception("upload faile! url=" + url);
+		}
+	}
+
+	public void uploadFile(String filePath, String url, String uptoken) throws Exception {
+		if (countDownLatch.getCount() != COUNT_LIMIT) {
+			throw new Exception("Ilegal state count = " + countDownLatch.getCount());
+		}
+		UploadManager uploadManager = new UploadManager();
+		uploadManager.put(filePath, url, uptoken, listener, null);
+
+		checkResult(url);
 	}
 
 	private InputStream bitmap2InputStream(Bitmap bm) {
@@ -49,9 +89,20 @@ public class QiniuMgr implements UploadMgr {
 		return is;
 	}
 
+	private byte[] bitmap2ByteArray(Bitmap bm) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		bm.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+		return baos.toByteArray();
+	}
+
 	@Override
-	public void uploadPhoto(Bitmap bitmap, String url) {
-		throw new RuntimeException("NOT SUPPORT UploadPhoto(Bitmap bitmap, String url) method!!");
+	public void uploadPhoto(Bitmap bitmap, String url) throws Exception {
+		throw new Exception("do not support this method!");
+	}
+
+	@Override
+	public void uploadPhoto(InputStream is, String url, String uptoken) throws Exception {
+		throw new Exception("do not support this method!");
 	}
 
 }

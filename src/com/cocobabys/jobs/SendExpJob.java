@@ -42,8 +42,7 @@ public class SendExpJob extends MyJob {
 	// 当做文件名关键字
 	private long currentTimeMillis;
 
-	public SendExpJob(Handler handler, String text, List<String> mediums,
-			String mediumType) {
+	public SendExpJob(Handler handler, String text, List<String> mediums, String mediumType) {
 		this.handler = handler;
 		this.text = text;
 		this.mediums = mediums;
@@ -62,8 +61,7 @@ public class SendExpJob extends MyJob {
 			MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
 				@Override
 				public MethodResult handle() throws Exception {
-					MethodResult result = ExpMethod.getMethod()
-							.sendExp(content);
+					MethodResult result = ExpMethod.getMethod().sendExp(content);
 					return result;
 				}
 			});
@@ -107,14 +105,12 @@ public class SendExpJob extends MyJob {
 
 	private String getContent() throws JSONException {
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put(JSONConstant.TOPIC, DataMgr.getInstance()
-				.getSelectedChild().getServer_id());
+		jsonObject.put(JSONConstant.TOPIC, DataMgr.getInstance().getSelectedChild().getServer_id());
 		jsonObject.put(ExpInfo.CONTENT, text);
 
 		JSONObject senderObj = new JSONObject();
 
-		String server_id = DataMgr.getInstance().getSelfInfoByPhone()
-				.getParent_id();
+		String server_id = DataMgr.getInstance().getSelfInfoByPhone().getParent_id();
 		senderObj.put(JSONConstant.ID, server_id);
 		senderObj.put(JSONConstant.TYPE, ExpInfo.PARENT_TYPE);
 
@@ -124,8 +120,8 @@ public class SendExpJob extends MyJob {
 			JSONArray array = new JSONArray();
 			for (int i = 0; i < mediums.size(); i++) {
 				JSONObject object = new JSONObject();
-				object.put(JSONConstant.URL, UploadFactory.getUploadHost()
-						+ Utils.getExpRelativePathExt(nativePath.get(i)));
+				object.put(JSONConstant.URL,
+						UploadFactory.getUploadHost() + Utils.getExpRelativePathExt(nativePath.get(i)));
 				object.put(JSONConstant.TYPE, mediumType);
 				array.put(object);
 			}
@@ -161,8 +157,7 @@ public class SendExpJob extends MyJob {
 	}
 
 	private String getMediumEnds() {
-		return JSONConstant.IMAGE_TYPE.equals(mediumType) ? Utils.JPG_EXT
-				: Utils.DEFAULT_VIDEO_ENDS;
+		return JSONConstant.IMAGE_TYPE.equals(mediumType) ? Utils.JPG_EXT : Utils.DEFAULT_VIDEO_ENDS;
 	}
 
 	private void sendProgressEvent(int progress) {
@@ -173,8 +168,7 @@ public class SendExpJob extends MyJob {
 		handler.sendMessage(obtain);
 	}
 
-	private void uploadImpl(String uploadToken, UploadMgr uploadMgr,
-			String url, String name) throws Exception {
+	private void uploadImpl(String uploadToken, UploadMgr uploadMgr, String url, String name) throws Exception {
 		if (JSONConstant.IMAGE_TYPE.equals(mediumType)) {
 			uploadPhoto(uploadToken, uploadMgr, url, name);
 		} else {
@@ -182,8 +176,7 @@ public class SendExpJob extends MyJob {
 		}
 	}
 
-	private void uploadFile(String uploadToken, UploadMgr uploadMgr,
-			String url, String name) throws InterruptedException {
+	private void uploadFile(String uploadToken, UploadMgr uploadMgr, String url, String name) throws Exception {
 		try {
 			uploadMgr.uploadFile(url, name, uploadToken);
 		} catch (Exception e) {
@@ -195,8 +188,7 @@ public class SendExpJob extends MyJob {
 	}
 
 	// 图片需要先压缩，控制最大值
-	private void uploadPhoto(String uploadToken, UploadMgr uploadMgr,
-			String url, String name) throws InterruptedException {
+	private void uploadPhoto(String uploadToken, UploadMgr uploadMgr, String url, String name) throws Exception {
 		Bitmap bitmap = Utils.getLoacalBitmap(url, STANDARD_PIC);
 		Log.d("DJC", "Size =" + bitmap.getRowBytes() * bitmap.getHeight());
 
@@ -212,8 +204,7 @@ public class SendExpJob extends MyJob {
 	}
 
 	protected void saveAndCompressNail(ExpInfo info) {
-		String nail = info.serverUrlToLocalUrl(info.getServerUrls().get(0),
-				true);
+		String nail = info.serverUrlToLocalUrl(info.getServerUrls().get(0), true);
 		Log.d("", "saveAndCompressNail url=" + info.getServerUrls().get(0));
 		Log.d("", "saveAndCompressNail nail=" + nail);
 		try {
@@ -230,10 +221,8 @@ public class SendExpJob extends MyJob {
 	private void saveBmpToSDCard() throws Exception {
 		for (int i = 0; i < mediums.size(); i++) {
 			String sdCardPath = mediums.get(i);
-			Bitmap loacalBitmap = Utils.getLoacalBitmap(mediums.get(i),
-					STANDARD_PIC);
-			String path = Utils.getSDCardPicRootPath() + File.separator
-					+ Utils.getExpRelativePath(sdCardPath);
+			Bitmap loacalBitmap = Utils.getLoacalBitmap(mediums.get(i), STANDARD_PIC);
+			String path = Utils.getSDCardPicRootPath() + File.separator + Utils.getExpRelativePath(sdCardPath);
 			Utils.makeDirs(Utils.getDir(path));
 			Utils.saveBitmapToSDCard(loacalBitmap, path);
 			loacalBitmap.recycle();
