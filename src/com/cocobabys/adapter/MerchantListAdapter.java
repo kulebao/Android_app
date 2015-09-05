@@ -14,6 +14,9 @@ import com.cocobabys.R;
 import com.cocobabys.bean.BusinessInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.utils.ImageUtils;
+import com.cocobabys.utils.Utils;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class MerchantListAdapter extends BaseAdapter {
 	private Context context;
@@ -53,13 +56,25 @@ public class MerchantListAdapter extends BaseAdapter {
 		return holder;
 	}
 
-	private void setDataToViews(final int position, ViewHolder flagholder) {
+	private void setDataToViews(final int position, final ViewHolder flagholder) {
 		BusinessInfo item = getItem(position);
 
 		if (!item.getLogos().isEmpty()) {
-			// imageLoader.displayImage(item.getLogo(), flagholder.imageView);
-			ImageUtils.displayEx(item.getLogos().get(0).getUrl(), flagholder.imageView,
-					ConstantValue.ACTION_PIC_MAX_WIDTH, ConstantValue.ACTION_PIC_MAX_HEIGHT);
+			ImageLoader imageLoader = ImageUtils.getImageLoader();
+			String fixedUrl = Utils.getFixedUrl(item.getLogos().get(0).getUrl(), ConstantValue.ACTION_PIC_MAX_WIDTH,
+					ConstantValue.ACTION_PIC_MAX_HEIGHT);
+			imageLoader.displayImage(fixedUrl, flagholder.imageView, new SimpleImageLoadingListener() {
+				@Override
+				public void onLoadingStarted(String imageUri, View view) {
+					super.onLoadingStarted(imageUri, view);
+					flagholder.imageView.setImageResource(R.drawable.dlogo);
+				}
+
+			});
+			// ImageUtils.displayEx(item.getLogos().get(0).getUrl(),
+			// flagholder.imageView,
+			// ConstantValue.ACTION_PIC_MAX_WIDTH,
+			// ConstantValue.ACTION_PIC_MAX_HEIGHT);
 		} else {
 			flagholder.imageView.setImageResource(R.drawable.dlogo);
 		}

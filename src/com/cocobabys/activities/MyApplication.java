@@ -27,7 +27,7 @@ public class MyApplication extends Application {
 
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
 	private List<NewChatInfo> tmpNewChatList = new ArrayList<NewChatInfo>();
-	private boolean forTest = true;
+	private boolean forTest = false;
 
 	private MyMediaScannerConnectionClient mediaScannerConnectionClient;
 
@@ -100,9 +100,7 @@ public class MyApplication extends Application {
 		Log.d("Database", "MyApplication onCreate");
 
 		mediaScannerConnectionClient = new MyMediaScannerConnectionClient(this);
-		if (isForTest()) {
-			SDKInitializer.initialize(this);
-		}
+		SDKInitializer.initialize(this);
 	}
 
 }
