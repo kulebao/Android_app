@@ -138,8 +138,6 @@ public class SendExpJob extends MyJob {
 			throw new RuntimeException("getUploadToken failed ");
 		}
 
-		UploadMgr uploadMgr = UploadFactory.createUploadMgr();
-
 		for (int i = 0; i < mediums.size(); i++) {
 			String sdCardPath = mediums.get(i);
 			// String name = Utils.getExpRelativePath(sdCardPath);
@@ -147,7 +145,7 @@ public class SendExpJob extends MyJob {
 
 			String name = Utils.getExpRelativePathExt(realName);
 
-			uploadImpl(uploadToken, uploadMgr, sdCardPath, name);
+			uploadImpl(uploadToken, sdCardPath, name);
 
 			nativePath.add(realName);
 
@@ -168,39 +166,47 @@ public class SendExpJob extends MyJob {
 		handler.sendMessage(obtain);
 	}
 
-	private void uploadImpl(String uploadToken, UploadMgr uploadMgr, String url, String name) throws Exception {
+	private void uploadImpl(String uploadToken, String url, String name) throws Exception {
 		if (JSONConstant.IMAGE_TYPE.equals(mediumType)) {
-			uploadPhoto(uploadToken, uploadMgr, url, name);
+			uploadPhoto(uploadToken, url, name);
 		} else {
-			uploadFile(uploadToken, uploadMgr, url, name);
+			uploadFile(uploadToken, url, name);
 		}
 	}
 
-	private void uploadFile(String uploadToken, UploadMgr uploadMgr, String url, String name) throws Exception {
+	private void uploadFile(String uploadToken, String url, String name) throws Exception {
 		try {
-			uploadMgr.uploadFile(url, name, uploadToken);
+			uploadFileImpl(uploadToken, url, name);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Thread.sleep(500);
-			// 重试一次
-			uploadMgr.uploadFile(url, name, uploadToken);
+			uploadFileImpl(uploadToken, url, name);
 		}
 	}
 
+	private void uploadFileImpl(String uploadToken, String url, String name) throws Exception {
+		UploadMgr uploadMgr = UploadFactory.createUploadMgr();
+		uploadMgr.uploadFile(url, name, uploadToken);
+	}
+
 	// 图片需要先压缩，控制最大值
-	private void uploadPhoto(String uploadToken, UploadMgr uploadMgr, String url, String name) throws Exception {
+	private void uploadPhoto(String uploadToken, String url, String name) throws Exception {
 		Bitmap bitmap = Utils.getLoacalBitmap(url, STANDARD_PIC);
 		Log.d("DJC", "Size =" + bitmap.getRowBytes() * bitmap.getHeight());
 
 		try {
-			// uploadMgr.uploadPhoto(url, name, uploadToken);
-			uploadMgr.uploadPhoto(bitmap, name, uploadToken);
+			uploadPhotoImpl(uploadToken, name, bitmap);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Thread.sleep(500);
 			// 重试一次
-			uploadMgr.uploadPhoto(bitmap, name, uploadToken);
+			uploadPhotoImpl(uploadToken, name, bitmap);
 		}
+	}
+
+	private void uploadPhotoImpl(String uploadToken, String name, Bitmap bitmap) throws Exception {
+		UploadMgr uploadMgr = UploadFactory.createUploadMgr();
+		uploadMgr.uploadPhoto(bitmap, name, uploadToken);
 	}
 
 	protected void saveAndCompressNail(ExpInfo info) {
