@@ -44,7 +44,6 @@ import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.Utils;
 import com.huamaitel.api.HMCallback;
-import com.huamaitel.api.HMCallback.NetworkCallback;
 import com.huamaitel.api.HMDefines;
 
 /**
@@ -127,6 +126,8 @@ public class PlayActivity extends UmengStatisticsActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.play_activity);
 
+		nodeId = getIntent().getIntExtra("nodeId", 0);
+
 		// 让屏幕保持不暗不关闭
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
 				WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -161,8 +162,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 	}
 
 	private void showNotice() {
-		isPublicVideoAccount = getIntent().getBooleanExtra(
-				ConstantValue.IS_PUBLIC_VIDEO, false);
+		isPublicVideoAccount = getIntent().getBooleanExtra(ConstantValue.IS_PUBLIC_VIDEO, false);
 		if (isPublicVideoAccount) {
 			LinearLayout video_notice = (LinearLayout) findViewById(R.id.video_notice);
 			video_notice.setVisibility(View.VISIBLE);
@@ -176,8 +176,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 		mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		mProgressDialog.setMax(MAX_PROGRESS);
 		mProgressDialog.setCancelable(false);
-		mProgressDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-				Utils.getResString(R.string.cancel),
+		mProgressDialog.setButton(DialogInterface.BUTTON_POSITIVE, Utils.getResString(R.string.cancel),
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						if (openVideoFuture != null) {
@@ -199,8 +198,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 			@Override
 			public void onClick(View v) {
 				VideoApp.getJni().disarming(VideoApp.mUserId, 1, "");
-				Toast.makeText(getApplicationContext(), "撤防成功",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "撤防成功", Toast.LENGTH_SHORT).show();
 				mbtn_disarming.setEnabled(false);
 				mbtn_arming.setEnabled(true);
 
@@ -217,8 +215,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 			@Override
 			public void onClick(View v) {
 				VideoApp.getJni().arming(VideoApp.mUserId, 1, "");
-				Toast.makeText(getApplicationContext(), "布防成功",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "布防成功", Toast.LENGTH_SHORT).show();
 				mbtn_arming.setEnabled(false);
 				mbtn_disarming.setEnabled(true);
 
@@ -298,8 +295,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 			@Override
 			public void onClick(View v) {
 				if (isPublicVideoAccount) {
-					Utils.makeToast(PlayActivity.this,
-							R.string.public_video_can_not_screenshot);
+					Utils.makeToast(PlayActivity.this, R.string.public_video_can_not_screenshot);
 					return;
 				}
 
@@ -320,8 +316,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 		Log.d("EEE", "mbtn_capture takePic");
 		int event = EVT_TAKE_PIC_FAILED;
 		try {
-			String fileName = VideoApp.getJni().getNodeName(
-					VideoApp.curNodeHandle);
+			String fileName = VideoApp.getJni().getNodeName(VideoApp.curNodeHandle);
 			String path = getFilePath(FILE_TYPE_CAPTURE, fileName);
 			VideoApp.mCapturePath = path;
 
@@ -350,8 +345,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 			public void onClick(View v) {
 				try {
 					if (!mbtn_capture.isEnabled()) {
-						Log.d("EEE",
-								"mbtn_capture isEnabled false! do nothing!");
+						Log.d("EEE", "mbtn_capture isEnabled false! do nothing!");
 						return;
 					}
 					mbtn_capture.setEnabled(false);
@@ -396,27 +390,23 @@ public class PlayActivity extends UmengStatisticsActivity {
 		mbtn_record.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String fileName = VideoApp.getJni().getNodeName(
-						VideoApp.curNodeHandle);
+				String fileName = VideoApp.getJni().getNodeName(VideoApp.curNodeHandle);
 				String path = getFilePath(FILE_TYPE_RECORD, fileName);
 				if (mIsRecording) {
 					VideoApp.getJni().stopLocalRecord(VideoApp.mRecordHandle);
 					mIsRecording = false;
 					mUIHandler.sendEmptyMessage(MSG_STOP_RECORD);
-					Toast.makeText(getApplicationContext(),
-							"停止录像，视频存放在：" + path, Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "停止录像，视频存放在：" + path, Toast.LENGTH_SHORT).show();
 				} else {
 					VideoApp.mCapturePath = path;
-					VideoApp.mRecordHandle = VideoApp.getJni()
-							.startLocalRecord(VideoApp.mUserId, path);
+					VideoApp.mRecordHandle = VideoApp.getJni().startLocalRecord(VideoApp.mUserId, path);
 
 					if (VideoApp.mRecordHandle == 0) {
 						Log.e(TAG, "start local record fail.");
 					} else {
 						Log.i(TAG, "start local record success.");
 						showRecordAnim(true);
-						Toast.makeText(getApplicationContext(), "开始录像",
-								Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(), "开始录像", Toast.LENGTH_SHORT).show();
 						showRecordTime();
 						mIsRecording = true;
 					}
@@ -446,18 +436,38 @@ public class PlayActivity extends UmengStatisticsActivity {
 	}
 
 	private void initView() {
+
 		mbtn_record = (Button) findViewById(R.id.id_btn_record);
 		mbtn_capture = (Button) findViewById(R.id.id_btn_capture);
 		mbtn_arming = (Button) findViewById(R.id.id_btn_arming);
 		mbtn_disarming = (Button) findViewById(R.id.id_btn_disarming);
 		mbtn_opentalk = (Button) findViewById(R.id.id_btn_opentalk);
 		mbtn_closetalk = (Button) findViewById(R.id.id_btn_closetalk);
-		mbtn_openlisten = (Button) findViewById(R.id.id_btn_openlisten);
-		mbtn_closelisten = (Button) findViewById(R.id.id_btn_closelisten);
+		setListen();
 		mtvrecordTime = (TextView) findViewById(R.id.record_time);
 		mivrecordDot = (ImageView) findViewById(R.id.record_dot);
 		mivrecordDot.setBackgroundResource(R.anim.record_anim);
 		mivrecordDot.setImageDrawable(null);
+	}
+
+	private void setListen() {
+		mbtn_openlisten = (Button) findViewById(R.id.id_btn_openlisten);
+		mbtn_closelisten = (Button) findViewById(R.id.id_btn_closelisten);
+		boolean openListen = true;
+		int devicePower = VideoApp.getJni().getDevicePower(nodeId);
+
+		if ((devicePower & (1 << 6)) != 0) {
+			Log.d("", "DJC can start listen");
+		} else {
+			Log.d("", "DJC can not start listen");
+			openListen = false;
+		}
+
+		if (!openListen) {
+			mbtn_openlisten.setVisibility(View.GONE);
+			mbtn_closelisten.setVisibility(View.GONE);
+		}
+
 	}
 
 	private void initHandler() {
@@ -508,8 +518,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 					break;
 				case EVT_START_LISTEN_FAILED:
 					mbtn_openlisten.setEnabled(true);
-					Utils.makeToast(PlayActivity.this,
-							"抱歉，打开声音失败，可能是设备不支持，请联系幼儿园处理，谢谢");
+					Utils.makeToast(PlayActivity.this, "抱歉，打开声音失败，可能是设备不支持，请联系幼儿园处理，谢谢");
 					break;
 				case EVT_CLOSE_LISTEN_SUCCESS:
 					Utils.makeToast(PlayActivity.this, "声音已关闭");
@@ -543,8 +552,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 				HMDefines.OpenAudioParam param = new HMDefines.OpenAudioParam();
 				param.channel = 0;
 				HMDefines.OpenAudioRes res = new HMDefines.OpenAudioRes();
-				VideoApp.mAudioHandle = VideoApp.getJni().startAudio(
-						VideoApp.mUserId, param, res);
+				VideoApp.mAudioHandle = VideoApp.getJni().startAudio(VideoApp.mUserId, param, res);
 				Log.d("VIDEO", "mAudioHandle =" + VideoApp.mAudioHandle);
 				if (VideoApp.mAudioHandle > 0) {
 					handler.sendEmptyMessage(EVT_START_LISTEN_SUCCESS);
@@ -576,8 +584,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 				param.sample = VideoApp.mChannelCapacity[0].audioSample;
 				param.audioChannel = VideoApp.mChannelCapacity[0].audioChannel;
 
-				VideoApp.mTalkHandle = VideoApp.getJni().startTalk(
-						VideoApp.mUserId, param);
+				VideoApp.mTalkHandle = VideoApp.getJni().startTalk(VideoApp.mUserId, param);
 				if (VideoApp.mTalkHandle == 0) {
 					mIsTalking = true;
 				}
@@ -593,7 +600,6 @@ public class PlayActivity extends UmengStatisticsActivity {
 	private boolean loginToDevice() {
 		if (VideoApp.mIsUserLogin) {
 			// 从互联网登录
-			int nodeId = getIntent().getIntExtra("nodeId", 0);
 			Log.d("VIDEO", "first nodeId=" + nodeId);
 			if (nodeId == 0) {
 				return false;
@@ -602,8 +608,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 			// Step 1: Login the device.
 			Log.d("VIDEO", "try to login");
 
-			VideoApp.mUserId = VideoApp.getJni().loginEx(nodeId,
-					HMDefines.ConnectPolicy.CONN_POLICY_DEFAULT);
+			VideoApp.mUserId = VideoApp.getJni().loginEx(nodeId, HMDefines.ConnectPolicy.CONN_POLICY_DEFAULT);
 
 			// VideoApp.mUserId = VideoApp.getJni().loginEx(nodeId);
 			Log.d("VIDEO", "after login mUserId=" + VideoApp.mUserId);
@@ -622,8 +627,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 			String sSN = getIntent().getStringExtra("sn");
 			if (sip != null && sport != null && sSN != null && suser != null) {
 				// Step 1: Login the device.
-				VideoApp.mUserId = VideoApp.getJni().login(sip,
-						Short.parseShort(sport), sSN, suser, spass);
+				VideoApp.mUserId = VideoApp.getJni().login(sip, Short.parseShort(sport), sSN, suser, spass);
 				if (VideoApp.mUserId == 0) {
 					return false;
 				}
@@ -635,16 +639,14 @@ public class PlayActivity extends UmengStatisticsActivity {
 
 	private boolean getDeviceInfo() {
 		Log.d("VIDEO", "get device info");
-		VideoApp.mDeviceInfo = VideoApp.getJni()
-				.getDeviceInfo(VideoApp.mUserId);
+		VideoApp.mDeviceInfo = VideoApp.getJni().getDeviceInfo(VideoApp.mUserId);
 		Log.d("VIDEO", "getChannelCapacity mDeviceInfo=" + VideoApp.mDeviceInfo);
 		if (VideoApp.mDeviceInfo == null) {
 			handler.sendEmptyMessage(PLAY_GET_DEVICE_FAILED);
 			return false;
 		}
 
-		VideoApp.mChannelCapacity = VideoApp.getJni().getChannelCapacity(
-				VideoApp.mUserId);
+		VideoApp.mChannelCapacity = VideoApp.getJni().getChannelCapacity(VideoApp.mUserId);
 
 		return true;
 	}
@@ -659,8 +661,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 		HMDefines.OpenVideoRes res = new HMDefines.OpenVideoRes();
 
 		Log.d("VIDEO", "startVideo");
-		VideoApp.mVideoHandle = VideoApp.getJni().startVideo(VideoApp.mUserId,
-				param, res);
+		VideoApp.mVideoHandle = VideoApp.getJni().startVideo(VideoApp.mUserId, param, res);
 
 		Log.d("VIDEO", "at the end mVideoHandle =" + VideoApp.mVideoHandle);
 		// if (VideoApp.mVideoHandle <= 0) {
@@ -707,37 +708,36 @@ public class PlayActivity extends UmengStatisticsActivity {
 	}
 
 	private void openVideo() {
-		openVideoFuture = MyThreadPoolMgr.getGenericService().submit(
-				new Runnable() {
-					@Override
-					public void run() {
-						boolean result = loginToDevice();
+		openVideoFuture = MyThreadPoolMgr.getGenericService().submit(new Runnable() {
+			@Override
+			public void run() {
+				boolean result = loginToDevice();
 
-						if (!result) {
-							return;
-						}
+				if (!result) {
+					return;
+				}
 
-						mIfLogin = true;
+				mIfLogin = true;
 
-						// Step 2: Get device information.
-						handler.sendEmptyMessage(GET_DEVICE_INFO);
-						result = getDeviceInfo();
-						if (!result) {
-							return;
-						}
+				// Step 2: Get device information.
+				handler.sendEmptyMessage(GET_DEVICE_INFO);
+				result = getDeviceInfo();
+				if (!result) {
+					return;
+				}
 
-						// Step 3: Open video
-						handler.sendEmptyMessage(PLAY_VIDEO);
-						result = playVideo();
-						if (!result) {
-							return;
-						}
+				// Step 3: Open video
+				handler.sendEmptyMessage(PLAY_VIDEO);
+				result = playVideo();
+				if (!result) {
+					return;
+				}
 
-						bStartVideo = true;
-						handler.sendEmptyMessage(OPEN_VIDEO_DONE);
-						mIsPlaying = true;
-					}
-				});
+				bStartVideo = true;
+				handler.sendEmptyMessage(OPEN_VIDEO_DONE);
+				mIsPlaying = true;
+			}
+		});
 	}
 
 	@Override
@@ -762,15 +762,13 @@ public class PlayActivity extends UmengStatisticsActivity {
 
 	@Override
 	public void onBackPressed() {
-		new AlertDialog.Builder(this).setTitle("确定要退出视频播放吗？")
-				.setIcon(android.R.drawable.ic_dialog_info)
+		new AlertDialog.Builder(this).setTitle("确定要退出视频播放吗？").setIcon(android.R.drawable.ic_dialog_info)
 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						PlayActivity.this.finish();
 					}
-				})
-				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+				}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 					}
@@ -824,15 +822,13 @@ public class PlayActivity extends UmengStatisticsActivity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case MSG_SHOW_RECORD_TIME:
-				int time = VideoApp.getJni().getLocalRecordTime(
-						VideoApp.mRecordHandle);
+				int time = VideoApp.getJni().getLocalRecordTime(VideoApp.mRecordHandle);
 				String timString = Duration2Time(time);
 				mtvrecordTime.setText(timString);
 				break;
 
 			case MSG_STOP_RECORD:
-				int result = VideoApp.getJni()
-						.stopLocalRecord(VideoApp.mUserId);
+				int result = VideoApp.getJni().stopLocalRecord(VideoApp.mUserId);
 				if (result != 0) {
 					Log.e(TAG, "close local record fail.");
 				} else {
@@ -848,6 +844,8 @@ public class PlayActivity extends UmengStatisticsActivity {
 	};
 
 	private Future<?> openVideoFuture;
+
+	private int nodeId;
 
 	/************************************************* 工具方法 *******************************************************/
 	/*
@@ -904,8 +902,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 	 * @param isStart
 	 */
 	private void showRecordAnim(boolean isStart) {
-		AnimationDrawable animator = (AnimationDrawable) mivrecordDot
-				.getBackground();
+		AnimationDrawable animator = (AnimationDrawable) mivrecordDot.getBackground();
 
 		if (isStart) {
 			mtvrecordTime.setVisibility(View.VISIBLE);
@@ -927,8 +924,7 @@ public class PlayActivity extends UmengStatisticsActivity {
 
 		// Get the path of SD card.
 		if (Utils.isSdcardExisting()) {
-			sdPath = Environment.getExternalStorageDirectory()
-					.getAbsolutePath();
+			sdPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 		} else {
 			return path;
 		}
