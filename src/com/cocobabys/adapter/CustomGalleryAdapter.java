@@ -8,7 +8,9 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.cocobabys.R;
@@ -25,22 +27,23 @@ public class CustomGalleryAdapter extends BaseAdapter {
 	private boolean isActionMultiplePick;
 	protected boolean showDefaultPic = false;
 	private DisplayImageOptions options;
+	private int windowWidth;
 
 	public void setShowDefaultPic(boolean showDefaultPic) {
 		this.showDefaultPic = showDefaultPic;
 	}
 
 	public CustomGalleryAdapter(Context c) {
-		infalter = (LayoutInflater) c
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		infalter = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.default_small_icon)
-				.showImageForEmptyUri(R.drawable.default_small_icon)
-				.showImageOnFail(R.drawable.default_small_icon)
-				.cacheInMemory(true).imageScaleType(ImageScaleType.EXACTLY)
-				.cacheOnDisk(false).considerExifParams(true)
+		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.default_small_icon)
+				.showImageForEmptyUri(R.drawable.default_small_icon).showImageOnFail(R.drawable.default_small_icon)
+				.cacheInMemory(true).imageScaleType(ImageScaleType.EXACTLY).cacheOnDisk(false).considerExifParams(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
+
+		WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
+
+		windowWidth = wm.getDefaultDisplay().getWidth();
 	}
 
 	public List<String> getAllSelectedPath() {
@@ -130,22 +133,20 @@ public class CustomGalleryAdapter extends BaseAdapter {
 	}
 
 	public void changeSelection(View v, int position) {
-		((ViewHolder) v.getTag()).imgQueueMultiSelected.setSelected(data.get(
-				position).isSeleted());
+		((ViewHolder) v.getTag()).imgQueueMultiSelected.setSelected(data.get(position).isSeleted());
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final ViewHolder holder;
 		if (convertView == null) {
-
 			convertView = infalter.inflate(R.layout.gallery_item, null);
-			holder = new ViewHolder();
-			holder.imgQueue = (ImageView) convertView
-					.findViewById(R.id.imgQueue);
+			convertView.setLayoutParams(new GridView.LayoutParams(windowWidth / 3, windowWidth / 3));
 
-			holder.imgQueueMultiSelected = (ImageView) convertView
-					.findViewById(R.id.imgQueueMultiSelected);
+			holder = new ViewHolder();
+			holder.imgQueue = (ImageView) convertView.findViewById(R.id.imgQueue);
+
+			holder.imgQueueMultiSelected = (ImageView) convertView.findViewById(R.id.imgQueueMultiSelected);
 
 			if (isActionMultiplePick) {
 				holder.imgQueueMultiSelected.setVisibility(View.VISIBLE);
@@ -168,8 +169,7 @@ public class CustomGalleryAdapter extends BaseAdapter {
 	private void showImgByLoader(int position, final ViewHolder holder) {
 		try {
 			String sdcardPath = data.get(position).getSdcardPath();
-			ImageLoader.getInstance().displayImage(
-					ImageUtils.wrapper(sdcardPath), holder.imgQueue, options);
+			ImageLoader.getInstance().displayImage(ImageUtils.wrapper(sdcardPath), holder.imgQueue, options);
 
 			// ImageSize imagesize = new ImageSize(160, 160);
 			// ImageLoader.getInstance().loadImage("file://" + sdcardPath,
@@ -191,8 +191,7 @@ public class CustomGalleryAdapter extends BaseAdapter {
 			// });
 
 			if (isActionMultiplePick) {
-				holder.imgQueueMultiSelected.setSelected(data.get(position)
-						.isSeleted());
+				holder.imgQueueMultiSelected.setSelected(data.get(position).isSeleted());
 			}
 
 		} catch (Exception e) {

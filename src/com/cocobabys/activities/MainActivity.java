@@ -74,31 +74,6 @@ public class MainActivity extends TabActivity {
 
 		// 测试版本的fault信息不上报给友盟
 		MobclickAgent.setCatchUncaughtExceptions(!MyApplication.getInstance().isForTest());
-
-		if (MyApplication.getInstance().isWeixinBypass()) {
-			ShareSDK.initSDK(this);
-		} else {
-			ShareSDK.initSDK(this, "77da60e4dcd8");
-			HashMap<String, Object> hashMap = new HashMap<String, Object>();
-			hashMap.put("Id", "4");
-			hashMap.put("SortId", "4");
-			hashMap.put("AppId", "wxf3c9e8b20267320e");
-			hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
-			hashMap.put("BypassApproval", "false");
-			hashMap.put("Enable", "true");
-			ShareSDK.setPlatformDevInfo(Wechat.NAME, hashMap);
-
-			hashMap = new HashMap<String, Object>();
-			hashMap.put("Id", "5");
-			hashMap.put("SortId", "5");
-			hashMap.put("AppId", "wxf3c9e8b20267320e");
-			hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
-			hashMap.put("BypassApproval", "false");
-			hashMap.put("Enable", "true");
-
-			ShareSDK.setPlatformDevInfo(WechatMoments.NAME, hashMap);
-		}
-
 	}
 
 	private void runCheckBindTask() {

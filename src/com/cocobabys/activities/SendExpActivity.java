@@ -365,15 +365,17 @@ public class SendExpActivity extends UmengStatisticsActivity{
     }
 
     private void handleTakePicSuccess(){
-        // galleryAddPic();
-        // galleryAddPicExt();
-        Utils.addPicToGallery(uri);
-        CustomGallery gallery = new CustomGallery();
-        Log.d("DJC", "path bbb=" + uri.getPath());
-        gallery.setSdcardPath(uri.getPath());
-        gallery.setSeleted(true);
-        // viewSwitcher.setDisplayedChild(0);
-        adapter.insert(gallery);
+        try {
+			Utils.addPicToGallery(uri);
+			CustomGallery gallery = new CustomGallery();
+			Log.d("DJC", "path bbb=" + uri.getPath());
+			gallery.setSdcardPath(uri.getPath());
+			gallery.setSeleted(true);
+			adapter.insert(gallery);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Utils.makeToast(this, R.string.take_pic_failed);
+		}
     }
 
     private void chooseIconFromCamera(){

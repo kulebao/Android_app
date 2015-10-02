@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="chat_icon_size">140dp</dimen>
-    <dimen name="chat_max_width">480dp</dimen>
     <dimen name="shop_grid_width">420dp</dimen>
     <dimen name="main_grid_width">420dp</dimen>
 

@@ -39,7 +39,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -463,7 +462,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 								}
 							}
 						});
-			} catch (JSONException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
