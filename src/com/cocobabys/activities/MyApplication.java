@@ -32,7 +32,7 @@ public class MyApplication extends Application {
 
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
 	private List<NewChatInfo> tmpNewChatList = new ArrayList<NewChatInfo>();
-	private boolean forTest = false;
+	private boolean forTest = true;
 
 	private MyMediaScannerConnectionClient mediaScannerConnectionClient;
 
@@ -92,28 +92,32 @@ public class MyApplication extends Application {
 	}
 
 	private void initShareSDK() {
-		if (isWeixinBypass()) {
-			ShareSDK.initSDK(this);
-		} else {
-			ShareSDK.initSDK(this, "77da60e4dcd8");
-			HashMap<String, Object> hashMap = new HashMap<String, Object>();
-			hashMap.put("Id", "4");
-			hashMap.put("SortId", "4");
-			hashMap.put("AppId", "wxf3c9e8b20267320e");
-			hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
-			hashMap.put("BypassApproval", "false");
-			hashMap.put("Enable", "true");
-			ShareSDK.setPlatformDevInfo(Wechat.NAME, hashMap);
+		try {
+			if (isWeixinBypass()) {
+				ShareSDK.initSDK(this);
+			} else {
+				ShareSDK.initSDK(this, "77da60e4dcd8");
+				HashMap<String, Object> hashMap = new HashMap<String, Object>();
+				hashMap.put("Id", "4");
+				hashMap.put("SortId", "4");
+				hashMap.put("AppId", "wxf3c9e8b20267320e");
+				hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
+				hashMap.put("BypassApproval", "false");
+				hashMap.put("Enable", "true");
+				ShareSDK.setPlatformDevInfo(Wechat.NAME, hashMap);
 
-			hashMap = new HashMap<String, Object>();
-			hashMap.put("Id", "5");
-			hashMap.put("SortId", "5");
-			hashMap.put("AppId", "wxf3c9e8b20267320e");
-			hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
-			hashMap.put("BypassApproval", "false");
-			hashMap.put("Enable", "true");
+				hashMap = new HashMap<String, Object>();
+				hashMap.put("Id", "5");
+				hashMap.put("SortId", "5");
+				hashMap.put("AppId", "wxf3c9e8b20267320e");
+				hashMap.put("AppSecret", "b8058fb1aac2bac635332ea20679861b");
+				hashMap.put("BypassApproval", "false");
+				hashMap.put("Enable", "true");
 
-			ShareSDK.setPlatformDevInfo(WechatMoments.NAME, hashMap);
+				ShareSDK.setPlatformDevInfo(WechatMoments.NAME, hashMap);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

@@ -9,10 +9,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cocobabys.R;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.InfoHelper;
@@ -20,10 +22,12 @@ import com.cocobabys.dbmgr.info.SchoolInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.InvitationJob;
 import com.cocobabys.taskmgr.DownLoadImgAndSaveTask;
+import com.cocobabys.taskmgr.GetAuthCodeTask;
 import com.cocobabys.taskmgr.GetSchoolInfoTask;
+import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 
-public class SchoolInfoActivity extends UmengStatisticsActivity {
+public class InvitationActivity extends UmengStatisticsActivity {
 
 	private ImageView logo;
 	private TextView desc;
@@ -32,6 +36,7 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 	private ProgressDialog dialog;
 	private SchoolInfo info = new SchoolInfo();
 	private AsyncTask<Void, Void, Integer> downloadIconTask;
+	private EditText vCode;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +68,7 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 		handler = new MyHandler(this, dialog) {
 			@Override
 			public void handleMessage(Message msg) {
-				if (SchoolInfoActivity.this.isFinishing()) {
+				if (InvitationActivity.this.isFinishing()) {
 					Log.w("djc", "do nothing when activity finishing!");
 					return;
 				}
@@ -76,6 +81,21 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 				case EventType.SCHOOL_INFO_IS_LATEST:
 					// do nothing
 					break;
+				case EventType.INVITE_FAIL:
+					Utils.makeToast(InvitationActivity.this, "邀请失败");
+					break;
+				case EventType.INVITE_SUCCESS:
+					Utils.makeToast(InvitationActivity.this, "邀请成功");
+					break;
+				case EventType.GET_AUTH_CODE_FAIL:
+					Utils.makeToast(InvitationActivity.this, "获取验证码失败");
+					break;
+				case EventType.GET_AUTH_CODE_SUCCESS:
+					Utils.makeToast(InvitationActivity.this, "获取验证码成功");
+					break;
+				case EventType.GET_AUTH_CODE_TOO_OFTEN:
+					Utils.makeToast(InvitationActivity.this, R.string.get_auth_code_too_often);
+					break;
 				case EventType.DOWNLOAD_FILE_SUCCESS:
 					Log.d("DDD", "DOWNLOAD_IMG_SUCCESS");
 					handleDownloadSchoolLogoSuccess((String) msg.obj);
@@ -85,6 +105,10 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 				}
 			}
 		};
+	}
+
+	public void getcode(View view) {
+		new GetAuthCodeTask(handler, DataUtils.getAccount(), ConstantValue.TYPE_GET_REG_AUTHCODE).execute();
 	}
 
 	public void handleDownloadSchoolLogoSuccess(String filepath) {
@@ -99,22 +123,11 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 	}
 
 	private void initUI() {
+		vCode = (EditText) findViewById(R.id.vCode);
 		logo = (ImageView) findViewById(R.id.school_logo);
 		desc = (TextView) findViewById(R.id.school_desc);
 		contact_school = (Button) findViewById(R.id.contact_school);
 	}
-
-	// private void showPushInfo(){
-	// if(MyApplication.getInstance().isForTest()){
-	// String USER_ID = DataUtils.getUndeleteableProp(JSONConstant.USER_ID);
-	// String CHANNEL_ID =
-	// DataUtils.getUndeleteableProp(JSONConstant.CHANNEL_ID);
-	//
-	// String text = "\nUSER_ID =" + USER_ID + "" + "\n" + "CHANNEL_ID =" +
-	// CHANNEL_ID + "\n";
-	// desc.setText(text);
-	// }
-	// }
 
 	// 返回是否首次查询，首次查询需要显示loading动画
 	private boolean showSchoolInfo() {
@@ -140,14 +153,28 @@ public class SchoolInfoActivity extends UmengStatisticsActivity {
 			contact_school.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					if (MyApplication.getInstance().isForTest()) {
+						invitation();
+						return;
+					}
+
 					if (!"".equals(info.getSchool_phone())) {
-						Utils.startToCall(SchoolInfoActivity.this, info.getSchool_phone());
+						Utils.startToCall(InvitationActivity.this, info.getSchool_phone());
 					}
 				}
 			});
 		} else {
 			contact_school.setVisibility(View.GONE);
 		}
+	}
+
+	protected void invitation() {
+		InvitationJob invitationJob = new InvitationJob(handler, "44443333222", "袋鼠测试A", "爷爷", getEditeContent());
+		invitationJob.execute();
+	}
+
+	private String getEditeContent() {
+		return vCode.getText().toString() == null ? "" : vCode.getText().toString();
 	}
 
 	private void showDesc() {

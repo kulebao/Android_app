@@ -279,7 +279,13 @@ public class SchoolNoticeActivity extends TabChildActivity {
 						public void startActivity() {
 							// startToShopLocActivity();
 							// startToLbsActivity();
-							startToBusinessActivity();
+							if (MyApplication.getInstance().isForTest()) {
+								Intent intent = new Intent();
+								intent.setClass(SchoolNoticeActivity.this, InvitationActivity.class);
+								SchoolNoticeActivity.this.startActivity(intent);
+							} else {
+								startToBusinessActivity();
+							}
 						}
 					});
 				}

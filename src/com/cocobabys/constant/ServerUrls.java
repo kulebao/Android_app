@@ -34,6 +34,8 @@ public class ServerUrls {
 	public static final String ACTIVITY = "activity";
 	public static final String ENROLLMENT = "enrollment";
 
+	public static final String INVITATION = "invitation";
+
 	public static final String COMMERCIAL_SUMMARY = "commercial_summary";
 
 	public static final String SHARE = "share";
@@ -217,5 +219,8 @@ public class ServerUrls {
 
 	// 真正的分享链接
 	public static final String EXP_SHARE_REAL_URL = getHost() + "s" + "/%s";
+
+	// /api/v5/kindergarten/:schoolId/invitation
+	public static final String INVITE_URL = getHost() + "api/v5/" + ROOT_RES_PATH + "/%s/" + INVITATION;
 
 }

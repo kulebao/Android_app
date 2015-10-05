@@ -332,6 +332,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.cocobabys.activities.InvitationActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.cocobabys.activities.SlideGalleryActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"

@@ -109,6 +109,9 @@ public class EventType {
 
 	public static final int UPLOAD_ICON_SUCCESS = 1830;
 
+	public static final int INVITE_SUCCESS = 1840;
+	public static final int INVITE_FAIL = 1841;
+
 	/**************** ad event ******************/
 	public static final int GET_AD_SUCCESS = 1850;
 	public static final int GET_AD_FAIL = 1851;
