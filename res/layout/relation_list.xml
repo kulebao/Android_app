@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/top"
+        layout="@layout/topbar" />
+
+    <ListView
+        android:id="@+id/relation_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/bottom"
+        android:layout_below="@+id/top"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:cacheColorHint="#00000000"
+        android:divider="@drawable/line"
+        android:dividerHeight="2dip"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="true" >
+    </ListView>
+
+    <Button
+        android:id="@+id/bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="invitation"
+        android:text="@string/invitation" />
+
+</RelativeLayout>

@@ -21,20 +21,25 @@ public class LoadingActivity extends UmengStatisticsActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// 这是为了应用程序安装完后直接打开，按home键退出后，再次打开程序出现重新启动新实例的BUG
+		if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+			// 结束你的activity
+			finish();
+			return;
+		}
+
 		setContentView(R.layout.loading);
 		Log.d("Database", "LoadingActivity onCreate");
 		initHandler();
 		// initData();
 		new LoadingTask(handler).execute();
-		PushModel.getPushModel().enableDebug(
-				MyApplication.getInstance().isForTest());
+		PushModel.getPushModel().enableDebug(MyApplication.getInstance().isForTest());
 	}
 
 	private void initData() {
 		if (MyApplication.getInstance().isForTest()) {
 			DataUtils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, "133d");
-			DataUtils.saveUndeleteableProp(JSONConstant.USER_ID,
-					"963386802751977894");
+			DataUtils.saveUndeleteableProp(JSONConstant.USER_ID, "963386802751977894");
 			DataUtils.saveUndeleteableProp(ConstantValue.TEST_PHONE, "true");
 			DataUtils.setGuided();
 		}

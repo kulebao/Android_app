@@ -317,6 +317,10 @@ public class DataMgr{
         return parentMgr.getParentByID(parentid);
     }
 
+    public void updateCardNum(String newCard, String parentid){
+        parentMgr.updateCardNum(newCard, parentid);
+    }
+
     // 获取当前家长信息
     public ParentInfo getSelfInfoByPhone(){
         return parentMgr.getParentByPhone(DataUtils.getAccount());
@@ -415,11 +419,11 @@ public class DataMgr{
     public void close(){
         synchronized(mLock){
             if(dbHelper != null){
-                try {
-					dbHelper.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+                try{
+                    dbHelper.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
                 dbHelper = null;
             }
 

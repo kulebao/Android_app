@@ -35,7 +35,7 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 			return EventType.NET_WORK_INVALID;
 		}
 
-		int result = EventType.BIND_FAILED;
+		int result = EventType.SERVER_BUSY;
 		try {
 			// 检查是否之前已经绑定成功过了，如果绑定成功了，就只需要向服务器发送绑定信息
 			if (checkBindInfo()) {

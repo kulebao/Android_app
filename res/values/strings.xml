@@ -277,40 +277,52 @@
     <string name="send_feedback">发送回执</string>
     <string name="sending_feedback">发送回执中...</string>
     <string name="bus_service">校车接送</string>
-    
     <string name="get_action_fail">获取活动失败</string>
     <string name="get_action_empty">没有更多的活动了</string>
-    
     <string name="get_merchant_fail">获取商户失败</string>
     <string name="get_merchant_empty">没有更多的商户了</string>
-    
     <string name="enrolling">报名中,请稍候</string>
     <string name="enroll">马上报名</string>
     <string name="enrolled">我已参加</string>
     <string name="enroll_success">报名成功</string>
     <string name="enroll_fail">报名失败</string>
     <string name="check_enroll">检查报名情况</string>
-
     <string name="join">马上参加</string>
-    
     <string name="original_price">原价%s元</string>
     <string name="special_discount">幼乐宝用户专享</string>
     <string name="special_discount_1">幼乐宝 用户专享</string>
     <string name="format_price">%s元</string>
-    
     <string name="do_contact">电话咨询</string>
-    
     <string name="navigation">查看位置</string>
-    
     <string name="merchant_detail">商户详情</string>
     <string name="action_detail">活动详情</string>
-    
     <string name="invalid_myloc">未获取到本机位置，导航失败</string>
     <string name="invalid_targetloc">商户位置未提供，导航失败</string>
-    
     <string name="share_title">【幼乐宝】宝宝成长记录</string>
-    
     <string name="favourable">亲子优惠</string>
-    
     <string name="schoolsummary">学校简介</string>
+    <string name="invitation">邀请家人</string>
+    <string name="updateCard">接送卡管理</string>
+    <string name="inputnInvitationNum">输入被邀请人手机号码</string>
+    <string name="sendAuthCodeToPhone">发送验证码</string>
+    <string name="inuputRelation">输入与小孩的亲属关系</string>
+    <string name="confirmInvite">确认邀请</string>
+    <string name="relation_name">被邀请人姓名</string>
+    <string name="invalidRelation">关系不能为空</string>
+    <string name="invalidName">姓名不能为空</string>
+    <string name="inviting">正在发送邀请...</string>
+    <string name="inviteFail">邀请失败</string>
+    <string name="inviteSuccess">邀请成功</string>
+    <string name="phoneAlreadyReg">手机号已经注册,邀请失败</string>
+    <string name="bindCard">确认绑定</string>
+    <string name="cardAlreadyBind">卡号已绑定</string>
+    <string name="inputCardNum">请输入卡号</string>
+    <string name="bindingCard">绑定中，请稍后...</string>
+    <string name="bindCardSuccess">绑定成功</string>
+    <string name="bindCardFail">绑定失败</string>
+    <string name="bindDup">绑定失败，卡号已被其他家长绑定</string>
+    <string name="cardInvalid">绑定失败,卡未授权</string>
+    <string name="invalidCardNum">卡号格式有误，请重新输入</string>
+    <string name="getRaltionFail">获取家人列表失败</string>
+
 </resources>

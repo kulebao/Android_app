@@ -168,6 +168,8 @@ public class ConstantValue {
 	public static final String BUSINESS_VISIBLE = "business_visible";
 
 	public static final String BUSINESS_INFO = "business_info";
+	
+	public static final String RELATION_INFO = "relation_info";
 
 	// 亲子摄影 0001
 	public static final int MERCHANT_CATEGORY_CAMERA = 1;

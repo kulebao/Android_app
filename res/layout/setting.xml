@@ -18,12 +18,34 @@
             android:orientation="vertical" >
 
             <Button
-                android:id="@+id/checkVersion"
                 style="@style/btn_style"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
+                android:background="@drawable/small_btn"
+                android:gravity="center"
+                android:onClick="updateCard"
+                android:text="@string/updateCard"
+                android:textSize="24sp" />
+
+            <Button
+                style="@style/btn_style"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/small_btn"
+                android:gravity="center"
+                android:onClick="invite"
+                android:text="@string/invitation"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/checkVersion"
+                style="@style/btn_style"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/small_btn"
                 android:gravity="center"
                 android:text="@string/check_version"

@@ -40,9 +40,9 @@
             <Button
                 android:id="@+id/getAuthCodeBtn"
                 style="@style/btn_style_small"
-                android:layout_width="124dp"
+                android:layout_width="140dp"
                 android:layout_alignTop="@+id/inuputAuthCodeView"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/inuputAuthCodeView"
                 android:background="@drawable/small_btn"
                 android:text="@string/getAuthCode" />

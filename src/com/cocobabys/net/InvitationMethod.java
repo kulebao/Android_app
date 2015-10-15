@@ -14,6 +14,9 @@ import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.utils.DataUtils;
 
 public class InvitationMethod {
+	private static final int INVALID_VERIFYCODE = 1;
+	private static final int PHONE_ALREADY_EXIST = 20;
+
 	private InvitationMethod() {
 	}
 
@@ -52,7 +55,18 @@ public class InvitationMethod {
 
 		Log.d("DJC", "invite result:" + result);
 		if (result.getResCode() != HttpStatus.SC_OK) {
-			methodResult.setResultType(EventType.INVITE_FAIL);
+			int errorCode = result.getErrorCode();
+			switch (errorCode) {
+			case INVALID_VERIFYCODE:
+				methodResult.setResultType(EventType.AUTH_CODE_IS_INVALID);
+				break;
+			case PHONE_ALREADY_EXIST:
+				methodResult.setResultType(EventType.INVITE_PHONE_ALREADY_EXIST);
+				break;
+			default:
+				methodResult.setResultType(EventType.INVITE_FAIL);
+				break;
+			}
 		}
 
 		return methodResult;
@@ -96,7 +110,7 @@ public class InvitationMethod {
 		code.put("code", verifyCode);
 
 		obj.put("code", code);
-		
+
 		return obj.toString();
 	}
 

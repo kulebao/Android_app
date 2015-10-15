@@ -55,8 +55,7 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 		if (adInfo != null && DataUtils.isFileExist(adInfo.getLocalFileName())) {
 			ImageView adimageView = (ImageView) findViewById(R.id.adimage);
 			adimageView.setVisibility(View.VISIBLE);
-			Bitmap loacalBitmap = Utils.getLoacalBitmap(adInfo
-					.getLocalFileName());
+			Bitmap loacalBitmap = Utils.getLoacalBitmap(adInfo.getLocalFileName());
 			Utils.setImg(adimageView, loacalBitmap);
 
 			if (!TextUtils.isEmpty(adInfo.getLink())) {
@@ -163,14 +162,12 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 	}
 
 	private void runDownloadIconTask() {
-		if (downloadIconTask != null
-				&& downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
+		if (downloadIconTask != null && downloadIconTask.getStatus() == AsyncTask.Status.RUNNING) {
 			// 后执行的取消先执行的
 			downloadIconTask.cancel(true);
 		}
 
-		downloadIconTask = new DownLoadImgAndSaveTask(handler,
-				swipeinfo.getUrl(), swipeinfo.getSwipeLocalIconPath())
+		downloadIconTask = new DownLoadImgAndSaveTask(handler, swipeinfo.getUrl(), swipeinfo.getSwipeLocalIconPath())
 				.execute();
 	}
 
@@ -183,8 +180,8 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 			content.append(Utils.getAdNotice(adInfo.getName()));
 		}
 
-		content.append(swipeinfo.getNoticeBody(DataMgr.getInstance()
-				.getSelectedChild().getChild_nick_name()));
+		content.append(swipeinfo.getNoticeBody(DataMgr.getInstance().getChildByID(swipeinfo.getChild_id())
+				.getChild_nick_name()));
 
 		contentView.setText(content.toString());
 	}
@@ -196,8 +193,7 @@ public class SwipeDetailActivity extends UmengStatisticsActivity {
 	public void setPublisher() {
 		try {
 			swipefromview.setVisibility(View.VISIBLE);
-			swipefromview.setText(DataMgr.getInstance().getSchoolInfo()
-					.getSchool_name());
+			swipefromview.setText(DataMgr.getInstance().getSchoolInfo().getSchool_name());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
