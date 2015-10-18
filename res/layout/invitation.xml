@@ -33,12 +33,11 @@
             android:id="@+id/inuputAuthCode"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/sendAuthCode"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/sendAuthCode"
             android:digits="0123456789"
-            android:hint="@string/inuput_auth_code"
+            android:hint="@string/input_invitation_code"
             android:inputType="phone"
             android:maxLength="6"
             android:paddingLeft="10dp"
@@ -48,6 +47,7 @@
             android:textStyle="bold" />
 
         <com.cocobabys.customview.CountDownButton
+            android:layout_alignBottom="@+id/inuputAuthCode"
             android:id="@+id/sendAuthCode"
             style="@style/btn_style_small"
             android:layout_width="140dp"
@@ -60,6 +60,14 @@
             android:textColor="@color/white"
             android:textSize="14sp" />
     </RelativeLayout>
+
+    <TextView
+        android:text="@string/inviteNotice"
+        android:textColor="@color/red"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/relation_name"
@@ -94,8 +102,8 @@
         android:textStyle="bold" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/btn_style_small"
+        android:background="@drawable/small_btn"
         android:layout_gravity="right"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"

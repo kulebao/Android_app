@@ -303,11 +303,11 @@
     <string name="schoolsummary">学校简介</string>
     <string name="invitation">邀请家人</string>
     <string name="updateCard">接送卡管理</string>
-    <string name="inputnInvitationNum">输入被邀请人手机号码</string>
-    <string name="sendAuthCodeToPhone">发送验证码</string>
-    <string name="inuputRelation">输入与小孩的亲属关系</string>
+    <string name="inputnInvitationNum">输入您要邀请的手机号码</string>
+    <string name="sendAuthCodeToPhone">获取邀请码</string>
+    <string name="inuputRelation">输入被邀请人亲属关系，例如:爸爸,妈妈</string>
     <string name="confirmInvite">确认邀请</string>
-    <string name="relation_name">被邀请人姓名</string>
+    <string name="relation_name">输入被邀请人姓名</string>
     <string name="invalidRelation">关系不能为空</string>
     <string name="invalidName">姓名不能为空</string>
     <string name="inviting">正在发送邀请...</string>
@@ -324,5 +324,7 @@
     <string name="cardInvalid">绑定失败,卡未授权</string>
     <string name="invalidCardNum">卡号格式有误，请重新输入</string>
     <string name="getRaltionFail">获取家人列表失败</string>
+    <string name="inviteNotice">注：请向被邀请人获取正确的邀请码</string>
+    <string name="input_invitation_code">输入邀请码</string>
 
 </resources>
