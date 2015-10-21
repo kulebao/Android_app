@@ -16,11 +16,9 @@
         android:layout_above="@+id/bottom"
         android:layout_below="@+id/top"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:cacheColorHint="#00000000"
-        android:divider="@drawable/line"
-        android:dividerHeight="2dip"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dip"
         android:fadingEdge="none"
         android:fastScrollEnabled="true" >
     </ListView>
@@ -28,10 +26,11 @@
     <Button
         android:id="@+id/bottom"
         style="@style/btn_style_small"
+        android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
         android:background="@drawable/small_btn"
-        android:layout_alignParentBottom="true"
         android:onClick="invitation"
-        android:text="@string/invitation" />
+        android:text="@string/invitation"
+        android:visibility="gone" />
 
 </RelativeLayout>

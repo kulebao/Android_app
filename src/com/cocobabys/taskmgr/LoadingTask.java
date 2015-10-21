@@ -29,9 +29,11 @@ public class LoadingTask extends AsyncTask<Void, Void, Void> {
 	protected Void doInBackground(Void... params) {
 		try {
 			long current = System.currentTimeMillis();
-
+			// 如果是首次安装应用，或者是版本升级，都要求出现引导页面,页面可以不一致
 			if (DataUtils.isFirstStart()) {
 				resultEvent = EventType.LOADING_TO_GUARD;
+			} else if (DataUtils.isVersionUpdate()) {
+				resultEvent = EventType.LOADING_TO_UPGRADE_GUARD;
 			} else if (DataUtils.isLoginout()) {
 				resultEvent = EventType.LOADING_TO_VALIDATEPHONE;
 			} else {

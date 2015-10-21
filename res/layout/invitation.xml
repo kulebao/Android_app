@@ -47,14 +47,14 @@
             android:textStyle="bold" />
 
         <com.cocobabys.customview.CountDownButton
-            android:layout_alignBottom="@+id/inuputAuthCode"
             android:id="@+id/sendAuthCode"
             style="@style/btn_style_small"
             android:layout_width="140dp"
+            android:layout_alignBottom="@+id/inuputAuthCode"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/small_btn"
+            android:background="@drawable/normal_btn"
             android:onClick="sendAuthCode"
             android:text="@string/sendAuthCodeToPhone"
             android:textColor="@color/white"
@@ -62,12 +62,12 @@
     </RelativeLayout>
 
     <TextView
-        android:text="@string/inviteNotice"
-        android:textColor="@color/red"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/inviteNotice"
+        android:textColor="@color/red" />
 
     <EditText
         android:id="@+id/relation_name"
@@ -103,11 +103,11 @@
 
     <Button
         style="@style/btn_style_small"
-        android:background="@drawable/small_btn"
         android:layout_gravity="right"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/normal_btn"
         android:onClick="confirmInvite"
         android:text="@string/confirmInvite"
         android:textSize="14sp" />

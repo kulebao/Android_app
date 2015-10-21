@@ -31,7 +31,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/small_btn"
+        android:background="@drawable/normal_btn"
         android:onClick="bindCard"
         android:text="@string/bindCard"
         android:textSize="14sp" />

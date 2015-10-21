@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:my="http://schemas.android.com/apk/res/com.cocobabys"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -8,150 +7,106 @@
 
     <include layout="@layout/topbar" />
 
-    <ScrollView
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/bg_a" >
+
+        <com.cocobabys.customview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="32dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/chat_head_icon"
+            app:border_color="@color/white"
+            app:border_width="1dip"
+            app:corner_radius="50dip"
+            app:mutate_background="true"
+            app:oval="false" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/photo" >
+
+            <TextView
+                android:id="@+id/relation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dd"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/relation"
+                android:text="dd"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:layout_marginTop="4dp"
+                android:text="dd"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+        <Button
+            android:id="@+id/changeHost"
+            style="@style/btn_style"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/small_btn"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
-            <Button
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:onClick="updateCard"
-                android:text="@string/updateCard"
-                android:textSize="24sp" />
+        <Button
+            android:id="@+id/changeVideo"
+            style="@style/btn_style"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/small_btn"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </LinearLayout>
 
-            <Button
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:onClick="invite"
-                android:text="@string/invitation"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/checkVersion"
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:text="@string/check_version"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/userResponse"
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:text="@string/user_response"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/aboutSchool"
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:text="@string/school_info"
-                android:textSize="24sp"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/bindLocation"
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:text="@string/bind_location"
-                android:textSize="24sp"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/changePWD"
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:text="@string/change_pwd"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/changeChild"
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:text="@string/change_child"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/about_cocobabys"
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:text="@string/about_cocobabys"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/exitLogin"
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:text="@string/exit_login"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/changeHost"
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/changeVideo"
-                style="@style/btn_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/small_btn"
-                android:gravity="center"
-                android:textSize="24sp"
-                android:visibility="gone" />
-        </LinearLayout>
-    </ScrollView>
+    <ListView
+        android:id="@+id/firstlist"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dp"
+        android:cacheColorHint="#00000000"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dip"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="true" >
+    </ListView>
 
 </LinearLayout>

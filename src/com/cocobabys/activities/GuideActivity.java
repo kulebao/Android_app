@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.cocobabys.R;
 import com.cocobabys.adapter.ViewPagerAdapter;
+import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.utils.DataUtils;
 
 /**
@@ -31,8 +32,7 @@ import com.cocobabys.utils.DataUtils;
  * 
  * 
  */
-public class GuideActivity extends UmengStatisticsActivity implements
-		OnPageChangeListener {
+public class GuideActivity extends UmengStatisticsActivity implements OnPageChangeListener {
 
 	private ViewPager vp;
 	private ViewPagerAdapter vpAdapter;
@@ -51,20 +51,27 @@ public class GuideActivity extends UmengStatisticsActivity implements
 
 		// 初始化页面
 		initViews();
-
 		// 初始化底部小点
 		initDots();
 	}
 
 	private void initViews() {
+		boolean upgrade = getIntent().getBooleanExtra(ConstantValue.UPGRADE, false);
+
 		LayoutInflater inflater = LayoutInflater.from(this);
 
 		views = new ArrayList<View>();
-		// 初始化引导图片列表
-		views.add(inflater.inflate(R.layout.what_new_one, null));
-		views.add(inflater.inflate(R.layout.what_new_two, null));
-		views.add(inflater.inflate(R.layout.what_new_three, null));
-		views.add(inflater.inflate(R.layout.what_new_four, null));
+
+		// 这里有2个分支，新安装和升级
+		if (!upgrade) {
+			// 初始化引导图片列表
+			views.add(inflater.inflate(R.layout.what_new_one, null));
+			views.add(inflater.inflate(R.layout.what_new_two, null));
+			views.add(inflater.inflate(R.layout.what_new_three, null));
+			views.add(inflater.inflate(R.layout.what_new_four, null));
+		} else {
+			views.add(inflater.inflate(R.layout.guard_upgrade_one, null));
+		}
 
 		// 初始化Adapter
 		vpAdapter = new ViewPagerAdapter(views, new OnClickListener() {
@@ -107,6 +114,7 @@ public class GuideActivity extends UmengStatisticsActivity implements
 		for (int i = 0; i < views.size(); i++) {
 			dots[i] = (ImageView) ll.getChildAt(i);
 			dots[i].setEnabled(true);// 都设为灰色
+			dots[i].setVisibility(View.VISIBLE);
 		}
 
 		currentIndex = 0;
@@ -114,8 +122,7 @@ public class GuideActivity extends UmengStatisticsActivity implements
 	}
 
 	private void setCurrentDot(int position) {
-		if (position < 0 || position > views.size() - 1
-				|| currentIndex == position) {
+		if (position < 0 || position > views.size() - 1 || currentIndex == position) {
 			return;
 		}
 

@@ -326,5 +326,7 @@
     <string name="getRaltionFail">获取家人列表失败</string>
     <string name="inviteNotice">注：请向被邀请人获取正确的邀请码</string>
     <string name="input_invitation_code">输入邀请码</string>
+    
+    <string name="more_relation">邀请更多家人</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.cocobabys.activities;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import android.app.TabActivity;
@@ -23,9 +22,6 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.wechat.friends.Wechat;
-import cn.sharesdk.wechat.moments.WechatMoments;
 
 import com.cocobabys.R;
 import com.cocobabys.bean.AdInfo;
@@ -71,6 +67,8 @@ public class MainActivity extends TabActivity {
 		initDirs();
 		runCheckBindTask();
 		runCheckADTask();
+
+		DataUtils.saveUndeleteableProp(ConstantValue.VERSION_CODE, DataUtils.getVersionCode() + "");
 
 		// 测试版本的fault信息不上报给友盟
 		MobclickAgent.setCatchUncaughtExceptions(!MyApplication.getInstance().isForTest());

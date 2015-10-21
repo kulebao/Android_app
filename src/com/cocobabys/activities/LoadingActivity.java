@@ -61,6 +61,13 @@ public class LoadingActivity extends UmengStatisticsActivity {
 				case EventType.LOADING_TO_GUARD:
 					goNextActivity(GuideActivity.class);
 					break;
+				case EventType.LOADING_TO_UPGRADE_GUARD:
+					Intent intent = new Intent();
+					intent.putExtra(ConstantValue.UPGRADE, true);
+					intent.setClass(LoadingActivity.this, GuideActivity.class);
+					startActivity(intent);
+					finish();
+					break;
 				case EventType.LOADING_TO_MAIN:
 					goNextActivity(MainActivity.class);
 					break;
