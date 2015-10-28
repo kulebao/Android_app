@@ -65,12 +65,15 @@ public class GuideActivity extends UmengStatisticsActivity implements OnPageChan
 		// 这里有2个分支，新安装和升级
 		if (!upgrade) {
 			// 初始化引导图片列表
-			views.add(inflater.inflate(R.layout.what_new_one, null));
-			views.add(inflater.inflate(R.layout.what_new_two, null));
-			views.add(inflater.inflate(R.layout.what_new_three, null));
-			views.add(inflater.inflate(R.layout.what_new_four, null));
+			// views.add(inflater.inflate(R.layout.what_new_one, null));
+			// views.add(inflater.inflate(R.layout.what_new_two, null));
+			// views.add(inflater.inflate(R.layout.what_new_three, null));
+			// views.add(inflater.inflate(R.layout.what_new_four, null));
+			views.add(inflater.inflate(R.layout.guard_upgrade_one, null));
+			views.add(inflater.inflate(R.layout.guard_upgrade_two, null));
 		} else {
 			views.add(inflater.inflate(R.layout.guard_upgrade_one, null));
+			views.add(inflater.inflate(R.layout.guard_upgrade_two, null));
 		}
 
 		// 初始化Adapter
@@ -114,7 +117,7 @@ public class GuideActivity extends UmengStatisticsActivity implements OnPageChan
 		for (int i = 0; i < views.size(); i++) {
 			dots[i] = (ImageView) ll.getChildAt(i);
 			dots[i].setEnabled(true);// 都设为灰色
-			dots[i].setVisibility(View.VISIBLE);
+			// dots[i].setVisibility(View.VISIBLE);
 		}
 
 		currentIndex = 0;

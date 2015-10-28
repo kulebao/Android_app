@@ -12,6 +12,7 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.push.PushModel;
+import com.cocobabys.service.MyService;
 import com.cocobabys.taskmgr.LoadingTask;
 import com.cocobabys.utils.DataUtils;
 
@@ -27,6 +28,9 @@ public class LoadingActivity extends UmengStatisticsActivity {
 			finish();
 			return;
 		}
+
+		Intent service = new Intent(this, MyService.class);
+		startService(service);
 
 		setContentView(R.layout.loading);
 		Log.d("Database", "LoadingActivity onCreate");

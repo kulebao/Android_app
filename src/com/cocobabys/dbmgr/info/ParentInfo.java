@@ -142,6 +142,29 @@ public class ParentInfo{
         info.setTimestamp(parentJson.getLong(TIMESTAMP));
         return info;
     }
+    
+	// public static String toJsonStr(ParentInfo info) throws JSONException{
+	// JSONObject object = new JSONObject();
+	//
+	// object.put("birthday", "");
+	// object.put("company", "");
+	// object.put("gender",0);
+	// object.put(PARENT_ID,info.getParent_id());
+	// object.put(MEMBER_STATUS,info.getMember_status());
+	// object.put(PARENT_NAME,info.getName());
+	// object.put(PHONE,info.getPhone());
+	// object.put(PORTRAIT,info.getPortrait());
+	// object.put("school_id",DataMgr.getInstance().getSchoolID());
+	//
+	//
+	// info.setMember_status(parentJson.getInt(MEMBER_STATUS));
+	// info.setParent_id(parentJson.getString(PARENT_ID));
+	// info.setName(parentJson.getString(PARENT_NAME));
+	// info.setPhone(parentJson.getString(PHONE));
+	// info.setPortrait(parentJson.getString(PORTRAIT));
+	// info.setTimestamp(parentJson.getLong(TIMESTAMP));
+	// return info;
+	// }
 
     @Override
     public int hashCode(){

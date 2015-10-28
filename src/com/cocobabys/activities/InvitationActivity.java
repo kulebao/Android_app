@@ -12,14 +12,13 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cocobabys.R;
-import com.cocobabys.bean.SimpleRelaiton;
+import com.cocobabys.bean.FamilyInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.customview.CountDownButton;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.InvitationJob;
-import com.cocobabys.taskmgr.GetAuthCodeTask;
-import com.cocobabys.utils.DataUtils;
+import com.cocobabys.jobs.PostInviteCodeJob;
 import com.cocobabys.utils.Utils;
 
 public class InvitationActivity extends UmengStatisticsActivity{
@@ -63,13 +62,14 @@ public class InvitationActivity extends UmengStatisticsActivity{
                     case EventType.INVITE_SUCCESS:
                         handleInviteSuccess();
                         break;
-                    case EventType.AUTH_CODE_IS_INVALID:
-                        Utils.showSingleBtnResDlg(R.string.auth_code_error, InvitationActivity.this);
-                        break;
                     case EventType.INVITE_PHONE_ALREADY_EXIST:
                         Utils.showSingleBtnResDlg(R.string.phoneAlreadyReg, InvitationActivity.this);
                         break;
 
+                    case EventType.INVITE_PHONE_INVALID:
+                        Utils.showSingleBtnResDlg(R.string.invite_phone_invalid, InvitationActivity.this);
+                        countDownButton.enableGetAuthBtn();
+                        break;
                     case EventType.GET_AUTH_CODE_SUCCESS:
                         handleGetAuthCodeSuccess();
                         break;
@@ -93,7 +93,7 @@ public class InvitationActivity extends UmengStatisticsActivity{
         // InvitationActivity.this);
 
         Utils.makeToast(this, R.string.inviteSuccess);
-        SimpleRelaiton relaiton = new SimpleRelaiton();
+        FamilyInfo relaiton = new FamilyInfo();
 
         relaiton.setName(relation_name.getText().toString());
         relaiton.setPhone(inputphone.getText().toString());
@@ -120,10 +120,6 @@ public class InvitationActivity extends UmengStatisticsActivity{
         countDownButton.enableGetAuthBtn();
     }
 
-    public void getcode(View view){
-        new GetAuthCodeTask(handler, DataUtils.getAccount(), ConstantValue.TYPE_GET_REG_AUTHCODE).execute();
-    }
-
     private void initUI(){
         countDownButton = (CountDownButton)findViewById(R.id.sendAuthCode);
         inputphone = (EditText)findViewById(R.id.inuputphoneView);
@@ -145,13 +141,13 @@ public class InvitationActivity extends UmengStatisticsActivity{
             return;
         }
 
-        String relation = inuputRelation.getText().toString();
+        String relation = inuputRelation.getText().toString().trim();
         if(TextUtils.isEmpty(relation)){
             Utils.showSingleBtnResDlg(R.string.invalidRelation, this);
             return;
         }
 
-        String name = relation_name.getText().toString();
+        String name = relation_name.getText().toString().trim();
         if(TextUtils.isEmpty(name)){
             Utils.showSingleBtnResDlg(R.string.invalidName, this);
             return;
@@ -176,7 +172,7 @@ public class InvitationActivity extends UmengStatisticsActivity{
 
         dialog.setMessage(getResources().getString(R.string.getting_auth_code));
         dialog.show();
-        new GetAuthCodeTask(handler, phoneNum, ConstantValue.TYPE_GET_REG_AUTHCODE).execute();
+        new PostInviteCodeJob(handler, phoneNum).execute();
     }
 
     @Override

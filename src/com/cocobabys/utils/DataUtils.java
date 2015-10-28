@@ -32,11 +32,13 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baidu.mapapi.model.LatLng;
 import com.cocobabys.activities.CustomGalleryActivity;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.bean.AblumInfo;
 import com.cocobabys.bean.AdInfo;
+import com.cocobabys.bean.RelationInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.customview.CustomGallery;
@@ -211,6 +213,8 @@ public class DataUtils {
 		}
 
 		try {
+			//这里有问题，需要修改，因为每个新版本应该有不同的提示
+			//自注册的提示，应该长时间保留
 			int oldVCode = Integer.parseInt(verCode);
 			int newVCode = getVersionCode();
 			if (newVCode != Integer.MAX_VALUE && newVCode > oldVCode) {
@@ -645,5 +649,27 @@ public class DataUtils {
 	 */
 	public static boolean isGooglePhotosUri(Uri uri) {
 		return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+	}
+
+	public static void saveRelationInfo(String childid, String relationid, String card) {
+		RelationInfo relationInfo = new RelationInfo();
+		relationInfo.setCardnum(card);
+		relationInfo.setChildid(childid);
+		relationInfo.setRelationid(relationid);
+		saveProp(childid, com.alibaba.fastjson.JSONObject.toJSONString(relationInfo));
+	}
+
+	public static RelationInfo getRelationInfo(String childid) {
+		RelationInfo relationInfo = new RelationInfo();
+		try {
+			String prop = getProp(childid, "");
+			if (!TextUtils.isEmpty(prop)) {
+				relationInfo = JSONObject.parseObject(prop, RelationInfo.class);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return relationInfo;
 	}
 }

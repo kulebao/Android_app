@@ -22,27 +22,32 @@
             android:scaleType="fitCenter"
             android:src="@drawable/relation_logo" />
 
-        <TextView
-            android:id="@+id/relation"
-            style="@style/item_style"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/headView"
-            android:text="ddd"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            android:textStyle="normal" />
+            android:layout_toLeftOf="@+id/phone"
+            android:layout_toRightOf="@+id/headView" >
 
-        <TextView
-            android:id="@+id/name"
-            style="@style/item_style"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/relation"
-            android:text="ddd"
-            android:textColor="@color/blue"
-            android:textSize="18sp"
-            android:textStyle="normal" />
+            <TextView
+                android:id="@+id/relation"
+                style="@style/item_style"
+                android:layout_marginLeft="10dp"
+                android:text="测定"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/item_style"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="叮叮"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/phone"
@@ -50,6 +55,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
+            android:text="13405556987"
             android:textColor="@color/blue"
             android:textSize="18sp"
             android:textStyle="normal" />
@@ -68,7 +74,7 @@
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/first"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="70dp"
         android:background="@color/deep_blue" />
 
 </RelativeLayout>

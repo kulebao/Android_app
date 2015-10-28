@@ -2,7 +2,9 @@ package com.cocobabys.utils;
 
 import java.io.File;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.ImageView;
@@ -77,11 +79,20 @@ public class ImageUtils {
 	}
 
 	public synchronized static void clearCache() {
-		getImageLoader().clearDiskCache();
+		// getImageLoader().clearDiskCache();
 		getImageLoader().clearMemoryCache();
 	}
 
 	public static String wrapper(String localUrl) {
 		return "file://" + localUrl;
+	}
+
+	public static Bitmap getBitmap(Intent data) {
+		Bundle extras = data.getExtras();
+		Bitmap photo = null;
+		if (extras != null) {
+			photo = extras.getParcelable("data");
+		}
+		return photo;
 	}
 }

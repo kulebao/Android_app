@@ -241,4 +241,11 @@ public class ServerUrls{
 
     // /kindergarten/:kg/relationship/:card
     public static final String  BIND_CARD_URL               = getHost() + ROOT_RES_PATH + "/%s/" + RELATIONSHIP + "/%s";
+
+    // https://cocobabys.com/kindergarten/2041/parent/12222333344
+    public static final String  UPDATE_PARENT_URL           = getHost() + ROOT_RES_PATH + "/%s/" + PARENT_RES_PATH
+                                                                    + "/%s";
+
+    // https://cocobabys.com//api/v5/invitation_code/:phone
+    public static final String  INVITE_CODE_URL             = getHost() + "api/v5/invitation_code/%s";
 }

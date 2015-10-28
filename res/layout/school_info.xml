@@ -20,24 +20,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <EditText
-                android:id="@+id/vCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:visibility="visible" />
-            
-            <Button
-                android:id="@+id/getVcode"
-                android:layout_width="wrap_content"
-                android:text="获取验证码"
-                android:onClick="getcode"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:visibility="visible" />
-
             <ImageView
                 android:id="@+id/school_logo"
                 android:layout_width="240dp"

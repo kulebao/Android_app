@@ -13,110 +13,135 @@ import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.utils.DataUtils;
 
-public class InvitationMethod {
-	private static final int INVALID_VERIFYCODE = 1;
-	private static final int PHONE_ALREADY_EXIST = 20;
+public class InvitationMethod{
+    private static final int INVALID_VERIFYCODE        = 1;
+    private static final int PHONE_ALREADY_EXIST       = 20;
 
-	private InvitationMethod() {
-	}
+    private static final int ERR_REQUEST_TOO_OFTEN     = 1;
+    private static final int ERR_INVITEE_PHONE_INVALID = 4;
 
-	public static InvitationMethod getMethod() {
-		return new InvitationMethod();
-	}
+    private InvitationMethod(){}
 
-	public MethodResult getVerifyCode() throws Exception {
-		HttpResult result = new HttpResult();
-		MethodResult methodResult = new MethodResult(EventType.GET_AUTH_CODE_SUCCESS);
-		String command = createCommand();
-		Log.d("DDD getVerifyCode", " str : " + command);
-		result = HttpClientHelper.executeGet(command);
+    public static InvitationMethod getMethod(){
+        return new InvitationMethod();
+    }
 
-		Log.d("DJC", "getVerifyCode result:" + result);
-		if (result.getResCode() != HttpStatus.SC_OK) {
-			methodResult.setResultType(EventType.INVITE_FAIL);
-		}
-		return methodResult;
-	}
+    public MethodResult getVerifyCode(String inviteePhone) throws Exception{
+        HttpResult result = new HttpResult();
+        MethodResult methodResult = new MethodResult(EventType.GET_AUTH_CODE_SUCCESS);
+        String command = createPostCodeCommand(inviteePhone);
+        String body = createPostBody(inviteePhone);
 
-	private String createCommand() {
-		String url = String.format(ServerUrls.GET_AUTH_CODE_URL, DataUtils.getAccount());
-		return url;
-	}
+        Log.d("DDD getVerifyCode", " str : " + command);
+        Log.d("DDD getVerifyCode", " body : " + body);
+        result = HttpClientHelper.executePost(command, body);
 
-	public MethodResult invite(String phone, String name, String relation, String verifycode) throws Exception {
-		MethodResult methodResult = new MethodResult(EventType.INVITE_SUCCESS);
-		HttpResult result = new HttpResult();
-		String url = createUrl();
+        Log.d("DJC", "getVerifyCode result:" + result);
 
-		String content = createContent(phone, name, relation, verifycode);
+        if(result.getResCode() == HttpStatus.SC_OK){
+            int errorCode = result.getErrorCode();
+            // 兼容老接口，老接口无论对错都会返回200，通过errorcode判断错误类型，新接口错误会返回500，通过errorcode判断错误类型
+            if(errorCode == ERR_INVITEE_PHONE_INVALID){
+                methodResult.setResultType(EventType.INVITE_PHONE_INVALID);
+            }
+        } else{
+            int errorCode = result.getErrorCode();
+            if(ERR_REQUEST_TOO_OFTEN == errorCode){
+                methodResult.setResultType(EventType.GET_AUTH_CODE_TOO_OFTEN);
+            } else{
+                methodResult.setResultType(EventType.GET_AUTH_CODE_FAIL);
+            }
+        }
 
-		Log.d("DJC", "invite cmd:" + url + " content=" + content);
-		result = HttpClientHelper.executePost(url, content);
+        return methodResult;
+    }
 
-		Log.d("DJC", "invite result:" + result);
-		if (result.getResCode() != HttpStatus.SC_OK) {
-			int errorCode = result.getErrorCode();
-			switch (errorCode) {
-			case INVALID_VERIFYCODE:
-				methodResult.setResultType(EventType.AUTH_CODE_IS_INVALID);
-				break;
-			case PHONE_ALREADY_EXIST:
-				methodResult.setResultType(EventType.INVITE_PHONE_ALREADY_EXIST);
-				break;
-			default:
-				methodResult.setResultType(EventType.INVITE_FAIL);
-				break;
-			}
-		}
+    private String createPostCodeCommand(String inviteePhone){
+        String url = String.format(ServerUrls.INVITE_CODE_URL, inviteePhone);
+        return url;
+    }
 
-		return methodResult;
-	}
+    private String createPostBody(String inviteePhone) throws JSONException{
+        JSONObject obj = new JSONObject();
+        obj.put("host", DataUtils.getAccount());
+        obj.put("invitee", inviteePhone);
+        return obj.toString();
+    }
 
-	private String createContent(String phone, String name, String relationship, String verifyCode)
-			throws JSONException {
-		JSONObject obj = new JSONObject();
+    public MethodResult invite(String phone, String name, String relation, String verifycode) throws Exception{
+        MethodResult methodResult = new MethodResult(EventType.INVITE_SUCCESS);
+        HttpResult result = new HttpResult();
+        String url = createUrl();
 
-		ParentInfo parentInfo = DataMgr.getInstance().getSelfInfoByPhone();
+        String content = createContent(phone, name, relation, verifycode);
 
-		JSONObject from = new JSONObject();
+        Log.d("DJC", "invite cmd:" + url + " content=" + content);
+        result = HttpClientHelper.executePost(url, content);
 
-		from.put("parent_id", parentInfo.getParent_id());
-		from.put("school_id", Integer.parseInt(DataMgr.getInstance().getSchoolID()));
-		from.put("name", parentInfo.getName());
-		from.put("phone", parentInfo.getPhone());
-		from.put("portrait", parentInfo.getPortrait());
-		from.put("gender", 0);
-		from.put("birthday", "");
-		from.put("timestamp", parentInfo.getTimestamp());
-		from.put("member_status", parentInfo.getMember_status());
-		from.put("status", 1);
-		from.put("company", "");
-		from.put("created_at", 0);
-		from.put("id", 0);
+        Log.d("DJC", "invite result:" + result);
+        if(result.getResCode() != HttpStatus.SC_OK){
+            int errorCode = result.getErrorCode();
+            switch(errorCode){
+                case INVALID_VERIFYCODE:
+                    methodResult.setResultType(EventType.AUTH_CODE_IS_INVALID);
+                    break;
+                case PHONE_ALREADY_EXIST:
+                    methodResult.setResultType(EventType.INVITE_PHONE_ALREADY_EXIST);
+                    break;
+                default:
+                    methodResult.setResultType(EventType.INVITE_FAIL);
+                    break;
+            }
+        }
 
-		obj.put("from", from);
+        return methodResult;
+    }
 
-		JSONObject to = new JSONObject();
+    private String createContent(String phone, String name, String relationship, String verifyCode)
+            throws JSONException{
+        JSONObject obj = new JSONObject();
 
-		to.put("phone", phone);
-		to.put("name", name);
-		to.put("relationship", relationship);
+        ParentInfo parentInfo = DataMgr.getInstance().getSelfInfoByPhone();
 
-		obj.put("to", to);
+        JSONObject from = new JSONObject();
 
-		JSONObject code = new JSONObject();
+        from.put("parent_id", parentInfo.getParent_id());
+        from.put("school_id", Integer.parseInt(DataMgr.getInstance().getSchoolID()));
+        from.put("name", parentInfo.getName());
+        from.put("phone", parentInfo.getPhone());
+        from.put("portrait", parentInfo.getPortrait());
+        from.put("gender", 0);
+        from.put("birthday", "");
+        from.put("timestamp", parentInfo.getTimestamp());
+        from.put("member_status", parentInfo.getMember_status());
+        from.put("status", 1);
+        from.put("company", "");
+        from.put("created_at", 0);
+        from.put("id", 0);
 
-		code.put("phone", phone);
-		code.put("code", verifyCode);
+        obj.put("from", from);
 
-		obj.put("code", code);
+        JSONObject to = new JSONObject();
 
-		return obj.toString();
-	}
+        to.put("phone", phone);
+        to.put("name", name);
+        to.put("relationship", relationship);
 
-	private String createUrl() {
-		String url = String.format(ServerUrls.INVITE_URL, DataMgr.getInstance().getSchoolID());
-		return url;
-	}
+        obj.put("to", to);
+
+        JSONObject code = new JSONObject();
+
+        code.put("phone", phone);
+        code.put("code", verifyCode);
+
+        obj.put("code", code);
+
+        return obj.toString();
+    }
+
+    private String createUrl(){
+        String url = String.format(ServerUrls.INVITE_URL, DataMgr.getInstance().getSchoolID());
+        return url;
+    }
 
 }

@@ -18,7 +18,7 @@ import android.widget.ListView;
 import com.alibaba.fastjson.JSONObject;
 import com.cocobabys.R;
 import com.cocobabys.adapter.RelationListAdapter;
-import com.cocobabys.bean.SimpleRelaiton;
+import com.cocobabys.bean.FamilyInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.info.ParentInfo;
@@ -128,7 +128,7 @@ public class RelationListActivity extends UmengStatisticsActivity {
 
 		String info = data.getStringExtra(ConstantValue.RELATION_INFO);
 		if (!TextUtils.isEmpty(info)) {
-			SimpleRelaiton simpleRelaiton = JSONObject.parseObject(info, SimpleRelaiton.class);
+			FamilyInfo simpleRelaiton = JSONObject.parseObject(info, FamilyInfo.class);
 			ParentInfo parent = new ParentInfo();
 			parent.setName(simpleRelaiton.getName());
 			parent.setPhone(simpleRelaiton.getPhone());

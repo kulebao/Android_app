@@ -12,13 +12,4 @@
         android:focusable="true"
         android:scaleType="centerCrop" />
 
-    <ImageView
-        android:id="@+id/iv_start_weibo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:background="@drawable/whats_new_start_btn"
-        android:focusable="true" />
-
 </RelativeLayout>

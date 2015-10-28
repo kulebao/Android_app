@@ -1,6 +1,6 @@
 package com.cocobabys.bean;
 
-public class SimpleRelaiton{
+public class FamilyInfo{
     private String name     = "";
     private String relation = "";
     private String phone    = "";
