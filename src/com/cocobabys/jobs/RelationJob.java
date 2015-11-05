@@ -17,60 +17,76 @@ import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.utils.MethodUtils;
 
-public class RelationJob extends MyJob{
-    private Handler          handler;
-    private List<ParentInfo> parentInfos = new ArrayList<ParentInfo>();
-    private boolean          bSuccess    = false;
+public class RelationJob extends MyJob {
+	private Handler handler;
+	private List<ParentInfo> parentInfos = new ArrayList<ParentInfo>();
+	private boolean bSuccess = false;
 
-    public RelationJob(Handler handler){
-        this.handler = handler;
-    }
+	public RelationJob(Handler handler) {
+		this.handler = handler;
+	}
 
-    @Override
-    public void run(){
-        MethodResult bret = new MethodResult(EventType.GET_RELATIONSHIP_FAIL);
-        try{
-            List<ChildInfo> allChildrenInfo = DataMgr.getInstance().getAllChildrenInfo();
+	@Override
+	public void run() {
+		try {
+			getSelectedChildRelationShip();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			Message msg = Message.obtain();
+			msg.what = bSuccess ? EventType.GET_RELATIONSHIP_SUCCESS : EventType.GET_RELATIONSHIP_FAIL;
+			msg.obj = parentInfos;
+			handler.sendMessage(msg);
+		}
 
-            for(ChildInfo childInfo : allChildrenInfo){
-                bret = getResult(childInfo.getServer_id());
-                if(bret.getResultType() == EventType.GET_RELATIONSHIP_SUCCESS){
-                    bSuccess = true;
-                    @SuppressWarnings("unchecked")
-                    List<ParentInfo> list = (List<ParentInfo>)bret.getResultObj();
+	}
 
-                    for(ParentInfo parentInfo : list){
-                        if(!parentInfos.contains(parentInfo)){
-                            parentInfos.add(parentInfo);
-                        }
-                    }
-                }
-            }
+	private void getSelectedChildRelationShip() throws Exception {
+		ChildInfo childInfo = DataMgr.getInstance().getSelectedChild();
+		MethodResult bret = getResult(childInfo.getServer_id());
+		if (bret.getResultType() == EventType.GET_RELATIONSHIP_SUCCESS) {
+			bSuccess = true;
+			@SuppressWarnings("unchecked")
+			List<ParentInfo> list = (List<ParentInfo>) bret.getResultObj();
 
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        finally{
-            Message msg = Message.obtain();
-            msg.what = bSuccess ? EventType.GET_RELATIONSHIP_SUCCESS : EventType.GET_RELATIONSHIP_FAIL;
-            msg.obj = parentInfos;
-            handler.sendMessage(msg);
-        }
+			for (ParentInfo parentInfo : list) {
+				if (!parentInfos.contains(parentInfo)) {
+					parentInfos.add(parentInfo);
+				}
+			}
+		}
+	}
 
-    }
+	private void getAllChildRelationShip() throws Exception {
+		List<ChildInfo> allChildrenInfo = DataMgr.getInstance().getAllChildrenInfo();
 
-    private MethodResult getResult(final String child_id) throws Exception{
-        MethodResult bret;
-        MyProxy proxy = new MyProxy();
-        MyProxyImpl bind = (MyProxyImpl)proxy.bind(new MyProxyImpl(){
-            @Override
-            public MethodResult handle() throws Exception{
-                MethodResult result = ChildMethod.getMethod().getRelationshipByChild(child_id);
-                return result;
-            }
-        });
+		for (ChildInfo childInfo : allChildrenInfo) {
+			MethodResult bret = getResult(childInfo.getServer_id());
+			if (bret.getResultType() == EventType.GET_RELATIONSHIP_SUCCESS) {
+				bSuccess = true;
+				@SuppressWarnings("unchecked")
+				List<ParentInfo> list = (List<ParentInfo>) bret.getResultObj();
 
-        bret = MethodUtils.getBindResult(bind);
-        return bret;
-    }
+				for (ParentInfo parentInfo : list) {
+					if (!parentInfos.contains(parentInfo)) {
+						parentInfos.add(parentInfo);
+					}
+				}
+			}
+		}
+	}
+
+	private MethodResult getResult(final String child_id) throws Exception {
+		MyProxy proxy = new MyProxy();
+		MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
+			@Override
+			public MethodResult handle() throws Exception {
+				MethodResult result = ChildMethod.getMethod().getRelationshipByChild(child_id);
+				return result;
+			}
+		});
+
+		MethodResult bret = MethodUtils.getBindResult(bind);
+		return bret;
+	}
 }

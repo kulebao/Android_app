@@ -54,10 +54,15 @@ public class CardMethod {
 		case NO_ERROR:
 			if (result.getResCode() == HttpStatus.SC_OK) {
 				methodResult.setResultType(EventType.BIND_CARD_SUCCESS);
-
-				String card = result.getJsonObject().optString("card");
-				String id = result.getJsonObject().optString("id");
-				DataUtils.saveRelationInfo(DataMgr.getInstance().getSelectedChild().getServer_id(), id, card);
+				
+				String childid = DataMgr.getInstance().getSelectedChild().getServer_id();
+				
+				RelationInfo relationInfo = DataUtils.getRelationInfo(childid);
+				relationInfo.setChildid(childid);
+				relationInfo.setCardnum(result.getJsonObject().optString("card"));
+				relationInfo.setRelationid(result.getJsonObject().optString("id"));
+				
+				DataUtils.saveRelationInfo(relationInfo);
 				// DataUtils.saveProp(card, id);
 			}
 			break;
@@ -82,7 +87,7 @@ public class CardMethod {
 		JSONObject obj = new JSONObject();
 		ParentInfo parentInfo = DataMgr.getInstance().getSelfInfoByPhone();
 
-		obj.put("relationship", parentInfo.getRelationship());
+		obj.put("relationship", parentInfo.getFixedRelationShip(childid));
 
 		RelationInfo relationInfo = DataUtils.getRelationInfo(childid);
 

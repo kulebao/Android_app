@@ -5,9 +5,41 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <include
+    <RelativeLayout
         android:id="@+id/top"
-        layout="@layout/topbar" />
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/topbar"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/rightBtn"
+            style="@style/item_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:drawablePadding="5dp"
+            android:text="@string/download"
+            android:drawableRight="@drawable/share"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/topbarTitleView"
+            style="@style/item_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="4dp"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            android:textStyle="bold" >
+        </TextView>
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/relation_list"

@@ -40,14 +40,15 @@ public class LoadingActivity extends UmengStatisticsActivity {
 		PushModel.getPushModel().enableDebug(MyApplication.getInstance().isForTest());
 	}
 
-	private void initData() {
-		if (MyApplication.getInstance().isForTest()) {
-			DataUtils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, "133d");
-			DataUtils.saveUndeleteableProp(JSONConstant.USER_ID, "963386802751977894");
-			DataUtils.saveUndeleteableProp(ConstantValue.TEST_PHONE, "true");
-			DataUtils.setGuided();
-		}
-	}
+	// private void initData() {
+	// if (MyApplication.getInstance().isForTest()) {
+	// DataUtils.saveUndeleteableProp(JSONConstant.CHANNEL_ID, "133d");
+	// DataUtils.saveUndeleteableProp(JSONConstant.USER_ID,
+	// "963386802751977894");
+	// DataUtils.saveUndeleteableProp(ConstantValue.TEST_PHONE, "true");
+	// DataUtils.setGuided();
+	// }
+	// }
 
 	private void initHandler() {
 		handler = new MyHandler(this, null) {

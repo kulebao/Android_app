@@ -28,6 +28,7 @@
             app:oval="false" />
 
         <RelativeLayout
+            android:id="@+id/first"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -38,7 +39,7 @@
                 android:id="@+id/relation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="dd"
+                android:text="dddddddddddddddddddddddddddddddddddd"
                 android:textColor="@color/blue"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -53,19 +54,20 @@
                 android:textColor="@color/blue"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/name"
-                android:layout_marginTop="4dp"
-                android:text="dd"
-                android:textColor="@color/blue"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/first"
+            android:layout_below="@+id/first"
+            android:layout_marginTop="4dp"
+            android:text="dd"
+            android:textColor="@color/blue"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
     </RelativeLayout>
 
     <LinearLayout

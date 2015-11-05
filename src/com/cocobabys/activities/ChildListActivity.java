@@ -16,35 +16,37 @@ import com.cocobabys.dbmgr.info.ChildInfo;
 
 public class ChildListActivity extends UmengStatisticsActivity {
 
-    private ListView list;
-    private ChildListAdapter adapter;
+	private ListView list;
+	private ChildListAdapter adapter;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notice_list);
-        ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.select_child);
-        initListAdapter();
-    }
+		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.select_child);
+		initListAdapter();
+	}
 
-    private void initListAdapter() {
-        List<ChildInfo> listinfo = DataMgr.getInstance().getAllChildrenInfo();
-        adapter = new ChildListAdapter(this, listinfo);
-        list = (ListView) findViewById(R.id.notice_list);
-        list.setAdapter(adapter);
-        list.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ChildInfo info = (ChildInfo) adapter.getItem(position);
-                String wantedid = info.getServer_id();
-                String currentid = DataMgr.getInstance().getSelectedChild().getServer_id();
-                if (!currentid.equals(wantedid)) {
-                    DataMgr.getInstance().setSelectedChild(wantedid);
-                }
-                Toast.makeText(ChildListActivity.this, ChildListActivity.this.getResources()
-                        .getString(R.string.select_success), Toast.LENGTH_SHORT).show();
-                ChildListActivity.this.finish();
-            }
-        });
-    }
+	private void initListAdapter() {
+		List<ChildInfo> listinfo = DataMgr.getInstance().getAllChildrenInfo();
+		adapter = new ChildListAdapter(this, listinfo);
+		list = (ListView) findViewById(R.id.notice_list);
+		list.setAdapter(adapter);
+		list.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				ChildInfo info = (ChildInfo) adapter.getItem(position);
+				String wantedid = info.getServer_id();
+				String currentid = DataMgr.getInstance().getSelectedChild().getServer_id();
+				if (!currentid.equals(wantedid)) {
+					ChildListActivity.this.setResult(ActionActivity.RESULT_OK);
+					DataMgr.getInstance().setSelectedChild(wantedid);
+				}
+				Toast.makeText(ChildListActivity.this,
+						ChildListActivity.this.getResources().getString(R.string.select_success), Toast.LENGTH_SHORT)
+						.show();
+				ChildListActivity.this.finish();
+			}
+		});
+	}
 }

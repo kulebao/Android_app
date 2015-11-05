@@ -64,7 +64,7 @@ public class PushMethod {
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			try {
 				JSONObject jsonObject = result.getJsonObject();
-				Log.d("DDD LOGIN", "str : " + jsonObject.toString());
+				Log.d("DDD LOGIN", "handleSendBinfInfoResult str : " + jsonObject.toString());
 
 				int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
 				// 校验成功，保存token以及学校id(作为该设备的push tag)

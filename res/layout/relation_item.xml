@@ -14,13 +14,19 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp" >
 
-        <ImageView
+        <com.cocobabys.customview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/headView"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/relation_logo" />
+            android:scaleType="fitXY"
+            android:src="@drawable/relation_logo"
+            app:border_color="@color/white"
+            app:border_width="1dip"
+            app:corner_radius="50dip"
+            app:mutate_background="true"
+            app:oval="false" />
 
         <LinearLayout
             android:layout_width="match_parent"

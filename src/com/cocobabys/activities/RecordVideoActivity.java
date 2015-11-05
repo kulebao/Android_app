@@ -55,8 +55,7 @@ public class RecordVideoActivity extends Activity {
 
 		@Override
 		public int getDisplayRotation() {
-			return RecordVideoActivity.this.getWindowManager()
-					.getDefaultDisplay().getRotation();
+			return RecordVideoActivity.this.getWindowManager().getDefaultDisplay().getRotation();
 		}
 
 		@Override
@@ -114,8 +113,7 @@ public class RecordVideoActivity extends Activity {
 	}
 
 	private void init() {
-		AdaptiveSurfaceView surfaceview = (AdaptiveSurfaceView) this
-				.findViewById(R.id.surfaceview);
+		AdaptiveSurfaceView surfaceview = (AdaptiveSurfaceView) this.findViewById(R.id.surfaceview);
 		progress = (ProgressBar) this.findViewById(R.id.progress);
 		progress.setMax(MAX_TIME);
 
@@ -125,48 +123,45 @@ public class RecordVideoActivity extends Activity {
 		createFile();
 
 		Log.d("VideoRecordingManager", "init begain");
-		recordingManager = new VideoRecordingManager(surfaceview,
-				recordingHandler);
+		recordingManager = new VideoRecordingManager(surfaceview, recordingHandler);
 		Log.d("VideoRecordingManager", "init over");
 	}
 
 	// 有宽度为800的配置就用，否则就用800*480，简单判断一下
 	private Size getFitSize() {
-		List<Size> sizes = CameraHelper
-				.getCameraSupportedVideoSizes(recordingManager
-						.getCameraManager().getCamera());
+		List<Size> sizes = CameraHelper.getCameraSupportedVideoSizes(recordingManager.getCameraManager().getCamera());
 
-		for (Size size : sizes) {
-			Log.d("", "getFitSize  width=" + size.width + " height="
-					+ size.height);
-		}
+		if (sizes != null) {
+			for (Size size : sizes) {
+				Log.d("", "getFitSize  width=" + size.width + " height=" + size.height);
+			}
 
-		for (Size size : sizes) {
-			if (size.width == DEFAULT_W) {
-				return size;
+			for (Size size : sizes) {
+				if (size.width == DEFAULT_W) {
+					return size;
+				}
+			}
+
+			for (Size size : sizes) {
+				if (size.width == 640) {
+					return size;
+				}
+			}
+
+			for (Size size : sizes) {
+				if (size.width == 480) {
+					return size;
+				}
+			}
+
+			for (Size size : sizes) {
+				if (size.width == 320) {
+					return size;
+				}
 			}
 		}
 
-		for (Size size : sizes) {
-			if (size.width == 640) {
-				return size;
-			}
-		}
-
-		for (Size size : sizes) {
-			if (size.width == 480) {
-				return size;
-			}
-		}
-
-		for (Size size : sizes) {
-			if (size.width == 320) {
-				return size;
-			}
-		}
-
-		return recordingManager.getCameraManager().getCamera().new Size(800,
-				480);
+		return recordingManager.getCameraManager().getCamera().new Size(800, 480);
 	}
 
 	// 简单判断是否正在录像
@@ -232,8 +227,7 @@ public class RecordVideoActivity extends Activity {
 
 	private void createFile() {
 		try {
-			filename = Utils.getDefaultCameraDir() + System.currentTimeMillis()
-					+ Utils.DEFAULT_VIDEO_ENDS;
+			filename = Utils.getDefaultCameraDir() + System.currentTimeMillis() + Utils.DEFAULT_VIDEO_ENDS;
 			new File(filename).createNewFile();
 		} catch (Exception e) {
 			e.printStackTrace();

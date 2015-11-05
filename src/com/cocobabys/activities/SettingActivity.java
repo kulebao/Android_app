@@ -55,6 +55,7 @@ public class SettingActivity extends UmengStatisticsActivity {
 	private static final int CAMERA_REQUEST_CODE = 1;
 	private static final int RESIZE_REQUEST_CODE = 2;
 	private static final String IMAGE_FILE_NAME = "parent_header.jpg";
+	private static final int CHANGE_CHILD = 5;
 	private String newPortrait;
 	private Bitmap loacalBitmap;
 
@@ -129,7 +130,7 @@ public class SettingActivity extends UmengStatisticsActivity {
 		photo = (ImageView) findViewById(R.id.photo);
 		ParentInfo parentInfo = DataMgr.getInstance().getSelfInfoByPhone();
 		TextView relation = (TextView) findViewById(R.id.relation);
-		relation.setText(parentInfo.getRelationship());
+		relation.setText(parentInfo.getFixedRelationShip(DataMgr.getInstance().getSelectedChild().getServer_id()));
 
 		TextView name = (TextView) findViewById(R.id.name);
 		name.setText(parentInfo.getName());
@@ -220,6 +221,10 @@ public class SettingActivity extends UmengStatisticsActivity {
 
 		case RESIZE_REQUEST_CODE:
 			uploadIcon(data);
+			break;
+
+		case CHANGE_CHILD:
+			initHead();
 			break;
 		}
 	}
@@ -477,7 +482,7 @@ public class SettingActivity extends UmengStatisticsActivity {
 	private void startToSelectChildActivity() {
 		Intent intent = new Intent();
 		intent.setClass(this, ChildListActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent, CHANGE_CHILD);
 	}
 
 	public void updateCard() {

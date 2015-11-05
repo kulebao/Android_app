@@ -330,5 +330,7 @@
     <string name="more_relation">邀请更多家人</string>
     
     <string name="invite_phone_invalid">被邀请手机号码无效，请检查</string>
+    
+    <string name="download">分享下载</string>
 
 </resources>

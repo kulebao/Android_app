@@ -1,9 +1,18 @@
 package com.cocobabys.bean;
 
 public class RelationInfo {
+	private String relationship = "";
 	private String childid = "";
 	private String relationid = "";
 	private String cardnum = "";
+
+	public String getRelationship() {
+		return relationship;
+	}
+
+	public void setRelationship(String relationship) {
+		this.relationship = relationship;
+	}
 
 	public String getChildid() {
 		return childid;

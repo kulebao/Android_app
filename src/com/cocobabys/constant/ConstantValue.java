@@ -168,11 +168,11 @@ public class ConstantValue {
 	public static final String BUSINESS_VISIBLE = "business_visible";
 
 	public static final String BUSINESS_INFO = "business_info";
-	
+
 	public static final String RELATION_INFO = "relation_info";
-	
+
 	public static final String VERSION_CODE = "version_code";
-	
+
 	public static final String UPGRADE = "upgrade";
 
 	// 亲子摄影 0001

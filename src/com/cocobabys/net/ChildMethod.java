@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.cocobabys.bean.RelationInfo;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
@@ -99,11 +100,13 @@ public class ChildMethod {
 			childArray.put(childObj);
 
 			// 因为有多个小孩的情况，将小孩id作为key，把卡号和关系id保存起来，改卡时需要使用
-			String childid = childObj.optString("child_id");
-			String relationid = jsonObject.getString("id");
-			String card = info.getCard();
+			RelationInfo relationInfo = new RelationInfo();
 			
-			DataUtils.saveRelationInfo(childid, relationid, card);
+			relationInfo.setCardnum(info.getCard());
+			relationInfo.setChildid(childObj.optString("child_id"));
+			relationInfo.setRelationid(jsonObject.getString("id"));
+			relationInfo.setRelationship(info.getRelationship());
+			DataUtils.saveRelationInfo(relationInfo);
 		}
 		DataMgr.getInstance().addParentList(list);
 
