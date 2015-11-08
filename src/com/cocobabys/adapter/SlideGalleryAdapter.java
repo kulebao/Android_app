@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +35,8 @@ public class SlideGalleryAdapter extends BaseAdapter {
 	private ImageLoader imageLoader;
 	private DisplayImageOptions options;
 
-	public SlideGalleryAdapter(Context c, ExpInfo expInfo,
-			DownloadImgeJob downloadImgeJob) {
-		infalter = (LayoutInflater) c
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	public SlideGalleryAdapter(Context c, ExpInfo expInfo, DownloadImgeJob downloadImgeJob) {
+		infalter = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.expInfo = expInfo;
 		this.localUrlList = expInfo.getLocalUrls(false);
 		this.downloadImgeJob = downloadImgeJob;
@@ -49,8 +48,7 @@ public class SlideGalleryAdapter extends BaseAdapter {
 
 		imageLoader = ImageUtils.getImageLoader();
 
-		options = new DisplayImageOptions.Builder()
-				.showImageOnFail(R.drawable.default_icon) // 设置图片加载/解码过程中错误时候显示的图片
+		options = new DisplayImageOptions.Builder().showImageOnFail(R.drawable.default_icon) // 设置图片加载/解码过程中错误时候显示的图片
 				.cacheInMemory(true)// 设置下载的图片是否缓存在内存中
 				// .considerExifParams(true) // 是否考虑JPEG图像EXIF参数（旋转，翻转）
 				.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)// 设置图片以如何的编码方式显示
@@ -59,8 +57,7 @@ public class SlideGalleryAdapter extends BaseAdapter {
 	}
 
 	public SlideGalleryAdapter(Context c, List<String> localUrlList) {
-		infalter = (LayoutInflater) c
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		infalter = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.localUrlList = localUrlList;
 		imageLoader = ImageUtils.getImageLoader();
 		// do not use cache,use Universal-Image-Load
@@ -118,8 +115,7 @@ public class SlideGalleryAdapter extends BaseAdapter {
 			convertView = infalter.inflate(R.layout.slide_item, null);
 			holder = new ViewHolder();
 			holder.imageView = (ImageView) convertView.findViewById(R.id.image);
-			holder.progressWheel = (ProgressWheel) convertView
-					.findViewById(R.id.circleProgressBar);
+			holder.progressWheel = (ProgressWheel) convertView.findViewById(R.id.circleProgressBar);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -131,8 +127,8 @@ public class SlideGalleryAdapter extends BaseAdapter {
 	private void setDataToView(final int position, final ViewHolder holder) {
 		try {
 			String path = getItem(position);
+			// showAnimate(holder, path);
 			showIcon(holder, path);
-			showAnimate(holder, path);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -150,9 +146,11 @@ public class SlideGalleryAdapter extends BaseAdapter {
 
 		url = "file://" + url;
 
+		Log.d("", "showIcon url=" + url);
 		imageLoader.displayImage(url, holder.imageView, options);
 	}
 
+	//暂时去掉动画，会影响显示效果
 	private void showAnimate(final ViewHolder holder, String path) {
 		if (new File(path).exists()) {
 			holder.progressWheel.setVisibility(View.GONE);

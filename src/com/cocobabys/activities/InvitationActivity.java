@@ -1,9 +1,13 @@
 package com.cocobabys.activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -65,6 +69,9 @@ public class InvitationActivity extends UmengStatisticsActivity {
 				case EventType.INVITE_PHONE_ALREADY_EXIST:
 					Utils.showSingleBtnResDlg(R.string.phoneAlreadyReg, InvitationActivity.this);
 					break;
+				case EventType.GET_INVITED_CODE_FAIL_PHONE_ALREADY_EXIST:
+					Utils.showSingleBtnResDlg(R.string.postInvitedCodeFail, InvitationActivity.this);
+					break;
 
 				case EventType.INVITE_PHONE_INVALID:
 					Utils.showSingleBtnResDlg(R.string.invite_phone_invalid, InvitationActivity.this);
@@ -111,7 +118,7 @@ public class InvitationActivity extends UmengStatisticsActivity {
 	}
 
 	private void handleGetAuthCodeSuccess() {
-		Toast.makeText(this, R.string.getAuthCodeSuccess, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, R.string.postInvitedCodeSuccess, Toast.LENGTH_SHORT).show();
 		countDownButton.countdown();
 	}
 
@@ -163,6 +170,69 @@ public class InvitationActivity extends UmengStatisticsActivity {
 		runGetAuthCodeTask();
 	}
 
+	public void getPhone(View view) {
+		Intent intent = new Intent(Intent.ACTION_PICK);
+		intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+		startActivityForResult(intent, 0);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Cursor cursor = null;
+		if (resultCode == Activity.RESULT_OK) {
+			if (data == null) {
+				Log.d("", "DD onActivityResult data is null ");
+				return;
+			}
+			handlePhoneData(data, cursor);
+		}
+	}
+
+	private void handlePhoneData(Intent data, Cursor cursor) {
+		try {
+			Uri uri = data.getData();
+			cursor = getContentResolver().query(uri, null, null, null, null);
+			cursor.moveToFirst();
+			String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+			String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+
+			Log.d("", "name =" + name);
+
+			String fixedNum = getFixed(number);
+			Log.d("", "fixedNum =" + fixedNum);
+
+			if (Utils.checkPhoneNum(fixedNum)) {
+				inputphone.setText(fixedNum);
+			} else {
+				String content = String.format(Utils.getResString(R.string.invalid_phone), number);
+				Utils.showSingleBtnResDlg(content, this);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+	}
+
+	private String getFixed(String number) {
+		if (TextUtils.isEmpty(number)) {
+			return number;
+		}
+
+		number = number.trim().replace("-", "");
+
+		if (number.startsWith("86") || number.startsWith("+86")) {
+			number = number.replace("+86", "");
+			number = number.replace("86", "");
+		}
+
+		number = number.trim();
+		return number;
+	}
+
 	private void runGetAuthCodeTask() {
 		String phoneNum = inputphone.getText().toString();
 		if (!Utils.checkPhoneNum(phoneNum)) {
@@ -170,7 +240,7 @@ public class InvitationActivity extends UmengStatisticsActivity {
 			return;
 		}
 
-		dialog.setMessage(getResources().getString(R.string.getting_auth_code));
+		dialog.setMessage(getResources().getString(R.string.post_invitation_code));
 		dialog.show();
 		new PostInviteCodeJob(handler, phoneNum).execute();
 	}

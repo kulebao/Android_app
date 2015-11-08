@@ -9,12 +9,10 @@ import android.util.Log;
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
-import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.push.PushModel;
 import com.cocobabys.service.MyService;
 import com.cocobabys.taskmgr.LoadingTask;
-import com.cocobabys.utils.DataUtils;
 
 public class LoadingActivity extends UmengStatisticsActivity {
 	private Handler handler;

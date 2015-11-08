@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
-import android.os.Handler.Callback;
 import android.os.Message;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;

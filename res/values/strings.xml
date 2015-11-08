@@ -326,11 +326,14 @@
     <string name="getRaltionFail">获取家人列表失败</string>
     <string name="inviteNotice">注：请向被邀请人获取正确的邀请码(20分钟内有效)</string>
     <string name="input_invitation_code">输入邀请码</string>
-    
+    <string name="post_invitation_code">正在向被邀请人发送邀请码</string>
     <string name="more_relation">邀请更多家人</string>
-    
     <string name="invite_phone_invalid">被邀请手机号码无效，请检查</string>
-    
     <string name="download">分享下载</string>
+    <string name="postInvitedCodeFail">获取邀请码失败，被邀请人已经在幼乐宝注册</string>
+    <string name="postInvitedCodeSuccess">邀请码发送成功，请在20分钟内向被邀请人索取，谢谢！</string>
+    <string name="getphone">从通讯录获取</string>
+    
+    <string name="invalid_phone">获取到的手机号码有误：%1$s</string>
 
 </resources>

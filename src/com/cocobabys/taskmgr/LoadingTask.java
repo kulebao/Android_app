@@ -33,6 +33,7 @@ public class LoadingTask extends AsyncTask<Void, Void, Void> {
 			if (DataUtils.isFirstStart()) {
 				resultEvent = EventType.LOADING_TO_GUARD;
 			} else if (DataUtils.isVersionUpdate()) {
+				//2.6.4版本生效
 				resultEvent = EventType.LOADING_TO_UPGRADE_GUARD;
 			} else if (DataUtils.isLoginout()) {
 				resultEvent = EventType.LOADING_TO_VALIDATEPHONE;

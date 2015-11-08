@@ -68,8 +68,6 @@ public class MainActivity extends TabActivity {
 		runCheckBindTask();
 		runCheckADTask();
 
-		DataUtils.saveUndeleteableProp(ConstantValue.VERSION_CODE, DataUtils.getVersionCode() + "");
-
 		// 测试版本的fault信息不上报给友盟
 		MobclickAgent.setCatchUncaughtExceptions(!MyApplication.getInstance().isForTest());
 	}

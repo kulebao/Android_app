@@ -7,22 +7,43 @@
 
     <include layout="@layout/topbar" />
 
-    <EditText
-        android:id="@+id/inuputphoneView"
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:digits="0123456789"
-        android:hint="@string/inputnInvitationNum"
-        android:inputType="phone"
-        android:maxLength="11"
-        android:paddingLeft="10dp"
-        android:paddingRight="4dp"
-        android:singleLine="true"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="20dp" >
+
+        <EditText
+            android:id="@+id/inuputphoneView"
+            android:layout_toLeftOf="@+id/getPhone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:digits="0123456789"
+            android:hint="@string/inputnInvitationNum"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:paddingLeft="10dp"
+            android:paddingRight="4dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/getPhone"
+            style="@style/btn_style_small"
+            android:layout_width="100dp"
+            android:layout_alignBottom="@+id/inuputphoneView"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/normal_btn"
+            android:onClick="getPhone"
+            android:text="@string/getphone"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -49,7 +70,7 @@
         <com.cocobabys.customview.CountDownButton
             android:id="@+id/sendAuthCode"
             style="@style/btn_style_small"
-            android:layout_width="140dp"
+            android:layout_width="100dp"
             android:layout_alignBottom="@+id/inuputAuthCode"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10dp"
