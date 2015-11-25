@@ -67,6 +67,7 @@ public class GetSenderInfoJob {
 				String url = createGetTeacherInfoUrl(info);
 				Log.e("DDDDD ", "GetTeacherRunnable cmd:" + url);
 				result = HttpClientHelper.executeGet(url);
+				Log.e("DDDDD ", "GetTeacherRunnable result:" + result.getContent());
 				ret = handleGetSenderResult(result);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -91,8 +92,7 @@ public class GetSenderInfoJob {
 						Teacher teacher = Teacher.toTeacher(jsonObject);
 						DataMgr.getInstance().addTeacher(teacher);
 					} else {
-						ParentInfo parentInfo = ParentInfo
-								.parseFromSender(jsonObject);
+						ParentInfo parentInfo = ParentInfo.parseFromSender(jsonObject);
 						DataMgr.getInstance().addParent(parentInfo);
 					}
 
@@ -123,8 +123,7 @@ public class GetSenderInfoJob {
 	}
 
 	private String createGetTeacherInfoUrl(SenderInfo info) {
-		String url = String.format(ServerUrls.GET_SENDER_INFO, DataMgr
-				.getInstance().getSchoolID(), info.getSenderID());
+		String url = String.format(ServerUrls.GET_SENDER_INFO, DataMgr.getInstance().getSchoolID(), info.getSenderID());
 		url += "type=" + info.getSenderType();
 		return url;
 	}

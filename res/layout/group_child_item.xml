@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp" >
+
+        <com.cocobabys.customview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/groupChildHead"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/chat_head_icon"
+            app:border_color="@color/white"
+            app:border_width="1dip"
+            app:corner_radius="40dip"
+            app:mutate_background="true"
+            app:oval="false" />
+
+        <TextView
+            android:id="@+id/nameView"
+            style="@style/item_style"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/groupChildHead"
+            android:text="ddd"
+            android:textColor="@color/juhong"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/imsms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/phone"
+            android:visibility="gone"
+            android:src="@drawable/sms" />
+
+        <ImageView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"
+            android:src="@drawable/phone" />
+    </RelativeLayout>
+
+</RelativeLayout>

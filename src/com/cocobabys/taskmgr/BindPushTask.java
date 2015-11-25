@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.cocobabys.activities.MyApplication;
@@ -16,6 +17,7 @@ import com.cocobabys.net.PushMethod;
 import com.cocobabys.net.SchoolMethod;
 import com.cocobabys.push.PushModel;
 import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.IMUtils;
 import com.cocobabys.utils.Utils;
 
 public class BindPushTask extends AsyncTask<Void, Void, Integer> {
@@ -51,6 +53,10 @@ public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 
 			// 同上，第一次使用在这里判断商户是否显示，因为走不到loading的else分支里面去。。。
 			MerchantMethod.getMethod().updateBusineeState();
+
+			if (!TextUtils.isEmpty(IMUtils.getToken())) {
+				IMUtils.connect(IMUtils.getToken());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

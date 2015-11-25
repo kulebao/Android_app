@@ -13,6 +13,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.SchoolInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.IMUtils;
 
 public class PushMethod {
 
@@ -27,14 +28,12 @@ public class PushMethod {
 		// 拼接为json格式
 		int ret = EventType.NET_WORK_INVALID;
 		try {
-			String bindCommand = getBindCommand(
-					DataUtils.getProp(JSONConstant.ACCOUNT_NAME),
+			String bindCommand = getBindCommand(DataUtils.getProp(JSONConstant.ACCOUNT_NAME),
 					DataUtils.getUndeleteableProp(JSONConstant.USER_ID),
 					DataUtils.getUndeleteableProp(JSONConstant.CHANNEL_ID));
 			HttpResult result = new HttpResult();
 			Log.d("DJC", "bindCommand =" + bindCommand);
-			result = HttpClientHelper.executePost(
-					ServerUrls.SEND_BIND_INFO_URL, bindCommand);
+			result = HttpClientHelper.executePost(ServerUrls.SEND_BIND_INFO_URL, bindCommand);
 			ret = handleSendBinfInfoResult(result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -42,8 +41,7 @@ public class PushMethod {
 		return ret;
 	}
 
-	public int sendBinfInfo(String phonenum, String userid, String channelid)
-			throws Exception {
+	public int sendBinfInfo(String phonenum, String userid, String channelid) throws Exception {
 		int ret = EventType.NET_WORK_INVALID;
 
 		// 拼接为json格式
@@ -53,8 +51,7 @@ public class PushMethod {
 		// String bindCommand = getBindCommand(phonenum, channelid, userid);
 
 		HttpResult result = new HttpResult();
-		result = HttpClientHelper.executePost(ServerUrls.SEND_BIND_INFO_URL,
-				bindCommand);
+		result = HttpClientHelper.executePost(ServerUrls.SEND_BIND_INFO_URL, bindCommand);
 		ret = handleSendBinfInfoResult(result);
 		return ret;
 	}
@@ -69,21 +66,18 @@ public class PushMethod {
 				int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
 				// 校验成功，保存token以及学校id(作为该设备的push tag)
 				if (errorcode == 0) {
-					String token = jsonObject
-							.getString(JSONConstant.ACCESS_TOKEN);
-					String accountname = jsonObject
-							.getString(JSONConstant.ACCOUNT_NAME);
-					String schoolid = jsonObject
-							.getString(JSONConstant.SCHOOL_ID);
-					String schoolname = jsonObject
-							.getString(JSONConstant.SCHOOL_NAME);
-					String member_status = jsonObject
-							.getString(JSONConstant.MEMBER_STATUS);
+					String token = jsonObject.getString(JSONConstant.ACCESS_TOKEN);
+					String accountname = jsonObject.getString(JSONConstant.ACCOUNT_NAME);
+					String schoolid = jsonObject.getString(JSONConstant.SCHOOL_ID);
+					String schoolname = jsonObject.getString(JSONConstant.SCHOOL_NAME);
+					String member_status = jsonObject.getString(JSONConstant.MEMBER_STATUS);
+
+					String imToken = jsonObject.getJSONObject("im_token").getString("token");
+					IMUtils.saveToken(imToken);
 
 					DataUtils.saveProp(JSONConstant.ACCESS_TOKEN, token);
 					DataUtils.saveProp(JSONConstant.ACCOUNT_NAME, accountname);
-					DataUtils.saveProp(JSONConstant.MEMBER_STATUS,
-							member_status);
+					DataUtils.saveProp(JSONConstant.MEMBER_STATUS, member_status);
 					DataUtils.saveUndeleteableProp(accountname, "true");
 
 					SchoolInfo info = new SchoolInfo();
@@ -107,8 +101,7 @@ public class PushMethod {
 		return event;
 	}
 
-	private String getBindCommand(String phonenum, String userid,
-			String channelid) {
+	private String getBindCommand(String phonenum, String userid, String channelid) {
 		JSONObject jsonObject = new JSONObject();
 
 		try {
@@ -116,8 +109,7 @@ public class PushMethod {
 			jsonObject.put(JSONConstant.USER_ID, userid);
 			jsonObject.put(JSONConstant.CHANNEL_ID, channelid);
 			jsonObject.put(JSONConstant.DEVICE_TYPE, "android");
-			jsonObject.put(JSONConstant.ACCESS_TOKEN,
-					DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
+			jsonObject.put(JSONConstant.ACCESS_TOKEN, DataUtils.getProp(JSONConstant.ACCESS_TOKEN));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

@@ -14,6 +14,44 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.cocobabys.R;
+import com.cocobabys.adapter.SchoolNoticeGridViewAdapter;
+import com.cocobabys.bean.IMExpandInfo;
+import com.cocobabys.bean.MainGridInfo;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.constant.MemberStatus;
+import com.cocobabys.customview.PointerPopupWindow;
+import com.cocobabys.customview.RoundedImageView;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.ChildInfo;
+import com.cocobabys.dbmgr.info.IMGroupInfo;
+import com.cocobabys.dbmgr.info.InfoHelper;
+import com.cocobabys.dbmgr.info.Teacher;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.handler.TaskResultHandler;
+import com.cocobabys.jobs.DownLoadImgAndSaveJob;
+import com.cocobabys.jobs.GetClassRelationShipJob;
+import com.cocobabys.jobs.GetTeacherListJob;
+import com.cocobabys.jobs.JoinGroupJob;
+import com.cocobabys.lbs.LbsMainActivity;
+import com.cocobabys.media.MediaMgr;
+import com.cocobabys.receiver.NotificationObserver;
+import com.cocobabys.service.MyService;
+import com.cocobabys.taskmgr.CheckChildrenInfoTask;
+import com.cocobabys.taskmgr.DownLoadImgAndSaveTask;
+import com.cocobabys.taskmgr.UploadInfoTask;
+import com.cocobabys.threadpool.MyThreadPoolMgr;
+import com.cocobabys.upload.UploadFactory;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.ImageUtils;
+import com.cocobabys.utils.MethodUtils;
+import com.cocobabys.utils.Utils;
+import com.cocobabys.video.VideoApp;
+import com.cocobabys.video.VideoLoginActivity;
+import com.umeng.analytics.MobclickAgent;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -42,42 +80,8 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.SchoolNoticeGridViewAdapter;
-import com.cocobabys.bean.MainGridInfo;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.constant.MemberStatus;
-import com.cocobabys.customview.PointerPopupWindow;
-import com.cocobabys.customview.RoundedImageView;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ChildInfo;
-import com.cocobabys.dbmgr.info.InfoHelper;
-import com.cocobabys.dbmgr.info.Teacher;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.handler.TaskResultHandler;
-import com.cocobabys.jobs.DownLoadImgAndSaveJob;
-import com.cocobabys.lbs.LbsMainActivity;
-import com.cocobabys.media.MediaMgr;
-import com.cocobabys.receiver.NotificationObserver;
-import com.cocobabys.service.MyService;
-import com.cocobabys.taskmgr.CheckChildrenInfoTask;
-import com.cocobabys.taskmgr.DownLoadImgAndSaveTask;
-import com.cocobabys.taskmgr.GetTeacherTask;
-import com.cocobabys.taskmgr.UploadInfoTask;
-import com.cocobabys.threadpool.MyThreadPoolMgr;
-import com.cocobabys.upload.UploadFactory;
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.ImageUtils;
-import com.cocobabys.utils.MethodUtils;
-import com.cocobabys.utils.Utils;
-import com.cocobabys.video.VideoApp;
-import com.cocobabys.video.VideoLoginActivity;
-import com.umeng.analytics.MobclickAgent;
-
 import de.greenrobot.event.EventBus;
+import io.rong.imkit.RongIM;
 
 public class SchoolNoticeActivity extends TabChildActivity {
 	private GridView gridview;
@@ -106,6 +110,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	private Map<Integer, Integer> map = new HashMap<Integer, Integer>() {
 		private static final long serialVersionUID = 1L;
+
 		{
 			put(R.drawable.cook, R.string.want_cookbook);
 			put(R.drawable.schedule, R.string.want_schedule);
@@ -131,6 +136,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		// 检查小孩信息是否有更新，有更新需要及时更新
 		runCheckChildrenInfoTask();
 		runCheckTeacherInfoTask();
+		runCheckClassRelationshipTask();
+
 		registObserver();
 		// checkNewDatas();
 		// umeng
@@ -138,11 +145,43 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		DataUtils.saveUndeleteableProp(ConstantValue.VERSION_CODE, DataUtils.getVersionCode() + "");
 	}
 
+	private void runCheckClassRelationshipTask() {
+		// ChildInfo child = DataMgr.getInstance().getSelectedChild();
+		//
+		// if (child != null) {
+		// List<IMExpandInfo> classMemberInfo =
+		// DataMgr.getInstance().getClassMemberInfo(child.getClass_id());
+		//
+		// if (classMemberInfo.isEmpty()) {
+		// GetClassRelationShipJob job = new GetClassRelationShipJob(handler,
+		// child.getClass_id());
+		// job.execute();
+		// }
+		// }
+
+		List<String> allClassID = DataMgr.getInstance().getAllClassID();
+
+		for (String classid : allClassID) {
+			List<IMExpandInfo> classMemberInfo = DataMgr.getInstance().getClassMemberInfo(classid);
+
+			if (classMemberInfo.isEmpty()) {
+				GetClassRelationShipJob job = new GetClassRelationShipJob(handler, classid);
+				job.execute();
+			}
+		}
+	}
+
 	private void runCheckTeacherInfoTask() {
 		try {
 			List<Teacher> allTeachers = DataMgr.getInstance().getAllTeachers();
-			if (!allTeachers.isEmpty()) {
-				new GetTeacherTask(Teacher.getPhones(allTeachers)).execute();
+			// if(!allTeachers.isEmpty()){
+			// new GetTeacherTask(Teacher.getPhones(allTeachers)).execute();
+			// }
+
+			ChildInfo child = DataMgr.getInstance().getSelectedChild();
+			if (child != null) {
+				GetTeacherListJob getTeacherListJob = new GetTeacherListJob(handler, child.getClass_id());
+				getTeacherListJob.execute();
 			}
 
 			for (Teacher teacher : allTeachers) {
@@ -245,6 +284,12 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					break;
 				case EventType.SERVER_INNER_ERROR:
 					Toast.makeText(SchoolNoticeActivity.this, R.string.get_child_info_fail, Toast.LENGTH_SHORT).show();
+					break;
+				case EventType.JOIN_IM_GROUP_SUCCESS:
+					startToConversationListActivity();
+					break;
+				case EventType.JOIN_IM_GROUP_FAIL:
+					Toast.makeText(SchoolNoticeActivity.this, R.string.join_group_failed, Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;
@@ -365,8 +410,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			}
 
 			downloadIconTask = new DownLoadImgAndSaveTask(handler, selectedChild.getServer_url(),
-					InfoHelper.getChildrenLocalIconPath(selectedChild.getServer_id()),
-					ConstantValue.BABY_HEAD_PIC_SIZE, ConstantValue.BABY_HEAD_PIC_SIZE).execute();
+					InfoHelper.getChildrenLocalIconPath(selectedChild.getServer_id()), ConstantValue.BABY_HEAD_PIC_SIZE,
+					ConstantValue.BABY_HEAD_PIC_SIZE).execute();
 		}
 	}
 
@@ -581,8 +626,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	private void showPopWindow() {
 		// warning: you must specify the window width explicitly(do not use
 		// WRAP_CONTENT or MATCH_PARENT)
-		final PointerPopupWindow p = new PointerPopupWindow(this, getResources().getDimensionPixelSize(
-				R.dimen.popup_width));
+		final PointerPopupWindow p = new PointerPopupWindow(this,
+				getResources().getDimensionPixelSize(R.dimen.popup_width));
 		View convertView = LayoutInflater.from(this).inflate(R.layout.child_option, null);
 		View setNick = convertView.findViewById(R.id.setNick);
 		View setBirthday = convertView.findViewById(R.id.setBirthday);
@@ -910,8 +955,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 			startToActivity(new ActivityLauncher() {
 				@Override
 				public void startActivity() {
-					startToChatActivity();
+					handleConversationBtnClick();
 				}
+
 			});
 			break;
 		case R.drawable.education:
@@ -946,6 +992,17 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		}
 	}
 
+	private void startToConversationListActivity() {
+		try {
+			// RongIM.getInstance().startPrivateChat(SchoolNoticeActivity.this,
+			// "t_8901_Some(1513)_20414",
+			// "郭晓明");
+			RongIM.getInstance().startConversationList(SchoolNoticeActivity.this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void startToLoginVideo() {
 		if (!Utils.isNetworkConnected(this)) {
 			Utils.makeToast(this, R.string.net_error);
@@ -975,11 +1032,14 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	private void startToChatActivity() {
 		Intent intent = new Intent();
 		intent.setClass(this, ChatActivity.class);
-		// intent.setClass(this, ChatActivity.class);
 		startActivity(intent);
 	}
 
 	private void startToSettingActivity() {
+		if (selectedChild == null) {
+			Utils.makeToast(this, R.string.reget_child_info);
+			return;
+		}
 		Intent intent = new Intent();
 		intent.setClass(this, SettingActivity.class);
 		startActivityForResult(intent, ConstantValue.START_SETTING);
@@ -1044,13 +1104,44 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		startActivity(intent);
 	}
 
+	private void handleConversationBtnClick() {
+		if (MyApplication.getInstance().isForTest()) {
+			List<String> allClassID = DataMgr.getInstance().getAllClassID();
+			// runJoinGroupTask(handler, allClassID);
+			List<String> needJoinClassID = new ArrayList<>();
+
+			for (String class_id : allClassID) {
+				IMGroupInfo imGroupInfo = DataMgr.getInstance().getIMGroupInfo(Integer.parseInt(class_id));
+				if (imGroupInfo == null) {
+					needJoinClassID.add(class_id);
+				}
+			}
+
+			if (!needJoinClassID.isEmpty()) {
+				runJoinGroupTask(handler, needJoinClassID);
+			} else {
+				startToConversationListActivity();
+			}
+		} else {
+			startToChatActivity();
+		}
+	}
+
+	protected void runJoinGroupTask(Handler handler, List<String> classidList) {
+		progressDialog.setMessage(getResources().getString(R.string.get_group_info));
+		progressDialog.show();
+		JoinGroupJob joinGroupJob = new JoinGroupJob(handler, classidList);
+		joinGroupJob.execute();
+	}
+
 	private interface ActivityLauncher {
 		public void startActivity();
 	}
 
 	private class MyDatePickerDialog extends DatePickerDialog {
 
-		public MyDatePickerDialog(Context context, OnDateSetListener callBack, int year, int monthOfYear, int dayOfMonth) {
+		public MyDatePickerDialog(Context context, OnDateSetListener callBack, int year, int monthOfYear,
+				int dayOfMonth) {
 			super(context, callBack, year, monthOfYear, dayOfMonth);
 		}
 
@@ -1077,8 +1168,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		}
 
 		@Override
-		/** 
-		 * 调用方法 
+		/**
+		 * 调用方法
 		 */
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			Object result = null;

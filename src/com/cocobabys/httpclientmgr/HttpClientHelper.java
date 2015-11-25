@@ -298,7 +298,6 @@ public class HttpClientHelper{
 
     public static HttpResult executeGet(String url) throws Exception{
         HttpResult result = doGetImpl(url);
-        Log.d("execute:", "url =" + url);
         if(result.getResCode() == HttpStatus.SC_UNAUTHORIZED){
             PushMethod method = PushMethod.getMethod();
             synchronized(HttpClientHelper.class){
@@ -348,6 +347,9 @@ public class HttpClientHelper{
             HttpResponse response = client.execute(request);
             status = response.getStatusLine().getStatusCode();
             Log.d("DDD doGetImpl code:", "" + status + " vercode=" + DataUtils.getVersionCode());
+
+            Log.d("", "doGetImpl url=" + url + " length=" + response.getEntity().getContentLength());
+
             if(status != 200){
                 Log.w("WWW", "doGetImpl warning url=" + url);
             }

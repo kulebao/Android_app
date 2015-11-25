@@ -1,11 +1,12 @@
 package com.cocobabys.taskmgr;
 
-import android.os.AsyncTask;
-
 import com.cocobabys.constant.EventType;
+import com.cocobabys.net.MethodResult;
 import com.cocobabys.net.TeacherMethod;
 import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
+
+import android.os.AsyncTask;
 
 public class GetTeacherTask extends AsyncTask<Void, Void, Integer> {
 
@@ -21,7 +22,7 @@ public class GetTeacherTask extends AsyncTask<Void, Void, Integer> {
 		MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
 			@Override
 			public Object handle() throws Exception {
-				int result = TeacherMethod.getMethod().getTeacherInfo(phones);
+				MethodResult result = TeacherMethod.getMethod().getTeacherInfo(phones);
 				return result;
 			}
 		});

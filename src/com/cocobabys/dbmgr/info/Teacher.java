@@ -12,6 +12,7 @@ import android.text.TextUtils;
 
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.utils.Utils;
 
 public class Teacher {
@@ -26,7 +27,10 @@ public class Teacher {
 	public static final String GENDER = "gender";
 	public static final String SHOOL_ID = "shool_id";
 	public static final String PHONE = "phone";
+	public static final String INTERNAL_ID = "internal_id";
+	public static final String LOGIN_NAME = "login_name";
 	private static final String TEACHER_ICON = "teacher_icon";
+
 	private int id = 0;
 	private String name = "";
 	private String head_icon = "";
@@ -36,8 +40,26 @@ public class Teacher {
 	private String workgroup = "";
 	private String workduty = "";
 	private String phone = "";
+	private String login_name = "";
 	private int shool_id = 0;
 	private int gender = 0;
+	private int internal_id = -1;
+
+	public String getLogin_name() {
+		return login_name;
+	}
+
+	public void setLogin_name(String login_name) {
+		this.login_name = login_name;
+	}
+
+	public int getInternal_id() {
+		return internal_id;
+	}
+
+	public void setInternal_id(int internal_id) {
+		this.internal_id = internal_id;
+	}
 
 	public String getPhone() {
 		return phone;
@@ -133,16 +155,14 @@ public class Teacher {
 		if (TextUtils.isEmpty(head_icon)) {
 			return "";
 		}
-		String dir = Utils.getSDCardPicRootPath() + File.separator
-				+ TEACHER_ICON + File.separator;
+		String dir = Utils.getSDCardPicRootPath() + File.separator + TEACHER_ICON + File.separator;
 		Utils.mkDirs(dir);
 		String url = dir + phone;
 		return url;
 	}
 
 	public static String getLocalIconPath(String phone) {
-		String dir = Utils.getSDCardPicRootPath() + File.separator
-				+ TEACHER_ICON + File.separator;
+		String dir = Utils.getSDCardPicRootPath() + File.separator + TEACHER_ICON + File.separator;
 		Utils.mkDirs(dir);
 		String url = dir + phone;
 		return url;
@@ -160,6 +180,8 @@ public class Teacher {
 		info.setShool_id(obj.getInt("school_id"));
 		info.setBirthday(obj.getString("birthday"));
 		info.setGender(obj.getInt("gender"));
+		info.setInternal_id(obj.getInt("uid"));
+		info.setLogin_name(obj.getString("login_name"));
 		return info;
 	}
 
@@ -191,13 +213,18 @@ public class Teacher {
 		return result;
 	}
 
+	// 根据约定，拼接出融云im对应的userid
+	public String getIMUserid() {
+		String schoolID = DataMgr.getInstance().getSchoolID();
+		String id = "t_" + schoolID + "_Some(" + internal_id + ")_" + login_name;
+		return id;
+	}
+
 	@Override
 	public String toString() {
-		return "Teacher [id=" + id + ", name=" + name + ", head_icon="
-				+ head_icon + ", birthday=" + birthday + ", timestamp="
-				+ timestamp + ", server_id=" + server_id + ", workgroup="
-				+ workgroup + ", workduty=" + workduty + ", phone=" + phone
-				+ ", shool_id=" + shool_id + ", gender=" + gender + "]";
+		return "Teacher [id=" + id + ", name=" + name + ", head_icon=" + head_icon + ", birthday=" + birthday
+				+ ", timestamp=" + timestamp + ", server_id=" + server_id + ", workgroup=" + workgroup + ", workduty="
+				+ workduty + ", phone=" + phone + ", shool_id=" + shool_id + ", gender=" + gender + "]";
 	}
 
 }

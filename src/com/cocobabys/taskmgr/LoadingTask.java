@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.EventType;
@@ -13,6 +14,7 @@ import com.cocobabys.net.PushMethod;
 import com.cocobabys.net.SchoolMethod;
 import com.cocobabys.push.PushModel;
 import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.IMUtils;
 import com.cocobabys.utils.Utils;
 
 public class LoadingTask extends AsyncTask<Void, Void, Void> {
@@ -33,7 +35,7 @@ public class LoadingTask extends AsyncTask<Void, Void, Void> {
 			if (DataUtils.isFirstStart()) {
 				resultEvent = EventType.LOADING_TO_GUARD;
 			} else if (DataUtils.isVersionUpdate()) {
-				//2.6.4版本生效
+				// 2.6.4版本生效
 				resultEvent = EventType.LOADING_TO_UPGRADE_GUARD;
 			} else if (DataUtils.isLoginout()) {
 				resultEvent = EventType.LOADING_TO_VALIDATEPHONE;
@@ -48,10 +50,15 @@ public class LoadingTask extends AsyncTask<Void, Void, Void> {
 					PushMethod.getMethod().sendBinfInfo();
 				}
 
+				if (!TextUtils.isEmpty(IMUtils.getToken())) {
+					IMUtils.connect(IMUtils.getToken());
+				}
+
 				SchoolMethod.getGetAuthCodeMethod().saveSchoolConfig();
 				Utils.renamePicDir();
 
 				MerchantMethod.getMethod().updateBusineeState();
+
 			}
 
 			long now = System.currentTimeMillis();

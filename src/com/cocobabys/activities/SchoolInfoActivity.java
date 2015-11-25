@@ -1,5 +1,15 @@
 package com.cocobabys.activities;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.InfoHelper;
+import com.cocobabys.dbmgr.info.SchoolInfo;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.taskmgr.DownLoadImgAndSaveTask;
+import com.cocobabys.taskmgr.GetSchoolInfoTask;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -11,17 +21,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.InfoHelper;
-import com.cocobabys.dbmgr.info.SchoolInfo;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.InvitationJob;
-import com.cocobabys.taskmgr.DownLoadImgAndSaveTask;
-import com.cocobabys.taskmgr.GetSchoolInfoTask;
-import com.cocobabys.utils.Utils;
 
 public class SchoolInfoActivity extends UmengStatisticsActivity {
 

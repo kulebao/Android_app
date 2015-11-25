@@ -3,6 +3,20 @@ package com.cocobabys.activities;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import com.cocobabys.R;
+import com.cocobabys.bean.AdInfo;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.net.AdMethod;
+import com.cocobabys.push.PushModel;
+import com.cocobabys.taskmgr.BindPushTask;
+import com.cocobabys.taskmgr.CheckUpdateTask;
+import com.cocobabys.threadpool.MyThreadPoolMgr;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.Utils;
+import com.umeng.analytics.MobclickAgent;
+
 import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -22,20 +36,6 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.bean.AdInfo;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.net.AdMethod;
-import com.cocobabys.push.PushModel;
-import com.cocobabys.taskmgr.BindPushTask;
-import com.cocobabys.taskmgr.CheckUpdateTask;
-import com.cocobabys.threadpool.MyThreadPoolMgr;
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.Utils;
-import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends TabActivity {
 	// 5小时检查一次广告更新

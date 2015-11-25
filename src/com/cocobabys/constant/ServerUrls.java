@@ -38,11 +38,17 @@ public class ServerUrls{
 
     public static final String  COMMERCIAL_SUMMARY   = "commercial_summary";
 
+    public static final String  CLASS_IM_GROUP       = "class_im_group";
+
     public static final String  SHARE                = "share";
 
     public static final String  FIX_PATH             = "api/v2/";
 
     public static final String  DYNAMIC_PATH         = "api/v3/";
+
+    public static final String  IM_TOKEN             = "im_token";
+
+    public static final String  MANAGER              = "manager";
 
     public static final String  TEST_HTTPS_HOST_ADDR = "https://stage2.cocobabys.com/";
 
@@ -119,12 +125,19 @@ public class ServerUrls{
     // https://stage2.cocobabys.com/kindergarten/1003/relationship?parent=13408654680
     public static final String  GET_RELATIONSHIP            = getHost() + ROOT_RES_PATH + "/%s/" + RELATIONSHIP + "?";
 
+    // https://stage2.cocobabys.com/kindergarten/8901/relationship?class_id=20001
+    public static final String  GET_CLASS_RELATIONSHIP      = getHost() + ROOT_RES_PATH + "/%s/" + RELATIONSHIP + "?";
+
     // https://stage2.cocobabys.com/kindergarten/1003/relationship?child=1
     public static final String  GET_RELATIONSHIP_BY_CHILD   = getHost() + ROOT_RES_PATH + "/%s/" + RELATIONSHIP + "?";
 
-    // 类似kindergarten/93740362/parent/13408654680/child
+    // 类似kindergarten/93740362/employee/?phone=
     public static final String  GET_TEACHER_INFO            = getHost() + ROOT_RES_PATH + "/%s/" + EMPLOYEE_RES_PATH
                                                                     + "?phone=%s";
+
+    // 类似/kindergarten/:kg/class/:classId/manager
+    public static final String  GET_TEACHER_LIST            = getHost() + ROOT_RES_PATH + "/%s/" + CLASS_RES_PATH
+                                                                    + "/%s/" + MANAGER;
 
     // https://stage2.cocobabys.com/kindergarten/1003/sender/3_1003_1399268817590?type=t
     public static final String  GET_SENDER_INFO             = getHost() + ROOT_RES_PATH + "/%s/" + SENDER + "/%s?";
@@ -248,4 +261,13 @@ public class ServerUrls{
 
     // https://cocobabys.com//api/v5/invitation_code/:phone
     public static final String  INVITE_CODE_URL             = getHost() + "api/v5/invitation_code/%s";
+
+    // https://cocobabys.com/api/v7/kindergarten/:kg/class_im_group/:class_id
+    // CLASS_IM_GROUP
+    public static final String  GET_GROUP_INFO_URL          = getHost() + "api/v7/" + ROOT_RES_PATH + "/%s/"
+                                                                    + CLASS_IM_GROUP + "/%s";                            ;
+
+    // https://stage2.cocobabys.com/api/v7/kindergarten/8901/im_token/p_8901_Some(9029)_12323232323
+    public static final String  REFRESH_IM_TOKEN_URL        = getHost() + "api/v7/" + ROOT_RES_PATH + "/%s/" + IM_TOKEN
+                                                                    + "/%s";
 }

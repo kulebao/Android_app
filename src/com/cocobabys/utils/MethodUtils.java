@@ -16,7 +16,6 @@ import com.cocobabys.bean.PullToRefreshListInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.EducationInfo;
 import com.cocobabys.dbmgr.info.Homework;

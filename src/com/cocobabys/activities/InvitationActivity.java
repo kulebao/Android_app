@@ -205,7 +205,7 @@ public class InvitationActivity extends UmengStatisticsActivity {
 			if (Utils.checkPhoneNum(fixedNum)) {
 				inputphone.setText(fixedNum);
 			} else {
-				String content = String.format(Utils.getResString(R.string.invalid_phone), number);
+				String content = String.format(Utils.getResString(R.string.get_invalid_phone), number);
 				Utils.showSingleBtnResDlg(content, this);
 			}
 		} catch (Exception e) {
