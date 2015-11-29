@@ -337,5 +337,6 @@
     <string name="join_group_failed">加入班级群组失败</string>
     <string name="get_group_info">获取群组信息</string>
     <string name="teacherList">教师列表</string>
+    <string name="groupNoticeSetting">群组消息免打扰</string>
 
 </resources>

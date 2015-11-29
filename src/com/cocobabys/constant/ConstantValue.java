@@ -178,6 +178,8 @@ public class ConstantValue {
 	public static final String IM_TOKEN = "im_token";
 	
 	public static final String CLASS_ID = "class_id";
+	
+	public static final String IM_GROUP_ID = "im_group_id";
 
 	// 亲子摄影 0001
 	public static final int MERCHANT_CATEGORY_CAMERA = 1;

@@ -15,7 +15,20 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
 public class IMUtils {
-    
+
+	// true表示免打扰打开，false表示免打扰关闭
+	public static boolean isMessageDisturbEnable(String conversationID) {
+		Context context = MyApplication.getInstance().getApplicationContext();
+		SharedPreferences conf = context.getSharedPreferences(ConstantValue.CONF_INI, Context.MODE_PRIVATE);
+		return conf.getBoolean(conversationID, false);
+	}
+
+	public static void setMessageDisturbEnable(String conversationID, boolean enable) {
+		SharedPreferences.Editor editor = DataUtils.getEditor();
+		editor.putBoolean(conversationID, enable);
+		editor.commit();
+	}
+
 	public static void saveToken(String token) {
 		SharedPreferences.Editor editor = DataUtils.getEditor();
 		editor.putString(ConstantValue.IM_TOKEN, token);

@@ -92,6 +92,7 @@ public class ConversationActivity extends FragmentActivity {
 					Log.d("", "group =" + group.toString());
 					Intent intent = new Intent(ConversationActivity.this, GroupMemberActivity.class);
 					intent.putExtra(ConstantValue.CLASS_ID, group.getClass_id() + "");
+					intent.putExtra(ConstantValue.IM_GROUP_ID, mTargetId);
 					startActivity(intent);
 				}
 			});

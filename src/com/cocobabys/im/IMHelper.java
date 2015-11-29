@@ -6,21 +6,24 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.IMGroupInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
+import com.cocobabys.utils.IMUtils;
 
 import android.content.ContentResolver;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.util.Log;
-import io.rong.imkit.RLog;
+import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.widget.provider.CameraInputProvider;
+import io.rong.imkit.widget.provider.ImageInputProvider;
+import io.rong.imkit.widget.provider.InputProvider;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.Group;
-import io.rong.imlib.model.Message;
-import io.rong.imlib.model.MessageContent;
-import io.rong.imlib.model.UserInfo;
 import io.rong.imlib.model.Conversation.ConversationNotificationStatus;
 import io.rong.imlib.model.Conversation.ConversationType;
+import io.rong.imlib.model.Group;
+import io.rong.imlib.model.Message;
+import io.rong.imlib.model.UserInfo;
 
 public class IMHelper
 		implements RongIM.UserInfoProvider, RongIMClient.OnReceiveMessageListener, RongIM.GroupInfoProvider {
@@ -35,6 +38,8 @@ public class IMHelper
 				Teacher teacher = DataMgr.getInstance().getTeacherByInternalID(Integer.parseInt(id));
 				if (teacher != null) {
 					bret = new UserInfo(userId, teacher.getName(), Uri.parse(teacher.getHead_icon()));
+				} else {
+					bret = new UserInfo(userId, "教师", null);
 				}
 
 			} else if (userId.toLowerCase().startsWith("p_")) {
@@ -44,6 +49,8 @@ public class IMHelper
 
 				if (parent != null) {
 					bret = new UserInfo(userId, parent.getName(), Uri.parse(parent.getPortrait()));
+				} else {
+					bret = new UserInfo(userId, "家长", null);
 				}
 			}
 		} catch (Exception e) {
@@ -62,14 +69,14 @@ public class IMHelper
 
 	@Override
 	public boolean onReceived(Message message, int left) {
-		MessageContent content = message.getContent();
-		String senderUserId = message.getSenderUserId();
-		String objectName = message.getObjectName();
+		ConversationType conversationType = message.getConversationType();
+		String targetId = message.getTargetId();
 
-		UserInfo userInfo = content.getUserInfo();
-
-		Log.d("", "EEE onReceived left=" + left + " objectName=" + objectName + " content=" + content.toString()
-				+ " userInfo=" + userInfo);
+		// 返回true表示自己处理消息通知，这里直接返回就表示不处理
+		if (IMUtils.isMessageDisturbEnable(targetId) && conversationType.equals(ConversationType.GROUP)) {
+			Log.d("", "onReceived message but disturb it! targetId=" + targetId);
+			return true;
+		}
 		return false;
 	}
 
