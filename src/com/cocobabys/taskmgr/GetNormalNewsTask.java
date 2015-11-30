@@ -18,7 +18,7 @@ import com.cocobabys.utils.Utils;
 
 public class GetNormalNewsTask extends AsyncTask<Void, Void, Integer> {
 	// 最少等2s
-	private static final int LIMIT_TIME = 1000;
+	private static final int LIMIT_TIME = 500;
 	private Handler handler;
 	private int most;
 	private long from;

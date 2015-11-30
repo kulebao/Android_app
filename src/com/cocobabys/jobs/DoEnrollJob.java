@@ -13,7 +13,7 @@ import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.utils.MethodUtils;
 
 public class DoEnrollJob extends MyJob {
-	private static final long LIMIT_TIME = 1000;
+	private static final long LIMIT_TIME = 500;
 	private Handler handler;
 	private ActionInfo actioninfo;
 

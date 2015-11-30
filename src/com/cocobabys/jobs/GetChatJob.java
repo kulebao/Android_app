@@ -13,7 +13,7 @@ import com.cocobabys.utils.MethodUtils;
 
 public class GetChatJob extends MyJob {
 	// 最少等2s
-	private static final int LIMIT_TIME = 1000;
+	private static final int LIMIT_TIME = 500;
 
 	private Handler handler;
 	private int most;

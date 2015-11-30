@@ -1,8 +1,11 @@
 package com.cocobabys.im;
 
+import java.util.List;
+
 import com.cocobabys.R;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.GroupParentInfo;
 import com.cocobabys.dbmgr.info.IMGroupInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
@@ -12,11 +15,7 @@ import android.content.ContentResolver;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.util.Log;
-import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
-import io.rong.imkit.widget.provider.CameraInputProvider;
-import io.rong.imkit.widget.provider.ImageInputProvider;
-import io.rong.imkit.widget.provider.InputProvider;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Conversation.ConversationNotificationStatus;
@@ -97,6 +96,44 @@ public class IMHelper
 		Log.d("imGroupInfo", "imGroupInfo =" + imGroupInfo.toString());
 
 		return group;
+	}
+
+	public static void updateParentsInfoCache() {
+		List<GroupParentInfo> allGroupParentsInfo = DataMgr.getInstance().getAllGroupParentsInfo();
+	
+		for (GroupParentInfo groupParentInfo : allGroupParentsInfo) {
+			Uri uri = null;
+			String imUserid = groupParentInfo.getIMUserid();
+			if (groupParentInfo.getPortrait().isEmpty()) {
+				uri = Uri.parse(groupParentInfo.getPortrait());
+			}
+			/**
+			 * 刷新用户缓存数据。
+			 *
+			 * @param userInfo
+			 *            需要更新的用户缓存数据。
+			 */
+			RongIM.getInstance().refreshUserInfoCache(new UserInfo(imUserid, groupParentInfo.getName(), uri));
+		}
+	}
+
+	public static void updateTeacherInfoCache() {
+		List<Teacher> allTeachers = DataMgr.getInstance().getAllTeachers();
+
+		for (Teacher teacher : allTeachers) {
+			Uri uri = null;
+			String imUserid = teacher.getIMUserid();
+			if (teacher.getHead_icon().isEmpty()) {
+				uri = Uri.parse(teacher.getHead_icon());
+			}
+			/**
+			 * 刷新用户缓存数据。
+			 *
+			 * @param userInfo
+			 *            需要更新的用户缓存数据。
+			 */
+			RongIM.getInstance().refreshUserInfoCache(new UserInfo(imUserid, teacher.getName(), uri));
+		}
 	}
 
 	public static void setGroupMessageNotificationStatus(ConversationType conversationType, String groupID,

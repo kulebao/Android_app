@@ -3,6 +3,23 @@ package com.cocobabys.activities;
 import java.io.File;
 import java.util.ArrayList;
 
+import com.cocobabys.R;
+import com.cocobabys.adapter.SettingListAdapter;
+import com.cocobabys.bean.SettingInfo;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.customview.PointerPopupWindow;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.ParentInfo;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.jobs.UpdateParentJob;
+import com.cocobabys.taskmgr.CheckUpdateTask;
+import com.cocobabys.upload.UploadFactory;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.ImageUtils;
+import com.cocobabys.utils.Utils;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,23 +42,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.SettingListAdapter;
-import com.cocobabys.bean.SettingInfo;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.customview.PointerPopupWindow;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ParentInfo;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.UpdateParentJob;
-import com.cocobabys.taskmgr.CheckUpdateTask;
-import com.cocobabys.upload.UploadFactory;
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.ImageUtils;
-import com.cocobabys.utils.Utils;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 
 public class SettingActivity extends UmengStatisticsActivity {
 	private Handler handler;
@@ -75,8 +77,8 @@ public class SettingActivity extends UmengStatisticsActivity {
 	private void showPopWindow() {
 		// warning: you must specify the window width explicitly(do not use
 		// WRAP_CONTENT or MATCH_PARENT)
-		final PointerPopupWindow p = new PointerPopupWindow(this, getResources().getDimensionPixelSize(
-				R.dimen.popup_width));
+		final PointerPopupWindow p = new PointerPopupWindow(this,
+				getResources().getDimensionPixelSize(R.dimen.popup_width));
 		View convertView = LayoutInflater.from(this).inflate(R.layout.parent_option, null);
 		View takepic = convertView.findViewById(R.id.takepic);
 		View openGallery = convertView.findViewById(R.id.openGallery);
@@ -400,9 +402,14 @@ public class SettingActivity extends UmengStatisticsActivity {
 	}
 
 	protected void startToFeedBackActivity() {
-		Intent intent = new Intent();
-		intent.setClass(this, FeedBackActivity.class);
-		startActivity(intent);
+		if (MyApplication.getInstance().isForTest()) {
+			RongIM.getInstance().startConversation(this, Conversation.ConversationType.APP_PUBLIC_SERVICE,
+					"KEFU144879042344018", "客服");
+		} else {
+			Intent intent = new Intent();
+			intent.setClass(this, FeedBackActivity.class);
+			startActivity(intent);
+		}
 	}
 
 	private void initDialog() {

@@ -204,6 +204,26 @@ public class GroupMemberMgr {
 		return groupParentInfo;
 	}
 
+	List<GroupParentInfo> getAllGroupParentsInfo() {
+		List<GroupParentInfo> list = new ArrayList<>();
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.GROUP_PARENT_INFO_TAB, null);
+		try {
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast() && (cursor.getString(0) != null)) {
+				GroupParentInfo groupParentInfo = getGroupParentInfoByCursor(cursor);
+				list.add(groupParentInfo);
+				cursor.moveToNext();
+			}
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+
+		return list;
+	}
+
 	private GroupParentInfo getGroupParentInfoByCursor(Cursor cursor) {
 		GroupParentInfo info = new GroupParentInfo();
 

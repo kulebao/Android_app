@@ -66,14 +66,13 @@ public class PushMethod {
 				int errorcode = jsonObject.getInt(JSONConstant.ERROR_CODE);
 				// 校验成功，保存token以及学校id(作为该设备的push tag)
 				if (errorcode == 0) {
-					String token = jsonObject.getString(JSONConstant.ACCESS_TOKEN);
-					String accountname = jsonObject.getString(JSONConstant.ACCOUNT_NAME);
-					String schoolid = jsonObject.getString(JSONConstant.SCHOOL_ID);
-					String schoolname = jsonObject.getString(JSONConstant.SCHOOL_NAME);
-					String member_status = jsonObject.getString(JSONConstant.MEMBER_STATUS);
+					String token = jsonObject.optString(JSONConstant.ACCESS_TOKEN);
+					String accountname = jsonObject.optString(JSONConstant.ACCOUNT_NAME);
+					String schoolid = jsonObject.optString(JSONConstant.SCHOOL_ID);
+					String schoolname = jsonObject.optString(JSONConstant.SCHOOL_NAME);
+					String member_status = jsonObject.optString(JSONConstant.MEMBER_STATUS);
 
-					String imToken = jsonObject.getJSONObject("im_token").getString("token");
-					IMUtils.saveToken(imToken);
+					setToken(jsonObject);
 
 					DataUtils.saveProp(JSONConstant.ACCESS_TOKEN, token);
 					DataUtils.saveProp(JSONConstant.ACCOUNT_NAME, accountname);
@@ -99,6 +98,15 @@ public class PushMethod {
 		}
 
 		return event;
+	}
+
+	private void setToken(JSONObject jsonObject) {
+		try {
+			String imToken = jsonObject.optJSONObject("im_token").optString("token");
+			IMUtils.saveToken(imToken);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private String getBindCommand(String phonenum, String userid, String channelid) {

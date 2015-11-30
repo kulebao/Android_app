@@ -6,16 +6,17 @@ import org.apache.http.HttpStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.graphics.Bitmap;
-import android.util.Log;
-
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
+import com.cocobabys.im.IMHelper;
 import com.cocobabys.utils.Utils;
+
+import android.graphics.Bitmap;
+import android.util.Log;
 
 public class TeacherMethod {
 
@@ -99,6 +100,8 @@ public class TeacherMethod {
 				}
 			}
 		}
+
+		IMHelper.updateTeacherInfoCache();
 	}
 
 }

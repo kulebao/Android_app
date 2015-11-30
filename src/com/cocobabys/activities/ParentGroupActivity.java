@@ -40,7 +40,7 @@ public class ParentGroupActivity extends UmengStatisticsActivity {
 		initDialog();
 		initHander();
 		initListAdapter();
-		runGetTeacherListTask();
+		runGetClassRelationShipTask();
 	}
 
 	private void initHander() {
@@ -91,7 +91,7 @@ public class ParentGroupActivity extends UmengStatisticsActivity {
 		dialog.setMessage(getResources().getString(R.string.loading_data));
 	}
 
-	private void runGetTeacherListTask() {
+	private void runGetClassRelationShipTask() {
 		dialog.show();
 		GetClassRelationShipJob job = new GetClassRelationShipJob(myhandler, classid);
 		job.execute();

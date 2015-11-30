@@ -169,11 +169,6 @@ public class MyApplication extends Application {
 		initShareSDK();
 	}
 
-	// 扩展功能自定义
-	static InputProvider.ExtendProvider[] provider = { new ImageInputProvider(RongContext.getInstance()), // 图片
-			new CameraInputProvider(RongContext.getInstance()), // 相机
-	};
-
 	private void initIM() {
 		/**
 		 *
@@ -193,6 +188,10 @@ public class MyApplication extends Application {
 			RongIM.setOnReceiveMessageListener(imHelper);
 			RongIM.setConversationBehaviorListener(new SimpleConversationBahavior());
 
+			// 扩展功能自定义
+			InputProvider.ExtendProvider[] provider = { new ImageInputProvider(RongContext.getInstance()), // 图片
+					new CameraInputProvider(RongContext.getInstance()), // 相机
+			};
 			RongIM.resetInputExtensionProvider(Conversation.ConversationType.PRIVATE, provider);
 			RongIM.resetInputExtensionProvider(Conversation.ConversationType.GROUP, provider);
 		}
