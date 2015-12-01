@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.RongIMClient;
@@ -42,6 +43,10 @@ public class ConversationListActivity extends FragmentActivity{
      * 加载 会话列表 ConversationListFragment
      */
     private void enterFragment(){
+
+        String lastPathSegment = getIntent().getData().getLastPathSegment();
+
+        Log.d("", "enterFragment lastPathSegment=" + lastPathSegment);
 
         ConversationListFragment fragment = (ConversationListFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.conversationlist);

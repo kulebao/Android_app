@@ -135,8 +135,6 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		initUI();
 		// 检查小孩信息是否有更新，有更新需要及时更新
 		runCheckChildrenInfoTask();
-		runCheckTeacherInfoTask();
-		runCheckClassRelationshipTask();
 
 		registObserver();
 		// checkNewDatas();
@@ -162,12 +160,13 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		List<String> allClassID = DataMgr.getInstance().getAllClassID();
 
 		for (String classid : allClassID) {
-			List<IMExpandInfo> classMemberInfo = DataMgr.getInstance().getClassMemberInfo(classid);
+			// List<IMExpandInfo> classMemberInfo =
+			// DataMgr.getInstance().getClassMemberInfo(classid);
 
-			if (classMemberInfo.isEmpty()) {
-				GetClassRelationShipJob job = new GetClassRelationShipJob(handler, classid);
-				job.execute();
-			}
+			// if (classMemberInfo.isEmpty()) {
+			GetClassRelationShipJob job = new GetClassRelationShipJob(handler, classid);
+			job.execute();
+			// }
 		}
 	}
 
@@ -180,6 +179,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 			ChildInfo child = DataMgr.getInstance().getSelectedChild();
 			if (child != null) {
+				Log.d("", "AAAA runCheckTeacherInfoTask  child=" + child.toString());
 				GetTeacherListJob getTeacherListJob = new GetTeacherListJob(handler, child.getClass_id());
 				getTeacherListJob.execute();
 			}
@@ -281,6 +281,9 @@ public class SchoolNoticeActivity extends TabChildActivity {
 					break;
 				case EventType.CHECK_NEW_DATA:
 					checkNewDatas();
+					// 小孩数据已经更新完毕，可以获取到班级信息，此时更新班级关系和教师信息了
+					runCheckTeacherInfoTask();
+					runCheckClassRelationshipTask();
 					break;
 				case EventType.SERVER_INNER_ERROR:
 					Toast.makeText(SchoolNoticeActivity.this, R.string.get_child_info_fail, Toast.LENGTH_SHORT).show();

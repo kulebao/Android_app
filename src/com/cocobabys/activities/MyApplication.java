@@ -194,6 +194,7 @@ public class MyApplication extends Application {
 			};
 			RongIM.resetInputExtensionProvider(Conversation.ConversationType.PRIVATE, provider);
 			RongIM.resetInputExtensionProvider(Conversation.ConversationType.GROUP, provider);
+			RongIM.resetInputExtensionProvider(Conversation.ConversationType.APP_PUBLIC_SERVICE, provider);
 		}
 	}
 

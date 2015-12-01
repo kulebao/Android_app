@@ -182,6 +182,12 @@ public class ChildInfo {
 	}
 
 	@Override
+	public String toString() {
+		return "ChildInfo [child_nick_name=" + child_nick_name + ", server_id=" + server_id + ", class_id=" + class_id
+				+ ", child_name=" + child_name + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

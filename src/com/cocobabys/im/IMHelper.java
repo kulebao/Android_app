@@ -56,7 +56,7 @@ public class IMHelper
 			e.printStackTrace();
 		}
 
-		Log.d("", "getUserInfo  userId=" + userId + " info=" + bret);
+		Log.d("", "AAAA getUserInfo  userId=" + userId + " info=" + bret);
 		return bret;
 	}
 
@@ -93,14 +93,14 @@ public class IMHelper
 			group = new Group(groupId, imGroupInfo.getGroup_name(), uri);
 		}
 
-		Log.d("imGroupInfo", "imGroupInfo =" + imGroupInfo.toString());
+		Log.d("imGroupInfo", "AAAA imGroupInfo =" + imGroupInfo.toString());
 
 		return group;
 	}
 
 	public static void updateParentsInfoCache() {
 		List<GroupParentInfo> allGroupParentsInfo = DataMgr.getInstance().getAllGroupParentsInfo();
-	
+
 		for (GroupParentInfo groupParentInfo : allGroupParentsInfo) {
 			Uri uri = null;
 			String imUserid = groupParentInfo.getIMUserid();
@@ -113,6 +113,7 @@ public class IMHelper
 			 * @param userInfo
 			 *            需要更新的用户缓存数据。
 			 */
+			Log.d("", "AAAA updateParentsInfoCache pid=" + imUserid + " name=" + groupParentInfo.getName());
 			RongIM.getInstance().refreshUserInfoCache(new UserInfo(imUserid, groupParentInfo.getName(), uri));
 		}
 	}
@@ -132,6 +133,7 @@ public class IMHelper
 			 * @param userInfo
 			 *            需要更新的用户缓存数据。
 			 */
+			Log.d("", "AAAA updateTeacherInfoCache tid=" + imUserid + " name=" + teacher.getName());
 			RongIM.getInstance().refreshUserInfoCache(new UserInfo(imUserid, teacher.getName(), uri));
 		}
 	}
