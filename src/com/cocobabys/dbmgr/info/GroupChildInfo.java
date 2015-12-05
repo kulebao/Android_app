@@ -1,5 +1,6 @@
 package com.cocobabys.dbmgr.info;
 
+import android.text.TextUtils;
 
 public class GroupChildInfo{
 
@@ -109,6 +110,10 @@ public class GroupChildInfo{
         this.name = name;
     }
 
+    public String getDisplayName(){
+        return TextUtils.isEmpty(nick) ? name : nick;
+    }
+
     @Override
     public int hashCode(){
         final int prime = 31;
@@ -134,7 +139,4 @@ public class GroupChildInfo{
         return true;
     }
 
-    
-    
 }
-

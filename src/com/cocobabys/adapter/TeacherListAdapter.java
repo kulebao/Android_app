@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cocobabys.R;
 import com.cocobabys.dbmgr.info.Teacher;
+import com.cocobabys.event.EmptyEvent;
 import com.cocobabys.utils.Utils;
 
 import android.content.Context;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import de.greenrobot.event.EventBus;
 import io.rong.imkit.RongIM;
 
 public class TeacherListAdapter extends BaseAdapter {
@@ -83,6 +85,8 @@ public class TeacherListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				Log.d("", "start im id=" + teacher.getIMUserid() + " name =" + teacher.getName());
+				//通知ContactListActivity这里发起了私聊，等会直接退出到主界面
+				EventBus.getDefault().post(new EmptyEvent());
 				RongIM.getInstance().startPrivateChat(context, teacher.getIMUserid(), teacher.getName());
 			}
 		});

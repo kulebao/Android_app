@@ -369,6 +369,10 @@ public class DataMgr {
 		groupMemberMgr.addGroupInfo(content);
 	}
 
+	public GroupParentInfo getGroupParentInfo(int internalID){
+	    return groupMemberMgr.getGroupParentInfo(internalID);
+	}
+	
 	public List<GroupParentInfo> getAllGroupParentsInfo() {
 		return groupMemberMgr.getAllGroupParentsInfo();
 	}

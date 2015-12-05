@@ -16,7 +16,6 @@ import org.json.JSONObject;
 
 import com.cocobabys.R;
 import com.cocobabys.adapter.SchoolNoticeGridViewAdapter;
-import com.cocobabys.bean.IMExpandInfo;
 import com.cocobabys.bean.MainGridInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
@@ -128,6 +127,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.school_notice);
 
+		Log.d("", "ZZZZZ SchoolNoticeActivity oncreat");
+
 		ActivityHelper.setBackKeyLitsenerOnTopbar(this, R.string.app_name);
 
 		initProgressDlg();
@@ -144,29 +145,11 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	}
 
 	private void runCheckClassRelationshipTask() {
-		// ChildInfo child = DataMgr.getInstance().getSelectedChild();
-		//
-		// if (child != null) {
-		// List<IMExpandInfo> classMemberInfo =
-		// DataMgr.getInstance().getClassMemberInfo(child.getClass_id());
-		//
-		// if (classMemberInfo.isEmpty()) {
-		// GetClassRelationShipJob job = new GetClassRelationShipJob(handler,
-		// child.getClass_id());
-		// job.execute();
-		// }
-		// }
-
 		List<String> allClassID = DataMgr.getInstance().getAllClassID();
-
+		Log.d("", "AAAA runCheckClassRelationshipTask class count =" + allClassID.size());
 		for (String classid : allClassID) {
-			// List<IMExpandInfo> classMemberInfo =
-			// DataMgr.getInstance().getClassMemberInfo(classid);
-
-			// if (classMemberInfo.isEmpty()) {
 			GetClassRelationShipJob job = new GetClassRelationShipJob(handler, classid);
 			job.execute();
-			// }
 		}
 	}
 
@@ -202,7 +185,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		MethodUtils.executeCheckHomeworkCommand(this);
 		MethodUtils.executeCheckCookbookCommand(this);
 		MethodUtils.executeCheckScheduleCommand(this);
-		MethodUtils.executeCheckChatCommand(this);
+		// MethodUtils.executeCheckChatCommand(this);
 		MethodUtils.executeCheckEducationCommand(this);
 	}
 
@@ -600,6 +583,7 @@ public class SchoolNoticeActivity extends TabChildActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		Log.d("", "ZZZZZ SchoolNoticeActivity onResume");
 		handleResume();
 	}
 
@@ -1128,6 +1112,14 @@ public class SchoolNoticeActivity extends TabChildActivity {
 		} else {
 			startToChatActivity();
 		}
+	}
+
+	
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		Log.d("", "SchoolNoticeActivity onNewIntent");
 	}
 
 	protected void runJoinGroupTask(Handler handler, List<String> classidList) {

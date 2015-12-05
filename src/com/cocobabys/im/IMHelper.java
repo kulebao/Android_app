@@ -1,22 +1,8 @@
 package com.cocobabys.im;
 
-import java.util.List;
-
-import com.cocobabys.R;
-import com.cocobabys.activities.MyApplication;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.GroupParentInfo;
-import com.cocobabys.dbmgr.info.IMGroupInfo;
-import com.cocobabys.dbmgr.info.ParentInfo;
-import com.cocobabys.dbmgr.info.Teacher;
-import com.cocobabys.utils.IMUtils;
-
-import android.content.ContentResolver;
-import android.content.res.Resources;
-import android.net.Uri;
-import android.util.Log;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.RongIMClient.ResultCallback;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Conversation.ConversationNotificationStatus;
 import io.rong.imlib.model.Conversation.ConversationType;
@@ -24,11 +10,31 @@ import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 
+import java.util.List;
+
+import android.content.ContentResolver;
+import android.content.res.Resources;
+import android.content.res.Resources.NotFoundException;
+import android.net.Uri;
+import android.util.Log;
+
+import com.cocobabys.R;
+import com.cocobabys.activities.MyApplication;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.GroupParentInfo;
+import com.cocobabys.dbmgr.info.IMGroupInfo;
+import com.cocobabys.dbmgr.info.Teacher;
+import com.cocobabys.utils.IMUtils;
+
 public class IMHelper
 		implements RongIM.UserInfoProvider, RongIMClient.OnReceiveMessageListener, RongIM.GroupInfoProvider {
 
+	private static final String IM_SYSTEM_ADMIN = "im_system_admin";
+
 	@Override
 	public UserInfo getUserInfo(String userId) {
+		// String currentGroupID =
+		// MyApplication.getInstance().getCurrentGroupID();
 		UserInfo bret = null;
 		try {
 			if (userId.toLowerCase().startsWith("t_")) {
@@ -36,21 +42,26 @@ public class IMHelper
 				String id = getID(userId);
 				Teacher teacher = DataMgr.getInstance().getTeacherByInternalID(Integer.parseInt(id));
 				if (teacher != null) {
-					bret = new UserInfo(userId, teacher.getName(), Uri.parse(teacher.getHead_icon()));
+					bret = new UserInfo(userId, teacher.getName() + "老师", Uri.parse(teacher.getHead_icon()));
 				} else {
-					bret = new UserInfo(userId, "教师", null);
+					bret = new UserInfo(userId, "老师", null);
 				}
 
 			} else if (userId.toLowerCase().startsWith("p_")) {
 				// 家长
 				String id = getID(userId);
-				ParentInfo parent = DataMgr.getInstance().getParentByInternalID(Integer.parseInt(id));
+				GroupParentInfo groupParentInfo = DataMgr.getInstance().getGroupParentInfo(Integer.parseInt(id));
+				// ParentInfo parent =
+				// DataMgr.getInstance().getParentByInternalID(Integer.parseInt(id));
 
-				if (parent != null) {
-					bret = new UserInfo(userId, parent.getName(), Uri.parse(parent.getPortrait()));
+				if (groupParentInfo != null) {
+					bret = new UserInfo(userId, groupParentInfo.getNick_name(),
+							Uri.parse(groupParentInfo.getPortrait()));
 				} else {
 					bret = new UserInfo(userId, "家长", null);
 				}
+			} else if (IM_SYSTEM_ADMIN.equalsIgnoreCase(userId)) {
+				bret = new UserInfo(userId, "系统管理员", null);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,21 +92,39 @@ public class IMHelper
 
 	@Override
 	public Group getGroupInfo(String groupId) {
-		Group group = null;
-		IMGroupInfo imGroupInfo = DataMgr.getInstance().getIMGroupInfoByGroupID(groupId);
-		Resources r = MyApplication.getInstance().getResources();
-
-		Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
-				+ r.getResourcePackageName(R.drawable.small_logo) + "/" + r.getResourceTypeName(R.drawable.small_logo)
-				+ "/" + r.getResourceEntryName(R.drawable.small_logo));
-
-		if (imGroupInfo != null) {
-			group = new Group(groupId, imGroupInfo.getGroup_name(), uri);
-		}
-
-		Log.d("imGroupInfo", "AAAA imGroupInfo =" + imGroupInfo.toString());
+		Group group = getGroup(groupId);
 
 		return group;
+	}
+
+	private static Group getGroup(String groupId) {
+		Group group = null;
+		IMGroupInfo imGroupInfo;
+		try {
+			imGroupInfo = DataMgr.getInstance().getIMGroupInfoByGroupID(groupId);
+			Resources r = MyApplication.getInstance().getResources();
+
+			Uri uri = Uri.parse(
+					ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + r.getResourcePackageName(R.drawable.small_logo)
+							+ "/" + r.getResourceTypeName(R.drawable.small_logo) + "/"
+							+ r.getResourceEntryName(R.drawable.small_logo));
+
+			if (imGroupInfo != null) {
+				group = new Group(groupId, imGroupInfo.getGroup_name(), uri);
+				Log.d("imGroupInfo", "AAAA imGroupInfo =" + imGroupInfo.toString());
+			}
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return group;
+	}
+
+	public static void updateGroupInfoCache(String groupId) {
+		Group group = getGroup(groupId);
+		if (group != null) {
+			RongIM.getInstance().refreshGroupInfoCache(group);
+		}
 	}
 
 	public static void updateParentsInfoCache() {
@@ -136,6 +165,11 @@ public class IMHelper
 			Log.d("", "AAAA updateTeacherInfoCache tid=" + imUserid + " name=" + teacher.getName());
 			RongIM.getInstance().refreshUserInfoCache(new UserInfo(imUserid, teacher.getName(), uri));
 		}
+	}
+
+	public static void clearChatRecord(ConversationType conversionType, String targetID,
+			ResultCallback<Boolean> callback) {
+		RongIM.getInstance().getRongIMClient().clearMessages(conversionType, targetID, callback);
 	}
 
 	public static void setGroupMessageNotificationStatus(ConversationType conversationType, String groupID,

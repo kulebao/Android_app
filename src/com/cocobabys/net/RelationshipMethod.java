@@ -34,7 +34,7 @@ public class RelationshipMethod {
 		if (result.getResCode() == HttpStatus.SC_OK) {
 			DataMgr.getInstance().addGroupInfo(result.getContent());
 			methodResult.setResultType(EventType.GET_CLASS_RELATIONSHIP_SUCCESS);
-
+			Log.d("", "AAAA updateParentsInfoCache ");
 			IMHelper.updateParentsInfoCache();
 		}
 

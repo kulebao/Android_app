@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import de.greenrobot.event.EventBus;
 
 import com.cocobabys.R;
 import com.cocobabys.bean.IMExpandInfo;
@@ -21,6 +22,7 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.GroupParentInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
+import com.cocobabys.event.EmptyEvent;
 import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 
@@ -114,7 +116,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
 
 	private void setChildData(int groupPosition, int childPosition, ChildViewHolder viewHolder) {
 		final GroupParentInfo child = getChild(groupPosition, childPosition);
-		viewHolder.nameView.setText(child.getName());
+		viewHolder.nameView.setText(child.getNick_name());
 
 		ImageUtils.displayEx(child.getPortrait(), viewHolder.headView, 40, 40);
 
@@ -126,6 +128,8 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
 				@Override
 				public void onClick(View v) {
 					Log.d("", "start im id=" + child.getIMUserid() + " name =" + child.getName());
+					// 通知ContactListActivity这里发起了私聊，等会直接退出到主界面
+					EventBus.getDefault().post(new EmptyEvent());
 					RongIM.getInstance().startPrivateChat(mContext, child.getIMUserid(), child.getName());
 				}
 			});

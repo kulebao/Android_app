@@ -45,14 +45,10 @@ public class SchoolNoticeGridViewAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			FlagHolder flagholder = this.new FlagHolder();
-			convertView = LayoutInflater.from(this.context).inflate(
-					R.layout.grid_item, null);
-			flagholder.newDataSymble = (ImageView) convertView
-					.findViewById(R.id.noticeImg);
-			flagholder.nameView = (TextView) convertView
-					.findViewById(R.id.ItemText);
-			flagholder.headView = (ImageView) convertView
-					.findViewById(R.id.ItemImage);
+			convertView = LayoutInflater.from(this.context).inflate(R.layout.grid_item, null);
+			flagholder.newDataSymble = (ImageView) convertView.findViewById(R.id.noticeImg);
+			flagholder.nameView = (TextView) convertView.findViewById(R.id.ItemText);
+			flagholder.headView = (ImageView) convertView.findViewById(R.id.ItemImage);
 			setDataToViews(position, flagholder);
 			convertView.setTag(flagholder);
 		} else {
@@ -83,8 +79,7 @@ public class SchoolNoticeGridViewAdapter extends BaseAdapter {
 		if (resID == R.drawable.pnotice) {
 			String prop = DataUtils.getProp(ConstantValue.HAVE_NEWS_NOTICE);
 			Log.d("", "setNoticeImg prop=" + prop);
-			String hprop = DataUtils
-					.getProp(ConstantValue.HAVE_HOMEWORK_NOTICE);
+			String hprop = DataUtils.getProp(ConstantValue.HAVE_HOMEWORK_NOTICE);
 			if ("true".equals(prop)) {
 				flagholder.newDataSymble.setVisibility(View.VISIBLE);
 			} else {
@@ -114,15 +109,15 @@ public class SchoolNoticeGridViewAdapter extends BaseAdapter {
 				flagholder.newDataSymble.setVisibility(View.GONE);
 			}
 		} else if (resID == R.drawable.chat) {
-			String prop = DataUtils.getProp(ConstantValue.HAVE_CHAT_NOTICE);
-			if ("true".equals(prop)) {
-				flagholder.newDataSymble.setVisibility(View.VISIBLE);
-			} else {
-				flagholder.newDataSymble.setVisibility(View.GONE);
-			}
+			// String prop = DataUtils.getProp(ConstantValue.HAVE_CHAT_NOTICE);
+			// if ("true".equals(prop)) {
+			// flagholder.newDataSymble.setVisibility(View.VISIBLE);
+			// } else {
+			// flagholder.newDataSymble.setVisibility(View.GONE);
+			// }
+			flagholder.newDataSymble.setVisibility(View.GONE);
 		} else if (resID == R.drawable.education) {
-			String prop = DataUtils
-					.getProp(ConstantValue.HAVE_EDUCATION_NOTICE);
+			String prop = DataUtils.getProp(ConstantValue.HAVE_EDUCATION_NOTICE);
 			if ("true".equals(prop)) {
 				flagholder.newDataSymble.setVisibility(View.VISIBLE);
 			} else {

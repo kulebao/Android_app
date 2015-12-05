@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cocobabys"
-    android:versionCode="124"
-    android:versionName="2.7.1" >
+    android:versionCode="125"
+    android:versionName="2.7.2" >
 
     <uses-sdk android:minSdkVersion="10" />
 
@@ -328,7 +328,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.cocobabys.activities.GroupMemberActivity"
+            android:name="com.cocobabys.activities.GroupSettingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
@@ -434,6 +434,12 @@
         </activity>
         <activity
             android:name="com.cocobabys.activities.ParentGroupActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.cocobabys.activities.ContactListActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
@@ -595,7 +601,6 @@
         <!-- 会话页面 -->
         <activity
             android:name="com.cocobabys.im.ConversationActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" >
             <intent-filter>
@@ -613,7 +618,6 @@
         <!-- 会话列表 -->
         <activity
             android:name="com.cocobabys.im.ConversationListActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" >
             <intent-filter>

@@ -3,26 +3,36 @@ package com.cocobabys.dbmgr.info;
 import com.cocobabys.dbmgr.DataMgr;
 
 public class GroupParentInfo{
-    public static final String ID          = "_id";
+    public static final String ID           = "_id";
     // 服务器端的id
-    public static String       PARENT_ID   = "parent_id";
-    public static String       PARENT_NAME = "name";
-    public static String       PHONE       = "phone";
-    public static String       PORTRAIT    = "portrait";
-    public static String       TIMESTAMP   = "timestamp";
+    public static String       PARENT_ID    = "parent_id";
+    public static String       PARENT_NAME  = "name";
+    public static String       PHONE        = "phone";
+    public static String       PORTRAIT     = "portrait";
+    public static String       TIMESTAMP    = "timestamp";
 
-    public static String       INTERNAL_ID = "internal_id";
-    private String             parent_id   = "";
-    private String             name        = "";
-    private String             phone       = "";
-    private String             portrait    = "";
-    private long               timestamp   = -1;
+    public static String       INTERNAL_ID  = "internal_id";
+    private String             parent_id    = "";
+    private String             name         = "";
+    private String             phone        = "";
+    private String             portrait     = "";
+    private long               timestamp    = -1;
     // 本地数据库id
-    private int                local_id    = 0;
+    private int                local_id     = 0;
     // 服务器端内部id
-    private int                id          = 0;
+    private int                id           = 0;
 
-    private String             relationship;
+    private String             relationship = "";
+    // 小孩昵称+关系
+    private String             nick_name    = "";
+
+    public String getNick_name(){
+        return nick_name;
+    }
+
+    public void setNick_name(String nick_name){
+        this.nick_name = nick_name;
+    }
 
     public String getRelationship(){
         return relationship;

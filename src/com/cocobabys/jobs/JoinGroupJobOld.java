@@ -6,6 +6,8 @@ import io.rong.imlib.RongIMClient.OperationCallback;
 import android.os.Handler;
 import android.util.Log;
 
+import java.util.List;
+
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.info.IMGroupInfo;
 import com.cocobabys.net.IMMethod;
@@ -15,55 +17,67 @@ import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.utils.MethodUtils;
 
-public class JoinGroupJobOld extends MyJob{
+public class JoinGroupJobOld extends MyJob {
 
-    private Handler handler;
-    private String  classid;
+	private Handler handler;
+	private List<String> classidList;
 
-    public JoinGroupJobOld(Handler handler, String classid){
-        this.handler = handler;
-        this.classid = classid;
-    }
+	public JoinGroupJobOld(Handler handler, List<String> classidList) {
+		this.handler = handler;
+		this.classidList = classidList;
+	}
 
-    @Override
-    public void run(){
-        MethodResult bret = new MethodResult(EventType.GET_IM_GROUP_FAIL);
-        try{
-            MyProxy proxy = new MyProxy();
-            MyProxyImpl bind = (MyProxyImpl)proxy.bind(new MyProxyImpl(){
-                @Override
-                public MethodResult handle() throws Exception{
-                    MethodResult result = IMMethod.getMethod().getGroupInfo(classid);
-                    return result;
-                }
-            });
+	@Override
+	public void run() {
+		try {
+			MyProxy proxy = new MyProxy();
+			MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
+				@Override
+				public MethodResult handle() throws Exception {
+					boolean bsuccess = false;
 
-            bret = MethodUtils.getBindResult(bind);
+					for (String classid : classidList) {
+						MethodResult result = IMMethod.getMethod().getGroupInfo(classid);
+						if (result.getResultType() == EventType.GET_IM_GROUP_SUCCESS) {
+							bsuccess = true;
+							joinGroup((IMGroupInfo) result.getResultObj());
+						}
+					}
 
-            if(bret.getResultType() == EventType.GET_IM_GROUP_SUCCESS){
-                IMGroupInfo groupInfo = (IMGroupInfo)bret.getResultObj();
+					// 一次都没有成功，没有执行到加入群组的操作，这里需要发送失败通知
+					if (!bsuccess) {
+						handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_FAIL);
+					}
 
-                RongIM.getInstance().getRongIMClient()
-                        .joinGroup(groupInfo.getGroup_id(), groupInfo.getGroup_name(), new OperationCallback(){
+					return null;
+				}
+			});
 
-                            @Override
-                            public void onSuccess(){
-                                Log.d("", "JOIN_IM_GROUP_SUCCESS");
-                                handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_SUCCESS);
-                            }
+			MethodUtils.getBindResult(bind);
 
-                            @Override
-                            public void onError(ErrorCode errorCode){
-                                Log.d("",
-                                      "JOIN_IM_GROUP_FAIL err :" + errorCode.getMessage() + " code="
-                                              + errorCode.getValue());
-                                handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_FAIL);
-                            }
-                        });
-            }
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void joinGroup(IMGroupInfo groupInfo) {
+
+		RongIM.getInstance().getRongIMClient().joinGroup(groupInfo.getGroup_id(), groupInfo.getGroup_name(),
+				new OperationCallback() {
+
+					@Override
+					public void onSuccess() {
+						Log.d("", "DDD JOIN_IM_GROUP_SUCCESS");
+						handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_SUCCESS);
+					}
+
+					@Override
+					public void onError(ErrorCode errorCode) {
+						Log.d("", "DDD JOIN_IM_GROUP_FAIL err :" + errorCode.getMessage() + " code="
+								+ errorCode.getValue());
+						handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_FAIL);
+					}
+				});
+	}
 
 }

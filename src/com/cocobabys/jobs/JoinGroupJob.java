@@ -3,10 +3,13 @@ package com.cocobabys.jobs;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient.ErrorCode;
 import io.rong.imlib.RongIMClient.OperationCallback;
-import android.os.Handler;
-import android.util.Log;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import android.os.Handler;
+import android.util.Log;
 
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.info.IMGroupInfo;
@@ -15,16 +18,18 @@ import com.cocobabys.net.MethodResult;
 import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
-import com.cocobabys.utils.MethodUtils;
 
 public class JoinGroupJob extends MyJob {
 
 	private Handler handler;
 	private List<String> classidList;
+	private CountDownLatch countDownLatch;
+	private MethodResult bret = new MethodResult(EventType.JOIN_IM_GROUP_FAIL);
 
 	public JoinGroupJob(Handler handler, List<String> classidList) {
 		this.handler = handler;
 		this.classidList = classidList;
+		countDownLatch = new CountDownLatch(classidList.size());
 	}
 
 	@Override
@@ -34,26 +39,27 @@ public class JoinGroupJob extends MyJob {
 			MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
 				@Override
 				public MethodResult handle() throws Exception {
-					boolean bsuccess = false;
-
 					for (String classid : classidList) {
 						MethodResult result = IMMethod.getMethod().getGroupInfo(classid);
 						if (result.getResultType() == EventType.GET_IM_GROUP_SUCCESS) {
-							bsuccess = true;
 							joinGroup((IMGroupInfo) result.getResultObj());
+						} else {
+							countDownLatch.countDown();
 						}
 					}
 
-					// 一次都没有成功，没有执行到加入群组的操作，这里需要发送失败通知
-					if (!bsuccess) {
-						handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_FAIL);
+					try {
+						countDownLatch.await(30, TimeUnit.SECONDS);
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						handler.sendEmptyMessage(bret.getResultType());
 					}
 
 					return null;
 				}
 			});
-
-			MethodUtils.getBindResult(bind);
+			bind.handle();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,14 +74,17 @@ public class JoinGroupJob extends MyJob {
 					@Override
 					public void onSuccess() {
 						Log.d("", "DDD JOIN_IM_GROUP_SUCCESS");
-						handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_SUCCESS);
+						// handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_SUCCESS);
+						bret.setResultType(EventType.JOIN_IM_GROUP_SUCCESS);
+						countDownLatch.countDown();
 					}
 
 					@Override
 					public void onError(ErrorCode errorCode) {
 						Log.d("", "DDD JOIN_IM_GROUP_FAIL err :" + errorCode.getMessage() + " code="
 								+ errorCode.getValue());
-						handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_FAIL);
+						// handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_FAIL);
+						countDownLatch.countDown();
 					}
 				});
 	}

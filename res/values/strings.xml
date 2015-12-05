@@ -338,5 +338,12 @@
     <string name="get_group_info">获取群组信息</string>
     <string name="teacherList">教师列表</string>
     <string name="groupNoticeSetting">群组消息免打扰</string>
+    <string name="contact">联系人</string>
+    <string name="classlist">班级列表</string>
+    <string name="group_member">群成员</string>
+    <string name="clear_chat_record">清空聊天记录</string>
+    <string name="clear_success">清除成功</string>
+    <string name="clear_fail">清除失败</string>
+    <string name="clear_group_chat">清空群组消息</string>
 
 </resources>
