@@ -106,8 +106,8 @@ public class ConversationActivity extends BaseEventFragmentActivity {
 		mTargetIds = intent.getData().getQueryParameter("targetIds");
 		title = intent.getData().getQueryParameter("title");
 		// intent.getData().getLastPathSegment();//获得当前会话类型
-		mConversationType = Conversation.ConversationType
-				.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
+        mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment()
+                .toUpperCase(Locale.getDefault()));
 	}
 
 	private void initUI() {
@@ -145,20 +145,14 @@ public class ConversationActivity extends BaseEventFragmentActivity {
 		setActionBarTitle(title);
 	}
 
-	/**
-	 * 加载会话页面 ConversationFragment
-	 *
-	 * @param mConversationType
-	 * @param mTargetId
-	 */
-	@SuppressLint("NewApi")
-	private void enterFragment(Conversation.ConversationType mConversationType, String mTargetId) {
-		if (mConversationType.equals(ConversationType.GROUP)) {
-			Log.d("", "enterFragment group mTargetId=" + mTargetId);
-			MyApplication.getInstance().setCurrentGroupID(mTargetId);
-		} else {
-			MyApplication.getInstance().setCurrentGroupID("");
-		}
+    /**
+     * 加载会话页面 ConversationFragment
+     *
+     * @param mConversationType
+     * @param mTargetId
+     */
+    @SuppressLint("NewApi")
+    private void enterFragment(Conversation.ConversationType mConversationType, String mTargetId){
 
 		Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon().appendPath("conversation")
 				.appendPath(mConversationType.getName().toLowerCase()).appendQueryParameter("targetId", mTargetId)

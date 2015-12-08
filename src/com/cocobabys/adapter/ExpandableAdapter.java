@@ -1,20 +1,6 @@
 package com.cocobabys.adapter;
 
-import io.rong.imkit.RongIM;
-
 import java.util.List;
-
-import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-import de.greenrobot.event.EventBus;
 
 import com.cocobabys.R;
 import com.cocobabys.bean.IMExpandInfo;
@@ -22,9 +8,18 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.GroupParentInfo;
 import com.cocobabys.dbmgr.info.ParentInfo;
-import com.cocobabys.event.EmptyEvent;
 import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
+
+import android.content.Context;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ExpandableAdapter extends BaseExpandableListAdapter {
 	private Context mContext;
@@ -121,18 +116,20 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
 		ImageUtils.displayEx(child.getPortrait(), viewHolder.headView, 40, 40);
 
 		if (isSelfChildParent(groupPosition, childPosition)) {
-			viewHolder.imsmsView.setVisibility(View.VISIBLE);
+			// viewHolder.imsmsView.setVisibility(View.VISIBLE);
 			viewHolder.phoneView.setVisibility(View.VISIBLE);
 
-			viewHolder.imsmsView.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Log.d("", "start im id=" + child.getIMUserid() + " name =" + child.getName());
-					// 通知ContactListActivity这里发起了私聊，等会直接退出到主界面
-					EventBus.getDefault().post(new EmptyEvent());
-					RongIM.getInstance().startPrivateChat(mContext, child.getIMUserid(), child.getName());
-				}
-			});
+			// viewHolder.imsmsView.setOnClickListener(new OnClickListener() {
+			// @Override
+			// public void onClick(View v) {
+			// Log.d("", "start im id=" + child.getIMUserid() + " name =" +
+			// child.getName());
+			// // 通知ContactListActivity这里发起了私聊，等会直接退出到主界面
+			// EventBus.getDefault().post(new EmptyEvent());
+			// RongIM.getInstance().startPrivateChat(mContext,
+			// child.getIMUserid(), child.getName());
+			// }
+			// });
 
 			viewHolder.phoneView.setOnClickListener(new OnClickListener() {
 				@Override
@@ -167,6 +164,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
 		return false;
 	}
 
+	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
 	}

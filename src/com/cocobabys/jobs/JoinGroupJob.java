@@ -39,16 +39,16 @@ public class JoinGroupJob extends MyJob {
 			MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
 				@Override
 				public MethodResult handle() throws Exception {
-					for (String classid : classidList) {
-						MethodResult result = IMMethod.getMethod().getGroupInfo(classid);
-						if (result.getResultType() == EventType.GET_IM_GROUP_SUCCESS) {
-							joinGroup((IMGroupInfo) result.getResultObj());
-						} else {
-							countDownLatch.countDown();
-						}
-					}
-
 					try {
+						for (String classid : classidList) {
+							MethodResult result = IMMethod.getMethod().getGroupInfo(classid);
+							if (result.getResultType() == EventType.GET_IM_GROUP_SUCCESS) {
+								joinGroup((IMGroupInfo) result.getResultObj());
+							} else {
+								countDownLatch.countDown();
+							}
+						}
+
 						countDownLatch.await(30, TimeUnit.SECONDS);
 					} catch (Exception e) {
 						e.printStackTrace();

@@ -33,5 +33,7 @@
     
     <color name="divid_color">#e5e5e5</color>
     <color name="light_back_blue">#e6f6fc</color>
+    
+    <color name="divider">#d2d2d2</color>
 
 </resources>

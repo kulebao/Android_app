@@ -111,6 +111,17 @@ public class DataMgr {
 	public List<ChildInfo> getAllChildrenInfo() {
 		return childrenInfoMgr.getAllChildrenInfo();
 	}
+	
+	public String getClassName(String classid) {
+		 List<ChildInfo> allChildrenInfo = childrenInfoMgr.getAllChildrenInfo();
+		 for(ChildInfo childInfo : allChildrenInfo){
+			 if(childInfo.getClass_id().equals(classid)){
+				 return childInfo.getClass_name();
+			 }
+		 }
+		 
+		 return "";
+	}
 
 	public List<String> getAllClassID() {
 		return childrenInfoMgr.getAllClassID();
@@ -369,6 +380,9 @@ public class DataMgr {
 		groupMemberMgr.addGroupInfo(content);
 	}
 
+	public List<GroupParentInfo> getAllGroupParentsInfoWithNick(){
+	    return groupMemberMgr.getAllGroupParentsInfoWithNick();
+	}
 	public GroupParentInfo getGroupParentInfo(int internalID){
 	    return groupMemberMgr.getGroupParentInfo(internalID);
 	}

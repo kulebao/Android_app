@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:layout_marginTop="8dp"
-    android:background="#d7d7d7"
+    android:background="@color/divider"
     android:orientation="horizontal"
     android:paddingTop="8dp" >
 

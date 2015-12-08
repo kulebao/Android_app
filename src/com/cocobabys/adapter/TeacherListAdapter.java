@@ -4,13 +4,11 @@ import java.util.List;
 
 import com.cocobabys.R;
 import com.cocobabys.dbmgr.info.Teacher;
-import com.cocobabys.event.EmptyEvent;
 import com.cocobabys.utils.Utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,8 +16,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import de.greenrobot.event.EventBus;
-import io.rong.imkit.RongIM;
 
 public class TeacherListAdapter extends BaseAdapter {
 	private final Context context;
@@ -81,15 +77,17 @@ public class TeacherListAdapter extends BaseAdapter {
 			flagholder.headView.setImageResource(R.drawable.chat_head_icon);
 		}
 
-		flagholder.imsmsView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Log.d("", "start im id=" + teacher.getIMUserid() + " name =" + teacher.getName());
-				//通知ContactListActivity这里发起了私聊，等会直接退出到主界面
-				EventBus.getDefault().post(new EmptyEvent());
-				RongIM.getInstance().startPrivateChat(context, teacher.getIMUserid(), teacher.getName());
-			}
-		});
+		// flagholder.imsmsView.setOnClickListener(new OnClickListener() {
+		// @Override
+		// public void onClick(View v) {
+		// Log.d("", "start im id=" + teacher.getIMUserid() + " name =" +
+		// teacher.getName());
+		// //通知ContactListActivity这里发起了私聊，等会直接退出到主界面
+		// EventBus.getDefault().post(new EmptyEvent());
+		// RongIM.getInstance().startPrivateChat(context, teacher.getIMUserid(),
+		// teacher.getName());
+		// }
+		// });
 
 		flagholder.phoneView.setOnClickListener(new OnClickListener() {
 			@Override

@@ -77,8 +77,6 @@ public class GroupSettingActivity extends UmengStatisticsActivity{
         
         disturbButton = (CheckSwitchButton)findViewById(R.id.checkSwithcButton);
 
-        disturbButton = (CheckSwitchButton)findViewById(R.id.checkSwithcButton);
-
         disturbButton.setChecked(IMUtils.isMessageDisturbEnable(groupID));
         disturbButton.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 

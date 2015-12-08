@@ -177,6 +177,8 @@ public class ConstantValue {
 	
 	public static final String IM_TOKEN = "im_token";
 	
+	public static final String SHOW_GROUP_ENTRY = "show_group_entry";
+	
 	public static final String CLASS_ID = "class_id";
 	
 	public static final String IM_GROUP_ID = "im_group_id";

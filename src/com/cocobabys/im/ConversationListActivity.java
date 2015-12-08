@@ -174,6 +174,7 @@ public class ConversationListActivity extends FragmentActivity {
 	private void startToContactListActivity(String class_id) {
 		Intent intent = new Intent(ConversationListActivity.this, ContactListActivity.class);
 		intent.putExtra(ConstantValue.CLASS_ID, class_id);
+		intent.putExtra(ConstantValue.SHOW_GROUP_ENTRY, true);
 		ConversationListActivity.this.startActivity(intent);
 	}
 }

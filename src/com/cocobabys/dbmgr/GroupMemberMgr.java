@@ -149,6 +149,10 @@ public class GroupMemberMgr{
     GroupParentInfo getGroupParentInfo(int internalID){
         GroupParentInfo info = getGroupParentInfoByInternalID(internalID);
 
+        return buildInfo(info);
+    }
+
+    private GroupParentInfo buildInfo(GroupParentInfo info){
         if(info != null){
             List<RelationshipInfo> relationshipInfos = getRelationshipInfoByParentid(info.getParent_id());
 
@@ -331,6 +335,16 @@ public class GroupMemberMgr{
         return groupParentInfo;
     }
 
+    //暂时不考虑效率吧。。。
+    List<GroupParentInfo> getAllGroupParentsInfoWithNick(){
+        List<GroupParentInfo> allGroupParentsInfo = getAllGroupParentsInfo();
+
+        for(GroupParentInfo groupParentInfo : allGroupParentsInfo){
+            //增加nickname
+            buildInfo(groupParentInfo);
+        }
+        return allGroupParentsInfo;
+    }
     List<GroupParentInfo> getAllGroupParentsInfo(){
         List<GroupParentInfo> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();

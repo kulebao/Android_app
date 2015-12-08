@@ -20,6 +20,7 @@ import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.Teacher;
+import com.cocobabys.event.EmptyEvent;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetTeacherListJob;
 
@@ -32,7 +33,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import de.greenrobot.event.EventBus;
+import io.rong.imkit.RongIM;
 
 public class TeacherListFragment extends Fragment {
 
@@ -120,6 +125,16 @@ public class TeacherListFragment extends Fragment {
 		adapter = new TeacherListAdapter(getActivity(), listinfo);
 		listView = (ListView) view.findViewById(R.id.teacher_list);
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Teacher teacher = adapter.getItem(position);
+				Log.d("", "start im id=" + teacher.getIMUserid() + " name =" + teacher.getName());
+				EventBus.getDefault().post(new EmptyEvent());
+				RongIM.getInstance().startPrivateChat(getActivity(), teacher.getIMUserid(), teacher.getName());
+			}
+		});
+
 	}
 
 }

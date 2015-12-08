@@ -13,13 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/sample_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:id="@+id/top"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:background="@drawable/topbar"
@@ -44,8 +45,8 @@
                 android:id="@+id/parentListView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_toRightOf="@+id/teacherListView"
                 android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/teacherListView"
                 android:clickable="true"
                 android:onClick="parentList"
                 android:src="@drawable/parent_btn_nor" />
@@ -53,9 +54,21 @@
     </RelativeLayout>
 
     <FrameLayout
-        android:background="#d7d7d7"
         android:id="@+id/contact_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/groupEntry"
+        android:layout_below="@+id/top"
+        android:background="#d7d7d7" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/groupEntry"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/topbar"
+        android:onClick="enterGroup"
+        android:textColor="@color/white"
+        android:visibility="visible" />
+
+</RelativeLayout>

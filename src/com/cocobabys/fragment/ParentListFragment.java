@@ -20,6 +20,9 @@ import com.cocobabys.bean.IMExpandInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.GroupParentInfo;
+import com.cocobabys.dbmgr.info.ParentInfo;
+import com.cocobabys.event.EmptyEvent;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetClassRelationShipJob;
 
@@ -33,7 +36,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
+import de.greenrobot.event.EventBus;
+import io.rong.imkit.RongIM;
 
 public class ParentListFragment extends Fragment {
 
@@ -129,6 +135,26 @@ public class ParentListFragment extends Fragment {
 		listView = (ExpandableListView) view.findViewById(R.id.expandList);
 		listView.setAdapter(adapter);
 		listView.setGroupIndicator(null);
+
+		listView.setOnChildClickListener(new OnChildClickListener() {
+
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition,
+					long id) {
+
+				ParentInfo self = DataMgr.getInstance().getSelfInfoByPhone();
+
+				final GroupParentInfo child = adapter.getChild(groupPosition, childPosition);
+
+				if (!self.getParent_id().equals(child.getParent_id())) {
+					Log.d("", "start im id=" + child.getIMUserid() + " name =" + child.getName());
+					// 通知ContactListActivity这里发起了私聊，等会直接退出到主界面
+					EventBus.getDefault().post(new EmptyEvent());
+					RongIM.getInstance().startPrivateChat(getActivity(), child.getIMUserid(), child.getName());
+				}
+				return true;
+			}
+		});
 	}
 
 	private void runGetClassRelationShipTask() {
