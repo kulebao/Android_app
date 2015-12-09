@@ -1,14 +1,19 @@
 package com.cocobabys.im;
 
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
+import io.rong.imkit.RongIM;
 import io.rong.imkit.RongIM.ConversationBehaviorListener;
 import io.rong.imlib.model.Conversation.ConversationType;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import io.rong.message.ImageMessage;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.view.View;
+
+import com.cocobabys.event.EmptyEvent;
+
+import de.greenrobot.event.EventBus;
 
 public class SimpleConversationBahavior implements ConversationBehaviorListener {
 
@@ -37,7 +42,10 @@ public class SimpleConversationBahavior implements ConversationBehaviorListener 
 	}
 
 	@Override
-	public boolean onUserPortraitClick(Context arg0, ConversationType arg1, UserInfo arg2) {
+	public boolean onUserPortraitClick(Context context, ConversationType arg1, UserInfo userInfo) {
+		// 通知ContactListActivity这里发起了私聊，等会直接退出到主界面
+		EventBus.getDefault().post(new EmptyEvent());
+		RongIM.getInstance().startPrivateChat(context, userInfo.getUserId(), userInfo.getName());
 		return false;
 	}
 

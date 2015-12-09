@@ -1,5 +1,7 @@
 package com.cocobabys.utils;
 
+import org.apache.http.HttpStatus;
+
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.ServerUrls;
@@ -7,12 +9,13 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.net.HttpResult;
+import com.cocobabys.threadpool.MyThreadPoolMgr;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
+import io.rong.imlib.RongIMClient;;
 
 public class IMUtils {
 
@@ -52,23 +55,32 @@ public class IMUtils {
 		if (instance.getApplicationInfo().packageName
 				.equals(MyApplication.getCurProcessName(instance.getApplicationContext()))) {
 
-			RongIM.connect(token, new RongIMClient.ConnectCallback() {
-				@Override
-				public void onTokenIncorrect() {
-					Log.e("", "reconnect token invalid :" + token);
-				}
+			// RongIMClient.ConnectCallback connectCallback = new
+			// RongIMClient.ConnectCallback() {
+			// @Override
+			// public void onTokenIncorrect() {
+			// Log.e("", "reconnect token invalid :" + token);
+			// MyThreadPoolMgr.getGenericService().execute(new Runnable() {
+			// @Override
+			// public void run() {
+			// refreshToken();
+			// }
+			// });
+			// }
+			//
+			// @Override
+			// public void onSuccess(String userid) {
+			// Log.d("", "connect onSuccess token:" + token);
+			// Log.d("", "connect onSuccess userid:" + userid);
+			// }
+			//
+			// @Override
+			// public void onError(RongIMClient.ErrorCode errorCode) {
+			// Log.e("", "reconnect error :" + errorCode);
+			// }
+			// };
 
-				@Override
-				public void onSuccess(String userid) {
-					Log.d("", "connect onSuccess token:" + token);
-					Log.d("", "connect onSuccess  userid:" + userid);
-				}
-
-				@Override
-				public void onError(RongIMClient.ErrorCode errorCode) {
-					Log.e("", "reconnect error :" + errorCode);
-				}
-			});
+			RongIM.connect(token, new MyRongIMConnectCallback());
 		}
 	}
 
@@ -79,18 +91,48 @@ public class IMUtils {
 
 	public static void refreshToken() {
 		ParentInfo parent = DataMgr.getInstance().getSelfInfoByPhone();
-		String imUserid = parent.getIMUserid();
-		Log.d("", "refreshToken imUserid =" + imUserid);
-		String command = createRefreshTokenCommand(imUserid);
+		// String imUserid = parent.getIMUserid();
+		int internal_id = parent.getInternal_id();
+		Log.d("", "refreshToken internal_id =" + internal_id);
+		String command = createRefreshTokenCommand(internal_id + "");
 		Log.d("", "refreshToken command =" + command);
 
 		try {
 			HttpResult result = HttpClientHelper.executeGet(command);
 			Log.d("", "refreshToken executeGet =" + result.getContent());
-			String token = result.getJsonObject().getString("token");
-			IMUtils.saveToken(token);
+			if (result.getResCode() == HttpStatus.SC_OK) {
+				String token = result.getJsonObject().getString("token");
+				IMUtils.saveToken(token);
+				Log.d("", "refreshToken connect again! token=" + token);
+				RongIM.connect(token, new MyRongIMConnectCallback());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
+	private static class MyRongIMConnectCallback extends RongIMClient.ConnectCallback {
+		@Override
+		public void onTokenIncorrect() {
+			Log.e("", "reconnect token invalid");
+			MyThreadPoolMgr.getGenericService().execute(new Runnable() {
+				@Override
+				public void run() {
+					refreshToken();
+				}
+			});
+		}
+
+		@Override
+		public void onSuccess(String userid) {
+			Log.d("", "connect onSuccess token");
+			Log.d("", "connect onSuccess  userid:" + userid);
+		}
+
+		@Override
+		public void onError(RongIMClient.ErrorCode errorCode) {
+			Log.e("", "reconnect error :" + errorCode);
+		}
+	}
+
 }

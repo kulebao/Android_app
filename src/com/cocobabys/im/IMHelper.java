@@ -67,7 +67,12 @@ public class IMHelper implements RongIM.UserInfoProvider, RongIMClient.OnReceive
             e.printStackTrace();
         }
 
-        Log.d("", "AAAA getUserInfo  userId=" + userId + " info=" + bret);
+        if(bret != null){
+            Log.d("",
+                  "AAAA getUserInfo  userId=" + userId + " uri=" + bret.getPortraitUri() + " name=" + bret.getName());
+        } else{
+            Log.d("", "AAAA getUserInfo  userId=" + userId + " info is null!!!");
+        }
         return bret;
     }
 
@@ -120,10 +125,15 @@ public class IMHelper implements RongIM.UserInfoProvider, RongIMClient.OnReceive
         return group;
     }
 
-    public static void updateGroupInfoCache(String groupId){
-        Group group = getGroup(groupId);
-        if(group != null){
-            RongIM.getInstance().refreshGroupInfoCache(group);
+    public static void updateGroupInfoCache(){
+        DataMgr instance = DataMgr.getInstance();
+        List<String> allClassID = instance.getAllClassID();
+        String schoolID = instance.getSchoolID();
+        for(String classid : allClassID){
+            Group group = getGroup(schoolID + "_" + classid);
+            if(group != null){
+                RongIM.getInstance().refreshGroupInfoCache(group);
+            }
         }
     }
 
@@ -133,7 +143,7 @@ public class IMHelper implements RongIM.UserInfoProvider, RongIMClient.OnReceive
         for(GroupParentInfo groupParentInfo : allGroupParentsInfo){
             Uri uri = null;
             String imUserid = groupParentInfo.getIMUserid();
-            if(groupParentInfo.getPortrait().isEmpty()){
+            if(!groupParentInfo.getPortrait().isEmpty()){
                 uri = Uri.parse(groupParentInfo.getPortrait());
             }
             /**
@@ -152,7 +162,7 @@ public class IMHelper implements RongIM.UserInfoProvider, RongIMClient.OnReceive
         for(Teacher teacher : allTeachers){
             Uri uri = null;
             String imUserid = teacher.getIMUserid();
-            if(teacher.getHead_icon().isEmpty()){
+            if(!teacher.getHead_icon().isEmpty()){
                 uri = Uri.parse(teacher.getHead_icon());
             }
             /**

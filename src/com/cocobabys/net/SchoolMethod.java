@@ -111,6 +111,7 @@ public class SchoolMethod {
 		Log.e("DDDDD ", "getSchoolInfo cmd:" + command);
 		try {
 			result = HttpClientHelper.executeGet(command);
+			Log.e("DDDDD ", "getSchoolInfo result:" + result.getContent());
 			bret = handleGetSchoolInfoResult(result);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -57,7 +57,7 @@ public class ContactListActivity extends FragmentActivity {
 		if (entry) {
 			Button groupEntry = (Button) findViewById(R.id.groupEntry);
 			groupEntry.setVisibility(View.VISIBLE);
-			className = DataMgr.getInstance().getClassName(classid);
+			className = DataMgr.getInstance().getClassNameByClassID(Integer.parseInt(classid));
 			if (TextUtils.isEmpty(className)) {
 				groupEntry.setText("发消息给班级群");
 			} else {
