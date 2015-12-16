@@ -1,5 +1,8 @@
 package com.cocobabys.bean;
 
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.RelationshipInfo;
+
 public class RelationInfo {
 	private String relationship = "";
 	private String childid = "";
@@ -38,4 +41,11 @@ public class RelationInfo {
 		this.cardnum = cardnum;
 	}
 
+	public RelationshipInfo toRelationshipInfo() {
+		RelationshipInfo info = new RelationshipInfo();
+		info.setChild_id(childid);
+		info.setRelationship(relationship);
+		info.setParent_id(DataMgr.getInstance().getSelfInfoByPhone().getParent_id());
+		return info;
+	}
 }

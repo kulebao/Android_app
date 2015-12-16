@@ -654,6 +654,21 @@ public class DataUtils {
 	public static void saveRelationInfo(RelationInfo relationInfo) {
 		saveProp(relationInfo.getChildid(), com.alibaba.fastjson.JSONObject.toJSONString(relationInfo));
 	}
+	
+	public static RelationInfo getCurrentChildRelationInfo() {
+		String childid = DataMgr.getInstance().getSelectedChild().getServer_id();
+		RelationInfo relationInfo = new RelationInfo();
+		try {
+			String prop = getProp(childid, "");
+			if (!TextUtils.isEmpty(prop)) {
+				relationInfo = JSONObject.parseObject(prop, RelationInfo.class);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return relationInfo;
+	}
 
 	public static RelationInfo getRelationInfo(String childid) {
 		RelationInfo relationInfo = new RelationInfo();
@@ -667,5 +682,16 @@ public class DataUtils {
 		}
 
 		return relationInfo;
+	}
+
+	public static String getCard() {
+		RelationInfo relationInfo = getRelationInfo(DataMgr.getInstance().getSelectedChild().getServer_id());
+	
+		String card = relationInfo.getCardnum();
+	
+		if (TextUtils.isEmpty(card)) {
+			card = DataMgr.getInstance().getSelfInfoByPhone().getCard();
+		}
+		return card;
 	}
 }

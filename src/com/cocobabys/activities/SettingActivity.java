@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.cocobabys.R;
 import com.cocobabys.adapter.SettingListAdapter;
+import com.cocobabys.bean.FullParentInfo;
+import com.cocobabys.bean.RelationInfo;
 import com.cocobabys.bean.SettingInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
@@ -13,6 +15,8 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.UpdateParentJob;
+import com.cocobabys.rx.ParentRxHelper;
+import com.cocobabys.rx.RelationshipRxHelper;
 import com.cocobabys.taskmgr.CheckUpdateTask;
 import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.utils.DataUtils;
@@ -20,6 +24,7 @@ import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +35,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,12 +44,17 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.Conversation;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.schedulers.Schedulers;
 
 public class SettingActivity extends UmengStatisticsActivity {
 	private Handler handler;
@@ -79,9 +90,21 @@ public class SettingActivity extends UmengStatisticsActivity {
 		// WRAP_CONTENT or MATCH_PARENT)
 		final PointerPopupWindow p = new PointerPopupWindow(this,
 				getResources().getDimensionPixelSize(R.dimen.popup_width));
+		View convertView = setClickListener(p);
+
+		p.setContentView(convertView);
+		p.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+		p.setPointerImageRes(R.drawable.ic_popup_pointer);
+		p.setAlignMode(PointerPopupWindow.AlignMode.CENTER_FIX);
+		p.showAsPointer(photo);
+	}
+
+	private View setClickListener(final PointerPopupWindow p) {
 		View convertView = LayoutInflater.from(this).inflate(R.layout.parent_option, null);
 		View takepic = convertView.findViewById(R.id.takepic);
 		View openGallery = convertView.findViewById(R.id.openGallery);
+		View changeName = convertView.findViewById(R.id.changeName);
+		View changeRelationship = convertView.findViewById(R.id.changeRelationship);
 
 		takepic.setOnClickListener(new OnClickListener() {
 			@Override
@@ -99,11 +122,157 @@ public class SettingActivity extends UmengStatisticsActivity {
 			}
 		});
 
-		p.setContentView(convertView);
-		p.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
-		p.setPointerImageRes(R.drawable.ic_popup_pointer);
-		p.setAlignMode(PointerPopupWindow.AlignMode.CENTER_FIX);
-		p.showAsPointer(photo);
+		changeName.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				p.dismiss();
+				showChangeNameDlg(R.string.change_parent_name);
+			}
+		});
+
+		changeRelationship.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				p.dismiss();
+				showChangeRelationshipDlg(R.string.change_relation);
+			}
+		});
+		return convertView;
+	}
+
+	// 修改昵称的对话框
+	private void showChangeNameDlg(final int titleID) {
+		final View textEntryView = LayoutInflater.from(this).inflate(R.layout.text_entry, null);
+		final EditText contentEdit = getEditText(textEntryView);
+		contentEdit.setText(DataMgr.getInstance().getSelfInfoByPhone().getName());
+		new AlertDialog.Builder(this).setTitle(titleID).setView(textEntryView)
+				.setPositiveButton(R.string.confirm, new ChangeNameClickListener(contentEdit))
+				.setNegativeButton(R.string.back, null).create().show();
+	}
+
+	// 修改关系的对话框
+	private void showChangeRelationshipDlg(final int titleID) {
+		final View textEntryView = LayoutInflater.from(this).inflate(R.layout.text_entry, null);
+		final EditText contentEdit = getEditText(textEntryView);
+		contentEdit.setText(DataUtils.getCurrentChildRelationInfo().getRelationship());
+		new AlertDialog.Builder(this).setTitle(titleID).setView(textEntryView)
+				.setPositiveButton(R.string.confirm, new ChangeRelationshipClickListener(contentEdit))
+				.setNegativeButton(R.string.back, null).create().show();
+	}
+
+	private EditText getEditText(final View textEntryView) {
+		final EditText contentEdit = (EditText) textEntryView.findViewById(R.id.content);
+		contentEdit.setFilters(new InputFilter[] { new InputFilter.LengthFilter(10) });
+		return contentEdit;
+	}
+
+	private void changeName(final String name) {
+		ParentRxHelper parentRxHelper = new ParentRxHelper();
+
+		parentRxHelper.getOnlineParentInfo().map(parentRxHelper.updateParentFunc(name)).subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread()).doOnSubscribe(getPreAction())
+				.subscribe(new Observer<FullParentInfo>() {
+					@Override
+					public void onCompleted() {
+						Log.d("", "CCC onCompleted");
+						dialog.cancel();
+					}
+
+					@Override
+					public void onError(Throwable arg0) {
+						Log.d("", "CCC onError e=" + arg0.toString());
+						dialog.cancel();
+						Utils.makeToast(SettingActivity.this, R.string.change_parent_name_fail);
+					}
+
+					@Override
+					public void onNext(FullParentInfo fullParentInfo) {
+						Log.d("", "CCC onNext fullParentInfo=" + fullParentInfo);
+						// 这里fullParentInfo为空也没有关系，rx的框架会捕获这个异常，并自动调用onError方法
+						refreshUI(fullParentInfo);
+					}
+				});
+	}
+
+	private void changeRelationship(final String relationship) {
+		RelationshipRxHelper relationshipRxHelper = new RelationshipRxHelper();
+
+		String cardnum = DataUtils.getCard();
+
+		Log.d("", "TTT cardnum=" + cardnum);
+
+		relationshipRxHelper.updateRelationship(cardnum, relationship).subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread()).doOnSubscribe(getPreAction())
+				.subscribe(new Observer<Integer>() {
+					@Override
+					public void onCompleted() {
+						Log.d("", "TTT onCompleted");
+						dialog.cancel();
+					}
+
+					@Override
+					public void onError(Throwable arg0) {
+						Log.d("", "TTT onError e=" + arg0.toString());
+						dialog.cancel();
+						Utils.makeToast(SettingActivity.this, R.string.change_relation_fail);
+					}
+
+					@Override
+					public void onNext(Integer eventype) {
+						Log.d("", "TTT onNext eventype=" + eventype);
+						handleUpdateRelationshipNext(eventype);
+					}
+
+				});
+	}
+
+	private void handleUpdateRelationshipNext(Integer eventype) {
+		if (EventType.BIND_CARD_SUCCESS != eventype) {
+			Utils.makeToast(SettingActivity.this, R.string.change_relation_fail);
+		} else {
+			RelationInfo currentChildRelationInfo = DataUtils.getCurrentChildRelationInfo();
+			DataMgr.getInstance().updateRelationship(currentChildRelationInfo.toRelationshipInfo());
+			TextView relation = (TextView) findViewById(R.id.relation);
+			relation.setText(currentChildRelationInfo.getRelationship());
+		}
+	}
+
+	private Action0 getPreAction() {
+		return new Action0() {
+			@Override
+			public void call() {
+				// 执行在subscribe发生的线程，对于此例，subscribe发生在主线程
+				dialog.setMessage(getResources().getString(R.string.change_info));
+				dialog.show();
+			}
+		};
+	}
+
+	private void refreshUI(FullParentInfo fullParentInfo) {
+		TextView relation = (TextView) findViewById(R.id.relation);
+		relation.setText(fullParentInfo.getFixedRelationShip(DataMgr.getInstance().getSelectedChild().getServer_id()));
+
+		TextView name = (TextView) findViewById(R.id.name);
+		name.setText(fullParentInfo.getName());
+	}
+
+	private void uploadIcon(Intent data) {
+		if (data != null) {
+			try {
+				Bitmap bitmap = ImageUtils.getBitmap(data);
+				String relativePath = Utils.getUploadParentUrl(System.currentTimeMillis());
+				newPortrait = UploadFactory.getUploadHost() + relativePath;
+				Log.d("", "uploadIcon portrait=" + newPortrait + "\n relativePath=" + relativePath);
+				// do upload here
+				dialog.setMessage(getResources().getString(R.string.uploading_icon));
+				dialog.show();
+
+				UpdateParentJob job = new UpdateParentJob(handler, newPortrait, bitmap, relativePath);
+				job.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void chooseFromGallery() {
@@ -228,25 +397,6 @@ public class SettingActivity extends UmengStatisticsActivity {
 		case CHANGE_CHILD:
 			initHead();
 			break;
-		}
-	}
-
-	private void uploadIcon(Intent data) {
-		if (data != null) {
-			try {
-				Bitmap bitmap = ImageUtils.getBitmap(data);
-				String relativePath = Utils.getUploadParentUrl(System.currentTimeMillis());
-				newPortrait = UploadFactory.getUploadHost() + relativePath;
-				Log.d("", "uploadIcon portrait=" + newPortrait + "\n relativePath=" + relativePath);
-				// do upload here
-				dialog.setMessage(getResources().getString(R.string.uploading_icon));
-				dialog.show();
-
-				UpdateParentJob job = new UpdateParentJob(handler, newPortrait, bitmap, relativePath);
-				job.execute();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -513,6 +663,46 @@ public class SettingActivity extends UmengStatisticsActivity {
 	private void releaseBmp() {
 		if (loacalBitmap != null) {
 			loacalBitmap.recycle();
+		}
+	}
+
+	private class ChangeNameClickListener implements android.content.DialogInterface.OnClickListener {
+
+		private EditText editText;
+
+		public ChangeNameClickListener(EditText editText) {
+			this.editText = editText;
+		}
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			final String content = editText.getText().toString().replace(" ", "");
+			if (TextUtils.isEmpty(content)) {
+				Utils.makeToast(SettingActivity.this, R.string.content_can_not_be_empty);
+				return;
+			}
+
+			changeName(content);
+		}
+	}
+
+	private class ChangeRelationshipClickListener implements android.content.DialogInterface.OnClickListener {
+
+		private EditText editText;
+
+		public ChangeRelationshipClickListener(EditText editText) {
+			this.editText = editText;
+		}
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			final String content = editText.getText().toString().replace(" ", "");
+			if (TextUtils.isEmpty(content)) {
+				Utils.makeToast(SettingActivity.this, R.string.content_can_not_be_empty);
+				return;
+			}
+
+			changeRelationship(content);
 		}
 	}
 

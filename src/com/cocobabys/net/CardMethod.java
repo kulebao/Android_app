@@ -4,6 +4,7 @@ import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.cocobabys.bean.RelationInfo;
@@ -20,6 +21,8 @@ public class CardMethod {
 
 	// 卡号被其他家长绑定
 	private static final int CARD_ALREADY_USED = 6;
+	
+	private static final int CARD_ALREADY_BIND_TEACHER = 7;
 
 	private static final int CARD_INVALID = 4;
 
@@ -42,30 +45,48 @@ public class CardMethod {
 		MethodResult methodResult = new MethodResult(EventType.BIND_CARD_FAIL);
 		String command = createCommand(cardnum);
 
-		String content = createContent();
+		String content = createContent("");
 
 		Log.d("DJC", "bindCard cmd:" + command + " content=" + content);
 		result = HttpClientHelper.executePost(command, content);
 
-		Log.d("DJC", "bindCard result:" + result);
+		return handle(result, methodResult);
+	}
+
+	public MethodResult changeRelationship(String cardnum, String relationship) throws Exception {
+		HttpResult result = new HttpResult();
+		MethodResult methodResult = new MethodResult(EventType.BIND_CARD_FAIL);
+		String command = createCommand(cardnum);
+
+		String content = createContent(relationship);
+
+		Log.d("DJC", "changeRelationship cmd:" + command + " content=" + content);
+		result = HttpClientHelper.executePost(command, content);
+
+		return handle(result, methodResult);
+	}
+
+	private MethodResult handle(HttpResult result, MethodResult methodResult) throws JSONException {
+		Log.d("DJC", "TTT bindCard result:" + result);
 		int errorCode = result.getErrorCode();
 
 		switch (errorCode) {
 		case NO_ERROR:
 			if (result.getResCode() == HttpStatus.SC_OK) {
 				methodResult.setResultType(EventType.BIND_CARD_SUCCESS);
-				
+
 				String childid = DataMgr.getInstance().getSelectedChild().getServer_id();
-				
+
 				RelationInfo relationInfo = DataUtils.getRelationInfo(childid);
 				relationInfo.setChildid(childid);
 				relationInfo.setCardnum(result.getJsonObject().optString("card"));
 				relationInfo.setRelationid(result.getJsonObject().optString("id"));
-				
+				relationInfo.setRelationship(result.getJsonObject().optString("relationship"));
 				DataUtils.saveRelationInfo(relationInfo);
 				// DataUtils.saveProp(card, id);
 			}
 			break;
+		case CARD_ALREADY_BIND_TEACHER:
 		case DUPLICATED_RELATIONSHIP:
 		case CARD_ALREADY_USED:
 			methodResult.setResultType(EventType.BIND_DUPLICATED);
@@ -81,13 +102,17 @@ public class CardMethod {
 		return methodResult;
 	}
 
-	private String createContent() throws JSONException {
+	private String createContent(String relationship) throws JSONException {
 		String childid = DataMgr.getInstance().getSelectedChild().getServer_id();
 
 		JSONObject obj = new JSONObject();
 		ParentInfo parentInfo = DataMgr.getInstance().getSelfInfoByPhone();
 
-		obj.put("relationship", parentInfo.getFixedRelationShip(childid));
+		if (TextUtils.isEmpty(relationship)) {
+			relationship = parentInfo.getFixedRelationShip(childid);
+		}
+
+		obj.put("relationship", relationship);
 
 		RelationInfo relationInfo = DataUtils.getRelationInfo(childid);
 

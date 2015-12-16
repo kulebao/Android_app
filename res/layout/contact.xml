@@ -69,6 +69,6 @@
         android:background="@drawable/topbar"
         android:onClick="enterGroup"
         android:textColor="@color/white"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 </RelativeLayout>

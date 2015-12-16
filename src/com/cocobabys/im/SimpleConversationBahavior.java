@@ -6,14 +6,14 @@ import io.rong.imlib.model.Conversation.ConversationType;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import io.rong.message.ImageMessage;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
-import com.cocobabys.event.EmptyEvent;
-
-import de.greenrobot.event.EventBus;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.ParentInfo;
 
 public class SimpleConversationBahavior implements ConversationBehaviorListener {
 
@@ -42,10 +42,19 @@ public class SimpleConversationBahavior implements ConversationBehaviorListener 
 	}
 
 	@Override
-	public boolean onUserPortraitClick(Context context, ConversationType arg1, UserInfo userInfo) {
-		// 通知ContactListActivity这里发起了私聊，等会直接退出到主界面
-		EventBus.getDefault().post(new EmptyEvent());
-		RongIM.getInstance().startPrivateChat(context, userInfo.getUserId(), userInfo.getName());
+	public boolean onUserPortraitClick(Context context, ConversationType conversationType, UserInfo userInfo) {
+		try {
+			ParentInfo selfInfoByPhone = DataMgr.getInstance().getSelfInfoByPhone();
+			if (conversationType == ConversationType.GROUP
+					&& !selfInfoByPhone.getIMUserid().equals(userInfo.getUserId())) {
+				// EventBus.getDefault().post(new EmptyEvent());
+				RongIM.getInstance().startPrivateChat(context, userInfo.getUserId(), userInfo.getName());
+				Activity activity = (Activity) context;
+				activity.finish();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

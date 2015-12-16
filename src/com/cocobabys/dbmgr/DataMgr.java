@@ -21,6 +21,7 @@ import com.cocobabys.dbmgr.info.NewChatInfo;
 import com.cocobabys.dbmgr.info.News;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.ReceiptInfo;
+import com.cocobabys.dbmgr.info.RelationshipInfo;
 import com.cocobabys.dbmgr.info.ScheduleInfo;
 import com.cocobabys.dbmgr.info.SchoolInfo;
 import com.cocobabys.dbmgr.info.SwipeInfo;
@@ -376,6 +377,10 @@ public class DataMgr {
 		newChatMgr.clear();
 	}
 
+	public long updateRelationship(RelationshipInfo relationshipInfo) {
+		return groupMemberMgr.updateRelationship(relationshipInfo);
+	}
+	
 	public void addGroupInfo(String content) throws Exception {
 		groupMemberMgr.addGroupInfo(content);
 	}

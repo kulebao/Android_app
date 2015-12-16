@@ -320,7 +320,7 @@
     <string name="bindingCard">绑定中，请稍后...</string>
     <string name="bindCardSuccess">绑定成功</string>
     <string name="bindCardFail">绑定失败</string>
-    <string name="bindDup">绑定失败，卡号已被其他家长绑定</string>
+    <string name="bindDup">绑定失败，该卡号已被占用</string>
     <string name="cardInvalid">绑定失败,卡未授权</string>
     <string name="invalidCardNum">卡号格式有误，请重新输入</string>
     <string name="getRaltionFail">获取家人列表失败</string>
@@ -345,5 +345,12 @@
     <string name="clear_success">清除成功</string>
     <string name="clear_fail">清除失败</string>
     <string name="clear_group_chat">清空群组消息</string>
+    
+    <string name="change_parent_name">设置家长姓名</string>
+    <string name="change_parent_name_fail">修改姓名失败</string>
+    <string name="change_relation">设置亲属关系</string>
+    <string name="change_relation_fail">修改关系失败</string>
+    <string name="content_can_not_be_empty">内容不能为空</string>
+    <string name="change_info">修改信息。。。</string>
 
 </resources>

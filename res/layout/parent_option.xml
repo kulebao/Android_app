@@ -6,21 +6,47 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/takepic"
-        android:layout_marginTop="10dp"
+        android:id="@+id/changeName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/change_parent_name"
+        android:textColor="@android:color/white"
+        android:textSize="22sp" />
+
+    <View style="@style/pop_win_line" />
+
+    <TextView
+        android:id="@+id/changeRelationship"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/change_relation"
+        android:textColor="@android:color/white"
+        android:textSize="22sp" />
+
+    <View style="@style/pop_win_line" />
+
+    <TextView
+        android:id="@+id/takepic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
         android:text="从相机拍摄头像"
         android:textColor="@android:color/white"
         android:textSize="22sp" />
 
+    <View style="@style/pop_win_line" />
+
     <TextView
         android:id="@+id/openGallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
         android:text="从相册选择头像"
         android:textColor="@android:color/white"

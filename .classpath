@@ -10,5 +10,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="libs/rxandroid1.1.0.jar" sourcepath="E:/coolbao/RxAndroid-master/rxandroid-1.1.0-sources.jar"/>
+	<classpathentry kind="lib" path="libs/rxjava-1.1.0.jar" sourcepath="E:/coolbao/RxAndroid-master/rxjava-1.1.0-sources.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

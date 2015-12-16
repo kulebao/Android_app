@@ -738,8 +738,8 @@ public class SchoolNoticeActivity extends TabChildActivity {
 
 	// 修改昵称的对话框
 	private void showTextDlg() {
-		final View textEntryView = LayoutInflater.from(this).inflate(R.layout.baby_nickname_text_entry, null);
-		final EditText nicknameEdit = (EditText) textEntryView.findViewById(R.id.baby_nickname_edit);
+		final View textEntryView = LayoutInflater.from(this).inflate(R.layout.text_entry, null);
+		final EditText nicknameEdit = (EditText) textEntryView.findViewById(R.id.content);
 		new AlertDialog.Builder(this).setTitle(R.string.set_baby_nickname).setView(textEntryView)
 				.setPositiveButton(R.string.confirm, new android.content.DialogInterface.OnClickListener() {
 					@Override

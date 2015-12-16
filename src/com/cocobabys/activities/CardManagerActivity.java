@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cocobabys.R;
-import com.cocobabys.bean.RelationInfo;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.handler.MyHandler;
@@ -41,13 +39,7 @@ public class CardManagerActivity extends UmengStatisticsActivity {
 		inputCardNum = (EditText) findViewById(R.id.inputCardNum);
 		bindCard = (Button) findViewById(R.id.bindCard);
 
-		RelationInfo relationInfo = DataUtils.getRelationInfo(DataMgr.getInstance().getSelectedChild().getServer_id());
-
-		String card = relationInfo.getCardnum();
-
-		if (TextUtils.isEmpty(card)) {
-			card = DataMgr.getInstance().getSelfInfoByPhone().getCard();
-		}
+		String card = DataUtils.getCard();
 
 		Log.d("", "initView card=" + card);
 
