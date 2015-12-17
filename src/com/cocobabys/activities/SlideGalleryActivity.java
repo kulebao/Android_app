@@ -5,6 +5,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.adapter.SlideGalleryAdapter;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.NoticeAction;
+import com.cocobabys.customview.SlideGallery;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.ExpInfo;
+import com.cocobabys.taskmgr.DownloadImgeJob;
+import com.cocobabys.utils.Utils;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,16 +26,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.SlideGalleryAdapter;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.NoticeAction;
-import com.cocobabys.customview.SlideGallery;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ExpInfo;
-import com.cocobabys.taskmgr.DownloadImgeJob;
-import com.cocobabys.utils.Utils;
 
 public class SlideGalleryActivity extends UmengStatisticsActivity {
 	/** Called when the activity is first created. */

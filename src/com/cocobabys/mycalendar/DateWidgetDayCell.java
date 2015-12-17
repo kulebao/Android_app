@@ -2,6 +2,9 @@ package com.cocobabys.mycalendar;
 
 import java.util.Calendar;
 
+import com.cocobabys.activities.SwipeCalendarActivity;
+import com.cocobabys.bean.SwipeInfoOnCalendar;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -20,9 +23,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout.LayoutParams;
-
-import com.cocobabys.activities.SwipeCalendarActivity;
-import com.cocobabys.bean.SwipeInfoOnCalendar;
 
 /**
  * 日历控件单元格绘制类

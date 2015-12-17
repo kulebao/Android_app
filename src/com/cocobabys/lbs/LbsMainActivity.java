@@ -1,17 +1,5 @@
 package com.cocobabys.lbs;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Bundle;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
 import com.baidu.mapapi.SDKInitializer;
 import com.cocobabys.R;
 import com.cocobabys.activities.UmengStatisticsActivity;
@@ -23,6 +11,18 @@ import com.cocobabys.jobs.GetLocatorPowerJob;
 import com.cocobabys.net.LbsMethod;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class LbsMainActivity extends UmengStatisticsActivity {
 

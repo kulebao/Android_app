@@ -2,6 +2,9 @@ package com.jeremyfeinstein.slidingmenu.lib;
 
 import java.lang.reflect.Method;
 
+import com.cocobabys.R;
+import com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove.OnPageChangeListener;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -25,9 +28,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-
-import com.cocobabys.R;
-import com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove.OnPageChangeListener;
 
 public class SlidingMenu extends RelativeLayout {
 

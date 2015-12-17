@@ -12,6 +12,14 @@ import java.util.concurrent.Future;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import com.cocobabys.R;
+import com.cocobabys.activities.UmengStatisticsActivity;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.threadpool.MyThreadPoolMgr;
+import com.cocobabys.utils.Utils;
+import com.huamaitel.api.HMCallback;
+import com.huamaitel.api.HMDefines;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -37,14 +45,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.activities.UmengStatisticsActivity;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.threadpool.MyThreadPoolMgr;
-import com.cocobabys.utils.Utils;
-import com.huamaitel.api.HMCallback;
-import com.huamaitel.api.HMDefines;
 
 /**
  * 视频主界面

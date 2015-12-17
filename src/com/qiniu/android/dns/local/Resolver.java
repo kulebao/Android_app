@@ -1,16 +1,16 @@
 package com.qiniu.android.dns.local;
 
-import com.qiniu.android.dns.DnsException;
-import com.qiniu.android.dns.Domain;
-import com.qiniu.android.dns.IResolver;
-import com.qiniu.android.dns.NetworkInfo;
-import com.qiniu.android.dns.Record;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Random;
+
+import com.qiniu.android.dns.DnsException;
+import com.qiniu.android.dns.Domain;
+import com.qiniu.android.dns.IResolver;
+import com.qiniu.android.dns.NetworkInfo;
+import com.qiniu.android.dns.Record;
 
 /**
  * Created by bailong on 15/6/16.

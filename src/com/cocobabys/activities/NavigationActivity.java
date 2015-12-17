@@ -1,11 +1,5 @@
 package com.cocobabys.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.os.Bundle;
-import android.util.Log;
-
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -17,6 +11,12 @@ import com.baidu.mapapi.utils.route.RouteParaOption;
 import com.cocobabys.R;
 import com.cocobabys.bean.BusinessInfo;
 import com.cocobabys.utils.Utils;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.os.Bundle;
+import android.util.Log;
 
 public class NavigationActivity extends UmengStatisticsActivity {
 	// 单位毫秒

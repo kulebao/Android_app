@@ -5,6 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.cocobabys.R;
+import com.cocobabys.adapter.DonwloadModule.DownloadListener;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.SwipeInfo;
+import com.cocobabys.utils.ImageDownloader;
+import com.cocobabys.utils.Utils;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
@@ -15,14 +23,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.DonwloadModule.DownloadListener;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.SwipeInfo;
-import com.cocobabys.utils.ImageDownloader;
-import com.cocobabys.utils.Utils;
 
 public class SwipeListAdapter extends BaseAdapter {
 	private final Context context;

@@ -5,14 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.widget.ListView;
-import android.widget.Toast;
-
 import com.cocobabys.R;
 import com.cocobabys.adapter.ScheduleListAdapter;
 import com.cocobabys.bean.ScheduleListItem;
@@ -23,6 +15,14 @@ import com.cocobabys.dbmgr.info.ScheduleInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.GetScheduleTask;
 import com.cocobabys.utils.DataUtils;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.widget.ListView;
+import android.widget.Toast;
 
 public class ScheduleActivity extends UmengStatisticsActivity {
 	private ScheduleListAdapter adapter;

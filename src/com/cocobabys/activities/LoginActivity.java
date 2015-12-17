@@ -1,5 +1,14 @@
 package com.cocobabys.activities;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.taskmgr.BindPushTask;
+import com.cocobabys.taskmgr.LoginTask;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,15 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.taskmgr.BindPushTask;
-import com.cocobabys.taskmgr.LoginTask;
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.Utils;
 
 public class LoginActivity extends MyActivity {
 	private EditText inuputpwdView;

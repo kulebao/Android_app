@@ -16,6 +16,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import com.cocobabys.R;
+import com.cocobabys.activities.MyApplication;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventMap;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.customview.CustomDialog;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.ParentInfo;
+import com.cocobabys.dlgmgr.DlgMgr;
+import com.cocobabys.media.MyMediaScannerConnectionClient;
+import com.cocobabys.push.PushModel;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
@@ -38,18 +50,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.activities.MyApplication;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventMap;
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.customview.CustomDialog;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ParentInfo;
-import com.cocobabys.dlgmgr.DlgMgr;
-import com.cocobabys.media.MyMediaScannerConnectionClient;
-import com.cocobabys.push.PushModel;
 
 public class Utils {
 	public static final int NETWORK_NOT_CONNECTED = -1;

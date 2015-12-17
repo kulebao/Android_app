@@ -1,19 +1,19 @@
 package com.cocobabys.im;
 
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.ParentInfo;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.view.View;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.RongIM.ConversationBehaviorListener;
 import io.rong.imlib.model.Conversation.ConversationType;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import io.rong.message.ImageMessage;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
-
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ParentInfo;
 
 public class SimpleConversationBahavior implements ConversationBehaviorListener {
 

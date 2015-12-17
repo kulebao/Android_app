@@ -1,5 +1,7 @@
 package com.cocobabys.customview;
 
+import com.cocobabys.R;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -11,8 +13,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
-
-import com.cocobabys.R;
 
 /**
  * An indicator of progress, similar to Android's ProgressBar. Can be used in

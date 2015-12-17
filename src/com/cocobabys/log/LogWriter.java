@@ -7,10 +7,10 @@ import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.util.Log;
-
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.utils.Utils;
+
+import android.util.Log;
 
 public class LogWriter {
 

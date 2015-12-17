@@ -3,10 +3,6 @@ package com.cocobabys.noticepaser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.cocobabys.R;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.activities.SwipeDetailActivity;
@@ -17,6 +13,10 @@ import com.cocobabys.dbmgr.info.SwipeInfo;
 import com.cocobabys.receiver.MyPushMessageReceiver;
 import com.cocobabys.threadpool.MyThreadPoolMgr;
 import com.cocobabys.utils.Utils;
+
+import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class SwapCardNoticePaser implements NoticePaser {
 	@Override

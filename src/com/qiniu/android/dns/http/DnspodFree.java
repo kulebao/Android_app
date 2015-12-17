@@ -1,9 +1,9 @@
 package com.qiniu.android.dns.http;
 
-import com.qiniu.android.dns.Domain;
-import com.qiniu.android.dns.IResolver;
-import com.qiniu.android.dns.NetworkInfo;
-import com.qiniu.android.dns.Record;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -11,10 +11,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.qiniu.android.dns.Domain;
+import com.qiniu.android.dns.IResolver;
+import com.qiniu.android.dns.NetworkInfo;
+import com.qiniu.android.dns.Record;
 
 /**
  * Created by bailong on 15/6/12.

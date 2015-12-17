@@ -6,15 +6,15 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.text.TextUtils;
-
 import com.cocobabys.bean.IMExpandInfo;
 import com.cocobabys.dbmgr.info.GroupChildInfo;
 import com.cocobabys.dbmgr.info.GroupParentInfo;
 import com.cocobabys.dbmgr.info.RelationshipInfo;
+
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 
 public class GroupMemberMgr {
 	private SqliteHelper dbHelper;

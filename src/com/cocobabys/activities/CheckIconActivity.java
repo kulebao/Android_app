@@ -2,6 +2,16 @@ package com.cocobabys.activities;
 
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.NewChatInfo;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.jobs.UploadChatIconJob;
+import com.cocobabys.utils.ImageDownloader;
+import com.cocobabys.utils.ImageUtils;
+
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,16 +25,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.NewChatInfo;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.UploadChatIconJob;
-import com.cocobabys.utils.ImageDownloader;
-import com.cocobabys.utils.ImageUtils;
 
 public class CheckIconActivity extends UmengStatisticsActivity {
 

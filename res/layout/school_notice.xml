@@ -166,13 +166,14 @@
             android:src="@drawable/guard_bg" />
 
         <ImageView
+            android:id="@+id/guardpic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
             android:scaleType="center"
-            android:src="@drawable/guardtop" />
+            android:src="@drawable/guardnew" />
     </RelativeLayout>
 
 </RelativeLayout>

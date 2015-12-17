@@ -4,9 +4,6 @@ import java.util.List;
 
 import org.apache.http.HttpStatus;
 
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.cocobabys.bean.BusinessSummary;
 import com.cocobabys.bean.MerchantInfo;
@@ -18,6 +15,9 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.MethodUtils;
+
+import android.text.TextUtils;
+import android.util.Log;
 
 public class MerchantMethod {
 	private MerchantMethod() {

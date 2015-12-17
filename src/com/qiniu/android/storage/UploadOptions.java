@@ -1,9 +1,9 @@
 package com.qiniu.android.storage;
 
-import android.util.Log;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import android.util.Log;
 
 /**
  * 定义数据或文件上传时的可选项

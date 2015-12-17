@@ -3,17 +3,6 @@ package com.cocobabys.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.TextView;
-
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -49,6 +38,17 @@ import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.GetSchoolbusLocationJob;
 import com.cocobabys.jobs.RefreshLocationJob;
 import com.cocobabys.utils.Utils;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 
 public class SchoolbusActivity extends UmengStatisticsActivity implements
 		OnGetGeoCoderResultListener {

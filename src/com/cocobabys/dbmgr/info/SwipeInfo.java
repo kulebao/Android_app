@@ -5,11 +5,11 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.text.TextUtils;
-
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
+
+import android.text.TextUtils;
 
 public class SwipeInfo {
 	private static String SWIPE_ICON = "swipe_icon";

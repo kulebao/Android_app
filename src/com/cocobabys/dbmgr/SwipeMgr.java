@@ -4,13 +4,13 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.dbmgr.info.SwipeInfo;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.dbmgr.info.SwipeInfo;
 
 class SwipeMgr {
 	private SqliteHelper dbHelper;

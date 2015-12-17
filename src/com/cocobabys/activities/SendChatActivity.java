@@ -3,18 +3,6 @@ package com.cocobabys.activities;
 import java.io.File;
 import java.util.List;
 
-import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
@@ -28,6 +16,18 @@ import com.cocobabys.handler.MyHandler;
 import com.cocobabys.jobs.SendChatJob;
 import com.cocobabys.jobs.UploadMediaFileIconJob;
 import com.cocobabys.utils.Utils;
+
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class SendChatActivity extends UmengStatisticsActivity {
 	private EditText chatContent;

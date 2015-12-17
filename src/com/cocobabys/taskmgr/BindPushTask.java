@@ -2,12 +2,6 @@ package com.cocobabys.taskmgr;
 
 import java.util.concurrent.TimeUnit;
 
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
@@ -19,6 +13,12 @@ import com.cocobabys.push.PushModel;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.IMUtils;
 import com.cocobabys.utils.Utils;
+
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class BindPushTask extends AsyncTask<Void, Void, Integer> {
 	// 最多等待60秒，bind过程

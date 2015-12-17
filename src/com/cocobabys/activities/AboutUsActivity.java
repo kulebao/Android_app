@@ -1,12 +1,12 @@
 package com.cocobabys.activities;
 
+import com.cocobabys.R;
+
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.widget.TextView;
-
-import com.cocobabys.R;
 
 public class AboutUsActivity extends UmengStatisticsActivity {
 

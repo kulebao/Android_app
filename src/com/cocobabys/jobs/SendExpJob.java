@@ -8,12 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
@@ -30,6 +24,12 @@ import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.upload.UploadMgr;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
+
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class SendExpJob extends MyJob {
 	private static final int STANDARD_PIC = 600 * 800;

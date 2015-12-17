@@ -3,13 +3,13 @@ package com.cocobabys.net;
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.cocobabys.bean.VideoAccount;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
+
+import android.util.Log;
 
 public class VideoMethod {
 	private VideoMethod() {

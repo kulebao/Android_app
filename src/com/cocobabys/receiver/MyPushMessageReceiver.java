@@ -7,14 +7,6 @@ import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-import android.widget.RemoteViews;
-
 import com.baidu.android.pushservice.PushMessageReceiver;
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
@@ -25,6 +17,14 @@ import com.cocobabys.noticepaser.NoticePaserFactory;
 import com.cocobabys.service.MyService;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.widget.RemoteViews;
 
 /**
  * Push消息处理receiver

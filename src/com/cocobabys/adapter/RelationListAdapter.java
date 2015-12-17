@@ -2,6 +2,11 @@ package com.cocobabys.adapter;
 
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.dbmgr.info.ParentInfo;
+import com.cocobabys.utils.ImageUtils;
+import com.cocobabys.utils.Utils;
+
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,11 +15,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.dbmgr.info.ParentInfo;
-import com.cocobabys.utils.ImageUtils;
-import com.cocobabys.utils.Utils;
 
 public class RelationListAdapter extends BaseAdapter{
     private final Context    context;

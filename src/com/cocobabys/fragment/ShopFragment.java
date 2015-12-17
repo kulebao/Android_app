@@ -14,18 +14,6 @@ package com.cocobabys.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Message;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
-
 import com.alibaba.fastjson.JSON;
 import com.cocobabys.R;
 import com.cocobabys.activities.MerchantActivity;
@@ -40,6 +28,18 @@ import com.cocobabys.jobs.GetMechantJob;
 import com.cocobabys.listener.MyPullToRefreshOnItemClickListener;
 import com.cocobabys.utils.Utils;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Message;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 
 public class ShopFragment extends MyListFragment {
 

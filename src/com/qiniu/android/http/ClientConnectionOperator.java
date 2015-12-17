@@ -27,8 +27,11 @@
 
 package com.qiniu.android.http;
 
-import com.qiniu.android.dns.DnsManager;
-import com.qiniu.android.dns.Domain;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 import org.apache.http.HttpHost;
 import org.apache.http.conn.HttpHostConnectException;
@@ -42,11 +45,8 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HttpContext;
 
-import java.io.IOException;
-import java.net.ConnectException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import com.qiniu.android.dns.DnsManager;
+import com.qiniu.android.dns.Domain;
 
 
 /*get from 4.3, mixed 4.0*/

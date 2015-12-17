@@ -1,11 +1,11 @@
 package com.cocobabys.dbmgr;
 
+import com.cocobabys.dbmgr.info.InfoHelper;
+import com.cocobabys.dbmgr.info.ScheduleInfo;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.cocobabys.dbmgr.info.InfoHelper;
-import com.cocobabys.dbmgr.info.ScheduleInfo;
 
 public class ScheduleInfoMgr {
     private SqliteHelper dbHelper;

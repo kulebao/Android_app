@@ -1,8 +1,13 @@
 package com.cocobabys.activities;
 
-import io.rong.imlib.RongIMClient.ErrorCode;
-import io.rong.imlib.RongIMClient.ResultCallback;
-import io.rong.imlib.model.Conversation.ConversationType;
+import com.cocobabys.R;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.customview.CheckSwitchButton;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.im.IMHelper;
+import com.cocobabys.utils.IMUtils;
+import com.cocobabys.utils.Utils;
+
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -12,14 +17,9 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.customview.CheckSwitchButton;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.im.IMHelper;
-import com.cocobabys.utils.IMUtils;
-import com.cocobabys.utils.Utils;
+import io.rong.imlib.RongIMClient.ErrorCode;
+import io.rong.imlib.RongIMClient.ResultCallback;
+import io.rong.imlib.model.Conversation.ConversationType;
 
 public class GroupSettingActivity extends UmengStatisticsActivity{
 

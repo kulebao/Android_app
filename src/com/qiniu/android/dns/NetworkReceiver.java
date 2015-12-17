@@ -1,5 +1,7 @@
 package com.qiniu.android.dns;
 
+import java.util.Locale;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,8 +9,6 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.text.TextUtils;
-
-import java.util.Locale;
 
 /**
  * Created by bailong on 15/6/19.

@@ -3,6 +3,11 @@ package com.cocobabys.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.adapter.ViewPagerAdapter;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.utils.DataUtils;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -12,11 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.ViewPagerAdapter;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.utils.DataUtils;
 
 /**
  * 
@@ -69,8 +69,8 @@ public class GuideActivity extends UmengStatisticsActivity implements OnPageChan
             // views.add(inflater.inflate(R.layout.what_new_two, null));
             // views.add(inflater.inflate(R.layout.what_new_three, null));
             // views.add(inflater.inflate(R.layout.what_new_four, null));
-            views.add(inflater.inflate(R.layout.guard_upgrade_one, null));
-            views.add(inflater.inflate(R.layout.guard_upgrade_two, null));
+            views.add(inflater.inflate(R.layout.guard_new_one, null));
+            views.add(inflater.inflate(R.layout.guard_new_two, null));
         } else{
             views.add(inflater.inflate(R.layout.guard_upgrade_one, null));
             views.add(inflater.inflate(R.layout.guard_upgrade_two, null));

@@ -1,18 +1,18 @@
 package com.qiniu.android.storage;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
+
 import com.qiniu.android.http.CompletionHandler;
 import com.qiniu.android.http.HttpManager;
 import com.qiniu.android.http.PostArgs;
 import com.qiniu.android.http.ProgressHandler;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.utils.Crc32;
-
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 表单上传

@@ -6,6 +6,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.adapter.GalleryAdapter;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.constant.NoticeAction;
+import com.cocobabys.customview.CustomGallery;
+import com.cocobabys.dlgmgr.DlgMgr;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.jobs.SendExpJob;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.ImageUtils;
+import com.cocobabys.utils.Utils;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -26,21 +41,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.GalleryAdapter;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.constant.NoticeAction;
-import com.cocobabys.customview.CustomGallery;
-import com.cocobabys.dlgmgr.DlgMgr;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.SendExpJob;
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.ImageUtils;
-import com.cocobabys.utils.Utils;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class SendExpActivity extends UmengStatisticsActivity{
     private static final int VIDEO_RECORD = 0;

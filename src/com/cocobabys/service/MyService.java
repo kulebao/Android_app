@@ -1,14 +1,14 @@
 package com.cocobabys.service;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
-import android.util.Log;
-
 import com.baidu.android.pushservice.PushSettings;
 import com.cocobabys.command.Command;
 import com.cocobabys.command.CommandFactory;
 import com.cocobabys.constant.ConstantValue;
+
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+import android.util.Log;
 
 public class MyService extends Service {
 

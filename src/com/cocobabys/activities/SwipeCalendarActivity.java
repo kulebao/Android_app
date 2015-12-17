@@ -6,6 +6,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 
+import com.cocobabys.R;
+import com.cocobabys.bean.SwipeInfoOnCalendar;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.InfoHelper;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.mycalendar.DateWidgetDayCell;
+import com.cocobabys.mycalendar.DateWidgetDayHeader;
+import com.cocobabys.mycalendar.DayStyle;
+import com.cocobabys.mycalendar.MyCalendarFont;
+import com.cocobabys.taskmgr.UpdateCalendarTask;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,19 +37,6 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.bean.SwipeInfoOnCalendar;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.InfoHelper;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.mycalendar.DateWidgetDayCell;
-import com.cocobabys.mycalendar.DateWidgetDayHeader;
-import com.cocobabys.mycalendar.DayStyle;
-import com.cocobabys.mycalendar.MyCalendarFont;
-import com.cocobabys.taskmgr.UpdateCalendarTask;
 
 /**
  * 

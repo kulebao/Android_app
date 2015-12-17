@@ -3,13 +3,6 @@ package com.cocobabys.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.TextView;
-
 import com.alibaba.fastjson.JSON;
 import com.cocobabys.R;
 import com.cocobabys.adapter.MyGalleryAdapter;
@@ -17,6 +10,13 @@ import com.cocobabys.bean.BusinessInfo;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.customview.SlideGallery;
 import com.cocobabys.utils.Utils;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.TextView;
 
 public class MyGalleryActivity extends UmengStatisticsActivity {
 	/** Called when the activity is first created. */

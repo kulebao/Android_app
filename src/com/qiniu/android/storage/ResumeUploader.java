@@ -1,18 +1,6 @@
 package com.qiniu.android.storage;
 
-import com.qiniu.android.http.CompletionHandler;
-import com.qiniu.android.http.HttpManager;
-import com.qiniu.android.http.ProgressHandler;
-import com.qiniu.android.http.ResponseInfo;
-import com.qiniu.android.utils.Crc32;
-import com.qiniu.android.utils.StringUtils;
-import com.qiniu.android.utils.UrlSafeBase64;
-
-import org.apache.http.Header;
-import org.apache.http.message.BasicHeader;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import static java.lang.String.format;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +9,19 @@ import java.io.RandomAccessFile;
 import java.util.Locale;
 import java.util.Map;
 
-import static java.lang.String.format;
+import org.apache.http.Header;
+import org.apache.http.message.BasicHeader;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.qiniu.android.http.CompletionHandler;
+import com.qiniu.android.http.HttpManager;
+import com.qiniu.android.http.ProgressHandler;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.utils.Crc32;
+import com.qiniu.android.utils.StringUtils;
+import com.qiniu.android.utils.UrlSafeBase64;
 
 /**
  * 分片上传

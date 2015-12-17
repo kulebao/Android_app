@@ -2,6 +2,7 @@
 <resources>
 
     <color name="weibo_bg_grey">#ffffcc</color>
+    <color name="pop_window_back">#0ba3de</color>
     <color name="blue">#bb3D8CB8</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>

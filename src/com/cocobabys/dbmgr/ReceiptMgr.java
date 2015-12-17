@@ -1,10 +1,10 @@
 package com.cocobabys.dbmgr;
 
+import com.cocobabys.dbmgr.info.ReceiptInfo;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.cocobabys.dbmgr.info.ReceiptInfo;
 
 class ReceiptMgr{
     private SqliteHelper dbHelper;

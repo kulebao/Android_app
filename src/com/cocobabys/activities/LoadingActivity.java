@@ -1,11 +1,5 @@
 package com.cocobabys.activities;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
@@ -13,6 +7,12 @@ import com.cocobabys.handler.MyHandler;
 import com.cocobabys.push.PushModel;
 import com.cocobabys.service.MyService;
 import com.cocobabys.taskmgr.LoadingTask;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 
 public class LoadingActivity extends UmengStatisticsActivity {
 	private Handler handler;

@@ -1,8 +1,8 @@
 package com.qiniu.android.storage;
 
-import com.qiniu.android.http.ResponseInfo;
-
 import org.json.JSONObject;
+
+import com.qiniu.android.http.ResponseInfo;
 
 /**
  * 定义数据或文件上传结束后的处理动作

@@ -8,8 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.ServerUrls;
@@ -17,6 +15,8 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.Homework;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.utils.MethodUtils;
+
+import android.util.Log;
 
 public class HomeworkMethod {
 

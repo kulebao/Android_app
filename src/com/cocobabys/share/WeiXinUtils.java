@@ -2,6 +2,11 @@ package com.cocobabys.share;
 
 import java.util.HashMap;
 
+import com.cocobabys.R;
+import com.cocobabys.activities.MyApplication;
+import com.cocobabys.bean.ShareToken;
+import com.cocobabys.utils.Utils;
+
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,11 +15,6 @@ import cn.sharesdk.framework.Platform.ShareParams;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.wechat.moments.WechatMoments;
-
-import com.cocobabys.R;
-import com.cocobabys.activities.MyApplication;
-import com.cocobabys.bean.ShareToken;
-import com.cocobabys.utils.Utils;
 
 public class WeiXinUtils {
 

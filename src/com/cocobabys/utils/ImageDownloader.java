@@ -7,15 +7,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.cocobabys.R;
+import com.cocobabys.activities.MyApplication;
+import com.cocobabys.customexception.DecodeBitmapException;
+
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
 import android.util.Log;
-
-import com.cocobabys.R;
-import com.cocobabys.activities.MyApplication;
-import com.cocobabys.customexception.DecodeBitmapException;
 
 public class ImageDownloader {
 	private static final int LIMIT_WITH = 320;

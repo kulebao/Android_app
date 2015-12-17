@@ -1,11 +1,11 @@
 package com.cocobabys.dbmgr;
 
+import com.cocobabys.dbmgr.info.CookBookInfo;
+import com.cocobabys.dbmgr.info.InfoHelper;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.cocobabys.dbmgr.info.CookBookInfo;
-import com.cocobabys.dbmgr.info.InfoHelper;
 
 public class CookBookInfoMgr {
     private SqliteHelper dbHelper;

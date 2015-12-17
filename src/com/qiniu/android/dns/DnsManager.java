@@ -1,14 +1,14 @@
 package com.qiniu.android.dns;
 
-import com.qiniu.android.dns.http.DomainNotOwn;
-import com.qiniu.android.dns.local.Hosts;
-import com.qiniu.android.dns.util.LruCache;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import com.qiniu.android.dns.http.DomainNotOwn;
+import com.qiniu.android.dns.local.Hosts;
+import com.qiniu.android.dns.util.LruCache;
 
 
 /**

@@ -1,11 +1,11 @@
 package com.cocobabys.activities;
 
+import com.cocobabys.R;
+
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-
-import com.cocobabys.R;
 
 public class ActivityHelper {
 	public static void setBackKeyLitsenerOnTopbar(final Activity activity,

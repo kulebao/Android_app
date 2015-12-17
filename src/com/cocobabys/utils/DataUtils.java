@@ -10,6 +10,20 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.baidu.mapapi.model.LatLng;
+import com.cocobabys.activities.CustomGalleryActivity;
+import com.cocobabys.activities.MyApplication;
+import com.cocobabys.bean.AblumInfo;
+import com.cocobabys.bean.AdInfo;
+import com.cocobabys.bean.RelationInfo;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.customview.CustomGallery;
+import com.cocobabys.dbmgr.DataMgr;
+
+import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -31,23 +45,14 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.baidu.mapapi.model.LatLng;
-import com.cocobabys.activities.CustomGalleryActivity;
-import com.cocobabys.activities.MyApplication;
-import com.cocobabys.bean.AblumInfo;
-import com.cocobabys.bean.AdInfo;
-import com.cocobabys.bean.RelationInfo;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.customview.CustomGallery;
-import com.cocobabys.dbmgr.DataMgr;
-
 public class DataUtils {
 
 	private static int VERSION_CODE = Integer.MAX_VALUE;
 	private static String AD_INFO = "AD_INFO";
+
+	public static String getCustomServiceID() {
+		return MyApplication.getInstance().isForTest() ? "KEFU144879042344018" : "KEFU145027362547939";
+	}
 
 	public static boolean needCheckNotice() {
 		long checkNewTime = DataUtils.getCheckNoticeTime();
@@ -217,6 +222,8 @@ public class DataUtils {
 			// 自注册的提示，应该长时间保留
 			int oldVCode = Integer.parseInt(verCode);
 			int newVCode = getVersionCode();
+
+			Log.d("", "guard isVersionUpdate old oldVCode=" + oldVCode + " newVCode=" + newVCode);
 			if (newVCode != Integer.MAX_VALUE && newVCode > oldVCode) {
 				return true;
 			}
@@ -513,6 +520,7 @@ public class DataUtils {
 		return getPath(data.getData());
 	}
 
+	@SuppressLint("NewApi")
 	public static String getPath(final Uri uri) {
 		if (uri == null) {
 			return "";
@@ -654,7 +662,7 @@ public class DataUtils {
 	public static void saveRelationInfo(RelationInfo relationInfo) {
 		saveProp(relationInfo.getChildid(), com.alibaba.fastjson.JSONObject.toJSONString(relationInfo));
 	}
-	
+
 	public static RelationInfo getCurrentChildRelationInfo() {
 		String childid = DataMgr.getInstance().getSelectedChild().getServer_id();
 		RelationInfo relationInfo = new RelationInfo();
@@ -666,7 +674,7 @@ public class DataUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return relationInfo;
 	}
 
@@ -686,9 +694,9 @@ public class DataUtils {
 
 	public static String getCard() {
 		RelationInfo relationInfo = getRelationInfo(DataMgr.getInstance().getSelectedChild().getServer_id());
-	
+
 		String card = relationInfo.getCardnum();
-	
+
 		if (TextUtils.isEmpty(card)) {
 			card = DataMgr.getInstance().getSelfInfoByPhone().getCard();
 		}

@@ -1,10 +1,10 @@
 package com.qiniu.android.utils;
 
-import android.util.Base64;
+import java.io.UnsupportedEncodingException;
 
 import com.qiniu.android.common.Constants;
 
-import java.io.UnsupportedEncodingException;
+import android.util.Base64;
 
 /**
  * URL安全的Base64编码和解码

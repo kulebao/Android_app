@@ -1,5 +1,10 @@
 package com.cocobabys.customview;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.taskmgr.AuthCodeCountDownTask;
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -7,11 +12,6 @@ import android.os.Handler.Callback;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.widget.Button;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.taskmgr.AuthCodeCountDownTask;
 
 public class CountDownButton extends Button{
 

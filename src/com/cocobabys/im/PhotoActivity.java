@@ -1,11 +1,11 @@
 package com.cocobabys.im;
 
-import io.rong.imkit.tools.PhotoFragment;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+
+import com.cocobabys.R;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,8 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import com.cocobabys.R;
+import io.rong.imkit.tools.PhotoFragment;
 
 /**
  * Created by DragonJ on 15/4/13.

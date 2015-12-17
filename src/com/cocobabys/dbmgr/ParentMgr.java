@@ -2,11 +2,11 @@ package com.cocobabys.dbmgr;
 
 import java.util.List;
 
+import com.cocobabys.dbmgr.info.ParentInfo;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.cocobabys.dbmgr.info.ParentInfo;
 
 class ParentMgr{
     private SqliteHelper dbHelper;

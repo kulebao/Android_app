@@ -1,5 +1,13 @@
 package com.cocobabys.handler;
 
+import com.cocobabys.R;
+import com.cocobabys.activities.ValidatePhoneNumActivity;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.Utils;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
@@ -11,14 +19,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.IntentCompat;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.activities.ValidatePhoneNumActivity;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.Utils;
 
 public class MyHandler extends Handler {
 

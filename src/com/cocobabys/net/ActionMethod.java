@@ -6,8 +6,6 @@ import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.cocobabys.bean.ActionInfo;
 import com.cocobabys.bean.PullToRefreshListInfo;
@@ -17,6 +15,8 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.utils.MethodUtils;
+
+import android.util.Log;
 
 public class ActionMethod{
     private ActionMethod(){}

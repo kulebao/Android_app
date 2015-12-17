@@ -93,7 +93,7 @@ public class SettingActivity extends UmengStatisticsActivity {
 		View convertView = setClickListener(p);
 
 		p.setContentView(convertView);
-		p.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+		p.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.pop_window_back)));
 		p.setPointerImageRes(R.drawable.ic_popup_pointer);
 		p.setAlignMode(PointerPopupWindow.AlignMode.CENTER_FIX);
 		p.showAsPointer(photo);
@@ -554,7 +554,7 @@ public class SettingActivity extends UmengStatisticsActivity {
 	protected void startToFeedBackActivity() {
 		if (MyApplication.getInstance().isForTest()) {
 			RongIM.getInstance().startConversation(this, Conversation.ConversationType.APP_PUBLIC_SERVICE,
-					"KEFU144879042344018", "客服");
+					DataUtils.getCustomServiceID(), "客服");
 		} else {
 			Intent intent = new Intent();
 			intent.setClass(this, FeedBackActivity.class);

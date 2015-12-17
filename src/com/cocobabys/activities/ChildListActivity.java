@@ -2,17 +2,17 @@ package com.cocobabys.activities;
 
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.adapter.ChildListAdapter;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.ChildInfo;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.ChildListAdapter;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ChildInfo;
 
 public class ChildListActivity extends UmengStatisticsActivity {
 

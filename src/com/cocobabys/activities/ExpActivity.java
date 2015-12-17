@@ -3,6 +3,16 @@ package com.cocobabys.activities;
 import java.util.Calendar;
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.adapter.ExpGridViewAdapter;
+import com.cocobabys.bean.GroupExpInfo;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.jobs.GetExpCountJob;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,16 +28,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.ExpGridViewAdapter;
-import com.cocobabys.bean.GroupExpInfo;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.GetExpCountJob;
-import com.cocobabys.utils.Utils;
 
 public class ExpActivity extends UmengStatisticsActivity{
     private static final int   START_TO_EXP_LIST = 1;

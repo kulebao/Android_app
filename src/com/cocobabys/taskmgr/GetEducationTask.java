@@ -2,10 +2,6 @@ package com.cocobabys.taskmgr;
 
 import java.util.List;
 
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
-
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
@@ -14,6 +10,10 @@ import com.cocobabys.customexception.InvalidTokenException;
 import com.cocobabys.dbmgr.info.EducationInfo;
 import com.cocobabys.net.EducationMethod;
 import com.cocobabys.utils.Utils;
+
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 
 public class GetEducationTask extends AsyncTask<Void, Void, Integer> {
 	private Handler handler;

@@ -4,8 +4,6 @@ import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.ServerUrls;
@@ -14,6 +12,8 @@ import com.cocobabys.dbmgr.info.SchoolInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.IMUtils;
+
+import android.util.Log;
 
 public class PushMethod {
 

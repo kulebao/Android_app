@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:adjustViewBounds="false"
-        android:background="@drawable/guide6"
+        android:background="@drawable/upgrade2"
         android:focusable="true"
         android:scaleType="centerCrop" />
 

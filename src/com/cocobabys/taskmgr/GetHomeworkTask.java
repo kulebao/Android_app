@@ -2,10 +2,6 @@ package com.cocobabys.taskmgr;
 
 import java.util.List;
 
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
-
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
@@ -14,6 +10,10 @@ import com.cocobabys.customexception.InvalidTokenException;
 import com.cocobabys.dbmgr.info.Homework;
 import com.cocobabys.net.HomeworkMethod;
 import com.cocobabys.utils.Utils;
+
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 
 public class GetHomeworkTask extends AsyncTask<Void, Void, Integer> {
 	// 最少等2s

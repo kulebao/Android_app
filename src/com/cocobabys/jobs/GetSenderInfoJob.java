@@ -9,10 +9,6 @@ import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-
 import com.cocobabys.bean.SenderInfo;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.ServerUrls;
@@ -21,6 +17,10 @@ import com.cocobabys.dbmgr.info.ParentInfo;
 import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.net.HttpResult;
+
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 
 public class GetSenderInfoJob {
 	private int maxThreads = 2;

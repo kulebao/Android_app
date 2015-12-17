@@ -1,13 +1,13 @@
 package com.cocobabys.receiver;
 
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.MethodUtils;
+import com.cocobabys.utils.Utils;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.MethodUtils;
-import com.cocobabys.utils.Utils;
 
 public class NetStateChangeReceiver extends BroadcastReceiver {
 	private static int currentNetWorkType = Utils.NETWORK_NOT_CONNECTED;

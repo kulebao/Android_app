@@ -1,13 +1,13 @@
 package com.cocobabys.mycalendar;
 
+import com.cocobabys.activities.SwipeCalendarActivity;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.View;
 import android.widget.LinearLayout.LayoutParams;
-
-import com.cocobabys.activities.SwipeCalendarActivity;
 
 /**
  * 日历控件头部绘制类

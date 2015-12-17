@@ -180,7 +180,12 @@ public class MyApplication extends Application {
 			/**
 			 * IMKit SDK调用第一步 初始化
 			 */
-			RongIM.init(this);
+			
+			if(forTest){
+				RongIM.init(this,"0vnjpoadnwk0z");
+			}else{
+				RongIM.init(this,"8w7jv4qb7tbqy");
+			}
 
 			IMHelper imHelper = new IMHelper();
 			RongIM.setUserInfoProvider(imHelper, true);// 设置用户信息提供者。

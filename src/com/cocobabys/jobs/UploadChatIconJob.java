@@ -2,12 +2,6 @@ package com.cocobabys.jobs;
 
 import java.io.File;
 
-import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
@@ -22,6 +16,12 @@ import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
+
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class UploadChatIconJob extends MyJob {
 	private Handler handler;

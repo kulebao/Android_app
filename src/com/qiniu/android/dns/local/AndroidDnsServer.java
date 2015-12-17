@@ -1,10 +1,5 @@
 package com.qiniu.android.dns.local;
 
-import com.qiniu.android.dns.Domain;
-import com.qiniu.android.dns.IResolver;
-import com.qiniu.android.dns.NetworkInfo;
-import com.qiniu.android.dns.Record;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,6 +9,11 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.qiniu.android.dns.Domain;
+import com.qiniu.android.dns.IResolver;
+import com.qiniu.android.dns.NetworkInfo;
+import com.qiniu.android.dns.Record;
 
 /**
  * reference github/rtreffer/minidns.

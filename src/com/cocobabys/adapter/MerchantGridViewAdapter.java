@@ -3,16 +3,15 @@ package com.cocobabys.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.bean.MerchantGridInfo;
+
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
-import com.cocobabys.R;
-import com.cocobabys.bean.MerchantGridInfo;
 
 public class MerchantGridViewAdapter extends BaseAdapter {
 	private Context context;

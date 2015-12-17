@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.baidu.android.pushservice.PushSettings;
@@ -16,6 +13,9 @@ import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.utils.DataUtils;
+
+import android.text.TextUtils;
+import android.util.Log;
 
 public class PushModel{
     // 测试服使用的push apikey

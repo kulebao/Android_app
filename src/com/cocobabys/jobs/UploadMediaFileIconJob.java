@@ -2,11 +2,6 @@ package com.cocobabys.jobs;
 
 import java.io.File;
 
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.info.InfoHelper;
 import com.cocobabys.net.MethodResult;
@@ -18,6 +13,11 @@ import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
+
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class UploadMediaFileIconJob extends MyJob {
 	private Handler handler;

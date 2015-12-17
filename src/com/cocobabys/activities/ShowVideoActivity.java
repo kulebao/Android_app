@@ -4,6 +4,22 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.constant.NoticeAction;
+import com.cocobabys.customview.CustomDialog.Builder;
+import com.cocobabys.customview.FullScreenVideoView;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.ExpInfo;
+import com.cocobabys.dlgmgr.DlgMgr;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.httpclientmgr.HttpClientHelper;
+import com.cocobabys.jobs.SendExpJob;
+import com.cocobabys.threadpool.MyThreadPoolMgr;
+import com.cocobabys.utils.Utils;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -21,22 +37,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.MediaController;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.constant.NoticeAction;
-import com.cocobabys.customview.CustomDialog.Builder;
-import com.cocobabys.customview.FullScreenVideoView;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.ExpInfo;
-import com.cocobabys.dlgmgr.DlgMgr;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.httpclientmgr.HttpClientHelper;
-import com.cocobabys.jobs.SendExpJob;
-import com.cocobabys.threadpool.MyThreadPoolMgr;
-import com.cocobabys.utils.Utils;
 
 public class ShowVideoActivity extends UmengStatisticsActivity {
 	private Bitmap bitmap;

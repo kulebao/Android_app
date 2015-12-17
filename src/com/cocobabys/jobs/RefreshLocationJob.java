@@ -2,12 +2,12 @@ package com.cocobabys.jobs;
 
 import java.util.concurrent.TimeUnit;
 
+import com.cocobabys.constant.EventType;
+import com.cocobabys.threadpool.MyJob;
+
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-
-import com.cocobabys.constant.EventType;
-import com.cocobabys.threadpool.MyJob;
 
 public class RefreshLocationJob extends MyJob {
 	private Handler handler;

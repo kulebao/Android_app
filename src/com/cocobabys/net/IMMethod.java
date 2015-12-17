@@ -2,14 +2,14 @@ package com.cocobabys.net;
 
 import org.apache.http.HttpStatus;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSONObject;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.IMGroupInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
+
+import android.util.Log;
 
 public class IMMethod{
     private IMMethod(){}
@@ -31,7 +31,6 @@ public class IMMethod{
         MethodResult methodResult = new MethodResult(EventType.GET_IM_GROUP_FAIL);
         if(result.getResCode() == HttpStatus.SC_OK){
             IMGroupInfo groupinfo = JSONObject.parseObject(result.getContent(), IMGroupInfo.class);
-            DataMgr.getInstance().addIMGroupInfo(groupinfo);
             methodResult.setResultObj(groupinfo);
             methodResult.setResultType(EventType.GET_IM_GROUP_SUCCESS);
         }

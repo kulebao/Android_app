@@ -2,9 +2,6 @@ package com.cocobabys.bean;
 
 import java.util.List;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import com.cocobabys.R;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
@@ -12,6 +9,9 @@ import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.utils.Utils;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class ShareToken {
 	// 对应成长经历的服务器id

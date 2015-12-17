@@ -1,5 +1,11 @@
 package com.cocobabys.activities;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.taskmgr.FeedBackTask;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Message;
@@ -10,12 +16,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.taskmgr.FeedBackTask;
-import com.cocobabys.utils.Utils;
 
 public class FeedBackActivity extends UmengStatisticsActivity {
 	private EditText feedbackContent;

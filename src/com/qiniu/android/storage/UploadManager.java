@@ -1,11 +1,11 @@
 package com.qiniu.android.storage;
 
+import java.io.File;
+
 import com.qiniu.android.http.HttpManager;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.http.StatReport;
 import com.qiniu.android.utils.AsyncRun;
-
-import java.io.File;
 
 /**
  * 七牛文件上传管理器

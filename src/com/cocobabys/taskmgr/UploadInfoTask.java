@@ -1,9 +1,5 @@
 package com.cocobabys.taskmgr;
 
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.text.TextUtils;
-
 import com.cocobabys.constant.EventType;
 import com.cocobabys.handler.TaskResultHandler;
 import com.cocobabys.net.UploadChildInfoMethod;
@@ -12,6 +8,10 @@ import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.utils.Utils;
+
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.text.TextUtils;
 
 public class UploadInfoTask extends AsyncTask<Void, Void, Integer> {
 	private TaskResultHandler hander;

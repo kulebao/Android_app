@@ -5,14 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.widget.ListView;
-import android.widget.Toast;
-
 import com.cocobabys.R;
 import com.cocobabys.adapter.CookBookListAdapter;
 import com.cocobabys.bean.CookbookItem;
@@ -23,6 +15,14 @@ import com.cocobabys.dbmgr.info.CookBookInfo;
 import com.cocobabys.handler.MyHandler;
 import com.cocobabys.taskmgr.GetCookbookTask;
 import com.cocobabys.utils.DataUtils;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.widget.ListView;
+import android.widget.Toast;
 
 public class CookBookActivity extends UmengStatisticsActivity {
 	private CookBookListAdapter adapter;

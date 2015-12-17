@@ -1,5 +1,12 @@
 package com.cocobabys.fragment;
 
+import com.cocobabys.R;
+import com.cocobabys.handler.MyHandler;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,13 +16,6 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-
-import com.cocobabys.R;
-import com.cocobabys.handler.MyHandler;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 public abstract class MyListFragment extends Fragment {
 	PullToRefreshListView msgListView;

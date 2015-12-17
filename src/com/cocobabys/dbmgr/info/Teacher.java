@@ -8,12 +8,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.text.TextUtils;
-
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.utils.Utils;
+
+import android.text.TextUtils;
 
 public class Teacher {
 	public static final String ID = "_id";

@@ -45,9 +45,6 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.JSONConstant;
@@ -59,6 +56,9 @@ import com.cocobabys.net.HttpResult;
 import com.cocobabys.net.PushMethod;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
+
+import android.text.TextUtils;
+import android.util.Log;
 
 public class HttpClientHelper{
 

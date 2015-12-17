@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.apache.http.HttpStatus;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.cocobabys.bean.AdInfo;
 import com.cocobabys.constant.EventType;
@@ -13,6 +11,8 @@ import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.utils.DataUtils;
+
+import android.util.Log;
 
 public class AdMethod {
 	private AdMethod() {

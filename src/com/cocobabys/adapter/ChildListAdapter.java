@@ -2,6 +2,10 @@ package com.cocobabys.adapter;
 
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.dbmgr.info.ChildInfo;
+import com.cocobabys.utils.Utils;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -10,10 +14,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.dbmgr.info.ChildInfo;
-import com.cocobabys.utils.Utils;
 
 public class ChildListAdapter extends BaseAdapter {
     private final Context context;

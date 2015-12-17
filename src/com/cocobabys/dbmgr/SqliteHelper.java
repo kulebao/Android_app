@@ -1,13 +1,5 @@
 package com.cocobabys.dbmgr;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.CookBookInfo;
@@ -28,6 +20,14 @@ import com.cocobabys.dbmgr.info.ScheduleInfo;
 import com.cocobabys.dbmgr.info.SchoolInfo;
 import com.cocobabys.dbmgr.info.SwipeInfo;
 import com.cocobabys.dbmgr.info.Teacher;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class SqliteHelper extends SQLiteOpenHelper{
     // public static final String LOCATION_TAB = "location_tab";

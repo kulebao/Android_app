@@ -1,5 +1,13 @@
 package com.cocobabys.activities;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.taskmgr.ValidatePhoneNumTask;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,14 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.taskmgr.ValidatePhoneNumTask;
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.Utils;
 
 public class ValidatePhoneNumActivity extends MyActivity{
     private Button         sendPhoneNumBtn;

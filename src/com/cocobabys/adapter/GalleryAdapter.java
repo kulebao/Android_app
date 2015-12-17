@@ -3,6 +3,13 @@ package com.cocobabys.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.customview.CustomGallery;
+import com.cocobabys.utils.Utils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -10,13 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.customview.CustomGallery;
-import com.cocobabys.utils.Utils;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class GalleryAdapter extends BaseAdapter{
 

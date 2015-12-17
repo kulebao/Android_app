@@ -1,6 +1,10 @@
 package com.qiniu.android.storage;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+
 import com.qiniu.android.dns.DnsManager;
 import com.qiniu.android.dns.IResolver;
 import com.qiniu.android.dns.NetworkInfo;
@@ -8,10 +12,6 @@ import com.qiniu.android.dns.local.AndroidDnsServer;
 import com.qiniu.android.dns.local.Resolver;
 import com.qiniu.android.http.Proxy;
 import com.qiniu.android.http.UrlConverter;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.InetAddress;
 
 public final class Configuration {
 

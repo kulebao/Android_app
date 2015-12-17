@@ -6,8 +6,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.UnknownHostException;
 
-import android.util.Log;
-
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.customexception.AccountExpiredException;
@@ -15,6 +13,8 @@ import com.cocobabys.customexception.BindFailException;
 import com.cocobabys.customexception.DuplicateLoginException;
 import com.cocobabys.customexception.InvalidTokenException;
 import com.cocobabys.utils.Utils;
+
+import android.util.Log;
 
 public class MyProxy implements InvocationHandler {
 

@@ -4,6 +4,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.bean.ShareInfo;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.dlgmgr.DlgMgr;
+import com.cocobabys.share.WeiXinUtils;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,14 +21,6 @@ import android.util.Log;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
-
-import com.cocobabys.R;
-import com.cocobabys.bean.ShareInfo;
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.dlgmgr.DlgMgr;
-import com.cocobabys.share.WeiXinUtils;
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.Utils;
 
 public class LongClickDlg{
     private DeleteChatListener       deleteChatListener       = null;

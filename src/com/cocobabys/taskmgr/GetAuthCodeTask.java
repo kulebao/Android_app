@@ -1,13 +1,13 @@
 package com.cocobabys.taskmgr;
 
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
-
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.net.AuthCodeMethod;
 import com.cocobabys.utils.Utils;
+
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 
 public class GetAuthCodeTask extends AsyncTask<Void, Void, Integer> {
 

@@ -5,16 +5,16 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.cocobabys.activities.MyApplication;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.httpclientmgr.HttpClientHelper;
+import com.cocobabys.utils.Utils;
+
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
-
-import com.cocobabys.activities.MyApplication;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.httpclientmgr.HttpClientHelper;
-import com.cocobabys.utils.Utils;
 
 public class DownloadImgeJob {
 	private int maxThreads = 2;

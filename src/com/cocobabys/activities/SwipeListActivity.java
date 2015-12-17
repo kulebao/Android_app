@@ -2,19 +2,19 @@ package com.cocobabys.activities;
 
 import java.util.List;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-
 import com.cocobabys.R;
 import com.cocobabys.adapter.SwipeListAdapter;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.SwipeInfo;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 public class SwipeListActivity extends UmengStatisticsActivity {
 	private ListView list;

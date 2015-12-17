@@ -1,10 +1,5 @@
 package com.cocobabys.jobs;
 
-import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-
 import com.cocobabys.bean.FullParentInfo;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.net.MethodResult;
@@ -16,6 +11,11 @@ import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.MethodUtils;
+
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 
 public class UpdateParentJob extends MyJob {
 	private Handler handler;

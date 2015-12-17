@@ -2,14 +2,14 @@ package com.cocobabys.adapter;
 
 import java.util.List;
 
+import com.cocobabys.R;
+
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-
-import com.cocobabys.R;
 
 /**
  * 

@@ -2,6 +2,13 @@ package com.cocobabys.lbs;
 
 import java.util.ArrayList;
 
+import com.baidu.mapapi.map.offline.MKOLSearchRecord;
+import com.baidu.mapapi.map.offline.MKOLUpdateElement;
+import com.baidu.mapapi.map.offline.MKOfflineMap;
+import com.baidu.mapapi.map.offline.MKOfflineMapListener;
+import com.cocobabys.R;
+import com.cocobabys.activities.UmengStatisticsActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,13 +25,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.baidu.mapapi.map.offline.MKOLSearchRecord;
-import com.baidu.mapapi.map.offline.MKOLUpdateElement;
-import com.baidu.mapapi.map.offline.MKOfflineMap;
-import com.baidu.mapapi.map.offline.MKOfflineMapListener;
-import com.cocobabys.R;
-import com.cocobabys.activities.UmengStatisticsActivity;
 
 public class LbsOfflineMapList extends UmengStatisticsActivity implements MKOfflineMapListener {
 

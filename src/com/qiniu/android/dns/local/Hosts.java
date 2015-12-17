@@ -1,11 +1,11 @@
 package com.qiniu.android.dns.local;
 
-import com.qiniu.android.dns.Domain;
-import com.qiniu.android.dns.NetworkInfo;
-
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
+
+import com.qiniu.android.dns.Domain;
+import com.qiniu.android.dns.NetworkInfo;
 
 /**
  * Created by bailong on 15/6/18.

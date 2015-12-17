@@ -1,10 +1,10 @@
 package com.cocobabys.adapter;
 
-import android.os.Handler;
-import android.os.Message;
-
 import com.cocobabys.constant.EventType;
 import com.cocobabys.taskmgr.DownloadImgeJob;
+
+import android.os.Handler;
+import android.os.Message;
 
 public class DonwloadModule {
 	private DownloadImgeJob downloadImgeJob = new DownloadImgeJob();

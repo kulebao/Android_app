@@ -1,10 +1,13 @@
 package com.cocobabys.dbmgr;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.cocobabys.dbmgr.info.IMGroupInfo;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.cocobabys.dbmgr.info.IMGroupInfo;
 
 class IMGroupMgr{
     private SqliteHelper dbHelper;
@@ -20,12 +23,41 @@ class IMGroupMgr{
                                                      SQLiteDatabase.CONFLICT_REPLACE);
     }
 
+    void deleteGroup(String groupid){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL("DELETE FROM " + SqliteHelper.IM_GROUP_TAB + " WHERE " + IMGroupInfo.GROUP_ID + " ='" + groupid
+                + "'");
+    }
+
     private ContentValues buildInfo(IMGroupInfo info){
         ContentValues values = new ContentValues();
         values.put(IMGroupInfo.CLASS_ID, info.getClass_id());
         values.put(IMGroupInfo.GROUP_ID, info.getGroup_id());
         values.put(IMGroupInfo.GROUP_NAME, info.getGroup_name());
         return values;
+    }
+
+    List<IMGroupInfo> getAllIMGroupInfo(){
+        List<IMGroupInfo> list = new ArrayList<>();
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.IM_GROUP_TAB, null);
+
+        try{
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast() && (cursor.getString(1) != null)){
+                IMGroupInfo info = getInfoByCursor(cursor);
+                list.add(info);
+                cursor.moveToNext();
+            }
+        }
+        finally{
+            if(cursor != null){
+                cursor.close();
+            }
+        }
+
+        return list;
     }
 
     IMGroupInfo getInfo(int classid){

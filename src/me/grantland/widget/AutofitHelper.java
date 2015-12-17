@@ -2,6 +2,8 @@ package me.grantland.widget;
 
 import java.util.ArrayList;
 
+import com.cocobabys.R;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
@@ -20,8 +22,6 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
-
-import com.cocobabys.R;
 
 /**
  * A helper class to enable automatically resizing {@link TextView}`s

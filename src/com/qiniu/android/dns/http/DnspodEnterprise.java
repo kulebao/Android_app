@@ -1,17 +1,5 @@
 package com.qiniu.android.dns.http;
 
-import com.qiniu.android.dns.Domain;
-import com.qiniu.android.dns.IResolver;
-import com.qiniu.android.dns.NetworkInfo;
-import com.qiniu.android.dns.Record;
-import com.qiniu.android.dns.util.Hex;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -20,6 +8,18 @@ import java.net.URISyntaxException;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import com.qiniu.android.dns.Domain;
+import com.qiniu.android.dns.IResolver;
+import com.qiniu.android.dns.NetworkInfo;
+import com.qiniu.android.dns.Record;
+import com.qiniu.android.dns.util.Hex;
 
 /**
  * Created by bailong on 15/7/22.

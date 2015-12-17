@@ -3,6 +3,9 @@ package com.cocobabys.customview;
 import java.io.File;
 import java.io.IOException;
 
+import com.cocobabys.R;
+import com.cocobabys.activities.MyApplication;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,9 +25,6 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.activities.MyApplication;
 
 public class RecordButton extends Button{
 

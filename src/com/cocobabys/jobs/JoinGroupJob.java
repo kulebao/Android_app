@@ -1,23 +1,23 @@
 package com.cocobabys.jobs;
 
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient.ErrorCode;
-import io.rong.imlib.RongIMClient.OperationCallback;
-
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import android.os.Handler;
-import android.util.Log;
-
 import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.IMGroupInfo;
 import com.cocobabys.net.IMMethod;
 import com.cocobabys.net.MethodResult;
 import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
+
+import android.os.Handler;
+import android.util.Log;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient.ErrorCode;
+import io.rong.imlib.RongIMClient.OperationCallback;
 
 public class JoinGroupJob extends MyJob {
 
@@ -66,7 +66,7 @@ public class JoinGroupJob extends MyJob {
 		}
 	}
 
-	private void joinGroup(IMGroupInfo groupInfo) {
+	private void joinGroup(final IMGroupInfo groupInfo) {
 
 		RongIM.getInstance().getRongIMClient().joinGroup(groupInfo.getGroup_id(), groupInfo.getGroup_name(),
 				new OperationCallback() {
@@ -74,7 +74,7 @@ public class JoinGroupJob extends MyJob {
 					@Override
 					public void onSuccess() {
 						Log.d("", "DDD JOIN_IM_GROUP_SUCCESS");
-						// handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_SUCCESS);
+						DataMgr.getInstance().addIMGroupInfo(groupInfo);
 						bret.setResultType(EventType.JOIN_IM_GROUP_SUCCESS);
 						countDownLatch.countDown();
 					}

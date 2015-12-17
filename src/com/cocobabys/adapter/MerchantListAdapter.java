@@ -2,14 +2,6 @@ package com.cocobabys.adapter;
 
 import java.util.List;
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.cocobabys.R;
 import com.cocobabys.bean.BusinessInfo;
 import com.cocobabys.constant.ConstantValue;
@@ -17,6 +9,14 @@ import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MerchantListAdapter extends BaseAdapter {
 	private Context context;

@@ -1,11 +1,11 @@
 package com.qiniu.android.http;
 
-import org.apache.http.entity.AbstractHttpEntity;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import org.apache.http.entity.AbstractHttpEntity;
 
 /**
  * 定义请求字节实体及相关方法

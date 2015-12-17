@@ -1,8 +1,5 @@
 package com.cocobabys.jobs;
 
-import android.os.Handler;
-import android.util.Log;
-
 import com.cocobabys.bean.VideoAccount;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.dbmgr.DataMgr;
@@ -17,6 +14,9 @@ import com.huamaitel.api.HMDefines;
 import com.huamaitel.api.HMDefines.LoginServerInfo;
 import com.huamaitel.api.HMDefines.UserInfo;
 import com.huamaitel.api.HMJniInterface;
+
+import android.os.Handler;
+import android.util.Log;
 
 public class LoginVideoJob extends MyJob {
 	private Handler handler;

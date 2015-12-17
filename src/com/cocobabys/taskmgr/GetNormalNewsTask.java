@@ -2,10 +2,6 @@ package com.cocobabys.taskmgr;
 
 import java.util.List;
 
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
-
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
@@ -15,6 +11,10 @@ import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.News;
 import com.cocobabys.net.NewsMethod;
 import com.cocobabys.utils.Utils;
+
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 
 public class GetNormalNewsTask extends AsyncTask<Void, Void, Integer> {
 	// 最少等2s

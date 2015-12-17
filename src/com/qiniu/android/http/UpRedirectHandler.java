@@ -1,5 +1,8 @@
 package com.qiniu.android.http;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
@@ -14,9 +17,6 @@ import org.apache.http.impl.client.RedirectLocations;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.ExecutionContext;
 import org.apache.http.protocol.HttpContext;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * Created by bailong on 15/5/25.

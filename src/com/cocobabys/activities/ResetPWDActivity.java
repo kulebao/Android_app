@@ -1,5 +1,15 @@
 package com.cocobabys.activities;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.taskmgr.AuthCodeCountDownTask;
+import com.cocobabys.taskmgr.GetAuthCodeTask;
+import com.cocobabys.taskmgr.ResetPWDTask;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -12,16 +22,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.taskmgr.AuthCodeCountDownTask;
-import com.cocobabys.taskmgr.GetAuthCodeTask;
-import com.cocobabys.taskmgr.ResetPWDTask;
-import com.cocobabys.utils.Utils;
 
 public class ResetPWDActivity extends UmengStatisticsActivity {
 	private Handler handler;

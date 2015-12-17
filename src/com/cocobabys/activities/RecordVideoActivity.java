@@ -4,6 +4,14 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.utils.Utils;
+import com.skd.androidrecording.video.AdaptiveSurfaceView;
+import com.skd.androidrecording.video.CameraHelper;
+import com.skd.androidrecording.video.VideoRecordingHandler;
+import com.skd.androidrecording.video.VideoRecordingManager;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -15,14 +23,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.utils.Utils;
-import com.skd.androidrecording.video.AdaptiveSurfaceView;
-import com.skd.androidrecording.video.CameraHelper;
-import com.skd.androidrecording.video.VideoRecordingHandler;
-import com.skd.androidrecording.video.VideoRecordingManager;
 
 public class RecordVideoActivity extends Activity {
 	protected static final int DEFAULT_W = 800;

@@ -4,17 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-
 import com.cocobabys.R;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.customview.ProgressWheel;
@@ -25,6 +14,17 @@ import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 public class SlideGalleryAdapter extends BaseAdapter {
 	private LayoutInflater infalter;

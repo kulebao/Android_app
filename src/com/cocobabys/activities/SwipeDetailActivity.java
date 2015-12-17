@@ -2,20 +2,6 @@ package com.cocobabys.activities;
 
 import java.io.File;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.cocobabys.R;
 import com.cocobabys.bean.AdInfo;
 import com.cocobabys.constant.ConstantValue;
@@ -29,6 +15,20 @@ import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class SwipeDetailActivity extends UmengStatisticsActivity {
 	private TextView contentView;

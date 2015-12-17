@@ -2,6 +2,15 @@ package com.cocobabys.activities;
 
 import java.io.File;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.httpclientmgr.HttpClientHelper;
+import com.cocobabys.httpclientmgr.HttpClientHelper.DownloadFileListener;
+import com.cocobabys.threadpool.MyThreadPoolMgr;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,15 +22,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.httpclientmgr.HttpClientHelper;
-import com.cocobabys.httpclientmgr.HttpClientHelper.DownloadFileListener;
-import com.cocobabys.threadpool.MyThreadPoolMgr;
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.Utils;
 
 public class UpdateActivity extends UmengStatisticsActivity {
 	private static final String TMP_APK_NAME = "cocobabys.apk";

@@ -1,8 +1,8 @@
 package com.qiniu.android.utils;
 
-import com.qiniu.android.common.Constants;
-
 import java.io.UnsupportedEncodingException;
+
+import com.qiniu.android.common.Constants;
 
 /**
  * 字符串连接工具类

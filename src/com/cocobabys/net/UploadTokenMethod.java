@@ -3,12 +3,12 @@ package com.cocobabys.net;
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
 import com.cocobabys.upload.UploadFactory;
+
+import android.text.TextUtils;
+import android.util.Log;
 
 public class UploadTokenMethod {
 	// 获取七牛的上传token

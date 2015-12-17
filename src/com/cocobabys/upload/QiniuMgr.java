@@ -8,12 +8,12 @@ import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
 
-import android.graphics.Bitmap;
-
 import com.cocobabys.log.LogWriter;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
+
+import android.graphics.Bitmap;
 
 public class QiniuMgr implements UploadMgr {
 	private static final int COUNT_LIMIT = 1;

@@ -3,11 +3,11 @@ package com.cocobabys.dbmgr;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cocobabys.dbmgr.info.News;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.cocobabys.dbmgr.info.News;
 
 class NewsMgr{
     private SqliteHelper dbHelper;

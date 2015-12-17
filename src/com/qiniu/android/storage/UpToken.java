@@ -1,9 +1,9 @@
 package com.qiniu.android.storage;
 
-import com.qiniu.android.utils.UrlSafeBase64;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.qiniu.android.utils.UrlSafeBase64;
 
 /**
  * 内部使用的客户端 token 检查.

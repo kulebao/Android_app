@@ -2,15 +2,15 @@ package com.cocobabys.adapter;
 
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.video.VideoDeviceInfo;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.video.VideoDeviceInfo;
 
 public class VideoDeviceListAdapter extends BaseAdapter {
 	private final Context context;

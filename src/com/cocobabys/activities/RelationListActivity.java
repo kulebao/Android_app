@@ -3,6 +3,17 @@ package com.cocobabys.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cocobabys.R;
+import com.cocobabys.adapter.RelationListAdapter;
+import com.cocobabys.bean.FamilyInfo;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.info.ParentInfo;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.jobs.RelationJob;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,17 +27,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.alibaba.fastjson.JSONObject;
-import com.cocobabys.R;
-import com.cocobabys.adapter.RelationListAdapter;
-import com.cocobabys.bean.FamilyInfo;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.info.ParentInfo;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.RelationJob;
-import com.cocobabys.utils.Utils;
 
 public class RelationListActivity extends UmengStatisticsActivity{
 

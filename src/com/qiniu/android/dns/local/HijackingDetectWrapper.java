@@ -1,11 +1,11 @@
 package com.qiniu.android.dns.local;
 
+import java.io.IOException;
+
 import com.qiniu.android.dns.Domain;
 import com.qiniu.android.dns.IResolver;
 import com.qiniu.android.dns.NetworkInfo;
 import com.qiniu.android.dns.Record;
-
-import java.io.IOException;
 
 /**
  * Created by bailong on 15/7/10.

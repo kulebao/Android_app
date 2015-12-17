@@ -1,8 +1,5 @@
 package com.cocobabys.jobs;
 
-import android.os.Handler;
-import android.os.Message;
-
 import com.cocobabys.constant.EventType;
 import com.cocobabys.net.MethodResult;
 import com.cocobabys.net.NewsMethod;
@@ -10,6 +7,9 @@ import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.utils.MethodUtils;
+
+import android.os.Handler;
+import android.os.Message;
 
 public class SendReceiptJob extends MyJob{
     private Handler handler;

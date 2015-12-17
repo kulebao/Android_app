@@ -7,13 +7,13 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.res.Resources;
-import android.text.TextUtils;
-
 import com.cocobabys.R;
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.bean.CookbookItem;
 import com.cocobabys.utils.Utils;
+
+import android.content.res.Resources;
+import android.text.TextUtils;
 
 public class CookBookInfo {
     public static final String ID = "_id";

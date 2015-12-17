@@ -6,6 +6,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.cocobabys.R;
+import com.cocobabys.adapter.DonwloadModule.DownloadListener;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.News;
+import com.cocobabys.dbmgr.info.ReceiptInfo;
+import com.cocobabys.jobs.GetReceiptStateJob;
+import com.cocobabys.threadpool.JobManager;
+import com.cocobabys.utils.ImageDownloader;
+import com.cocobabys.utils.Utils;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -18,18 +30,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.DonwloadModule.DownloadListener;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.News;
-import com.cocobabys.dbmgr.info.ReceiptInfo;
-import com.cocobabys.jobs.GetReceiptStateJob;
-import com.cocobabys.threadpool.JobManager;
-import com.cocobabys.utils.ImageDownloader;
-import com.cocobabys.utils.Utils;
 
 public class NewsListAdapter extends BaseAdapter {
 	private final Context context;

@@ -1,8 +1,8 @@
 package com.cocobabys.activities;
 
-import android.app.Activity;
-
 import com.umeng.analytics.MobclickAgent;
+
+import android.app.Activity;
 
 public class UmengStatisticsActivity extends Activity {
 	@Override

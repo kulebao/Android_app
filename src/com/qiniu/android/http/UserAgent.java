@@ -1,13 +1,13 @@
 package com.qiniu.android.http;
 
-import android.os.Build;
-import android.text.TextUtils;
-
-import com.qiniu.android.common.Constants;
+import static java.lang.String.format;
 
 import java.util.Random;
 
-import static java.lang.String.format;
+import com.qiniu.android.common.Constants;
+
+import android.os.Build;
+import android.text.TextUtils;
 
 /**
  * Created by bailong on 15/6/23.

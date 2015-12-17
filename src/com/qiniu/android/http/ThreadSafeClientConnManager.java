@@ -1,9 +1,9 @@
 package com.qiniu.android.http;
 
-import com.qiniu.android.dns.DnsManager;
-
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.params.HttpParams;
+
+import com.qiniu.android.dns.DnsManager;
 
 /**
  * Created by bailong on 15/7/4.

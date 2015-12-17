@@ -4,15 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-
 import com.cocobabys.R;
 import com.cocobabys.activities.ActivityHelper;
 import com.cocobabys.activities.UmengStatisticsActivity;
@@ -21,6 +12,15 @@ import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.utils.Utils;
 import com.huamaitel.api.HMDefines.NodeTypeInfo;
 import com.huamaitel.api.HMJniInterface;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
 public class DeviceActivity extends UmengStatisticsActivity{
     private static final String    TAG       = "DeviceActivity";

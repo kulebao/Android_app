@@ -1,8 +1,8 @@
 package com.cocobabys.command;
 
-import android.util.Log;
-
 import com.cocobabys.constant.ConstantValue;
+
+import android.util.Log;
 
 public class CommandFactory {
 	private CommandFactory() {

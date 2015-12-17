@@ -1,10 +1,10 @@
 package com.cocobabys.activities;
 
-import android.os.Bundle;
-import android.view.View;
-
 import com.cocobabys.R;
 import com.cocobabys.utils.ShareUtils;
+
+import android.os.Bundle;
+import android.view.View;
 
 public class ShowIconExActivity extends UmengStatisticsActivity{
 

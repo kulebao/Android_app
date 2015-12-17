@@ -1,5 +1,13 @@
 package com.cocobabys.activities;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.jobs.BindCardJob;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,14 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.BindCardJob;
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.Utils;
 
 public class CardManagerActivity extends UmengStatisticsActivity {
 	private Handler handler;

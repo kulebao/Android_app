@@ -1,14 +1,5 @@
 package com.cocobabys.video;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-
 import com.cocobabys.R;
 import com.cocobabys.activities.ActivityHelper;
 import com.cocobabys.activities.UmengStatisticsActivity;
@@ -17,6 +8,15 @@ import com.cocobabys.constant.EventType;
 import com.cocobabys.customview.CustomDialog;
 import com.cocobabys.dlgmgr.DlgMgr;
 import com.cocobabys.jobs.LoginVideoJob;
+
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 
 /**
  * 登录平台，获取设备列表

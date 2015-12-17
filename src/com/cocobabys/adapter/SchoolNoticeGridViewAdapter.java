@@ -2,6 +2,11 @@ package com.cocobabys.adapter;
 
 import java.util.List;
 
+import com.cocobabys.R;
+import com.cocobabys.bean.MainGridInfo;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.utils.DataUtils;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,12 +15,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.cocobabys.R;
-import com.cocobabys.activities.SchoolNoticeActivity;
-import com.cocobabys.bean.MainGridInfo;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.utils.DataUtils;
 
 public class SchoolNoticeGridViewAdapter extends BaseAdapter {
 	private Context context = null;

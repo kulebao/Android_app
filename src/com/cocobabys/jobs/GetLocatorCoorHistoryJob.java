@@ -1,8 +1,5 @@
 package com.cocobabys.jobs;
 
-import android.os.Handler;
-import android.os.Message;
-
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.net.LbsMethod;
@@ -12,6 +9,9 @@ import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.MethodUtils;
+
+import android.os.Handler;
+import android.os.Message;
 
 //获取定位器最后一次坐标任务
 public class GetLocatorCoorHistoryJob extends MyJob {

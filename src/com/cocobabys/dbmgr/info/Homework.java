@@ -2,9 +2,9 @@ package com.cocobabys.dbmgr.info;
 
 import java.io.File;
 
-import android.text.TextUtils;
-
 import com.cocobabys.utils.Utils;
+
+import android.text.TextUtils;
 
 public class Homework {
 	public static final String ID = "_id";

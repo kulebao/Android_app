@@ -1,10 +1,10 @@
 package com.cocobabys.jobs;
 
-import android.graphics.Bitmap;
-import android.util.Log;
-
 import com.cocobabys.threadpool.MyJob;
 import com.cocobabys.utils.Utils;
+
+import android.graphics.Bitmap;
+import android.util.Log;
 
 public class DownLoadImgAndSaveJob extends MyJob {
 

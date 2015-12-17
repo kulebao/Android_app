@@ -2,15 +2,15 @@ package com.cocobabys.dlgmgr;
 
 import java.lang.reflect.Field;
 
+import com.cocobabys.R;
+import com.cocobabys.customview.CustomDialog;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
-
-import com.cocobabys.R;
-import com.cocobabys.customview.CustomDialog;
 
 public class DlgMgr {
 	public static void showSingleBtnResDlg(int resID, Context context) {

@@ -1,14 +1,14 @@
 package com.cocobabys.taskmgr;
 
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-
 import com.cocobabys.constant.EventType;
 import com.cocobabys.net.ResetPWDMethod;
 import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
+
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 
 public class ResetPWDTask extends AsyncTask<Void, Void, Integer> {
 

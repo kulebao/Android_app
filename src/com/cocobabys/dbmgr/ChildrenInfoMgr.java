@@ -3,13 +3,13 @@ package com.cocobabys.dbmgr;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cocobabys.dbmgr.info.ChildInfo;
+import com.cocobabys.dbmgr.info.InfoHelper;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.cocobabys.dbmgr.info.ChildInfo;
-import com.cocobabys.dbmgr.info.InfoHelper;
 
 public class ChildrenInfoMgr {
 	private SqliteHelper dbHelper;

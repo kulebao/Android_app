@@ -2,12 +2,12 @@ package com.cocobabys.dbmgr.info;
 
 import java.io.File;
 
-import android.text.TextUtils;
-
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.utils.Utils;
+
+import android.text.TextUtils;
 
 public class News {
 	public static final String ID = "_id";

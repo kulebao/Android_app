@@ -6,13 +6,13 @@ import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.utils.Utils;
+
+import android.text.TextUtils;
+import android.util.Log;
 
 public class NewChatInfo {
 	public static final String NEW_CHAT_ICON_BIG_WITDH = "720";

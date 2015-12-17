@@ -1,13 +1,13 @@
 package com.cocobabys.taskmgr;
 
+import com.cocobabys.constant.EventType;
+import com.cocobabys.utils.Utils;
+
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-
-import com.cocobabys.constant.EventType;
-import com.cocobabys.utils.Utils;
 
 public class DownLoadImgAndSaveTask extends AsyncTask<Void, Void, Integer> {
 

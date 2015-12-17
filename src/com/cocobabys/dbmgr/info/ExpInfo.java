@@ -8,15 +8,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.cocobabys.R;
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.utils.Utils;
+
+import android.text.TextUtils;
+import android.util.Log;
 
 public class ExpInfo{
     public static final String  TEACHER_TYPE = "t";

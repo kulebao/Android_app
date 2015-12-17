@@ -1,11 +1,11 @@
 package com.qiniu.android.http;
 
-import android.os.Looper;
-import android.os.Message;
-
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.ResponseHandlerInterface;
-import com.qiniu.android.common.Constants;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -14,12 +14,12 @@ import org.apache.http.conn.ConnectTimeoutException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.ResponseHandlerInterface;
+import com.qiniu.android.common.Constants;
+
+import android.os.Looper;
+import android.os.Message;
 
 
 /**

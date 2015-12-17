@@ -2,13 +2,13 @@ package com.cocobabys.net;
 
 import org.apache.http.HttpStatus;
 
-import android.util.Log;
-
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ReceiptInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
+
+import android.util.Log;
 
 public class ReceiptMethod{
     private ReceiptMethod(){}

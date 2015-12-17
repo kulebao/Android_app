@@ -8,11 +8,11 @@ import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.cocobabys.constant.JSONConstant;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.utils.Utils;
+
+import android.util.Log;
 
 public class InfoHelper{
     private static final String BABY_ICON_NAME = "baby_icon";

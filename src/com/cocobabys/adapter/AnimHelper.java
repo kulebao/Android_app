@@ -1,10 +1,10 @@
 package com.cocobabys.adapter;
 
-import android.graphics.drawable.AnimationDrawable;
-import android.widget.ImageView;
-
 import com.cocobabys.R;
 import com.cocobabys.media.MediaMgr;
+
+import android.graphics.drawable.AnimationDrawable;
+import android.widget.ImageView;
 
 public class AnimHelper {
 

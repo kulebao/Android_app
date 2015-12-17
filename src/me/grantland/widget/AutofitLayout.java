@@ -2,6 +2,8 @@ package me.grantland.widget;
 
 import java.util.WeakHashMap;
 
+import com.cocobabys.R;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -10,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import com.cocobabys.R;
 
 /**
  * A {@link ViewGroup} that re-sizes the text of it's children to be no larger

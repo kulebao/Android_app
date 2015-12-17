@@ -3,6 +3,8 @@ package com.cocobabys.customview;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.cocobabys.R;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -19,8 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.cocobabys.R;
 
 /**
  * 

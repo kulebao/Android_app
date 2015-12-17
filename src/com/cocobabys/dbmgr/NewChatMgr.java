@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.cocobabys.dbmgr.info.NewChatInfo;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.cocobabys.dbmgr.info.NewChatInfo;
 
 class NewChatMgr {
 	private SqliteHelper dbHelper;

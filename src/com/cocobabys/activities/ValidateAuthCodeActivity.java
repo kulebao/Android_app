@@ -1,5 +1,15 @@
 package com.cocobabys.activities;
 
+import com.cocobabys.R;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.constant.JSONConstant;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.taskmgr.AuthCodeCountDownTask;
+import com.cocobabys.taskmgr.GetAuthCodeTask;
+import com.cocobabys.taskmgr.ValidateAuthCodeTask;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,16 +23,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.constant.JSONConstant;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.taskmgr.AuthCodeCountDownTask;
-import com.cocobabys.taskmgr.GetAuthCodeTask;
-import com.cocobabys.taskmgr.ValidateAuthCodeTask;
-import com.cocobabys.utils.Utils;
 
 public class ValidateAuthCodeActivity extends MyActivity {
 	private Handler handler;

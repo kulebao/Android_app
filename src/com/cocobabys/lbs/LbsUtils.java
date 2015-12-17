@@ -1,12 +1,12 @@
 package com.cocobabys.lbs;
 
-import android.widget.Button;
-
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+
+import android.widget.Button;
 
 public class LbsUtils {
 

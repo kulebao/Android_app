@@ -1,12 +1,12 @@
 package com.cocobabys.activities;
 
-import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.widget.ImageView;
-
 import com.cocobabys.R;
 import com.cocobabys.constant.ConstantValue;
 import com.cocobabys.utils.ImageUtils;
+
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.widget.ImageView;
 
 public class ShowIconActivity extends UmengStatisticsActivity{
 

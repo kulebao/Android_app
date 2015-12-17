@@ -6,8 +6,6 @@ import java.util.List;
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.cocobabys.bean.GroupExpInfo;
 import com.cocobabys.bean.ShareToken;
@@ -16,6 +14,8 @@ import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.dbmgr.info.ExpInfo;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
+
+import android.util.Log;
 
 public class ExpMethod{
 

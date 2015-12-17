@@ -2,11 +2,6 @@ package com.cocobabys.taskmgr;
 
 import java.util.concurrent.TimeUnit;
 
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-
 import com.cocobabys.activities.MyApplication;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.net.MerchantMethod;
@@ -16,6 +11,11 @@ import com.cocobabys.push.PushModel;
 import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.IMUtils;
 import com.cocobabys.utils.Utils;
+
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 
 public class LoadingTask extends AsyncTask<Void, Void, Void> {
 

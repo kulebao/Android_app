@@ -1,5 +1,7 @@
 package com.cocobabys.customview;
 
+import com.cocobabys.R;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -11,8 +13,6 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
-
-import com.cocobabys.R;
 
 @SuppressWarnings("UnusedDeclaration")
 public class RoundedImageView extends ImageView {

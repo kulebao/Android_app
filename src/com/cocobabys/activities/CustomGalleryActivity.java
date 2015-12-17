@@ -3,18 +3,6 @@ package com.cocobabys.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Message;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.cocobabys.R;
 import com.cocobabys.adapter.CustomGalleryAdapter;
 import com.cocobabys.bean.AblumInfo;
@@ -27,6 +15,17 @@ import com.cocobabys.utils.DataUtils;
 import com.cocobabys.utils.Utils;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import de.greenrobot.event.EventBus;
 
 public class CustomGalleryActivity extends BaseEventFragmentActivity {

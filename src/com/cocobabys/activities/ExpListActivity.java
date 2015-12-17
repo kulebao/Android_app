@@ -2,18 +2,6 @@ package com.cocobabys.activities;
 
 import java.util.List;
 
-import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ListView;
-import android.widget.TextView;
-
 import com.cocobabys.R;
 import com.cocobabys.adapter.ExpListAdapter;
 import com.cocobabys.constant.ConstantValue;
@@ -27,6 +15,18 @@ import com.cocobabys.taskmgr.DownloadImgeJob;
 import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class ExpListActivity extends UmengStatisticsActivity {
 	private ProgressDialog dialog;

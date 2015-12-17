@@ -1,11 +1,11 @@
 package com.cocobabys.utils;
 
-import android.app.Activity;
-import android.graphics.Canvas;
-
 import com.cocobabys.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.CanvasTransformer;
+
+import android.app.Activity;
+import android.graphics.Canvas;
 
 public class MenuUtils {
 	// create animate slidemenu

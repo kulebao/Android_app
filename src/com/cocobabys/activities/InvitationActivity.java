@@ -1,5 +1,16 @@
 package com.cocobabys.activities;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cocobabys.R;
+import com.cocobabys.bean.FamilyInfo;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.customview.CountDownButton;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.jobs.InvitationJob;
+import com.cocobabys.jobs.PostInviteCodeJob;
+import com.cocobabys.utils.Utils;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,17 +24,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.alibaba.fastjson.JSONObject;
-import com.cocobabys.R;
-import com.cocobabys.bean.FamilyInfo;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.customview.CountDownButton;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.InvitationJob;
-import com.cocobabys.jobs.PostInviteCodeJob;
-import com.cocobabys.utils.Utils;
 
 public class InvitationActivity extends UmengStatisticsActivity {
 

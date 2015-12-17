@@ -6,6 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.cocobabys.R;
+import com.cocobabys.adapter.EducationGridViewAdapter;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.EducationInfo;
+import com.cocobabys.dbmgr.info.InfoHelper;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.taskmgr.GetEducationTask;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.Utils;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -24,18 +36,6 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.EducationGridViewAdapter;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.EducationInfo;
-import com.cocobabys.dbmgr.info.InfoHelper;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.taskmgr.GetEducationTask;
-import com.cocobabys.utils.DataUtils;
-import com.cocobabys.utils.Utils;
 
 public class EducationActivity extends UmengStatisticsActivity {
 	private static final String RANK = "rank";

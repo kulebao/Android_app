@@ -1,13 +1,13 @@
 package com.cocobabys.taskmgr;
 
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
-
 import com.cocobabys.constant.EventType;
 import com.cocobabys.net.ScheduleMethod;
 import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
+
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 
 public class GetScheduleTask extends AsyncTask<Void, Void, Integer> {
 

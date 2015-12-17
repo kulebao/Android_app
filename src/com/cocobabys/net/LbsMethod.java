@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.apache.http.HttpStatus;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.cocobabys.bean.LocationInfo;
 import com.cocobabys.bean.LocatorPower;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
+
+import android.util.Log;
 
 public class LbsMethod {
 	public static final String FAKE_DEVICE = "1451351909";

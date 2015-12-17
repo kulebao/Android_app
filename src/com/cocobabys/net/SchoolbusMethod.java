@@ -2,14 +2,14 @@ package com.cocobabys.net;
 
 import org.apache.http.HttpStatus;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.cocobabys.bean.BusLocation;
 import com.cocobabys.constant.EventType;
 import com.cocobabys.constant.ServerUrls;
 import com.cocobabys.dbmgr.DataMgr;
 import com.cocobabys.httpclientmgr.HttpClientHelper;
+
+import android.util.Log;
 
 public class SchoolbusMethod {
 	private SchoolbusMethod() {

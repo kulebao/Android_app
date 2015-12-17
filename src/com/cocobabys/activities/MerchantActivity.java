@@ -3,17 +3,6 @@ package com.cocobabys.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-
 import com.alibaba.fastjson.JSON;
 import com.cocobabys.R;
 import com.cocobabys.adapter.ActionSmallListAdapter;
@@ -27,6 +16,17 @@ import com.cocobabys.listener.MyPullToRefreshOnItemClickListener;
 import com.cocobabys.utils.ImageUtils;
 import com.cocobabys.utils.Utils;
 import com.cocobabys.utils.ViewUtils;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class MerchantActivity extends NavigationActivity {
 	private Handler handler;

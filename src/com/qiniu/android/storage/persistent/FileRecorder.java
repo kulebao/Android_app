@@ -1,12 +1,12 @@
 package com.qiniu.android.storage.persistent;
 
-import com.qiniu.android.storage.Recorder;
-import com.qiniu.android.utils.UrlSafeBase64;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import com.qiniu.android.storage.Recorder;
+import com.qiniu.android.utils.UrlSafeBase64;
 
 /**
  * 实现分片上传时上传进度的接口方法

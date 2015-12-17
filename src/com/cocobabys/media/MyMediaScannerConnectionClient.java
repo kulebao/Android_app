@@ -1,12 +1,12 @@
 package com.cocobabys.media;
 
+import com.cocobabys.utils.DataUtils;
+
 import android.content.Context;
 import android.media.MediaScannerConnection;
 import android.media.MediaScannerConnection.MediaScannerConnectionClient;
 import android.net.Uri;
 import android.util.Log;
-
-import com.cocobabys.utils.DataUtils;
 
 public class MyMediaScannerConnectionClient{
     private MediaScannerConnection picScannerConnection;
