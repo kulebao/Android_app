@@ -57,6 +57,7 @@ import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 
 public class SettingActivity extends UmengStatisticsActivity {
+	private static final int LIMIT_INPUT_COUNT = 12;
 	private Handler handler;
 	private ProgressDialog dialog;
 	private ArrayList<SettingInfo> firstListinfo;
@@ -162,7 +163,7 @@ public class SettingActivity extends UmengStatisticsActivity {
 
 	private EditText getEditText(final View textEntryView) {
 		final EditText contentEdit = (EditText) textEntryView.findViewById(R.id.content);
-		contentEdit.setFilters(new InputFilter[] { new InputFilter.LengthFilter(10) });
+		contentEdit.setFilters(new InputFilter[] { new InputFilter.LengthFilter(LIMIT_INPUT_COUNT) });
 		return contentEdit;
 	}
 
@@ -552,14 +553,14 @@ public class SettingActivity extends UmengStatisticsActivity {
 	}
 
 	protected void startToFeedBackActivity() {
-		if (MyApplication.getInstance().isForTest()) {
-			RongIM.getInstance().startConversation(this, Conversation.ConversationType.APP_PUBLIC_SERVICE,
-					DataUtils.getCustomServiceID(), "客服");
-		} else {
-			Intent intent = new Intent();
-			intent.setClass(this, FeedBackActivity.class);
-			startActivity(intent);
-		}
+		// if (MyApplication.getInstance().isForTest()) {
+		RongIM.getInstance().startConversation(this, Conversation.ConversationType.APP_PUBLIC_SERVICE,
+				DataUtils.getCustomServiceID(), "客服");
+		// } else {
+		// Intent intent = new Intent();
+		// intent.setClass(this, FeedBackActivity.class);
+		// startActivity(intent);
+		// }
 	}
 
 	private void initDialog() {

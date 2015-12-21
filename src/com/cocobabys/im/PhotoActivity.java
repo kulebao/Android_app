@@ -1,11 +1,11 @@
 package com.cocobabys.im;
 
+import io.rong.imkit.tools.PhotoFragment;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-
-import com.cocobabys.R;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +15,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-import io.rong.imkit.tools.PhotoFragment;
+
+import com.cocobabys.R;
+import com.cocobabys.utils.Utils;
 
 /**
  * Created by DragonJ on 15/4/13.
@@ -83,26 +85,29 @@ public class PhotoActivity extends FragmentActivity{
     }
 
     public void copyFile(String oldPath, String newPath){
+        InputStream inStream = null;
+        FileOutputStream fs = null;
         try{
             int bytesum = 0;
             int byteread = 0;
             File oldfile = new File(oldPath);
             if(oldfile.exists()){
-                InputStream inStream = new FileInputStream(oldPath);
-                FileOutputStream fs = new FileOutputStream(newPath);
+                inStream = new FileInputStream(oldPath);
+                fs = new FileOutputStream(newPath);
                 byte[] buffer = new byte[1444];
                 while((byteread = inStream.read(buffer)) != -1){
                     bytesum += byteread;
                     System.out.println(bytesum);
                     fs.write(buffer, 0, byteread);
                 }
-                inStream.close();
             }
         } catch(Exception e){
             Toast.makeText(this, "文件保存出错！", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         finally{
+            Utils.close(inStream);
+            Utils.close(fs);
             Toast.makeText(this, "文件保存成功！", Toast.LENGTH_SHORT).show();
         }
     }

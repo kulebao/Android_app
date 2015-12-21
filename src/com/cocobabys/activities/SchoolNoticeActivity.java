@@ -222,10 +222,10 @@ public class SchoolNoticeActivity extends TabChildActivity{
         if(firstStart){
             setGuadPic(R.drawable.guardnew);
             DataUtils.setGuided();
-        }else if(upgrade){
+        } else if(upgrade){
             setGuadPic(R.drawable.guard_upgrade);
         }
-        
+
     }
 
     private void setGuadPic(int picID){
@@ -1102,25 +1102,25 @@ public class SchoolNoticeActivity extends TabChildActivity{
     }
 
     private void handleConversationBtnClick(){
-        if(MyApplication.getInstance().isForTest()){
-            List<String> allClassID = DataMgr.getInstance().getAllClassID();
-            List<String> needJoinClassID = new ArrayList<>();
+        // if(MyApplication.getInstance().isForTest()){
+        List<String> allClassID = DataMgr.getInstance().getAllClassID();
+        List<String> needJoinClassID = new ArrayList<>();
 
-            for(String class_id : allClassID){
-                IMGroupInfo imGroupInfo = DataMgr.getInstance().getIMGroupInfo(Integer.parseInt(class_id));
-                if(imGroupInfo == null){
-                    needJoinClassID.add(class_id);
-                }
+        for(String class_id : allClassID){
+            IMGroupInfo imGroupInfo = DataMgr.getInstance().getIMGroupInfo(Integer.parseInt(class_id));
+            if(imGroupInfo == null){
+                needJoinClassID.add(class_id);
             }
-
-            if(!needJoinClassID.isEmpty()){
-                runJoinGroupTask(handler, needJoinClassID);
-            } else{
-                startToConversationListActivity();
-            }
-        } else{
-            startToChatActivity();
         }
+
+        if(!needJoinClassID.isEmpty()){
+            runJoinGroupTask(handler, needJoinClassID);
+        } else{
+            startToConversationListActivity();
+        }
+        // } else{
+        // startToChatActivity();
+        // }
     }
 
     @Override

@@ -11,20 +11,10 @@
 
 package com.cocobabys.fragment;
 
+import io.rong.imkit.RongIM;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.ExpandableAdapter;
-import com.cocobabys.bean.IMExpandInfo;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.GroupParentInfo;
-import com.cocobabys.dbmgr.info.ParentInfo;
-import com.cocobabys.event.EmptyEvent;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.GetClassRelationShipJob;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -38,8 +28,17 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
-import de.greenrobot.event.EventBus;
-import io.rong.imkit.RongIM;
+
+import com.cocobabys.R;
+import com.cocobabys.adapter.ExpandableAdapter;
+import com.cocobabys.bean.IMExpandInfo;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.GroupParentInfo;
+import com.cocobabys.dbmgr.info.ParentInfo;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.jobs.GetClassRelationShipJob;
 
 public class ParentListFragment extends Fragment {
 
@@ -148,8 +147,6 @@ public class ParentListFragment extends Fragment {
 
 				if (!self.getParent_id().equals(child.getParent_id())) {
 					Log.d("", "start im id=" + child.getIMUserid() + " name =" + child.getName());
-					// 通知ContactListActivity这里发起了私聊，等会直接退出到主界面
-					EventBus.getDefault().post(new EmptyEvent());
 					RongIM.getInstance().startPrivateChat(getActivity(), child.getIMUserid(), child.getName());
 				}
 				return true;

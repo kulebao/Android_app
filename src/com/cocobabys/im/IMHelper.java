@@ -1,20 +1,5 @@
 package com.cocobabys.im;
 
-import java.util.List;
-
-import com.cocobabys.R;
-import com.cocobabys.activities.MyApplication;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.GroupParentInfo;
-import com.cocobabys.dbmgr.info.IMGroupInfo;
-import com.cocobabys.dbmgr.info.Teacher;
-import com.cocobabys.utils.IMUtils;
-
-import android.content.ContentResolver;
-import android.content.res.Resources;
-import android.content.res.Resources.NotFoundException;
-import android.net.Uri;
-import android.util.Log;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.RongIMClient.ResultCallback;
@@ -25,10 +10,26 @@ import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 
+import java.util.List;
+
+import android.content.ContentResolver;
+import android.content.res.Resources;
+import android.content.res.Resources.NotFoundException;
+import android.net.Uri;
+import android.util.Log;
+
+import com.cocobabys.R;
+import com.cocobabys.activities.MyApplication;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.GroupParentInfo;
+import com.cocobabys.dbmgr.info.IMGroupInfo;
+import com.cocobabys.dbmgr.info.Teacher;
+import com.cocobabys.utils.IMUtils;
+
 public class IMHelper implements RongIM.UserInfoProvider, RongIMClient.OnReceiveMessageListener,
         RongIM.GroupInfoProvider{
 
-    private static final String IM_SYSTEM_ADMIN = "im_system_admin";
+    public static final String IM_SYSTEM_ADMIN = "im_system_admin";
 
     @Override
     public UserInfo getUserInfo(String userId){

@@ -11,18 +11,10 @@
 
 package com.cocobabys.fragment;
 
+import io.rong.imkit.RongIM;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.cocobabys.R;
-import com.cocobabys.adapter.TeacherListAdapter;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.Teacher;
-import com.cocobabys.event.EmptyEvent;
-import com.cocobabys.handler.MyHandler;
-import com.cocobabys.jobs.GetTeacherListJob;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -36,105 +28,111 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import de.greenrobot.event.EventBus;
-import io.rong.imkit.RongIM;
 
-public class TeacherListFragment extends Fragment {
+import com.cocobabys.R;
+import com.cocobabys.adapter.TeacherListAdapter;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.dbmgr.DataMgr;
+import com.cocobabys.dbmgr.info.Teacher;
+import com.cocobabys.handler.MyHandler;
+import com.cocobabys.jobs.GetTeacherListJob;
 
-	private TeacherListAdapter adapter;
-	private ListView listView;
-	private ProgressDialog dialog;
-	private Handler myhandler;
-	private String classid;
+public class TeacherListFragment extends Fragment{
 
-	public TeacherListFragment() {
+    private TeacherListAdapter adapter;
+    private ListView           listView;
+    private ProgressDialog     dialog;
+    private Handler            myhandler;
+    private String             classid;
 
-	}
+    public TeacherListFragment(){
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		Log.d("", "EEEE TeacherListFragment onCreate");
-	}
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.teacher_list_fragment, container, false);
-		Log.d("", "EEEE TeacherListFragment onCreateView");
-		return view;
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        Log.d("", "EEEE TeacherListFragment onCreate");
+    }
 
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-		Log.d("", "EEEE TeacherListFragment onViewCreated");
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View view = inflater.inflate(R.layout.teacher_list_fragment, container, false);
+        Log.d("", "EEEE TeacherListFragment onCreateView");
+        return view;
+    }
 
-		classid = getActivity().getIntent().getStringExtra(ConstantValue.CLASS_ID);
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+        Log.d("", "EEEE TeacherListFragment onViewCreated");
 
-		initDialog();
-		initHander();
-		initListAdapter(view);
-		runGetTeacherListTask();
-	}
+        classid = getActivity().getIntent().getStringExtra(ConstantValue.CLASS_ID);
 
-	private void initHander() {
-		myhandler = new MyHandler(getActivity(), dialog) {
-			@Override
-			public void handleMessage(Message msg) {
-				if (getActivity().isFinishing()) {
-					Log.w("djc", "do nothing when activity finishing!");
-					return;
-				}
-				super.handleMessage(msg);
-				switch (msg.what) {
-				case EventType.GET_TEACHER_SUCCESS:
-					@SuppressWarnings("unchecked")
-					List<Teacher> list = (List<Teacher>) msg.obj;
-					refreshList(list);
-					break;
-				case EventType.GET_TEACHER_FAIL:
-					List<Teacher> allTeachers = DataMgr.getInstance().getAllTeachers();
-					refreshList(allTeachers);
-					break;
-				default:
-					break;
-				}
-			}
+        initDialog();
+        initHander();
+        initListAdapter(view);
+        runGetTeacherListTask();
+    }
 
-		};
-	}
+    private void initHander(){
+        myhandler = new MyHandler(getActivity(), dialog){
+            @Override
+            public void handleMessage(Message msg){
+                if(getActivity().isFinishing()){
+                    Log.w("djc", "do nothing when activity finishing!");
+                    return;
+                }
+                super.handleMessage(msg);
+                switch(msg.what){
+                    case EventType.GET_TEACHER_SUCCESS:
+                        @SuppressWarnings("unchecked")
+                        List<Teacher> list = (List<Teacher>)msg.obj;
+                        refreshList(list);
+                        break;
+                    case EventType.GET_TEACHER_FAIL:
+                        List<Teacher> allTeachers = DataMgr.getInstance().getAllTeachers();
+                        refreshList(allTeachers);
+                        break;
+                    default:
+                        break;
+                }
+            }
 
-	protected void refreshList(List<Teacher> list) {
-		adapter.refresh(list);
-	}
+        };
+    }
 
-	private void initDialog() {
-		dialog = new ProgressDialog(getActivity());
-		dialog.setCancelable(false);
-		dialog.setMessage(getResources().getString(R.string.loading_data));
-	}
+    protected void refreshList(List<Teacher> list){
+        adapter.refresh(list);
+    }
 
-	private void runGetTeacherListTask() {
-		dialog.show();
-		GetTeacherListJob getTeacherListJob = new GetTeacherListJob(myhandler, classid);
-		getTeacherListJob.execute();
-	}
+    private void initDialog(){
+        dialog = new ProgressDialog(getActivity());
+        dialog.setCancelable(false);
+        dialog.setMessage(getResources().getString(R.string.loading_data));
+    }
 
-	private void initListAdapter(View view) {
-		List<Teacher> listinfo = new ArrayList<Teacher>();
-		adapter = new TeacherListAdapter(getActivity(), listinfo);
-		listView = (ListView) view.findViewById(R.id.teacher_list);
-		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Teacher teacher = adapter.getItem(position);
-				Log.d("", "start im id=" + teacher.getIMUserid() + " name =" + teacher.getName());
-				EventBus.getDefault().post(new EmptyEvent());
-				RongIM.getInstance().startPrivateChat(getActivity(), teacher.getIMUserid(), teacher.getName());
-			}
-		});
+    private void runGetTeacherListTask(){
+        dialog.show();
+        GetTeacherListJob getTeacherListJob = new GetTeacherListJob(myhandler, classid);
+        getTeacherListJob.execute();
+    }
 
-	}
+    private void initListAdapter(View view){
+        List<Teacher> listinfo = new ArrayList<Teacher>();
+        adapter = new TeacherListAdapter(getActivity(), listinfo);
+        listView = (ListView)view.findViewById(R.id.teacher_list);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                Teacher teacher = adapter.getItem(position);
+                Log.d("", "start im id=" + teacher.getIMUserid() + " name =" + teacher.getName());
+                RongIM.getInstance().startPrivateChat(getActivity(), teacher.getIMUserid(), teacher.getName());
+            }
+        });
+
+    }
 
 }

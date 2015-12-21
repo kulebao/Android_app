@@ -45,8 +45,13 @@ public class SimpleConversationBahavior implements ConversationBehaviorListener 
 	public boolean onUserPortraitClick(Context context, ConversationType conversationType, UserInfo userInfo) {
 		try {
 			ParentInfo selfInfoByPhone = DataMgr.getInstance().getSelfInfoByPhone();
+			//只有群聊可以点头像
 			if (conversationType == ConversationType.GROUP
-					&& !selfInfoByPhone.getIMUserid().equals(userInfo.getUserId())) {
+			        //不能点自己头像
+					&& !selfInfoByPhone.getIMUserid().equals(userInfo.getUserId())
+					//不能点系统消息头像
+					&& !IMHelper.IM_SYSTEM_ADMIN.equalsIgnoreCase(userInfo.getUserId())
+			        ) {
 				// EventBus.getDefault().post(new EmptyEvent());
 				RongIM.getInstance().startPrivateChat(context, userInfo.getUserId(), userInfo.getName());
 				Activity activity = (Activity) context;
