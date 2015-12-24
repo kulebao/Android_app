@@ -1,36 +1,45 @@
 package com.cocobabys.bean;
 
-public class ActionInfo extends BusinessInfo {
-	private Price price = new Price();
+public class ActionInfo extends BusinessInfo{
+    private Price  price    = new Price();
+    private String distance = "";
 
-	public Price getPrice() {
-		return price;
-	}
+    public String getDistance(){
+        return distance;
+    }
 
-	public void setPrice(Price price) {
-		this.price = price;
-	}
+    public void setDistance(String distance){
+        this.distance = distance;
+    }
 
-	public static class Price {
-		private double origin = 0.0;
-		private double discounted = 0.0;
+    public Price getPrice(){
+        return price;
+    }
 
-		public double getOrigin() {
-			return origin;
-		}
+    public void setPrice(Price price){
+        this.price = price;
+    }
 
-		public void setOrigin(double origin) {
-			this.origin = origin;
-		}
+    public static class Price{
+        private double origin     = 0.0;
+        private double discounted = 0.0;
 
-		public double getDiscounted() {
-			return discounted;
-		}
+        public double getOrigin(){
+            return origin;
+        }
 
-		public void setDiscounted(double discounted) {
-			this.discounted = discounted;
-		}
+        public void setOrigin(double origin){
+            this.origin = origin;
+        }
 
-	}
+        public double getDiscounted(){
+            return discounted;
+        }
+
+        public void setDiscounted(double discounted){
+            this.discounted = discounted;
+        }
+
+    }
 
 }

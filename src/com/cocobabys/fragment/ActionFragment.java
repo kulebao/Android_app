@@ -14,19 +14,6 @@ package com.cocobabys.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
-import com.cocobabys.R;
-import com.cocobabys.activities.ActionActivity;
-import com.cocobabys.adapter.ActionListAdapter;
-import com.cocobabys.bean.ActionInfo;
-import com.cocobabys.bean.PullToRefreshListInfo;
-import com.cocobabys.constant.ConstantValue;
-import com.cocobabys.constant.EventType;
-import com.cocobabys.jobs.GetActionJob;
-import com.cocobabys.listener.MyPullToRefreshOnItemClickListener;
-import com.cocobabys.utils.Utils;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -36,11 +23,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.fastjson.JSON;
+import com.baidu.mapapi.model.LatLng;
+import com.cocobabys.R;
+import com.cocobabys.activities.ActionActivity;
+import com.cocobabys.adapter.ActionListAdapter;
+import com.cocobabys.bean.ActionInfo;
+import com.cocobabys.bean.BusinessInfo.Location;
+import com.cocobabys.bean.PullToRefreshListInfo;
+import com.cocobabys.constant.ConstantValue;
+import com.cocobabys.constant.EventType;
+import com.cocobabys.jobs.GetActionJob;
+import com.cocobabys.listener.MyPullToRefreshOnItemClickListener;
+import com.cocobabys.utils.DataUtils;
+import com.cocobabys.utils.Utils;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 public class ActionFragment extends MyListFragment{
 
     private List<ActionInfo>  actionInfos = new ArrayList<ActionInfo>();
 
     private ActionListAdapter listAdapter;
+
+    private LatLng            selfLocation;
 
     public ActionFragment(){
 
@@ -101,12 +106,36 @@ public class ActionFragment extends MyListFragment{
             case EventType.ACTION_GET_SUCCESS:
                 handleGetActionSuccess(msg);
                 break;
+            case EventType.GET_SELF_LOCATION_SUCCESS:
+                handleLocation(msg);
+                break;
             default:
                 break;
         }
     }
 
-    private void handleGetActionSuccess(Message msg){
+    private synchronized void handleLocation(Message msg){
+        selfLocation = (LatLng)msg.obj;
+        fillDistanceInfo();
+        listAdapter.notifyDataSetChanged();
+    }
+
+    private void fillDistanceInfo(){
+        if(selfLocation == null){
+            return;
+        }
+
+        for(ActionInfo actionInfo : actionInfos){
+            Location locInfo = actionInfo.getLocation();
+            // LatLng latLng = DataUtils.getCoor(locInfo.getLatitude(),
+            // locInfo.getLongitude());
+            LatLng latLng = new LatLng(locInfo.getLatitude(), locInfo.getLongitude());
+            String distance = DataUtils.getDistanceDetail(selfLocation, latLng);
+            actionInfo.setDistance(distance);
+        }
+    }
+
+    private synchronized void handleGetActionSuccess(Message msg){
         @SuppressWarnings("unchecked")
         List<ActionInfo> list = (List<ActionInfo>)msg.obj;
         if(list.isEmpty()){
@@ -118,6 +147,7 @@ public class ActionFragment extends MyListFragment{
                 actionInfos.addAll(list);
             }
 
+            fillDistanceInfo();
             listAdapter.notifyDataSetChanged();
         }
     }

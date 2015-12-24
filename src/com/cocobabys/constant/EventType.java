@@ -200,4 +200,6 @@ public class EventType{
 
     public static final int GET_LOCATOR_POWER_SUCCESS                 = 20030;
     public static final int GET_LOCATOR_POWER_FAIL                    = 20031;
+
+    public static final int GET_SELF_LOCATION_SUCCESS                 = 20041;
 }

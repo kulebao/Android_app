@@ -1,92 +1,58 @@
 package com.cocobabys.jobs;
 
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
-import com.cocobabys.constant.EventType;
-import com.cocobabys.dbmgr.DataMgr;
-import com.cocobabys.dbmgr.info.IMGroupInfo;
-import com.cocobabys.net.IMMethod;
-import com.cocobabys.net.MethodResult;
-import com.cocobabys.proxy.MyProxy;
-import com.cocobabys.proxy.MyProxyImpl;
-import com.cocobabys.threadpool.MyJob;
-
+import rx.Observable;
+import rx.Observer;
 import android.os.Handler;
 import android.util.Log;
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient.ErrorCode;
-import io.rong.imlib.RongIMClient.OperationCallback;
 
-public class JoinGroupJob extends MyJob {
+import com.cocobabys.constant.EventType;
+import com.cocobabys.net.IMMethod;
+import com.cocobabys.net.MethodResult;
+import com.cocobabys.threadpool.MyJob;
 
-	private Handler handler;
-	private List<String> classidList;
-	private CountDownLatch countDownLatch;
-	private MethodResult bret = new MethodResult(EventType.JOIN_IM_GROUP_FAIL);
+public class JoinGroupJob extends MyJob{
 
-	public JoinGroupJob(Handler handler, List<String> classidList) {
-		this.handler = handler;
-		this.classidList = classidList;
-		countDownLatch = new CountDownLatch(classidList.size());
-	}
+    private Handler      handler;
+    private List<String> classidList;
+    private int          successCount = 0;
 
-	@Override
-	public void run() {
-		try {
-			MyProxy proxy = new MyProxy();
-			MyProxyImpl bind = (MyProxyImpl) proxy.bind(new MyProxyImpl() {
-				@Override
-				public MethodResult handle() throws Exception {
-					try {
-						for (String classid : classidList) {
-							MethodResult result = IMMethod.getMethod().getGroupInfo(classid);
-							if (result.getResultType() == EventType.GET_IM_GROUP_SUCCESS) {
-								joinGroup((IMGroupInfo) result.getResultObj());
-							} else {
-								countDownLatch.countDown();
-							}
-						}
+    public JoinGroupJob(Handler handler, List<String> classidList){
+        this.handler = handler;
+        this.classidList = classidList;
+    }
 
-						countDownLatch.await(30, TimeUnit.SECONDS);
-					} catch (Exception e) {
-						e.printStackTrace();
-					} finally {
-						handler.sendEmptyMessage(bret.getResultType());
-					}
+    @Override
+    public void run(){
+        Observable.from(classidList).doOnEach(new Observer<String>(){
 
-					return null;
-				}
-			});
-			bind.handle();
+            @Override
+            public void onCompleted(){
+                int event = successCount > 0 ? EventType.JOIN_IM_GROUP_SUCCESS : EventType.JOIN_IM_GROUP_FAIL;
+                handler.sendEmptyMessage(event);
+            }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+            @Override
+            public void onError(Throwable arg0){
+                int event = successCount > 0 ? EventType.JOIN_IM_GROUP_SUCCESS : EventType.JOIN_IM_GROUP_FAIL;
+                handler.sendEmptyMessage(event);
+            }
 
-	private void joinGroup(final IMGroupInfo groupInfo) {
+            @Override
+            public void onNext(String classid){
+                try{
+                    Log.d("", "joinGroupInfo classid=" + classid);
+                    MethodResult result = IMMethod.getMethod().joinGroupInfo(classid);
+                    if(result.getResultType() == EventType.JOIN_IM_GROUP_SUCCESS){
+                        successCount++;
+                    }
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).subscribe();
 
-		RongIM.getInstance().getRongIMClient().joinGroup(groupInfo.getGroup_id(), groupInfo.getGroup_name(),
-				new OperationCallback() {
-
-					@Override
-					public void onSuccess() {
-						Log.d("", "DDD JOIN_IM_GROUP_SUCCESS");
-						DataMgr.getInstance().addIMGroupInfo(groupInfo);
-						bret.setResultType(EventType.JOIN_IM_GROUP_SUCCESS);
-						countDownLatch.countDown();
-					}
-
-					@Override
-					public void onError(ErrorCode errorCode) {
-						Log.d("", "DDD JOIN_IM_GROUP_FAIL err :" + errorCode.getMessage() + " code="
-								+ errorCode.getValue());
-						// handler.sendEmptyMessage(EventType.JOIN_IM_GROUP_FAIL);
-						countDownLatch.countDown();
-					}
-				});
-	}
+    }
 
 }

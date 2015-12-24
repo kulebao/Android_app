@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cocobabys.dbmgr.info.ChildInfo;
 import com.cocobabys.dbmgr.info.InfoHelper;
+import com.cocobabys.dbmgr.info.NativeMediumInfo;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -21,8 +22,8 @@ public class ChildrenInfoMgr {
 	long addChildrenInfo(ChildInfo info) {
 		ContentValues values = setProp(info);
 		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
-		return writableDatabase.insertWithOnConflict(SqliteHelper.CHILDREN_INFO_TAB, null,
-				values,SQLiteDatabase.CONFLICT_IGNORE);
+		return writableDatabase.insertWithOnConflict(SqliteHelper.CHILDREN_INFO_TAB, null, values,
+				SQLiteDatabase.CONFLICT_IGNORE);
 	}
 
 	private ContentValues setProp(ChildInfo info) {
@@ -42,40 +43,55 @@ public class ChildrenInfoMgr {
 	}
 
 	void addChildrenInfoList(List<ChildInfo> list) {
-		for (ChildInfo info : list) {
-			addChildrenInfo(info);
+		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
+		writableDatabase.beginTransaction(); // 手动设置开始事务
+
+		try {
+			writableDatabase.execSQL("DELETE FROM " + SqliteHelper.CHILDREN_INFO_TAB);
+			// 数据插入操作循环
+			for (ChildInfo info : list) {
+				ContentValues values = setProp(info);
+				writableDatabase.insertWithOnConflict(SqliteHelper.CHILDREN_INFO_TAB, null, values,
+						SQLiteDatabase.CONFLICT_IGNORE);
+
+			}
+			writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+		writableDatabase.endTransaction(); // 处理完成
+
+		// for (ChildInfo info : list) {
+		// addChildrenInfo(info);
+		// }
 	}
 
 	void updateLocalUrl(String serverid, String localurl) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(ChildInfo.CHILD_LOCAL_HEAD_ICON, localurl);
-		db.update(SqliteHelper.CHILDREN_INFO_TAB, values, ChildInfo.SERVER_ID
-				+ "  = '" + serverid + "'", null);
+		db.update(SqliteHelper.CHILDREN_INFO_TAB, values, ChildInfo.SERVER_ID + "  = '" + serverid + "'", null);
 	}
 
 	void updateNick(String serverid, String nick) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(ChildInfo.CHILD_NICK_NAME, nick);
-		db.update(SqliteHelper.CHILDREN_INFO_TAB, values, ChildInfo.SERVER_ID
-				+ "  = '" + serverid + "'", null);
+		db.update(SqliteHelper.CHILDREN_INFO_TAB, values, ChildInfo.SERVER_ID + "  = '" + serverid + "'", null);
 	}
 
 	void updateBirthday(String serverid, long birthday) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(ChildInfo.CHILD_BIRTHDAY, birthday);
-		db.update(SqliteHelper.CHILDREN_INFO_TAB, values, ChildInfo.SERVER_ID
-				+ "  = '" + serverid + "'", null);
+		db.update(SqliteHelper.CHILDREN_INFO_TAB, values, ChildInfo.SERVER_ID + "  = '" + serverid + "'", null);
 	}
 
 	void updateChildInfo(String serverid, ChildInfo info) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues values = setProp(info);
-		db.update(SqliteHelper.CHILDREN_INFO_TAB, values, ChildInfo.SERVER_ID
-				+ "  = '" + serverid + "'", null);
+		db.update(SqliteHelper.CHILDREN_INFO_TAB, values, ChildInfo.SERVER_ID + "  = '" + serverid + "'", null);
 	}
 
 	int setSelectedChild(String server_id) {
@@ -87,15 +103,13 @@ public class ChildrenInfoMgr {
 
 		// 再把需要的小孩置为选中
 		values.put(ChildInfo.SELECTED, 1);
-		return db.update(SqliteHelper.CHILDREN_INFO_TAB, values,
-				ChildInfo.SERVER_ID + "  = '" + server_id + "'", null);
+		return db.update(SqliteHelper.CHILDREN_INFO_TAB, values, ChildInfo.SERVER_ID + "  = '" + server_id + "'", null);
 	}
 
 	List<ChildInfo> getAllChildrenInfo() {
 		List<ChildInfo> list = new ArrayList<ChildInfo>();
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM "
-				+ SqliteHelper.CHILDREN_INFO_TAB, null);
+		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.CHILDREN_INFO_TAB, null);
 		try {
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
@@ -116,9 +130,8 @@ public class ChildrenInfoMgr {
 	ChildInfo getSelectedChild() {
 		ChildInfo info = null;
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM "
-				+ SqliteHelper.CHILDREN_INFO_TAB + " WHERE "
-				+ ChildInfo.SELECTED + " = 1", null);
+		Cursor cursor = db.rawQuery(
+				"SELECT * FROM " + SqliteHelper.CHILDREN_INFO_TAB + " WHERE " + ChildInfo.SELECTED + " = 1", null);
 		try {
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
@@ -139,8 +152,8 @@ public class ChildrenInfoMgr {
 	List<String> getAllClassID() {
 		List<String> list = new ArrayList<String>();
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT DISTINCT(" + ChildInfo.CLASS_ID
-				+ ") FROM " + SqliteHelper.CHILDREN_INFO_TAB, null);
+		Cursor cursor = db
+				.rawQuery("SELECT DISTINCT(" + ChildInfo.CLASS_ID + ") FROM " + SqliteHelper.CHILDREN_INFO_TAB, null);
 		try {
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast() && (cursor.getString(0) != null)) {
@@ -159,9 +172,9 @@ public class ChildrenInfoMgr {
 	ChildInfo getChildByID(String id) {
 		ChildInfo info = null;
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM "
-				+ SqliteHelper.CHILDREN_INFO_TAB + " WHERE "
-				+ ChildInfo.SERVER_ID + " = '" + id + "'", null);
+		Cursor cursor = db.rawQuery(
+				"SELECT * FROM " + SqliteHelper.CHILDREN_INFO_TAB + " WHERE " + ChildInfo.SERVER_ID + " = '" + id + "'",
+				null);
 		try {
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast() && (cursor.getString(1) != null)) {
@@ -181,8 +194,8 @@ public class ChildrenInfoMgr {
 	String getLatestTimestamp() {
 		String time = "";
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT MAX(" + InfoHelper.TIMESTAMP
-				+ ") FROM " + SqliteHelper.CHILDREN_INFO_TAB, null);
+		Cursor cursor = db.rawQuery("SELECT MAX(" + InfoHelper.TIMESTAMP + ") FROM " + SqliteHelper.CHILDREN_INFO_TAB,
+				null);
 		try {
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast() && (cursor.getString(0) != null)) {
@@ -202,9 +215,8 @@ public class ChildrenInfoMgr {
 	String getClassNameByClassID(int classid) {
 		String name = "";
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT " + ChildInfo.CLASS_NAME + " FROM "
-				+ SqliteHelper.CHILDREN_INFO_TAB + " WHERE "
-				+ ChildInfo.CLASS_ID + " = '" + classid + "'", null);
+		Cursor cursor = db.rawQuery("SELECT " + ChildInfo.CLASS_NAME + " FROM " + SqliteHelper.CHILDREN_INFO_TAB
+				+ " WHERE " + ChildInfo.CLASS_ID + " = '" + classid + "'", null);
 		try {
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast() && (cursor.getString(0) != null)) {

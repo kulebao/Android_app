@@ -148,6 +148,7 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 		videoUrl = info.serverUrlToLocalUrl(serverUrl, false);
 
 		Log.d("", "saveAndCompressNail videoUrl=" + videoUrl);
+		Log.d("", "saveAndCompressNail serverUrl=" + serverUrl);
 		if (!new File(videoUrl).exists()) {
 			showDlg(serverUrl);
 		} else {

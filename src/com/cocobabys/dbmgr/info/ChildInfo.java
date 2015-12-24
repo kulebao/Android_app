@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.cocobabys.dbmgr.DataMgr;
+
 public class ChildInfo {
 	public static final int STATUS_SELECTED = 1;
 	public static final int STATUS_UNSELECTED = 0;
@@ -113,10 +115,16 @@ public class ChildInfo {
 		this.child_nick_name = child_nick_name;
 	}
 
+	@Deprecated
+	// 后续通过NativeMediumMgr来获取本地小孩头像路径
 	public String getLocal_url() {
-		return local_url;
+		NativeMediumInfo nativeMediumInfo = DataMgr.getInstance().getNativeMediumInfo(server_url);
+		return nativeMediumInfo == null ? "" : nativeMediumInfo.getValue();
+		// return local_url;
 	}
 
+	@Deprecated
+	// 后续通过NativeMediumMgr来获取本地小孩头像路径
 	public void setLocal_url(String local_url) {
 		this.local_url = local_url;
 	}

@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="8dp"
-    android:paddingLeft="8dp"
+    android:paddingLeft="5dp"
     android:paddingRight="5dp"
     android:paddingTop="8dp" >
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="95dp"
-        android:layout_height="61dp"
+        android:layout_width="144dp"
+        android:layout_height="81dp"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
         android:src="@drawable/dlogo" />
@@ -18,51 +18,43 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/image"
-        android:layout_alignTop="@+id/image"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/image" >
 
-        <RelativeLayout
-            android:id="@+id/first"
+        <TextView
+            android:id="@+id/title"
+            style="@style/TitleTextStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="dddddd"
+            android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/TitleTextStyle"
-                android:layout_width="match_parent"
-                android:layout_marginRight="4dp"
-                android:layout_toLeftOf="@+id/distance"
-                android:singleLine="true"
-                android:text="dddddd"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/distance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="8dp"
-                android:singleLine="true"
-                android:textColor="@color/lightGray"
-                android:textSize="14sp" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/originalprice"
+            style="@style/MinorTextStyle"
+            android:layout_below="@+id/title"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="dd"
+            android:textColor="@color/gray" />
 
         <LinearLayout
             android:id="@+id/middle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/originalprice"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal"
             android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text="幼乐宝专享"
-                android:textColor="@color/lightGray"
+                android:text="@string/special_discount"
+                android:textColor="@color/red"
                 android:textSize="14sp" />
 
             <TextView
@@ -70,19 +62,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:text="1999元"
-                android:textColor="@color/red"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/originalprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:singleLine="true"
-                android:text="ddaaaa"
-                android:textColor="@color/lightGray"
-                android:textSize="12sp" />
+                android:text="9999元"
+                android:textColor="@color/blue"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <TextView
@@ -97,8 +79,7 @@
             android:singleLine="true"
             android:text="@string/join"
             android:textColor="@color/white"
-            android:textSize="18sp"
-            android:visibility="gone" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/address"

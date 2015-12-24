@@ -101,7 +101,7 @@ public class ChildMethod {
 
 			// 因为有多个小孩的情况，将小孩id作为key，把卡号和关系id保存起来，改卡时需要使用
 			RelationInfo relationInfo = new RelationInfo();
-			
+
 			relationInfo.setCardnum(info.getCard());
 			relationInfo.setChildid(childObj.optString("child_id"));
 			relationInfo.setRelationid(jsonObject.getString("id"));
@@ -118,26 +118,29 @@ public class ChildMethod {
 
 	private int checkUpdate(List<ChildInfo> childList) {
 		DataMgr instance = DataMgr.getInstance();
-		int event = EventType.CHILDREN_INFO_IS_LATEST;
+		// int event = EventType.CHILDREN_INFO_IS_LATEST;
 
 		ChildInfo selectedChild = instance.getSelectedChild();
-		if (selectedChild == null || (instance.getAllChildrenInfo().size() != childList.size())) {
-			updateAll(childList, selectedChild);
-			event = EventType.UPDATE_CHILDREN_INFO;
-		} else {
-			long latestChildTimestamp = Long.parseLong(instance.getLatestChildTimestamp());
-			long curLatest = getLatestTime(childList);
-
-			if (curLatest > latestChildTimestamp) {
-				updateAll(childList, selectedChild);
-				event = EventType.UPDATE_CHILDREN_INFO;
-			}
-		}
-		return event;
+		// if (selectedChild == null || (instance.getAllChildrenInfo().size() !=
+		// childList.size())) {
+		// updateAll(childList, selectedChild);
+		// event = EventType.UPDATE_CHILDREN_INFO;
+		// } else {
+		// long latestChildTimestamp =
+		// Long.parseLong(instance.getLatestChildTimestamp());
+		// long curLatest = getLatestTime(childList);
+		//
+		// if (curLatest > latestChildTimestamp) {
+		// updateAll(childList, selectedChild);
+		// event = EventType.UPDATE_CHILDREN_INFO;
+		// }
+		// }
+		updateAll(childList, selectedChild);
+		return EventType.UPDATE_CHILDREN_INFO;
 	}
 
 	private void updateAll(List<ChildInfo> childList, ChildInfo selectedChild) {
-		DataMgr.getInstance().clearChildInfo();
+		// DataMgr.getInstance().clearChildInfo();
 
 		if (selectedChild == null) {
 			// 首次使用，把全部小孩数据更新到数据库

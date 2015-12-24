@@ -36,5 +36,7 @@
     <color name="light_back_blue">#e6f6fc</color>
     
     <color name="divider">#d2d2d2</color>
+    
+    <color name="lightGray">#999999</color>
 
 </resources>

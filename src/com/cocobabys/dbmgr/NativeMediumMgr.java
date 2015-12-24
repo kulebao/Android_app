@@ -23,6 +23,28 @@ class NativeMediumMgr {
 				SQLiteDatabase.CONFLICT_IGNORE);
 	}
 
+	void replace(NativeMediumInfo info) {
+		if (info == null) {
+			return;
+		}
+
+		SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
+		writableDatabase.beginTransaction(); // 手动设置开始事务
+
+		try {
+			writableDatabase.execSQL("DELETE FROM " + SqliteHelper.NATIVE_MEDIUM_URL_TAB + " WHERE "
+					+ NativeMediumInfo.KEY+ " ='" + info.getKey() + "'");
+			ContentValues values = buildInfo(info);
+			writableDatabase.insertWithOnConflict(SqliteHelper.NATIVE_MEDIUM_URL_TAB, null, values,
+					SQLiteDatabase.CONFLICT_IGNORE);
+			// 数据插入操作循环
+			writableDatabase.setTransactionSuccessful(); // 设置事务处理成功，不设置会自动回滚不提交
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		writableDatabase.endTransaction(); // 处理完成
+	}
+
 	void addList(List<NativeMediumInfo> list) {
 		if (list == null || list.isEmpty()) {
 			return;
@@ -77,7 +99,6 @@ class NativeMediumMgr {
 		Cursor cursor = db.rawQuery("SELECT * FROM " + SqliteHelper.NATIVE_MEDIUM_URL_TAB, null);
 		return getList(cursor);
 	}
-	
 
 	private List<NativeMediumInfo> getList(Cursor cursor) {
 		List<NativeMediumInfo> list = new ArrayList<NativeMediumInfo>();
@@ -95,7 +116,7 @@ class NativeMediumMgr {
 		}
 		return list;
 	}
-	
+
 	void clear() {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		db.execSQL("DELETE FROM " + SqliteHelper.NATIVE_MEDIUM_URL_TAB);

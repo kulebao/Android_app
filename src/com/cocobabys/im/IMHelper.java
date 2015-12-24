@@ -2,6 +2,7 @@ package com.cocobabys.im;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.RongIMClient.ErrorCode;
 import io.rong.imlib.RongIMClient.ResultCallback;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Conversation.ConversationNotificationStatus;
@@ -26,209 +27,225 @@ import com.cocobabys.dbmgr.info.IMGroupInfo;
 import com.cocobabys.dbmgr.info.Teacher;
 import com.cocobabys.utils.IMUtils;
 
-public class IMHelper implements RongIM.UserInfoProvider, RongIMClient.OnReceiveMessageListener,
-        RongIM.GroupInfoProvider{
+public class IMHelper
+		implements RongIM.UserInfoProvider, RongIMClient.OnReceiveMessageListener, RongIM.GroupInfoProvider {
 
-    public static final String IM_SYSTEM_ADMIN = "im_system_admin";
+	public static final String IM_SYSTEM_ADMIN = "im_system_admin";
 
-    @Override
-    public UserInfo getUserInfo(String userId){
-        // String currentGroupID =
-        // MyApplication.getInstance().getCurrentGroupID();
-        UserInfo bret = null;
-        try{
-            if(userId.toLowerCase().startsWith("t_")){
-                // 老师
-                String id = getID(userId);
-                Teacher teacher = DataMgr.getInstance().getTeacherByInternalID(Integer.parseInt(id));
-                if(teacher != null){
-                    bret = new UserInfo(userId, teacher.getName() + "老师", Uri.parse(teacher.getHead_icon()));
-                } else{
-                    bret = new UserInfo(userId, "老师", null);
-                }
+	@Override
+	public UserInfo getUserInfo(String userId) {
+		// String currentGroupID =
+		// MyApplication.getInstance().getCurrentGroupID();
+		UserInfo bret = null;
+		try {
+			if (userId.toLowerCase().startsWith("t_")) {
+				// 老师
+				String id = getID(userId);
+				Teacher teacher = DataMgr.getInstance().getTeacherByInternalID(Integer.parseInt(id));
+				if (teacher != null) {
+					bret = new UserInfo(userId, teacher.getName() + "老师", Uri.parse(teacher.getHead_icon()));
+				} else {
+					bret = new UserInfo(userId, "老师", null);
+				}
 
-            } else if(userId.toLowerCase().startsWith("p_")){
-                // 家长
-                String id = getID(userId);
-                GroupParentInfo groupParentInfo = DataMgr.getInstance().getGroupParentInfo(Integer.parseInt(id));
-                // ParentInfo parent =
-                // DataMgr.getInstance().getParentByInternalID(Integer.parseInt(id));
+			} else if (userId.toLowerCase().startsWith("p_")) {
+				// 家长
+				String id = getID(userId);
+				GroupParentInfo groupParentInfo = DataMgr.getInstance().getGroupParentInfo(Integer.parseInt(id));
+				// ParentInfo parent =
+				// DataMgr.getInstance().getParentByInternalID(Integer.parseInt(id));
 
-                if(groupParentInfo != null){
-                    bret = new UserInfo(userId, groupParentInfo.getNick_name(),
-                            Uri.parse(groupParentInfo.getPortrait()));
-                } else{
-                    bret = new UserInfo(userId, "家长", null);
-                }
-            } else if(IM_SYSTEM_ADMIN.equalsIgnoreCase(userId)){
-                bret = new UserInfo(userId, "系统管理员", null);
-            }
-        } catch(Exception e){
-            e.printStackTrace();
-        }
+				if (groupParentInfo != null) {
+					bret = new UserInfo(userId, groupParentInfo.getNick_name(),
+							Uri.parse(groupParentInfo.getPortrait()));
+				} else {
+					bret = new UserInfo(userId, "家长", null);
+				}
+			} else if (IM_SYSTEM_ADMIN.equalsIgnoreCase(userId)) {
+				bret = new UserInfo(userId, "系统管理员", null);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        if(bret != null){
-            Log.d("",
-                  "AAAA getUserInfo  userId=" + userId + " uri=" + bret.getPortraitUri() + " name=" + bret.getName());
-        } else{
-            Log.d("", "AAAA getUserInfo  userId=" + userId + " info is null!!!");
-        }
-        return bret;
-    }
+		if (bret != null) {
+			Log.d("",
+					"AAAA getUserInfo  userId=" + userId + " uri=" + bret.getPortraitUri() + " name=" + bret.getName());
+		} else {
+			Log.d("", "AAAA getUserInfo  userId=" + userId + " info is null!!!");
+		}
+		return bret;
+	}
 
-    // 返回()中间的字符,只能判断最后一个括号内容，不过对当前业务来看足够了
-    public static String getID(String str){
-        String r = str.replaceAll("^.*\\(", "").replaceAll("\\).*", "");
-        return r;
-    }
+	// 返回()中间的字符,只能判断最后一个括号内容，不过对当前业务来看足够了
+	public static String getID(String str) {
+		String r = str.replaceAll("^.*\\(", "").replaceAll("\\).*", "");
+		return r;
+	}
 
-    // private void setProvider() {
-    // Log.d("", "setProvider");
-    // IMHelper imHelper = new IMHelper();
-    // RongIM.setUserInfoProvider(imHelper, true);// 设置用户信息提供者。
-    // RongIM.setGroupInfoProvider(imHelper, true);// 设置群组信息提供者。
-    // }
+	// private void setProvider() {
+	// Log.d("", "setProvider");
+	// IMHelper imHelper = new IMHelper();
+	// RongIM.setUserInfoProvider(imHelper, true);// 设置用户信息提供者。
+	// RongIM.setGroupInfoProvider(imHelper, true);// 设置群组信息提供者。
+	// }
 
-    @Override
-    public boolean onReceived(Message message, int left){
-        ConversationType conversationType = message.getConversationType();
-        String targetId = message.getTargetId();
+	@Override
+	public boolean onReceived(Message message, int left) {
+		ConversationType conversationType = message.getConversationType();
+		String targetId = message.getTargetId();
 
-        RongIM.setUserInfoProvider(this, true);// 设置用户信息提供者。
-        RongIM.setGroupInfoProvider(this, true);// 设置群组信息提供者。
+		RongIM.setUserInfoProvider(this, true);// 设置用户信息提供者。
+		RongIM.setGroupInfoProvider(this, true);// 设置群组信息提供者。
 
-        // 返回true表示自己处理消息通知，这里直接返回就表示不处理
-        if(IMUtils.isMessageDisturbEnable(targetId) && conversationType.equals(ConversationType.GROUP)){
-            Log.d("", "onReceived message but disturb it! targetId=" + targetId);
-            return true;
-        }
-        return false;
-    }
+		// 返回true表示自己处理消息通知，这里直接返回就表示不处理
+		if (IMUtils.isMessageDisturbEnable(targetId) && conversationType.equals(ConversationType.GROUP)) {
+			Log.d("", "onReceived message but disturb it! targetId=" + targetId);
+			return true;
+		}
+		return false;
+	}
 
-    @Override
-    public Group getGroupInfo(String groupId){
-        Group group = getGroup(groupId);
+	@Override
+	public Group getGroupInfo(String groupId) {
+		Group group = getGroup(groupId);
 
-        return group;
-    }
+		return group;
+	}
 
-    public static void quitGroup(final IMGroupInfo groupInfo){
-        RongIM.getInstance().getRongIMClient().quitGroup(groupInfo.getGroup_id(), new RongIMClient.OperationCallback(){
-            @Override
-            public void onSuccess(){
-                Log.d("", "quit success groupid=" + groupInfo.getGroup_id());
-                DataMgr.getInstance().deleteGroup(groupInfo.getGroup_id());
-            }
-    
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode){
-                Log.d("", "quit failed groupid=" + groupInfo.getGroup_id() + " e=" + errorCode.getMessage());
-            }
-        });
-    }
+	@Deprecated
+	// 融云废除了客户端退出群组的接口
+	public static void quitGroup(final IMGroupInfo groupInfo) {
+		RongIM.getInstance().getRongIMClient().quitGroup(groupInfo.getGroup_id(), new RongIMClient.OperationCallback() {
+			@Override
+			public void onSuccess() {
+				Log.d("", "quit success groupid=" + groupInfo.getGroup_id());
+				DataMgr.getInstance().deleteGroup(groupInfo.getGroup_id());
+			}
 
-    private static Group getGroup(String groupId){
-        Group group = null;
-        IMGroupInfo imGroupInfo;
-        try{
-            imGroupInfo = DataMgr.getInstance().getIMGroupInfoByGroupID(groupId);
-            Resources r = MyApplication.getInstance().getResources();
+			@Override
+			public void onError(RongIMClient.ErrorCode errorCode) {
+				Log.d("", "quit failed groupid=" + groupInfo.getGroup_id() + " e=" + errorCode.getMessage());
+			}
+		});
+	}
 
-            Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
-                    + r.getResourcePackageName(R.drawable.small_logo) + "/"
-                    + r.getResourceTypeName(R.drawable.small_logo) + "/"
-                    + r.getResourceEntryName(R.drawable.small_logo));
+	private static Group getGroup(String groupId) {
+		Group group = null;
+		IMGroupInfo imGroupInfo;
+		try {
+			imGroupInfo = DataMgr.getInstance().getIMGroupInfoByGroupID(groupId);
+			Resources r = MyApplication.getInstance().getResources();
 
-            if(imGroupInfo != null){
-                group = new Group(groupId, imGroupInfo.getGroup_name(), uri);
-                Log.d("imGroupInfo", "AAAA imGroupInfo =" + imGroupInfo.toString());
-            }
-        } catch(NotFoundException e){
-            e.printStackTrace();
-        }
+			Uri uri = Uri.parse(
+					ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + r.getResourcePackageName(R.drawable.small_logo)
+							+ "/" + r.getResourceTypeName(R.drawable.small_logo) + "/"
+							+ r.getResourceEntryName(R.drawable.small_logo));
 
-        return group;
-    }
+			if (imGroupInfo != null) {
+				group = new Group(groupId, imGroupInfo.getGroup_name(), uri);
+				Log.d("imGroupInfo", "AAAA imGroupInfo =" + imGroupInfo.toString());
+			}
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+		}
 
-    public static void updateGroupInfoCache(){
-        DataMgr instance = DataMgr.getInstance();
-        List<String> allClassID = instance.getAllClassID();
-        String schoolID = instance.getSchoolID();
-        for(String classid : allClassID){
-            Group group = getGroup(schoolID + "_" + classid);
-            if(group != null){
-                RongIM.getInstance().refreshGroupInfoCache(group);
-            }
-        }
-    }
+		return group;
+	}
 
-    public static void updateParentsInfoCache(){
-        List<GroupParentInfo> allGroupParentsInfo = DataMgr.getInstance().getAllGroupParentsInfoWithNick();
+	public static void updateGroupInfoCache(IMGroupInfo imGroupInfo) {
+		Group group = new Group(imGroupInfo.getGroup_id(), imGroupInfo.getGroup_name(), null);
+		RongIM.getInstance().refreshGroupInfoCache(group);
+	}
 
-        for(GroupParentInfo groupParentInfo : allGroupParentsInfo){
-            Uri uri = null;
-            String imUserid = groupParentInfo.getIMUserid();
-            if(!groupParentInfo.getPortrait().isEmpty()){
-                uri = Uri.parse(groupParentInfo.getPortrait());
-            }
-            /**
-             * 刷新用户缓存数据。
-             *
-             * @param userInfo 需要更新的用户缓存数据。
-             */
-            Log.d("", "AAAA updateParentsInfoCache pid=" + imUserid + " name=" + groupParentInfo.getNick_name());
-            RongIM.getInstance().refreshUserInfoCache(new UserInfo(imUserid, groupParentInfo.getNick_name(), uri));
-        }
-    }
+	public static void updateGroupInfoCache() {
+		DataMgr instance = DataMgr.getInstance();
+		List<String> allClassID = instance.getAllClassID();
+		String schoolID = instance.getSchoolID();
+		for (String classid : allClassID) {
+			Group group = getGroup(schoolID + "_" + classid);
+			if (group != null) {
+				RongIM.getInstance().refreshGroupInfoCache(group);
+			}
+		}
+	}
 
-    public static void updateTeacherInfoCache(){
-        List<Teacher> allTeachers = DataMgr.getInstance().getAllTeachers();
+	public static void updateParentsInfoCache() {
+		List<GroupParentInfo> allGroupParentsInfo = DataMgr.getInstance().getAllGroupParentsInfoWithNick();
 
-        for(Teacher teacher : allTeachers){
-            Uri uri = null;
-            String imUserid = teacher.getIMUserid();
-            if(!teacher.getHead_icon().isEmpty()){
-                uri = Uri.parse(teacher.getHead_icon());
-            }
-            /**
-             * 刷新用户缓存数据。
-             *
-             * @param userInfo 需要更新的用户缓存数据。
-             */
-            Log.d("", "AAAA updateTeacherInfoCache tid=" + imUserid + " name=" + teacher.getName());
-            RongIM.getInstance().refreshUserInfoCache(new UserInfo(imUserid, teacher.getName() + "老师", uri));
-        }
-    }
+		for (GroupParentInfo groupParentInfo : allGroupParentsInfo) {
+			Uri uri = null;
+			String imUserid = groupParentInfo.getIMUserid();
+			if (!groupParentInfo.getPortrait().isEmpty()) {
+				uri = Uri.parse(groupParentInfo.getPortrait());
+			}
+			/**
+			 * 刷新用户缓存数据。
+			 *
+			 * @param userInfo
+			 *            需要更新的用户缓存数据。
+			 */
+			Log.d("", "AAAA updateParentsInfoCache pid=" + imUserid + " name=" + groupParentInfo.getNick_name());
+			RongIM.getInstance().refreshUserInfoCache(new UserInfo(imUserid, groupParentInfo.getNick_name(), uri));
+		}
+	}
 
-    public static void clearChatRecord(ConversationType conversionType, String targetID,
-            ResultCallback<Boolean> callback){
-        RongIM.getInstance().getRongIMClient().clearMessages(conversionType, targetID, callback);
-    }
+	public static void updateTeacherInfoCache() {
+		List<Teacher> allTeachers = DataMgr.getInstance().getAllTeachers();
 
-    public static void setGroupMessageNotificationStatus(ConversationType conversationType, String groupID,
-            ConversationNotificationStatus status){
-        RongIM.getInstance()
-                .getRongIMClient()
-                .setConversationNotificationStatus(conversationType,
-                                                   groupID,
-                                                   status,
-                                                   new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>(){
+		for (Teacher teacher : allTeachers) {
+			Uri uri = null;
+			String imUserid = teacher.getIMUserid();
+			if (!teacher.getHead_icon().isEmpty()) {
+				uri = Uri.parse(teacher.getHead_icon());
+			}
+			/**
+			 * 刷新用户缓存数据。
+			 *
+			 * @param userInfo
+			 *            需要更新的用户缓存数据。
+			 */
+			Log.d("", "AAAA updateTeacherInfoCache tid=" + imUserid + " name=" + teacher.getName());
+			RongIM.getInstance().refreshUserInfoCache(new UserInfo(imUserid, teacher.getName() + "老师", uri));
+		}
+	}
 
-                                                       @Override
-                                                       public void onSuccess(
-                                                               Conversation.ConversationNotificationStatus status){
-                                                           Log.e("",
-                                                                 "SetConversationNotificationFragment onError--  onSuccess ");
-                                                       }
+	public static void clearChatRecord(ConversationType conversionType, String targetID,
+			ResultCallback<Boolean> callback) {
+		RongIM.getInstance().getRongIMClient().clearMessages(conversionType, targetID, callback);
+	}
 
-                                                       @Override
-                                                       public void onError(RongIMClient.ErrorCode errorCode){
-                                                           Log.e("",
-                                                                 "SetConversationNotificationFragment onError--  errorCode ="
-                                                                         + errorCode.getMessage());
-                                                       }
-                                                   });
-    }
+	public static void setGroupMessageNotificationStatus(ConversationType conversationType, String groupID,
+			ConversationNotificationStatus status) {
+		RongIM.getInstance().getRongIMClient().setConversationNotificationStatus(conversationType, groupID, status,
+				new RongIMClient.ResultCallback<Conversation.ConversationNotificationStatus>() {
 
+					@Override
+					public void onSuccess(Conversation.ConversationNotificationStatus status) {
+						Log.e("", "SetConversationNotificationFragment onError--  onSuccess ");
+					}
 
+					@Override
+					public void onError(RongIMClient.ErrorCode errorCode) {
+						Log.e("",
+								"SetConversationNotificationFragment onError--  errorCode =" + errorCode.getMessage());
+					}
+				});
+	}
+
+	public static void removeConversation(final String conversationid, ConversationType type) {
+		RongIM.getInstance().getRongIMClient().removeConversation(type, conversationid, new ResultCallback<Boolean>() {
+
+			@Override
+			public void onSuccess(Boolean arg0) {
+				Log.d("", "removeConversation success id =" + conversationid);
+			}
+
+			@Override
+			public void onError(ErrorCode arg0) {
+				Log.d("", "removeConversation fail id =" + conversationid + " err=" + arg0.getMessage());
+
+			}
+		});
+	}
 }

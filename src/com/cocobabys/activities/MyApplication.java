@@ -39,7 +39,7 @@ public class MyApplication extends Application {
 
 	private List<NotificationObserver> observers = new ArrayList<NotificationObserver>();
 	private List<NewChatInfo> tmpNewChatList = new ArrayList<NewChatInfo>();
-	private boolean forTest = false;
+	private boolean forTest = true;
 
 	private MyMediaScannerConnectionClient mediaScannerConnectionClient;
 
@@ -47,10 +47,10 @@ public class MyApplication extends Application {
 		return mediaScannerConnectionClient;
 	}
 
-    // 当前是否有数据库正在升级
-    private boolean isDbUpdating = false;
+	// 当前是否有数据库正在升级
+	private boolean isDbUpdating = false;
 
-    private boolean weixinBypass = false;
+	private boolean weixinBypass = false;
 
 	public boolean isWeixinBypass() {
 		return weixinBypass;
@@ -180,11 +180,11 @@ public class MyApplication extends Application {
 			/**
 			 * IMKit SDK调用第一步 初始化
 			 */
-			
-			if(forTest){
-				RongIM.init(this,"0vnjpoadnwk0z");
-			}else{
-				RongIM.init(this,"8w7jv4qb7tbqy");
+
+			if (forTest) {
+				RongIM.init(this, "0vnjpoadnwk0z");
+			} else {
+				RongIM.init(this, "8w7jv4qb7tbqy");
 			}
 
 			IMHelper imHelper = new IMHelper();
