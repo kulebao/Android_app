@@ -20,10 +20,12 @@ import com.cocobabys.net.UploadTokenMethod;
 import com.cocobabys.proxy.MyProxy;
 import com.cocobabys.proxy.MyProxyImpl;
 import com.cocobabys.threadpool.MyJob;
+import com.cocobabys.upload.QiniuMgr;
 import com.cocobabys.upload.UploadFactory;
 import com.cocobabys.upload.UploadMgr;
 import com.cocobabys.utils.MethodUtils;
 import com.cocobabys.utils.Utils;
+import com.qiniu.android.storage.UpProgressHandler;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -145,11 +147,28 @@ public class SendExpJob extends MyJob {
 
 			String name = Utils.getExpRelativePathExt(realName);
 
-			uploadImpl(uploadToken, sdCardPath, name);
+			if (JSONConstant.IMAGE_TYPE.equals(mediumType)) {
+				uploadPhoto(uploadToken, sdCardPath, name);
+				sendProgressEvent(i + 2);
+			} else {
+				uploadFile(uploadToken, sdCardPath, name, new UpProgressHandler() {
+					int currentProgress = 0;
+
+					@Override
+					public void progress(String arg0, double progress) {
+						int j = (int) (100 * progress);
+						// 七牛上报的百分比精确到小数点后很多位，这里只显示超过2%的变化
+						if (j > currentProgress) {
+							Log.d("", "UPLOAD_ICON_SUCCESS progress =" + j + " currentProgress=" + currentProgress);
+							currentProgress = j;
+							sendProgressEvent(j);
+						}
+
+					}
+				});
+			}
 
 			nativePath.add(realName);
-
-			sendProgressEvent(i + 2);
 		}
 
 	}
@@ -166,27 +185,14 @@ public class SendExpJob extends MyJob {
 		handler.sendMessage(obtain);
 	}
 
-	private void uploadImpl(String uploadToken, String url, String name) throws Exception {
-		if (JSONConstant.IMAGE_TYPE.equals(mediumType)) {
-			uploadPhoto(uploadToken, url, name);
-		} else {
-			uploadFile(uploadToken, url, name);
-		}
-	}
-
-	private void uploadFile(String uploadToken, String url, String name) throws Exception {
+	private void uploadFile(String uploadToken, String url, String name, UpProgressHandler progressHandler)
+			throws Exception {
 		try {
-			uploadFileImpl(uploadToken, url, name);
+			QiniuMgr uploadMgr = new QiniuMgr();
+			uploadMgr.uploadFile(url, name, uploadToken, progressHandler);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Thread.sleep(500);
-			uploadFileImpl(uploadToken, url, name);
 		}
-	}
-
-	private void uploadFileImpl(String uploadToken, String url, String name) throws Exception {
-		UploadMgr uploadMgr = UploadFactory.createUploadMgr();
-		uploadMgr.uploadFile(url, name, uploadToken);
 	}
 
 	// 图片需要先压缩，控制最大值
@@ -198,9 +204,6 @@ public class SendExpJob extends MyJob {
 			uploadPhotoImpl(uploadToken, name, bitmap);
 		} catch (Exception e) {
 			e.printStackTrace();
-			Thread.sleep(500);
-			// 重试一次
-			uploadPhotoImpl(uploadToken, name, bitmap);
 		}
 	}
 

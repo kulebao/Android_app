@@ -11,13 +11,15 @@ import org.json.JSONObject;
 import com.cocobabys.log.LogWriter;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UpProgressHandler;
 import com.qiniu.android.storage.UploadManager;
+import com.qiniu.android.storage.UploadOptions;
 
 import android.graphics.Bitmap;
 
 public class QiniuMgr implements UploadMgr {
 	private static final int COUNT_LIMIT = 1;
-	private static final int MAX_UPLOAD_WAIT = 60;
+	private static final int MAX_UPLOAD_WAIT = 600;
 	private CountDownLatch countDownLatch = new CountDownLatch(COUNT_LIMIT);
 	private UpCompletionHandler listener;
 
@@ -31,7 +33,7 @@ public class QiniuMgr implements UploadMgr {
 		this.sendSuccess = sendSuccess;
 	}
 
-	QiniuMgr() {
+	public QiniuMgr() {
 		listener = new UpCompletionHandler() {
 			@Override
 			public void complete(String key, ResponseInfo info, JSONObject res) {
@@ -70,6 +72,18 @@ public class QiniuMgr implements UploadMgr {
 		if (!sendSuccess) {
 			throw new Exception("upload faile! url=" + url);
 		}
+	}
+
+	public void uploadFile(String filePath, String url, String uptoken, UpProgressHandler progressHandler)
+			throws Exception {
+		if (countDownLatch.getCount() != COUNT_LIMIT) {
+			throw new Exception("Ilegal state count = " + countDownLatch.getCount());
+		}
+		UploadManager uploadManager = new UploadManager();
+		uploadManager.put(filePath, url, uptoken, listener,
+				new UploadOptions(null, null, false, progressHandler, null));
+
+		checkResult(url);
 	}
 
 	public void uploadFile(String filePath, String url, String uptoken) throws Exception {

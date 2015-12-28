@@ -29,7 +29,7 @@ public class RecordVideoActivity extends Activity {
 
 	protected static final int STEP_UP = 0;
 	protected static final int START_RECORD = 100;
-	protected static final int MAX_TIME = 30;
+	protected static final int MAX_TIME = 90;
 	private ProgressBar progress;
 	private Thread thread;
 	private Handler handler;

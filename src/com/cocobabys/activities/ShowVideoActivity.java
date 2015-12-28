@@ -54,7 +54,7 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 	private long expid;
 	private ExpInfo info;
 	private Handler handler;
-	private ProgressDialog dialog;
+	private ProgressDialog progressDialog;
 	private String serverUrl;
 
 	@Override
@@ -85,13 +85,13 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 	}
 
 	private void initDialog() {
-		dialog = new ProgressDialog(this);
-		dialog.setCancelable(false);
-		dialog.setMessage(getResources().getString(R.string.dling));
+		progressDialog = new ProgressDialog(this);
+		progressDialog.setCancelable(false);
+		progressDialog.setMessage(getResources().getString(R.string.dling));
 	}
 
 	private void initHandler() {
-		handler = new MyHandler(this, dialog) {
+		handler = new MyHandler(this, progressDialog) {
 			@Override
 			public void handleMessage(Message msg) {
 				if (ShowVideoActivity.this.isFinishing()) {
@@ -108,12 +108,12 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 					Builder singleBtnDlg = DlgMgr.getSingleBtnDlg(ShowVideoActivity.this,
 							new android.content.DialogInterface.OnClickListener() {
 
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									dialog.dismiss();
-									ShowVideoActivity.this.finish();
-								}
-							});
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+							ShowVideoActivity.this.finish();
+						}
+					});
 					singleBtnDlg.setMessage(R.string.dl_failed);
 
 					singleBtnDlg.create().show();
@@ -123,6 +123,10 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 					break;
 				case EventType.POST_EXP_FAIL:
 					Utils.makeToast(ShowVideoActivity.this, R.string.send_fail);
+					break;
+				case EventType.UPLOAD_ICON_SUCCESS:
+					Log.d("", "receive UPLOAD_ICON_SUCCESS  progress =" + msg.arg1);
+					progressDialog.setProgress(msg.arg1);
 					break;
 				default:
 					break;
@@ -161,7 +165,8 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 		final Builder builder = DlgMgr.getTwoBtnDlg(this, new android.content.DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialogInterface, int which) {
-				dialog.show();
+				progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+				progressDialog.show();
 				downloadVideo(serverUrl);
 			}
 		}, new android.content.DialogInterface.OnClickListener() {
@@ -335,8 +340,11 @@ public class ShowVideoActivity extends UmengStatisticsActivity {
 	}
 
 	public void send(View view) {
-		dialog.setMessage(getResources().getString(R.string.sending));
-		dialog.show();
+		progressDialog.setMax(100);
+		progressDialog.setProgress(0);
+		progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		progressDialog.setMessage(getResources().getString(R.string.sending));
+		progressDialog.show();
 
 		videoView.stopPlayback();
 		List<String> list = new ArrayList<String>(1);
